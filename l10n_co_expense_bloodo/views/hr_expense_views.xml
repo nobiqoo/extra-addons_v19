@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_expense_bloodo_view_form" model="ir.ui.view">
+            <field name="name">hr.expense.bloodo.view.form</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='analytic_distribution']" position="after">
+                    <field name="ds_journal_id" 
+                        string="Diario doc. soporte"
+                        domain="[('is_einvoicing','=',True),('type','=','purchase')]" 
+                        options="{'no_create_edit': 1, 'no_create': 1}"
+                        groups="account.group_account_readonly"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

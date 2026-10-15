@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ==================== SECCIONES ==================== -->
+    <record id="view_safra_field_section_tree" model="ir.ui.view">
+        <field name="name">safra.field.section.tree</field>
+        <field name="model">safra.field.section</field>
+        <field name="arch" type="xml">
+            <list string="Secciones" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_safra_field_section" model="ir.actions.act_window">
+        <field name="name">Secciones</field>
+        <field name="res_model">safra.field.section</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <!-- ==================== CAMPOS ==================== -->
+    <record id="view_safra_field_tree" model="ir.ui.view">
+        <field name="name">safra.field.tree</field>
+        <field name="model">safra.field</field>
+        <field name="arch" type="xml">
+            <list string="Campos">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="section_id"/>
+                <field name="field_type"/>
+                <field name="required"/>
+                <field name="depends_field_id"/>
+                <field name="fabric_flag"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_safra_field_form" model="ir.ui.view">
+        <field name="name">safra.field.form</field>
+        <field name="model">safra.field</field>
+        <field name="arch" type="xml">
+            <form string="Campo">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="section_id"/>
+                            <field name="field_type"/>
+                            <field name="ref_category_id"
+                                   invisible="field_type != 'ref_categoria'"
+                                   required="field_type == 'ref_categoria'"/>
+                            <!-- Pendientes 24-sep (8.3): presentación de
+                                 las opciones (lista/miniaturas/foto
+                                 grande/botones). -->
+                            <field name="display_mode"
+                                   invisible="field_type not in ('selection', 'ref_categoria')"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="col_size"/>
+                            <field name="sequence"/>
+                            <field name="required"/>
+                            <field name="default_value"/>
+                            <field name="placeholder"/>
+                        </group>
+                    </group>
+                    <group string="Visibilidad condicional">
+                        <field name="depends_field_id"/>
+                        <field name="depends_value" placeholder="Ej: 1, tela, !sin"/>
+                        <field name="fabric_flag"/>
+                        <field name="group_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Opciones" invisible="field_type != 'selection'">
+                            <field name="option_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="image" widget="image" options="{'size': [0, 40]}"/>
+                                    <field name="value"/>
+                                    <field name="name"/>
+                                    <field name="system_ids" widget="many2many_tags" optional="show"
+                                           options="{'no_create': True}"/>
+                                    <field name="peso_gm" optional="hide"/>
+                                    <field name="segmentos" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                        <!-- Reunión 13-oct (filas 50-52): las opciones de un
+                             campo «Referencia (categoría)» son las líneas del
+                             menú Referencias / Telas — las mismas en ambos
+                             menús; se editan allá. -->
+                        <page string="Opciones (desde Referencias)" invisible="field_type != 'ref_categoria'">
+                            <div class="mb-2">
+                                <button name="action_open_referencias" type="object"
+                                        string="Editar en Referencias / Telas" class="btn-secondary"
+                                        icon="fa-external-link"/>
+                                <span class="text-muted ms-2">La presentación de las opciones también se puede definir en la referencia.</span>
+                            </div>
+                            <field name="ref_line_ids" readonly="1">
+                                <list>
+                                    <field name="fabric_id"/>
+                                    <field name="product_tmpl_id" string="Producto"/>
+                                    <field name="image" widget="image" options="{'size': [0, 40]}"/>
+                                    <field name="etiqueta"/>
+                                    <field name="system_ids" widget="many2many_tags"/>
+                                    <field name="motor_ids" widget="many2many_tags" optional="hide"/>
+                                    <field name="canales" optional="hide"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Sistemas que lo usan">
+                            <field name="mapping_ids" context="{'default_field_id': id}">
+                                <list editable="bottom">
+                                    <field name="system_id"/>
+                                    <field name="sequence"/>
+                                    <field name="label_override" optional="show"/>
+                                    <field name="required"/>
+                                    <field name="depends_field_id" optional="hide"/>
+                                    <field name="depends_value" optional="hide"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_safra_field_search" model="ir.ui.view">
+        <field name="name">safra.field.search</field>
+        <field name="model">safra.field</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="section_id"/>
+                <group>
+                    <filter string="Sección" name="g_section" context="{'group_by': 'section_id'}"/>
+                    <filter string="Tipo" name="g_type" context="{'group_by': 'field_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_safra_field" model="ir.actions.act_window">
+        <field name="name">Campos</field>
+        <field name="res_model">safra.field</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ==================== CONFIGURACIÓN POR SISTEMA ==================== -->
+    <record id="view_safra_system_field_tree" model="ir.ui.view">
+        <field name="name">safra.system.field.tree</field>
+        <field name="model">safra.system.field</field>
+        <field name="arch" type="xml">
+            <list string="Campos por Sistema" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="system_id"/>
+                <field name="field_id"/>
+                <field name="section_id"/>
+                <field name="required"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_safra_system_field_search" model="ir.ui.view">
+        <field name="name">safra.system.field.search</field>
+        <field name="model">safra.system.field</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="system_id"/>
+                <field name="field_id"/>
+                <group>
+                    <filter string="Sistema" name="g_system" context="{'group_by': 'system_id'}"/>
+                    <filter string="Sección" name="g_section" context="{'group_by': 'section_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_safra_system_field" model="ir.actions.act_window">
+        <field name="name">Campos por Sistema</field>
+        <field name="res_model">safra.system.field</field>
+        <field name="view_mode">list</field>
+        <field name="context">{'search_default_g_system': 1}</field>
+    </record>
+
+    <!-- ==================== MENÚS ==================== -->
+    <menuitem id="menu_safra_config" name="Configuración" parent="menu_safra_root" sequence="40"/>
+    <menuitem id="menu_safra_cfg_system_fields" name="Campos por Sistema" parent="menu_safra_config" action="action_safra_system_field" sequence="10"/>
+    <menuitem id="menu_safra_cfg_fields" name="Catálogo de Campos" parent="menu_safra_config" action="action_safra_field" sequence="20"/>
+    <menuitem id="menu_safra_cfg_sections" name="Secciones" parent="menu_safra_config" action="action_safra_field_section" sequence="30"/>
+    <!-- Catálogo de colores (U_color): pedido de Jorge, va en Configuración. -->
+    <menuitem id="menu_safra_colors" name="Colores (U_color)"
+              parent="menu_safra_config" action="action_safra_color" sequence="35"/>
+
+    <!-- Puntos 10-11: catálogo configurable de diseños de impresión. -->
+    <record id="view_safra_design_tree" model="ir.ui.view">
+        <field name="name">safra.design.list</field>
+        <field name="model">safra.design</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="image" widget="image" options="{'size': [0, 40]}"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="dtype"/>
+                <field name="image_url" optional="hide"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_safra_design_search" model="ir.ui.view">
+        <field name="name">safra.design.search</field>
+        <field name="model">safra.design</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+                <filter string="De impresión" name="f_impresion" domain="[('dtype', '=', 'impresion')]"/>
+                <filter string="De textura" name="f_textura" domain="[('dtype', '=', 'textura')]"/>
+                <filter string="Archivados" name="inactive" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_safra_design" model="ir.actions.act_window">
+        <field name="name">Diseños de Impresión</field>
+        <field name="res_model">safra.design</field>
+        <field name="view_mode">list</field>
+    </record>
+    <menuitem id="menu_safra_designs" name="Diseños de Impresión"
+              parent="menu_safra_config" action="action_safra_design" sequence="36"/>
+
+    <!-- Categorías de referencia (safra.product.option type=ref_categoria)
+         usadas por los campos «Referencias por categoría» (Sesgo, etc.):
+         vista filtrada de Opciones de Producto. -->
+    <record id="action_safra_ref_categories" model="ir.actions.act_window">
+        <field name="name">Categorías de Referencias</field>
+        <field name="res_model">safra.product.option</field>
+        <field name="view_mode">list</field>
+        <field name="domain">[('type', '=', 'ref_categoria')]</field>
+        <field name="context">{'default_type': 'ref_categoria'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Cree una categoría de referencias</p>
+            <p>Las categorías que se asignan a las referencias/telas y a los
+               campos tipo «Referencia (categoría)» del cotizador.</p>
+        </field>
+    </record>
+    <menuitem id="menu_safra_ref_categories" name="Categorías de Referencias"
+              parent="menu_safra_config" action="action_safra_ref_categories" sequence="37"/>
+
+</odoo>

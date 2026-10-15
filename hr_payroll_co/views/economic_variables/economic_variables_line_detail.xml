@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="economic_variable_line_detail_form" model="ir.ui.view">
+            <field name="name">economic.variable.line.detail.form</field>
+            <field name="model">economic.variable.line.detail</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="variable_code" invisible="1" />
+                        <group string="Rango de Aplicación">
+                            <group>
+                                <label for="lower_limit" string="Límite Inferior" />
+                                <div class="o_row">
+                                    <field name="has_lower_limit" widget="boolean_toggle" />
+                                    <field name="lower_limit" nolabel="1"
+                                        invisible="not has_lower_limit" placeholder="Valor..." />
+                                </div>
+                            </group>
+                            <group>
+                                <label for="upper_limit" string="Límite Superior" />
+                                <div class="o_row">
+                                    <field name="has_upper_limit" widget="boolean_toggle" />
+                                    <field name="upper_limit" nolabel="1"
+                                        invisible="not has_upper_limit" placeholder="Valor..." />
+                                </div>
+                            </group>
+                        </group>
+
+                        <div class="alert alert-info" role="alert"
+                            invisible="variable_code not in ('FSOL', 'FSUB')">
+                            <strong>Nota:</strong> Los límites deben ser expresados en número de <strong>
+                            SMMLV</strong> (Salarios Mínimos Mensuales Legales Vigentes). </div>
+
+                        <div invisible="variable_code != 'TRTEFTE'">
+                            <h5 class="mt-4 mb-2">Fórmula de Retención en la Fuente</h5>
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary">Valor = (Base en UVT -
+                                        Sustraendo) * Porcentaje + Aditivo</h5>
+                                    <p class="card-text">
+                                        Esta fórmula calcula el valor de la retención a aplicar.
+                                    </p>
+                                    <group>
+                                        <field name="subtract" />
+                                        <field name="rate" />
+                                        <field name="add" />
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div invisible="variable_code not in ('FSOL', 'FSUB')">
+                            <h5 class="mt-4 mb-2">Regla de Aporte a Fondos</h5>
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary">Si el valor está en el
+                                        rango, se aplica el porcentaje</h5>
+                                    <p class="card-text">
+                                        Si la base de cotización se encuentra entre el límite
+                                        inferior y superior, se aplicará el porcentaje de descuento
+                                        correspondiente.
+                                    </p>
+                                    <group>
+                                        <field name="rate" />
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

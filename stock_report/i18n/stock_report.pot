@@ -1,0 +1,397 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-23 19:42+0000\n"
+"PO-Revision-Date: 2023-08-23 19:42+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_report
+#: model:ir.actions.report,print_report_name:stock_report.report_input_and_output
+msgid "'Entradas y salidas ' + object.name"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.actions.report,print_report_name:stock_report.action_report_stock_valuation_report
+msgid "'stock_valuation_report'"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>CANTIDAD INICIAL</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>CANTIDAD RECIBIDA</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>CARGO:</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>CLIENTE:</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>CONSECUTIVO</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>CONTADO POR:</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>DESTINO</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>DIRECCIÓN</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>DOC. ORIGEN</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>ENTRADAS SALIDAS Y TRASLADOS</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>FECHA</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>ITEM</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>OBSERVACIONES:</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>ORIGEN</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>PESO BRUTO</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>PESO NETO</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>PRODUCTO</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>REF.</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>TELÉFONO</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>UNIDADES</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<b>VERIFICADO POR:</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid ""
+"<br/>\n"
+"                            <b>NIT:</b>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<span>0</span>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.inputs_and_outputs_document
+msgid "<span>Kg</span>"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.stock_valuation_report_view_form
+#: model_terms:ir.ui.view,arch_db:stock_report.view_stock_move_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__categories_ids
+#: model:ir.model.fields,field_description:stock_report.field_stock_valuation_report__categories_ids
+msgid "Categories"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__company_id
+#: model:ir.model.fields,field_description:stock_report.field_stock_valuation_report__company_id
+msgid "Company"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__create_uid
+#: model:ir.model.fields,field_description:stock_report.field_stock_valuation_report__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__create_date
+#: model:ir.model.fields,field_description:stock_report.field_stock_valuation_report__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+msgid "Date"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_valuation_report__date_from
+msgid "Date From"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_valuation_report__date_to
+msgid "Date To"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+msgid "Date end"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+msgid "Date start"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__display_name
+#: model:ir.model.fields,field_description:stock_report.field_stock_valuation_report__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__date_end
+msgid "End date"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+msgid "Final"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+msgid "From"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.view_stock_move_wizard_form
+msgid "Generate HTML report"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.view_stock_move_wizard_form
+msgid "Generate PDF report"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.view_stock_move_wizard_form
+msgid "Generate XLSX report"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__id
+#: model:ir.model.fields,field_description:stock_report.field_stock_valuation_report__id
+msgid "ID"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+msgid "Initial"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.actions.report,name:stock_report.report_input_and_output
+msgid "Inputs and outputs"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.actions.act_window,name:stock_report.action_stock_move_wizard
+#: model:ir.ui.menu,name:stock_report.menu_stock_move_wizard
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+#: model_terms:ir.ui.view,arch_db:stock_report.view_stock_move_wizard_form
+msgid "Kardex Report"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard____last_update
+#: model:ir.model.fields,field_description:stock_report.field_stock_valuation_report____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__write_uid
+#: model:ir.model.fields,field_description:stock_report.field_stock_valuation_report__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__write_date
+#: model:ir.model.fields,field_description:stock_report.field_stock_valuation_report__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__locations_ids
+msgid "Locations"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__products_ids
+#: model:ir.model.fields,field_description:stock_report.field_stock_valuation_report__products_ids
+msgid "Products"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+#: model_terms:ir.ui.view,arch_db:stock_report.stock_valuation_layer_tree_stock_account
+msgid "Quantity"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__range_id
+msgid "Range"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+msgid "Reference"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.stock_valuation_report_view_form
+msgid "Report"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model,name:stock_report.model_report_stock_report_report_stock_valuation
+msgid "Report Stock Valuation"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__date_start
+msgid "Start date"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+msgid "Status"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.actions.act_window,name:stock_report.stock_valuation_report_action
+#: model:ir.actions.report,name:stock_report.action_report_stock_valuation_report
+#: model:ir.model,name:stock_report.model_stock_valuation_report
+#: model:ir.ui.menu,name:stock_report.stock_valuation_report_menu
+msgid "Stock Valuation Report"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model,name:stock_report.model_report_stock_report_report_stock_move
+msgid "Stock move report"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.actions.report,name:stock_report.action_report_stock_move_html
+msgid "Stock move report HTML"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.actions.report,name:stock_report.action_report_stock_move_pdf
+msgid "Stock move report PDF"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.actions.report,name:stock_report.report_stock_move_xlsx
+msgid "Stock move report XLSX"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model,name:stock_report.model_stock_move_wizard
+msgid "Stock move wizard"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+msgid "To"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+msgid "Total"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+msgid "Type"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+msgid "Unit"
+msgstr ""
+
+#. module: stock_report
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+msgid "UoM"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__user_id
+#: model_terms:ir.ui.view,arch_db:stock_report.report_template_stock_move
+msgid "User"
+msgstr ""
+
+#. module: stock_report
+#: model:ir.model.fields,field_description:stock_report.field_stock_move_wizard__warehouses_ids
+msgid "Warehouses"
+msgstr ""

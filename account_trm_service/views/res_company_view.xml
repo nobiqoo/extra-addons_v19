@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_company_trm_service_view_form" model="ir.ui.view">
+            <field name="name">res.company.trm.service.view_form</field>
+            <field name="model">res.company</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="before">
+                    <group>
+                        <group>
+                            <field name="sync_trm_state"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Servicio para TRM" invisible="sync_trm_state != 'enabled'">
+                        <group string="URL Servicio de la Superintendencia de Industria y Comercio">
+                            <field name="url_service_superintendency"/>
+                        </group>
+                        <group string="Moneda a Actualizar">
+                            <field name="service_currency_id"/>
+                            <field name="apply_percentage"/>
+                            <field name="percentage" invisible="apply_percentage == False"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

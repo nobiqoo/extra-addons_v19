@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_config_settings_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='quotation_order_setting_container']" position="inside">
+                <setting id="filter_sale" help="Allows to activate the search filter for products associated to the price list">
+                        <field name="activate_filter_sale"/>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_config_settings_inherit_purchase" model="ir.ui.view">
+        <field name="name">res.config.settings.inherit.purchase</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='purchase_setting_container']" position="inside">
+                <setting id="filter_purchase" help="Allows to activate the search filter for products associated to the price list">
+                        <field name="activate_filter_purchase"/>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_config_settings_inherit_account" model="ir.ui.view">
+        <field name="name">res.config.settings.inherit.account</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='analytic']" position="after">
+                <block title="Fiscal Position">
+                    <setting id="block_contact_without_account_position" help="Validate if the contact has not been assigned an account position and block the current sale order">
+                        <field name="block_contact_without_account_position"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

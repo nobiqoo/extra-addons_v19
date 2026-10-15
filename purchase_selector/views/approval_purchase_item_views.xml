@@ -1,0 +1,59 @@
+<odoo>
+  <!-- Acción -->
+  <record id="action_approval_purchase_items" model="ir.actions.act_window">
+    <field name="name">Pendientes por Tratar</field>
+    <field name="res_model">approval.purchase.item</field>
+    <field name="view_mode">list</field>
+  </record>
+
+  <!-- Menú (bajo Compras para evitar XMLID inexistente) -->
+  <menuitem id="menu_approval_purchase_items" name="Pendientes por Tratar" parent="approvals.approvals_menu_root" action="action_approval_purchase_items" sequence="21"/>
+
+  <!-- LIST solo lectura (sin editable) -->
+  <record id="view_approval_purchase_item_list" model="ir.ui.view">
+    <field name="name">approval.purchase.item.list</field>
+    <field name="model">approval.purchase.item</field>
+    <field name="arch" type="xml">
+      <list string="Pendientes por Tratar" create="false" delete="false">
+        <field name="request_name" string="N° Requerimiento"/>
+        <field name="request_date" string="Fecha sol."/>
+        <field name="product_id" string="Producto"/>
+        <field name="description" string="Descripción"/>
+        <field name="uom_id" string="Unidad de medida"/>
+        <field name="qty_approved" string="Cantidad aprobada" sum="Total"/>
+        <field name="qty_pending_purchase" string="Cantidad pendiente por comprar" sum="Total pendiente"/>
+        <field name="managed_qty" string="Cantidad Gestionada" sum="Total gestionado"/>
+        <field name="qty_on_hand" string="Cantidad a la mano"/>
+        <field name="vendor_id" string="Proveedor" optional="show"/>
+        <field name="request_owner_id" string="Solicitante"/>
+        <field name="company_id" groups="base.group_multi_company"/>
+        <field name="warehouse_id" string="Almacén" optional="show"/>
+        <field name="project_id" string="Proyecto" optional="show"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- (Opcional) búsqueda útil -->
+  <record id="view_approval_purchase_item_search" model="ir.ui.view">
+    <field name="name">approval.purchase.item.search</field>
+    <field name="model">approval.purchase.item</field>
+    <field name="arch" type="xml">
+      <search string="Buscar">
+        <field name="request_name"/>
+        <field name="product_id"/>
+        <field name="vendor_id"/>
+        <field name="request_owner_id"/>
+        <field name="project_id"/>
+        <field name="warehouse_id"/>
+        <field name="company_id" groups="base.group_multi_company"/>
+        <group>
+          <filter string="Proveedor" name="g_vendor" context="{'group_by':'vendor_id'}"/>
+          <filter string="Proyecto" name="g_project" context="{'group_by':'project_id'}"/>
+          <filter string="Almacén" name="g_warehouse" context="{'group_by':'warehouse_id'}"/>
+          <filter string="Requerimiento" name="g_req" context="{'group_by':'request_id'}"/>
+          <filter string="Fecha" name="g_date" context="{'group_by':'request_date'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+</odoo>

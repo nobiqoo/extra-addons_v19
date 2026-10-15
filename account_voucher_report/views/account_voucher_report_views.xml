@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="account_voucher_report_form" model="ir.ui.view">
+            <field name="name">account.voucher.report.form</field>
+            <field name="model">account.voucher.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="salesman_id"/>
+                            <!-- <field name="partner_id"/> -->
+                            <field name="partner_name"/>
+                            <field name="partner_vat"/>
+                            <field name="salesteam_id"/>
+                            <field name="document_ref"/>
+                            <field name="document_date"/>
+                            <field name="document_date_due"/>
+                            <field name="payment_date"/>
+                            <field name="payment_days"/>
+                            <field name="amount_paid_untaxed"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="voucher_doc"/>
+                            <field name="voucher_state"/>
+                            <field name="voucher_type"/>
+                            <field name="partner_type"/>
+                            <field name="voucher_currency_id"/>
+                            <field name="voucher_journal_id"/>
+                            <field name="voucher_company_id"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="account_voucher_report_tree" model="ir.ui.view">
+            <field name="name">account.voucher.report.tree</field>
+            <field name="model">account.voucher.report</field>
+            <field name="arch" type="xml">
+                <list create="0" delete="0" edit="0" export_xlsx="1">
+                    <field name="salesman_id" optional="show"/>
+                    <!-- <field name="partner_id" optional="show"/> -->
+                    <field name="partner_name" optional="show"/>
+                    <field name="partner_vat" optional="show"/>
+                    <field name="salesteam_id" optional="show"/>
+                    <field name="voucher_doc" optional="hide"/>
+                    <field name="document_ref" optional="show"/>
+                    <field name="document_date" optional="show"/>
+                    <field name="document_date_due" optional="show"/>
+                    <field name="payment_date" optional="show"/>
+                    <field name="payment_days" optional="show"/>
+                    <field name="amount_paid_untaxed" optional="show"/>
+                    <!--  -->
+                    <field name="voucher_currency_id" optional="hide"/>
+                    <field name="partner_type" optional="hide"/>
+                    <field name="voucher_type" optional="hide"/>
+                    <field name="voucher_state" optional="hide"/>
+                    <field name="voucher_journal_id" optional="hide"/>
+                    <field name="voucher_company_id" optional="hide"/>
+                    <field name="user_id" optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="account_voucher_report_search" model="ir.ui.view">
+            <field name="name">account.voucher.report.search</field>
+            <field name="model">account.voucher.report</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="salesman_id"/>
+                    <!-- <field name="partner_id"/> -->
+                    <field name="partner_name"/>
+                    <field name="salesteam_id"/>
+                    <field name="document_ref"/>
+                    <field name="document_date"/>
+                    <field name="document_date_due"/>
+                    <field name="payment_date"/>
+                    <filter string="Clientes" name="filter_customer" domain="[('partner_type', '=', 'customer')]"/>
+                    <filter string="Proveedores" name="filter_supplier" domain="[('partner_type', '=', 'supplier')]"/>
+                    <separator/>
+                    <filter string="Pago" name="filter_voucher" domain="[('voucher_type', '=', 'voucher')]"/>
+                    <filter string="Anticipo" name="filter_advance" domain="[('voucher_type', '=', 'advance')]"/>
+                    <filter string="Cruce" name="filter_cross" domain="[('voucher_type', '=', 'cross')]"/>
+                    <separator string="Estado"/>
+                    <filter string="Borrador" name="filter_draft" domain="[('voucher_state', '=', 'draft')]"/>
+                    <filter string="Publicado" name="filter_posted" domain="[('voucher_state', '=', 'posted')]"/>
+                    <filter string="Cancelado" name="filter_cancel" domain="[('voucher_state', '=', 'cancel')]"/>
+                    <separator/>
+                    <filter string="Fecha doc" name="filter_document_date" date="document_date"/>
+                    <filter string="Fecha vencimiento doc" name="filter_document_date_due" date="document_date_due"/>
+                    <filter string="Fecha de pago" name="filter_payment_date" date="payment_date"/>
+                    <separator/>
+                    <group name="group_by">
+                        <filter string="Cliente" name="group_partner" context="{'group_by':'partner_name'}"/>
+                        <filter string="Vendedor" name="group_salesman_id" context="{'group_by':'salesman_id'}"/>
+                        <filter string="Comprobante" name="group_voucher" context="{'group_by':'voucher_doc'}"/>
+                        <filter string="Equipo de ventas" name="group_salesteam" context="{'group_by':'salesteam_id'}"/>
+                        <filter string="Documento" name="group_doc_ref" context="{'group_by':'document_ref'}"/>
+                        <filter string="Tipo Comprobante" name="group_voucher_type" context="{'group_by':'voucher_type'}"/>
+                        <filter string="Estado Comprobante" name="group_voucher_state" context="{'group_by':'voucher_state'}"/>
+                        <filter string="Tipo Tercero" name="group_partner_type" context="{'group_by':'partner_type'}"/>
+                        <filter string="Diario" name="group_voucher_journal_id" context="{'group_by':'voucher_journal_id'}"/>
+                        <filter string="Moneda" name="group_voucher_currency_id" context="{'group_by':'voucher_currency_id'}"/>
+                        <filter string="Fecha doc" name="group_document_date" context="{'group_by':'document_date'}"/>
+                        <filter string="Fecha vencimiento doc" name="group_document_date_due" context="{'group_by':'document_date_due'}"/>
+                        <filter string="Fecha de pago" name="group_payment_date" context="{'group_by':'payment_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="account_voucher_report_action" model="ir.actions.act_window">
+            <field name="name">Reporte de pagos</field>
+            <field name="res_model">account.voucher.report</field>
+            <field name="view_mode">list,pivot,graph,form</field>
+            <field name="search_view_id" ref="account_voucher_report_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    Reporte de Pagos
+                </p>
+                <p>
+                    ...
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+            id="menu_account_voucher_report"
+            name="Reporte de pagos"
+            action="account_voucher_report_action"
+            sequence="20"
+            parent="account.account_reports_partners_reports_menu"
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,79 @@
+<odoo>
+    <record model="ir.ui.view" id="view_account_balance_form">
+        <field name="name">view.account.balance.form</field>
+        <field name="model">account.balance.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Balance">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="report_type" />
+                            <label for="date_from" string="Date Range" />
+                            <div class="o_row">
+                                <div class="col">
+                                    <field name="date_from" required="True" />
+                                </div>
+                                <div class="col">
+                                    <field name="date_to" required="True" />
+                                </div>
+                            </div>
+                            <field name="date_process"/>
+                        </group>
+                        <group>
+                            <field name="line_state" />
+                            <field name="no_zero" />
+                            <field name="show_zero_info" invisible="not no_zero"/>
+                            <field name="group_by" />
+                            <field name="partner_by" />
+                            <!-- <field name="analytic_by" /> -->
+                        </group>
+                    </group>
+                    <group string="Filters">
+                        <group string="Accounts">
+                            <field name="accounts_ids" widget="many2many_tags" />
+                            <!-- <field name="account_analytic_ids" widget="many2many_tags" /> -->
+                        </group>
+                        <group string="Partners" invisible="partner_by == False">
+                            <field name="partners_ids" widget="many2many_tags" />
+                        </group>
+                        <group string="Journals">
+                            <field name="journal_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+
+                    <group invisible="not 'group_by'">
+                        <group name="filter_by_range_code" string="Defina el rango">
+                            <div class="o_row">
+                                <div class="col">
+                                    <field name="len_code_min" required="True" />
+                                </div>
+                                <span class="oe_inline">A</span>
+                                <div class="col">
+                                    <field name="len_code_max" required="True" />
+                                </div>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+
+                <footer>
+                    <button string="Ver" class="btn-primary" name="button_export_html" type="object"/>
+                    or
+                    <button string="PDF" class="btn-primary" name="button_export_pdf" type="object" />
+                    or
+                    <button string="EXCEL" class="btn-primary" name="action_confirm" type="object" />
+                    or
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_balance" model="ir.actions.act_window">
+        <field name="name">Trial Balance</field>
+        <field name="res_model">account.balance.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Requerimiento "Estructura de calificación avanzada" (2.1-2.5):
+         pestañas y campos adicionales de la Escala de calificación, visibles
+         únicamente cuando advanced_structure está activo. Con el check
+         desactivado, el formulario se ve exactamente igual que antes. -->
+    <record id="wk_grade_scales_form_advanced" model="ir.ui.view">
+        <field name="name">wk.grade.scales.form.advanced</field>
+        <field name="model">wk.grade.scales</field>
+        <field name="inherit_id" ref="wk_school_management.wk_grade_scales_form"/>
+        <field name="arch" type="xml">
+
+            <field name="gpa_calculation" position="after">
+                <field name="advanced_structure"/>
+            </field>
+            <field name="gpa_calculation" position="attributes">
+                <attribute name="invisible">advanced_structure</attribute>
+            </field>
+
+            <notebook position="before">
+                <group invisible="not advanced_structure">
+                    <group>
+                        <field name="advanced_active"/>
+                        <field name="program_type_id"/>
+                        <field name="modality"/>
+                    </group>
+                    <group>
+                        <field name="pass_grade"/>
+                        <field name="grade_decimals"/>
+                        <field name="cuts_count"/>
+                    </group>
+                </group>
+            </notebook>
+
+            <notebook position="inside">
+                <page string="Equivalencias cualitativas" invisible="not advanced_structure">
+                    <field name="rating_ids">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="value"/>
+                            <field name="description"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Componentes de calificación" invisible="not advanced_structure">
+                    <field name="component_ids">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="assignment_type_id"/>
+                            <field name="cut_display"/>
+                            <field name="is_class_performance"/>
+                            <field name="weight" string="Peso Midterm (%)"/>
+                            <field name="weight_final" string="Peso Final (%)"
+                                   column_invisible="parent.cuts_count == '1'"/>
+                            <field name="in_quiz_average"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Class Performance" invisible="not advanced_structure">
+                    <field name="cp_criterion_ids">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Configuración adicional" invisible="not advanced_structure">
+                    <group string="Regla de ausencias">
+                        <group>
+                            <field name="abs_min_hours"/>
+                            <field name="abs_max_hours"/>
+                        </group>
+                        <group>
+                            <field name="abs_required_average"/>
+                            <field name="abs_auto_fail_above_max"/>
+                        </group>
+                    </group>
+                    <separator string="Rangos de desempeño"/>
+                    <field name="performance_range_ids">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="min_grade"/>
+                            <field name="max_grade"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </list>
+                    </field>
+                    <separator string="Parámetros adicionales"/>
+                    <group>
+                        <group>
+                            <field name="allow_edit_confirmed"/>
+                            <field name="show_performance_description"/>
+                        </group>
+                        <group>
+                            <field name="additional_message"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+
+        </field>
+    </record>
+
+    <!-- Búsqueda de Escalas: permite ubicar rápido las estructuras avanzadas
+         por programa/modalidad al aplicarlas a una Clase ofertada (2.6). -->
+    <record id="wk_grade_scales_search_advanced" model="ir.ui.view">
+        <field name="name">wk.grade.scales.search.advanced</field>
+        <field name="model">wk.grade.scales</field>
+        <field name="inherit_id" ref="wk_school_management.wk_grade_scales_tree"/>
+        <field name="arch" type="xml">
+            <list position="attributes">
+                <attribute name="decoration-muted">advanced_structure and not advanced_active</attribute>
+            </list>
+            <field name="name" position="after">
+                <field name="advanced_structure"/>
+                <field name="program_type_id" optional="hide"/>
+                <field name="modality" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

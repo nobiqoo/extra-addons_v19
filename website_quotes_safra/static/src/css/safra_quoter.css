@@ -1,0 +1,780 @@
+/* === Cotizador Safra — réplica visual del portal de pedidos del cliente === */
+/* Open Sans se carga vía <link> en el template (no @import, que rompe el bundle). */
+
+:root {
+    --safra-green: #8DC63F;
+    --safra-green-dark: #6FA32B;
+    --safra-text: #333333;
+    --safra-muted: #999999;
+    --safra-line: #e3e3e3;
+    --safra-help: #8a8a8a;
+    --safra-strike: #b0b0b0;
+}
+
+.safra-quoter {
+    font-family: inherit; /* Pendientes 24-sep (3.5): misma letra del sitio */
+    color: var(--safra-text);
+    background: #fff;
+    border: 1px solid var(--safra-line);
+    padding: 2rem 2.5rem 2.5rem;
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+/* --- Título --- */
+.safra-quoter .safra-title {
+    text-align: center;
+    font-weight: 400;
+    font-size: 2rem;
+    color: var(--safra-text);
+    margin: 0 0 1.25rem;
+}
+.safra-quoter .safra-distribuidor {
+    background: #f5f5f5;
+    border: 1px solid var(--safra-line);
+    text-align: center;
+    padding: .75rem 1rem;
+    margin-bottom: 1.5rem;
+    font-size: .9rem;
+}
+.safra-quoter .safra-distribuidor strong { display: block; margin-bottom: .15rem; }
+
+/* --- Encabezado de cada persiana --- */
+.safra-quoter .safra-line { margin-bottom: 2rem; }
+.safra-quoter .safra-line-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--safra-green);
+    padding-bottom: .4rem;
+    margin-bottom: 1rem;
+}
+.safra-quoter .safra-line-head strong { font-size: 1.05rem; }
+
+/* --- Filas etiqueta | control | precio (estilo cliente) --- */
+.safra-quoter .safra-row {
+    display: grid;
+    grid-template-columns: 200px minmax(280px, 1fr) 110px;
+    gap: 0 1rem;
+    align-items: start;
+    padding: .45rem 0;
+}
+.safra-quoter .safra-row .safra-label {
+    text-align: right;
+    padding-top: .45rem;
+    font-size: .92rem;
+    color: var(--safra-text);
+}
+.safra-quoter .safra-row.req .safra-label::after { content: " *"; color: #d9534f; }
+.safra-quoter .safra-row .safra-control { min-width: 0; }
+.safra-quoter .safra-row .safra-price {
+    text-align: right;
+    padding-top: .45rem;
+    font-weight: 600;
+    color: var(--safra-text);
+    white-space: nowrap;
+}
+.safra-quoter .safra-row .safra-help {
+    display: block;
+    color: var(--safra-help);
+    font-size: .78rem;
+    margin-top: .25rem;
+    line-height: 1.25;
+}
+.safra-quoter .safra-note {
+    background: #fff8c4;
+    border: 1px solid #f2e9a0;
+    color: #6b6000;
+    font-size: .78rem;
+    padding: .35rem .5rem;
+    margin-top: .35rem;
+}
+
+/* etiqueta naranja para campos destacados (p.ej. Cenefa PVC) */
+.safra-quoter .safra-row.highlight .safra-label { color: #e0892b; font-weight: 600; }
+
+/* --- Separadores y encabezado de Accesorios --- */
+.safra-quoter hr.safra-sep { border: 0; border-top: 1px solid var(--safra-line); margin: 1rem 0; }
+.safra-quoter .safra-accesorios-title {
+    text-align: center;
+    font-weight: 400;
+    font-size: 1.5rem;
+    margin: 1.25rem 0 .75rem;
+}
+/* Separadores de sección de la hoja «Matriz Unificada»: discretos, un
+   rótulo pequeño con una línea que continúa a la derecha. */
+.safra-quoter .safra-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: .78rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #8a9490;
+    margin: 1.1rem 0 .4rem;
+}
+.safra-quoter .safra-section-title::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid #e6eae7;
+}
+
+/* --- Controles --- */
+.safra-quoter .form-control,
+.safra-quoter .form-select,
+.safra-seq-modal .form-select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: .9rem;
+    box-shadow: none;
+}
+.safra-quoter .form-control:focus,
+.safra-quoter .form-select:focus,
+.safra-seq-modal .form-select:focus {
+    border-color: var(--safra-green);
+    box-shadow: 0 0 0 .15rem rgba(141, 198, 63, .25);
+    outline: 0;
+}
+/* input con addon de unidad (mts / und / metros) */
+.safra-quoter .input-group .input-group-text {
+    background: #f0f0f0;
+    border-color: #ccc;
+    font-size: .85rem;
+    color: #555;
+}
+
+/* --- Producto (campo calculado, solo lectura) --- */
+.safra-quoter .safra-producto {
+    background: #ededed;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: .5rem .75rem;
+    font-size: 1.1rem;
+    color: #444;
+    min-height: 2.4rem;
+}
+
+/* --- Ficha técnica + imagen --- */
+.safra-quoter .safra-ficha {
+    display: grid;
+    grid-template-columns: minmax(170px, 1fr) 1fr;
+    gap: 1rem;
+    align-items: center;
+}
+.safra-quoter .safra-ficha .ficha-img {
+    background: #f1f1f1 url('/website_quotes_safra/static/src/img/img-noise.png') center/cover no-repeat;
+    height: 175px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+}
+/* Imagen del producto: círculo centrado de 150px, como en el portal del cliente */
+.safra-quoter .safra-ficha .ficha-img img.pi-img {
+    width: 150px; height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #fff;
+}
+.safra-quoter .safra-ficha .ficha-img img.pi-img.is-placeholder {
+    object-fit: contain;
+    background: #fbfbfb;
+    padding: 28px;
+}
+.safra-quoter .ficha-badge {
+    display: inline-block;
+    background: #d9d9d9;
+    border-radius: 12px;
+    padding: .15rem .8rem;
+    font-size: .8rem;
+    font-weight: 600;
+    margin-bottom: .4rem;
+}
+.safra-quoter .safra-ficha .ficha-data { font-size: .88rem; line-height: 1.6; }
+
+/* --- Disponibilidad / precios --- */
+.safra-quoter .safra-availability { color: var(--safra-green-dark); font-weight: 700; }
+.safra-quoter .price-strike { color: var(--safra-strike); text-decoration: line-through; }
+.safra-quoter .discount-badge {
+    display: inline-block;
+    background: #d9d9d9;
+    border-radius: 12px;
+    padding: .1rem .7rem;
+    font-size: .82rem;
+    font-weight: 600;
+}
+
+/* --- Toggle Sí/No (booleans) — estilo bootstrap-toggle del cliente --- */
+.safra-quoter .safra-toggle {
+    display: inline-block;
+    position: relative;
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    background: #6c757d;
+    transition: background .15s ease;
+    vertical-align: middle;
+}
+.safra-quoter .safra-toggle.on { background: var(--safra-green); }
+.safra-quoter .safra-toggle .safra-toggle-knob {
+    position: absolute; top: 3px; width: 26px; height: 26px;
+    background: #fff; border-radius: 3px; transition: left .15s ease;
+    left: 43px; box-shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+.safra-quoter .safra-toggle.on .safra-toggle-knob { left: 3px; }
+.safra-quoter .safra-toggle .safra-toggle-text {
+    position: absolute; top: 0; bottom: 0;
+    display: flex; align-items: center;
+    font-size: .8rem; font-weight: 600; color: #fff;
+    left: 12px;
+}
+.safra-quoter .safra-toggle.on .safra-toggle-text { left: auto; right: 12px; }
+.safra-quoter .safra-toggle.locked { cursor: not-allowed; opacity: .65; }
+.safra-quoter .safra-toggle:focus { outline: 2px solid rgba(141,198,63,.5); outline-offset: 1px; }
+
+/* --- Totales --- */
+.safra-quoter .safra-totals { margin-top: 1.5rem; border-top: 1px solid var(--safra-line); }
+.safra-quoter .safra-totals .trow {
+    display: flex; justify-content: space-between;
+    padding: .5rem 1rem; border-bottom: 1px solid var(--safra-line);
+}
+.safra-quoter .safra-totals .trow.grand { background: #eaf4d8; font-weight: 700; font-size: 1.05rem; }
+.safra-quoter .safra-totals .trow .lbl { font-weight: 600; }
+
+/* --- Botones --- */
+/* 28-sep: los modales (secuencia, telas, resumen, errores) viven fuera de .safra-quoter —
+   los botones de marca aplican también dentro de ellos. */
+.safra-quoter .btn-safra,
+.safra-summary-modal .btn-safra,
+.safra-seq-modal .btn-safra,
+.safra-tela-modal .btn-safra {
+    background: var(--safra-green);
+    border: 1px solid var(--safra-green-dark);
+    color: #fff;
+    border-radius: 6px;
+    padding: .5rem 1.6rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+}
+.safra-quoter .btn-safra:hover,
+.safra-summary-modal .btn-safra:hover,
+.safra-seq-modal .btn-safra:hover,
+.safra-tela-modal .btn-safra:hover { background: var(--safra-green-dark); color: #fff; }
+.safra-quoter .btn-safra:disabled,
+.safra-summary-modal .btn-safra:disabled,
+.safra-seq-modal .btn-safra:disabled,
+.safra-tela-modal .btn-safra:disabled {
+    opacity: .45; cursor: not-allowed; background: var(--safra-green);
+}
+.safra-quoter .btn-safra-light,
+.safra-summary-modal .btn-safra-light,
+.safra-seq-modal .btn-safra-light,
+.safra-tela-modal .btn-safra-light {
+    background: #fff; border: 1px solid #ccd4cf; color: #4c5a52;
+    border-radius: 6px; padding: .5rem 1.2rem;
+    font-family: inherit; cursor: pointer;
+    transition: border-color .15s ease, background .15s ease;
+}
+.safra-quoter .btn-safra-light:hover,
+.safra-summary-modal .btn-safra-light:hover,
+.safra-seq-modal .btn-safra-light:hover,
+.safra-tela-modal .btn-safra-light:hover {
+    border-color: var(--safra-green-dark); background: #f2f8f3;
+    color: var(--safra-green-dark);
+}
+.safra-quoter .safra-actions { text-align: center; margin-top: 1.5rem; }
+.safra-quoter .btn-add-line {
+    background: #fff; border: 1px dashed var(--safra-green-dark);
+    color: var(--safra-green-dark); border-radius: 4px; padding: .45rem 1.2rem;
+}
+
+/* --- Responsive: colapsa a una sola columna --- */
+@media (max-width: 720px) {
+    .safra-quoter { padding: 1.25rem; }
+    .safra-quoter .safra-row { grid-template-columns: 1fr; }
+    .safra-quoter .safra-row .safra-label { text-align: left; padding-top: 0; font-weight: 600; }
+    .safra-quoter .safra-row .safra-price { text-align: left; }
+    .safra-quoter .safra-ficha { grid-template-columns: 1fr; }
+}
+
+/* Avisos de las fórmulas de alto/peso máximo (estructura por ancho). */
+.safra-quoter .pi-warning {
+    color: #d9534f;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 2px 0;
+}
+
+/* Campos ocultos por el kit motorizado (interruptor/cargador segun motor). */
+.safra-quoter .safra-field.kit-hidden { display: none !important; }
+
+/* Nota informativa del kit (Somfy: se compra completo). */
+.safra-quoter .pi-kitnote {
+    color: #31708f;
+    font-size: 0.85rem;
+    padding: 2px 0;
+}
+
+/* === Tarjetas de persiana colapsables (hoja 1 / F134) === */
+.safra-quoter .safra-line {
+    border: 1px solid var(--safra-line);
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    background: #fff;
+}
+.safra-quoter .line-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #f7f9f5;
+    border-bottom: 1px solid var(--safra-line);
+    cursor: pointer;
+    user-select: none;
+}
+.safra-quoter .safra-line.collapsed .line-header { border-bottom: none; }
+.safra-quoter .line-caret {
+    width: 0; height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid var(--safra-green-dark);
+    transition: transform .15s ease;
+    flex: 0 0 auto;
+}
+.safra-quoter .safra-line.collapsed .line-caret { transform: rotate(-90deg); }
+.safra-quoter .line-title { font-weight: 700; white-space: nowrap; }
+.safra-quoter .line-summary {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--safra-muted);
+    font-size: .9rem;
+}
+.safra-quoter .line-actions { flex: 0 0 auto; display: flex; gap: 6px; }
+.safra-quoter .btn-line {
+    border: 1px solid var(--safra-line);
+    background: #fff;
+    color: var(--safra-text);
+    border-radius: 4px;
+    font-size: .82rem;
+    padding: 3px 10px;
+    cursor: pointer;
+}
+.safra-quoter .btn-line:hover { border-color: var(--safra-green-dark); color: var(--safra-green-dark); }
+.safra-quoter .btn-remove-line:hover { border-color: #d9534f; color: #d9534f; }
+.safra-quoter .line-content { padding: 12px 14px; }
+.safra-quoter .safra-line.collapsed .line-content { display: none; }
+.safra-quoter .safra-empty {
+    color: var(--safra-muted);
+    font-style: italic;
+    padding: 14px 4px;
+}
+
+/* === Resumen de pedido (F135) === */
+#safra-summary-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 1050;
+    padding: 4vh 16px;
+    overflow-y: auto;
+}
+#safra-summary-overlay.open { display: block; }
+/* Reunión 09-oct (fila 4): ventana de errores/advertencias al Finalizar. */
+#safra-issues-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45);
+    z-index: 1050; padding: 4vh 16px; overflow-y: auto;
+}
+#safra-issues-overlay.open { display: block; }
+.safra-issues-modal .alert ul { margin: .4rem 0 0; padding-left: 1.2rem; }
+.safra-issues-modal .alert li { margin-bottom: .25rem; }
+.safra-issues-modal .s-actions { flex-wrap: wrap; }
+.safra-summary-modal {
+    max-width: 760px;
+    margin: 0 auto;
+    background: #fff;
+    color: var(--safra-text);
+    border-radius: 8px;
+    padding: 22px 26px;
+    font-family: inherit; /* Pendientes 24-sep (3.5): misma letra del sitio */
+}
+.safra-summary-modal h3 { margin: 0 0 14px; font-weight: 600; }
+.safra-summary-modal .s-tablewrap { overflow-x: auto; border: 1px solid var(--safra-line); border-radius: 6px; }
+.safra-summary-modal table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+.safra-summary-modal th {
+    text-align: left; padding: 8px 10px;
+    border-bottom: 2px solid var(--safra-line);
+    font-size: .75rem; text-transform: uppercase; letter-spacing: .05em;
+    color: var(--safra-muted); white-space: nowrap;
+}
+.safra-summary-modal td { padding: 8px 10px; border-bottom: 1px solid var(--safra-line); vertical-align: middle; }
+.safra-summary-modal tr:last-child td { border-bottom: none; }
+.safra-summary-modal .s-img img {
+    width: 44px; height: 44px; object-fit: cover; border-radius: 50%;
+}
+.safra-summary-modal .s-num { text-align: right; white-space: nowrap; font-weight: 600; }
+.safra-summary-modal .s-total { text-align: right; margin: 14px 2px 0; font-size: 1.05rem; }
+.safra-summary-modal .s-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; }
+
+/* --- Punto 15: telas que se van agregando (Panel/Vertical/Vintage) --- */
+.safra-quoter .tela-hidden { display: none !important; }
+.safra-quoter .btn-add-tela {
+    background: #fff; border: 1px dashed var(--safra-green-dark);
+    color: var(--safra-green-dark); border-radius: 4px; padding: .3rem .9rem;
+    font-size: .85rem;
+}
+.safra-quoter .btn-add-tela:hover { background: var(--safra-green-dark); color: #fff; }
+.safra-quoter .btn-remove-tela {
+    background: #fff; border: 1px dashed #b02a37; color: #b02a37;
+    border-radius: 4px; padding: .3rem .9rem; font-size: .85rem; margin-left: 8px;
+}
+.safra-quoter .btn-remove-tela:hover { background: #b02a37; color: #fff; }
+
+/* --- P19: tabla de combinaciones Panel Track --- */
+.safra-quoter .btn-lamas-table {
+    background: #fff; border: 1px solid var(--safra-green-dark);
+    color: var(--safra-green-dark); border-radius: 4px; padding: .3rem .9rem;
+    font-size: .85rem;
+}
+.safra-quoter .btn-lamas-table:hover { background: var(--safra-green-dark); color: #fff; }
+.safra-quoter .lamas-table-scroll { overflow-x: auto; margin-top: 8px; }
+.safra-quoter .lamas-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+.safra-quoter .lamas-table th, .safra-quoter .lamas-table td {
+    border: 1px solid #dee2e6; padding: 4px 8px; text-align: center; white-space: nowrap;
+}
+.safra-quoter .lamas-table thead th { background: #f1f3f5; font-weight: 600; }
+.safra-quoter .lamas-table tr.velcrado td { background: #fff8e1; }
+.safra-quoter .lamas-table tr.selected td { background: #d7e9d9; }
+.safra-quoter .btn-lamas-pick {
+    background: var(--safra-green-dark); color: #fff; border: 0;
+    border-radius: 3px; padding: 2px 10px; font-size: .8rem;
+}
+
+/* --- P10-11: selector visual del catálogo de diseños --- */
+.safra-quoter .design-own-hidden { display: none !important; }
+.safra-quoter .design-own-check {
+    display: block; margin-top: 6px; font-size: .9rem; cursor: pointer;
+}
+.safra-quoter .design-own-check input { margin-right: 6px; }
+.safra-quoter .btn-design-gallery {
+    background: #fff; border: 1px solid var(--safra-green-dark);
+    color: var(--safra-green-dark); border-radius: 4px; padding: .3rem .9rem;
+    font-size: .85rem;
+}
+.safra-quoter .btn-design-gallery:hover { background: var(--safra-green-dark); color: #fff; }
+.safra-quoter .design-preview {
+    display: flex; align-items: center; gap: 10px; margin-top: 8px;
+}
+.safra-quoter .design-preview img {
+    width: 90px; height: 90px; object-fit: cover; border: 1px solid #dee2e6;
+    border-radius: 4px; background: #f8f9fa;
+}
+.safra-quoter .design-preview .dp-name { font-size: .85rem; font-weight: 600; }
+.safra-quoter .design-gallery {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: 8px; margin-top: 10px; max-height: 340px; overflow-y: auto;
+    border: 1px solid #dee2e6; border-radius: 4px; padding: 8px; background: #fff;
+}
+.safra-quoter .design-gallery .dg-item {
+    cursor: pointer; text-align: center; border: 1px solid transparent;
+    border-radius: 4px; padding: 4px;
+}
+.safra-quoter .design-gallery .dg-item:hover { border-color: var(--safra-green-dark); background: #f2f8f3; }
+.safra-quoter .design-gallery .dg-item img {
+    width: 100%; height: 72px; object-fit: cover; border-radius: 3px; background: #f1f3f5;
+}
+.safra-quoter .design-gallery .dg-item span {
+    display: block; font-size: .7rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.safra-quoter .design-preview .dp-clear { font-size: .8rem; color: #b02a37; margin-left: 6px; }
+
+/* --- Revisión sprint 1: Safra Express a nivel de pedido --- */
+.safra-quoter .safra-express-order {
+    border: 1px solid var(--safra-green-dark, #4a7c59); border-radius: 6px;
+    padding: 10px 16px; margin: 14px 0; background: #f6faf7;
+}
+.safra-quoter .safra-express-order label { margin: 0; font-weight: 600; cursor: pointer; }
+.safra-quoter .safra-express-order input { margin-right: 8px; }
+.safra-quoter .safra-express-order .safra-help { font-weight: 400; margin-left: 6px; }
+
+/* --- Fase 5.4c: configurador de persianas en secuencia --- */
+#safra-seq-overlay {
+    display: none; position: fixed; inset: 0; z-index: 1060;
+    background: rgba(0,0,0,.5); overflow-y: auto; padding: 3vh 16px;
+}
+#safra-seq-overlay.open { display: block; }
+.safra-seq-modal {
+    background: #fff; border-radius: 8px; max-width: 980px; margin: 0 auto;
+    padding: 22px 26px; font-family: inherit; /* Pendientes 24-sep (3.5): misma letra del sitio */
+}
+.safra-seq-modal h3 { margin: 0 0 4px; font-weight: 600; }
+.safra-seq-modal .seq-help { color: #777; font-size: .85rem; margin: 0 0 12px; }
+.seq-canvas-wrap { overflow-x: auto; border: 1px solid var(--safra-line); border-radius: 6px; padding: 14px; }
+#seq-canvas { display: inline-flex; gap: 6px; }
+.seq-unit { text-align: center; }
+.seq-sops { display: flex; justify-content: space-between; width: 190px; margin: 0 auto 4px; }
+.seq-sop {
+    width: 72px; height: 42px; border: 1px solid #bbb; border-radius: 4px;
+    display: flex; align-items: center; justify-content: center; background: #fafafa;
+}
+.seq-sop img { max-width: 64px; max-height: 36px; }
+.seq-sop-activo { border: 2px dashed #2e7d32; background: #eaf7ea; }
+.seq-sop-futuro { opacity: .45; }
+.seq-per img { width: 190px; height: 150px; object-fit: contain; }
+.seq-per span { font-size: .85rem; }
+.seq-palette { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0 6px; }
+/* 28-sep: piezas con el mismo acabado de tarjeta de los botones de
+   opciones del formulario. */
+.seq-pieza {
+    background: #fff; border: 1px solid var(--safra-line); border-radius: 10px;
+    padding: 10px 14px 8px; cursor: pointer; text-align: center;
+    font-family: inherit; color: inherit;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+    transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+.seq-pieza:hover:not(:disabled) {
+    border-color: var(--safra-green-dark); background: #f2f8f3;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .10); transform: translateY(-1px);
+}
+.seq-pieza:disabled { opacity: .4; cursor: default; box-shadow: none; }
+.seq-pieza img { display: block; height: 30px; margin: 0 auto 6px; }
+.seq-pieza span { font-size: .78rem; color: #5a6b60; }
+.seq-msg { min-height: 1.3em; font-size: .85rem; color: #555; margin: 4px 0; }
+.seq-msg.bad { color: #b02a37; font-weight: 600; }
+.seq-msg.ok { color: var(--safra-green-dark); font-weight: 600; }
+.seq-extra { display: flex; gap: 24px; flex-wrap: wrap; margin: 8px 0; }
+.seq-shared { display: flex; align-items: center; gap: 8px; font-size: .88rem; margin: 6px 0; }
+.seq-shared select { min-width: 200px; }
+/* Bloque 3: plano de la secuencia (croquis ampliable) y posición
+   de cada persiana dentro del plano. */
+.seq-plano { display: flex; align-items: center; gap: 14px; }
+#seq-plano-img { height: 74px; border: 1px solid #ddd; border-radius: 6px;
+    background: #fff; cursor: zoom-in; transition: box-shadow .15s; }
+#seq-plano-img:hover { box-shadow: 0 2px 8px rgba(0,0,0,.18); }
+.seq-segs { display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    padding: 8px 10px; background: #f6f8f6; border-radius: 8px; }
+.seq-segs-title { flex-basis: 100%; font-size: .8rem; color: #555; }
+.seq-seg-row { display: flex; align-items: center; gap: 6px;
+    font-size: .85rem; margin: 0; }
+.seq-seg-row span { white-space: nowrap; }
+.seq-seg-row select { min-width: 110px; }
+.seq-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px; }
+
+/* --- Fase 5.4b: guardar por persiana y flujo del pedido --- */
+.safra-quoter .line-footer {
+    display: flex; justify-content: flex-end; gap: 10px;
+    border-top: 1px solid var(--safra-line); padding-top: 12px; margin-top: 14px;
+}
+.safra-quoter .line-errors { margin-top: 10px; }
+.safra-quoter .safra-line.line-saved .line-title::after {
+    content: " ✓ guardada";
+    color: var(--safra-green-dark); font-size: .8rem; font-weight: 700;
+}
+#line-next-prompt {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    background: #f2f8f3; border: 1px solid var(--safra-green-dark);
+    border-radius: 6px; padding: 12px 16px; margin: 10px 0 16px;
+}
+#line-next-prompt span { font-weight: 600; }
+
+/* === Telas adicionales en modal (reunión 11-sep: no saturar el formulario) === */
+.telas-resumen { margin-bottom: 6px; }
+.tela-res-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border: 1px solid var(--safra-line);
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin-bottom: 6px;
+    background: #fafaf7;
+    font-size: .9rem;
+}
+.tela-res-item .tri-actions { display: flex; gap: 4px; flex-shrink: 0; }
+#safra-tela-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 1060;
+    padding: 6vh 16px;
+    overflow-y: auto;
+}
+.safra-tela-modal {
+    max-width: 460px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px 22px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.25);
+}
+.safra-tela-modal h3 { margin: 0 0 12px; font-weight: 600; font-size: 1.1rem; }
+.safra-tela-modal label { display: block; margin-bottom: 10px; font-weight: 500; font-size: .9rem; }
+.safra-tela-modal label .form-select,
+.safra-tela-modal label .form-control { margin-top: 3px; font-weight: 400; }
+.safra-tela-modal .safra-help { font-weight: 400; }
+.safra-tela-modal .tm-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+
+/* === Bloqueo de flujo (revisión 17-sep): tras la TELA, nada hasta validar === */
+.safra-quoter .safra-field.flow-locked { opacity: .45; pointer-events: none; }
+.safra-quoter .flow-lock-note {
+    border-left: 3px solid #b98900;
+    background: #fdf6e3;
+    color: #7d5f1c;
+    border-radius: 0 6px 6px 0;
+    padding: 8px 14px;
+    margin: 6px 0 10px;
+    font-size: .9rem;
+}
+
+/* === Botones de opciones con imagen (revisión 17-sep; pulidos 28-sep a
+   pedido del cliente: misma letra del sitio y acabado de tarjeta) === */
+.safra-quoter .opt-thumbs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.safra-quoter .opt-thumb {
+    width: 96px; cursor: pointer; text-align: center;
+    font-family: inherit; font-size: .78rem; line-height: 1.25;
+    color: inherit; background: #fff;
+    border: 1px solid var(--safra-line); border-radius: 10px;
+    padding: 8px 6px 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+    transition: border-color .15s ease, box-shadow .15s ease,
+        transform .15s ease;
+    user-select: none;
+}
+.safra-quoter .opt-thumb img {
+    width: 100%; height: 58px; object-fit: contain; display: block;
+    margin-bottom: 4px;
+}
+.safra-quoter .opt-thumb span {
+    display: block; overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap; color: #5a6b60;
+}
+.safra-quoter .opt-thumb:hover {
+    border-color: var(--safra-green-dark);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .10);
+    transform: translateY(-1px);
+}
+.safra-quoter .opt-thumb.sel {
+    border: 2px solid var(--safra-green-dark);
+    background: var(--safra-green-soft, #edf5ee);
+    padding: 7px 5px 5px; /* compensa el borde para no saltar */
+    box-shadow: 0 2px 6px rgba(46, 125, 91, .25);
+}
+.safra-quoter .opt-thumb.sel span { color: var(--safra-green-dark); font-weight: 600; }
+
+/* Pendientes 24-sep (8.2): campos cuyas opciones son todas de imagen
+   (Tipo de Apertura) muestran solo los botones; el select queda presente
+   para el valor y la validación HTML5 pero invisible. */
+.safra-quoter .sel-img-only,
+.safra-seq-modal .sel-img-only {
+    position: absolute; width: 1px; height: 1px;
+    opacity: 0; pointer-events: none; margin: 0; padding: 0; border: 0;
+}
+/* En el modal, el desplegable con miniatura del plano ocupa el ancho del
+   label compartido. */
+.safra-seq-modal .seq-shared .sel-imgdrop { min-width: 260px; }
+
+/* Pendientes 24-sep (7.2/8.1): aperturas fuera de las combinaciones
+   fabricables — visibles pero inhabilitadas. */
+.safra-quoter .opt-thumb-disabled {
+    opacity: 0.35; filter: grayscale(1); cursor: not-allowed;
+}
+
+/* Pendientes 24-sep (8.3): modos de presentación de opciones. */
+.safra-quoter .opt-thumb-text {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 74px; padding: 6px 12px;
+}
+.safra-quoter .opt-thumb-text span { white-space: normal; }
+/* 29-sep (8.3): desplegable con miniatura por item. */
+.safra-quoter .sel-imgdrop,
+.safra-seq-modal .sel-imgdrop{ position: relative; max-width: 420px; }
+.safra-quoter .sid-toggle,
+.safra-seq-modal .sid-toggle{
+    display: flex; align-items: center; gap: 10px; width: 100%;
+    background: #fff; border: 1px solid var(--safra-line); border-radius: 6px;
+    padding: 6px 12px; font-family: inherit; font-size: inherit; color: inherit;
+    cursor: pointer; text-align: left;
+}
+.safra-quoter .sid-toggle:hover,
+.safra-seq-modal .sid-toggle:hover{ border-color: var(--safra-green-dark); }
+.safra-quoter .sid-thumb,
+.safra-seq-modal .sid-thumb{ width: 44px; min-width: 44px; height: 34px;
+    display: flex; align-items: center; justify-content: center; }
+.safra-quoter .sid-thumb:empty,
+.safra-seq-modal .sid-thumb:empty{ display: none; }
+.safra-quoter .sid-thumb img,
+.safra-seq-modal .sid-thumb img{ max-width: 44px; max-height: 34px;
+    object-fit: contain; border-radius: 4px; cursor: zoom-in; }
+.safra-quoter .sid-label,
+.safra-seq-modal .sid-label{ flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.safra-quoter .sid-empty .sid-label,
+.safra-seq-modal .sid-empty .sid-label{ color: #888; }
+.safra-quoter .sid-caret,
+.safra-seq-modal .sid-caret{ color: #888; font-size: .8rem; }
+.safra-quoter .sid-menu,
+.safra-seq-modal .sid-menu{
+    position: absolute; z-index: 60; left: 0; right: 0; top: calc(100% + 4px);
+    background: #fff; border: 1px solid var(--safra-line); border-radius: 8px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .14);
+    max-height: 300px; overflow-y: auto; padding: 4px;
+}
+.safra-quoter .sid-item,
+.safra-seq-modal .sid-item{
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 10px; border-radius: 6px; cursor: pointer;
+}
+.safra-quoter .sid-item:hover,
+.safra-seq-modal .sid-item:hover{ background: #f2f8f3; }
+.safra-quoter .sid-item.sid-sel,
+.safra-seq-modal .sid-item.sid-sel{ background: var(--safra-green-soft, #edf5ee); font-weight: 600; }
+.safra-quoter .sid-item.sid-off,
+.safra-seq-modal .sid-item.sid-off{ opacity: .45; cursor: not-allowed; }
+.safra-quoter .sid-item .sid-thumb:empty,
+.safra-seq-modal .sid-item .sid-thumb:empty{ display: flex; }
+.safra-lightbox {
+    position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,.75);
+    display: flex; align-items: center; justify-content: center; cursor: zoom-out;
+}
+.safra-lightbox img { max-width: 92vw; max-height: 92vh; border-radius: 8px; background: #fff; }
+
+/* 29-sep: aviso en línea del cotizador (corte atravesado y similares) —
+   acabado propio en vez del alert genérico. */
+.safra-quoter .safra-warn {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: #fdf6e3; border: 1px solid #f0d9a6;
+    border-left: 4px solid #d9a62e; border-radius: 8px;
+    padding: 10px 14px; margin: 4px 0 10px;
+    font-size: .9rem; line-height: 1.45; color: #6b5312;
+}
+.safra-quoter .safra-warn .safra-warn-ico {
+    font-size: 1.05rem; line-height: 1.3; color: #d9a62e;
+}
+.safra-quoter .safra-warn b { color: #8a6a15; }
+.safra-quoter .safra-field .safra-warn { grid-column: 1 / -1; width: 100%; }
+
+/* Reunión 28-sep (fila 70): Mecanismo calculado en la Ficha técnica. */
+.safra-quoter .safra-mech .pi-mech { font-size: .92rem; line-height: 1.45; }
+.safra-quoter .safra-mech .pi-mech-pend { color: #8a948e; font-style: italic; }
+
+/* Reunión 09-oct (fila 18): el máximo total de lamas calculado se destaca
+   — más grande y en verde (mientras falte, conserva el aviso normal). */
+.safra-quoter .safra-field[data-field="quantity_lamas"] input[readonly]:not(:placeholder-shown) {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--safra-green);
+    border-color: var(--safra-green-dark);
+    max-width: 140px;
+    text-align: center;
+    height: auto;
+    padding: .35rem .5rem;
+}
+
+/* Sprint 1.3 (fila 73): en secuencia la Unificación Mando es automática. */
+.safra-quoter select.unif-auto { pointer-events: none; background-color: #eef0ec; color: #4c5a52; }

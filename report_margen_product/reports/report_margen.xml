@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="report_invoice_form" model="ir.ui.view">
+            <field name="name">report.margen.form</field>
+            <field name="model">report.margen.product</field>
+            <field name="arch" type="xml">
+                <form string="Informe de Margen de producto">
+                    <sheet>
+                        <div class="oe_button_box">
+                            <button name="get_xlsx_report" string="Excel" type="object" class="oe_highlight" icon="fa-file-excel-o" />
+                        </div>
+                        <h1>
+                            <strong>Informe de Margen de Producto</strong>
+                        </h1>
+                        <group col="2" string="Fechas de Corte">
+                            <group colspan="1">
+                                <field name="date_from"/>
+                            </group>
+                            <group colspan="1">
+                                <field name="date_to"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="product_ids" widget="many2many_tags"/>
+                                <field name="brand_ids" widget="many2many_tags"/>
+                                <field name="xls_filename" invisible="1"/>
+                            </group>
+                            <div>
+                                <p invisible="xls_file == False" class="oe_inline" name="xls_file">
+                                    Download the XLSX details file: <field name="xls_file" readonly="1" filename="xls_filename"/>
+                                </p>
+                            </div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_report_margen" model="ir.actions.act_window">
+            <field name="name">Informe de Margen</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.margen.product</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+        </record>
+
+    </data>
+</odoo>
+

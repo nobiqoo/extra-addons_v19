@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_account_search" model="ir.ui.view">
+            <field name="name">view.account.account.search</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='account_type']" position="after">
+                    <separator />
+                    <filter string="Local" name="local" domain="[('ifrs_is','=',False)]" groups="account_ifrs.group_account_ifrs"/>
+                    <filter string="IFRS" name="ifrs" domain="[('ifrs_is','=',True)]" groups="account_ifrs.group_account_ifrs"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_account_form" model="ir.ui.view">
+            <field name="name">view.account.account.form</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='accounting']" position="after">
+                    <page string="IFRS" groups="account_ifrs.group_account_ifrs">
+                        <group>
+                            <group>
+                                <field name="ifrs_is" />
+                                <field name="ifrs_account_id" domain="[('ifrs_is','=',True)]" invisible="ifrs_is" />
+                            </group>
+                        </group>
+                        <label for="ifrs_account_ids" invisible="not ifrs_is" />
+                        <field name="ifrs_account_ids" invisible="not ifrs_is" readonly="True" />
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account.action_account_form" model="ir.actions.act_window">
+            <field name="context">{'search_default_activeacc': True, 'search_default_local': True}</field>
+        </record>
+
+    </data>
+</odoo>

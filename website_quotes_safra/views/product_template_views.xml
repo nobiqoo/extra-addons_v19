@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_template_form_parametrizacion" model="ir.ui.view">
+        <field name="name">product.template.form.parametrizacion</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Parametrización" name="safra_parametrizacion">
+                    <group string="Cotizador del portal">
+                        <field name="safra_is_system"/>
+                        <field name="safra_is_tela"/>
+                        <field name="safra_is_color"/>
+                        <field name="safra_code"/>
+                        <field name="safra_system_ids" invisible="not safra_is_system"
+                               widget="many2many_tags" readonly="1"/>
+                    </group>
+                    <group>
+                        <group string="General / Clasificación">
+                            <field name="safra_u_categoria"/>
+                            <field name="safra_u_grupo_prod"/>
+                            <field name="safra_u_modo_corte"/>
+                            <field name="safra_u_color"/>
+                            <field name="safra_u_descontinuado"/>
+                            <field name="safra_u_cantidad_paquete"/>
+                            <field name="safra_u_tolerancia"/>
+                            <field name="safra_cant_min_cobrar"/>
+                            <field name="safra_cant_min_stock"/>
+                            <field name="safra_u_observacion"/>
+                        </group>
+                        <group string="Asociaciones">
+                            <field name="safra_asociacion_ids" widget="many2many_tags"/>
+                            <field name="safra_kit_asociado_ids" widget="many2many_tags"/>
+                            <field name="safra_u_referencia_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Códigos">
+                            <field name="safra_prefijo"/>
+                            <field name="safra_item_code"/>
+                            <field name="safra_item_name"/>
+                        </group>
+                        <group string="Dimensiones / Límites">
+                            <field name="safra_u_ancho_min"/>
+                            <field name="safra_u_ancho_max"/>
+                            <field name="safra_u_alto_min"/>
+                            <field name="safra_u_alto_max"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Tela">
+                            <field name="safra_u_ancho"/>
+                            <field name="safra_u_peso"/>
+                            <field name="safra_u_densidad"/>
+                            <field name="safra_tela_atravesable"/>
+                            <field name="safra_u_forrado"/>
+                            <field name="safra_u_bolsillo"/>
+                            <field name="safra_permite_corte_entera"/>
+                        </group>
+                        <group string="Motor / Mecanismo / Insumos">
+                            <field name="safra_u_cantidad_canales"/>
+                            <field name="safra_u_requiere_cargador"/>
+                            <!-- Pendientes 24-sep: asociaciones del motor en
+                                 el maestro (item cargador, módulo RF y
+                                 controles compatibles). -->
+                            <field name="safra_u_cargador_item_id"
+                                   invisible="not safra_u_requiere_cargador"/>
+                            <field name="safra_u_requiere_interruptor_rf"/>
+                            <field name="safra_u_interruptor_item_id"
+                                   invisible="not safra_u_requiere_interruptor_rf"/>
+                            <field name="safra_u_control_ids" widget="many2many_tags"/>
+                            <field name="safra_carga_maxima"/>
+                            <field name="safra_diametro_tubo"/>
+                            <field name="safra_espacio_eje_techo"/>
+                            <field name="safra_torque"/>
+                        </group>
+                    </group>
+                    <group string="Consumos (descuentos y aumentos de corte)">
+                        <group>
+                            <field name="safra_desc_mando"/>
+                            <field name="safra_desc_terminal"/>
+                            <field name="safra_desc_soporte"/>
+                            <field name="safra_desc_corona"/>
+                        </group>
+                        <group>
+                            <field name="safra_aumento_tela_tubo"/>
+                            <field name="safra_aumento_tela_perfil"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Catálogo de opciones configurables de la parametrización -->
+    <record id="view_safra_product_option_tree" model="ir.ui.view">
+        <field name="name">safra.product.option.tree</field>
+        <field name="model">safra.product.option</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="type"/>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <!-- Reunión 13-oct: categorías de controles (columnas Motores
+                     y Canales en sus referencias). -->
+                <field name="es_control" optional="show" invisible="type != 'ref_categoria'"/>
+                <field name="next_number" optional="show"/>
+                <field name="padding" optional="hide"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_safra_product_option_search" model="ir.ui.view">
+        <field name="name">safra.product.option.search</field>
+        <field name="model">safra.product.option</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <filter name="group_type" string="Tipo" context="{'group_by': 'type'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_safra_product_option" model="ir.actions.act_window">
+        <field name="name">Opciones de Producto</field>
+        <field name="res_model">safra.product.option</field>
+        <field name="view_mode">list</field>
+        <field name="context">{'search_default_group_type': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Configure las opciones de parametrización</p>
+            <p>Valores de U_Categoria, U_GrupoProd, U_ModoCorte, Prefijo y
+               U_color, administrables sin desarrollo.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_safra_cfg_product_option" name="Opciones de Producto"
+              parent="menu_safra_config" action="action_safra_product_option" sequence="18"/>
+
+</odoo>

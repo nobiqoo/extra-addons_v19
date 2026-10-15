@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- SHEER ELEGANCE (02) -->
+    <data noupdate="0">
+        <record id="system_02" model="safra.system"><field name="tech_width_min">0.3</field><field name="tech_width_max">3</field><field name="tech_height_min">0.3</field><field name="tech_height_max">3.5</field><field name="tech_mechanism"></field></record>
+        <record id="sf_02_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_02_perfil" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_02_custom_design" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_02_width" model="safra.system.field">
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_02_height" model="safra.system.field">
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_02_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_02_fabric_id" model="safra.system.field">
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_02_color_id" model="safra.system.field">
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_02_coordinado" model="safra.system.field">
+            <field name="sequence">150</field>
+        </record>
+        <record id="sf_02_cabezal_tipo" model="safra.system.field">
+            <field name="sequence">1000</field>
+        </record>
+        <record id="sf_02_perfil_sheer" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_02"/>
+            <field name="field_id" ref="field_perfil_sheer"/>
+            <field name="sequence">1005</field>
+            <field name="label_override">Tipo de Perfil</field>
+        </record>
+        <record id="sf_02_mando_position" model="safra.system.field">
+            <field name="sequence">1010</field>
+            <field name="label_override">Posición del mando</field>
+        </record>
+        <record id="sf_02_orientation" model="safra.system.field">
+            <field name="sequence">1015</field>
+            <field name="label_override">Orientación del Enrollado</field>
+        </record>
+        <record id="sf_02_aligned" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_02"/>
+            <field name="field_id" ref="field_aligned"/>
+            <field name="sequence">1020</field>
+        </record>
+        <record id="sf_02_motor" model="safra.system.field">
+            <field name="sequence">1025</field>
+            <field name="label_override">Motor</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;26&#x27;,&#x27;name&#x27;:&#x27;Motor Tubular Wifi 6/28 RF&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;27&#x27;,&#x27;name&#x27;:&#x27;Motor Bateria 6/24&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;2&#x27;,&#x27;name&#x27;:&#x27;Motor Tope Mecánico GN/33 Ultrasilencioso RF&#x27;,&#x27;sequence&#x27;:30}),(0,0,{&#x27;value&#x27;:&#x27;4&#x27;,&#x27;name&#x27;:&#x27;Motor Domótica 4 Cables SA35Q-6/24&#x27;,&#x27;sequence&#x27;:40}),(0,0,{&#x27;value&#x27;:&#x27;22&#x27;,&#x27;name&#x27;:&#x27;Motor Tubular Somfy LSN 6/33 RTS&#x27;,&#x27;sequence&#x27;:50}),(0,0,{&#x27;value&#x27;:&#x27;7&#x27;,&#x27;name&#x27;:&#x27;Soporte Intermedio&#x27;,&#x27;sequence&#x27;:60})]"/>
+            <field name="clear_depends" eval="True"/>
+        </record>
+        <record id="sf_02_control" model="safra.system.field">
+            <field name="sequence">1026</field>
+            <field name="label_override">Control</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;0&#x27;,&#x27;name&#x27;:&#x27;Sin control&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;25&#x27;,&#x27;name&#x27;:&#x27;Básico 2 canales&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;2&#x27;,&#x27;name&#x27;:&#x27;Básico Multicanal 5&#x27;,&#x27;sequence&#x27;:30}),(0,0,{&#x27;value&#x27;:&#x27;4&#x27;,&#x27;name&#x27;:&#x27;Lujo Multicanal 15&#x27;,&#x27;sequence&#x27;:40}),(0,0,{&#x27;value&#x27;:&#x27;22&#x27;,&#x27;name&#x27;:&#x27;Control Motor Wifi/RF&#x27;,&#x27;sequence&#x27;:50})]"/>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="sf_02_control_channel" model="safra.system.field">
+            <field name="sequence">1027</field>
+            <field name="label_override">Canal del Control</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;0&#x27;,&#x27;name&#x27;:&#x27;Sin canal&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;1&#x27;,&#x27;name&#x27;:&#x27;Canal 1&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;2&#x27;,&#x27;name&#x27;:&#x27;Canal 2&#x27;,&#x27;sequence&#x27;:30}),(0,0,{&#x27;value&#x27;:&#x27;3&#x27;,&#x27;name&#x27;:&#x27;Canal 3&#x27;,&#x27;sequence&#x27;:40}),(0,0,{&#x27;value&#x27;:&#x27;4&#x27;,&#x27;name&#x27;:&#x27;Canal 4&#x27;,&#x27;sequence&#x27;:50}),(0,0,{&#x27;value&#x27;:&#x27;5&#x27;,&#x27;name&#x27;:&#x27;Canal 5&#x27;,&#x27;sequence&#x27;:60}),(0,0,{&#x27;value&#x27;:&#x27;6&#x27;,&#x27;name&#x27;:&#x27;Canal 6&#x27;,&#x27;sequence&#x27;:70}),(0,0,{&#x27;value&#x27;:&#x27;7&#x27;,&#x27;name&#x27;:&#x27;Canal 7&#x27;,&#x27;sequence&#x27;:80}),(0,0,{&#x27;value&#x27;:&#x27;8&#x27;,&#x27;name&#x27;:&#x27;Canal 8&#x27;,&#x27;sequence&#x27;:90}),(0,0,{&#x27;value&#x27;:&#x27;9&#x27;,&#x27;name&#x27;:&#x27;Canal 9&#x27;,&#x27;sequence&#x27;:100}),(0,0,{&#x27;value&#x27;:&#x27;10&#x27;,&#x27;name&#x27;:&#x27;Canal 10&#x27;,&#x27;sequence&#x27;:110}),(0,0,{&#x27;value&#x27;:&#x27;11&#x27;,&#x27;name&#x27;:&#x27;Canal 11&#x27;,&#x27;sequence&#x27;:120}),(0,0,{&#x27;value&#x27;:&#x27;12&#x27;,&#x27;name&#x27;:&#x27;Canal 12&#x27;,&#x27;sequence&#x27;:130}),(0,0,{&#x27;value&#x27;:&#x27;13&#x27;,&#x27;name&#x27;:&#x27;Canal 13&#x27;,&#x27;sequence&#x27;:140}),(0,0,{&#x27;value&#x27;:&#x27;14&#x27;,&#x27;name&#x27;:&#x27;Canal 14&#x27;,&#x27;sequence&#x27;:150}),(0,0,{&#x27;value&#x27;:&#x27;15&#x27;,&#x27;name&#x27;:&#x27;Canal 15&#x27;,&#x27;sequence&#x27;:160})]"/>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="sf_02_motor_support_type" model="safra.system.field">
+            <field name="sequence">1028</field>
+            <field name="label_override">Tipo de Soporte Motor</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;3&#x27;,&#x27;name&#x27;:&#x27;Soporte Skyline&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;4&#x27;,&#x27;name&#x27;:&#x27;Soporte R16&#x27;,&#x27;sequence&#x27;:20})]"/>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="sf_02_requires_charger" model="safra.system.field">
+            <field name="sequence">1029</field>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="sf_02_unificacion_mando" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_02"/>
+            <field name="field_id" ref="field_unificacion_mando"/>
+            <field name="sequence">1035</field>
+            <field name="label_override">Unificación Mando</field>
+        </record>
+        <record id="sf_02_extra_chain" model="safra.system.field">
+            <field name="sequence">1040</field>
+        </record>
+        <record id="sf_02_cabezal_forrado" model="safra.system.field">
+            <field name="sequence">1045</field>
+        </record>
+        <record id="sf_02_cabezal_tela" model="safra.system.field">
+            <field name="sequence">1046</field>
+        </record>
+        <record id="sf_02_tipo_plano" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_02"/>
+            <field name="field_id" ref="field_tipo_plano"/>
+            <field name="sequence">1050</field>
+        </record>
+        <record id="sf_02_num_segmento" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_02"/>
+            <field name="field_id" ref="field_num_segmento"/>
+            <field name="sequence">1051</field>
+        </record>
+        <record id="sf_02_design_print" model="safra.system.field">
+            <field name="sequence">1055</field>
+        </record>
+        <record id="sf_02_escuadras" model="safra.system.field">
+            <field name="sequence">1060</field>
+        </record>
+        <record id="sf_02_print_m2" model="safra.system.field">
+            <field name="sequence">1061</field>
+        </record>
+        <record id="sf_02_design_exterior" model="safra.system.field">
+            <field name="sequence">1065</field>
+        </record>
+        <record id="sf_02_tela_al_reves" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_02"/>
+            <field name="field_id" ref="field_tela_al_reves"/>
+            <field name="sequence">1070</field>
+        </record>
+        <record id="sf_02_location" model="safra.system.field">
+            <field name="sequence">1075</field>
+        </record>
+        <record id="sf_02_enclosed" model="safra.system.field">
+            <field name="sequence">1080</field>
+        </record>
+    </data>
+</odoo>

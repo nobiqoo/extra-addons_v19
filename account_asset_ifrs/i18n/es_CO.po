@@ -1,0 +1,513 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_asset_ifrs
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-15 15:12+0000\n"
+"PO-Revision-Date: 2022-01-15 15:12+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "(incl."
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,help:account_asset_ifrs.field_account_asset__ifrs_account_depreciation_id
+msgid "Account used in the depreciation entries, to decrease the asset value."
+msgstr ""
+"Cuenta que se utiliza en los asientos de depreciación, para disminuir el "
+"valor del activo."
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,help:account_asset_ifrs.field_account_asset__ifrs_account_depreciation_expense_id
+msgid ""
+"Account used in the periodical entries, to record a part of the asset as "
+"expense."
+msgstr ""
+"Cuenta que se utiliza en los asientos periódicos, para registrar una parte "
+"de los activos como gastos."
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,help:account_asset_ifrs.field_account_asset__ifrs_account_asset_id
+msgid ""
+"Account used to record the purchase of the asset at its original price."
+msgstr ""
+"Cuenta que se utiliza para registrar la compra de activos al precio "
+"original."
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Accounting Ifrs"
+msgstr "Contabilidad NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__acquisition_date_ifrs
+msgid "Acquisition Date Ifrs"
+msgstr "Fecha de adquisición NIIF"
+
+#. module: account_asset_ifrs
+#. odoo-python
+#: code:addons/account_asset_ifrs/models/account_asset.py:0
+#, python-format
+msgid "All the lines should be from the same account"
+msgstr ""
+
+#. module: account_asset_ifrs
+#. odoo-python
+#: code:addons/account_asset_ifrs/models/account_asset.py:0
+#, python-format
+msgid "All the lines should be posted"
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__already_depreciated_amount_import_ifrs
+msgid "Already Depreciated Amount Import Ifrs"
+msgstr "Importe depreciado NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__ifrs_analytic_distribution
+msgid "Analytic Distribution Ifrs"
+msgstr "Distribución analítica NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_bank_statement_line__ifrs_asset_id
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_move__ifrs_asset_id
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_payment__ifrs_asset_id
+msgid "Asset Iffrs"
+msgstr "Activo NIIF"
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Asset Ifrs"
+msgstr "Activo NIIF"
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Asset Model Ifrs"
+msgstr "Modelo de activo NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__asset_paused_days_ifrs
+msgid "Asset Paused Days Ifrs"
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Asset Values Ifrs"
+msgstr "Valores del activo NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model,name:account_asset_ifrs.model_account_asset
+msgid "Asset/Revenue Recognition"
+msgstr "Reconocimiento de activos e ingresos"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields.selection,name:account_asset_ifrs.selection__account_asset__prorata_computation_type_ifrs__daily_computation
+msgid "Based on days per period"
+msgstr "Con base en días por periodo"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__book_value_ifrs
+msgid "Book Value Ifrs"
+msgstr "Valor Contable NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields.selection,name:account_asset_ifrs.selection__account_asset__ifrs_type__both
+msgid "Both"
+msgstr "Diferentes"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields.selection,name:account_asset_ifrs.selection__account_asset__ifrs_type__united
+msgid "United"
+msgstr "Iguales"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,help:account_asset_ifrs.field_account_asset__method_ifrs
+msgid ""
+"Choose the method to use to compute the amount of depreciation lines.\n"
+"  * Straight Line: Calculated on basis of: Gross Value / Duration\n"
+"  * Declining: Calculated on basis of: Residual Value * Declining Factor\n"
+"  * Declining then Straight Line: Like Declining but with a minimum depreciation value equal to the straight line value."
+msgstr ""
+"Elija el método que se utilizará para calcular el importe de las líneas de depreciación.\n"
+"  * Línea recta: se calcula con la operación valor bruto / duración\n"
+"  * En declive: se calcula con la operación valor residual * factor de disminución\n"
+"  * En declive y luego en línea recta: en declive pero con un valor mínimo de depreciación igual al valor en línea recta."
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__prorata_computation_type_ifrs
+msgid "Computation Ifrs"
+msgstr "Cálculo NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields.selection,name:account_asset_ifrs.selection__account_asset__prorata_computation_type_ifrs__constant_periods
+msgid "Constant Periods"
+msgstr "Periodos constantes"
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Current Values Ifrs"
+msgstr "Valores actuales NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields.selection,name:account_asset_ifrs.selection__account_asset__method_ifrs__degressive
+msgid "Declining"
+msgstr "En declive"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__method_progress_factor_ifrs
+msgid "Declining Factor"
+msgstr "Factor de disminución NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields.selection,name:account_asset_ifrs.selection__account_asset__method_ifrs__degressive_then_linear
+msgid "Declining then Straight Line"
+msgstr "En declive y luego en línea recta"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__value_residual_ifrs
+msgid "Depreciable Value Ifrs"
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Depreciated Amount Ifrs"
+msgstr "Importe depreciado NIIF"
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Depreciation"
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__ifrs_account_depreciation_id
+msgid "Depreciation Account Ifrs"
+msgstr "Cuenta de depreciación NIIF"
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Depreciation Board Ifrs"
+msgstr "Tabla de depreciación NIIF"
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Depreciation Date"
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Depreciation Lines Ifrs"
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Depreciation Method Ifrs"
+msgstr "Método de depreciación NIIF"
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Duration"
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__method_number_ifrs
+msgid "Duration Ifrs"
+msgstr "Duración NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__ifrs_account_depreciation_expense_id
+msgid "Expense Account Ifrs"
+msgstr "Cuenta de gastos NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__ifrs_account_asset_id
+msgid "Fixed Asset Account Ifrs"
+msgstr "Cuenta de activo fijo NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__gross_increase_value_ifrs
+msgid "Gross Increase Value"
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields.selection,name:account_asset_ifrs.selection__account_asset__ifrs_type__ifrs
+msgid "IFRS"
+msgstr "NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__ifrs_type
+msgid "IFRS Type"
+msgstr "Tipo NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__ifrs_depreciation_move_ids
+msgid "Ifrs Depreciation Lines"
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,help:account_asset_ifrs.field_account_asset__already_depreciated_amount_import_ifrs
+msgid ""
+"In case of an import from another software, you might need to use this field"
+" to have the right depreciation table report. This is the value that was "
+"already depreciated with entries not computed from this model"
+msgstr ""
+"En caso de una importación desde otro software, es posible que deba utilizar"
+" este campo para tener el reporte de tabla de depreciación correcto. Este es"
+" el valor que ya se depreció con asientos que no se calcularon a partir de "
+"este modelo."
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,help:account_asset_ifrs.field_account_asset__salvage_value_ifrs
+msgid "It is the amount you plan to have that you cannot depreciate."
+msgstr "Es el importe que usted estima que no puede depreciar."
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__ifrs_journal_id
+msgid "Journal"
+msgstr "Diario NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model,name:account_asset_ifrs.model_account_move
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields.selection,name:account_asset_ifrs.selection__account_asset__ifrs_type__local
+msgid "Local"
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Local / IFRS"
+msgstr "Local / NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__method_ifrs
+msgid "Method Ifrs"
+msgstr "Método NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__ifrs_model_id
+msgid "Model Ifrs"
+msgstr "Modelo de activo NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields.selection,name:account_asset_ifrs.selection__account_asset__method_period_ifrs__1
+msgid "Months"
+msgstr "Meses"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields.selection,name:account_asset_ifrs.selection__account_asset__prorata_computation_type_ifrs__none
+msgid "No Prorata"
+msgstr "Sin prorrateo"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__salvage_value_ifrs
+msgid "Not Depreciable Value Ifrs"
+msgstr "Valor no depreciable NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__method_period_ifrs
+msgid "Number of Months in a Period Ifrs"
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__original_value_ifrs
+msgid "Original Value Ifrs"
+msgstr "Valor Original NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__paused_prorata_date_ifrs
+msgid "Paused Prorata Date Ifrs"
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__prorata_date_ifrs
+msgid "Prorata Date Ifrs"
+msgstr "Fecha de prorrateo NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,help:account_asset_ifrs.field_account_asset__prorata_date_ifrs
+msgid ""
+"Starting date of the period used in the prorata calculation of the first "
+"depreciation"
+msgstr ""
+"Fecha inicial del periodo usado en el cálculo de prorrateo de la primera "
+"depreciación."
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields.selection,name:account_asset_ifrs.selection__account_asset__method_ifrs__linear
+msgid "Straight Line"
+msgstr "Línea recta"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,help:account_asset_ifrs.field_account_asset__book_value_ifrs
+msgid ""
+"Sum of the depreciable value, the salvage value and the book value of all "
+"value increase items"
+msgstr ""
+"Suma del valor depreciable, el valor recuperable y el valor en libros de "
+"todos los apuntes en incremento"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,help:account_asset_ifrs.field_account_asset__method_period_ifrs
+msgid "The amount of time between two depreciations"
+msgstr "La cantidad de tiempo entre dos depreciaciones"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,help:account_asset_ifrs.field_account_asset__method_number_ifrs
+msgid "The number of depreciations needed to depreciate your asset"
+msgstr "El número de depreciaciones necesarias para que el activo se deprecie"
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Value at Import Ifrs"
+msgstr "Valor en la importación NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields.selection,name:account_asset_ifrs.selection__account_asset__method_period_ifrs__12
+msgid "Years"
+msgstr "Años"
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "depreciable)"
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Posted Entries Ifrs"
+msgstr "Asientos publicados NIIF"
+
+#. module: account_asset_ifrs
+#. odoo-python
+#: code:addons/account_asset_ifrs/models/account_asset.py:0
+#, python-format
+msgid "Journal Entries Ifrs"
+msgstr "Asientos contables NIIF"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__partner_id
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__serail
+msgid "Serail"
+msgstr "Serie"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__model_asset
+msgid "Model"
+msgstr "Modelo"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__plate
+msgid "Plate"
+msgstr "Placa"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__brand
+msgid "brand"
+msgstr "Marca"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__job_id
+msgid "Job"
+msgstr "Puesto de Trabajo"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__location_id
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.view_account_asset_form
+msgid "Other Information"
+msgstr "Otra información"
+
+#. module: account_asset_ifrs
+#: model:ir.actions.act_window,name:account_asset_ifrs.action_asset_location
+#: model:ir.model,name:account_asset_ifrs.model_asset_location
+#: model:ir.ui.menu,name:account_asset_ifrs.menu_action_asset_location
+msgid "Asset Location"
+msgstr "Ubicación de activos"
+
+#. module: account_asset_ifrs
+#: model_terms:ir.actions.act_window,help:account_asset_ifrs.action_asset_location
+msgid "Create new asset location"
+msgstr "Crear una nueva ubicación"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_asset_location__name
+msgid "Nombre"
+msgstr ""
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__active_number
+msgid "Active Number"
+msgstr "Número activo"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__provider_id
+msgid "Provider"
+msgstr "Proveedor"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_account_asset__discharge_date
+msgid "Discharge Date"
+msgstr "Fecha de baja"
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.report_asset_wizard_form
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_report_asset_wizard__date_from
+msgid "Date From"
+msgstr "Fecha Inicio"
+
+#. module: account_asset_ifrs
+#: model:ir.model.fields,field_description:account_asset_ifrs.field_report_asset_wizard__date_to
+msgid "Date To"
+msgstr "Fecha Fin"
+
+#. module: account_asset_ifrs
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.report_asset_wizard_form
+msgid "Generate"
+msgstr "Generar"
+
+#. module: account_asset_ifrs
+#: model:ir.actions.act_window,name:account_asset_ifrs.action_open_report_asset_wizard
+#: model:ir.ui.menu,name:account_asset_ifrs.menu_report_asset_wizard
+#: model_terms:ir.ui.view,arch_db:account_asset_ifrs.report_asset_wizard_form
+msgid "Generate Report Asset"
+msgstr "Reporte de Activos"
+
+#. module: account_asset_ifrs
+#. odoo-python
+#: code:addons/account_asset_ifrs/wizard/report_asset_wizard.py:0
+#, python-format
+msgid "The end date cannot be less than the initial date."
+msgstr "La fecha fin no puede ser menor a la de incio"
+
+#. module: account_asset_ifrs
+#: model:ir.model,name:account_asset_ifrs.model_report_asset_wizard
+msgid "Wizard to generate report assets"
+msgstr "Generación de reporte de activos wizard"

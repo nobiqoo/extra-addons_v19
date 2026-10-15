@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="hnt_h_prof" model="hr.novelty.type">
+            <field name="name">HORAS PROFESOR</field>
+            <field name="code">H_PROF</field>
+            <field name="category">earnings</field>
+            <field name="is_teacher_hours" eval="True" />
+            <field name="dian_concept_id" ref="l10n_co_hr_bloodo.bas" />
+        </record>
+
+        <record id="hc_prv_ces_prof" model="hr.concept">
+            <field name="name">PROVISION CESANTIAS PROFESOR</field>
+            <field name="code">PRV_CES_PROF</field>
+            <field name="category">provisions</field>
+            <field name="dian_concept_id" ref="l10n_co_hr_bloodo.pces" />
+            <field name="documentation">
+                Provisión de cesantías de la fracción de profesor. Se liquida sobre el valor
+                de las horas aprobadas del mes con el porcentaje configurado en
+                Ajustes / Provisiones profesores, para los subtipos marcados allí.
+            </field>
+        </record>
+
+        <record id="hc_prv_ices_prof" model="hr.concept">
+            <field name="name">PROVISION INTERESES DE CESANTIAS PROFESOR</field>
+            <field name="code">PRV_ICES_PROF</field>
+            <field name="category">provisions</field>
+            <field name="dian_concept_id" ref="l10n_co_hr_bloodo.pice" />
+            <field name="documentation">
+                Provisión de intereses de cesantías de la fracción de profesor: porcentaje
+                configurado sobre la provisión de cesantías del profesor.
+            </field>
+        </record>
+
+        <record id="hc_prv_prima_prof" model="hr.concept">
+            <field name="name">PROVISION PRIMA PROFESOR</field>
+            <field name="code">PRV_PRIMA_PROF</field>
+            <field name="category">provisions</field>
+            <field name="dian_concept_id" ref="l10n_co_hr_bloodo.ppri" />
+            <field name="documentation">
+                Provisión de prima de la fracción de profesor, sobre el valor de las horas
+                aprobadas del mes.
+            </field>
+        </record>
+
+        <record id="hc_prv_vac_prof" model="hr.concept">
+            <field name="name">PROVISION VACACIONES PROFESOR</field>
+            <field name="code">PRV_VAC_PROF</field>
+            <field name="category">provisions</field>
+            <field name="dian_concept_id" ref="l10n_co_hr_bloodo.pvac" />
+            <field name="documentation">
+                Provisión de vacaciones de la fracción de profesor, sobre el valor de las horas
+                aprobadas del mes.
+            </field>
+        </record>
+
+    </data>
+</odoo>

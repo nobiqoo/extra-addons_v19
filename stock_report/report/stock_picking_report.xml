@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- <record id="paperformat_inputs_and_outputs" model="report.paperformat">
+        <field name="name">Inputs and outputs</field>
+        <field name="default" eval="True"/>
+        <field name="format">Letter</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">48</field>
+        <field name="margin_bottom">30</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">45</field>
+        <field name="dpi">90</field>
+    </record> -->
+
+    <record id="report_input_and_output" model="ir.actions.report">
+        <field name="name">Inputs and outputs</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <!-- <field name="paperformat_id" ref="stock_report.paperformat_inputs_and_outputs"/> -->
+        <field name="report_name">stock_report.inputs_and_outputs</field>
+        <field name="report_file">stock_report.inputs_and_outputs</field>
+        <field name="print_report_name">'Entradas y salidas ' + object.name</field>
+    </record>
+
+</odoo>

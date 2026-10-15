@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="request_rndc">
+        <soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:BPMServicesIntf-IBPMServices">
+            <soapenv:Header/>
+            <soapenv:Body>
+                <urn:AtenderMensajeRNDC soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+                    <Request xsi:type="xsd:string">
+                        <root>
+                            <acceso>
+                                <username t-out="user"/>
+                                <password t-out="pwd"/>
+                            </acceso>
+                            <solicitud>
+                                <tipo t-out="type"/>
+                                <procesoid t-out="pid"/>
+                            </solicitud>
+                            <variables>
+                                <NUMNITEMPRESATRANSPORTE t-out="nit_transport"/>
+                                <ARCHIVOBASE64 t-out="file_b64"/>
+                            </variables>
+                        </root>
+                    </Request>
+                </urn:AtenderMensajeRNDC>
+            </soapenv:Body>
+            </soapenv:Envelope>
+    </template>
+</odoo>

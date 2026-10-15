@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="product_maintenance_mail_template" model="mail.template">
+            <field name="name">Notificación Proximos Mantenimientos</field>
+            <field name="model_id" ref="product_maintenance.model_product_maintenance" />
+            <field name="subject">Proximo mantenimiento preventivo para producto {{ object.name }}</field>
+            <field name="partner_to"></field>
+            <field name="email_to">{{ object.partner_id.email }}</field> 
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    Estimado/a <strong t-out="object.partner_id.name" />. <br /><br />
+                    Este es un correo para recordarle que se aproxima un mantenimiento preventivo para el producto <t t-out="object.name or ''"/>.
+                </div>
+            </field>
+            <field name="auto_delete" eval="True" />
+            <field name="lang">{{ object.partner_id.lang or '' }}</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_reconcile_model_form_authorization_number" model="ir.ui.view">
+        <field name="name">account.reconcile.model.form.authorization.number</field>
+        <field name="model">account.reconcile.model</field>
+        <field name="inherit_id" ref="account.view_account_reconcile_model_form"/>
+        <field name="arch" type="xml">
+            <div class="d-flex gap-3" position="after">
+                <field name="match_authorization_number"/>
+            </div>
+        </field>
+    </record>
+
+
+
+</odoo>

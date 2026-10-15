@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="view_account_journal_form_cw" model="ir.ui.view">
+            <field name="name">account.journal.cw.inherit.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="is_default_cw"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_journal_tree" model="ir.ui.view">
+            <field name="name">account.journal.inherit.view.tree</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="is_default_cw"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

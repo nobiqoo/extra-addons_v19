@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+journal_report.access_audit_journal_report,audit.journal.report,journal_report.model_journal_audit_report,,1,1,1,1
+journal_report.access_audit_journakl_line,audit.journal.line,journal_report.model_audit_journal_line,,1,1,1,1

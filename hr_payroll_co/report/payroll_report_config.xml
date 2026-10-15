@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="payslip_paperformat" model="report.paperformat">
+            <field name="name">Nómina Formato Papel</field>
+            <field name="default" eval="True" />
+            <field name="format">Letter</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">30</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <record id="payslip_action_report" model="ir.actions.report">
+            <field name="name">Formato de Nómina</field>
+            <field name="model">hr.payslip</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hr_payroll_co.payroll_template_report</field>
+            <field name="report_file">hr_payroll_co.payroll_template_report</field>
+            <field name="paperformat_id" ref="payslip_paperformat" />
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_payslip" />
+        </record>
+
+         <record id="action_payroll_work_certificate_report" model="ir.actions.report">
+            <field name="name">Formato Certificado Laboral</field>
+            <field name="model">hr.contract</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hr_payroll_co.payroll_work_certificate_report</field>
+            <field name="report_file">hr_payroll_co.payroll_work_certificate_report</field>
+            <field name="paperformat_id" ref="payslip_paperformat" />
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_contract" />
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="invoice_search_inherit_dian" model="ir.ui.view">
+            <field name="name">account.move.search.dian</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='myinvoices']" position="after">
+                    <filter name="dian_sp_invoices" string="Fact. Proveedor (DIAN)" domain="[('is_supplier_ei','=',True),('way_to_pay','=','credit')]"/>
+                </xpath>
+                <xpath expr="//group/filter[@name='groupy_by_journal']" position="after">
+                    <filter name="group_by_fe_state_msg" string="Estado DIAN" context="{'group_by': 'fe_state_msg'}"/>
+                    <filter name="group_by_ie_event_display" string="Evento DIAN" context="{'group_by': 'ie_event_display'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="invoice_tree_inherit_dian" model="ir.ui.view">
+            <field name="name">account.move.tree.dian</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="fe_invoice_name" decoration-bf="1" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_date_due']" position="before">
+                    <field name="ie_event_display" widget="badge"
+                            decoration-danger="ie_event_display == '04'"
+                            decoration-warning="ie_event_display in ('031','other', 'pending', 'pending030', 'pending032', 'pending033')"
+                            decoration-success="ie_event_display in ('02','030','032','033','034')"
+                            optional="hide"/>
+                    <field name="fe_state_msg" decoration-bf="1" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="invoice_form_inherit_dian" model="ir.ui.view">
+            <field name="name">account.move.form.dian</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <div class="oe_title" position="after">
+                    <div class="ei_title_qr">
+                        <div class="ei_qr">
+                            <field name="fe_qr_image" widget="image" options="{'size': [120, 120]}" invisible="not is_einvoicing_journal"/>
+                        </div>
+                        <div class="ei_event_btn_box">
+                            <button name="zustand_prufen" string="Check status" type="object" class="ei_event_btn btn-outline-info" icon="fa-eye" 
+                                invisible="move_type not in ('out_invoice','out_refund') or not is_einvoicing_journal or way_to_pay != 'credit'" context="{'ev_status_log': False}"/>
+                            <button name="zustand_prufen" string="Check status" type="object" class="ei_event_btn btn-outline-info" icon="fa-eye" 
+                                invisible="move_type not in ('in_invoice','in_refund') or not is_supplier_ei or way_to_pay != 'credit'" context="{'ev_status_log': False}"/>
+                            <button name="empfangsbestatigung" string="Acknowledgment of receipt" type="object" class="ei_event_btn btn-outline-dark" icon="fa-file-text" invisible="move_type not in ('in_invoice','in_refund') or ie_event_status != '67'" />
+                            <button name="produktbeleg" string="Product receipt" type="object" class="ei_event_btn btn-outline-dark" icon="fa-check-square-o" invisible="move_type not in ('in_invoice','in_refund') or ie_event_status != '030'" />
+                            <button name="ausdruckliche_ahnname" string="Accept" type="object" class="ei_event_btn btn-success" icon="fa-check" confirm="Esta seguro de ACEPTAR esta factura electrónica?" invisible="move_type not in ('in_invoice','in_refund') or ie_event_status != '032'" />
+                            <button name="ablehnung" string="Reject" type="object" class="ei_event_btn btn-danger" icon="fa-times" confirm="Esta seguro de RECHAZAR esta factura electrónica?" invisible="move_type not in ('in_invoice','in_refund') or ie_event_status not in ('030','032')" />
+                            <button name="stillschweigende_ahnname" string="Tacit acceptance" type="object" class="ei_event_btn btn-outline-info" icon="fa-check-circle" invisible="move_type not in ('out_invoice','out_refund') or ie_event_status != '032'" />
+                        </div>
+                    </div>
+                </div>
+                <xpath expr="//sheet/div[hasclass('oe_title')]" position="attributes">
+                    <attribute name="class" add="ei_title" separator=" "/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Factura Electrónica" name="einvoicing" invisible="not is_einvoicing_journal and not is_supplier_ei">
+                        <div name="edi_button_box" class="oe_button_box edi_button_box" invisible="move_type not in ('out_invoice','out_refund') or not is_einvoicing_journal">
+                            <button name="xml_datei_erhalten" string="Calcular XML" type="object" class="oe_stat_button btn-outline-dark edi_btn" invisible="fe_state in ('00','',False)"/>
+                            <button name="rechnung_senden" string="Enviar Doc." type="object" class="oe_stat_button btn-outline-dark edi_btn" invisible="not fe_xml_file or not fe_zip_file or fe_state == '00' or (not fe_send_later and fe_state in ('',False))" context="{'eimail_force': True}"/>
+                            <button name="zip_status_erhalten" string="GetStatusZip" type="object" class="oe_stat_button btn-outline-dark edi_btn" invisible="not fe_zip_key"/>
+                            <button name="status_erhalten" string="GetStatus" type="object" class="oe_stat_button btn-outline-dark edi_btn" invisible="not fe_cufe_cude_ref" context="{'eimail_force': True}"/>
+                            <button name="action_send_mail" string="Reenviar Correo" type="object" class="oe_stat_button btn-outline-dark edi_btn" invisible="fe_state != '00'" context="{'eimail_force': True}"/>
+                            <button name="action_zip_create" string="Generar ZIP" type="object" class="oe_stat_button btn-outline-dark edi_btn"/>
+                            <button name="create_attachedDocument" string="Crear AttachedDocument" type="object" class="oe_stat_button btn-outline-dark edi_btn" invisible="not fe_xml_file"/>
+                            <button name="get_xml_from_dian" string="Get XML DIAN" type="object" class="oe_stat_button btn-outline-dark edi_btn" invisible="not fe_cufe_cude_ref"/>
+                        </div>
+                        <div name="edi_button_box" class="oe_button_box edi_button_box" invisible="move_type not in ('in_invoice','in_refund') or not is_einvoicing_journal">
+                            <button name="xml_datei_erhalten_ds" string="Calcular XML" type="object" class="oe_stat_button btn-outline-dark edi_btn" invisible="fe_state in ('00','',False)"/>
+                            <button name="rechnung_senden" string="Enviar Doc." type="object" class="oe_stat_button btn-outline-dark edi_btn" invisible="not fe_xml_file or not fe_zip_file or fe_state in ('00','',False)"/>
+
+                            <button name="zip_status_erhalten" string="GetStatusZip" type="object" class="oe_stat_button btn-outline-dark edi_btn" invisible="not fe_zip_key"/>
+                            <button name="status_erhalten" string="GetStatus" type="object" class="oe_stat_button btn-outline-dark edi_btn" invisible="not fe_cufe_cude_ref or not fe_xml_file or not fe_zip_file"/>
+                        </div>
+                        <notebook>
+                            <page string="Respuesta DIAN" name="response_ei" invisible="not fe_response">
+                                <group>
+                                    <field name="mail_sent" readonly="1"/>
+                                    <field name="fe_state" readonly="1"/>
+                                    <field name="fe_state_msg" invisible="1"/>
+                                    <field name="fe_response" readonly="1"/>
+                                </group>
+                            </page>
+                            <page string="Respuesta Eventos" name="response_ev" invisible="not ev_fe_response">
+                                <group>
+                                    <field name="ev_fe_state" readonly="1"/>
+                                    <field name="ev_fe_response" readonly="1"/>
+                                </group>
+                            </page>
+                            <page string="Data" name="data" invisible="not is_einvoicing_journal">
+                                <group>
+                                    <group string="Archivos">
+                                        <field name="fe_pdf_fname" invisible="1"/>
+                                        <field name="fe_pdf_file" widget="binary" filename="fe_pdf_fname" readonly="1"/>
+                                        <field name="fe_xml_fname" invisible="1"/>
+                                        <field name="fe_xml_file" widget="binary" filename="fe_xml_fname" readonly="1"/>
+                                        <field name="fe_ad_fname" invisible="1"/>
+                                        <field name="fe_ad_file" widget="binary" filename="fe_ad_fname" readonly="1"/>
+                                        <field name="fe_zip_fname" invisible="1"/>
+                                        <field name="fe_zip_file" widget="binary" filename="fe_zip_fname" readonly="1"/>
+                                        <field name="fe_ar_fname" invisible="1"/>
+                                        <field name="fe_ar_file" widget="binary" filename="fe_ar_fname" readonly="1"/>
+                                        <field name="fe_zip_key" readonly="1"/>
+                                    </group>
+                                    <group string="Factura Referencia" invisible="not is_external_invoice">
+                                        <field name="name_ei_ref" required="is_external_invoice"/>
+                                        <field name="uuid_ei_ref" required="is_external_invoice"/>
+                                        <field name="issue_date_ei_ref" required="is_external_invoice"/>
+                                        <field name="operation_type_ei_ref" required="is_external_invoice and move_type in ('out_invoice','out_refund')"/>
+                                    </group>
+                                </group>
+                                <group string="Códigos">
+                                    <field name="fe_url" widget="url" readonly="1"/>
+                                    <field name="fe_cufe_cude_uncoded" readonly="1"/>
+                                    <field name="fe_cufe_cude_ref" readonly="1"/>
+                                    <field name="fe_ssc_uncoded" readonly="1"/>
+                                    <field name="fe_ssc" readonly="1"/>
+                                    <field name="fe_qr_data" readonly="1"/>
+                                </group>
+                            </page>
+                            <page string="Log" name="log">
+                                <field name="fe_log_ids" readonly="1">
+                                    <list default_order="id desc">
+                                        <field name="name"/>
+                                        <field name="type_request"/>
+                                        <field name="create_date"/>
+                                        <field name="status_code"/>
+                                        <field name="reason"/>
+                                        <field name="edi_request_file" filename="edi_request_fname"/>
+                                        <field name="edi_request_fname" readonly="1" invisible="1"/>
+                                    </list>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="move_id"/>
+                                                <field name="edi_request_file" filename="edi_request_fname"/>
+                                                <field name="edi_request_fname" invisible="1"/>
+                                            </group>
+                                            <group>
+                                                <field name="create_date"/>
+                                                <field name="exec_env"/>
+                                                <field name="type_request"/>
+                                                <field name="status_code"/>
+                                                <field name="reason"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="response"/>
+                                        </group>
+                                    </form> 
+                                </field>
+                            </page>
+                            <page name="event" string="Historico eventos">
+                                <field name="ie_event_history_ids" readonly="1">
+                                    <list default_order="create_date desc"
+                                        decoration-danger="dian_code == '04' and ev_active"
+                                        decoration-muted="dian_code == '04' and not ev_active">
+                                        <field name="name" />
+                                        <field name="ev_code" optional="hide"/>
+                                        <field name="ev_id" optional="show"/>
+                                        <field name="dian_number" optional="hide"/>
+                                        <field name="dian_code"/>
+                                        <field name="dian_name" optional="show" widget="badge"
+                                            decoration-success="dian_code != '04'"
+                                            decoration-danger="dian_code == '04'"/>
+                                        <field name="dian_date_event"/>
+                                        <field name="create_date" optional="hide"/>
+                                        <field name="ev_active" optional="show"/>
+                                        <field name="exe_env" optional="hide"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </page>
+                </xpath>
+                <xpath expr="//group[@id='header_right_group']" position="after">
+                    <group string="Factura Electrónica" name="ei_fields" class="border border-dark" invisible="move_type not in ['out_invoice','out_refund'] or not is_einvoicing_journal">
+                        <field name="country_code" invisible="1"/>
+                        <field name="is_einvoicing_journal" invisible="1"/>
+                        <field name="ev_check_date" invisible="1"/>
+                        <field name="ev_fe_user_id" invisible="1"/>
+                        <field name="ie_event_display" readonly="1" widget="badge" 
+                            decoration-danger="ie_event_display == '04'"
+                            decoration-warning="ie_event_display in ('031','other', 'pending', 'pending030', 'pending032', 'pending033')"
+                            decoration-success="ie_event_display in ('02','030','032','033','034')"/>
+                        <field name="ie_claim_id" readonly="ie_event_display not in ('030','032')" invisible="ie_event_display not in ('030','031','032')"/>
+                        <field name="type_note" readonly="1" invisible="not type_note"/>
+                        <field name="fe_datetime_invoice" readonly="1"/>
+                        <field name="fe_send_later" readonly="fe_state == '00'"/>
+                        <field name="fe_type" readonly="state != 'draft'"/>
+                        <field name="fe_operation_type" readonly="state != 'draft'"/>
+                        <label for="fe_period_start" string="Periodo" />
+                        <div class="o_row">
+                            <div class="o_row">
+                                <field name="fe_period_start" required="fe_operation_type in ('22','32')" readonly="state != 'draft'"/>
+                            </div> a 
+                            <field name="fe_period_end" required="fe_operation_type in ('22','32')" readonly="state != 'draft'" />
+                        </div>
+                        <field name="fe_mandante_id" invisible="1"/>
+                        <field name="operation_type_ei_ref" invisible="move_type not in ('out_invoice','out_refund') or fe_operation_type not in ('20','22','30','32')" readonly="fe_operation_type in ('20','30') or is_external_invoice"/>
+                        <field name="is_external_invoice" 
+                                invisible="move_type not in ('out_invoice','out_refund') or fe_operation_type not in ('20','30')"
+                                readonly="state != 'draft'"/>
+                        <field name="fe_is_direct_payment" invisible="1"/>
+                        <field name="fe_payment_option_id" readonly="state != 'draft'"/>
+                        <field name="fe_correction_id" domain="[('type','=',type_note)]" required="is_einvoicing_journal and type_note and move_type in ['out_invoice','out_refund']" invisible="not type_note"/>
+                        <field name="fe_state_msg" readonly="1" class="fe-state-msg bg-success" nolabel="1" colspan="2" invisible="fe_state != '00'"/>
+                        <field name="fe_state_msg" readonly="1" class="fe-state-msg bg-warning" nolabel="1" colspan="2" invisible="fe_state in (False,'','00','66','90','99','ERROR')"/>
+                        <field name="fe_state_msg" readonly="1" class="fe-state-msg bg-danger" nolabel="1" colspan="2" invisible="fe_state not in ('66','90','99','ERROR')"/>
+                    </group>
+                    <group string="Documento Soporte" name="sd_fields" class="border border-dark" invisible="move_type not in ['in_invoice','in_refund'] or not is_einvoicing_journal">
+                        <field name="country_code" invisible="1"/>
+                        <field name="is_einvoicing_journal" invisible="1"/>
+                        <field name="fe_datetime_invoice" readonly="1"/>
+                        <field name="fe_is_direct_payment" invisible="1"/>
+                        <field name="fe_send_later" readonly="fe_state == '00'"/>
+                        <field name="is_external_invoice" 
+                                invisible="move_type not in ('in_refund') or not is_einvoicing_journal"
+                                readonly="state != 'draft'"/>
+                        <field name="fe_payment_option_id" readonly="state != 'draft'"/>
+                        <field name="fe_correction_id" domain="[('type','=','credit')]" required="is_einvoicing_journal and fe_is_direct_payment and move_type == 'in_refund'" invisible="move_type != 'in_refund'"/>
+                        <field name="fe_state_msg" readonly="1" class="fe-state-msg bg-fe-success"  nolabel="1" colspan="2" invisible="fe_state != '00'"/>
+                        <field name="fe_state_msg" readonly="1" class="fe-state-msg bg-warning"  nolabel="1" colspan="2" invisible="fe_state in (False,'','00','66','90','99')"/>
+                        <field name="fe_state_msg" readonly="1" class="fe-state-msg bg-danger"  nolabel="1" colspan="2" invisible="fe_state not in ('66','90','99')"/>
+                    </group>
+                    <group string="Fac. electrónica proveedor" class="border border-dark" invisible="not is_supplier_ei or is_einvoicing_journal">
+                        <field name="is_supplier_ei" invisible="1"/>
+                        <field name="fe_xml_fname" invisible="1"/>
+                        <field name="ev_check_date" invisible="1"/>
+                        <field name="ev_fe_user_id" invisible="1"/>
+                        <field name="ie_event_display" readonly="1" widget="badge" 
+                            decoration-danger="ie_event_display == '04'"
+                            decoration-warning="ie_event_display in ('031','other', 'pending', 'pending030', 'pending032', 'pending033')" 
+                            decoration-success="ie_event_display in ('02','030','032','033','034')"/>
+                        <field name="fe_xml_file" widget="binary" filename="fe_xml_fname" readonly="0"/>
+                        <field name="name_ei_ref"/>
+                        <field name="uuid_ei_ref"/>
+                        <field name="fe_url" widget="url" readonly="0"/>
+                        <field name="issue_date_ei_ref"/>
+                        <field name="operation_type_ei_ref"/>
+                        <field name="fe_type_ei_ref" readonly="1"/>
+                        <field name="ie_claim_id"/>
+                    </group>
+                </xpath>
+                <xpath expr="//div[@name='journal_div']" position="after">
+                    <field name="way_to_pay" invisible="move_type == 'entry'"/>
+                    <field name="is_supplier_ei" invisible="move_type not in ('in_invoice','in_refund')"/>
+                    <field name="ie_event_status" readonly="0" invisible="1"/>
+                    <field name="ie_event_active_id" invisible="1"/>
+                    <field name="ie_event_active_date" readonly="0" invisible="1"/>
+                </xpath>
+                <div class="oe_button_box" position="inside">
+                    <button type="object" class="oe_stat_button" name="action_view_credit_notes" icon="fa-minus" invisible="credit_note_count == 0">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value"><field name="credit_note_count"/></span>
+                            <span class="o_stat_text">Notas Crédito</span>
+                        </div>
+                    </button>
+                    <button type="object" class="oe_stat_button" name="lieferant_rechnung_einfuhren" icon="fa-upload" invisible="move_type not in ('in_invoice','in_refund')" info="prueba info">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">Importar fac. electrónica</span>
+                        </div>
+                    </button>
+                </div>
+                <xpath expr="//field[@name='invoice_has_outstanding']" position="after">
+                    <field name="fe_warning" invisible="1"/>
+                    <field name="is_inactive_resolution" invisible="1"/>
+                </xpath>
+                <xpath expr="//sheet" position="before">
+                    <div class="alert alert-error"
+                        role="alert"
+                        style="margin-bottom:0px; background-color:#ff7583;"
+                        invisible="not fe_warning">
+                        <span style="font-weight:bold;">La resolución de la DIAN está por vencer o se está agotando su numeración. Verifique la configuración en la secuencia del diario.</span><br/>
+                    </div>
+                    <div class="alert alert-error"
+                        role="alert"
+                        style="margin-bottom:0px; background-color:#ff7583;"
+                        invisible="not is_inactive_resolution">
+                        <span style="font-weight:bold;">El diario no tiene una resolución DIAN activa en su secuencia.</span><br/>
+                    </div>
+                </xpath>
+                <xpath expr="//notebook/page[@id='invoice_tab']/field[@name='invoice_line_ids']/list/field[@name='discount']" position="after">
+                    <field name="consignment_txt" readonly="1" widget="text" column_invisible="parent.fe_operation_type != '12' and parent.operation_type_ei_ref != '12'"/>
+                    <button name="add_consignment" title="Registrar remesa" type="object" icon="fa-cubes" column_invisible="parent.fe_operation_type != '12' and parent.operation_type_ei_ref != '12'"/>
+                </xpath>
+                <xpath expr="//notebook/page[@name='other_info']/group/group[@name='sale_info_group']/field[@name='ref']" position="after">
+                    <field name="ref2" readonly="state != 'draft'"/>
+                    <field name="remmision_ref" readonly="state != 'draft'"/>
+                </xpath>
+                <xpath expr="//notebook/page[@id='invoice_tab']/field[@name='invoice_line_ids']/list/field[@name='account_id']" position="before">
+                    <field name="fe_mandante_id" readonly="parent.fe_state == '00'" required="parent.fe_operation_type == '11' or parent.operation_type_ei_ref == '11'" column_invisible="parent.fe_operation_type != '11' and parent.operation_type_ei_ref != '11'"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Acciones de vista para tipo de factura de venta -->
+        <!-- Factura de venta -->
+        <record id="account.action_move_out_invoice_type" model="ir.actions.act_window">
+            <field name="domain" eval="[('move_type','=','out_invoice'),('type_note','=',False)]"/>
+            <field name="context" eval="{'default_move_type': 'out_invoice','default_type_note': False}"/>
+        </record>
+
+        <!-- Nota Crédito -->
+        <record id="account.action_move_out_refund_type" model="ir.actions.act_window">
+            <field name="domain" eval="[('move_type','=','out_refund')]"/> <!-- ,('type_note','=','credit') -->
+            <field name="context" eval="{'default_move_type': 'out_refund','default_type_note': 'credit'}"/>
+        </record>
+
+        <!-- Nota Débito -->
+        <record id="action_move_out_debit_note_type" model="ir.actions.act_window">
+            <field name="name">Notas Débito</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">list,kanban,form</field>
+            <field name="view_id" ref="account.view_invoice_tree"/>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+            <field name="domain">[('move_type','=','out_invoice'),('type_note','=','debit')]</field>
+            <field name="context">{'default_move_type': 'out_invoice','default_type_note': 'debit'}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Crear una nota Débito
+              </p><p>
+                <!-- texto -->
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_act_out_debit_note" name="Notas Débito" parent="account.menu_finance_receivables" action="action_move_out_debit_note_type" sequence="1"/>
+    </data>
+</odoo>

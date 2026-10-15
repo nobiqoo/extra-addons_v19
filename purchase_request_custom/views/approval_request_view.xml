@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_approval_request_form_inherit_fecha_aprobacion" model="ir.ui.view">
+        <field name="name">approval.request.form.inherit.fecha.aprobacion</field>
+        <field name="model">approval.request</field>
+        <field name="inherit_id" ref="approvals.approval_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reference']" position="after">
+                <field name="fecha_aprobacion" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='fecha_aprobacion']" position="after">
+                <field name="ordenes_de_compra_ids"
+                       widget="many2many_tags"
+                       options="{'no_create': True}"
+                       context="{'search_default_my_company': 1}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,383 @@
+openapi: 3.0.3
+info:
+  title: CargoWise Integration for Odoo 19
+  description: |
+    Documentación pública de integración para los métodos CargoWise del módulo
+    `account_cargowise_sync` en Odoo 19.
+    
+    La integración consume los métodos estándar de modelo de Odoo via JSON-RPC a través del endpoint
+    `/jsonrpc/`.
+  version: 1.0.0
+servers:
+  - url: https://{{host}}
+    description: URL base de Odoo
+paths:
+  /jsonrpc/:
+    post:
+      tags:
+        - CargoWise
+      summary: Invoca métodos CargoWise en Odoo mediante JSON-RPC
+      description: |
+        Llamada estándar de Odoo para ejecutar los métodos de modelo usando `service: object` y `method: execute`.
+        
+        El payload se envía en formato JSON-RPC 2.0.
+      requestBody:
+        description: JSON-RPC 2.0 con parámetros de `object.execute`.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OdooJsonRpcRequest'
+            examples:
+              createPartner:
+                summary: Crear contacto CargoWise
+                value:
+                  jsonrpc: "2.0"
+                  method: "call"
+                  params:
+                    service: "object"
+                    method: "execute"
+                    args:
+                      - "YOUR_DATABASE"
+                      - 2  # ID del usuario
+                      - "YOUR_PASSWORD"
+                      - "res.partner"
+                      - "create_partner_cargowise"
+                      - []
+                      -
+                        partner_type: "J"
+                        name: "Cliente CargoWise S.A."
+                        street: "Calle 123 #45-67"
+                        city: "Bogotá"
+                        state: "DC"
+                        country: "CO"
+                        type_id: "CC"
+                        vat: "900123456-7"
+                        phone: "+57 1 2345678"
+                        email: "contacto@cliente.com"
+                        vendor: "VEND123"
+                        id_partner: "CW-00001"
+                        org_id: "ORG-01"
+                    kwargs: {}
+                  id: 1
+              createInvoice:
+                summary: Crear factura CargoWise
+                value:
+                  jsonrpc: "2.0"
+                  method: "call"
+                  params:
+                    service: "object"
+                    method: "execute"
+                    args:
+                      - "YOUR_DATABASE"
+                      - 2
+                      - "YOUR_PASSWORD"
+                      - "account.move"
+                      - "create_invoice_cargowise"
+                      - []
+                      -
+                        type_invoice: "FV"
+                        invoice_id: "ABC4"
+                        ref_invoice: ""
+                        invoice_date: "2024-01-11"
+                        partner: "5166f8b3-194d-414d-86d3-de8fe722e554"
+                        city: "Cartagena"
+                        customer_order: "ABC001"
+                        hbl: "12543854"
+                        mn: "ABC123"
+                        position: "C00001011"
+                        origin: "Livorno"
+                        destination: "Cartagena"
+                        weight: "30000KG"
+                        volume: "0M3"
+                        vendor: ""
+                        shipmentId: "char"
+                        departmentCode: "char"
+                        eta: "2024-01-11T10:09:32"
+                        etd: "2024-01-11T10:09:32"
+                        doc_validity: "2024-12-06"
+                        closure: true
+                        service_level: "Nivel servicio GHI"
+                        consol_id: "id_consol"
+                        lines:
+                          - product: "E-COM06"
+                            description: "Admin Fee"
+                            qty: 1
+                            price_unit: 25
+                          - product: "E-COM07"
+                            description: "Emission BL"
+                            qty: 1
+                            price_unit: 124950
+                    kwargs: {}
+                  id: 1
+      responses:
+        '200':
+          description: Respuesta JSON-RPC satisfactoria de Odoo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OdooJsonRpcResponse'
+        '400':
+          description: Error de validación o de payload.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OdooJsonRpcErrorResponse'
+components:
+  schemas:
+    OdooJsonRpcRequest:
+      type: object
+      required:
+        - jsonrpc
+        - method
+        - params
+      properties:
+        jsonrpc:
+          type: string
+          example: "2.0"
+        method:
+          type: string
+          example: "call"
+        params:
+          $ref: '#/components/schemas/OdooJsonRpcParams'
+    OdooJsonRpcParams:
+      type: object
+      required:
+        - service
+        - method
+        - args
+        - kwargs
+      properties:
+        service:
+          type: string
+          description: Servicio JSON-RPC de Odoo.
+          example: "object"
+        method:
+          type: string
+          description: Método del servicio.
+          example: "execute"
+        args:
+          type: array
+          description: Lista de parámetros de `object.execute`.
+          items:
+            oneOf:
+              - type: string
+              - type: integer
+              - type: object
+        kwargs:
+          type: object
+          additionalProperties: true
+    OdooJsonRpcResponse:
+      type: object
+      required:
+        - jsonrpc
+        - id
+        - result
+      properties:
+        jsonrpc:
+          type: string
+          example: "2.0"
+        id:
+          type: integer
+          example: 1
+        result:
+          type: integer
+          description: ID del registro creado en Odoo.
+    OdooJsonRpcErrorResponse:
+      type: object
+      required:
+        - jsonrpc
+        - id
+        - error
+      properties:
+        jsonrpc:
+          type: string
+          example: "2.0"
+        id:
+          type: integer
+          example: 1
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Odoo Server Error"
+            data:
+              type: object
+              description: Detalle del error de validación.
+    CargoWisePartnerPayload:
+      type: object
+      required:
+        - partner_type
+        - name
+        - street
+        - city
+        - state
+        - country
+        - type_id
+        - vat
+        - phone
+        - email
+        - vendor
+        - id_partner
+        - org_id
+      properties:
+        partner_type:
+          type: string
+          enum:
+            - P
+            - J
+          description: Tipo de tercero (P=persona, J=empresa).
+        name:
+          type: string
+          description: Nombre del tercero.
+        street:
+          type: string
+          description: Dirección.
+        city:
+          type: string
+          description: Ciudad (código o nombre para Colombia).
+        state:
+          type: string
+          description: Código del departamento/estado.
+        country:
+          type: string
+          description: Código ISO del país.
+        type_id:
+          type: string
+          description: Código CargoWise del tipo de identificación.
+        vat:
+          type: string
+          description: Número de identificación.
+        phone:
+          type: string
+        email:
+          type: string
+          format: email
+        vendor:
+          type: string
+          description: Código del vendedor CargoWise.
+        id_partner:
+          type: string
+          description: Identificador del tercero en CargoWise.
+        org_id:
+          type: string
+          description: Identificador de la organización CargoWise.
+    CargoWiseInvoicePayload:
+      type: object
+      required:
+        - type_invoice
+        - invoice_id
+        - partner
+        - hbl
+        - position
+        - lines
+      properties:
+        type_invoice:
+          type: string
+          description: Tipo de documento CargoWise.
+          enum:
+            - FV
+            - FC
+            - FV-NC
+            - FV-ND
+            - FC-NC
+            - FC-ND
+            - NC
+            - ND
+        invoice_id:
+          type: string
+          description: Identificador único del documento en CargoWise.
+        partner:
+          type: string
+          description: code_cw del cliente o proveedor en Odoo. Debe existir un res.partner con ese code_cw.
+        ref_invoice:
+          type: string
+          description: code_cw de la factura de referencia. Usado para notas rectificativas (NC, ND).
+        invoice_date:
+          type: string
+          format: date
+          description: Fecha de la factura en formato `YYYY-MM-DD`. Se mapea a `invoice_date` en Odoo. Si no se envía, Odoo asigna la fecha por defecto habitual.
+        city:
+          type: string
+          description: Ciudad del envío.
+        customer_order:
+          type: string
+          description: Orden del cliente. Se asigna también al campo ref.
+        hbl:
+          type: string
+          description: Número HBL.
+        mn:
+          type: string
+          description: Motonave.
+        position:
+          type: string
+          description: Posición. Se utiliza para crear/relacionar una cuenta analítica.
+        origin:
+          type: string
+          description: Origen del envío.
+        destination:
+          type: string
+          description: Destino del envío.
+        weight:
+          type: string
+          description: Peso del envío.
+        volume:
+          type: string
+          description: Volumen del envío.
+        vendor:
+          type: string
+          description: Código del vendedor CargoWise.
+        shipmentId:
+          type: string
+          description: Número de embarque.
+        departmentCode:
+          type: string
+          description: Código de departamento.
+        eta:
+          type: string
+          format: date-time
+          description: Fecha y hora en formato `YYYY-MM-DDTHH:MM:SS`.
+        etd:
+          type: string
+          format: date-time
+          description: Fecha y hora en formato `YYYY-MM-DDTHH:MM:SS`.
+        doc_validity:
+          type: string
+          format: date
+          description: Fecha en formato `YYYY-MM-DD`.
+        closure:
+          type: boolean
+          description: Indicador de cierre.
+        service_level:
+          type: string
+          description: Nivel de servicio.
+        consol_id:
+          type: string
+          description: Consol ID.
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/CargoWiseInvoiceLine'
+    CargoWiseInvoiceLine:
+      type: object
+      required:
+        - product
+        - description
+        - qty
+        - price_unit
+      properties:
+        product:
+          type: string
+          description: default_code del producto.
+        description:
+          type: string
+        qty:
+          type: number
+          format: float
+        price_unit:
+          type: number
+          format: float

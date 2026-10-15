@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- LAMA VERTICAL (50) -->
+    <data noupdate="0">
+        <record id="system_50" model="safra.system"><field name="tech_width_min">0.09</field><field name="tech_width_max">0.09</field><field name="tech_height_min">0.9</field><field name="tech_height_max">3.2</field><field name="tech_mechanism"></field></record>
+        <record id="sf_50_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_50_width" model="safra.system.field">
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_50_height" model="safra.system.field">
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_50_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_50_fabric_id" model="safra.system.field">
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_50_color_id" model="safra.system.field">
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_50_location" model="safra.system.field">
+            <field name="sequence">1000</field>
+        </record>
+    </data>
+</odoo>

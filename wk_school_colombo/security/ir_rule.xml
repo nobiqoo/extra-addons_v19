@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Tipo de programa: multi-compañía, igual que los demás catálogos
+             académicos (wk_school_management/security/ir_rule.xml). -->
+        <record id="program_type_rule" model="ir.rule">
+            <field name="name">Program Type multi-company</field>
+            <field name="model_id" ref="model_wk_school_colombo_program_type"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <!-- Observaciones: mismo patrón de Staff/Officer que
+             show_student_to_teacher_rule / show_student__to_officer_rule en
+             wk_school_management. La regla multi-compañía es global (sin
+             groups) y se combina en AND con la de rol, que se combina en OR
+             entre sí para los grupos a los que pertenezca el usuario. -->
+        <record id="observation_company_rule" model="ir.rule">
+            <field name="name">Observation multi-company</field>
+            <field name="model_id" ref="model_wk_school_colombo_observation"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="show_observation_to_teacher_rule" model="ir.rule">
+            <field name="name">Observation teacher Rule</field>
+            <field name="model_id" ref="model_wk_school_colombo_observation"/>
+            <field name="domain_force">[('student_id.enrollment_ids.student_subject_ids.subject_id.teacher_ids.id', '=', user.employee_id.id)]</field>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="show_observation_to_officer_rule" model="ir.rule">
+            <field name="name">Observation officer Rule</field>
+            <field name="model_id" ref="model_wk_school_colombo_observation"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_officer_group'))]"/>
+        </record>
+
+        <!-- Evaluación de Class Performance (subtarea 8): mismo patrón de
+             Staff/Officer que wk.student.assignment en
+             wk_school_management/security/ir_rule.xml (líneas 116-127),
+             sobre la Actividad del estudiante a la que pertenece la línea. -->
+        <record id="cp_evaluation_line_teacher_rule" model="ir.rule">
+            <field name="name">CP Evaluation Line teacher Rule</field>
+            <field name="model_id" ref="model_wk_school_colombo_cp_evaluation_line"/>
+            <field name="domain_force">['|',
+                ('student_assignment_id.class_assignment_id.teacher_id.id', '=', user.employee_id.id),
+                ('student_assignment_id.class_assignment_id.class_id.teacher_ids.id', '=', user.employee_id.id)]</field>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="cp_evaluation_line_officer_rule" model="ir.rule">
+            <field name="name">CP Evaluation Line officer Rule</field>
+            <field name="model_id" ref="model_wk_school_colombo_cp_evaluation_line"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_officer_group'))]"/>
+        </record>
+
+        <!-- Consolidado de notas (subtarea 8): un docente solo ve el
+             Consolidado de sus propias clases, mismo patrón que
+             wk.school.class en wk_school_management/security/ir_rule.xml. -->
+        <record id="grade_consolidated_teacher_rule" model="ir.rule">
+            <field name="name">Grade Consolidated teacher Rule</field>
+            <field name="model_id" ref="model_wk_school_colombo_grade_consolidated"/>
+            <field name="domain_force">['|',
+                ('populate_class_id.teacher_id.id', '=', user.employee_id.id),
+                ('populate_class_id.teacher_ids.id', '=', user.employee_id.id)]</field>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="grade_consolidated_officer_rule" model="ir.rule">
+            <field name="name">Grade Consolidated officer Rule</field>
+            <field name="model_id" ref="model_wk_school_colombo_grade_consolidated"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_officer_group'))]"/>
+        </record>
+
+        <record id="grade_consolidated_line_teacher_rule" model="ir.rule">
+            <field name="name">Grade Consolidated Line teacher Rule</field>
+            <field name="model_id" ref="model_wk_school_colombo_grade_consolidated_line"/>
+            <field name="domain_force">['|',
+                ('consolidated_id.populate_class_id.teacher_id.id', '=', user.employee_id.id),
+                ('consolidated_id.populate_class_id.teacher_ids.id', '=', user.employee_id.id)]</field>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="grade_consolidated_line_officer_rule" model="ir.rule">
+            <field name="name">Grade Consolidated Line officer Rule</field>
+            <field name="model_id" ref="model_wk_school_colombo_grade_consolidated_line"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_officer_group'))]"/>
+        </record>
+
+    </data>
+</odoo>

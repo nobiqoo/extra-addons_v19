@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Categoría de módulo -->
+        <record id="module_category_biometric" model="ir.module.category">
+            <field name="name">Control de Turnos y Biométrico</field>
+            <field name="description">Gestión de turnos, asistencia y control biométrico</field>
+            <field name="sequence">85</field>
+        </record>
+
+        <record id="privilege_biometric" model="res.groups.privilege">
+            <field name="name">Control de Turnos y Biométrico</field>
+            <field name="category_id" ref="module_category_biometric"/>
+            <field name="sequence">85</field>
+        </record>
+
+        <!-- ── Grupos ─────────────────────────────────────────────── -->
+
+        <!-- Empleado: puede ver sus propios registros -->
+        <record id="group_biometric_user" model="res.groups">
+            <field name="name">Usuario</field>
+            <field name="privilege_id" ref="privilege_biometric"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <!-- Supervisor: gestiona programaciones y asignaciones -->
+        <record id="group_biometric_supervisor" model="res.groups">
+            <field name="name">Supervisor</field>
+            <field name="privilege_id" ref="privilege_biometric"/>
+            <field name="implied_ids" eval="[(4, ref('group_biometric_user'))]"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <!-- RRHH: valida, aprueba novedades y genera reportes -->
+        <record id="group_biometric_hr" model="res.groups">
+            <field name="name">RRHH</field>
+            <field name="privilege_id" ref="privilege_biometric"/>
+            <field name="implied_ids" eval="[(4, ref('group_biometric_supervisor'))]"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <!-- Administrador/Gerente: configuración total -->
+        <record id="group_biometric_manager" model="res.groups">
+            <field name="name">Administrador</field>
+            <field name="privilege_id" ref="privilege_biometric"/>
+            <field name="implied_ids" eval="[(4, ref('group_biometric_hr'))]"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <!-- Auditor: solo lectura completa -->
+        <record id="group_biometric_auditor" model="res.groups">
+            <field name="name">Auditor</field>
+            <field name="privilege_id" ref="privilege_biometric"/>
+            <field name="implied_ids" eval="[(4, ref('group_biometric_user'))]"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+    </data>
+</odoo>

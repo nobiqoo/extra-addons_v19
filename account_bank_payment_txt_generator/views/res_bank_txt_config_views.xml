@@ -1,0 +1,275 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data >
+        <record id="res_bank_txt_config_view_form" model="ir.ui.view">
+            <field name="name">res.bank.txt_config.view.form</field>
+            <field name="model">res.bank.txt_config</field>
+            <field name="arch" type="xml">
+                <form string="txt">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="line_break_type" widget="radio" />
+                            </group>
+                            <group>
+                                <field name="bank_id"/>
+                                <field name="group_lines"/>
+                                <field name="autoadjusmtent_text" help="Allows you to automatically adjust text size by controlling spacing"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Header" name="header">
+                                <field name="header_line_id">
+                                    <list editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name"/>
+                                        <field name="size" sum="total chars"/>
+                                        <field name="alignment"/>
+                                        <field name="fill"/>
+                                        <field name="value_type"/>
+                                        <field name="value"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Body" name="body">
+                                <field name="body_line_id">
+                                    <list editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name"/>
+                                        <field name="size" sum="total chars"/>
+                                        <field name="alignment"/>
+                                        <field name="fill"/>
+                                        <field name="value_type"/>
+                                        <field name="value"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Footer" name="footer">
+                                <field name="footer_line_id">
+                                    <list editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name"/>
+                                        <field name="size" sum="total chars"/>
+                                        <field name="alignment"/>
+                                        <field name="fill"/>
+                                        <field name="value_type"/>
+                                        <field name="value"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Help" name="help">
+                                <div class="container" style="padding-top: 20px;">
+                                    <!-- <h2>Convenciones de configuracion</h2>
+                                    <p>Utilize las siguientes convenciones para configurar su archivo de dispersion:</p>
+                                    <a type="button" class="btn btn-default" data-toggle="collapse" data-target="#convenciones">Mostrar convenciones</a>
+                                    <br/> -->
+                                    <div id="convenciones" style="padding-top: 1px;">
+                                        <h3>Help with python expressions:</h3>
+                                        <p>
+                                        These variables can be used with python syntax to access the information you require.
+                                            <br/>
+                                        </p>
+                                        <table class="table table-sm table-striped table-hover">
+                                            <thead style="background-color: #986483; color: white;">
+                                                <tr>
+                                                    <th style="width: 200px">Variable</th>
+                                                    <th style="width: 350px">Return value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>order</td>
+                                                    <td>Objeto Payment Order (account.payment.order)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>line</td>
+                                                    <td>Objeto Transactions (account.payment.line)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <br/>
+                                        <!-- <li>
+                                            <b>batch_payment:</b>
+                                            Objeto lote de pagos (account.batch.payment)
+                                        </li>
+                                        <li>
+                                            <b>payment:</b>
+                                            Objeto linea de lote de pagos (account.payment)
+                                        </li> -->
+                                        <!-- <li>
+                                            <b>line_amount:</b>
+                                            Valor consolidado a pagar agrupado por tercero/banco (diferente al valor a pagar por linea)
+                                        </li> -->
+                                        <hr/>
+                                        <h3>Help with available variable expressions</h3>
+                                        <p>
+                                            Para utilizar estas variables seleccione en el campo de tipo de contenido "Contexto" y
+                                            escriba en el campo de contenido el nombre de la convencion exacto.<br/>
+                                            Si la convencion es una fecha formateable escriba una "," seguido del formato python de fecha<br/>
+                                    <b>Ejemplo:</b>
+                                            payment_date,%y%m%d retorna la fecha de pago en formato AAMMDD
+                                </p>
+                                <table class="table table-sm table-striped table-hover">
+                                    <thead style="background-color: #986483; color: white;">
+                                        <tr>
+                                            <th style="width: 200px">Variable</th>
+                                            <th style="width: 350px">Return value</th>
+                                            <th style="width: 350px">Available in</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>z_company_name</td>
+                                            <td>Nombre de la compañia</td>
+                                            <td>header, body, footer</td>
+                                        </tr>
+                                        <tr>
+                                            <td>z_company_nit</td>
+                                            <td>Nit de la compañia sin digito de verificacion</td>
+                                            <td>header, body, footer</td>
+                                        </tr>
+                                        <!-- <tr>
+                                                    <td>z_company_nit_dv</td>
+                                                    <td>Nit de la compañia con digito de verificacion</td>
+                                                    <td>header, body, footer</td>
+                                                </tr> -->
+                                        <!-- <tr>
+                                                    <td>z_payment_date</td>
+                                                    <td>Fecha de pago (formateable)</td>
+                                                    <td>header, body, footer</td>
+                                                </tr> -->
+                                        <tr>
+                                            <td>z_date_now</td>
+                                            <td>Fecha actual (formateable)</td>
+                                            <td>header, body, footer</td>
+                                        </tr>
+                                        <tr>
+                                            <td>z_total_amount</td>
+                                            <td>Total transferido</td>
+                                            <td>header, body, footer</td>
+                                        </tr>
+                                         <tr>
+                                            <td>z_total_cc_amount</td>
+                                            <td>Total transferido en moneda de la compañía</td>
+                                            <td>header, body, footer</td>
+                                        </tr>                                        <tr>
+                                            <td>z_n_lines</td>
+                                            <td>Cantidad de lineas o registros de pago</td>
+                                            <td>header, body, footer</td>
+                                        </tr>
+                                        <tr>
+                                            <td>z_debit_bank_account</td>
+                                            <td>Cuenta bancaria a debitar</td>
+                                            <td>header, body, footer</td>
+                                        </tr>
+                                        <tr>
+                                            <td>z_benef_nit</td>
+                                            <td>Nit beneficiario sin digito de verificacion</td>
+                                            <td>header, body, footer</td>
+                                        </tr>
+                                        <!-- <tr>
+                                                    <td>z_benef_nitdv</td>
+                                                    <td>Nit beneficiario con digito de verificacion</td>
+                                                    <td>body</td>
+                                                </tr> -->
+                                        <tr>
+                                            <td>z_benef_name</td>
+                                            <td>Nombre del beneficiario</td>
+                                            <td>body</td>
+                                        </tr>
+                                        <tr>
+                                            <td>z_benef_bank_account</td>
+                                            <td>Numero de cuenta beneficiario</td>
+                                            <td>body</td>
+                                        </tr>
+                                        <tr>
+                                            <td>z_benef_bank_account_bic</td>
+                                            <td>Codigo de identificacion de banco del beneficiario</td>
+                                            <td>body</td>
+                                        </tr>
+                                        <tr>
+                                            <td>z_amount</td>
+                                            <td>Valor de transaccion linea</td>
+                                            <td>body</td>
+                                        </tr>
+                                        <tr>
+                                            <td>z_cc_amount</td>
+                                            <td>Valor de transaccion linea en moneda de la compañía</td>
+                                            <td>body</td>
+                                        </tr>
+                                        <tr>
+                                            <td>z_communication</td>
+                                            <td>Descripcion de la transaccion dada en las lineas</td>
+                                            <td>body</td>
+                                        </tr>
+                                        <tr>
+                                            <td>z_communication2</td>
+                                            <td>Descripcion 2 de la transaccion dada en las lineas</td>
+                                            <td>body</td>
+                                        </tr>
+                                        <tr>
+                                            <td>z_ref</td>
+                                            <td>Referencia de la transaccion dada en las lineas</td>
+                                            <td>body</td>
+                                        </tr>
+                                        <tr>
+                                            <td>z_seq</td>
+                                            <td>Secuencia de linea</td>
+                                            <td>body</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record id="res_bank_txt_config_view_tree" model="ir.ui.view">
+    <field name="name">res.bank.txt_config.view.tree</field>
+    <field name="model">res.bank.txt_config</field>
+    <field name="arch" type="xml">
+        <list>
+            <field name="name"/>
+            <field name="bank_id"/>
+            <field name="state"/>
+        </list>
+    </field>
+</record>
+
+<record id="res_bank_txt_config_view_search" model="ir.ui.view">
+    <field name="name">res.bank.txt_config.view.search</field>
+    <field name="model">res.bank.txt_config</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="name"/>
+            <field name="bank_id"/>
+        </search>
+    </field>
+</record>
+
+<record id="res_bank_txt_config_action" model="ir.actions.act_window">
+    <field name="name">Banks txt settings</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">res.bank.txt_config</field>
+    <field name="view_mode">list,form</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+                    Add bank txt configuration 
+        </p>
+        <p>
+                    Configuration record to generate TXT file to upload the payment to the banking portal
+        </p>
+    </field>
+</record>
+
+<menuitem id="res_bank_txt_config_menu_act" name="Bank txt setting" parent="account.root_payment_menu" action="res_bank_txt_config_action" sequence="30"/>
+</data>
+</odoo>

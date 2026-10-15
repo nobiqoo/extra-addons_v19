@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Grupo de Dashboards para Almacenamiento -->
+    <record id="spreadsheet_dashboard_group_storage" model="spreadsheet.dashboard.group">
+        <field name="name">Almacenamiento</field>
+        <field name="sequence">600</field>
+    </record>
+
+    <!-- Spreadsheet Dashboard para Storage Analyzer -->
+    <record id="spreadsheet_dashboard_storage" model="spreadsheet.dashboard">
+        <field name="name">Análisis de Almacenamiento</field>
+        <field name="spreadsheet_binary_data" type="base64" file="storage_analyzer/data/files/storage_dashboard.json"/>
+        <field name="dashboard_group_id" ref="storage_analyzer.spreadsheet_dashboard_group_storage"/>
+        <field name="group_ids" eval="[Command.link(ref('storage_analyzer.group_storage_analyzer_user'))]"/>
+        <field name="sequence">10</field>
+    </record>
+
+</odoo>

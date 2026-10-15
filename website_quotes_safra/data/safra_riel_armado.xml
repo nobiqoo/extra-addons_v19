@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- RIEL ARMADO (15) -->
+    <data noupdate="0">
+        <record id="system_15" model="safra.system"><field name="tech_width_min">0.62</field><field name="tech_width_max">8.3</field><field name="tech_height_min">1</field><field name="tech_height_max">3.5</field><field name="tech_mechanism"></field></record>
+        <record id="sf_15_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_15_has_motor" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_15_interruptor_rf" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_15_motor_support_type" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_15_requires_charger" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_15_control_channel" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_15_riel_dividido" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_15_mando_position" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_15_width" model="safra.system.field">
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_15_height" model="safra.system.field">
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_15_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_15_fabric_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_fabric_id"/>
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_15_color_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_color_id"/>
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_15_coordinado" model="safra.system.field">
+            <field name="sequence">150</field>
+        </record>
+        <record id="sf_15_motor" model="safra.system.field">
+            <field name="sequence">1000</field>
+            <field name="label_override">Motor</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;0&#x27;,&#x27;name&#x27;:&#x27;Sin motor&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;6&#x27;,&#x27;name&#x27;:&#x27;Motor Ultrasilencioso Cortina/Panel Wifi/Rf&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;7&#x27;,&#x27;name&#x27;:&#x27;Motor Ultrasilencioso Cortina/Panel Bateria/Rf&#x27;,&#x27;sequence&#x27;:30})]"/>
+            <field name="clear_depends" eval="True"/>
+        </record>
+        <record id="sf_15_mando_panel" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_mando_panel"/>
+            <field name="sequence">1005</field>
+        </record>
+        <record id="sf_15_control" model="safra.system.field">
+            <field name="sequence">1010</field>
+            <field name="label_override">Control</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;0&#x27;,&#x27;name&#x27;:&#x27;Sin Control&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;1&#x27;,&#x27;name&#x27;:&#x27;Inalámbrico Panel 2 Canales&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;5&#x27;,&#x27;name&#x27;:&#x27;Inalámbrico Panel 15 Canales&#x27;,&#x27;sequence&#x27;:30}),(0,0,{&#x27;value&#x27;:&#x27;4&#x27;,&#x27;name&#x27;:&#x27;Control Motor Wifi/RF&#x27;,&#x27;sequence&#x27;:40}),(0,0,{&#x27;value&#x27;:&#x27;7&#x27;,&#x27;name&#x27;:&#x27;Control Motor Batería&#x27;,&#x27;sequence&#x27;:50})]"/>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="sf_15_interruptor_panel" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_interruptor_panel"/>
+            <field name="sequence">1015</field>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="sf_15_riel_tipo" model="safra.system.field">
+            <field name="sequence">1020</field>
+            <field name="label_override">Velcrado</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;6&#x27;,&#x27;name&#x27;:&#x27;Riel Velcrado&#x27;,&#x27;sequence&#x27;:10})]"/>
+        </record>
+        <record id="sf_15_perfil" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_perfil"/>
+            <field name="sequence">1025</field>
+            <field name="label_override">Tipo de Perfil</field>
+        </record>
+        <record id="sf_15_apertura" model="safra.system.field">
+            <field name="sequence">1030</field>
+            <field name="label_override">Tipo de Apertura</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;1&#x27;,&#x27;name&#x27;:&#x27;Derecha&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;2&#x27;,&#x27;name&#x27;:&#x27;Izquierda&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;3&#x27;,&#x27;name&#x27;:&#x27;Extremos&#x27;,&#x27;sequence&#x27;:30}),(0,0,{&#x27;value&#x27;:&#x27;4&#x27;,&#x27;name&#x27;:&#x27;Centro&#x27;,&#x27;sequence&#x27;:40}),(0,0,{&#x27;value&#x27;:&#x27;5&#x27;,&#x27;name&#x27;:&#x27;Apertura Libre&#x27;,&#x27;sequence&#x27;:50})]"/>
+        </record>
+        <record id="sf_15_color_cordon" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_color_cordon"/>
+            <field name="sequence">1035</field>
+        </record>
+        <record id="sf_15_posicion_telo" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_posicion_telo"/>
+            <field name="sequence">1040</field>
+        </record>
+        <record id="sf_15_traslape_centro" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_traslape_centro"/>
+            <field name="sequence">1045</field>
+        </record>
+        <record id="sf_15_ancho_telo" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_ancho_telo"/>
+            <field name="sequence">1050</field>
+        </record>
+        <record id="sf_15_tamano_traslape" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_tamano_traslape"/>
+            <field name="sequence">1055</field>
+        </record>
+        <record id="sf_15_cenefa_panel" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_cenefa_panel"/>
+            <field name="sequence">1060</field>
+        </record>
+        <record id="sf_15_riel_junto" model="safra.system.field">
+            <field name="sequence">1065</field>
+            <field name="label_override">Riel Junto a</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;0&#x27;,&#x27;name&#x27;:&#x27;No&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;1&#x27;,&#x27;name&#x27;:&#x27;Item Siguiente&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;2&#x27;,&#x27;name&#x27;:&#x27;Item Anterior&#x27;,&#x27;sequence&#x27;:30})]"/>
+        </record>
+        <record id="sf_15_cenefa_tela" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_cenefa_tela"/>
+            <field name="sequence">1070</field>
+            <field name="label_override">Tela de Cenefa</field>
+            <field name="depends_field_id" ref="field_cenefa_panel"/>
+            <field name="depends_value">2,4,5,6</field>
+        </record>
+        <record id="sf_15_cenefa_dividida" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_cenefa_dividida"/>
+            <field name="sequence">1075</field>
+        </record>
+        <record id="sf_15_color_cenefa" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_color_cenefa"/>
+            <field name="sequence">1080</field>
+        </record>
+        <record id="sf_15_perfil_cenefa" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_perfil_cenefa"/>
+            <field name="sequence">1085</field>
+            <field name="depends_field_id" ref="field_cenefa_panel"/>
+            <field name="depends_value">2,4,5,6</field>
+        </record>
+        <record id="sf_15_extra_chain" model="safra.system.field">
+            <field name="sequence">1090</field>
+            <field name="label_override">Cordón Extra (metros)</field>
+        </record>
+        <record id="sf_15_location" model="safra.system.field">
+            <field name="sequence">1095</field>
+        </record>
+        <record id="sf_15_tela_al_reves" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="field_tela_al_reves"/>
+            <field name="sequence">1100</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="pdf_export_followup_anker"
+              inherit_id="account_reports.pdf_export_main_customer_report" primary="True">
+        <xpath expr="//body//header/div[1]" position="before">
+            <div style="margin-bottom: 12px; text-align: left;">
+                <img t-att-src="env['account.followup.report.handler'].get_anker_followup_logo_uri()"
+                     alt="ANKER Logística y Carga" style="width: 180px; height: auto;"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

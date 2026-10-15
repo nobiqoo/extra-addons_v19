@@ -1,0 +1,63 @@
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+
+        <record id="helpdesk_support_type_list" model="ir.ui.view">
+            <field name="name">Helpdesk support type list</field>
+            <field name="model">helpdesk.support.type</field>
+            <field name="arch" type="xml">
+                <list string="Tipo de soporte">
+                    <field name="name" />
+                    <field name="code"/>
+                    <field name="description"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="helpdesk_support_type_form" model="ir.ui.view">
+            <field name="name">Helpdesk support type form</field>
+            <field name="model">helpdesk.support.type</field>
+            <field name="arch" type="xml">
+                <form string="Tipo de soporte">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" />
+                            <h1>
+                                <field name="name" placeholder="Ej: hardware, software, etc" />
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="code"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+
+
+        <!-- Action for menu -->
+        <record id="action_helpdesk_support_type" model="ir.actions.act_window">
+            <field name="name">Tipo de soporte</field>
+            <field name="res_model">helpdesk.support.type</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Aún no hay registros.
+                </p>
+            </field>
+        </record>
+
+
+        <!-- Menuitem, inside of "Configuración" -->
+        <menuitem
+            id="menu_helpdesk_support_type"
+            name="Tipo de soporte"
+            parent="helpdesk.helpdesk_menu_config"
+            action="action_helpdesk_support_type"
+            groups="helpdesk.group_helpdesk_manager"
+            sequence="98"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,48 @@
+<UniversalEvent xmlns="http://www.cargowise.com/Schemas/Universal/2011/11">
+  <Event>
+    <DataContext>
+      <Company>
+        <!-- Código Compañía Chile -->
+        <Code>BOG</Code>
+        <!-- Código Pais Compañía  -->
+        <Country>
+          <Code>CO</Code>
+        </Country>
+      </Company>
+      <!-- Enterprise ID -->
+      <EnterpriseID>C07</EnterpriseID>
+      <!-- Código de la sucursal -->
+      <EventBranch>
+        <Code>BRN</Code>
+      </EventBranch>
+      <!-- TRN=Training // PRD=Produccion -->
+      <ServerID>TRN</ServerID>
+      <DataTargetCollection>
+        <DataTarget>
+          <!-- Módulo que se actualiza-->
+          <Type>AccountingInvoice</Type>
+          <!-- Número de transacción de CW // Consecutivo diferente a Folio -->
+          <Key>AR INV 00001002</Key>
+        </DataTarget>
+      </DataTargetCollection>
+    </DataContext>
+    <!-- Hora de actualización -->
+    <EventTime>2021-02-15T08:22:44.613</EventTime>
+    <!-- Tipo de Evento -->
+    <EventType>DIM</EventType>
+    <EventReference>DIM</EventReference>
+    <AdditionalFieldsToUpdateCollection>
+      <AdditionalFieldsToUpdate>
+        <!-- Actualiza el número de Folio en CW -->
+        <Type>AccTransactionHeader.AH_TransactionReference</Type>
+        <Value>OT3730</Value>
+      </AdditionalFieldsToUpdate>
+    </AdditionalFieldsToUpdateCollection>
+    <ContextCollection>
+      <Context>
+        <Type>DataProvider</Type>
+        <Value>ODOO</Value>
+      </Context>
+    </ContextCollection>
+  </Event>
+</UniversalEvent>

@@ -1,0 +1,437 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_baseline
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-17 21:40+0000\n"
+"PO-Revision-Date: 2023-10-17 21:40+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+msgid "BREAKERMATIC"
+msgstr ""
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+msgid "CUBIGEL"
+msgstr ""
+
+#. module: purchase_baseline
+#: model:ir.model.fields.selection,name:purchase_baseline.selection__purchase_order_report__order_status__cancel
+msgid "Cancelled"
+msgstr "Cancelado(a)"
+
+#. module: purchase_baseline
+#: model:ir.model,name:purchase_baseline.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_res_partner__purchase_method
+#: model:ir.model.fields,field_description:purchase_baseline.field_res_users__purchase_method
+msgid "Control Policy"
+msgstr "Política de control"
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+msgid "DONPER"
+msgstr ""
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__date_origin
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_simple_report__date_origin
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_tree
+msgid "Date Origin"
+msgstr "Importaciones.Puerto de Origen"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__date_port
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_simple_report__date_port
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_tree
+msgid "Date Port"
+msgstr "Importaciones.Puerto de Destino"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__display_name
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_simple_report__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: purchase_baseline
+#: model:ir.model.fields.selection,name:purchase_baseline.selection__purchase_order_report__order_status__draft
+msgid "Draft"
+msgstr "Petición Presupuesto"
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+msgid "GENERICO"
+msgstr ""
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+msgid "HONGSEN"
+msgstr ""
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+msgid "ICELOONG"
+msgstr ""
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__id
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_simple_report__id
+msgid "ID"
+msgstr ""
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__import_amount
+msgid "Import Amount"
+msgstr "Importaciones.Compras/Total"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__import_name
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_simple_report__import_name
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_tree
+msgid "Import Name"
+msgstr "Importaciones.Nombre"
+
+#. module: purchase_baseline
+#: model:ir.model.fields.selection,name:purchase_baseline.selection__purchase_order_report__type__international
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+msgid "International"
+msgstr "Internacional"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report____last_update
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_simple_report____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: purchase_baseline
+#: model:ir.model.fields.selection,name:purchase_baseline.selection__purchase_order_report__order_status__done
+msgid "Locked"
+msgstr "Bloqueado"
+
+#. module: purchase_baseline
+#: model:ir.model.fields.selection,name:purchase_baseline.selection__purchase_order_report__type__national
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+msgid "National"
+msgstr "Nacional"
+
+#. module: purchase_baseline
+#: model:ir.model.fields.selection,name:purchase_baseline.selection__res_partner__purchase_method__purchase
+msgid "On ordered quantities"
+msgstr "Sobre las cantidades pedidas"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,help:purchase_baseline.field_res_partner__purchase_method
+#: model:ir.model.fields,help:purchase_baseline.field_res_users__purchase_method
+msgid ""
+"On ordered quantities: Control bills based on ordered quantities. \n"
+" On received quantities: Control bills based on received quantities."
+msgstr ""
+"Sobre cantidades ordenadas: Facturas de control basadas en cantidades ordenadas. \n"
+"Sobre cantidades recibidas: Facturas de control basadas en cantidades recibidas."
+
+#. module: purchase_baseline
+#: model:ir.model.fields.selection,name:purchase_baseline.selection__res_partner__purchase_method__receive
+msgid "On received quantities"
+msgstr "Sobre las cantidades recibidas"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__order_name
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_simple_report__order_name
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+msgid "Order Name"
+msgstr "Orden de Compra"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__order_status
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Order Status"
+msgstr "OC.Estado"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__order_subtotal
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_simple_report__order_subtotal
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_tree
+msgid "Order Subtotal"
+msgstr "OC.Valor Total"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__ordered_qty
+msgid "Ordered Qty"
+msgstr "Cantidad Pedida"
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Ordered Quantity"
+msgstr "Cantidad Pedida"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__picking_type_id
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Picking Type"
+msgstr "OC.Entregar a"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__planned_date
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Planned Date"
+msgstr "Nacional.Fecha Recepción"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__product_id
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Product"
+msgstr "Referencia del Producto"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__product_brand
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Product Brand"
+msgstr "Marca"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__product_category
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_simple_report__product_category
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_tree
+msgid "Product Category"
+msgstr "Categoría"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__product_code
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Product Code"
+msgstr "Código"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__product_description
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Product Description"
+msgstr "Descripción del Producto"
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Product ID"
+msgstr "Atributo"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__product_name
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+msgid "Product Name"
+msgstr "Producto"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__purchase_order_id
+#: model:ir.model.fields.selection,name:purchase_baseline.selection__purchase_order_report__order_status__purchase
+msgid "Purchase Order"
+msgstr "Orden de Compra"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__purchase_order_currency_id
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Purchase Order Currency"
+msgstr "Moneda"
+
+#. module: purchase_baseline
+#: model:ir.model,name:purchase_baseline.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea de pedido de compra"
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_tree
+msgid "Purchase Order Name"
+msgstr "Orden de Compra"
+
+#. module: purchase_baseline
+#: model:ir.actions.act_window,name:purchase_baseline.action_purchase_order_report
+#: model:ir.actions.act_window,name:purchase_baseline.action_purchase_order_simple_report
+#: model:ir.model,name:purchase_baseline.model_purchase_order_report
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_pivot
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Purchase Order Report"
+msgstr "Informe Ordenes de Compras por Llegar"
+
+#. module: purchase_baseline
+#: model:ir.ui.menu,name:purchase_baseline.menu_purchase_order_report
+msgid "Purchase Order Report Bridge Sheet"
+msgstr "Informe Ordenes de Compras por LLegar"
+
+#. module: purchase_baseline
+#: model:ir.ui.menu,name:purchase_baseline.menu_purchase_order_report_header
+msgid "Purchase Order Report Menu"
+msgstr "Informe Compras"
+
+#. module: purchase_baseline
+#: model:ir.actions.act_window,name:purchase_baseline.action_purchase_order_report_sale
+#: model:ir.ui.menu,name:purchase_baseline.menu_purchase_order_report_sale
+msgid "Purchase Order Report Sale"
+msgstr "Informe Ordenes de Compra por Llegar"
+
+#. module: purchase_baseline
+#: model:ir.ui.menu,name:purchase_baseline.menu_purchase_order_report_sale_header
+msgid "Purchase Order Report Sale Menu"
+msgstr "Informe Compras"
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_tree
+msgid "Purchase Order Simple Report"
+msgstr "Resumen Ordenes de Compra por Llegar"
+
+#. module: purchase_baseline
+#: model:ir.ui.menu,name:purchase_baseline.menu_purchase_order_simple_report
+msgid "Purchase Order Simple Report "
+msgstr "Resumen Ordenes de Compras por LLegar"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__qty_to_receive
+msgid "Qty To Receive"
+msgstr "Cantidad por Recibir"
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Quantity To Receive"
+msgstr "Cantidad por Recibir"
+
+#. module: purchase_baseline
+#: model:ir.model.fields.selection,name:purchase_baseline.selection__purchase_order_report__order_status__sent
+msgid "RFQ Sent"
+msgstr "SDC Enviada"
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+msgid "RGC"
+msgstr ""
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__received_qty
+msgid "Received Qty"
+msgstr "Cantidad Recibida"
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Received Quantity"
+msgstr "Cantidad Recibida"
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+msgid "SUMOIL"
+msgstr ""
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+msgid "Search"
+msgstr ""
+
+#. module: purchase_baseline
+#: model:ir.model,name:purchase_baseline.model_purchase_order_simple_report
+msgid "Simplified Purchase Order Report"
+msgstr "Resumen Ordenes de Compra por LLegar"
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+msgid "THE CHEMOURS"
+msgstr ""
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+msgid "TOPFLO"
+msgstr ""
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__term_and_conditions
+msgid "Term And Conditions"
+msgstr "Comentarios"
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_tree
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Term and Conditions"
+msgstr "Comentarios"
+
+#. module: purchase_baseline
+#: model:ir.model.fields.selection,name:purchase_baseline.selection__purchase_order_report__order_status__to_approve
+msgid "To Approve"
+msgstr "Por Aprobar"
+
+#. module: purchase_baseline
+#: model:ir.model.fields,field_description:purchase_baseline.field_purchase_order_report__type
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_tree
+msgid "Type"
+msgstr "Tipo"
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+msgid "WIPCOOL"
+msgstr ""
+
+#. module: purchase_baseline
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_sale_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_report_view_search
+#: model_terms:ir.ui.view,arch_db:purchase_baseline.purchase_order_simple_report_view_search
+msgid "XECOM"
+msgstr ""
+

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_replicate_wizard_view_form" model="ir.ui.view">
+        <field name="name">product.replicate.wizard.view.form</field>
+        <field name="model">product.replicate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Replicar producto">
+                <field name="state" invisible="1"/>
+                <sheet>
+                    <div class="alert alert-info" role="alert" invisible="state == 'done'">
+                        Se creará una copia de este producto en cada empresa seleccionada.
+                        Solo se copian los datos maestros: <b>no</b> se copian costos, precios,
+                        impuestos, cuentas contables ni existencias.
+                    </div>
+
+                    <group invisible="state == 'done'">
+                        <field name="product_tmpl_id"/>
+                        <field name="available_company_ids" invisible="1"/>
+                    </group>
+
+                    <group string="Compañías ya vinculadas" col="1" invisible="state == 'done' or not existing_info">
+                        <field name="existing_info" nolabel="1" readonly="1"/>
+                    </group>
+
+                    <group string="Empresa" col="1" invisible="state == 'done'">
+                        <field name="empresa" nolabel="1" widget="many2many_checkboxes"
+                               domain="[('id', 'in', available_company_ids)]"
+                               class="o_replicate_company_checkboxes"/>
+                    </group>
+
+                    <div invisible="state == 'done'">
+                        <button name="action_select_all" type="object" string="Seleccionar todas"
+                                class="btn-link"/>
+                        <button name="action_deselect_all" type="object" string="Deseleccionar todas"
+                                class="btn-link" invisible="not empresa"/>
+                    </div>
+
+                    <group invisible="state == 'draft'">
+                        <field name="result_log" nolabel="1" readonly="1"
+                               style="font-family: monospace; white-space: pre-wrap;"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_replicate" type="object" string="Replicar"
+                            class="btn-primary" invisible="state == 'done'" data-hotkey="q"/>
+                    <button string="Cerrar" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

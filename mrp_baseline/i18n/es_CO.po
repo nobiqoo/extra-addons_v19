@@ -1,0 +1,313 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mrp_baseline
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-26 04:13+0000\n"
+"PO-Revision-Date: 2023-12-26 04:13+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_bom_cost__account_id
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production_cost__account_id
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close_line__account_id
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: mrp_baseline
+#: model:ir.ui.menu,name:mrp_baseline.production_account_menu
+msgid "Accounting"
+msgstr "Contabilidad"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_workcenter__costs_hour_account_account_id
+msgid "Accounting Account"
+msgstr "Cuenta contable"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close__accounts_ids
+msgid "Accounts"
+msgstr "Cuentas"
+
+#. module: mrp_baseline
+#: model:ir.model,name:mrp_baseline.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Línea analítica"
+
+#. module: mrp_baseline
+#: model:ir.model,name:mrp_baseline.model_mrp_bom
+msgid "Bill of Material"
+msgstr "Lista de Materiales"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_bom_cost__bom_id
+msgid "BoM"
+msgstr "LdM"
+
+#. module: mrp_baseline
+#: model:ir.model,name:mrp_baseline.model_mrp_bom_cost
+#: model_terms:ir.ui.view,arch_db:mrp_baseline.mrp_bom_form_view_mrp
+#: model_terms:ir.ui.view,arch_db:mrp_baseline.mrp_production_form_view_mrp
+msgid "BoM Costs"
+msgstr "Costos de LdM"
+
+#. module: mrp_baseline
+#: model:ir.model.fields.selection,name:mrp_baseline.selection__mrp_bom_cost__split_method__by_current_cost_price
+#: model:ir.model.fields.selection,name:mrp_baseline.selection__mrp_production_cost__split_method__by_current_cost_price
+msgid "By Current Cost"
+msgstr "Por Costo Actual"
+
+#. module: mrp_baseline
+#: model:ir.model.fields.selection,name:mrp_baseline.selection__mrp_bom_cost__split_method__by_quantity
+#: model:ir.model.fields.selection,name:mrp_baseline.selection__mrp_production_cost__split_method__by_quantity
+msgid "By Quantity"
+msgstr "Por Cantidad"
+
+#. module: mrp_baseline
+#: model:ir.model.fields.selection,name:mrp_baseline.selection__mrp_bom_cost__split_method__by_volume
+#: model:ir.model.fields.selection,name:mrp_baseline.selection__mrp_production_cost__split_method__by_volume
+msgid "By Volume"
+msgstr "Por Volumen"
+
+#. module: mrp_baseline
+#: model:ir.model.fields.selection,name:mrp_baseline.selection__mrp_bom_cost__split_method__by_weight
+#: model:ir.model.fields.selection,name:mrp_baseline.selection__mrp_production_cost__split_method__by_weight
+msgid "By Weight"
+msgstr "Por Peso"
+
+#. module: mrp_baseline
+#: model_terms:ir.ui.view,arch_db:mrp_baseline.production_account_close_view_form
+msgid "Calculate"
+msgstr "Calcular"
+
+#. module: mrp_baseline
+#: model_terms:ir.ui.view,arch_db:mrp_baseline.production_account_close_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close_line__close_id
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: mrp_baseline
+#: code:addons/mrp_baseline/wizard/production_account_close.py:0
+#: model:ir.actions.act_window,name:mrp_baseline.production_account_close_action
+#: model:ir.model,name:mrp_baseline.model_production_account_close
+#: model:ir.ui.menu,name:mrp_baseline.production_account_close_menu
+#: model_terms:ir.ui.view,arch_db:mrp_baseline.production_account_close_view_form
+#, python-format
+msgid "Close Production Accounts"
+msgstr "Cerrar cuentas de producción"
+
+#. module: mrp_baseline
+#: model:ir.model,name:mrp_baseline.model_production_account_close_line
+msgid "Close Production Accounts Lines"
+msgstr "Líneas de cerrar cuentas de producción"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: mrp_baseline
+#: model_terms:ir.ui.view,arch_db:mrp_baseline.production_account_close_view_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production__cost_id
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production_cost__cost_id
+msgid "Cost"
+msgstr "Costo"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_bom__cost_ids
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production__cost_ids
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close__costs_ids
+msgid "Costs"
+msgstr "Costos"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_bom_cost__create_uid
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production_cost__create_uid
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close__create_uid
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_bom_cost__create_date
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production_cost__create_date
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close__create_date
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close_line__credit
+msgid "Credit"
+msgstr "Crédito"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close_line__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close__date_end
+msgid "Date End"
+msgstr "Fecha final"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close__date_start
+msgid "Date Start"
+msgstr "Fecha inicial"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close_line__debit
+msgid "Debit"
+msgstr "Débito"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_bom_cost__display_name
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production_cost__display_name
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close__display_name
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close_line__display_name
+msgid "Display Name"
+msgstr "Nombre Público"
+
+#. module: mrp_baseline
+#: model:ir.model.fields.selection,name:mrp_baseline.selection__mrp_bom_cost__split_method__equal
+#: model:ir.model.fields.selection,name:mrp_baseline.selection__mrp_production_cost__split_method__equal
+msgid "Equal"
+msgstr "Igual"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_bom_cost__id
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production_cost__id
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close__id
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close_line__id
+msgid "ID"
+msgstr ""
+
+#. module: mrp_baseline
+#: model:product.product,name:mrp_baseline.product_mrp_cost
+#: model:product.template,name:mrp_baseline.product_mrp_cost_product_template
+msgid "Landed Cost"
+msgstr "Costo en destino"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_bom_cost____last_update
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production_cost____last_update
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close____last_update
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close_line____last_update
+msgid "Last Modified on"
+msgstr "Última Modificación el"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_bom_cost__write_uid
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production_cost__write_uid
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close__write_uid
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close_line__write_uid
+msgid "Last Updated by"
+msgstr "Actualizado por"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_bom_cost__write_date
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production_cost__write_date
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close__write_date
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close_line__write_date
+msgid "Last Updated on"
+msgstr "Actualizado"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close__line_ids
+msgid "Line"
+msgstr "Línea"
+
+#. module: mrp_baseline
+#: model:res.groups,name:mrp_baseline.group_mrp_cost
+msgid "Manage BoM Costs"
+msgstr "Administrar Costos en LdM"
+
+#. module: mrp_baseline
+#: model:ir.actions.act_window,name:mrp_baseline.stock_landed_cost_action
+#: model:ir.ui.menu,name:mrp_baseline.stock_landed_cost_menu
+msgid "Manufacturing Costs"
+msgstr "Costos en Producción"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_account_analytic_line__mrp_workorder_id
+msgid "Mrp Workorder"
+msgstr "Orden de trabajo"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_bom_cost__price_unit
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production_cost__price_unit
+msgid "Price Unit"
+msgstr "Precio Unitario"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_bom_cost__product_id
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production_cost__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production_cost__production_id
+msgid "Production"
+msgstr "Producción"
+
+#. module: mrp_baseline
+#: model:product.product,name:mrp_baseline.product_mrp_close
+#: model:product.template,name:mrp_baseline.product_mrp_close_product_template
+msgid "Production Account Close"
+msgstr "Cierre de cuentas de produccion"
+
+#. module: mrp_baseline
+#: model:ir.model,name:mrp_baseline.model_mrp_production_cost
+msgid "Production Costs"
+msgstr "Costos en Production"
+
+#. module: mrp_baseline
+#: model:ir.model,name:mrp_baseline.model_mrp_production
+msgid "Production Order"
+msgstr "Orden de producción"
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_production_account_close_line__residual
+msgid "Residual"
+msgstr ""
+
+#. module: mrp_baseline
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_bom_cost__split_method
+#: model:ir.model.fields,field_description:mrp_baseline.field_mrp_production_cost__split_method
+msgid "Split Method"
+msgstr "Método de División"
+
+#. module: mrp_baseline
+#: model:product.product,uom_name:mrp_baseline.product_mrp_close
+#: model:product.product,uom_name:mrp_baseline.product_mrp_cost
+#: model:product.template,uom_name:mrp_baseline.product_mrp_close_product_template
+#: model:product.template,uom_name:mrp_baseline.product_mrp_cost_product_template
+msgid "Units"
+msgstr "Unidades"
+
+#. module: mrp_baseline
+#: model:ir.model,name:mrp_baseline.model_mrp_workcenter
+msgid "Work Center"
+msgstr "Centro de producción"
+
+#. module: mrp_baseline
+#: model:ir.model,name:mrp_baseline.model_mrp_workorder
+msgid "Work Order"
+msgstr "Orden de trabajo"

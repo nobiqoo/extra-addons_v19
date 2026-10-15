@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UniversalResponse version="1.1" xmlns="http://www.cargowise.com/Schemas/Universal/2011/11">
+	<Status>PRS</Status>
+	<Data>
+		<UniversalEvent xmlns="http://www.cargowise.com/Schemas/Universal/2011/11" version="1.1">
+			<Event>
+				<DataContext>
+					<DataSourceCollection>
+						<DataSource>
+							<Type>AccountingInvoice</Type>
+							<Key>AR INV 00001026</Key>
+						</DataSource>
+					</DataSourceCollection>
+
+					<Company>
+						<Code>BOG</Code>
+						<Country>
+							<Code>CO</Code>
+							<Name>Colombia</Name>
+						</Country>
+						<Name>logistic SAS</Name>
+					</Company>
+					<DataProvider>C07TRNBOG</DataProvider>
+					<EnterpriseID>C07</EnterpriseID>
+					<ServerID>TRN</ServerID>
+				</DataContext>
+
+				<EventType>DIM</EventType>
+
+				<ContextCollection>
+					<Context>
+						<Type>DataProvider</Type>
+						<Value>ODOO</Value>
+					</Context>
+					<Context>
+						<Type>ProcessingLog</Type>
+						<Value>Linked Event to Accounts Receivable Invoice.
+							Field [AccTransactionHeader.AH_TransactionReference] has been updated to
+							value [OT3730] on
+							Accounts Receivable Invoice.</Value>
+					</Context>
+					<Context>
+						<Type>ProcessingStatusCode</Type>
+						<Value>PRS</Value>
+						<!--
+							PRS: Procesado
+							WRN: Warning
+							ERR: Falló
+						 -->
+					</Context>
+				</ContextCollection>
+			</Event>
+		</UniversalEvent>
+	</Data>
+	<ProcessingLog>Comment found at Line 9 :-
+		Servidor de Pruebas/Entrenamiento -&gt; TRN
+		Servidor de Producción -&gt; PRD
+
+		Linked Event to Accounts Receivable Invoice.
+		Field [AccTransactionHeader.AH_TransactionReference] has been updated to value [OT3730] on
+		Accounts Receivable
+		Invoice.</ProcessingLog>
+</UniversalResponse>

@@ -1,0 +1,409 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_payment_order_baseline
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-29 01:25+0000\n"
+"PO-Revision-Date: 2025-12-29 01:25+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "<strong>Company Currency:</strong>"
+msgstr "<strong>Moneda de la Compañía:</strong>"
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "<strong>Execution:</strong>"
+msgstr "<strong>Ejecución:</strong>"
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "<strong>Payment Type:</strong>"
+msgstr "<strong>Tipo de pago:</strong>"
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "<strong>Reference</strong>"
+msgstr "<strong>Referencia</strong>"
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "<strong>Total</strong>"
+msgstr ""
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "<strong>Used Account:</strong>"
+msgstr "<strong>Cuenta usada:</strong>"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields,field_description:account_payment_order_baseline.field_account_payment_order__foreign_currency
+msgid "Active foreign currency"
+msgstr "Moneda extranjera activa"
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "Amount"
+msgstr "Importe"
+
+#. module: account_payment_order_baseline
+#: model:ir.model,name:account_payment_order_baseline.model_res_bank
+msgid "Bank"
+msgstr "Banco"
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "Bank Account"
+msgstr "Cuenta bancaria"
+
+#. module: account_payment_order_baseline
+#: model:res.groups,name:account_payment_order_baseline.group_action_cancel_payment_order
+msgid "Cancel payment"
+msgstr "Cancelar pago"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields,field_description:account_payment_order_baseline.field_res_company__charges_from_the_journal
+msgid "Charge account from the journal"
+msgstr "Cargar cuenta desde el diario"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields,field_description:account_payment_order_baseline.field_res_company__restrict_paid_document_unreconcile
+msgid "Restrict unreconciling paid documents"
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment_order.py:0
+msgid "You can only confirm payment orders that are in draft state."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment_order.py:0
+msgid "You can only reset to draft payment orders that are in cancel state."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment_order.py:0
+msgid "You are not allowed to cancel payment orders."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_move.py:0
+msgid "You cannot unreconcile '%(move)s' directly. It already has a payment registered from %(origen)s. To undo the reconciliation you must cancel or reset to draft that source document."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_move.py:0
+msgid "The linked voucher of a journal entry cannot be changed directly."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_voucher.py:0
+msgid "The linked journal entry of a voucher cannot be set on creation."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_voucher.py:0
+msgid "A voucher must be created in draft state."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_voucher.py:0
+msgid "The linked journal entry or state of a voucher cannot be changed directly."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_voucher.py:0
+msgid "You can only reset to draft vouchers that are in cancel state."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_voucher.py:0
+msgid "Cannot cancel voucher(s) %s: the linked journal entry does not point back to this voucher."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_voucher.py:0
+msgid "You are not allowed to cancel posted vouchers."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment_order.py:0
+msgid "A payment order must be created in draft state."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment_order.py:0
+msgid "The state of a payment order cannot be changed directly."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_move.py:0
+msgid "The linked payment order of a journal entry cannot be changed directly."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment.py:0
+msgid "The linked payment order of a payment cannot be changed directly."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_move.py:0
+msgid "A journal entry cannot be linked to a payment order on creation."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment.py:0
+msgid "A payment cannot be linked to a payment order on creation."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.account_payment_mode_form
+msgid "Combined Entries"
+msgstr "Asientos Combinados"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields,field_description:account_payment_order_baseline.field_account_payment_mode__combined_move_account_payment_order
+msgid "Combined Move on Payment Order"
+msgstr "Asientos Combinados en Órdenes de Pago"
+
+#. module: account_payment_order_baseline
+#: model:ir.model,name:account_payment_order_baseline.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.res_company_policies_view_form
+msgid "Company policies"
+msgstr "Políticas"
+
+#. module: account_payment_order_baseline
+#: model:res.groups,name:account_payment_order_baseline.group_confirm_payments_payment_order
+msgid "Confirm payments"
+msgstr "Confirmar pagos"
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields,field_description:account_payment_order_baseline.field_account_payment_order__current_exchange_rate
+msgid "Current exchange rate"
+msgstr "Tasa de cambio actual"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields,field_description:account_payment_order_baseline.field_account_payment_order__order_date
+msgid "Date order"
+msgstr "Fecha de la orden"
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "Debit Order"
+msgstr "Órdenes de cobro"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields,field_description:account_payment_order_baseline.field_account_payment_line__diff_exchange_rate
+msgid "Diff exchange rate"
+msgstr "Dif tasa de cambio"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields,field_description:account_payment_order_baseline.field_account_payment_line__exchange_rate
+msgid "Exchange rate"
+msgstr "Tasa de cambio"
+
+#. module: account_payment_order_baseline
+#: model:res.groups,name:account_payment_order_baseline.group_file_uploaded_successfully_payment_order
+msgid "File uploaded successfully"
+msgstr "El archivo ha subido correctamente"
+
+#. module: account_payment_order_baseline
+#: model:res.groups,name:account_payment_order_baseline.group_generate_payment_file_payment_order
+msgid "Generate payment file"
+msgstr "Generar archivo de pago"
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "Invoice Ref"
+msgstr "Referencia de factura"
+
+#. module: account_payment_order_baseline
+#: model:ir.model,name:account_payment_order_baseline.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment_order.py:0
+msgid "Missing Bank Journal on payment order %s."
+msgstr "No se ha establecido el diario de banco en la orden %s."
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment_order.py:0
+msgid "Missing bank account on bank journal '%s'."
+msgstr "Falta la cuenta bancaria para el diario de banco '%s'."
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment_order.py:0
+msgid ""
+"On payment order %(porder)s, the Payment Execution Date is in the past "
+"(%(exedate)s)."
+msgstr ""
+"En la orden de pago %(porder)s, la Fecha de Ejecución del Pago ya ha pasado "
+"(%(exedate)s)."
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: account_payment_order_baseline
+#: model:ir.model,name:account_payment_order_baseline.model_account_payment_line
+msgid "Payment Lines"
+msgstr "Líneas de pago"
+
+#. module: account_payment_order_baseline
+#: model:ir.model,name:account_payment_order_baseline.model_account_payment_mode
+msgid "Payment Modes"
+msgstr "Modos de pago"
+
+#. module: account_payment_order_baseline
+#: model:ir.actions.report,name:account_payment_order_baseline.action_print_payment_simple_order
+#: model:ir.model,name:account_payment_order_baseline.model_account_payment_order
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "Payment Order"
+msgstr "Orden de pago"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields,field_description:account_payment_order_baseline.field_account_payment_order__payment_type_order
+msgid "Payment Type"
+msgstr "Tipo de Pago"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields,field_description:account_payment_order_baseline.field_res_company__payments_from_the_journal
+msgid "Payment accounts from the journal"
+msgstr "Cuentas de pago desde el diario"
+
+#. module: account_payment_order_baseline
+#: model:ir.model,name:account_payment_order_baseline.model_account_payment
+msgid "Payments"
+msgstr "Pagos"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields.selection,name:account_payment_order_baseline.selection__account_payment_order__payment_type_order__payroll
+msgid "Payroll"
+msgstr "Pago Nómina"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields.selection,name:account_payment_order_baseline.selection__account_payment_order__payment_type_order__suppliers
+msgid "Suppliers"
+msgstr "Pago Proveedores"
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment_order.py:0
+msgid ""
+"The amount for Partner '%(partner)s' is negative or null (%(amount).2f) !"
+msgstr ""
+"¡La cantidad para el partner '%(partner)s' es negativa o nula "
+"(%(amount).2f)!"
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment_order.py:0
+msgid ""
+"The payment mode '%(pmode)s' has the option 'Disallow Debit Before Maturity "
+"Date'. The payment line %(pline)s has a maturity date %(mdate)s which is "
+"after the computed payment date %(pdate)s."
+msgstr ""
+"El modo de pago '%(pmode)s' tiene la opción 'No permitir débito antes de la "
+"fecha de vencimiento'. La línea de pago %(pline)s tiene una fecha de "
+"vencimiento %(mdate)s que es posterior a la fecha de pago calculada "
+"%(pdate)s."
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment_order.py:0
+msgid "There are no transactions on payment order %s."
+msgstr "No hay transacciones en la orden %s."
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment_order.py:0
+msgid "There's at least one validation error:\n"
+msgstr "Hay al menos un error de validación:\n"
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "Total (Currency)"
+msgstr "Total (Moneda)"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields,field_description:account_payment_order_baseline.field_account_payment_order__total_currency_amount
+msgid "Total currency amount"
+msgstr "Importe total de divisa"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields,field_description:account_payment_order_baseline.field_account_payment_order__total_company_currency_exchange_rate
+msgid "Total currency amount (company)"
+msgstr "Importe total de divisa (compañía)"
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields.selection,name:account_payment_order_baseline.selection__account_payment_order__payment_type_order__transfer
+msgid "Transfer"
+msgstr "Transferencia"
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.print_account_payment_order_simple_document
+msgid "Value Date"
+msgstr "Fecha de Valor"
+
+#. module: account_payment_order_baseline
+#: model:ir.model,name:account_payment_order_baseline.model_account_payment_line_create
+msgid "Wizard to create payment lines"
+msgstr "Asistente para crear líneas de pago"
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment_order.py:0
+msgid "You can only generate the payment file for payment orders that are in open state."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_payment_order.py:0
+msgid "You can only upload payment orders that are in generated state."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#. odoo-python
+#: code:addons/account_payment_order_baseline/models/account_voucher.py:0
+msgid "You cannot delete voucher '%s' while its journal entry is posted. Cancel it first."
+msgstr ""

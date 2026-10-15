@@ -1,0 +1,541 @@
+
+a:hover {  
+    text-decoration: none;
+}
+
+body.wk-portal-loading {
+    overflow: hidden;
+}
+
+.wk-portal-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    color: #0f172a;
+}
+
+.wk-portal-loader_backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(237, 241, 249, 0.75);
+    backdrop-filter: blur(2px);
+}
+
+.wk-portal-loader_spinner {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 4px solid #cbd5f5;
+    border-top-color: #2563EA;
+    animation: wk-portal-spin 0.8s linear infinite;
+    z-index: 1;
+}
+
+.wk-portal-loader_text {
+    position: relative;
+    z-index: 1;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+@keyframes wk-portal-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+a.active.menu {  
+    color: #2563EA !important;
+}
+a.fee_terms {  
+    color: #334155;
+    text-decoration: underline;
+}
+
+.subject-card {
+    border: 1px solid #E1E7EF;
+}
+
+.grade_card_label{
+    color: #475569;
+}
+
+.table-hover tr:hover {
+    cursor: pointer;
+    background-color: #edf1f9; 
+}
+
+.form_tab a {
+    color: black 
+}
+
+.form_tab .nav-link.active {
+    color: #2563EA !important;
+    background-color: #DAE9FD;
+}
+
+.img-container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.img-container:hover img {
+    opacity: 0.4;
+    cursor: pointer;
+    filter: rgb(22, 21, 21);
+    -webkit-filter: grayscale(2);
+}
+.download-icon {
+    bottom: 0; 
+    right:0;
+    display: none; 
+}
+
+.img-container:hover .download-icon {
+    display: block;
+}
+
+.attachment-card {
+    background-color: rgba(222, 226, 230, var(--bg-opacity, 1));
+    height: 100%;
+    display: flex;
+    flex-direction: column; 
+}
+
+.attachment-card .row {
+    display: flex;
+    align-items: center;
+}
+
+.attachment-card .col-8 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.filename-container {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fee_amount{
+    border: 1px solid #F0F4F8;
+    border-radius: 8px;
+    border-width: 1px;
+    background: #FFFFFF;
+}
+
+.fee_amount_label{
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.fee_amount_value{
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #1E293B;
+}
+
+#menu .nav-item a {
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    padding: 0.5rem 1rem; 
+}
+
+#menu .nav-item a:hover {
+    background-color: rgba(255, 255, 255, 0.2); 
+}
+.no-hover:hover {
+    background-color: transparent !important; 
+}
+
+.fc-time-grid-event{
+    color:black !important;
+}
+.fc-event{
+    color:black !important;
+}
+.fc-start{
+    color:black  !important;
+}
+.fc-end{
+    color:black  !important;
+}
+.fc-content{
+    font-weight:500 !important;
+}
+
+@media (max-width: 768px) {
+    .nav-item .sidebar-title {
+    display: none; 
+    }
+    .sidebar-title {
+        display: none; 
+    }
+    .user-img{
+        width: 30px;
+    }
+
+    .nav-item img {
+    width: 30px; 
+    }
+
+    .sidebar-button-collapse{
+        display: none; 
+    }
+
+    .public-holiday-name {
+        margin-top: 50%;
+        font-size: 1em; 
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+    }
+}
+
+.attendance_card_calendar .fc-daygrid-day-number {
+    position: absolute;
+    left:50%;
+    transform: translate(-61%,18%);
+    font-size: 15px;
+}
+
+.attendance_card_calendar a{
+    color:rgb(33, 37, 41);
+}
+#calendar a{
+    color:rgb(33, 37, 41);
+}
+
+.attendance_card_calendar td.fc-day-today{
+    background-color: #c8e6ef !important;
+}
+
+.attendance_card_calendar  .fc-sunday-circle {
+    width: 29px; 
+    height: 29px; 
+    background-color: #dfdfdf; 
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-52%, 25%);
+    z-index: -1; 
+    text-align: center;
+}
+
+.attendance_card_calendar .fc-event-present, 
+.attendance_card_calendar .fc-event-absent, 
+.attendance_card_calendar .fc-event-public_holiday {
+    width: 29px; 
+    height: 29px; 
+    border-radius: 50%;
+    left: 50%;
+    transform: translate(-61%, 14%);
+    z-index: 1;
+}
+
+.attendance_card_calendar .fc-event-present {
+    background-color: #16A24A;
+}
+
+.attendance_card_calendar .fc-event-absent {
+    background-color:#EE4444;
+}
+
+.attendance_card_calendar .fc-event {
+    border: none;
+}
+
+.attendance_card_calendar .fc-event-public_holiday {
+    background-color: #3B81F5;
+}
+
+.public-holiday-name{
+    margin-top: 56%;
+    font-size: 14px;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+
+    .fc-sunday-circle {
+        width: 28px; 
+        height: 28px;
+    }
+    .public-holiday-name {
+        margin-top: 50%;
+        font-size: 1em; 
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+    }
+}
+
+.attendance-view-buttons .btn-active {
+    background-color: #FFFFFF;
+    border: 2px solid #E1E7EF;
+}
+
+.attendance-view-buttons .btn-inactive {
+    background-color: #E1E7EF;
+    border: none;
+}
+
+.inactive-timetable{
+    background-color: #E1E7EF;
+    border: none;
+}
+
+.active-timetable{
+    background-color: #FFFFFF;
+    border: 2px solid #E1E7EF;
+}
+
+.attendance_card_calendar .fc-toolbar h2 {
+    font-size: 1em; 
+}
+
+.attendance_card_calendar .fc-header-toolbar .fc-toolbar-chunk:nth-child(3) {
+    display: none;
+}
+
+#calendar .fc-event-main-frame {
+    color: black;
+    font-weight: 550;
+}
+
+#calendar .fc-daygrid-event {
+    background-color: #bbcffb;
+}
+
+@media (min-width: 768px) and (max-width: 1228px) {
+    .app_form .row.mt-3.align-items-center {
+        flex-direction: column !important;
+    }
+    .app_form .row.mt-3.align-items-center > div {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    .app_form .row.mt-3.align-items-center .col-md-2,
+    .app_form .row.mt-3.align-items-center .col-md-5 {
+        margin-bottom: 1rem !important;
+    }
+    .app_form .row.mt-3.align-items-center .order-1,
+    .app_form .row.mt-3.align-items-center .order-2,
+    .app_form .row.mt-3.align-items-center .order-3 {
+        order: unset !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .btn-group[role="group"] {
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+    .btn-group[role="group"] > button,
+    .btn-group[role="group"] > .btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 0.5em;
+    }
+    .input-group.flex-nowrap {
+        flex-wrap: wrap !important;
+    }
+    #name_search, #state_selection {
+        min-width: 0 !important;
+        width: 100% !important;
+        margin-bottom: 0.5em;
+    }
+    #state_selection {
+        margin-bottom: 0.5em;
+    }
+}
+
+.responsive-circle {
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+  width: 100%;
+  max-width: 80px;
+}
+
+@media (min-width: 600px) {
+  .responsive-circle {
+    max-width: 120px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-circle {
+    max-width: 90px;
+  }
+}
+
+@media (max-width: 380px) {
+  .user_img {
+    width: 30px !important; 
+    height: 30px !important;
+  }
+}
+
+@media (max-width: 1048px) {
+  .sidebar-content-text {
+    font-size: small;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+}
+
+@media (max-width: 600px) {
+    #attendance-calendar {
+        min-height: 350px !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+    #attendance-calendar .fc {
+        min-height: 350px !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+    #attendance-calendar .fc-view-harness {
+        min-height: 350px !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+    #attendance-calendar .fc-view {
+        min-height: 350px !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+    #attendance-calendar .fc-toolbar-title { font-size: 1.1em; }
+    #attendance-calendar .fc-daygrid-day-number { 
+        font-size: 0.8em; 
+        width: 1.3em !important;
+        height: 1.3em !important;
+        min-width: 1.3em !important;
+        min-height: 1.3em !important;
+        max-width: 1.3em !important;
+        max-height: 1.3em !important;
+    }
+    #attendance-calendar .fc-daygrid-event { font-size: 0.75em; padding: 1px 2px; }
+    #attendance-calendar .public-holiday-name { 
+        font-size: 0.75em; 
+        margin-top: -5% !important; 
+        display: none !important; /* Hide event name on mobile */
+    }
+    #attendance-calendar .fc-event-circle,
+    #attendance-calendar .fc-sunday-circle {
+        width: 1.3em !important;
+        height: 1.3em !important;
+        min-width: 1.3em !important;
+        min-height: 1.3em !important;
+        max-width: 1.3em !important;
+        max-height: 1.3em !important;
+        font-size: 0.8em !important;
+    }
+    #attendance-calendar td.fc-daygrid-day {
+        height: 2.2em !important;
+        min-height: 2.2em !important;
+        max-height: 2.2em !important;
+        padding: 0 !important;
+    }
+    #attendance-calendar .fc-daygrid-day-top {
+        margin-top: 10px !important; 
+        margin-bottom: -40px !important;
+    }
+}
+#attendance-calendar {
+    min-height: 350px;
+}
+#attendance-calendar .fc-daygrid-day-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2em !important;
+    height: 2.2em !important;
+    margin: 0 auto;
+    font-weight: 500;
+    min-width: 2.2em !important;
+    min-height: 2.2em !important;
+    box-sizing: border-box;
+}
+#attendance-calendar .fc-event-circle {
+    border-radius: 50% !important;
+    color: #fff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 2.2em !important;
+    height: 2.2em !important;
+    min-width: 2.2em !important;
+    min-height: 2.2em !important;
+    margin: 0 auto !important;
+}
+#attendance-calendar .fc-h-event {
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+    display: block !important;
+}
+#attendance-calendar .fc-event-present-circle {
+    background: #4caf50 !important;
+}
+#attendance-calendar .fc-event-absent-circle {
+    background: #f44336 !important;
+}
+#attendance-calendar .fc-event-public_holiday-circle {
+    background: #3B81F5 !important;
+}
+#attendance-calendar .fc-sunday-circle {
+    border-radius: 50%;
+    background: #dfdfdf !important;
+    color: black !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 2.2em !important;
+    height: 2.2em !important;
+    min-width: 2.2em !important;
+    min-height: 2.2em !important;
+    margin: 0 auto !important;
+}
+#attendance-calendar a {
+    color: black !important;
+}
+#attendance-calendar .fc-daygrid-day-top {
+    margin-top: 50px;
+}
+#attendance-calendar .public-holiday-name {
+    font-size: 0.9em;
+    margin-top: -5% !important;
+    text-align: center;
+}
+
+@media  (max-width: 500px) {
+    .attendance_card_calendar .fc-daygrid-day-frame{
+        padding: 12px !important;
+        margin-top: -8px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 990px) {
+    .transcript_data_section{
+        margin-top: 5rem !important;
+    }
+}
+
+.fc-past-day-opacity {
+    opacity: 0.3;
+}

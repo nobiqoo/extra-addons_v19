@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_payslip_report_wizard_view_form" model="ir.ui.view">
+            <field name="name">hr.payslip.report.wizard.view.form</field>
+            <field name="model">hr.payslip.report.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de conceptos de nomina">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="template_id" required="1"/>
+                                <field name="search_type" required="1"/>
+                                <field
+                                    name="period_id"
+                                    invisible="search_type != 'unique'"
+                                    required="search_type == 'unique'" />
+                                <field
+                                    name="from_period_id"
+                                    invisible="search_type == 'unique'"
+                                    required="search_type != 'unique'" />
+                            </group>
+                            <group>
+                                <field name="payslip_state" />
+                                <field name="payslip_types_ids" widget="many2many_tags"/>
+                                <field
+                                    name="to_period_id"
+                                    invisible="search_type == 'unique'"
+                                    required="search_type != 'unique'" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Contratos">
+                                <field name="contracts_ids">
+                                    <list>
+                                        <field name="name" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Grupos de Contratos">
+                                <field name="contract_groups_ids">
+                                    <list>
+                                        <field name="name" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button name="make_report_xlsx" string="Descargar Reporte" class="btn btn-primary"
+                            type="object" /> 
+                        O 
+                        <button string="Cancelar" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_payslip_report_wizard_action" model="ir.actions.act_window">
+            <field name="name">Reporte de nómina</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payslip.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="hr_payslip_report_wizard_view_form" />
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="hr_payslip_report_wizard_menu_act" name="Reporte de nómina"
+            parent="reports_menu_categ" action="hr_payslip_report_wizard_action" sequence="2" />
+
+    </data>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_line_amounts_currency" model="ir.ui.view">
+        <field name="name">account.move.form.line.amounts.currency</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <div name="currency_div" position="inside">
+                <field name="line_amounts_currency_id" invisible="1" />
+            </div>
+        </field>
+    </record>
+</odoo>

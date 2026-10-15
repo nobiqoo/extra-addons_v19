@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_move_search" model="ir.ui.view">
+            <field name="name">view.account.move.search</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_move_filter" />
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='date']" position="after">
+                    <separator />
+                    <filter string="Local / IFRS" name="both" domain="[('ifrs_type', '=', 'both')]" groups="account_ifrs.group_account_ifrs"/>
+                    <filter string="Local" name="local" domain="[('ifrs_type', '=', 'local')]" groups="account_ifrs.group_account_ifrs"/>
+                    <filter string="IFRS" name="ifrs" domain="[('ifrs_type', '=', 'ifrs')]" groups="account_ifrs.group_account_ifrs"/>
+                </xpath>
+                <xpath expr="//filter[@name='by_company']" position="before">
+                    <filter string="IFRS Type" name="by_ifrs" domain="[]" context="{'group_by': 'ifrs_type'}" groups="account_ifrs.group_account_ifrs"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_move_tree" model="ir.ui.view">
+            <field name="name">view.account.move.tree</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="ifrs_type" optional="hide" groups="account_ifrs.group_account_ifrs"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_move_form" model="ir.ui.view">
+            <field name="name">view.account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ref'][2]" position="after">
+                    <field name="ifrs_type" required="True" widget="radio" invisible="move_type != 'entry' or not has_ifrs_group" readonly="state != 'draft'"/>
+                    <field name="has_ifrs_group" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/list/field[@name='account_id']" position="before">
+                    <field name="ifrs_type" column_invisible="True" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/list/field[@name='debit']" position="attributes">
+                    <attribute name="invisible">display_type in ['line_section','line_note']</attribute>
+                    <attribute name="column_invisible">parent.ifrs_type == 'ifrs'</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/list/field[@name='debit']" position="after">
+                    <field name="ifrs_debit" sum="Total IFRS Debit" invisible="display_type in ['line_section','line_note']" column_invisible="parent.ifrs_type == 'local' or not parent.has_ifrs_group" readonly="ifrs_type == 'both'" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/list/field[@name='credit']" position="attributes">
+                    <attribute name="invisible">display_type in ['line_section','line_note']</attribute>
+                    <attribute name="column_invisible">parent.ifrs_type == 'ifrs'</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/list/field[@name='credit']" position="after">
+                    <field name="ifrs_credit" sum="Total IFRS Credit" invisible="display_type in ['line_section','line_note']" column_invisible="parent.ifrs_type == 'local' or not parent.has_ifrs_group" readonly="ifrs_type == 'both'" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/form/group/field[@name='account_id']" position="before">
+                    <field name="ifrs_type" invisible="True" />
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/form/group/field[@name='debit']" position="attributes">
+                    <attribute name="invisible">ifrs_type == 'ifrs'</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/form/group/field[@name='debit']" position="after">
+                    <field name="ifrs_debit" sum="Total IFRS Debit" invisible="ifrs_type == 'local'" groups="account_ifrs.group_account_ifrs"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/form/group/field[@name='credit']" position="attributes">
+                    <attribute name="invisible">ifrs_type == 'ifrs'</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/form/group/field[@name='credit']" position="after">
+                    <field name="ifrs_credit" sum="Total IFRS Credit" invisible="ifrs_type == 'local'" />
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/list/field[@name='balance']" position="attributes">
+                    <attribute name="column_invisible">0</attribute>
+                    <attribute name="optional">hide</attribute>
+                    <attribute name="sum">Total Balance</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/list/field[@name='balance']" position="after">
+                    <field name="ifrs_balance" sum="IFRS Balance" invisible="0" optional="hide" column_invisible="parent.ifrs_type == 'local' or not parent.has_ifrs_group" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_move_line_form" model="ir.ui.view">
+            <field name="name">view.account.move.line.form</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='information']/group[1]" position="inside">
+                    <group string="IFRS" groups="account_ifrs.group_account_ifrs">
+                        <field name="ifrs_debit" readonly="True" />
+                        <field name="ifrs_credit" readonly="True" />
+                        <field name="ifrs_balance" readonly="True" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_move_line_tree_ifrs" model="ir.ui.view">
+            <field name="name">view.account.move.line.tree.ifrs</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='credit']" position="after">
+                    <field name="ifrs_debit" sum="Total Débito NIIF" optional="hide" readonly="True" />
+                    <field name="ifrs_credit" sum="Total Crédito NIIF" optional="hide" readonly="True" />
+                    <field name="ifrs_balance" sum="Total Balance NIIF" optional="hide" readonly="True" />
+                </xpath>
+            </field>
+
+        </record>
+
+    </data>
+</odoo>

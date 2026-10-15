@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- Vista tree del reporte -->
+  <record id="daily_attendance_tree" model="ir.ui.view">
+    <field name="name">daily.attendance.tree</field>
+    <field name="model">daily.attendance</field>
+    <field name="arch" type="xml">
+      <list string="Attendance Analysis" create="false" edit="false" delete="false">
+        <field name="punching_day"/>
+        <field name="device_id_num" string="Biometric ID"/>
+        <field name="employee_id"/>
+        <field name="check_in"/>
+        <field name="check_out"/>
+        <field name="punch_count" string="# Punches"/>
+        <field name="ignored_count" string="Ignored"/>
+        <field name="ignored_punches" string="Ignored Punches"/>
+        <field name="is_danger"/>
+        <field name="address_id"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- Búsqueda y filtros del análisis diario -->
+  <record id="daily_attendance_search" model="ir.ui.view">
+    <field name="name">daily.attendance.search</field>
+    <field name="model">daily.attendance</field>
+    <field name="arch" type="xml">
+      <search string="Buscar análisis de asistencia">
+        <field name="employee_id"/>
+        <field name="device_id_num" string="Biometric ID"/>
+        <field name="punching_day"/>
+        <field name="check_in"/>
+        <field name="check_out"/>
+        <field name="punch_count"/>
+        <field name="ignored_count"/>
+        <field name="ignored_punches"/>
+        <field name="is_danger"/>
+        <field name="address_id"/>
+        <separator/>
+        <filter string="Requiere revisión" name="danger"
+                domain="[('is_danger', '=', True)]"/>
+        <filter string="Sin novedad" name="without_danger"
+                domain="[('is_danger', '=', False)]"/>
+        <filter string="Con marcaciones ignoradas" name="with_ignored"
+                domain="[('ignored_count', '&gt;', 0)]"/>
+        <filter string="Fecha" name="filter_punching_day" date="punching_day"/>
+        <separator/>
+        <filter string="Empleado" name="group_employee"
+                context="{'group_by': 'employee_id'}"/>
+        <filter string="Fecha" name="group_day"
+                context="{'group_by': 'punching_day'}"/>
+        <filter string="Lugar de trabajo" name="group_address"
+                context="{'group_by': 'address_id'}"/>
+        <filter string="Requiere revisión" name="group_danger"
+                context="{'group_by': 'is_danger'}"/>
+    </search>
+    </field>
+  </record>
+
+  <!-- *** ACCIÓN con id EXACTO requerido por el menú *** -->
+  <record id="daily_attendance_action" model="ir.actions.act_window">
+    <field name="name">Attendance Analysis</field>
+    <field name="res_model">daily.attendance</field>
+    <field name="view_mode">list</field>
+    <field name="search_view_id" ref="daily_attendance_search"/>
+  </record>
+</odoo>

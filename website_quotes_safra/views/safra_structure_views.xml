@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_safra_structure_rule_tree" model="ir.ui.view">
+        <field name="name">safra.structure.rule.tree</field>
+        <field name="model">safra.structure.rule</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="system_ids" widget="many2many_tags"/>
+                <field name="drive_type"/>
+                <field name="cabezal_type"/>
+                <field name="width_from"/>
+                <field name="width_to"/>
+                <field name="tubo"/>
+                <field name="mecanismo"/>
+                <field name="soporte"/>
+                <field name="terminal"/>
+                <field name="cabezal" optional="hide"/>
+                <field name="carga_maxima" optional="hide"/>
+                <field name="active" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_safra_structure_rule_form" model="ir.ui.view">
+        <field name="name">safra.structure.rule.form</field>
+        <field name="model">safra.structure.rule</field>
+        <field name="arch" type="xml">
+            <form string="Regla de estructura">
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group string="Aplicación">
+                            <field name="system_ids" widget="many2many_tags"/>
+                            <field name="drive_type"/>
+                            <field name="cabezal_type"/>
+                            <field name="width_from"/>
+                            <field name="width_to"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Estructura">
+                            <field name="tubo"/>
+                            <field name="mecanismo"/>
+                            <field name="soporte"/>
+                            <field name="terminal"/>
+                            <field name="cabezal"/>
+                            <field name="perfil"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Consumos (metros)">
+                            <field name="desc_mando"/>
+                            <field name="desc_terminal"/>
+                            <field name="desc_soporte"/>
+                            <field name="desc_corona"/>
+                            <field name="aumento_tela"/>
+                            <field name="aumento_perfil"/>
+                        </group>
+                        <group string="Límites físicos">
+                            <field name="espacio_eje_techo"/>
+                            <field name="diametro_tubo"/>
+                            <field name="carga_maxima"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_safra_structure_rule_search" model="ir.ui.view">
+        <field name="name">safra.structure.rule.search</field>
+        <field name="model">safra.structure.rule</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="tubo"/>
+                <field name="system_ids"/>
+                <filter name="manual" string="Manual" domain="[('drive_type','in',['manual','any'])]"/>
+                <filter name="motor" string="Motor" domain="[('drive_type','in',['motor','any'])]"/>
+                <filter name="group_drive" string="Accionamiento" context="{'group_by': 'drive_type'}"/>
+                <filter name="group_cabezal" string="Tipo cabezal" context="{'group_by': 'cabezal_type'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_safra_structure_rule" model="ir.actions.act_window">
+        <field name="name">Estructura por Ancho</field>
+        <field name="res_model">safra.structure.rule</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Configure la tabla de selección de estructura</p>
+            <p>Por sistema, accionamiento y rango de ancho: tubo, mecanismo,
+               soporte, terminal y cabezal, con sus consumos y límites.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_safra_cfg_structure" name="Estructura por Ancho"
+              parent="menu_safra_config" action="action_safra_structure_rule" sequence="15"/>
+
+    <record id="view_safra_motor_kit_tree" model="ir.ui.view">
+        <field name="name">safra.motor.kit.tree</field>
+        <field name="model">safra.motor.kit</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="motor_name"/>
+                <field name="tubo"/>
+                <field name="corona"/>
+                <field name="adaptador"/>
+                <field name="control_values"/>
+                <field name="interruptor" optional="show"/>
+                <field name="aplica_cargador" optional="show"/>
+                <field name="compra_completa" optional="show"/>
+                <field name="active" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_safra_motor_kit_form" model="ir.ui.view">
+        <field name="name">safra.motor.kit.form</field>
+        <field name="model">safra.motor.kit</field>
+        <field name="arch" type="xml">
+            <form string="Kit motorizado">
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group string="Motor y tubo">
+                            <field name="motor_value"/>
+                            <field name="motor_name"/>
+                            <field name="tubo"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Componentes del kit (texto hoja 2)">
+                            <field name="corona"/>
+                            <field name="adaptador"/>
+                            <field name="soportes"/>
+                            <field name="interruptor"/>
+                        </group>
+                    </group>
+                    <!-- OBS REU GENERALES 11-sep: componentes amarrados al
+                         maestro de productos con cantidades (los campos de
+                         texto quedan como referencia de la hoja 2). -->
+                    <group string="Componentes del kit (maestro de productos)">
+                        <field name="component_ids" nolabel="1" colspan="2">
+                            <list editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="role"/>
+                                <field name="product_id"/>
+                                <field name="quantity"/>
+                                <field name="note" optional="show"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group>
+                        <group string="Controles compatibles">
+                            <field name="control_names"/>
+                            <field name="control_values"/>
+                        </group>
+                        <group string="Comportamiento">
+                            <field name="aplica_cargador"/>
+                            <field name="compra_completa"/>
+                            <field name="nota"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_safra_motor_kit" model="ir.actions.act_window">
+        <field name="name">Kits Motorizados</field>
+        <field name="res_model">safra.motor.kit</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Configure los kits motorizados</p>
+            <p>Por motor y tubo: corona, adaptador, soportes, interruptor y
+               controles compatibles (hoja 2 del Excel de la matriz).</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_safra_cfg_motor_kit" name="Kits Motorizados"
+              parent="menu_safra_config" action="action_safra_motor_kit" sequence="16"/>
+
+
+    <!-- Revisión 17-sep: fórmulas del máximo total de lamas/pantógrafos. -->
+    <record id="view_safra_lamas_rule_tree" model="ir.ui.view">
+        <field name="name">safra.lamas.rule.list</field>
+        <field name="model">safra.lamas.rule</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" open_form_view="1">
+                <field name="system_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                <field name="drive_type"/>
+                <field name="apertura"/>
+                <field name="aux"/>
+                <field name="divisor"/>
+                <field name="adicional"/>
+                <field name="dividir_2"/>
+                <field name="round_even"/>
+                <field name="formula_code" optional="hide"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_safra_lamas_rule_form" model="ir.ui.view">
+        <field name="name">safra.lamas.rule.form</field>
+        <field name="model">safra.lamas.rule</field>
+        <field name="arch" type="xml">
+            <form string="Fórmula de máximo de lamas">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="system_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="drive_type"/>
+                            <field name="apertura"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Constantes (fórmula estándar)">
+                            <field name="aux"/>
+                            <field name="divisor"/>
+                            <field name="adicional"/>
+                            <field name="dividir_2"/>
+                            <field name="round_even"/>
+                        </group>
+                    </group>
+                    <group string="Fórmula (código)">
+                        <field name="formula_code" nolabel="1" colspan="2" widget="code"
+                               options="{'language': 'python'}"
+                               placeholder="Vacío = fórmula estándar: (ancho - aux) / divisor + adicional"/>
+                    </group>
+                    <div class="alert alert-info" role="status">
+                        <h5>¿Cómo funciona la fórmula?</h5>
+                        <p class="mb-1">El portal calcula el <b>Máximo total lamas</b> evaluando esta fórmula
+                        con los datos de la línea. El resultado se redondea al entero más cercano
+                        (y <b>a número par</b> en apertura Extremos, si el check está marcado).</p>
+                        <p class="mb-1"><b>Variables disponibles:</b></p>
+                        <ul class="mb-1">
+                            <li><code>ancho</code> — ancho real digitado por el cliente (m)</li>
+                            <li><code>apertura</code> — <code>'extremos'</code>, <code>'centro'</code>, <code>'izquierda'</code> o <code>'derecha'</code></li>
+                            <li><code>motorizado</code> — <code>True</code> si la persiana lleva motor</li>
+                            <li><code>aux</code>, <code>divisor</code>, <code>adicional</code> — las constantes de este registro</li>
+                            <li><b>Cualquier campo del cotizador</b> por su código técnico (Catálogo de Campos),
+                            p. ej. <code>height</code> o un campo nuevo que se cree después: los números
+                            llegan como número y el resto como texto.</li>
+                        </ul>
+                        <p class="mb-1"><b>Ejemplo 1 — fórmula simple</b> (usa las constantes del registro):</p>
+                        <pre class="mb-1">(ancho - aux) / divisor + adicional</pre>
+                        <p class="mb-1"><b>Ejemplo 2 — valores distintos por apertura</b> (un diccionario elige el
+                        Aux y el Adicional según la apertura; así una sola regla cubre las cuatro):</p>
+                        <pre class="mb-1">(ancho - {'extremos': 0.132, 'centro': 0, 'izquierda': 0.09, 'derecha': 0.09}[apertura]) / 0.08
+  + {'extremos': 2, 'centro': 0, 'izquierda': 1, 'derecha': 1}[apertura]</pre>
+                        <p class="mb-1"><b>Ejemplo 3 — fórmula distinta si es motorizada</b> (el condicional
+                        <code>if / else</code> parte la fórmula en dos):</p>
+                        <pre class="mb-1">((ancho - 0.172) / 1.106 + 2) if not motorizado else (ancho / 1.105 - 1)</pre>
+                        <p class="mb-1"><b>Ejemplo 4 — varias líneas</b> (como las reglas salariales de
+                        nómina: el bloque asigna <code>result</code>):</p>
+                        <pre class="mb-1">if motorizado:
+    result = ancho / 1.105 - 1
+else:
+    result = (ancho - 0.172) / 1.106 + 2</pre>
+                        <p class="mb-0"><b>Reglas del juego:</b> una regla con apertura «Todas» y accionamiento
+                        «Ambos» cubre todo el sistema; si crea otra regla con apertura o accionamiento
+                        concretos, esa gana para ese caso. Al guardar, la fórmula se prueba con las
+                        cuatro aperturas, manual y motorizada; si tiene un error, no se guarda y el
+                        mensaje dice cuál es.</p>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_safra_lamas_rule" model="ir.actions.act_window">
+        <field name="name">Máximo de Lamas</field>
+        <field name="res_model">safra.lamas.rule</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Configure la fórmula del máximo de lamas</p>
+            <p>Total = (Ancho − Aux) / Divisor + Adicional, por sistema,
+               accionamiento y apertura; en Extremos se redondea a par.</p>
+        </field>
+    </record>
+    <menuitem id="menu_safra_cfg_lamas_rule" name="Máximo de Lamas"
+              parent="menu_safra_config" action="action_safra_lamas_rule" sequence="17"/>
+
+    <!-- Pendientes 24-sep (7.1) / revisión 09-oct: UNA fórmula de
+         combinaciones por sistema, como el Máximo de Lamas. Se reutilizan
+         los identificadores del antiguo «tipo de reparto» para no borrar
+         el menú, la acción ni las vistas. -->
+    <record id="view_safra_panel_tipo_tree" model="ir.ui.view">
+        <field name="name">safra.panel.combo.rule.list</field>
+        <field name="model">safra.panel.combo.rule</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="system_ids" widget="many2many_tags"/>
+                <field name="formula_canales"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_safra_panel_tipo_form" model="ir.ui.view">
+        <field name="name">safra.panel.combo.rule.form</field>
+        <field name="model">safra.panel.combo.rule</field>
+        <field name="arch" type="xml">
+            <form string="Fórmula de combinaciones">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="system_ids" widget="many2many_tags"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Ancho de cada telo">
+                        <field name="formula_ancho_telo" nolabel="1" colspan="2" widget="code"
+                               options="{'language': 'python'}"/>
+                    </group>
+                    <group string="Canales de riel">
+                        <field name="formula_canales" nolabel="1" colspan="2" widget="code"
+                               options="{'language': 'python'}"/>
+                    </group>
+                    <group string="Riel Velcrado (excepciones)">
+                        <field name="velcrado_ids" nolabel="1" colspan="2">
+                            <list editable="bottom">
+                                <field name="apertura"/>
+                                <field name="telos"/>
+                                <field name="riel"/>
+                            </list>
+                        </field>
+                    </group>
+                    <div class="alert alert-info" role="status">
+                        <h5>¿Cómo funciona la fórmula?</h5>
+                        <p class="mb-1">Para cada cantidad de telos (de 2 a 12) y cada apertura, el
+                        portal calcula el <b>ancho de cada telo</b> y los <b>canales de riel</b> que se
+                        necesitan. La combinación se ofrece si el telo queda dentro del rango de los
+                        Parámetros (35 a 95 cm) y existe un riel con <b>exactamente</b> esos canales.
+                        Centro y Extremos reparten mitad y mitad, así que solo van con cantidades pares.</p>
+                        <p class="mb-1"><b>Variables:</b> <code>ancho</code> y <code>traslape</code> (m),
+                        <code>telos</code>, <code>lado</code> (telos ÷ 2), <code>apertura</code>
+                        (<code>'derecha'</code>, <code>'izquierda'</code>, <code>'centro'</code>,
+                        <code>'extremos'</code> o <code>'libre'</code>), <code>max_riel</code> y
+                        <b>cualquier campo del cotizador</b> por su código técnico (p. ej. <code>height</code>).</p>
+                        <p class="mb-1"><b>Fórmula de hoy:</b> canales = telos × factor + adicional, con un
+                        valor por apertura (como el Aux y el Adicional del Máximo de Lamas):</p>
+                        <pre class="mb-1">Derecha / Izquierda:  telos × 1   + 0   (un canal por telo)
+Centro:               telos × 1   + 1   (uno extra para que cierre en el centro)
+Extremos:             telos × 0,5 + 1   (los lados comparten: la mitad, más uno)</pre>
+                        <p class="mb-1"><b>Apertura Libre:</b> una apertura que no está en los
+                        diccionarios no se ofrece en el portal. Para habilitarla se agrega
+                        <code>'libre'</code> en los dos diccionarios con sus valores.</p>
+                        <p class="mb-1"><b>Riel Velcrado:</b> con esa apertura y esa cantidad de telos se
+                        usa ese riel aunque los canales no coincidan, y la combinación sale con la
+                        condición «Con Riel Velcrado» (documento FORMULA FINAL).</p>
+                        <p class="mb-0"><b>Al guardar</b>, las fórmulas se prueban con 2 a 12 telos, ancho
+                        2,40 m, traslape 8 cm y cada apertura; si tienen un error, no se guardan y el
+                        mensaje dice cuál es.</p>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_safra_panel_tipo" model="ir.actions.act_window">
+        <field name="name">Fórmula de Combinaciones</field>
+        <field name="res_model">safra.panel.combo.rule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <!-- 29-sep (pedido de Jorge): todo lo de combinaciones agrupado en un
+         solo submenú de Configuración. -->
+    <menuitem id="menu_safra_combos" name="Combinaciones de telos"
+              parent="menu_safra_config" sequence="18"/>
+    <menuitem id="menu_safra_panel_tipo" name="Fórmula"
+              parent="menu_safra_combos" action="action_safra_panel_tipo" sequence="10"/>
+
+</odoo>

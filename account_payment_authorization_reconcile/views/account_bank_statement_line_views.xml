@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_bank_statement_line_tree_bank_rec_widget_authorization_number" model="ir.ui.view">
+        <field name="name">account.bank.statement.line.list.bank_rec_widget.authorization.number</field>
+        <field name="model">account.bank.statement.line</field>
+        <field name="inherit_id" ref="account_accountant.view_bank_statement_line_tree_bank_rec_widget"/>
+        <field name="arch" type="xml">
+            <field name="payment_ref" position="after">
+                <field name="authorization_number" optional="show" readonly="is_reconciled and amount != 0"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_bank_statement_line_form_bank_rec_widget_authorization_number" model="ir.ui.view">
+        <field name="name">account.bank.statement.line.form.bank_rec_widget.authorization.number</field>
+        <field name="model">account.bank.statement.line</field>
+        <field name="inherit_id" ref="account_accountant.view_bank_statement_line_form_bank_rec_widget"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="authorization_number" readonly="is_reconciled and amount != 0"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

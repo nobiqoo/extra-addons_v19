@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_approval_setting_view_list" model="ir.ui.view">
+        <field name="name">purchase.approval.setting.view.list</field>
+        <field name="model">purchase.approval.setting</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="approval_coordinador_id"/>
+                <field name="approval_with_sequence"/>
+                <field name="approval_automatic"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+  
+    <record id="purchase_approval_setting_view_form" model="ir.ui.view">
+        <field name="name">purchase.approval.setting.view.form</field>
+        <field name="model">purchase.approval.setting</field>
+        <field name="arch" type="xml">
+            <form string="Matriz de aprobaciones">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Nombre de Matriz"/>
+                        <h1>
+                            <field name="name" placeholder="Ej. Area Administrativa"/>
+                        </h1>
+                    </div> 
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="currency_id"/>
+                        </group>
+                        <group>
+                            <field name="is_default_to_purchase"/>
+                        </group>      
+                    </group>
+                    <notebook>
+                        <page string="Requisiciones" invisible="1">
+                             <group>
+                                <field name="approval_coordinador_id"/>
+                                <field name="approval_analyst_ids" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                        <page string="Compras">
+                            <group>
+                                <group string="Aprobadores" name="approvers" colspan="2">
+                                    <field name="approval_line_ids">
+                                        <list editable="bottom">
+                                            <field name="company_id" column_invisible="1"/>
+                                            <field name="sequence" widget="handle" />
+                                            <field name="user_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                                            <field name="approval_type"/>
+                                            <field name="amount_from" readonly="approval_type not in ['by_amount']"/>
+                                        </list>
+                                    </field>
+                                    <field name="user_approvals_by_budget" widget="many2many_tags" invisible="True"/>
+                                    <field name="approval_minimum"/>
+                                    <field name="approval_with_sequence"/>
+                                    <field name="approval_automatic"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="purchase_approval_setting_action" model="ir.actions.act_window">
+        <field name="name">Matriz Aprobación Compras</field>
+        <field name="res_model">purchase.approval.setting</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Existen Matrices De Aprobación
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="purchase_approval_setting_menu"
+        parent="purchase.menu_purchase_config"
+        name="Matriz Aprobación Compras"
+        groups="purchase.group_purchase_manager"
+        action="purchase_approval_setting_action"
+        sequence="10"
+    />
+</odoo>

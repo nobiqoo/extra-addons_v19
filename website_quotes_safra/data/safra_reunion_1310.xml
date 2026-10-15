@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Reunión 13-oct (filas 56-57): controles desde el menú Referencias. -->
+    <data noupdate="0">
+        <function model="safra.field" name="_setup_control_referencia"/>
+    </data>
+    <!-- noupdate: el mensaje y la severidad se administran en el menú. -->
+    <data noupdate="1">
+        <record id="val_control_requerido" model="safra.validation.rule">
+            <field name="code">V_CONTROL_REQUERIDO</field>
+            <field name="name">Motor: elegir control (o «Sin control»)</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_control_pedido" model="safra.validation.rule">
+            <field name="code">V_CONTROL_PEDIDO</field>
+            <field name="name">Motor: al menos una persiana del pedido lleva control</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_canal_requerido" model="safra.validation.rule">
+            <field name="code">V_CANAL_REQUERIDO</field>
+            <field name="name">Control multicanal o «Sin control»: elegir canal</field>
+            <field name="severity">error</field>
+        </record>
+    </data>
+</odoo>

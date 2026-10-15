@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="purchase_import_report_view_tree" model="ir.ui.view">
+            <field name="name">purchase.import.report.view.tree</field>
+            <field name="model">purchase.import.report</field>
+            <field name="arch" type="xml">
+                <list string="Purchase Order Report" create="false" import="false" delete="false" sample="1">
+                    <field name="order_name" string="Purchase Order Name" />
+                    <field name="product_id" string="Product ID" />
+                    <field name="ordered_qty" string="Ordered Quantity" />
+                    <field name="received_qty" string="Received Quantity" />
+                    <field name="qty_to_receive" string="Quantity To Receive" />
+                    <field name="product_code" string="Product Code" />
+                    <field name="product_name" string="Product" />
+                    <field name="product_description" string="Product Description" />
+                    <field name="product_category" string="Product Category" />
+                    <field name="product_brand" string="Product Brand" />
+                    <field name="order_subtotal" string="Order Subtotal" />
+                    <field name="purchase_order_currency_id" string="Purchase Order Currency" />
+                    <field name="order_status" string="Order Status" />
+                    <field name="term_and_conditions" string="Term and Conditions" />
+                    <field name="picking_type_id" string="Picking Type" />
+                    <field name="import_name" string="Import Name" />
+                    <field name="planned_date" string="Planned Date" />
+                    <field name="date_origin" string="Date Origin" />
+                    <field name="date_port" string="Date Port" />
+                    <field name="type" string="Type" />
+                </list>
+            </field>
+        </record>
+
+        <record id="purchase_import_report_view_pivot" model="ir.ui.view">
+            <field name="name">purchase.import.report.view.pivot</field>
+            <field name="model">purchase.import.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Purchase Order Report">
+                    <field name="product_id" type="row"/>
+                    <field name="planned_date" interval="day" type="col" />
+                    <field name="order_name" type="col" />
+                    <field name="qty_to_receive" type= "measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="purchase_import_report_view_search" model="ir.ui.view">
+            <field name="name">purchase.import.report.view.search</field>
+            <field name="model">purchase.import.report</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="order_name" string="Order Name" filter_domain="[('order_name', 'ilike', self)]" />
+                    <field name="product_name" string="Product Name" filter_domain="[('product_name', 'ilike', self)]" />
+                    <field name="product_code" string="Product Code" filter_domain="[('product_code', 'ilike', self)]" />
+                    <field name="product_description" string="Product Description" filter_domain="[('product_description', 'ilike', self)]" />
+                    <field name="product_category" string="Product Category" filter_domain="[('product_category', 'ilike', self)]" />
+                    <field name="import_name" string="Import Name" filter_domain="[('import_name', 'ilike', self)]" />
+                    <separator/>
+                    <filter string="International" name="international_filter" domain="[('type', '=', 'International')]"/>
+                    <filter string="National" name="national_filter" domain="[('type', '=', 'National')]"/>
+                    <filter string="Product Description" name="group_by_description" context="{'group_by': 'product_description'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_purchase_import_report" model="ir.actions.act_window">
+            <field name="name">Purchase Order Report</field>
+            <field name="res_model">purchase.import.report</field>
+            <field name="view_mode">list,pivot</field>
+            <field name="view_id" ref="purchase_import_report_view_tree" />
+        </record>
+
+        <menuitem id="menu_purchase_import_report_header" name="Purchase Order Report Menu" parent="purchase.purchase_report_main" sequence="10"/>
+        <menuitem id="menu_purchase_import_report" name="Purchase Order Report Bridge Sheet" action="action_purchase_import_report" parent="menu_purchase_import_report_header" sequence="10"/>
+
+    </data>
+
+</odoo>

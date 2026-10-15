@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- ============================================ -->
+    <!-- VISTA LISTA: Detalle de Adjuntos -->
+    <!-- ============================================ -->
+    <record id="view_storage_analysis_model_filetype_tree" model="ir.ui.view">
+        <field name="name">storage.analysis.model.filetype.tree</field>
+        <field name="model">storage.analysis.model.filetype</field>
+        <field name="arch" type="xml">
+            <list string="Detalle de Adjuntos">
+                <field name="analysis_id"/>
+                <field name="analysis_date"/>
+                <field name="res_model"/>
+                <field name="model_description"/>
+                <field name="attach_file_type"/>
+                <field name="file_type"/>
+                <field name="total_size" sum="Total"/>
+                <field name="attachment_count" sum="Total"/>
+                <button name="action_open_attachment" type="object" icon="fa-external-link" title="Abrir adjuntos"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================================ -->
+    <!-- VISTA BÚSQUEDA: Detalle de Adjuntos -->
+    <!-- ============================================ -->
+    <record id="view_storage_analysis_model_filetype_search" model="ir.ui.view">
+        <field name="name">storage.analysis.model.filetype.search</field>
+        <field name="model">storage.analysis.model.filetype</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Adjuntos">
+                <field name="res_model"/>
+                <field name="attach_file_type"/>
+                <filter name="is_latest" string="Últimos Análisis" domain="[('is_latest', '=', True)]"/>
+                <group>
+                    <filter name="group_by_analysis" string="Análisis" context="{'group_by': 'analysis_id'}"/>
+                    <filter name="group_by_file_type" string="Categoría de Archivo" context="{'group_by': 'file_type'}"/>
+                    <filter name="group_by_attach_file_type" string="Tipo de Archivo" context="{'group_by': 'attach_file_type'}"/>
+                    <filter name="group_by_model" string="Modelo" context="{'group_by': 'res_model'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ============================================ -->
+    <!-- ACCIÓN: Detalle de Adjuntos -->
+    <!-- ============================================ -->
+    <record id="action_storage_analysis_model_filetype" model="ir.actions.act_window">
+        <field name="name">Detalle de Adjuntos</field>
+        <field name="res_model">storage.analysis.model.filetype</field>
+        <field name="view_mode">list,form,pivot,graph</field>
+        <field name="search_view_id" ref="view_storage_analysis_model_filetype_search"/>
+        <field name="context">{'search_default_is_latest': 1}</field>
+    </record>
+</odoo>

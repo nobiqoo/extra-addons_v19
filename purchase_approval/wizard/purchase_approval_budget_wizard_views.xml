@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_approval_budget_wizard_view_form" model="ir.ui.view">
+        <field name="name">purchase.approval.budget.wizard.view.form</field>
+        <field name="model">purchase.approval.budget.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div role="alert" class="alert alert-warning text-center">
+                        <p>LAS SIGUIENTES LÍNEAS DE LA ORDEN DE COMPRA NO CUENTAN CON PRESUPUESTO DISPONIBLE,
+                        POR ESA RAZÓN EN ESTE CASO DEBERÁ REALIZAR LA SOLICITUD DE APROBACIÓN POR PRESUPUESTO.</p>
+                    </div>
+                    <field name="order_id" invisible="1"/>
+                    <notebook>
+                        <page string="Líneas orden de compra">
+                            <field name="line_ids" readonly="1">
+                                <list editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="amount_required"/>
+                                    <field name="amount_available"/>
+                                    <field name="amount_difference"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="request_approval_budget" string="Solicitar aprobación por presupuesto" class="btn btn-primary"
+                        type="object" /> o
+                    <button string="Cancelar" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

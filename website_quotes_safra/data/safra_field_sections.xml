@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="section_basicos" model="safra.field.section">
+            <field name="code">basicos</field>
+            <field name="name">Datos Básicos</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="section_dimensiones" model="safra.field.section">
+            <field name="code">dimensiones</field>
+            <field name="name">Dimensiones</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="section_tela" model="safra.field.section">
+            <field name="code">tela</field>
+            <field name="name">Tela</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="section_estructura" model="safra.field.section">
+            <field name="code">estructura</field>
+            <field name="name">Estructura</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="section_accesorios" model="safra.field.section">
+            <field name="code">accesorios</field>
+            <field name="name">Accesorios</field>
+            <field name="sequence">50</field>
+        </record>
+        <record id="section_motor" model="safra.field.section">
+            <field name="code">motor</field>
+            <field name="name">Motor</field>
+            <field name="sequence">60</field>
+        </record>
+        <record id="section_diseno" model="safra.field.section">
+            <field name="code">diseno</field>
+            <field name="name">Diseño de Impresión</field>
+            <field name="sequence">70</field>
+        </record>
+        <record id="section_cenefa" model="safra.field.section">
+            <field name="code">cenefa</field>
+            <field name="name">Cenefa</field>
+            <field name="sequence">80</field>
+        </record>
+        <record id="section_cover" model="safra.field.section">
+            <field name="code">cover</field>
+            <field name="name">Perfil Cover Light</field>
+            <field name="sequence">90</field>
+        </record>
+        <record id="section_cabezal" model="safra.field.section">
+            <field name="code">cabezal</field>
+            <field name="name">Cabezal</field>
+            <field name="sequence">100</field>
+        </record>
+        <record id="section_riel" model="safra.field.section">
+            <field name="code">riel</field>
+            <field name="name">Riel</field>
+            <field name="sequence">110</field>
+        </record>
+        <record id="section_cordon" model="safra.field.section">
+            <field name="code">cordon</field>
+            <field name="name">Cordón / Cadena</field>
+            <field name="sequence">120</field>
+        </record>
+        <record id="section_otras" model="safra.field.section">
+            <field name="code">otras</field>
+            <field name="name">Otras Opciones</field>
+            <field name="sequence">130</field>
+        </record>
+
+    </data>
+</odoo>

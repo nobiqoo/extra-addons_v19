@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="website_hr_payroll_hr_leave_type_form" model="ir.ui.view">
+            <field name="name">website.hr.payroll.hr.leave.type.form</field>
+            <field name="model">hr.leave.type</field>
+            <field name="inherit_id" ref="hr_payroll_co.hr_leave_type_form"/>
+            <field name="arch" type="xml">
+                <field name="apply_day_31" position="after">
+                    <field name="allow_in_website"/>
+                    <field name="need_file_in_website" invisible="allow_in_website == False"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

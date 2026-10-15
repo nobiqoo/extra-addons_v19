@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- LEAVE TEMPLATES -->
+        <template id="leave" name="Ausencias">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001" data-snippet="s_title" data-scroll-background-ratio="1">
+                        <span class="s_parallax_bg oe_img_bg" style="background-image: url('/web/image/website.s_banner_default_image'); background-position: 50% 0;"/>
+                        <div class="o_we_bg_filter bg-black-50"/>
+                        <div class="container">
+                            <h1>Ausencias</h1>
+                        </div>
+                    </section>
+                    <section class="s_text_block pt40 pb40 o_colored_level " data-snippet="s_text_block">
+                        <div class="container s_allow_columns">
+                            <div class="row">
+                                <div class="col-lg-8 mt-4 mt-lg-0">
+                                    <h2>
+                                        Ingrese la información requerida.
+                                    </h2>
+                                    <section class="s_website_form" data-vcss="001" data-snippet="s_website_form">
+                                        <div class="container">
+                                            <form id="leave_form" action="/leave/form/" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*" data-model_name="hr.employee" data-success-mode="redirect" data-success-page="/leave-success" data-pre-fill="true">
+                                                <div class="s_website_form_rows row s_col_no_bgcolor">
+                                                    <div t-attf-class="mb-3 col-md-8">
+                                                        <label class="col-form-label" for="zip">N° Identificación*</label>
+                                                        <input id="identification_number" type="text" class="form-control s_website_form_input" name="identification_number" required="true"/>
+                                                    </div>
+                                                    <div t-attf-class="mb-3 col-md-8">
+                                                        <label class="col-form-label" for="date_from">Fecha Inicio*</label>
+                                                        <input id="date_from" type="date" class="form-control s_website_form_input" name="date_from" required="true"/>
+                                                    </div>
+                                                    <div t-attf-class="mb-3 col-md-8">
+                                                        <label class="col-form-label" for="date_to">Fecha Fin*</label>
+                                                        <input id="date_to" type="date" class="form-control s_website_form_input" name="date_to" required="true"/>
+                                                    </div>
+                                                    <div t-attf-class="mb-3 col-md-8">
+                                                        <label class="col-form-label" for="leave_type">Tipo de Ausencia*</label>
+                                                        <select name="leave_type" id="leave_type" class="form-control" required="true">
+                                                            <option value="" t-attf-filerequired="">Tipo de Ausencia...</option>
+                                                            <t t-foreach="leave_types" t-as="s">
+                                                                <option t-att-value="s.id" t-attf-filerequired="{{ s.need_file_in_website }}">
+                                                                    <t t-esc="s.name" />
+                                                                </option>
+                                                            </t>
+                                                        </select>
+                                                    </div>
+                                                    <div id="content-leave-file" style="display: none;">
+                                                        <div t-attf-class="mb-3 col-md-8 s_website_form_field" data-type="binary" data-name="Field">
+                                                            <label class="col-form-label" for="file_leave">Archivo*</label>
+                                                            <input id="file_leave" multiple="false" type="file" class="form-control s_website_form_input" name="file_leave"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-0 py-2 col-12 s_website_form_submit" data-name="Submit Button">
+                                                        <a href="#" role="button" class="btn btn-primary btn-lg s_website_form_send">Validar</a>
+                                                        <span id="s_website_form_result"></span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+        
+        <template id="leave_success" name="Ausencias">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <section class="s_text_block pt40 pb40 o_colored_level " data-snippet="s_text_block">
+                        <div class="container s_allow_columns">
+                            <div class="row">
+                                <div class="col-lg-12 col-xl-12 mr-lg-auto">
+                                    <span class="d-block fa fa-4x fa-thumbs-up mx-auto rounded-circle bg-primary"/><br/>
+                                    <div class="pb16 pt16 s_hr" data-snippet="s_hr" data-name="Separator">
+                                        <hr class="mx-auto border-top w-50 border-dark text-center"/>
+                                    </div>
+                                    <h5 class="text-center">
+                                        <span class="fa fa-check-circle"/>
+                                        <span>Tu ausencia ha sido enviada <b>correctamente</b></span>
+                                    </h5>
+                                    <p class="text-center">Para más información contacta el área de recursos humanos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+        <!-- ./ LEAVE TEMPLATES -->
+
+        <!-- DETACHABLE TEMPLATES -->
+        <template id="detachable" name="Desprendible">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001" data-snippet="s_title" data-scroll-background-ratio="1">
+                        <span class="s_parallax_bg oe_img_bg" style="background-image: url('/web/image/website.s_banner_default_image'); background-position: 50% 0;"/>
+                        <div class="o_we_bg_filter bg-black-50"/>
+                        <div class="container">
+                            <h1>Desprendible</h1>
+                        </div>
+                    </section>
+                    <section class="s_text_block pt40 pb40 o_colored_level " data-snippet="s_text_block">
+                        <div class="container s_allow_columns">
+                            <div class="row">
+                                <div class="col-lg-8 mt-4 mt-lg-0">
+                                    <h2>
+                                        Ingrese la información requerida.
+                                    </h2>
+                                    <section class="s_website_form" data-vcss="001" data-snippet="s_website_form">
+                                        <div class="container">
+                                            <form id="detachable_form" action="/detachable/form/" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*" data-model_name="hr.employee" data-success-mode="redirect" data-success-page="/detachable-success" data-pre-fill="true">
+                                                <div class="s_website_form_rows row s_col_no_bgcolor">
+                                                    <div t-attf-class="mb-3 col-md-8">
+                                                        <label class="col-form-label" for="zip">N° Identificación*</label>
+                                                        <input id="identification_number" type="text" class="form-control s_website_form_input" name="identification_number" required="true"/>
+                                                    </div>
+                                                    <div t-attf-class="mb-3 col-md-5">
+                                                        <label class="col-form-label" for="year">Año*</label>
+                                                        <select id="year" name="year" class="form-select" required="true">
+                                                            <option selected="true" disabled="true" value="">Año...</option>
+                                                            <t t-foreach="years.items()" t-as="year">
+                                                                <option t-att-value="year[0]"><t t-esc="year[1]"/></option>
+                                                            </t>
+                                                        </select>
+                                                    </div>
+                                                    <div t-attf-class="mb-3 col-md-3">
+                                                        <label class="col-form-label" for="month">Mes*</label>
+                                                        <select id="month" name="month" class="form-select" required="true">
+                                                            <option selected="true" disabled="true" value="">Mes...</option>
+                                                            <t t-foreach="months.items()" t-as="month">
+                                                                <option t-att-value="month[0]"><t t-esc="month[1]"/></option>
+                                                            </t>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-0 py-2 col-12 s_website_form_submit" data-name="Submit Button">
+                                                        <a href="#" role="button" class="btn btn-primary btn-lg s_website_form_send">Validar</a>
+                                                        <span id="s_website_form_result"></span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+
+        <template id="detachable_success" name="Desprendible">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <section class="s_text_block pt40 pb40 o_colored_level " data-snippet="s_text_block">
+                        <div class="container s_allow_columns">
+                            <div class="row">
+                                <div class="col-lg-12 col-xl-12 mr-lg-auto">
+                                    <span class="d-block fa fa-4x fa-thumbs-up mx-auto rounded-circle bg-primary"/><br/>
+                                    <div class="pb16 pt16 s_hr" data-snippet="s_hr" data-name="Separator">
+                                        <hr class="mx-auto border-top w-50 border-dark text-center"/>
+                                    </div>
+                                    <h5 class="text-center">
+                                        <span class="fa fa-check-circle"/>
+                                        <span>Tu desprendible se ha enviado <b>correctamente</b></span>
+                                    </h5>
+                                    <p class="text-center">Para más información contacta el área de recursos humanos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+        <!-- ./DETACHABLE TEMPLATES -->
+
+        <!-- CERTIFICATE TEMPLATES -->
+        <template id="certificate" name="Certificado Laboral">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001" data-snippet="s_title" data-scroll-background-ratio="1">
+                        <span class="s_parallax_bg oe_img_bg" style="background-image: url('/web/image/website.s_banner_default_image'); background-position: 50% 0;"/>
+                        <div class="o_we_bg_filter bg-black-50"/>
+                        <div class="container">
+                            <h1>Certificado Laboral</h1>
+                        </div>
+                    </section>
+                    <section class="s_text_block pt40 pb40 o_colored_level " data-snippet="s_text_block">
+                        <div class="container s_allow_columns">
+                            <div class="row">
+                                <div class="col-lg-8 mt-4 mt-lg-0">
+                                    <h2>
+                                        Ingrese la información requerida.
+                                    </h2>
+                                    <section class="s_website_form" data-vcss="001" data-snippet="s_website_form">
+                                        <div class="container">
+                                            <form id="certificate_form" action="/certificate/form/" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*" data-model_name="hr.employee" data-success-mode="redirect" data-success-page="/certificate-success" data-pre-fill="true">
+                                                <div class="s_website_form_rows row s_col_no_bgcolor">
+                                                    <div t-attf-class="mb-3 col-md-8">
+                                                        <label class="col-form-label" for="zip">N° Identificación*</label>
+                                                        <input id="identification_number" type="text" class="form-control s_website_form_input" name="identification_number" required="true"/>
+                                                    </div>
+                                                    <div t-attf-class="mb-3 col-md-8">
+                                                        <label class="col-form-label" for="ceritificate">Tipo*</label>
+                                                        <select id="ceritificate" name="ceritificate" class="form-select" required="true">
+                                                            <option selected="true" disabled="true" value="">Tipo...</option>
+                                                            <t t-foreach="ceritificate_types.items()" t-as="ceritificate">
+                                                                <option t-att-value="ceritificate[0]"><t t-esc="ceritificate[1]"/></option>
+                                                            </t>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-0 py-2 col-12 s_website_form_submit" data-name="Submit Button">
+                                                        <a href="#" role="button" class="btn btn-primary btn-lg s_website_form_send">Validar</a>
+                                                        <span id="s_website_form_result"></span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+
+        <template id="certificate_success" name="Certificado Laboral">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <section class="s_text_block pt40 pb40 o_colored_level " data-snippet="s_text_block">
+                        <div class="container s_allow_columns">
+                            <div class="row">
+                                <div class="col-lg-12 col-xl-12 mr-lg-auto">
+                                    <span class="d-block fa fa-4x fa-thumbs-up mx-auto rounded-circle bg-primary"/><br/>
+                                    <div class="pb16 pt16 s_hr" data-snippet="s_hr" data-name="Separator">
+                                        <hr class="mx-auto border-top w-50 border-dark text-center"/>
+                                    </div>
+                                    <h5 class="text-center">
+                                        <span class="fa fa-check-circle"/>
+                                        <span>Tu certificado laboral se ha enviado <b>correctamente</b></span>
+                                    </h5>
+                                    <p class="text-center">Para más información contacta el área de recursos humanos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+        <!-- ./CERTIFICATE TEMPLATES -->
+    </data>
+</odoo>

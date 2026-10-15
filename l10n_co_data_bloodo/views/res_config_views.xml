@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_inherit_view_bloodo" model="ir.ui.view">
+        <field name="name">res.config.settings.inherit.view.bloodo</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='contacts_setting_container']" position="inside">
+                <setting
+                    id="activate_duplicate_contacts_setting"
+                    string="Permitir contactos duplicados"
+                    help="Permite duplicar contactos cuando sea necesario"
+                    title="Activar si se requiere permitir contactos duplicados"
+                >
+                    <field name="activate_duplicate_contacts"/>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

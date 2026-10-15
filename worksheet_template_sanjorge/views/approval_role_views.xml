@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="approval_role_form_view" model="ir.ui.view">
+        <field name="name">approval.role.form.view</field>
+        <field name="model">approval.role</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="approval_role_tree_view" model="ir.ui.view">
+        <field name="name">approval.role.tree.view</field>
+        <field name="model">approval.role</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_approval_role">
+        <field name="name">Roles de aprobadores</field>
+        <field name="res_model">approval.role</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear nuevo rol
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        parent="quality_control.menu_quality_configuration"
+        sequence="100"
+        id="menu_approval_role"
+        action="action_approval_role"/>
+</odoo>

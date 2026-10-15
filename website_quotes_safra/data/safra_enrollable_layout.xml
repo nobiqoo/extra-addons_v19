@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Orden y comportamiento EXACTOS del sistema ENROLLABLE replicando el
+         portal de pedidos del cliente. noupdate="0" para que se aplique también
+         sobre bases de datos ya instaladas en cada actualización del módulo.
+
+         Convención de zonas (ver controllers/main.py): secuencia < 1000 => bloque
+         superior (dimensiones, tela, coordinado); secuencia >= 1000 => "Accesorios".
+         El bloque Producto/Ficha/Precio y la opción "Misma Ventana" se intercalan
+         por JS entre ambas zonas. -->
+    <data noupdate="0">
+
+        <!-- ===== Ficha técnica del sistema ENROLLABLE (datos reales del portal) ===== -->
+        <record id="system_01" model="safra.system">
+            <field name="tech_width_min">0.3</field>
+            <field name="tech_width_max">5.5</field>
+            <field name="tech_height_min">0.3</field>
+            <field name="tech_height_max">7</field>
+            <field name="tech_mechanism">Tubo: R8 - Mecanismo: R8SL - Cabezal: No Aplica</field>
+            <field name="img_group">06</field>
+        </record>
+
+        <!-- ===== Ajustes de comportamiento de campos (fiel a la captura en vivo) ===== -->
+
+        <!-- En ENROLLABLE el portal muestra Diseño Impresión y ¿Diseño hacia el
+             Exterior? siempre (no dependen de la tela). Quitamos el flag de tela. -->
+        <record id="field_design_print" model="safra.field">
+            <field name="fabric_flag" eval="False"/>
+        </record>
+        <record id="field_design_exterior" model="safra.field">
+            <field name="fabric_flag" eval="False"/>
+        </record>
+        <!-- Atravesar Tela también se muestra siempre en ENROLLABLE. -->
+        <record id="field_atravesar_tela" model="safra.field">
+            <field name="fabric_flag" eval="False"/>
+        </record>
+        <!-- Metros² y Diseño personalizado solo cuando se marca Diseño Impresión. -->
+        <record id="field_print_m2" model="safra.field">
+            <field name="fabric_flag" eval="False"/>
+            <field name="depends_field_id" ref="field_design_print"/>
+            <field name="depends_value">1</field>
+        </record>
+        <record id="field_custom_design" model="safra.field">
+            <field name="fabric_flag" eval="False"/>
+            <field name="depends_field_id" ref="field_design_print"/>
+            <field name="depends_value">1</field>
+        </record>
+        <!-- Nombre secuencia solo cuando se activa "Mismo cabezal / Misma Ventana". -->
+        <record id="field_sequence_name" model="safra.field">
+            <field name="depends_field_id" ref="field_same_header"/>
+            <field name="depends_value">1</field>
+        </record>
+
+        <!-- ===== Reordenamiento de los campos del sistema ENROLLABLE ===== -->
+
+        <!-- Zona superior (< 1000): dimensiones, tela, coordinado, misma ventana -->
+        <record id="sf_01_width" model="safra.system.field"><field name="sequence">100</field></record>
+        <record id="sf_01_height" model="safra.system.field"><field name="sequence">110</field></record>
+        <record id="sf_01_quantity" model="safra.system.field"><field name="sequence">120</field></record>
+        <record id="sf_01_fabric_id" model="safra.system.field"><field name="sequence">130</field></record>
+        <record id="sf_01_color_id" model="safra.system.field"><field name="sequence">140</field></record>
+        <record id="sf_01_coordinado" model="safra.system.field"><field name="sequence">150</field></record>
+        <record id="sf_01_same_header" model="safra.system.field"><field name="sequence">160</field></record>
+        <record id="sf_01_sequence_name" model="safra.system.field"><field name="sequence">170</field></record>
+
+        <!-- Exhibición: solo usuarios internos; no se muestra en el portal del asesor. -->
+        <record id="sf_01_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+
+        <!-- Sección "Accesorios" (>= 1000), en el orden exacto del cliente -->
+        <record id="sf_01_perfil" model="safra.system.field"><field name="sequence">1000</field></record>
+        <record id="sf_01_mando_position" model="safra.system.field"><field name="sequence">1010</field></record>
+        <record id="sf_01_orientation" model="safra.system.field"><field name="sequence">1020</field></record>
+        <record id="sf_01_has_motor" model="safra.system.field"><field name="sequence">1030</field></record>
+        <record id="sf_01_motor" model="safra.system.field"><field name="sequence">1031</field></record>
+        <record id="sf_01_control" model="safra.system.field"><field name="sequence">1032</field></record>
+        <record id="sf_01_control_channel" model="safra.system.field"><field name="sequence">1033</field></record>
+        <record id="sf_01_motor_support_type" model="safra.system.field"><field name="sequence">1034</field></record>
+        <record id="sf_01_interruptor_rf" model="safra.system.field"><field name="sequence">1035</field></record>
+        <record id="sf_01_requires_charger" model="safra.system.field"><field name="sequence">1036</field></record>
+        <record id="sf_01_aligned" model="safra.system.field"><field name="sequence">1040</field></record>
+        <record id="sf_01_cenefa_type" model="safra.system.field"><field name="sequence">1050</field></record>
+        <record id="sf_01_cenefa_lateral" model="safra.system.field"><field name="sequence">1051</field></record>
+        <record id="sf_01_cenefa_lined" model="safra.system.field"><field name="sequence">1052</field></record>
+        <record id="sf_01_cenefa_tela" model="safra.system.field"><field name="sequence">1053</field></record>
+        <record id="sf_01_cenefa_corte" model="safra.system.field"><field name="sequence">1054</field></record>
+        <record id="sf_01_extra_chain" model="safra.system.field"><field name="sequence">1070</field></record>
+        <record id="sf_01_design_print" model="safra.system.field"><field name="sequence">1080</field></record>
+        <record id="sf_01_print_m2" model="safra.system.field"><field name="sequence">1081</field></record>
+        <record id="sf_01_custom_design" model="safra.system.field"><field name="sequence">1082</field></record>
+        <record id="sf_01_escuadras" model="safra.system.field"><field name="sequence">1090</field></record>
+        <record id="sf_01_design_exterior" model="safra.system.field"><field name="sequence">1100</field></record>
+        <record id="sf_01_location" model="safra.system.field"><field name="sequence">1110</field></record>
+        <record id="sf_01_atravesar_tela" model="safra.system.field"><field name="sequence">1120</field></record>
+        <record id="sf_01_enclosed" model="safra.system.field"><field name="sequence">1130</field></record>
+        <record id="sf_01_bolsillo_size" model="safra.system.field"><field name="sequence">1140</field></record>
+        <record id="sf_01_cover_light_profile" model="safra.system.field"><field name="sequence">1150</field></record>
+        <record id="sf_01_coverlight_felpa" model="safra.system.field"><field name="sequence">1151</field></record>
+        <record id="sf_01_coverlight_45" model="safra.system.field"><field name="sequence">1152</field></record>
+        <record id="sf_01_tela_al_reves" model="safra.system.field"><field name="sequence">1160</field></record>
+
+        <!-- ===== Campo Unificación Mando (existe en el portal, faltaba en Odoo) ===== -->
+        <record id="field_unificacion_mando" model="safra.field">
+            <field name="code">unificacion_mando</field>
+            <field name="name">Unificación Mando</field>
+            <field name="section_id" ref="section_accesorios"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">385</field>
+        </record>
+        <record id="opt_unificacion_mando_0" model="safra.field.option">
+            <field name="field_id" ref="field_unificacion_mando"/>
+            <field name="value">tubo_3</field><field name="name">Tubo de 3"</field><field name="sequence">10</field>
+        </record>
+        <record id="opt_unificacion_mando_1" model="safra.field.option">
+            <field name="field_id" ref="field_unificacion_mando"/>
+            <field name="value">r16</field><field name="name">R16</field><field name="sequence">20</field>
+        </record>
+        <record id="opt_unificacion_mando_2" model="safra.field.option">
+            <field name="field_id" ref="field_unificacion_mando"/>
+            <field name="value">r24</field><field name="name">R24</field><field name="sequence">30</field>
+        </record>
+        <record id="opt_unificacion_mando_3" model="safra.field.option">
+            <field name="field_id" ref="field_unificacion_mando"/>
+            <field name="value">tubo_2_5</field><field name="name">Tubo de 2 1/2"</field><field name="sequence">40</field>
+        </record>
+        <record id="sf_01_unificacion_mando" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_01"/>
+            <field name="field_id" ref="field_unificacion_mando"/>
+            <field name="sequence">1060</field>
+        </record>
+
+    </data>
+</odoo>

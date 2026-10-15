@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_leave_code_cie10_table_view_list" model="ir.ui.view">
+            <field name="name">hr.leave.code.cie10.table.view.list</field>
+            <field name="model">hr.leave.code.cie10.table</field>
+            <field name="arch" type="xml">
+                <list string="CIE10 Table" editable="bottom">
+                    <field name="code" />
+                    <field name="name" />
+                </list>
+            </field>
+    </record>
+
+    <record id="hr_leave_code_cie10_table_action" model="ir.actions.act_window">
+        <field name="name">Código CIE10</field>
+        <field name="res_model">hr.leave.code.cie10.table</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create a new code CIE10.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="hr_leave_code_cie10"
+            name="Tabla CIE10"
+            parent="hr.menu_human_resources_configuration"
+            sequence="300"/>
+
+        <menuitem id="hr_leave_code_cie10_table"
+            parent="hr_leave_code_cie10"
+            action="hr_leave_code_cie10_table_action"
+            sequence="10"/>
+</odoo>

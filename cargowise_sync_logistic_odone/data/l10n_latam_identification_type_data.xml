@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="identification_type_gbr" model="l10n_latam.identification.type">
+            <field name="name">Goverment Bussiness Code</field>
+            <field name="code_cw">GBR</field>
+            <field name="l10n_co_document_code">gbr</field>
+        </record>
+        <record id="l10n_co.rut" model="l10n_latam.identification.type">
+            <field name="code_cw">NIT</field>
+        </record>
+        <record id="l10n_latam_base.it_pass" model="l10n_latam.identification.type">
+            <field name="code_cw">PAS</field>
+        </record>
+
+    </data>
+</odoo>

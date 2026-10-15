@@ -1,0 +1,20 @@
+<odoo>
+
+	<record id="certificate_report_send_mail_view_form" model="ir.ui.view">
+		<field name="name">certificate.report.send.mail.view.form</field>
+		<field name="model">certificate.report.send.mail</field>
+		<field name="arch" type="xml">
+			<form>
+				<div>
+					<p>Do you want to send the certificates of the selected reports?</p>
+					<footer>
+						<button string="Send emails" name="send_mails" type="object"
+							class="oe_highlight" />
+						<button string="Cancel" special="cancel" class="oe_link" type="object" />
+					</footer>
+				</div>
+			</form>
+		</field>
+	</record>
+
+</odoo>

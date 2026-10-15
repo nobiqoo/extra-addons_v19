@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record model="hr.concept" id="hc_basico_gt">
+            <field name="name">SUELDO BASICO</field>
+            <field name="code">BASICO_GT</field>
+            <field name="category">earnings</field>
+            <field name="documentation">
+                Valor de salario asignado en el contrato y depende de los dias trabajados en el
+                periodo &lt; br/&gt;
+                Varia el nombre del concepto dependiendo del tipo de contrato y el rate cambia
+                unicamente cuando es tipo
+                aprendiz lectivo.
+            </field>
+        </record>
+    
+        <record model="hr.concept" id="hc_igss">
+            <field name="name">DEDUCCION IGSS</field>
+            <field name="code">IGSS</field>
+            <field name="category">deductions</field>
+        </record>
+
+        <record model="hr.concept" id="hc_neto_gt">
+            <field name="name">NETO A PAGAR</field>
+            <field name="code">NETO_GT</field>
+            <field name="category">subtotals</field>
+            <field name="documentation">
+                "Valor correspondiente a restarle a todos los devengos el valor de las deducciones.
+                Este valor es el que recibe el empleado finalmente"
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_neto_liq_gt">
+            <field name="name">NETO A PAGAR LIQUIDACION</field>
+            <field name="code">NETO_LIQ_GT</field>
+            <field name="category">subtotals</field>
+        </record>
+
+        <record model="hr.concept" id="hc_bono_14">
+            <field name="name">BONO 14</field>
+            <field name="code">BONO_14</field>
+            <field name="category">o_rights</field>
+            <field name="documentation">
+                "Bono Anual para Trabajadores del Sector Privado y Público"
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_bono_14_liq">
+            <field name="name">BONO 14 LIQUIDACION</field>
+            <field name="code">BONO_14_LIQ</field>
+            <field name="category">o_rights</field>
+            <field name="documentation">
+                "Liquidación bono Anual para Trabajadores del Sector Privado y Público"
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_bono_14_part">
+            <field name="name">BONO 14 PARCIAL</field>
+            <field name="code">BONO_14_PART</field>
+            <field name="category">o_rights</field>
+            <field name="documentation">
+                "Bono Anual para Trabajadores del Sector Privado y Público Parcial"
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_aguinaldo_gt">
+            <field name="name">AGUINALDO</field>
+            <field name="code">AGUINALDO_GT</field>
+            <field name="category">o_rights</field>
+        </record>
+
+        <record model="hr.concept" id="hc_aguinaldo_gt_liq">
+            <field name="name">AGUINALDO LIQUIDACION</field>
+            <field name="code">AGUINALDO_GT_LIQ</field>
+            <field name="category">o_rights</field>
+        </record>
+
+        <record model="hr.concept" id="hc_aguinaldo_gt_part">
+            <field name="name">AGUINALDO PARCIAL</field>
+            <field name="code">AGUINALDO_GT_PART</field>
+            <field name="category">o_rights</field>
+        </record>
+
+        <record model="hr.concept" id="hc_vac_gt">
+            <field name="name">VACACIONES</field>
+            <field name="code">VAC_GT</field>
+            <field name="category">o_rights</field>
+        </record>
+
+        <record model="hr.concept" id="hc_vac_liq_gt">
+            <field name="name">VACACIONES LIQUIDACION</field>
+            <field name="code">VAC_LIQ_GT</field>
+            <field name="category">o_rights</field>
+        </record>
+    
+        <record model="hr.concept" id="hc_prv_agu_gt">
+            <field name="name">PROVISIONES AGUINALDO</field>
+            <field name="code">PRV_AGU_GT</field>
+            <field name="category">provisions</field>
+        </record>
+
+        <record model="hr.concept" id="hc_prv_bon_14">
+            <field name="name">PROVISIONES BONO 14</field>
+            <field name="code">PRV_BON_14</field>
+            <field name="category">provisions</field>
+        </record>
+
+        <record model="hr.concept" id="hc_prv_vac_gt">
+            <field name="name">PROVISIONES VACACIONES</field>
+            <field name="code">PRV_VAC_GT</field>
+            <field name="category">provisions</field>
+        </record>
+
+        <record model="hr.concept" id="hc_prv_ind_gt">
+            <field name="name">PROVISIONES INDEMNIZACION</field>
+            <field name="code">PRV_IND_GT</field>
+            <field name="category">provisions</field>
+        </record>
+
+        <record model="hr.concept" id="hc_prv_cuo_pat">
+            <field name="name">CUOTA PATRONAL</field>
+            <field name="code">PRV_CUO_PAT</field>
+            <field name="category">provisions</field>
+        </record>
+
+        <record model="hr.concept" id="hc_indem_gt">
+            <field name="name">INDEMNIZACION</field>
+            <field name="code">INDEM_GT</field>
+            <field name="category">non_taxed_earnings</field>
+            <field name="documentation"></field>
+        </record>
+    </data>
+</odoo>

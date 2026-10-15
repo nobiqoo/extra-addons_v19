@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+    
+        <record id="view_pos_pos_form_inh_bloodo" model="ir.ui.view">
+            <field name="name">view_pos_pos_form_inh_bloodo</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header/button[@name='action_pos_order_invoice']" position="after">
+                    <button name="action_pos_order_einvoice" string="Electronic invoice" type="object" invisible="state != 'paid'"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

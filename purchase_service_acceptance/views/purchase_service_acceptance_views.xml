@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="purchase_service_acceptance_view_list" model="ir.ui.view">
+        <field name="name">purchase.service.acceptance.list</field>
+        <field name="model">purchase.service.acceptance</field>
+        <field name="arch" type="xml">
+            <list js_class="purchase_service_acceptance_list_view" default_order="id desc">
+                <field name="name"/>
+                <field name="purchase_order_id"/>
+                <field name="partner_id"/>
+                <field name="date_order"/>
+                <field name="date"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="backorder_id" column_invisible="True"/>
+                <field name="date_planned" column_invisible="True"/>
+                <field name="state" widget="badge"
+                    decoration-muted="state == 'draft'"
+                    decoration-success="state == 'done'"
+                    decoration-danger="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="purchase_service_acceptance_view_form" model="ir.ui.view">
+        <field name="name">purchase.service.acceptance.form</field>
+        <field name="model">purchase.service.acceptance</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_validate" string="Validate" type="object" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_cancel" string="Cancel" type="object" invisible="state != 'draft'"/>
+                    <button name="action_reset_to_draft" string="Reset to Pending Acceptance" type="object" invisible="state != 'done'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_backorders" type="object"
+                            class="oe_stat_button" icon="fa-history"
+                            invisible="not backorder_ids">
+                            <field name="backorder_ids" widget="statinfo" string="Backorders"/>
+                        </button>
+                        <button name="action_view_invoices" type="object"
+                            class="oe_stat_button" icon="fa-pencil-square-o"
+                            invisible="not invoice_ids">
+                            <field name="invoice_ids" widget="statinfo" string="Vendor Bills"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="purchase_order_id" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="date_order" readonly="1"/>
+                            <field name="backorder_id" invisible="not backorder_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="date" readonly="1"/>
+                            <field name="allowed_validator_ids" widget="many2many_tags"
+                                invisible="not allowed_validator_ids" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Service Lines" name="lines">
+                            <field name="line_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="purchase_line_id"/>
+                                    <field name="product_id"/>
+                                    <field name="description"/>
+                                    <field name="analytic_distribution" widget="analytic_distribution"
+                                           groups="analytic.group_analytic_accounting"
+                                           options="{'product_field': 'product_id', 'business_domain': 'purchase_order'}"
+                                           optional="show"/>
+                                    <field name="product_qty_ordered"/>
+                                    <field name="qty_previously_accepted"/>
+                                    <field name="qty_pending"/>
+                                    <field name="product_uom_id"/>
+                                    <field name="qty_accepted"/>
+                                    <field name="price_unit"/>
+                                    <field name="taxes_id" widget="many2many_tags" optional="show"/>
+                                    <field name="price_tax"/>
+                                    <field name="subtotal"/>
+                                    <field name="currency_id" column_invisible="True"/>
+                                    <field name="state" column_invisible="True"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="purchase_service_acceptance_view_search" model="ir.ui.view">
+        <field name="name">purchase.service.acceptance.search</field>
+        <field name="model">purchase.service.acceptance</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="purchase_order_id"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <separator/>
+                <filter string="Pending Acceptance" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Accepted" name="done" domain="[('state', '=', 'done')]"/>
+                <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <separator/>
+                <filter string="Late" name="late" domain="[('state', '=', 'draft'), ('date_planned', '!=', False), ('date_planned', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Partial (Backorders)" name="backorder" domain="[('backorder_id', '!=', False)]"/>
+                <group>
+                    <filter string="Purchase Order" name="group_purchase_order" context="{'group_by': 'purchase_order_id'}"/>
+                    <filter string="Vendor" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_purchase_service_acceptance" model="ir.actions.act_window">
+        <field name="name">Service Acceptance</field>
+        <field name="res_model">purchase.service.acceptance</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="purchase_service_acceptance_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No service acceptances yet
+            </p>
+            <p>
+                A Service Acceptance is created automatically when a purchase order with Service products is confirmed.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_purchase_service_acceptance_root"
+        name="Service Acceptance"
+        web_icon="purchase_service_acceptance,static/description/icon.png"
+        sequence="75"/>
+
+    <menuitem id="menu_purchase_service_acceptance"
+        name="Service Acceptance"
+        parent="menu_purchase_service_acceptance_root"
+        action="action_purchase_service_acceptance"
+        sequence="1"/>
+
+</odoo>

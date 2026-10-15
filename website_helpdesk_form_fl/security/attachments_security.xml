@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <record id="group_manage_field_visualization_attachment" model="res.groups">
+            <field name="name">Visualizar campo de configuración en los equipos de soporte.</field>
+        </record>
+    </data>
+
+    <data>
+        <record id="group_manage_visualization_attachment" model="res.groups">
+            <field name="name">Visualizar adjuntos en tickets.</field>
+        </record>
+    </data>
+
+</odoo>

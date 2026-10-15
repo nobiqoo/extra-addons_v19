@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<templates xml:space="preserve">
+	<t t-name="LibraryDashboard">
+      <div t-attf-class="wk_school_dashboard" style="overflow:scroll;height:100%;">
+            <div class="row m-0" style="border-bottom: 1px solid #E1E7EF; padding: 1% 6% !important;">
+                <div class="col-md-10 col-12 dashboard_header" style="margin-left:0% !important;">
+                   Library Dashboard
+                </div>
+                <div class="col-md-2 col-12" style="text-align: end !important;">
+                    <button t-on-click="issueButtonClick"  type="button" class="btn btn-success">Book Issue / Return</button>
+                </div>
+            </div>
+            <div class="main_container">
+                <t>
+                    <div class="row header_cards">
+                        <div class="col-md-4 col-12 mb-sm-1">
+                            <div class="text-center align-items-center p-3 pb-4 wk_stat_card" t-on-click="bookOnClick" style="cursor: pointer;">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-between">
+                                            <img src="/wk_school_management/static/src/img/books.png" title="Total Books"  style='height:2.5rem;'/>
+                                            <span class="wk_count" id="book_count">
+                                                <t t-esc="state.library_record.book_count"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <span class="ds_label">Total Books</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-12 mb-sm-1">
+                            <div class="text-center align-items-center p-3 pb-4 wk_stat_card" t-on-click="requestOnClick" style="cursor: pointer;">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-between">
+                                            <img src="/wk_school_management/static/src/img/history-book.png" title="Total Enrollments" style='height:2.5rem;' />
+                                            <span class="wk_count" id="book_request_count">
+                                                <t t-esc="state.library_record.book_request_count"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <span class="ds_label">Book Request List</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-12 mb-sm-1">
+                            <div class="text-center align-items-center p-3 pb-4 wk_stat_card" t-on-click="categoryOnClick" style="cursor: pointer;">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-between">
+                                            <i class="fa fa-th-large" aria-hidden="true" style="font-size: 2.6rem;"></i>
+                                            <span class="wk_count" id="categories_count">
+                                                <t t-esc="state.library_record.categories"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <span class="ds_label">Total Categories</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="all_stats my-4">
+                        <div class="mb-3" id="filter">
+                            <div class="d-flex justify-content-between">
+                                    <div>
+                                        <a href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#334155;">
+                                            <span style="color:#000000;font-family: 'Lato', sans-serif;;font-size: 14px;font-weight: 400;line-height: 16.94px;">SORT BY: </span>
+                                        </a>
+                                        <button type="button" class="btn" style="border:none;">
+                                            <div class="input-group" style="border:none;">
+                                            <select class="custom-select form-select" id="lib_date_selection" autocomplete="off" style="border:none;" t-on-change="load_library_datewise_data">
+                                                <option  selected="true" value="today">Today</option>
+                                                <option value="week">Current Week</option>
+                                                <option value="month">Current Month</option>
+                                            </select>
+                                            </div>
+                                        </button>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex">
+                            <div class="col-md-6 col-12 mb-sm-1 wk_label" id="request_card">
+                                <div class="wk_stat_card">
+                                    <div class="py-3 ps-3" style="border-bottom: 1px solid #CAD4E0">
+                                        <span class="header">Book Requests</span>
+                                    </div>
+                                    <div class="mt-2 p-3" style="height:280px">
+                                        <canvas id="book_request_pie_chart"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12 mb-sm-1 wk_label" id="request_card">
+                                <div class="wk_stat_card">
+                                    <div class="py-3 ps-3" style="border-bottom: 1px solid #CAD4E0">
+                                        <span class="header">Book Availability</span>
+                                    </div>
+                                    <div class="mt-2 p-3" style="height:280px">
+                                        <canvas id="book_copies_pie_chart"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                       
+                    </div>
+                       
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="wk_stat_card" style="height: 24rem;">
+                                <div style="border-bottom: 1px solid #CAD4E0">
+                                    <div class="py-3 ps-3 d-flex justify-content-between">
+                                        <div>
+                                            <span class="header">New Books</span>
+                                        </div>
+                                        <div>
+                                            <a href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span style="color:#000000;font-family: 'Lato', sans-serif;;font-size: 14px;font-weight: 500;line-height: 19.3px;">Status: </span>
+                                            </a>
+                                            <button type="button" class="btn" style="border:none;">
+                                                <div class="input-group" style="border:none;">
+                                                    <select class="custom-select form-select" id="s_books" autocomplete="off" style="border:none;" t-on-change="load_library_books">
+                                                        <option selected="true" value="all">All</option>
+                                                        <option value="available">Available</option>
+                                                        <option value="not_available">Not Available</option>
+                                                    </select>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="library_books_table m-4" id="library_books_table" style="overflow:auto;"/>
+                            </div>
+                        </div>
+                    </div>
+                
+                </t>
+            </div>
+        </div>  
+    </t>
+</templates>

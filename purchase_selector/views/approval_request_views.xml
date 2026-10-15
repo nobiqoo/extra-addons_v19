@@ -1,0 +1,27 @@
+<odoo>
+  <data>
+
+    <!-- Herencia del formulario de requisición para mostrar sus OCs -->
+    <record id="approval_request_form_inherit_purchase_links" model="ir.ui.view">
+      <field name="name">approval.request.form.purchase.links</field>
+      <field name="model">approval.request</field>
+      <field name="inherit_id" ref="approvals.approval_request_view_form" />
+      <field name="arch" type="xml">
+
+        <xpath expr="//sheet/notebook" position="inside">
+          <page string="Órdenes de compra">
+            <field name="purchase_order_ids"
+              widget="many2many"
+              options="{'no_create': True}" />
+          </page>
+          <page string="Transferencias">
+            <field name="picking_ids" widget="many2many"
+              options="{'no_create': True}" />
+          </page>
+        </xpath>
+
+      </field>
+    </record>
+
+  </data>
+</odoo>

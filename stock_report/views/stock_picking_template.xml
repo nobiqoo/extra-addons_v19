@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+        <template id="inputs_and_outputs">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <t t-call="stock_report.inputs_and_outputs_document" />
+                    <p style="page-break-after: always;"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="inputs_and_outputs_document">
+            <link rel="preconnect" href="https://fonts.googleapis.com"/>
+            <link rel="preconnect" href="https://fonts.gstatic.com"/>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+            <style>
+                span, b {
+                    font-size: 12px;
+                    font-family: 'Inter', sans-serif;
+                }
+
+                span {
+                    font-weight: 400;
+                }
+
+                b {
+                    font-weight: 700;
+                }
+                .nombre-empresa-encabezado {
+                    text-transform: uppercase;
+                }
+
+                .tabla-reporte {
+                    width: 100%;
+                }
+
+                td {
+                    padding:1px 5px;
+                }
+
+                .relleno-verde {
+                    background-color: #873493;
+                    color:white;
+                    text-align: center;
+                    border:1px solid white;
+                }
+
+                .sin-relleno {
+                    background-color: #F4F4F4;
+                    border:1px solid white;
+                }
+
+                .observaciones {
+                    height:100px;
+                    vertical-align:top;
+                    padding:1px 10px;
+                }
+
+                .columna-vacia {
+                    height:30px;
+                }
+
+                .cantidad-recibida {
+                    color: #F4F4F4;
+                }
+            </style>
+            <div class="header">
+                <style>
+                    .header {
+                        padding: 20px 0;
+                    }
+                    .logo-empresa {
+                        max-width: 100%;
+                        height: auto;
+                    }
+                    .div_logo {
+                        text-align: center;
+                    }
+                    .div_company {
+                        font-size: 14px !important;
+                    }
+                    .div_title {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 100%;
+                    }
+                    .nombre-empresa-encabezado {
+                        text-transform: uppercase;
+                        font-weight: bold;
+                    }
+                </style>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3 div_logo">
+                            <span class="logo-empresa" t-field="doc.company_id.logo_web" t-options-widget="&quot;image&quot;"/>
+                            <br/>
+                        </div>
+                        <div class="col-3 div_company">
+                            <b class="nombre-empresa-encabezado" t-field="doc.company_id.name"/>
+                            <br/>
+                            <b>NIT:</b>
+                            <span t-field="doc.company_id.vat"/>
+                            <br/>
+                            <span t-field="doc.company_id.street"/>
+                        </div>
+                        <div class="col-6 text-center div_title" style="vertical-align: middle;padding:auto">
+                            <br/>
+                            <h4>
+                                <b>ENTRADAS SALIDAS Y TRASLADOS</b>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page">
+                <div class="container">
+                    <div class="row">
+                        <br/>
+                        <div class="col-6">
+                            <table class="tabla-reporte">
+                                <tr>
+                                    <td class="relleno-verde">
+                                        <b>FECHA</b>
+                                    </td>
+                                    <td class="sin-relleno text-center">
+                                        <span t-field="doc.scheduled_date" t-options="{&quot;format&quot;: &quot;MM/dd/yyyy&quot;}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="relleno-verde">
+                                        <b>CONSECUTIVO</b>
+                                    </td>
+                                    <td class="sin-relleno text-center">
+                                        <span t-field="doc.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="relleno-verde">
+                                        <b>ORIGEN</b>
+                                    </td>
+                                    <td class="sin-relleno text-center">
+                                        <span t-field="doc.location_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="relleno-verde">
+                                        <b>DESTINO</b>
+                                    </td>
+                                    <td class="sin-relleno text-center">
+                                        <span t-field="doc.location_dest_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="relleno-verde">
+                                        <t t-set="peso_bruto" t-value="0"/>
+                                        <t t-set="cantidad_total_productos" t-value="0"/>
+                                        <t t-foreach="doc.move_ids" t-as="producto">
+                                            <t t-set="peso_bruto" t-value="peso_bruto + producto.product_id.weight"/>
+                                            <t t-set="cantidad_total_productos" t-value="cantidad_total_productos + producto.product_uom_qty"/>
+                                        </t>
+                                        <b>PESO BRUTO</b>
+                                    </td>
+                                    <td class="sin-relleno text-center">
+                                        <span t-esc="round(peso_bruto,2)"/>
+                                        <span>Kg</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="relleno-verde">
+                                        <b>PESO NETO</b>
+                                    </td>
+                                    <td class="sin-relleno text-center"/>
+                                </tr>
+                                <tr>
+                                    <td class="relleno-verde">
+                                        <b>UNIDADES</b>
+                                    </td>
+                                    <td class="sin-relleno text-center">
+                                        <span t-esc="int(cantidad_total_productos)"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-6">
+                            <table class="tabla-reporte">
+                                <tr>
+                                    <td class="relleno-verde">
+                                        <b>CLIENTE:</b>
+                                    </td>
+                                    <td class="sin-relleno text-center">
+                                        <span t-field="doc.partner_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="relleno-verde">
+                                        <b>DIRECCIÓN</b>
+                                    </td>
+                                    <td class="sin-relleno text-center">
+                                        <span t-field="doc.partner_id.street"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="relleno-verde">
+                                        <b>TELÉFONO</b>
+                                    </td>
+                                    <td class="sin-relleno text-center">
+                                        <span t-field="doc.partner_id.phone"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="relleno-verde">
+                                        <b>DOC. ORIGEN</b>
+                                    </td>
+                                    <td class="sin-relleno text-center">
+                                        <span t-field="doc.origin"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <br/>
+                            <table class="tabla-reporte">
+                                <tr>
+                                    <td class="relleno-verde">
+                                        <b>ITEM</b>
+                                    </td>
+                                    <td class="relleno-verde">
+                                        <b>REF.</b>
+                                    </td>
+                                    <td class="relleno-verde">
+                                        <b>PRODUCTO</b>
+                                    </td>
+                                    <td class="relleno-verde">
+                                        <b>CANTIDAD INICIAL</b>
+                                    </td>
+                                    <td class="relleno-verde">
+                                        <b>CANTIDAD RECIBIDA</b>
+                                    </td>
+                                </tr>
+                                <t t-set="contador_item" t-value="0"/>
+                                <t t-foreach="doc.move_ids" t-as="mi">
+                                    <tr>
+                                        <t t-set="contador_item" t-value="contador_item + 1"/>
+                                        <td class="sin-relleno text-center">
+                                            <span t-esc="contador_item"/>
+                                        </td>
+                                        <td class="sin-relleno text-center">
+                                            <span t-esc="mi.product_id.default_code"/>
+                                        </td>
+                                        <td class="sin-relleno text-center">
+                                            <span t-esc="mi.product_id.name"/>
+                                        </td>
+                                        <td class="sin-relleno text-center">
+                                            <span t-esc="mi.product_uom_qty"/>
+                                        </td>
+                                        <td class="sin-relleno text-center cantidad-recibida">
+                                            <span>0</span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="tabla-reporte">
+                                <tr>
+                                    <td class="sin-relleno text-left observaciones">
+                                        <b>OBSERVACIONES:</b>
+                                        <span t-field="doc.note"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <table class="tabla-reporte">
+                                <tr>
+                                    <td class="relleno-verde" width="50%">
+                                        <b>CONTADO POR:</b>
+                                    </td>
+                                    <td class="relleno-verde" width="50%">
+                                        <b>CARGO:</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="sin-relleno text-center columna-vacia">
+                                    </td>
+                                    <td class="sin-relleno text-center columna-vacia">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-6">
+                            <table class="tabla-reporte">
+                                <tr>
+                                    <td class="relleno-verde" width="50%">
+                                        <b>VERIFICADO POR:</b>
+                                    </td>
+                                    <td class="relleno-verde" width="50%">
+                                        <b>CARGO:</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="sin-relleno text-center columna-vacia">
+
+                                    </td>
+                                    <td class="sin-relleno text-center columna-vacia">
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+            </div>
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Precarga de la tabla "Selección de estructura por ancho" con los
+         valores de las hojas 3 (Enrollable), 4 (sistemas con cabezal:
+         Enrollable Premium / Sheer Elegance) y 5 (2 en 1) del Excel
+         matriz_unificada_variables Final 1.xlsx. Editable en
+         Cotizador Safra > Configuración > Estructura por Ancho. -->
+    <data noupdate="1">
+
+        <!-- Hoja 3: ENROLLABLE (sin cabezal) -->
+        <record id="struct_01_man_r8" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_01')])]"/>
+            <field name="drive_type">manual</field>
+            <field name="cabezal_type">na</field>
+            <field name="width_from">0.3</field>
+            <field name="width_to">2.0</field>
+            <field name="tubo">R8</field>
+            <field name="mecanismo">R8SL</field>
+            <field name="soporte">R8/R16</field>
+            <field name="terminal">Terminal R8SL</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.015</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.17</field>
+            <field name="espacio_eje_techo">40</field>
+            <field name="diametro_tubo">32</field>
+            <field name="carga_maxima">3500</field>
+        </record>
+        <record id="struct_01_man_r16" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_01')])]"/>
+            <field name="drive_type">manual</field>
+            <field name="cabezal_type">na</field>
+            <field name="width_from">2.01</field>
+            <field name="width_to">3.3</field>
+            <field name="tubo">R16</field>
+            <field name="mecanismo">R16SL</field>
+            <field name="soporte">R8/R16</field>
+            <field name="terminal">Terminal R16SL</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.015</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.2</field>
+            <field name="espacio_eje_techo">40</field>
+            <field name="diametro_tubo">38</field>
+            <field name="carga_maxima">8000</field>
+        </record>
+        <record id="struct_01_man_r24" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_01')])]"/>
+            <field name="drive_type">manual</field>
+            <field name="cabezal_type">na</field>
+            <field name="width_from">3.301</field>
+            <field name="width_to">3.5</field>
+            <field name="tubo">R24</field>
+            <field name="mecanismo">R24SL</field>
+            <field name="soporte">R24</field>
+            <field name="terminal">Terminal R16SL</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.02</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.28</field>
+            <field name="espacio_eje_techo">53</field>
+            <field name="diametro_tubo">50</field>
+            <field name="carga_maxima">10900</field>
+        </record>
+        <record id="struct_01_man_tubo_2_12" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_01')])]"/>
+            <field name="drive_type">manual</field>
+            <field name="cabezal_type">na</field>
+            <field name="width_from">3.501</field>
+            <field name="width_to">4.5</field>
+            <field name="tubo">Tubo 2 1/2</field>
+            <field name="mecanismo">R24SL (SISTEMA R21/2)</field>
+            <field name="soporte">R24</field>
+            <field name="terminal">Terminal R16SL</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.02</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="desc_corona">-0.005</field>
+            <field name="aumento_tela">0.35</field>
+            <field name="espacio_eje_techo">52</field>
+            <field name="diametro_tubo">63.5</field>
+            <field name="carga_maxima">10900</field>
+        </record>
+        <record id="struct_01_mot_tubo_40mm_motorizado" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_01')])]"/>
+            <field name="drive_type">motor</field>
+            <field name="cabezal_type">na</field>
+            <field name="width_from">1.0</field>
+            <field name="width_to">2.5</field>
+            <field name="tubo">Tubo 40mm (Motorizado)</field>
+            <field name="mecanismo">MOTOR</field>
+            <field name="soporte">R8/R16</field>
+            <field name="terminal">Terminal R16SL</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.02</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.2</field>
+            <field name="espacio_eje_techo">40</field>
+            <field name="diametro_tubo">38</field>
+            <field name="carga_maxima">15000</field>
+        </record>
+        <record id="struct_01_mot_r24" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_01')])]"/>
+            <field name="drive_type">motor</field>
+            <field name="cabezal_type">na</field>
+            <field name="width_from">2.501</field>
+            <field name="width_to">3.5</field>
+            <field name="tubo">R24</field>
+            <field name="mecanismo">MOTOR</field>
+            <field name="soporte">R24</field>
+            <field name="terminal">Terminal R16SL</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.02</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.28</field>
+            <field name="espacio_eje_techo">53</field>
+            <field name="diametro_tubo">50</field>
+            <field name="carga_maxima">12000</field>
+        </record>
+        <record id="struct_01_mot_tubo_2_12" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_01')])]"/>
+            <field name="drive_type">motor</field>
+            <field name="cabezal_type">na</field>
+            <field name="width_from">3.501</field>
+            <field name="width_to">4.8</field>
+            <field name="tubo">Tubo 2 1/2</field>
+            <field name="mecanismo">MOTOR</field>
+            <field name="soporte">SKYLINE</field>
+            <field name="terminal">Soporte Terminal Sky Line Motor</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.02</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="desc_corona">-0.005</field>
+            <field name="aumento_tela">0.35</field>
+            <field name="espacio_eje_techo">62</field>
+            <field name="diametro_tubo">63.5</field>
+            <field name="carga_maxima">9444</field>
+        </record>
+        <record id="struct_01_mot_tubo_3_galvanizado" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_01')])]"/>
+            <field name="drive_type">motor</field>
+            <field name="cabezal_type">na</field>
+            <field name="width_from">4.801</field>
+            <field name="width_to">5.5</field>
+            <field name="tubo">Tubo 3 (Galvanizado)</field>
+            <field name="mecanismo">MOTOR</field>
+            <field name="soporte">SKYLINE</field>
+            <field name="terminal">Soporte Terminal Sky Line Motor</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.02</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="desc_corona">-0.005</field>
+            <field name="aumento_tela">0.4</field>
+            <field name="espacio_eje_techo">62</field>
+            <field name="diametro_tubo">76.2</field>
+            <field name="carga_maxima">7800</field>
+        </record>
+
+        <!-- Hoja 4: sistemas con cabezal (Enrollable Premium y Sheer Elegance) -->
+        <record id="struct_cab_man_cuad_r8" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_06'),ref('website_quotes_safra.system_02')])]"/>
+            <field name="drive_type">manual</field>
+            <field name="cabezal_type">cuadrado</field>
+            <field name="width_from">0.3</field>
+            <field name="width_to">2.0</field>
+            <field name="tubo">R8</field>
+            <field name="mecanismo">R8SL</field>
+            <field name="soporte">R8/R16</field>
+            <field name="terminal">Terminal R8SL</field>
+            <field name="cabezal">Cuadrado R8/R16</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.015</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.17</field>
+            <field name="espacio_eje_techo">33</field>
+            <field name="diametro_tubo">32</field>
+            <field name="carga_maxima">3500</field>
+        </record>
+        <record id="struct_cab_man_red_r8" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_06'),ref('website_quotes_safra.system_02')])]"/>
+            <field name="drive_type">manual</field>
+            <field name="cabezal_type">redondo</field>
+            <field name="width_from">0.3</field>
+            <field name="width_to">2.0</field>
+            <field name="tubo">R8</field>
+            <field name="mecanismo">R8SL</field>
+            <field name="soporte">R8/R16</field>
+            <field name="terminal">Terminal R8SL</field>
+            <field name="cabezal">Redondo R8</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.015</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.17</field>
+            <field name="espacio_eje_techo">33</field>
+            <field name="diametro_tubo">32</field>
+            <field name="carga_maxima">3500</field>
+        </record>
+        <record id="struct_cab_man_cuad_r16" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_06'),ref('website_quotes_safra.system_02')])]"/>
+            <field name="drive_type">manual</field>
+            <field name="cabezal_type">cuadrado</field>
+            <field name="width_from">2.01</field>
+            <field name="width_to">3.3</field>
+            <field name="tubo">R16</field>
+            <field name="mecanismo">R16SL</field>
+            <field name="soporte">R8/R16</field>
+            <field name="terminal">Terminal R16SL</field>
+            <field name="cabezal">Cuadrado R8/R16</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.015</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.2</field>
+            <field name="espacio_eje_techo">33</field>
+            <field name="diametro_tubo">38</field>
+            <field name="carga_maxima">8000</field>
+        </record>
+        <record id="struct_cab_man_red_r16" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_06'),ref('website_quotes_safra.system_02')])]"/>
+            <field name="drive_type">manual</field>
+            <field name="cabezal_type">redondo</field>
+            <field name="width_from">2.01</field>
+            <field name="width_to">3.3</field>
+            <field name="tubo">R16</field>
+            <field name="mecanismo">R16SL</field>
+            <field name="soporte">R8/R16</field>
+            <field name="terminal">Terminal R16SL</field>
+            <field name="cabezal">Redondo R16</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.015</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.2</field>
+            <field name="espacio_eje_techo">33</field>
+            <field name="diametro_tubo">38</field>
+            <field name="carga_maxima">8000</field>
+        </record>
+        <record id="struct_cab_man_cuad_r24" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_06'),ref('website_quotes_safra.system_02')])]"/>
+            <field name="drive_type">manual</field>
+            <field name="cabezal_type">cuadrado</field>
+            <field name="width_from">3.301</field>
+            <field name="width_to">3.5</field>
+            <field name="tubo">R24</field>
+            <field name="mecanismo">R24SL</field>
+            <field name="soporte">R24</field>
+            <field name="terminal">Terminal R16SL</field>
+            <field name="cabezal">Cuadrado R24</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.02</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.28</field>
+            <field name="espacio_eje_techo">45</field>
+            <field name="diametro_tubo">50</field>
+            <field name="carga_maxima">10900</field>
+        </record>
+        <record id="struct_cab_man_red_r24" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_06'),ref('website_quotes_safra.system_02')])]"/>
+            <field name="drive_type">manual</field>
+            <field name="cabezal_type">redondo</field>
+            <field name="width_from">3.301</field>
+            <field name="width_to">3.5</field>
+            <field name="tubo">R24</field>
+            <field name="mecanismo">R24SL</field>
+            <field name="soporte">R24</field>
+            <field name="terminal">Terminal R16SL</field>
+            <field name="cabezal">Redondo R24</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.02</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.28</field>
+            <field name="espacio_eje_techo">45</field>
+            <field name="diametro_tubo">50</field>
+            <field name="carga_maxima">10900</field>
+        </record>
+        <record id="struct_cab_mot_cuad_tubo_40mm_motorizado" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_06'),ref('website_quotes_safra.system_02')])]"/>
+            <field name="drive_type">motor</field>
+            <field name="cabezal_type">cuadrado</field>
+            <field name="width_from">2.01</field>
+            <field name="width_to">2.5</field>
+            <field name="tubo">Tubo 40mm (Motorizado)</field>
+            <field name="mecanismo">MOTOR</field>
+            <field name="soporte">R8/R16</field>
+            <field name="terminal">Terminal R16SL</field>
+            <field name="cabezal">Cuadrado R8/R16</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.02</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.2</field>
+            <field name="espacio_eje_techo">33</field>
+            <field name="diametro_tubo">38</field>
+            <field name="carga_maxima">15000</field>
+        </record>
+        <record id="struct_cab_mot_red_tubo_40mm_motorizado" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_06'),ref('website_quotes_safra.system_02')])]"/>
+            <field name="drive_type">motor</field>
+            <field name="cabezal_type">redondo</field>
+            <field name="width_from">2.01</field>
+            <field name="width_to">2.5</field>
+            <field name="tubo">Tubo 40mm (Motorizado)</field>
+            <field name="mecanismo">MOTOR</field>
+            <field name="soporte">R8/R16</field>
+            <field name="terminal">Terminal R16SL</field>
+            <field name="cabezal">Redondo R16</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.02</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.2</field>
+            <field name="espacio_eje_techo">33</field>
+            <field name="diametro_tubo">38</field>
+            <field name="carga_maxima">15000</field>
+        </record>
+        <record id="struct_cab_mot_cuad_r24" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_06'),ref('website_quotes_safra.system_02')])]"/>
+            <field name="drive_type">motor</field>
+            <field name="cabezal_type">cuadrado</field>
+            <field name="width_from">2.501</field>
+            <field name="width_to">3.5</field>
+            <field name="tubo">R24</field>
+            <field name="mecanismo">MOTOR</field>
+            <field name="soporte">R24</field>
+            <field name="terminal">Terminal R16SL</field>
+            <field name="cabezal">Cuadrado R24</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.02</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.28</field>
+            <field name="espacio_eje_techo">45</field>
+            <field name="diametro_tubo">50</field>
+            <field name="carga_maxima">12000</field>
+        </record>
+        <record id="struct_cab_mot_red_r24" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_06'),ref('website_quotes_safra.system_02')])]"/>
+            <field name="drive_type">motor</field>
+            <field name="cabezal_type">redondo</field>
+            <field name="width_from">2.501</field>
+            <field name="width_to">3.5</field>
+            <field name="tubo">R24</field>
+            <field name="mecanismo">MOTOR</field>
+            <field name="soporte">R24</field>
+            <field name="terminal">Terminal R16SL</field>
+            <field name="cabezal">Redondo R24</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+            <field name="desc_mando">-0.02</field>
+            <field name="desc_terminal">-0.005</field>
+            <field name="desc_soporte">-0.005</field>
+            <field name="aumento_tela">0.28</field>
+            <field name="espacio_eje_techo">45</field>
+            <field name="diametro_tubo">50</field>
+            <field name="carga_maxima">12000</field>
+        </record>
+
+        <!-- Hoja 5: 2 en 1 (la fila R8 del Excel queda pendiente de prueba física) -->
+        <record id="struct_2en1_r16" model="safra.structure.rule">
+            <field name="system_ids" eval="[Command.set([ref('website_quotes_safra.system_32'),ref('website_quotes_safra.system_61')])]"/>
+            <field name="drive_type">any</field>
+            <field name="cabezal_type">na</field>
+            <field name="width_from">0.5</field>
+            <field name="width_to">2.5</field>
+            <field name="tubo">R16</field>
+            <field name="mecanismo">R16SL</field>
+            <field name="soporte">SOPORTE 2EN1</field>
+            <field name="terminal">Terminal R16SL</field>
+            <field name="cabezal">Redondo R24</field>
+            <field name="perfil">Estandar / Cuadrado / Lujo</field>
+        </record>
+
+    </data>
+</odoo>

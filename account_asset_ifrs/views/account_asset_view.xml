@@ -1,0 +1,188 @@
+<odoo>
+    <record id="view_account_asset_form" model="ir.ui.view">
+        <field name="name">view.account.asset.form</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div[2]" position="after">
+                <field name="ifrs_type" invisible="1" />
+                <group string="Local / IFRS" groups="account_ifrs.group_account_ifrs" invisible="state == 'model'">
+                    <field name="ifrs_type" readonly="state != 'draft'" />
+                    <field name="depreciation_entries_count_ifrs" invisible="1"/>
+                    <field name="total_depreciation_entries_count_ifrs" invisible="1"/>
+                </group>
+            </xpath>
+            <button name="open_entries" position="after">
+                <button class="oe_stat_button" name="open_entries_ifrs"  type="object" icon="fa-bars" invisible="ifrs_type not in ('both', 'ifrs')" groups="account_ifrs.group_account_ifrs">
+                    <field string="Posted Entries Ifrs" name="depreciation_entries_count_ifrs" widget="statinfo" />
+                </button>
+            </button>
+            <page name="main_page" position="attributes">
+                <attribute name="invisible">ifrs_type not in ('both', 'local', 'united')</attribute>
+            </page>
+            <page name="depreciation_board" position="attributes">
+                <attribute name="invisible">total_depreciation_entries_count == 0 or ifrs_type not in ('both', 'local', 'united')</attribute>
+            </page>
+            <xpath expr="//field[@name='account_depreciation_id'][1]" position="attributes">
+                <attribute name="required">ifrs_type in ('both', 'local', 'united')</attribute>
+            </xpath>
+            <xpath expr="//page[@name='main_page']//field[@name='account_depreciation_id']" position="attributes">
+                <attribute name="required">ifrs_type in ('both', 'local', 'united')</attribute>
+            </xpath>
+            <xpath expr="//field[@name='account_depreciation_expense_id'][1]" position="attributes">
+                <attribute name="required">ifrs_type in ('both', 'local', 'united')</attribute>
+            </xpath>
+            <xpath expr="//page[@name='main_page']//field[@name='account_depreciation_expense_id']" position="attributes">
+                <attribute name="required">ifrs_type in ('both', 'local', 'united')</attribute>
+            </xpath>
+            <xpath expr="//field[@name='journal_id'][1]" position="attributes">
+                <attribute name="required">ifrs_type in ('both', 'local', 'united')</attribute>
+            </xpath>
+            <xpath expr="//page[@name='main_page']//field[@name='journal_id']" position="attributes">
+                <attribute name="required">ifrs_type in ('both', 'local', 'united')</attribute>
+            </xpath>
+            <page name="depreciation_board" position="after">
+                <page string="Asset Ifrs" name="asset_ifrs" groups="account_ifrs.group_account_ifrs" invisible="ifrs_type not in ('both', 'ifrs')">
+                    <group>
+                        <group string="Asset Values Ifrs" invisible="state == 'model'" name="asset_values_ifrs">
+                            <field name="original_value_ifrs" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="state == 'model'" readonly="state != 'draft'"/>
+                            <field name="gross_increase_value_ifrs" widget="monetary" invisible="state == 'model' or gross_increase_value_ifrs == 0" options="{'currency_field': 'currency_id'}"/>
+                            <field name="acquisition_date_ifrs" invisible="state == 'model'" readonly="state != 'draft'"/>
+                            <field  name="ifrs_model_id"
+                                    string="Asset Model Ifrs"
+                                    domain="[('state', '=', 'model')]"
+                                    options="{'no_quick_create': True}"
+                                    context="{
+                                        'default_state': 'model',
+                                        'default_account_asset_id': ifrs_account_asset_id,
+                                        'default_account_depreciation_id': ifrs_account_depreciation_id,
+                                        'default_account_depreciation_expense_id': ifrs_account_depreciation_expense_id
+                                    }" readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Current Values Ifrs" invisible="state == 'model'" name="current_values_ifrs">
+                            <field name="salvage_value_ifrs" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="state != 'draft'"/>
+                            <label for="book_value_ifrs"/>
+                            <span>
+                                <field name="book_value_ifrs" class="oe_inline" widget="monetary" required="1" invisible="state == 'model'" options="{'currency_field': 'currency_id'}"/>
+                                <span invisible="salvage_value_ifrs == 0">
+                                    (incl.
+                                    <field name="value_residual_ifrs" nolabel="1" force_save="1" widget="monetary" invisible="state == 'model'" options="{'currency_field': 'currency_id'}"/>
+                                        depreciable)
+                                </span>
+                            </span>
+                        </group>
+                        <group string="Depreciation Method Ifrs">
+                            <field name="method_ifrs" required="ifrs_type in ('both', 'ifrs')" readonly="state not in ['draft', 'model']" />
+                            <field name="method_progress_factor_ifrs" widget="percentage" invisible="method == 'linear'" readonly="state not in ['draft', 'model']" required="method in ('degressive', 'degressive_then_linear')"/>
+                            <label for="method_number_ifrs" string="Duration"/>
+                            <div class="o_row">
+                                <field name="method_number_ifrs" required="ifrs_type in ('both', 'ifrs')" readonly="state not in ['draft', 'model']" class="oe_inline"/>
+                                <field name="method_period_ifrs" required="ifrs_type in ('both', 'ifrs')" readonly="state not in ['draft', 'model']" nolabel="1"/>
+                            </div>
+                            <field name="prorata_computation_type_ifrs" readonly="state not in ['draft', 'model']"/>
+                            <field name="prorata_date_ifrs" required="ifrs_type in ('both', 'ifrs')" invisible="prorata_computation_type_ifrs == 'none'" readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Accounting Ifrs">
+                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company" readonly="state != 'draft'"/>
+                            <field
+                                name="ifrs_account_asset_id"
+                                domain="[
+                                    ('company_ids', 'parent_of', company_id),
+                                    ('account_type', 'in', (
+                                        'asset_fixed',
+                                        'asset_non_current',
+                                        'asset_current')
+                                    ),
+                                ]"
+                                context="{
+                                    'default_account_type': 'asset_fixed',
+                                    'hide_model_on_account': state == 'model' and not id,
+                                    'account_type_domain': [('account_type', 'in', (
+                                        'asset_fixed',
+                                        'asset_non_current'))]}"
+                                invisible="not display_account_asset_id"
+                                readonly="state == 'close'"/>
+                            <field
+                                name="ifrs_account_depreciation_id"
+                                domain="[
+                                    ('company_ids', 'parent_of', company_id),
+                                    ('account_type', 'in', (
+                                        'asset_fixed',
+                                        'asset_non_current',
+                                        'asset_current')
+                                    ),
+                                ]"
+                                context="{
+                                    'default_account_type': 'asset_non_current',
+                                    'hide_model_on_account': state == 'model' and not id,
+                                    'account_type_domain': [('account_type', 'in', (
+                                        'asset_fixed',
+                                        'asset_non_current'))]}"
+                                required="ifrs_type in ('both', 'ifrs') and state != 'model'"
+                                readonly="state == 'close'"/>
+                            <field
+                                name="ifrs_account_depreciation_expense_id"
+                                domain="[
+                                    ('company_ids', 'parent_of', company_id),
+                                    ('account_type', 'in', (
+                                        'expense_depreciation',
+                                        'expense')
+                                    ),
+                                ]"
+                                context="{
+                                    'default_account_type': 'expense_depreciation',
+                                    'hide_model_on_account': state == 'model' and not id,
+                                    'account_type_domain': [('account_type', 'in', (
+                                        'expense_depreciation',
+                                        'expense'))]}"
+                                required="ifrs_type in ('both', 'ifrs') and state != 'model'"
+                                readonly="state == 'close'"/>
+                            <field name="ifrs_journal_id" required="ifrs_type in ('both', 'ifrs')" readonly="state not in ['draft', 'model']"/>
+                            <field name="ifrs_analytic_distribution" groups="analytic.group_analytic_accounting" widget="analytic_distribution"
+                                    options="{'account_field': 'ifrs_account_depreciation_expense_id', 'business_domain': 'general'}"
+                                    readonly="0"/>
+                        </group>
+                        <group string="Value at Import Ifrs" invisible="state == 'model'">
+                            <field name="already_depreciated_amount_import_ifrs" string="Depreciated Amount Ifrs" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                </page>
+                <page string="Depreciation Board Ifrs" groups="account_ifrs.group_account_ifrs" name="depreciation_ifrs" invisible="total_depreciation_entries_count_ifrs == 0 or ifrs_type not in ('both', 'ifrs')">
+                    <field name="ifrs_depreciation_move_ids" mode="list" options="{'reload_whole_on_button': true}" readonly="state not in ['draft', 'open', 'paused']">
+                        <list create="false" string="Depreciation Lines Ifrs" decoration-info="state == 'draft'" decoration-muted="state == 'cancel'"  default_order="date asc, id asc" editable="top">
+                            <field name="currency_id" column_invisible="True" readonly="state in ['cancel', 'posted']"/>
+                            <field name="date" string="Depreciation Date" readonly="state in ['cancel', 'posted']"/>
+                            <field name="ref" invisible="0"/>
+                            <field name="reversal_move_ids" widget="deprec_lines_reversed"/>
+                            <field name="depreciation_value" widget="monetary" string="Depreciation" options="{'currency_field': 'currency_id'}" readonly="state == 'posted'"/>
+                            <field name="asset_depreciated_value" readonly="1" force_save="1" options="{'currency_field': 'currency_id'}"/>
+                            <field name="asset_remaining_value" readonly="1" widget="monetary" force_save="1" options="{'currency_field': 'currency_id'}"/>
+                            <field name="name" readonly="1" string="Journal Entry" widget="open_move_widget"/>
+                            <field name="state" column_invisible="True"/>
+                        </list>
+                    </field>
+                </page>
+            </page>
+            <page name="related_items" position="after">
+                <page string="Other Information" name="other_information">
+                    <group>
+                        <group>
+                            <field name="provider_id" readonly="state not in ['draft', 'open']" options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"/>
+                            <field name="partner_id" readonly="state not in ['draft', 'open']" options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"/>
+                            <field name="job_id" readonly="state not in ['draft', 'open']" options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"/>
+                            <field name="model_asset" readonly="state != 'draft'"/>
+                            <field name="location_id" readonly="state not in ['draft', 'open']" options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"/>
+                            <field name="description" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="active_number" readonly="state != 'draft'"/>
+                            <field name="serail" readonly="state != 'draft'"/>
+                            <field name="plate" readonly="state != 'draft'"/>
+                            <field name="brand" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

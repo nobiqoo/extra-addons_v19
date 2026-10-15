@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Menú padre bajo Contabilidad > Reportes -->
+        <menuitem
+            id="menu_pyg_root"
+            name="PyG por Posición"
+            parent="account.menu_finance_reports"
+            sequence="90"/>
+
+        <!-- 1) PyG por posición — descarga Excel desde wizard -->
+        <menuitem
+            id="menu_pyg_position_report"
+            name="PyG por posición"
+            action="account_pyg.action_pyg_position_xlsx_wizard"
+            parent="menu_pyg_root"
+            sequence="10"/>
+
+        <!-- 2) P&G por posición (Dinámico) — wizard → lista dinámica -->
+        <menuitem
+            id="menu_pyg_position_wizard"
+            name="P&amp;G por posición (Dinámico)"
+            action="account_pyg.action_pyg_position_wizard"
+            parent="menu_pyg_root"
+            sequence="20"/>
+
+        <!-- 3) P&G por posición (Filtros) -->
+        <menuitem
+            id="menu_pyg_position_report_filter"
+            name="P&amp;G por posición (Filtros)"
+            action="account_pyg.pyg_position_report_filter_action"
+            parent="menu_pyg_root"
+            sequence="30"/>
+
+        <!-- 4) Informe de Comisiones -->
+        <menuitem
+            id="menu_pyg_analytic_position_wizard"
+            name="Informe de Comisiones"
+            action="account_pyg.action_pyg_analytic_position_wizard"
+            parent="menu_pyg_root"
+            sequence="40"/>
+    </data>
+</odoo>

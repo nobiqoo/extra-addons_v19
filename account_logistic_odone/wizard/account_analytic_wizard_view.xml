@@ -1,0 +1,42 @@
+<odoo>
+    <record model="ir.ui.view" id="view_account_analytic_wizard_form">
+        <field name="name">view.account.analytic.wizard.form</field>
+        <field name="model">account.analytic.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Account analytic report">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="range_id" />
+                            <field name="date_start" required="True" />
+                            <field name="date_end" required="True" />
+                        </group>
+                        <group>
+                            <field name="analytic_accounts_ids" widget="many2many_tags" />
+                            <field name="account_accounts_ids" widget="many2many_tags" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Generate XLSX report" name="generate_report" type="object"
+                        class="oe_highlight" context="{'report_type': 'xlsx'}" />
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_analytic_wizard" model="ir.actions.act_window">
+        <field name="name">Position PAL</field>
+        <field name="res_model">account.analytic.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_account_analytic" name="Analytic Accounting"
+        groups="analytic.group_analytic_accounting" sequence="10"
+        parent="account.menu_finance_reports">
+        <menuitem id="menu_account_analytic_wizard" action="action_account_analytic_wizard"
+            sequence="5" />
+    </menuitem>
+</odoo>

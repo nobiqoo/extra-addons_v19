@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>; ) --> 
+<!-- See LICENSE file for full copyright and licensing details. --> 
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="wk_fee_generate_wizard_view_form" model="ir.ui.view">
+            <field name="name">wk.fee.generate.wizard.view.form</field>
+            <field name="model">wk.fee.generate.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Fee Slip Generate">
+                    <sheet>
+                        <group>
+                            <group>
+                               <field name="enrollment_id" readonly="1"/>
+                               <field name="start_date"/>
+                               <field name="payment_term"/>
+                               <field name="installment" invisible="payment_term != 'custom'"/>
+                            </group>
+                            <group>
+                               <field name="student_id"/>
+                               <field name="end_date"/>
+                               <field name="amount_to_pay" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="generate_now" type="object" string="Generate Now" class="btn-success"/>
+                        <button string="Cancel" class="btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

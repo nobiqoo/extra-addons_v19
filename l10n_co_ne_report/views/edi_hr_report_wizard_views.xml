@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- ─── Acción del wizard ─────────────────────────────────── -->
+        <record id="edi_hr_report_wizard_action" model="ir.actions.act_window">
+            <field name="name">Informe Previo Nómina Electrónica</field>
+            <field name="res_model">edi.hr.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- ─── Vista del wizard ──────────────────────────────────── -->
+        <record id="edi_hr_report_wizard_view_form" model="ir.ui.view">
+            <field name="name">edi.hr.report.wizard.form</field>
+            <field name="model">edi.hr.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Informe Previo Nómina Electrónica">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>Informe Previo — Nómina Electrónica</h1>
+                            <p class="text-muted">
+                                Genera un Excel con exactamente la misma información que
+                                se envía a la DIAN, incluyendo todos los devengos y deducciones.
+                            </p>
+                        </div>
+
+                        <group string="Filtros">
+                            <group>
+                                <field name="company_id" options="{'no_create': True}"/>
+                                <field name="fecha_informe"
+                                       help="Seleccione cualquier día del mes a reportar.
+El sistema incluirá automáticamente todos los períodos
+(quincenas, semanas, etc.) que inicien en ese mes."/>
+                            </group>
+                            <group>
+                                <field name="edi_type"/>
+                                <field name="state_filter"/>
+                            </group>
+                        </group>
+
+                        <group string="O filtrar por Procesamientos específicos">
+                            <field name="edi_processing_ids"
+                                   nolabel="1"
+                                   widget="many2many_tags"
+                                   domain="[('company_id','=',company_id)]"
+                                   options="{'no_create': True}"
+                                   placeholder="Deje vacío para usar el Período..."/>
+                        </group>
+
+                        <div class="alert alert-info" role="alert">
+                            <strong>Nota:</strong>
+                            Seleccione <strong>cualquier día del mes</strong> que desea consultar.
+                            El sistema tomará automáticamente del 1 al último día de ese mes,
+                            incluyendo <strong>todas las quincenas, semanas u otros períodos</strong>
+                            de pago que inician en ese mes — sin importar que el reporte a la DIAN
+                            sea mensual. Si selecciona Procesamientos específicos, la fecha será ignorada.
+                            Las columnas <strong>A–AH</strong> contienen datos del empleado/contrato
+                            y a partir de <strong>AI</strong> se muestran los conceptos DIAN
+                            (devengos y deducciones) tal como se reportan en el XML enviado a la DIAN.
+                        </div>
+                    </sheet>
+                    <footer>
+                        <button name="action_generate_report"
+                                string="Generar Excel"
+                                type="object"
+                                class="btn-primary"
+                                icon="fa-file-excel-o"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- ─── Ítem de menú ──────────────────────────────────────── -->
+        <menuitem
+            id="menu_edi_hr_report"
+            name="Informe Previo NE"
+            parent="hr_payroll_co.payslip_menu_categ"
+            action="edi_hr_report_wizard_action"
+            groups="hr_payroll_co.manager_payslip"
+            sequence="22"/>
+
+    </data>
+</odoo>

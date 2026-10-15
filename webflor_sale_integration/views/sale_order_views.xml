@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_webflor_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.webflor.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='other_information']" position="after">
+                <page name="webflor_info" string="WebFlor">
+                    <group string="Información WebFlor">
+                        <group>
+                            <field name="webflor_order_number"/>
+                            <field name="webflor_invoice_number"/>
+                        </group>
+                        <group>
+                            <field name="webflor_sale_type"/>
+                            <field name="webflor_negotiation_term"/>
+                            <field name="webflor_order_type"/>
+                        </group>
+                    </group>
+                    <group string="Logística WebFlor - Despacho Internacional">
+                        <group>
+                            <field name="webflor_freight_forwarder"/>
+                            <field name="webflor_airline"/>
+                            <field name="webflor_delivery_date"/>
+                            <field name="webflor_dispatch_date"/>
+                        </group>
+                        <group>
+                            <field name="webflor_mawb_number"/>
+                            <field name="webflor_hawb_number"/>
+                            <field name="webflor_grandchild_guide_number"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/*[self::tree or self::list]" position="inside">
+                <field name="webflor_product_code" optional="hide"/>
+                <field name="webflor_referente" optional="hide"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

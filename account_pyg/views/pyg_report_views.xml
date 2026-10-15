@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="pyg_position_report_form" model="ir.ui.view">
+            <field name="name">pyg.position.report.form</field>
+            <field name="model">pyg.position.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="document_id"/>
+                            <field name="type_doc"/>
+                            <field name="document_date"/>
+                            <field name="partner_name"/>
+                            <field name="partner_vat"/>
+                            <field name="doc_ref"/>
+                            <field name="inv_date"/>
+                            <field name="inv_date_due"/>
+                            <field name="state"/>
+                            <field name="doc_payment_state"/>
+                            <field name="doc_code_cw"/>
+                            <field name="doc_team_id"/>
+                            <field name="doc_journal_id"/>
+                            <field name="doc_payment_mode_id"/>
+                            <field name="doc_user"/>
+                            <field name="doc_to_check"/>
+                            <field name="doc_inv_status_dian"/>
+                            <field name="doc_edi_state"/>
+                        </group>
+                        <group>
+                            <field name="detail"/>
+                            <field name="profit"/>
+                            <field name="loss"/>
+                            <field name="profitability_company"/>
+                            <field name="profit_usd"/>
+                            <field name="loss_usd"/>
+                            <field name="profitability_usd"/>
+                            <field name="trm_usd"/>
+                            <field name="profitability_doc"/>
+                            <field name="currency"/>
+                            <field name="rate"/>
+                        </group>
+                        <group>
+                            <field name="analytic_account_id"/>
+                            <field name="account_id"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="doc_origin"/>
+                            <field name="doc_destination"/>
+                            <field name="doc_motor"/>
+                            <field name="doc_weight"/>
+                            <field name="doc_position"/>
+                            <field name="doc_hbl"/>
+                            <field name="doc_volume"/>
+                            <field name="doc_eta"/>
+                            <field name="doc_etd"/>
+                            <field name="doc_embarque"/>
+                            <field name="doc_department_code"/>
+                            <field name="doc_salesman"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="pyg_position_report_list" model="ir.ui.view">
+            <field name="name">pyg.position.report.list</field>
+            <field name="model">pyg.position.report</field>
+            <field name="arch" type="xml">
+                <list create="0" delete="0" edit="0" export_xlsx="1" class="o_pyg_position_report" js_class="pyg_position_list_filter">
+                    <field name="document_id" optional="show"/>
+                    <field name="doc_ref" optional="show"/>
+                    <field name="document_date" optional="show"/>
+                    <field name="partner_name" optional="show"/>
+                    <field name="partner_vat" optional="show"/>
+                    <field name="analytic_account_id" optional="show"/>
+                    <field name="account_id" optional="show"/>
+                    <field name="detail" optional="show"/>
+                    <field name="profit" optional="show" sum="Total Ingresos"/>
+                    <field name="loss" optional="show" sum="Total Egresos"/>
+                    <field name="profitability_company" optional="show" sum="Total Rentabilidad"/>
+                    <field name="profit_usd" optional="show" sum="Total Ingresos USD"/>
+                    <field name="loss_usd" optional="show" sum="Total Egresos USD"/>
+                    <field name="profitability_usd" optional="show" sum="Total Rentabilidad USD"/>
+                    <field name="trm_usd" optional="show"/>
+                    <field name="profitability_doc" optional="show" sum="Total Rentabilidad Doc"/>
+                    <field name="currency" optional="show"/>
+                    <field name="rate" optional="show"/>
+                    <field name="state" optional="show"/>
+                    <field name="type_doc" optional="show"/>
+                    <field name="doc_code_cw" optional="show"/>
+                    <field name="inv_date" optional="show"/>
+                    <field name="inv_date_due" optional="show"/>
+                    <field name="doc_origin" optional="show"/>
+                    <field name="doc_destination" optional="show"/>
+                    <field name="doc_motor" optional="show"/>
+                    <field name="doc_weight" optional="show"/>
+                    <field name="doc_position" optional="show"/>
+                    <field name="doc_hbl" optional="show"/>
+                    <field name="doc_volume" optional="show"/>
+                    <field name="doc_eta" optional="show"/>
+                    <field name="doc_etd" optional="show"/>
+                    <field name="doc_salesman" optional="show"/>
+                    <field name="doc_embarque" optional="show"/>
+                    <field name="doc_department_code" optional="show"/>
+                    <field name="doc_user" optional="show"/>
+                    <field name="doc_team_id" optional="show"/>
+                    <field name="doc_payment_mode_id" optional="show"/>
+                    <field name="doc_to_check" optional="show"/>
+                    <field name="doc_payment_state" optional="show"/>
+                    <field name="doc_inv_status_dian" optional="show"/>
+                    <field name="doc_edi_state" optional="show"/>
+                    <field name="doc_journal_id" optional="show"/>
+                    <field name="account_root_id" optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="pyg_position_report_search" model="ir.ui.view">
+            <field name="name">pyg.position.report.search</field>
+            <field name="model">pyg.position.report</field>
+            <field name="arch" type="xml">
+                <search>
+                    <!-- Tipo Documento -->
+                    <filter string="Ventas" name="filter_type_sale" domain="[('type_doc', 'in', ('out_invoice', 'out_refund', 'out_receipt'))]"/>
+                    <filter string="Compras" name="filter_advance" domain="[('type_doc', 'in', ('in_invoice', 'in_refund', 'in_receipt'))]"/>
+                    <filter string="Asientos" name="filter_cross" domain="[('type_doc', '=', 'entry')]"/>
+                    <separator/>
+                    <!-- Estado -->
+                    <filter string="Borrador" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Publicado" name="filter_posted" domain="[('state', '=', 'posted')]"/>
+                    <filter string="Cancelado" name="filter_cancel" domain="[('state', '=', 'cancel')]"/>
+                    <separator/>
+                    <!-- Fechas -->
+                    <filter string="Fecha" name="filter_document_date" date="document_date"/>
+                    <separator/>
+                    <group>
+                        <filter string="Tercero" name="group_partner" context="{'group_by':'partner_name'}"/>
+                        <filter string="Documento" name="group_doc_id" context="{'group_by':'document_id'}"/>
+                        <filter string="Diario" name="group_doc_journal_id" context="{'group_by':'doc_journal_id'}"/>
+                        <filter string="Tipo Doc" name="group_type_doc" context="{'group_by':'type_doc'}"/>
+                        <filter string="Estado" name="group_state" context="{'group_by':'state'}"/>
+                        <filter string="Cuenta" name="group_account_id" context="{'group_by':'account_id'}"/>
+                        <filter string="Cuenta Analítica" name="group_analytic_account_id" context="{'group_by':'analytic_account_id'}"/>
+                        <filter string="Moneda" name="group_currency" context="{'group_by':'currency'}"/>
+                        <filter string="Fecha" name="group_document_date" context="{'group_by':'document_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="pyg_position_report_action" model="ir.actions.act_window">
+            <field name="name">PyG por posición</field>
+            <field name="res_model">pyg.position.report</field>
+            <field name="view_mode">list,pivot,graph,form</field>
+            <field name="search_view_id" ref="pyg_position_report_search"/>
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    PyG por posición
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- MENÚ RAÍZ -->
+    <menuitem id="biometric_device_details_menu"
+              name="Biometric Device"
+              parent="hr_attendance.menu_hr_attendance_root"
+              sequence="21"/>
+
+    <menuitem id="biometric_device_details_sub_menu"
+              action="biometric_device_details_action"
+              parent="biometric_device_details_menu"
+              sequence="21"/>
+
+    <menuitem id="daily_attendance_menu"
+              action="daily_attendance_action"
+              parent="biometric_device_details_menu"
+              groups="hr_attendance.group_hr_attendance_officer"/>
+
+    <!-- ACCIÓN MARCACIONES EN CRUDO -->
+    <record id="action_biometric_raw_punch" model="ir.actions.act_window">
+        <field name="name">Marcaciones en Crudo</field>
+        <field name="res_model">biometric.raw.punch</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_biometric_raw_punch_search"/>
+        <field name="help" type="html">
+            <p>
+                Visualización de todas las marcaciones crudas recibidas desde dispositivos biométricos.
+            </p>
+        </field>
+    </record>
+
+    <!-- MENÚ NUEVO DENTRO DE BIOMETRIC DEVICE -->
+    <menuitem id="menu_biometric_raw_punch"
+              name="Marcaciones en Crudo"
+              parent="biometric_device_details_menu"
+              action="action_biometric_raw_punch"
+              sequence="30"/>
+</odoo>

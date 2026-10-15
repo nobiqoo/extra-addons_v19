@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>; ) --> 
+<!-- See LICENSE file for full copyright and licensing details. --> 
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="wk_portal_wizard_user_form" model="ir.ui.view">
+            <field name="name">wk.portal.wizard.user.form</field>
+            <field name="model">wk.portal.wizard.user</field>
+            <field name="arch" type="xml">
+                <form string="Portal User Access">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="type_of_access" string="Portal Access" widget='radio' />
+                            </group>
+                            <div>
+                                <div invisible="type_of_access != 'student_access'" class="alert alert-info"
+                                    role="alert">
+                                    <b>Student Access:-</b>
+                                    <div>
+                                        <ul>
+                                            <li>Students can access the portal using the registered email ID.</li>
+                                            <li>The portal provides full access, including fee payment functionality.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div invisible="type_of_access != 'parent_access'" class="alert alert-info"
+                                    role="alert">
+                                    <b>Parent Access:-</b>
+                                    <div>
+                                        <ul>
+                                            <li>Parents can access the portal using the parent's registered email ID.</li>
+                                            <li>The portal provides full access, including fee payment functionality.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div invisible="type_of_access != 'dual_access'" class="alert alert-info"
+                                    role="alert">
+                                    <b>Dual Access:-</b>
+                                    <div>
+                                        <ul>
+                                            <li>Students and parents will have separate portal access.</li>
+                                            <li>Students can perform all academic activities.</li>
+                                            <li>Parents can additionally manage fee payments.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </group>
+                        <span invisible="type_of_access == 'parent_access'" class="o_field_label fw-bold" style="color:black;opacity:0.9;">Student Information:</span>
+                        <field invisible="type_of_access == 'parent_access'" name="student_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                        <div invisible="type_of_access == 'student_access'" class="o_field_label fw-bold" style="color:black;opacity:0.9;">Parent Information:</div>
+                        <field invisible="type_of_access == 'student_access'" name="parent_ids" options="{'no_create': True}">
+                            <list create="0">
+                                <field name="complete_name" string="Name"/>
+                                <field name="email"/>
+                            </list>
+                        </field>
+                    </sheet>
+                    <footer>
+                        <button name="grant_now" type="object" string="Grant Now" class="btn-success"/>
+                        <button string="Cancel" class="btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

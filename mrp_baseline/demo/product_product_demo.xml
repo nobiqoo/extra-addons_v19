@@ -1,0 +1,9 @@
+<odoo>
+    <record id="product_mrp_cost" model="product.product">
+        <field name="name">Landed Cost</field>
+        <field name="categ_id" ref="product.product_category_expenses" />
+        <field name="type">service</field>
+        <field name="uom_id" ref="uom.product_uom_unit" />
+        <field name="landed_cost_ok" eval="1" />
+    </record>
+</odoo>

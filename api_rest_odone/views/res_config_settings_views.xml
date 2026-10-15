@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Campo relacionado en res.config.settings -->
+    <record id="res_config_settings_view_form_api_rest_odone" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.api.rest.odone</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='account']" position="inside">
+                <block title="Integración API REST" name="api_rest_integration_setting_container">
+                    <setting string="Diario para Integración API" company_dependent="1"
+                             help="Diario contable a utilizar en los asientos creados vía el endpoint REST de integración.">
+                        <field name="api_integration_journal_id"/>
+                    </setting>
+                    <setting string="API Key de Integración" company_dependent="1"
+                             help="Clave secreta que los sistemas externos deben enviar en el header X-API-Key.">
+                        <field name="api_rest_api_key" widget="CopyClipboardChar"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

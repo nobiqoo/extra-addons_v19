@@ -1,0 +1,15 @@
+pandas
+pg-xades
+unidecode
+xades
+xmlsig
+xmltodict
+cerberus
+pyquerystring
+parse-accept-language
+apispec
+cachetools
+pyzk
+pytz
+openpyxl
+xlsxwriter

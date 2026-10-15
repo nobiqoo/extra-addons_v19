@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record id="payslip_processing_paperformat" model="report.paperformat">
+            <field name="name">Procesamiento de nómina Formato Papel</field>
+            <field name="default" eval="True" />
+            <field name="format">Letter</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">30</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="payslip_processing_action_report" model="ir.actions.report">
+            <field name="name">Resumen de Nómina</field>
+            <field name="model">hr.payslip.processing</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hr_payroll_co.payroll_processing_template_report</field>
+            <field name="report_file">hr_payroll_co.payroll_processing_template_report</field>
+            <field name="paperformat_id" ref="payslip_processing_paperformat" />
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_payslip_processing" />
+        </record>
+    </data>
+</odoo>

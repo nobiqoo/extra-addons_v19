@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.common.form.inherit.l10n_gt_extra</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='group_standard_price']/field[@name='categ_id']" position="before">
+                    <field name="is_group_user" invisible="1" />
+                    <field name="is_group_manager" invisible="1" />
+                </xpath>
+                <label for="standard_price" position="attributes">
+                    <attribute name="invisible">(not is_group_user and not is_group_manager) or ((id and product_variant_count != 1 and not is_product_variant) or type == 'combo')</attribute>
+                </label>
+                <div name="standard_price_uom" position="attributes">
+                    <attribute name="invisible">(not is_group_user and not is_group_manager) or ((id and product_variant_count != 1 and not is_product_variant) or type == 'combo')</attribute>
+                </div>
+                <xpath expr="//div[@name='standard_price_uom']/field[@name='standard_price']" position="attributes">
+                    <attribute name="readonly">not is_group_manager</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_product_tree_view_inherit" model="ir.ui.view">
+            <field name="name">product.product.tree.view.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="standard_price" position="replace">
+                    <field name="standard_price" optional="show" groups="stock_baseline.group_hide_standard_price"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_template_tree_view_inherit" model="ir.ui.view">
+            <field name="name">product.template.tree.view.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="standard_price" position="replace">
+                    <field name="standard_price" optional="show" groups="stock_baseline.group_hide_standard_price"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

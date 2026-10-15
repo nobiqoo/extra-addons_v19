@@ -1,0 +1,111 @@
+<odoo>
+    <template id="report_template_stock_move">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="doc" t-value="doc.with_context(lang=doc.user_id.lang)" />
+                <t t-call="web.external_layout">
+                    <h1>Kardex Report</h1>
+                    <div class="page">
+                        <div class="oe_structure" />
+                        <div>
+                            <table class="table table-sm o_main_table">
+                                <thead style="display: table-row-group">
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Date start</th>
+                                        <th>Date end</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="display: table-row-group">
+                                    <tr>
+                                        <td>
+                                            <span t-field="doc.user_id" />
+                                        </td>
+                                        <td>
+                                            <span t-field="doc.date_start" />
+                                        </td>
+                                        <td>
+                                            <span t-field="doc.date_end" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <t t-set="report_data" t-value="doc.report_data()" />
+                        <t t-foreach="report_data.get('products')" t-as="product">
+                            <div>
+                                <h2>
+                                    <span t-esc="product.get('name')" />
+                                </h2>
+                                <table class="table table-sm o_main_table" style="page-break-inside: auto;">
+                                    <thead style="display: table-row-group">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Reference</th>
+                                            <!-- <th>Product</th> -->
+                                            <th>From</th>
+                                            <th>To</th>
+                                            <th>Type</th>
+                                            <th>Initial</th>
+                                            <th>Quantity</th>
+                                            <th>Final</th>
+                                            <th>UoM</th>
+                                            <th>Unit</th>
+                                            <th>Total</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="product.get('moves')" t-as="move">
+                                            <tr>
+                                                <td>
+                                                    <span t-esc="move.get('date')" />
+                                                </td>
+                                                <td>
+                                                    <span t-esc="move.get('reference')" />
+                                                </td>
+                                                <!-- <td>
+                                                    <span t-esc="move.get('product')" />
+                                                </td> -->
+                                                <td>
+                                                    <span t-esc="move.get('from')" />
+                                                </td>
+                                                <td>
+                                                    <span t-esc="move.get('to')" />
+                                                </td>
+                                                <td>
+                                                    <span t-esc="move.get('type')" />
+                                                </td>
+                                                <td>
+                                                    <span t-esc="move.get('init')" />
+                                                </td>
+                                                <td>
+                                                    <span t-esc="move.get('demand')" />
+                                                </td>
+                                                <td>
+                                                    <span t-esc="move.get('final')" />
+                                                </td>
+                                                <td>
+                                                    <span t-esc="move.get('uom')" />
+                                                </td>
+                                                <td>
+                                                    <span t-esc="move.get('unit')" />
+                                                </td>
+                                                <td>
+                                                    <span t-esc="move.get('total')" />
+                                                </td>
+                                                <td>
+                                                    <span t-esc="move.get('status')" />
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

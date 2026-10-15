@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <template id="payroll_work_certificate_report">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            margin: 0;
+                            padding: 0;
+                        }
+
+                        .header, .footer {
+                            text-align: left;
+                            margin-top: 20px;
+                        }
+
+                        .company-info {
+                            margin-top: 10px;
+                            text-align: left;
+                            font-size: 12px;
+                            line-height: 1.5;
+                        }
+
+                        .company-body {
+                            text-align: center;
+                        }
+
+                        .company-body p, strong {
+                            font-size: 20px;
+                        }
+
+                        .certification {
+                            text-align: center;
+                            margin-top: 50px;
+                            font-size: 20px;
+                        }
+
+                        .certification p {
+                            text-align: justify;
+                            line-height: 1.0;
+                            margin: 20px 0;
+                        }
+
+                        .certification h2 {
+                            text-align: center;
+                            font-size: 20px;
+                            margin-bottom: 50px;
+                        }
+
+                        .signature {
+                            text-align: left;
+                            margin-top: 50px;
+                        }
+
+                        .signature img {
+                            max-width: 150px;
+                        }
+
+                        .signature p, span {
+                            font-size: 20px;
+                        }
+
+                        .signature strong {
+                            display: block;
+                            font-size: 20px;
+                        }
+
+                        .footer {
+                            font-size: 12px;
+                            margin-top: 50px;
+                        }
+
+                        .footer p {
+                            margin: 0;
+                        }
+                    </style>
+                    <!-- Encabezado con la información de la compañía -->
+                    <div class="container">
+                        <div class="header">
+                            <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="width: 170px; height: 119px;" class="float-left"/>
+                            <div class="company-info">
+                                <p><strong><t t-esc="doc.company_id.name"/></strong><br />
+                                <t t-esc="doc.company_id.street"/><br />
+                                <t t-esc="doc.company_id.city"/>, <t t-esc="doc.company_id.country_id.name"/><br />
+                                Tel: <t t-esc="doc.company_id.phone"/><br />
+                                Email: <t t-esc="doc.company_id.email"/></p>
+                            </div>
+                        </div>
+
+                        <!-- Cuerpo del documento -->
+                        <div class="page">
+                            <br/><br/><br/><br/><br/><br/>
+                            <div class="company-body">
+                                <p><strong><t t-esc="doc.company_id.name"/></strong><br /><t t-esc="doc._get_format_company_vat()"/></p>
+                            </div>
+                            <div class="certification">
+                                <h2>CERTIFICA</h2>
+                                <p>
+                                    Que el(la) señor(a) <strong><t t-esc="doc.employee_id.partner_id.name"/></strong>, identificado(a) con <t t-esc="doc.employee_id.partner_id.l10n_latam_identification_type_id.name"/> No. <strong><t t-esc="doc._get_format_vat()"/></strong>,
+                                    <t t-if="doc.state != 'open'">laboró</t><t t-else="">labora</t> en esta compañía desde el <strong><t t-esc="doc._get_date_start()"/></strong><t t-if="doc.state != 'open'"> hasta el <strong><t t-esc="doc.settlement_date"/></strong> </t>, desempeñándose en el cargo de
+                                    <strong><t t-esc="doc.job_id.name"/></strong>, mediante un contrato a término <t t-esc="doc.term"/>.
+                                    <t t-if="doc.env.context.get('certificate_type')">
+                                        <t t-if="doc.env.context.get('certificate_type') in ('with_salary', 'with_variable_salary')">
+                                        Con un salario básico de <strong><t t-esc="doc._get_format_salary()"/></strong><t t-if="doc.env.context.get('certificate_type') == 'with_salary'">.</t>
+                                        </t>
+                                        <t t-if="doc.env.context.get('certificate_type') == 'with_variable_salary'">
+                                        y con un promedio variable de los últimos 3 meses por valor de <strong><t t-esc="doc._get_variable_salary()"/></strong>.
+                                        </t>
+                                    </t>
+                                </p><br/>
+                                <p>
+                                    El presente certificado se expide a solicitud del interesado en <strong><t t-esc="doc.company_id.city"/></strong> el <strong><t t-esc="doc._get_current_date()"/></strong>.
+                                </p>
+                            </div>
+
+                            <div class="signature">
+                                <p>Cordialmente,</p><br/><br/><br/><br/><br/>
+                                <img t-if="doc.company_id.work_certificate_sign" t-att-src="image_data_uri(doc.company_id.work_certificate_sign)" id="firma" class="Firma"/>
+                                <t t-esc="doc.company_id.work_certificate_sign_text"/>
+                            </div>
+                        </div>
+
+                        <!-- Pie de página -->
+                        <div class="footer">
+                            <p>Teléfono: <t t-esc="doc.company_id.phone"/> | Email: <t t-esc="doc.company_id.email"/> <t t-if="doc.company_id.website">| Sitio web: <t t-esc="doc.company_id.website"/></t></p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

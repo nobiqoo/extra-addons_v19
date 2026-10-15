@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="model_basic_payslip_novelty_form" model="ir.ui.view">
+            <field name="name">model.basic.payslip.novelty.form</field>
+            <field name="model">model.basic.payslip.novelty</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Template">
+                    <header>
+                        <button name="to_cancel" string="Cancelar" type="object"
+                            invisible="state == 'cancel'" />
+                        <button name="to_draft" string="Pasar a borrador" type="object"
+                            invisible="state == 'draft'" />
+                        <button name="to_confirm" string="Confirmar" type="object"
+                            invisible="state != 'draft'" />
+                        <button name="to_validated" string="Validar" type="object"
+                            invisible="state != 'confirm'" />
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="draft,confirm,validated,paid" />
+                    </header>
+                    <sheet>
+                        <div name="title">
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <group name="group_basic_data">
+                            <group>
+                                <field name="contract_id"
+                                    readonly="state != 'draft'" />
+                                <field name="approve_date"
+                                    readonly="state != 'draft'" />
+                                <span class="o_form_label o_td_label" name="label_dates" />
+                                <div name="div_dates">
+                                    <field name="date_start" nolabel="1" placeholder="Inicio"
+                                        readonly="state != 'draft'"
+                                        style="text-align: center; float: left; width: 50%;" />
+                                    <field name="date_end" nolabel="1" placeholder="Fin"
+                                        readonly="state != 'draft'"
+                                        style="text-align: center; float: left; width: 50%;" />
+                                </div>
+                            </group>
+                            <group>
+                                <field name="employee_id"
+                                    readonly="state != 'draft'" />
+                                <field name="amount" widget="monetary"
+                                    readonly="state != 'draft'" />
+                                <field name="company_id" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <!-- Chatter -->
+                    <chatter reload_on_post="True"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="model_basic_payslip_novelty_search" model="ir.ui.view">
+            <field name="name">model.basic.payslip.novelty.search</field>
+            <field name="model">model.basic.payslip.novelty</field>
+            <field name="arch" type="xml">
+                <search string="Search Description">
+                    <field name="name" />
+                    <field name="contract_id" />
+                    <field name="employee_id" />
+                    <field name="state" />
+
+                    <separator />
+                    <filter name="draft_filter" string="Borrador"
+                        domain="[('state', '=', 'draft')]" />
+                    <filter name="confirm_filter" string="Confirmada"
+                        domain="[('state', '=', 'confirm')]" />
+                    <filter name="validated_filter" string="Validada"
+                        domain="[('state', '=', 'validated')]" />
+                    <filter name="cancel_filter" string="Canelado"
+                        domain="[('state', '=', 'cancel')]" />
+                    <filter name="paid_filter" string="Pagada"
+                        domain="[('state', '=', 'paid')]" />
+
+                    <separator />
+                    <filter name="state_group" string="Estado"
+                        context="{'group_by': 'state'}" />
+                    <filter name="contract_group" string="Contrato"
+                        context="{'group_by': 'contract_id'}" />
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

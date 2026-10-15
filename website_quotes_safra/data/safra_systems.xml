@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Sistemas de persiana. Códigos y nombres tomados del campo
+             "Sistema" (Category1) del portal de pedidos de Safra. -->
+
+        <record id="system_01" model="safra.system">
+            <field name="code">01</field>
+            <field name="name">ENROLLABLE</field>
+        </record>
+        <record id="system_06" model="safra.system">
+            <field name="code">06</field>
+            <field name="name">ENROLLABLE PREMIUM</field>
+        </record>
+        <record id="system_32" model="safra.system">
+            <field name="code">32</field>
+            <field name="name">ENROLLABLE 2 EN 1</field>
+        </record>
+        <record id="system_02" model="safra.system">
+            <field name="code">02</field>
+            <field name="name">SHEER ELEGANCE</field>
+        </record>
+        <record id="system_61" model="safra.system">
+            <field name="code">61</field>
+            <field name="name">SHEER 2 EN 1</field>
+        </record>
+        <record id="system_04" model="safra.system">
+            <field name="code">04</field>
+            <field name="name">VENECIAN</field>
+        </record>
+        <record id="system_10" model="safra.system">
+            <field name="code">10</field>
+            <field name="name">ROMANA TRADICIONAL</field>
+        </record>
+        <record id="system_08" model="safra.system">
+            <field name="code">08</field>
+            <field name="name">ROMANA TOP DOWN</field>
+        </record>
+        <record id="system_39" model="safra.system">
+            <field name="code">39</field>
+            <field name="name">ROMANA PREMIUM</field>
+        </record>
+        <record id="system_11" model="safra.system">
+            <field name="code">11</field>
+            <field name="name">PANEL JAPONÉS</field>
+        </record>
+        <record id="system_54" model="safra.system">
+            <field name="code">54</field>
+            <field name="name">PANEL DUO</field>
+        </record>
+        <record id="system_16" model="safra.system">
+            <field name="code">16</field>
+            <field name="name">TELOS</field>
+        </record>
+        <record id="system_15" model="safra.system">
+            <field name="code">15</field>
+            <field name="name">RIEL ARMADO</field>
+        </record>
+        <record id="system_58" model="safra.system">
+            <field name="code">58</field>
+            <field name="name">RIEL ARMADO CORTINA</field>
+        </record>
+        <record id="system_53" model="safra.system">
+            <field name="code">53</field>
+            <field name="name">RIEL ARMADO VERTICALES/HANAS</field>
+        </record>
+        <record id="system_65" model="safra.system">
+            <field name="code">65</field>
+            <field name="name">CENEFA PVC</field>
+        </record>
+        <record id="system_64" model="safra.system">
+            <field name="code">64</field>
+            <field name="name">ABRAZADERA CORTINA</field>
+        </record>
+        <record id="system_33" model="safra.system">
+            <field name="code">33</field>
+            <field name="name">MOTOR TUBULAR ENSAMBLADO</field>
+        </record>
+        <record id="system_34" model="safra.system">
+            <field name="code">34</field>
+            <field name="name">MOTOR PANEL ENSAMBLADO</field>
+        </record>
+        <record id="system_40" model="safra.system">
+            <field name="code">40</field>
+            <field name="name">VERTICAL</field>
+        </record>
+        <record id="system_55" model="safra.system">
+            <field name="code">55</field>
+            <field name="name">VERTICAL IRREGULAR</field>
+        </record>
+        <record id="system_48" model="safra.system">
+            <field name="code">48</field>
+            <field name="name">VERTICAL PREMIUM</field>
+        </record>
+        <record id="system_41" model="safra.system">
+            <field name="code">41</field>
+            <field name="name">HANAS</field>
+        </record>
+        <record id="system_42" model="safra.system">
+            <field name="code">42</field>
+            <field name="name">VINTAGE</field>
+        </record>
+        <record id="system_63" model="safra.system">
+            <field name="code">63</field>
+            <field name="name">VINTAGE SENCILLA</field>
+        </record>
+        <record id="system_49" model="safra.system">
+            <field name="code">49</field>
+            <field name="name">CORTINA ONDA MODERNA</field>
+        </record>
+        <record id="system_57" model="safra.system">
+            <field name="code">57</field>
+            <field name="name">CORTINA PLIEGUE FRANCÉS</field>
+        </record>
+        <record id="system_50" model="safra.system">
+            <field name="code">50</field>
+            <field name="name">LAMA VERTICAL</field>
+        </record>
+        <record id="system_51" model="safra.system">
+            <field name="code">51</field>
+            <field name="name">LAMA VINTAGE</field>
+        </record>
+        <record id="system_56" model="safra.system">
+            <field name="code">56</field>
+            <field name="name">LIENZO</field>
+        </record>
+        <record id="system_43" model="safra.system">
+            <field name="code">43</field>
+            <field name="name">PAPEL COLGADURA</field>
+        </record>
+        <record id="system_60" model="safra.system">
+            <field name="code">60</field>
+            <field name="name">PELICULA SEGURIDAD</field>
+        </record>
+
+    </data>
+</odoo>

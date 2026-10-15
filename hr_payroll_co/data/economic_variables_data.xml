@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record model="economic.variable" id="ev_smmlv">
+            <field name="name">SALARIO MINIMO MENSUAL LEGAL VIGENTE</field>
+            <field name="code">SMMLV</field>
+        </record>
+
+        <record model="economic.variable" id="ev_sub_trans">
+            <field name="name">SUBSIDIO DE TRANSPORTE</field>
+            <field name="code">SUB_TRANS</field>
+        </record>
+
+        <record model="economic.variable" id="ev_uvt">
+            <field name="name">UNIDAD DE VALOR TRIBUTARIO</field>
+            <field name="code">UVT</field>
+        </record>
+
+        <record model="economic.variable" id="ev_tsdes">
+            <field name="name">TASA DE DESEMPLEO</field>
+            <field name="code">TSDES</field>
+        </record>
+
+        <record model="economic.variable" id="ev_trtefte">
+            <field name="name">TABLA DE RETENCIÓN EN LA FUENTE</field>
+            <field name="code">TRTEFTE</field>
+        </record>
+
+        <record model="economic.variable" id="ev_monthly_hours">
+            <field name="name">HORAS DE LA JORNADA LABORAL MAXIMA MENSUAL</field>
+            <field name="code">MAX_HOURS_WORK</field>
+        </record>
+
+        <record model="economic.variable" id="ev_annual_limit_25p">
+            <field name="name">LIMITANTE ANUAL DE LA RENTA EXENTA DEL 25%</field>
+            <field name="code">ANNUAL_LIMIT_25P</field>
+        </record>
+
+        <record model="economic.variable" id="ev_annual_limit_40p">
+            <field name="name">LIMITANTE ANUAL DE LA RENTA EXENTA DEL 40%</field>
+            <field name="code">ANNUAL_LIMIT_40P</field>
+        </record>
+
+        <record model="economic.variable" id="ev_accai_threshold">
+            <field name="name">Límite de ingreso para aportar a ACCAI</field>
+            <field name="code">ACCAI_THRESHOLD</field>
+        </record>
+
+        <record model="economic.variable" id="ev_fsub">
+            <field name="name">FONDO DE SUBSISTENCIA</field>
+            <field name="code">FSUB</field>
+        </record>
+
+        <record model="economic.variable" id="ev_fsol">
+            <field name="name">FONDO DE SOLIDARIDAD</field>
+            <field name="code">FSOL</field>
+        </record>
+
+    </data>
+</odoo>

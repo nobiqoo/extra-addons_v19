@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mag_media,access_mag_media,model_mag_media,account.group_account_user,1,1,1,1
+access_mag_media_lines,access_mag_media_lines,model_mag_media_lines,account.group_account_user,1,1,1,1
+access_mag_media_lines_concepts,access_mag_media_lines_concepts,model_mag_media_lines_concepts,account.group_account_user,1,1,1,1
+access_mag_media_wizard_all,access_mag_media_wizard_all,model_mag_media_wizard,account.group_account_user,1,1,1,1

@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="view_account_move_form_cw" model="ir.ui.view">
+            <field name="name">account.move.cw.inherit.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@id='header_right_group']" position="after">
+                    <group id="header_left_cw_group" invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')">
+                        <field name="city"/>
+                        <field name="position"/>
+                        <field name="hbl"/>
+                        <field name="volume"/>
+                        <field name="motor_ship"/>
+                        <field name="code_cw"/>
+                        <field name="salesman_cw_id"
+                            domain="[('salesman_code_cw','!=',False)]"
+                            options="{'no_create': True, 'no_create_edit': True}"
+                            invisible="invoice_merge == True"/>
+                        <field name="salesman_cw_txt" invisible="invoice_merge == False"/>
+                        <field name="shipmentid"/>
+                        <field name="department_code"/>
+                        <field name="eta" invisible="invoice_merge == True"/>
+                        <field name="etd" invisible="invoice_merge == True"/>
+                        <field name="eta_txt" invisible="invoice_merge == False"/>
+                        <field name="etd_txt" invisible="invoice_merge == False"/>
+                    </group>
+                    <group id="header_right_cw_group" invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')">
+                        <field name="container_number"/>
+                        <field name="origin"/>
+                        <field name="destination"/>
+                        <field name="customer_order"/>
+                        <field name="text_weight"/>
+                        <field name="doc_validity"/>
+                        <field name="closure"/>
+                        <field name="service_level"/>
+                        <field name="id_consol"/>
+                        <field name="invoice_merge"/>
+                    </group>
+                </xpath>
+
+                <!-- <xpath expr="//group[@id='header_right_group']/label[@for='journal_id']" position="attributes">
+                    <attribute name="invisible">move_type == 'entry'</attribute>
+                </xpath>
+                <xpath expr="//group[@id='header_right_group']/label[@for='currency_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div[@name='journal_div']/field[@name='journal_id']" position="attributes">
+                    <attribute name="invisible">move_type == 'entry'</attribute>
+                    <attribute name="readonly">posted_before and name not in (False, '', '/')</attribute>
+                </xpath>
+                <xpath expr="//div[@name='in_and_refresh_button_div']" position="attributes">
+                    <attribute name="invisible">move_type == 'entry'</attribute>
+                </xpath> -->
+
+                <xpath expr="//notebook" position="inside">
+                    <page name="cw_log" string="CW Log" invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')">
+                        <separator string="Facturas Referencia CW"/>
+                        <field name="ref_inv_cw_ids" readonly="1" nolabel="1">
+                            <list>
+                                <field name="code_cw"/>
+                                <field name="city" optional="hide"/>
+                                <field name="customer_order" optional="hide"/>
+                                <field name="hbl" optional="hide"/>
+                                <field name="motor_ship" optional="hide"/>
+                                <field name="position" optional="show"/>
+                                <field name="destination" optional="hide"/>
+                                <field name="text_weight" optional="hide"/>
+                                <field name="volume" optional="hide"/>
+                                <field name="salesman_cw_id" optional="show"/>
+                                <button name="send_state_invoicing_to_cw"
+                                        string="Facturado"
+                                        type="object" icon="fa-check-circle"/>
+                                <button name="send_state_paid_to_cw"
+                                        string="Pagado"
+                                        type="object" icon="fa-money"/>
+                                <button name="send_state_cancelled_to_cw"
+                                        string="Cancelado"
+                                        type="object" icon="fa-times-circle"/>
+                            </list>
+                        </field>
+
+                        <separator string="Log CW"/>
+                        <div class="d-flex gap-2 mb-2">
+                            <button name="send_posted_invoice_to_cw"
+                                    string="Enviar Facturado" type="object"
+                                    class="btn-secondary"/>
+                            <button name="send_posted_paid_to_cw"
+                                    string="Enviar Pagado" type="object"
+                                    class="btn-secondary"/>
+                            <button name="send_posted_cancelled_to_cw"
+                                    string="Enviar Cancelado" type="object"
+                                    class="btn-secondary"/>
+                        </div>
+                        <field name="cw_log_ids" nolabel="1"
+                               context="{
+                                   'list_view_ref': 'account_cargowise_sync.invoice_cw_log_list',
+                                   'form_view_ref': 'account_cargowise_sync.invoice_cw_log_form'
+                               }"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

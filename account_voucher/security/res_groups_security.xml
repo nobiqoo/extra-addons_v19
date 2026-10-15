@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="account_voucher_category" model="ir.module.category">
+            <field name="name">Pagos</field>
+        </record>
+
+        <record model="res.groups.privilege" id="res_groups_privilege_account_voucher_category">
+            <field name="name">Pagos</field>
+            <field name="category_id" ref="account_voucher.account_voucher_category"/>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="voucher_mass_mail_group" model="res.groups">
+            <field name="name">Envío masivo de comprobantes de pago por correo</field>
+            <field name="privilege_id" ref="account_voucher.res_groups_privilege_account_voucher_category"/>
+        </record>
+
+        <record id="group_account_advance_create" model="res.groups">
+            <field name="name">Creación Anticipos</field>
+            <field name="privilege_id" ref="account_voucher.res_groups_privilege_account_voucher_category"/>
+        </record>
+
+        <record id="group_account_advance_confirm" model="res.groups">
+            <field name="name">Confirmación Anticipos</field>
+            <field name="privilege_id" ref="account_voucher.res_groups_privilege_account_voucher_category"/>
+        </record>
+
+        <record id="group_account_advance_validate_manually" model="res.groups">
+            <field name="name">Validación de Anticipos manualmente</field>
+            <field name="privilege_id" ref="account_voucher.res_groups_privilege_account_voucher_category"/>
+        </record>
+
+        <record id="group_payment_hidden" model="res.groups">
+            <field name="name">Payment Hidden.</field>
+            <field name="privilege_id" ref="account_voucher.res_groups_privilege_account_voucher_category"/>
+        </record>
+
+    </data>
+</odoo>

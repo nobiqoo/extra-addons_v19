@@ -1,0 +1,1807 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_co_dian_invoice_synchronizer
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-23 18:23+0000\n"
+"PO-Revision-Date: 2026-09-23 18:23+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_document.py:0
+msgid "%d documents linked, %d not matched, %d already had an invoice."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_document.py:0
+msgid "%d purchase order(s) found and linked."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/wizards/dian_document_link_purchase_order_wizard.py:0
+msgid "%d purchase order(s) linked."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__01
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "01 - Electronic sales invoice"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__02
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "02 - Electronic export sales invoice"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__03
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "03 - Electronic transmission instrument - type 03"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__04
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "04 - Electronic sales invoice - type 04"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__1
+msgid "1 - Unspecified instrument"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__10
+msgid "10 - Cash"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__11
+msgid "11 - Savings credit reversal"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__12
+msgid "12 - Savings debit reversal"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__13
+msgid "13 - Savings Credit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__14
+msgid "14 - Savings Debit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__15
+msgid "15 - Book entry credit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__16
+msgid "16 - Book entry debit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__17
+msgid "17 - CCD credit disbursement"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__18
+msgid "18 - CCD debit disbursement"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__19
+msgid "19 - Corporate Trade Payment (CTP) credit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__2
+msgid "2 - ACH Credit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__20
+msgid "20 - Cheque"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__20
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "20 - Electronic equivalent of POS cash register receipt"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__21
+msgid "21 - Bank draft"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__22
+msgid "22 - Certified bank draft"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__23
+msgid "23 - Cashier's cheque"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__24
+msgid "24 - Bill of exchange awaiting acceptance"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__25
+msgid "25 - Certified cheque"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__25
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "25 - Cinema admission ticket"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__26
+msgid "26 - Local cheque"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__27
+msgid "27 - Corporate Trade Payment (CTP) debit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__27
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "27 - Public show admission ticket"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__28
+msgid "28 - Corporate Trade Exchange (CTX) credit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__29
+msgid "29 - Corporate Trade Exchange (CTX) debit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__3
+msgid "3 - ACH Debit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__30
+msgid "30 - Credit transfer"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "30 - Localized and non-localized gaming"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__30
+msgid "30 - Localized and non-localized gaming - daily sales control report"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__31
+msgid "31 - Debit transfer"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__32
+msgid "32 - CCD+ credit disbursement"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__33
+msgid "33 - CCD+ debit disbursement"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__34
+msgid "34 - Pre-authorized payment and deposit (PPD)"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__35
+msgid "35 - CCD credit disbursement"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__35
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "35 - Land passenger transport ticket"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__36
+msgid "36 - CCD debit disbursement"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__37
+msgid "37 - Corporate Trade Payment (CTP) savings credit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__38
+msgid "38 - Corporate Trade Payment (CTP) savings debit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__39
+msgid "39 - Corporate Trade Exchange (CTX) Credit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__4
+msgid "4 - ACH demand debit reversal"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__40
+msgid "40 - Corporate Trade Exchange (CTX) debit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__40
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "40 - Toll collection document"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__41
+msgid "41 - CCD+ credit disbursement"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__42
+msgid "42 - Bank consignment"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__43
+msgid "43 - CCD+ debit disbursement"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__44
+msgid "44 - Bill of exchange"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__45
+msgid "45 - Bank credit transfer"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "45 - Statement issued by financial institutions"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__45
+msgid "45 - Statement issued by financial institutions and funds"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__46
+msgid "46 - Interbank debit transfer"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__47
+msgid "47 - Bank debit transfer"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__48
+msgid "48 - Credit Card"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__49
+msgid "49 - Debit Card"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__5
+msgid "5 - ACH demand credit reversal"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__50
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "50 - Air passenger transport ticket"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__50
+msgid "50 - Postal giro"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__51
+msgid "51 - Standard bank telex"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__52
+msgid "52 - Urgent commercial payment"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__53
+msgid "53 - Urgent treasury payment"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "55 - Stock exchange, agricultural and commodities"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__55
+msgid "55 - Stock exchange, agricultural and commodities operations document"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__6
+msgid "6 - ACH demand credit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__60
+msgid "60 - Promissory note"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__60
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "60 - Public and residential utilities document"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__61
+msgid "61 - Promissory note signed by the creditor"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__62
+msgid "62 - Promissory note signed by creditor, bank endorsed"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__63
+msgid "63 - Promissory note signed by creditor, third party endorsed"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__64
+msgid "64 - Promissory note signed by the bank"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__65
+msgid "65 - Promissory note signed by a bank endorsed by another bank"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__66
+msgid "66 - Signed promissory note"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__67
+msgid "67 - Promissory note signed by a third party endorsed by a bank"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__7
+msgid "7 - ACH demand debit"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__70
+msgid "70 - Note withdrawal by creditor"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__71
+msgid "71 - Bonds"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__72
+msgid "72 - Vouchers"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__74
+msgid "74 - Note withdrawal by creditor on a bank"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__75
+msgid "75 - Note withdrawal by creditor, endorsed by another bank"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__76
+msgid "76 - Note withdrawal by creditor, on a bank endorsed by third party"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__77
+msgid "77 - Withdrawal of note by creditor on a third party"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__78
+msgid "78 - Withdrawal of note by creditor on third party endorsed by bank"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__9
+msgid "9 - National or Regional clearing"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__91
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "91 - Credit note"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__91
+msgid "91 - Transferable bank note"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__92
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "92 - Debit note"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__92
+msgid "92 - Transferable local cheque"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__93
+msgid "93 - Referenced draft"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__94
+msgid "94 - Urgent draft"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__95
+msgid "95 - Open format draft"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__96
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "96 - Events (ApplicationResponse)"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__96
+msgid "96 - Requested payment method not used"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__97
+msgid "97 - Clearing between partners"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.dian_invoice_synchronizer_view_form
+msgid ""
+"<i class=\"fa fa-info-circle me-2\"/> Enter the DIAN token URL to\n"
+"                            synchronize electronic invoices."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_link_purchase_order_wizard_form
+msgid ""
+"<i class=\"fa fa-info-circle me-2\"/> Showing up to the first 100\n"
+"                            documents without a linked purchase order."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid ""
+"<span class=\"fa fa-exclamation-triangle\" title=\"Warning\"/>\n"
+"                                No contact found with identification number"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.dian_invoice_synchronizer_view_form
+msgid "<span>DIAN Invoice Synchronization</span>"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.dian_invoice_synchronizer_view_form
+msgid ""
+"<strong>Note:</strong> The token is only valid for 1 hour.\n"
+"                                        Make sure the token URL is valid and has the necessary\n"
+"                                        permissions to access DIAN services."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.actions.act_window,name:l10n_co_dian_invoice_synchronizer.action_dian_document_all
+#: model:ir.ui.menu,name:l10n_co_dian_invoice_synchronizer.menu_dian_document_all
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_all_list
+msgid "All Documents"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__already_in_system_count
+msgid "Already in System"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_sync.py:0
+msgid "Already in system for this date range"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_document__payable_amount
+msgid "Amount to pay (cbc:PayableAmount)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "Amounts (from API)"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "Amounts (from XML)"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__application_response_count
+msgid "Application Responses"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__month__4
+msgid "April"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__month__8
+msgid "August"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__base_quantity
+msgid "Base Quantity"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__base_quantity_unit_code
+msgid "Base Quantity Unit Code"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__cufe
+msgid "CUFE"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.dian_invoice_synchronizer_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_link_purchase_order_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__company_id
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard_line__company_id
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__company_id
+msgid "Company"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_api_client.py:0
+msgid ""
+"Connection error. Could not connect to the DIAN service. Please check your "
+"internet connection and try again."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_api_client.py:0
+msgid ""
+"Connection timeout. The DIAN service did not respond in time. Please try "
+"again."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_tax_total_form
+msgid "Context"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_api_client.py:0
+msgid ""
+"Could not determine DIAN domain. ASP.NET_SessionId cookie not found and "
+"response URL is empty."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_api_client.py:0
+msgid ""
+"Could not extract anti-forgery token from DIAN page. The page structure may "
+"have changed."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__create_uid
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__create_uid
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard_line__create_uid
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_tax_total__create_uid
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_invoice_synchronizer__create_uid
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__create_date
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__create_date
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard_line__create_date
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_tax_total__create_date
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_invoice_synchronizer__create_date
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "Credit note (from XML)"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__credited_quantity
+msgid "Credited Quantity"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model,name:l10n_co_dian_invoice_synchronizer.model_dian_api_client
+msgid "DIAN API Client (session, documents, ZIP, XML)"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "DIAN Document"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model,name:l10n_co_dian_invoice_synchronizer.model_dian_document_invoice_line
+msgid "DIAN Document Invoice Line"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model,name:l10n_co_dian_invoice_synchronizer.model_dian_document_tax_total
+msgid "DIAN Document Tax Total"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "DIAN Documents"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model,name:l10n_co_dian_invoice_synchronizer.model_dian_document
+msgid "DIAN Electronic Invoice Document"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model,name:l10n_co_dian_invoice_synchronizer.model_dian_sync
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.dian_invoice_synchronizer_view_form
+msgid "DIAN Invoice Synchronization"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model,name:l10n_co_dian_invoice_synchronizer.model_dian_invoice_synchronizer
+msgid "DIAN Invoice Synchronizer"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.ui.menu,name:l10n_co_dian_invoice_synchronizer.dian_invoices_menu_categ
+msgid "DIAN Invoices"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__dian_records_filtered
+msgid "DIAN Records Filtered"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_invoice_synchronizer__token_url
+msgid "DIAN Token URL"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.dian_invoice_synchronizer_view_form
+msgid "Date Selection"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__month__12
+msgid "December"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__description
+msgid "Description"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_sync_form
+msgid "Details"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_sync_form
+msgid "Discarded"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__discarded_cufes
+msgid "Discarded CUFEs"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__discarded_html
+msgid "Discarded Documents"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__discrepancy_reference_id
+msgid "Discrepancy Reference ID"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__discrepancy_response_code
+msgid "Discrepancy Response Code"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__display_name
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__display_name
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard_line__display_name
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_tax_total__display_name
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_invoice_synchronizer__display_name
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__document_id
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard_line__document_id
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard_line__document_name
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_tax_total__document_id
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_link_purchase_order_wizard_form
+msgid "Document"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__document_count
+msgid "Document Count"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__document_type
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__type
+msgid "Document Type"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard__line_ids
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__document_ids
+#: model:ir.ui.menu,name:l10n_co_dian_invoice_synchronizer.menu_dian_document
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_sync_form
+msgid "Documents"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_sync__application_response_count
+msgid ""
+"Documents of type \"Application response\" received from DIAN and excluded "
+"from import."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_sync__mapping_error_count
+msgid ""
+"Documents received from DIAN that could not be mapped into a dian.document "
+"record (e.g. missing mandatory fields) and were therefore not imported."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_sync__already_in_system_count
+msgid ""
+"Documents skipped because they were already imported for this date range."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_no_invoice_list
+msgid "Documents without Invoice"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_no_purchase_list
+msgid "Documents without Purchase Order"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_invoice_synchronizer__end_date
+msgid "End Date"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__error_summary_html
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_sync_form
+msgid "Error Summary"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_api_client.py:0
+msgid "Error during authentication request to DIAN service: %s"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_api_client.py:0
+msgid "Error executing request on block %d: %s"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__month__2
+msgid "February"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.actions.server,name:l10n_co_dian_invoice_synchronizer.action_find_purchase_order_dian_documents
+msgid "Find Purchase Order"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "Group By"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__has_xml_info
+msgid "Has XML Information"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__id
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__id
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard__id
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard_line__id
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_tax_total__id
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_invoice_synchronizer__id
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "Identification"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_document__sender_vat_match
+msgid "Indicates whether sender_vat (DIAN API) matches sender_vat_xml (XML)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.dian_invoice_synchronizer_view_form
+msgid "Information"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__invoice_type__
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "Invalid / Unspecified"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/wizards/dian_invoice_synchronizer.py:0
+msgid "Invalid date range. Please check your year, month, and week selection."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__move_id
+msgid "Invoice"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_tax_total__invoice_line_id
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_invoice_line_form
+msgid "Invoice Line"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__invoice_line_ids
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "Invoice Lines"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "Invoice Type"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__invoice_type
+msgid "Invoice Type Code"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_document__sender_id
+msgid "Invoice issuer (vendor) found by NIT (sender_vat) in res.partner.vat."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__invoiced_quantity
+msgid "Invoiced Quantity"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_invoice_line_form
+msgid "Item identification"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__month__1
+msgid "January"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__month__7
+msgid "July"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__month__6
+msgid "June"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__write_uid
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__write_uid
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard_line__write_uid
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_tax_total__write_uid
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_invoice_synchronizer__write_uid
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__write_date
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__write_date
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard_line__write_date
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_tax_total__write_date
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_invoice_synchronizer__write_date
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_invoice_line_form
+msgid "Line"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__line_extension_amount
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__line_extension_amount
+msgid "Line Extension Amount"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__line_number
+msgid "Line Number"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model,name:l10n_co_dian_invoice_synchronizer.model_dian_document_link_purchase_order_wizard_line
+msgid "Link DIAN Document to Purchase Order (line)"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model,name:l10n_co_dian_invoice_synchronizer.model_dian_document_link_purchase_order_wizard
+msgid "Link DIAN Documents to Purchase Orders"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.actions.act_window,name:l10n_co_dian_invoice_synchronizer.action_dian_document_link_purchase_order_wizard
+#: model:ir.ui.menu,name:l10n_co_dian_invoice_synchronizer.menu_dian_document_link_purchase_order
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_link_purchase_order_wizard_form
+msgid "Link Purchase Order"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_link_purchase_order_wizard_form
+msgid "Link Purchase Orders"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.actions.server,name:l10n_co_dian_invoice_synchronizer.action_match_dian_documents
+msgid "Link to Invoices"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.ui.menu,name:l10n_co_dian_invoice_synchronizer.menu_dian_document_manual_actions
+msgid "Manual Actions"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__manufacturers_item_identification
+msgid "Manufacturer item ID (cac:ManufacturersItemIdentification/cbc:ID)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__manufacturers_item_identification
+msgid "Manufacturers Item ID"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__mapping_error_count
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__mapping_errors_html
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_sync_form
+msgid "Mapping Errors"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__mapping_errors_text
+msgid "Mapping Errors Detail"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__month__3
+msgid "March"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_document.py:0
+msgid "Matching complete"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__month__5
+msgid "May"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_api_client.py:0
+msgid "Missing mandatory field(s) from DIAN response (cufe/name/reception)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_invoice_synchronizer__month
+msgid "Month"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "NIT / VAT"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "NIT / VAT (XML)"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__name
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_tax_total__name
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__name
+msgid "Name"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_sync.py:0
+msgid "No documents were discarded."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.actions.act_window,help:l10n_co_dian_invoice_synchronizer.action_dian_document_no_purchase
+msgid "No documents without a purchase order."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.actions.act_window,help:l10n_co_dian_invoice_synchronizer.action_dian_document_no_invoice
+msgid "No documents without an invoice."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.actions.act_window,help:l10n_co_dian_invoice_synchronizer.action_dian_document_all
+msgid "No documents yet."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "No error message."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_sync.py:0
+msgid "No errors during synchronization."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_sync.py:0
+msgid "No mapping errors."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.actions.act_window,help:l10n_co_dian_invoice_synchronizer.action_dian_sync
+msgid "No synchronizations yet."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_sync.py:0
+msgid "Not mapped"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__note
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_invoice_line_form
+msgid "Notes"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__month__11
+msgid "November"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__month__10
+msgid "October"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_sync__discarded_cufes
+msgid "One CUFE per line (documents already present in the date range)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_sync__mapping_errors_text
+msgid "One entry per line, format \"cufe|name|error\"."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__order_reference
+msgid "Order Reference"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.dian_invoice_synchronizer_view_form
+msgid "Paste here the token URL sent by the DIAN"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__payable_amount
+msgid "Payable Amount"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "Payment Means"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__payment_means_code
+msgid "Payment Means Code"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_document__payment_means_code
+msgid "Payment means code (cac:PaymentMeans/cbc:PaymentMeansCode)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_tax_total__percent
+msgid "Percent"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/wizards/dian_invoice_synchronizer.py:0
+msgid "Please select year, month, and week before synchronizing."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__price_amount
+msgid "Price Amount"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__purchase_id
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard_line__purchase_order_id
+msgid "Purchase Order"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_document__purchase_id
+msgid "Purchase order matched from order_reference."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_document__order_reference
+msgid "Purchase order reference (cac:OrderReference/cbc:ID)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_document.py:0
+msgid "Purchase order search complete"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/wizards/dian_document_link_purchase_order_wizard.py:0
+msgid "Purchase orders linked"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__quantity_unit_code
+msgid "Quantity Unit Code"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_invoice_line_form
+msgid "Quantity and price"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__credited_quantity
+msgid "Quantity credited (cbc:CreditedQuantity in cac:CreditNoteLine)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__radina_result
+msgid "Radian Result"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_document__discrepancy_response_code
+msgid ""
+"Reason code for the credit/debit note "
+"(cac:DiscrepancyResponse/cbc:ResponseCode)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__document_type__received
+msgid "Received document"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "Receiver"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__receiver
+msgid "Receiver Name"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__receiver_vat
+msgid "Receiver VAT"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "Receiver name"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__reception
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "Reception Date"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "Reference to adjusted invoice"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_document__discrepancy_reference_id
+msgid ""
+"Reference to the invoice being adjusted "
+"(cac:DiscrepancyResponse/cbc:ReferenceID)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_api_client.py:0
+msgid "Request error on block %d, status code: %d"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_api_client.py:0
+msgid ""
+"Request error on block %d, status code: 403. The session token may have "
+"expired. Please generate a new token and try again."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "Response code"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__result
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "Result"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__sellers_item_identification
+msgid "Sellers Item ID"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__sender_id
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "Sender"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_document__sender_vat_xml
+msgid ""
+"Sender NIT extracted from the XML "
+"(cac:AccountingSupplierParty/cac:Party/cac:PartyTaxScheme/cbc:CompanyID, "
+"schemeName=\"31\")."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__sender
+msgid "Sender Name"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__sender_vat
+msgid "Sender VAT"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__sender_vat_xml
+msgid "Sender VAT (XML)"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__sender_vat_match
+msgid "Sender VAT Match"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "Sender VAT mismatch"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "Sender name"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__month__9
+msgid "September"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__name
+msgid "Series and Number"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.actions.act_window,help:l10n_co_dian_invoice_synchronizer.action_dian_document_all
+msgid ""
+"Shows all DIAN documents synchronized so far, regardless of their invoice or"
+" purchase order link status."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__standard_item_identification
+msgid "Standard Item ID"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_invoice_synchronizer__start_date
+msgid "Start Date"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "Status"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_document__line_extension_amount
+msgid "Sum of line amounts (cbc:LineExtensionAmount)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_sync_form
+msgid "Summary"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__sync_date
+msgid "Sync Date"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__sync_duration_seconds
+msgid "Sync Duration (s)"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/wizards/dian_invoice_synchronizer.py:0
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__sync_id
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_sync_form
+msgid "Synchronization"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.actions.act_window,name:l10n_co_dian_invoice_synchronizer.action_dian_sync
+#: model:ir.ui.menu,name:l10n_co_dian_invoice_synchronizer.menu_dian_sync
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_sync_tree
+msgid "Synchronizations"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.dian_invoice_synchronizer_view_form
+msgid "Synchronize Invoices"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.actions.act_window,name:l10n_co_dian_invoice_synchronizer.dian_invoice_synchronizer_action
+#: model:ir.ui.menu,name:l10n_co_dian_invoice_synchronizer.dian_invoice_synchronizer_menu
+msgid "Synchronize invoices"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__sync_period
+msgid "Synchronized Period"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__tax_amount_19_percent
+msgid "Tax 19%"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__tax_amount_5_percent
+msgid "Tax 5%"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_tax_total__tax_amount
+msgid "Tax Amount"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__tax_exclusive_amount
+msgid "Tax Exclusive Amount"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__tax_amount_ica
+msgid "Tax ICA"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__tax_amount_ipc
+msgid "Tax IPC"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__tax_amount_iva
+msgid "Tax IVA"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__tax_inclusive_amount
+msgid "Tax Inclusive Amount"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_tax_total__tax_scheme_id
+msgid "Tax Scheme ID"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_tax_total__tax_scheme_name
+msgid "Tax Scheme Name"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "Tax Summary"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_tax_total_form
+msgid "Tax Total"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__tax_total_ids
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_invoice_line__tax_total_ids
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_invoice_line_form
+msgid "Tax Totals"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_tax_total_form
+msgid "Tax details"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_tax_total__taxable_amount
+msgid "Taxable Amount"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_sync.py:0
+msgid ""
+"The following documents had errors while fetching or parsing XML. Review the"
+" messages below."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_sync.py:0
+msgid ""
+"The following documents were not imported because they already exist for the"
+" selected period."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_sync.py:0
+msgid ""
+"The following documents were received from DIAN but could not be mapped and "
+"were not imported."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.actions.act_window,help:l10n_co_dian_invoice_synchronizer.action_dian_document_no_purchase
+msgid "These documents have not yet been linked to a purchase order in Odoo."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.actions.act_window,help:l10n_co_dian_invoice_synchronizer.action_dian_document_no_invoice
+msgid "These documents have not yet been linked to an invoice in Odoo."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_sync__sync_duration_seconds
+msgid "Time in seconds that the synchronization took (fetch_invoices)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.dian_invoice_synchronizer_view_form
+msgid "Token"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_api_client.py:0
+msgid "Too many redirects during DIAN authentication."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__total_amount
+msgid "Total Amount"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_sync__dian_records_filtered
+msgid ""
+"Total count reported by DIAN for the date range (recordsFiltered from API)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_document__tax_inclusive_amount
+msgid "Total with tax (cbc:TaxInclusiveAmount)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_document__tax_exclusive_amount
+msgid "Total without tax (cbc:TaxExclusiveAmount)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__unaccounted_count
+msgid "Unaccounted Records"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_api_client.py:0
+msgid "Unexpected response status from DIAN: %d"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.actions.act_window,help:l10n_co_dian_invoice_synchronizer.action_dian_sync
+msgid ""
+"Use the DIAN Invoice Synchronizer wizard to fetch invoices from the DIAN "
+"catalog."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_sync__user_id
+msgid "User"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "Vendor"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_invoice_synchronizer__week
+msgid "Week"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__week__1
+msgid "Week 1"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_invoice_synchronizer__week
+msgid ""
+"Week 1: Days 1-6 | Week 2: Days 7-12 | Week 3: Days 13-18 | Week 4: Days "
+"19-24 | Week 5: Days 25 to end of month"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__week__2
+msgid "Week 2"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__week__3
+msgid "Week 3"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__week__4
+msgid "Week 4"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_invoice_synchronizer__week__5
+msgid "Week 5"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.actions.act_window,name:l10n_co_dian_invoice_synchronizer.action_dian_document_no_invoice
+#: model:ir.ui.menu,name:l10n_co_dian_invoice_synchronizer.menu_dian_document_no_invoice
+msgid "Without Invoice"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.actions.act_window,name:l10n_co_dian_invoice_synchronizer.action_dian_document_no_purchase
+#: model:ir.ui.menu,name:l10n_co_dian_invoice_synchronizer.menu_dian_document_no_purchase
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "Without Purchase Order"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_search
+msgid "Without vendor"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document_link_purchase_order_wizard_line__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model_terms:ir.ui.view,arch_db:l10n_co_dian_invoice_synchronizer.view_dian_document_form
+msgid "XML / Errors"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_document__xml_query_error_message
+msgid "XML Query Error Message"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#. odoo-python
+#: code:addons/l10n_co_dian_invoice_synchronizer/models/dian_document.py:0
+msgid ""
+"XML retrieval function disabled due to DIAN restrictions, contact support."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,field_description:l10n_co_dian_invoice_synchronizer.field_dian_invoice_synchronizer__year
+msgid "Year"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_sync__sync_period
+msgid ""
+"Year, month and week that were synchronized (e.g. 2025 - February - Week 2)."
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields.selection,name:l10n_co_dian_invoice_synchronizer.selection__dian_document__payment_means_code__zzz
+msgid "ZZZ - Other"
+msgstr ""
+
+#. module: l10n_co_dian_invoice_synchronizer
+#: model:ir.model.fields,help:l10n_co_dian_invoice_synchronizer.field_dian_sync__unaccounted_count
+msgid ""
+"dian_records_filtered minus (document_count + already_in_system_count + "
+"application_response_count + mapping_error_count). Should always be 0 - a "
+"non-zero value means some documents reported by DIAN were lost somewhere in "
+"the pipeline without being counted, and is a good candidate for an automated"
+" alert."
+msgstr ""

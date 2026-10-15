@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_create_sale_picking_invoice_mappings" model="ir.actions.server">
+        <field name="name">Crear mapeos de albaranes y facturas</field>
+        <field name="group_ids" eval="[(4, ref('profitability_report.group_profitability_report_manager'))]"/>
+        <field name="binding_model_id" ref="model_sale_order" />
+        <field name="model_id" ref="model_sale_order" />
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+mappings_count = env['sale.picking.invoice.mapping'].create_mappings()
+action = {
+    'type': 'ir.actions.client',
+    'tag': 'display_notification',
+    'params': {
+        'title': 'Mapeo completado',
+        'message': 'Se han creado {} mapeos entre albaranes y facturas'.format(mappings_count),
+        'sticky': False,
+        'type': 'success',
+    }
+}
+action
+        </field>
+    </record>
+
+    <record id="action_create_sale_picking_invoice_mappings_lines" model="ir.actions.server">
+        <field name="name">Crear mapeos de albaranes y apuntes</field>
+        <field name="binding_model_id" ref="model_sale_picking_invoice_mapping" />
+        <field name="model_id" ref="model_sale_picking_invoice_mapping" />
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    records._apply_mappings_to_move_lines()
+    message = f"Se han actualizado las líneas contables para {len(records)} mapeos"
+else:
+    message = "No se seleccionaron mapeos para procesar"
+
+action = {
+    'type': 'ir.actions.client',
+    'tag': 'display_notification',
+    'params': {
+        'title': 'Proceso completado',
+        'message': message,
+        'sticky': False,
+        'type': 'success',
+    }
+}
+        </field>
+    </record>
+
+</odoo>

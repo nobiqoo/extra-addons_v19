@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- ============================================ -->
+    <!-- VISTA LISTA: Detalle de Adjuntos -->
+    <!-- ============================================ -->
+    <record id="view_storage_analysis_attachment_tree" model="ir.ui.view">
+        <field name="name">storage.analysis.attachment.tree</field>
+        <field name="model">storage.analysis.attachment</field>
+        <field name="arch" type="xml">
+            <list string="Detalle de Adjuntos" decoration-danger="file_size &gt; 100" decoration-warning="file_size &gt; 50">
+                <field name="analysis_id"/>
+                <field name="analysis_date"/>
+                <field name="name"/>
+                <field name="file_size" sum="Total"/>
+                <field name="storage_type"/>
+                <field name="res_model"/>
+                <field name="mimetype"/>
+                <field name="file_category"/>
+                <field name="create_date"/>
+                <button name="action_open_attachment" type="object" icon="fa-external-link" title="Abrir adjunto"/>
+                <button name="action_open_record" type="object" icon="fa-link" title="Abrir registro"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================================ -->
+    <!-- VISTA BÚSQUEDA: Detalle de Adjuntos -->
+    <!-- ============================================ -->
+    <record id="view_storage_analysis_attachment_search" model="ir.ui.view">
+        <field name="name">storage.analysis.attachment.search</field>
+        <field name="model">storage.analysis.attachment</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Adjuntos">
+                <field name="name"/>
+                <field name="res_model"/>
+                <field name="mimetype"/>
+                <filter name="is_latest" string="Últimos Análisis" domain="[('is_latest', '=', True)]"/>
+                <filter name="in_db" string="En Base de Datos" domain="[('storage_type', '=', 'db')]"/>
+                <filter name="in_filestore" string="En Filestore" domain="[('storage_type', '=', 'filestore')]"/>
+                <filter name="images" string="Imágenes" domain="[('file_category', '=', 'image')]"/>
+                <filter name="documents" string="Documentos" domain="[('file_category', 'in', ('document', 'pdf'))]"/>
+                <filter name="spreadsheets" string="Hojas de Cálculo" domain="[('file_category', '=', 'spreadsheet')]"/>
+                <filter name="large" string="Grandes (&gt; 10 MB)" domain="[('file_size', '>', 10)]"/>
+                <filter name="very_large" string="Muy Grandes (&gt; 50 MB)" domain="[('file_size', '>', 50)]"/>
+                <group>
+                    <filter name="group_by_analysis" string="Análisis" context="{'group_by': 'analysis_id'}"/>
+                    <filter name="group_by_storage" string="Tipo Almacenamiento" context="{'group_by': 'storage_type'}"/>
+                    <filter name="group_by_category" string="Categoría" context="{'group_by': 'file_category'}"/>
+                    <filter name="group_by_model" string="Modelo" context="{'group_by': 'res_model'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ============================================ -->
+    <!-- ACCIÓN: Detalle de Adjuntos -->
+    <!-- ============================================ -->
+    <record id="action_storage_analysis_attachment" model="ir.actions.act_window">
+        <field name="name">Detalle de Adjuntos</field>
+        <field name="res_model">storage.analysis.attachment</field>
+        <field name="view_mode">list,form,pivot,graph</field>
+        <field name="search_view_id" ref="view_storage_analysis_attachment_search"/>
+        <field name="context">{'search_default_is_latest': 1}</field>
+    </record>
+</odoo>

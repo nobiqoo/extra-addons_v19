@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="account.menu_action_account_payments_receivable" groups="account_voucher.group_payment_hidden" />
+
+        <menuitem id="account.menu_action_account_payments_payable" groups="account_voucher.group_payment_hidden" />
+
+    </data>
+</odoo>

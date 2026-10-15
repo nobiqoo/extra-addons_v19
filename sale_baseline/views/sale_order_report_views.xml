@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="model_sale_order_report" model="ir.model">
+        <field name="name">sale.order.report</field>
+        <field name="model">sale.order.report</field>
+    </record>
+
+
+    <record id="view_sale_order_report_tree" model="ir.ui.view">
+        <field name="name">sale.order.report.view.tree</field>
+        <field name="model">sale.order.report</field>
+        <field name="arch" type="xml">
+            <list string="Sale Order Report" create="false" import="false" delete="false" sample="1">
+                <field name="date" />
+                <field name="order_name" />
+                <field name="invoice_name" />
+                <field name="move_type" />
+                <field name="default_code" />
+                <field name="product_id" />
+                <field name="product_detail" />
+                <field name="detailed_type" />
+                <field name="product_code" />
+                <field name="category_id" />
+                <field name="product_brand_id" />
+                <field name="uom_id" />
+                <field name="quantity_invoiced" sum="Quantity Total"/>
+                <field name="price_subtotal" sum="Price Subtotal"/>
+                <field name="partner_id" />
+                <field name="vat" />
+                <field name="city_partner" />
+                <field name="state_id" />
+                <field name="user_id" />
+                <field name="team_id" />
+            </list>
+        </field>
+    </record>
+
+    <record id="sale_order_report_view_search" model="ir.ui.view">
+            <field name="name">sale.order.report.view.search</field>
+            <field name="model">sale.order.report</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="order_name" string="Sale Order" filter_domain="[('order_name', 'ilike', self)]" />
+                    <field name="invoice_name" string="Invoice Name" filter_domain="[('invoice_name', 'ilike', self)]" />
+                    <field name="partner_id" string="Partner" filter_domain="[('partner_id', 'ilike', self)]" />
+                </search>
+            </field>
+        </record>
+
+    <record id="action_generate_sale_order_report" model="ir.actions.server">
+        <field name="name">Generate Sale Order Report</field>
+        <field name="model_id" ref="model_sale_order_report"/>
+        <field name="state">code</field>
+        <field name="code">action = model.generate_report()</field>
+        <field name="binding_model_id" ref="model_sale_order_report"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+    </record>
+
+
+    <!-- <menuitem id="menu_sale_administrative" name="Sales Administratives" parent="sale.menu_sale_report" sequence="11"/>
+    <menuitem id="menu_sale_order_report" name="Sale Order Report" action="action_generate_sale_order_report" parent="menu_sale_administrative" sequence="15"/> -->
+
+</odoo>

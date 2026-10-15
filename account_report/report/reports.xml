@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- PDF REPORTS : paperformat -->
+    <record id="report_qweb_paperformat" model="report.paperformat">
+        <field name="name">Colombian Report qweb paperformat</field>
+        <field name="default" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">297</field>
+        <field name="page_width">210</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">12</field>
+        <field name="margin_bottom">8</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">10</field>
+        <field name="dpi">110</field>
+    </record>
+
+    <record id="report_journal_qweb_paperformat" model="report.paperformat">
+        <field name="name">Colombian Report Libro Diario</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">20</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">15</field>
+        <field name="dpi">110</field>
+    </record>
+
+    <!-- PDF/HMTL REPORTS -->
+    <!-- Auxiliar Balance -->
+    <record id="action_report_account_journal_qweb" model="ir.actions.report">
+        <field name="name">Account Journal PDF</field>
+        <field name="model">account.journal.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_report.account_journal_qweb</field>
+        <field name="report_file">account_report.account_journal_qweb</field>
+        <field name="paperformat_id" ref="report_journal_qweb_paperformat" />
+    </record>
+    <record id="action_report_account_journal_html" model="ir.actions.report">
+        <field name="name">Account journal HTML</field>
+        <field name="model">account.journal.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">account_report.account_journal_qweb</field>
+        <field name="report_file">account_report.account_journal_qweb</field>
+        <field name="paperformat_id" ref="report_journal_qweb_paperformat" />
+    </record>
+
+     <record id="custom_report_journal_qweb_paperformat" model="report.paperformat">
+        <field name="name">Colombian Custom Report Libro Diario</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">20</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">15</field>
+        <field name="dpi">110</field>
+    </record>
+
+     <record id="action_custom_report_account_journal_qweb" model="ir.actions.report">
+        <field name="name">Account Journal PDF</field>
+        <field name="model">custom.account.journal.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_report.custom_account_journal_qweb</field>
+        <field name="report_file">account_report.custom_account_journal_qweb</field>
+        <field name="paperformat_id" ref="custom_report_journal_qweb_paperformat" />
+    </record>
+    <record id="action_custom_report_account_journal_html" model="ir.actions.report">
+        <field name="name">Account journal HTML</field>
+        <field name="model">custom.account.journal.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">account_report.custom_account_journal_qweb</field>
+        <field name="report_file">account_report.custom_account_journal_qweb</field>
+        <field name="paperformat_id" ref="custom_report_journal_qweb_paperformat" />
+    </record>
+
+    <!-- PDF/HMTL REPORTS -->
+    <!-- BALANCE MAJOR -->
+    <record id="action_report_account_balance_major_qweb" model="ir.actions.report">
+        <field name="name">Account Balance Major PDF</field>
+        <field name="model">account.balance.major.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_report.account_balance_major_qweb</field>
+        <field name="report_file">account_report.account_balance_major_qweb</field>
+        <field name="paperformat_id" ref="report_journal_qweb_paperformat" />
+    </record>
+    <record id="action_report_account_balance_major_html" model="ir.actions.report">
+        <field name="name">Account Balance Major HTML</field>
+        <field name="model">account.balance.major.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">account_report.account_balance_major_qweb</field>
+        <field name="report_file">account_report.account_balance_major_qweb</field>
+        <field name="paperformat_id" ref="report_journal_qweb_paperformat" />
+    </record>
+
+    <!-- BALANCE INVENTORY -->
+    <record id="action_report_account_balance_inventory_qweb" model="ir.actions.report">
+        <field name="name">Account Balance inventory PDF</field>
+        <field name="model">account.balance.inventory.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_report.account_balance_inventory</field>
+        <field name="report_file">account_report.account_balance_inventory</field>
+        <field name="paperformat_id" ref="report_qweb_paperformat" />
+    </record>
+    <record id="action_report_account_balance_inventory_html" model="ir.actions.report">
+        <field name="name">Account Balance inventory HTML</field>
+        <field name="model">account.balance.inventory.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">account_report.account_balance_inventory</field>
+        <field name="report_file">account_report.account_balance_inventory</field>
+    </record>
+    <record id="action_report_account_balance_major_pdf" model="ir.actions.report">
+        <field name="name">Account Balance Major PDF</field>
+        <field name="model">account.balance.inventory.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_report.account_balance_inventory</field>
+        <field name="report_file">account_report.account_balance_inventory</field>
+    </record>
+
+    <!-- PDF/HMTL REPORTS -->
+    <!-- Auxiliar Balance -->
+    <record id="action_report_account_auxiliary_qweb" model="ir.actions.report">
+        <field name="name">Account Auxiliary PDF</field>
+        <field name="model">account.auxiliary.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_report.account_auxiliary_qweb</field>
+        <field name="report_file">account_report.account_auxiliary_qweb</field>
+        <field name="paperformat_id" ref="report_journal_qweb_paperformat" />
+    </record>
+    <record id="action_report_account_auxiliary_html" model="ir.actions.report">
+        <field name="name">Account Auxiliary HTML</field>
+        <field name="model">account.auxiliary.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">account_report.account_auxiliary_qweb</field>
+        <field name="report_file">account_report.account_auxiliary_qweb</field>
+        <field name="paperformat_id" ref="report_journal_qweb_paperformat" />
+    </record>
+    <!-- Balance Centros de Costos -->
+    <record id="action_report_account_balance_analytic_qweb" model="ir.actions.report">
+        <field name="name">Balance Centros de Costos PDF</field>
+        <field name="model">account.balance.analytic.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_report.account_balance_analytic_qweb</field>
+        <field name="report_file">account_report.account_balance_analytic_qweb</field>
+        <field name="paperformat_id" ref="report_qweb_paperformat"/>
+    </record>
+    <record id="action_report_account_balance_analytic_html" model="ir.actions.report">
+        <field name="name">Balance Centros de Costos HTML</field>
+        <field name="model">account.balance.analytic.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">account_report.account_balance_analytic_qweb</field>
+        <field name="report_file">account_report.account_balance_analytic_qweb</field>
+    </record>
+
+    <!-- Libro Auxiliar Analítico -->
+    <record id="action_report_account_auxiliary_analytic_qweb" model="ir.actions.report">
+        <field name="name">Libro Auxiliar Analítico PDF</field>
+        <field name="model">account.auxiliary.analytic.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_report.account_auxiliary_analytic_qweb</field>
+        <field name="report_file">account_report.account_auxiliary_analytic_qweb</field>
+        <field name="paperformat_id" ref="report_journal_qweb_paperformat"/>
+    </record>
+    <record id="action_report_account_auxiliary_analytic_html" model="ir.actions.report">
+        <field name="name">Libro Auxiliar Analítico HTML</field>
+        <field name="model">account.auxiliary.analytic.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">account_report.account_auxiliary_analytic_qweb</field>
+        <field name="report_file">account_report.account_auxiliary_analytic_qweb</field>
+    </record>
+
+    <!-- Balance report -->
+    <record id="action_report_account_balance_qweb" model="ir.actions.report">
+        <field name="name">Account Balance PDF</field>
+        <field name="model">account.balance.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_report.account_balance_qweb</field>
+        <field name="report_file">account_report.account_balance_qweb</field>
+        <field name="paperformat_id" ref="report_qweb_paperformat" />
+    </record>
+    <record id="action_report_account_balance_html" model="ir.actions.report">
+        <field name="name">Account Balance HTML</field>
+        <field name="model">account.balance.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">account_report.account_balance_qweb</field>
+        <field name="report_file">account_report.account_balance_qweb</field>
+    </record>
+</odoo>

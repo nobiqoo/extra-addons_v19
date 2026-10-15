@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="field_mando_vertical" model="safra.field"><field name="code">mando_vertical</field><field name="name">Mando</field><field name="section_id" ref="section_accesorios"/><field name="field_type">selection</field><field name="col_size">4</field><field name="sequence">700</field></record>
+        <record id="opt_mando_vertical_0" model="safra.field.option"><field name="field_id" ref="field_mando_vertical"/><field name="value">1</field><field name="name">Derecho</field><field name="sequence">10</field></record>
+        <record id="opt_mando_vertical_1" model="safra.field.option"><field name="field_id" ref="field_mando_vertical"/><field name="value">2</field><field name="name">Izquierdo</field><field name="sequence">20</field></record>
+        <record id="field_pesa_lama" model="safra.field"><field name="code">pesa_lama</field><field name="name">Pesa lama</field><field name="section_id" ref="section_otras"/><field name="field_type">selection</field><field name="col_size">4</field><field name="sequence">700</field></record>
+        <record id="opt_pesa_lama_0" model="safra.field.option"><field name="field_id" ref="field_pesa_lama"/><field name="value">1</field><field name="name">Con cadenilla</field><field name="sequence">10</field></record>
+        <record id="opt_pesa_lama_1" model="safra.field.option"><field name="field_id" ref="field_pesa_lama"/><field name="value">2</field><field name="name">Sin cadenilla</field><field name="sequence">20</field></record>
+        <record id="field_distribucion_lamas" model="safra.field"><field name="code">distribucion_lamas</field><field name="name">Distribución lamas combinadas</field><field name="section_id" ref="section_otras"/><field name="field_type">char</field><field name="col_size">4</field><field name="sequence">700</field></record>
+        <record id="field_cenefa_longitud" model="safra.field"><field name="code">cenefa_longitud</field><field name="name">Longitud laterales</field><field name="section_id" ref="section_cenefa"/><field name="field_type">selection</field><field name="col_size">4</field><field name="sequence">700</field></record>
+        <record id="opt_cenefa_longitud_0" model="safra.field.option"><field name="field_id" ref="field_cenefa_longitud"/><field name="value">[CpvcLgLt_0.15]</field><field name="name">15 cm</field><field name="sequence">10</field></record>
+        <record id="opt_cenefa_longitud_1" model="safra.field.option"><field name="field_id" ref="field_cenefa_longitud"/><field name="value">[CpvcLgLt_0.20]</field><field name="name">20 cm</field><field name="sequence">20</field></record>
+        <record id="opt_cenefa_longitud_2" model="safra.field.option"><field name="field_id" ref="field_cenefa_longitud"/><field name="value">[CpvcLgLt_0.25]</field><field name="name">25 cm</field><field name="sequence">30</field></record>
+        <record id="opt_cenefa_longitud_3" model="safra.field.option"><field name="field_id" ref="field_cenefa_longitud"/><field name="value">[CpvcLgLt_0.30]</field><field name="name">30 cm</field><field name="sequence">40</field></record>
+        <record id="field_perfil_sheer" model="safra.field"><field name="code">perfil_sheer</field><field name="name">Perfilería Sheer</field><field name="section_id" ref="section_estructura"/><field name="field_type">selection</field><field name="col_size">4</field><field name="sequence">700</field></record>
+        <record id="opt_perfil_sheer_0" model="safra.field.option"><field name="field_id" ref="field_perfil_sheer"/><field name="value">7</field><field name="name">Perfil Sheer Elegance Deluxe</field><field name="sequence">10</field></record>
+    </data>
+</odoo>

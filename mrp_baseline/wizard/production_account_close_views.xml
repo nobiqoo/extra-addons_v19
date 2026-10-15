@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="production_account_close_view_form" model="ir.ui.view">
+        <field name="name">production.account.close.view.form</field>
+        <field name="model">production.account.close</field>
+        <field name="arch" type="xml">
+            <form string="Close Production Accounts">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date_start" required="True" />
+                            <field name="date_end" required="True" />
+                        </group>
+                        <group>
+                            <field name="company_id" invisible="True" />
+                            <field name="accounts_ids" widget="many2many_tags" />
+                        </group>
+                    </group>
+                    <label for="line_ids" invisible="line_ids == []" />
+                    <field name="line_ids" invisible="line_ids == []">
+                        <list>
+                            <field name="close_id" invisible="True" />
+                            <field name="currency_id" invisible="True" />
+                            <field name="account_id" readonly="True" />
+                            <!-- <field name="product_id" readonly="True" /> -->
+                            <field name="debit" readonly="True" />
+                            <field name="credit" readonly="True" />
+                            <field name="residual" readonly="True" />
+                        </list>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_calculate" string="Calculate" type="object" />
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary" invisible="line_ids == []" />
+                    <button name="action_cancel" string="Cancel" special="cancel" class="btn-secondary" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="production_account_close_action" model="ir.actions.act_window">
+        <field name="name">Close Production Accounts</field>
+        <field name="res_model">production.account.close</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="production_account_menu" name="Accounting" groups="account.group_account_invoice" parent="mrp.menu_mrp_root" sequence="22" />
+
+    <menuitem id="production_account_close_menu" action="production_account_close_action" parent="production_account_menu" sequence="10" />
+</odoo>

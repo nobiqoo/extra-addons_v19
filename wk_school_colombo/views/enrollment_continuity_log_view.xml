@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Requerimiento "Resultado académico, Promoción y Finalización"
+         (2.23-2.25): consulta de estudiantes Promovidos y Finalizados, con
+         trazabilidad completa. Identificación y Programa se muestran vía
+         related desde student_id, sin duplicarlos como campos propios. -->
+
+    <record id="enrollment_continuity_log_tree" model="ir.ui.view">
+        <field name="name">wk.school.colombo.enrollment.continuity.log.list</field>
+        <field name="model">wk.school.colombo.enrollment.continuity.log</field>
+        <field name="arch" type="xml">
+            <list string="Promovidos y Finalizados" default_order="create_date desc">
+                <field name="create_date" string="Fecha y hora"/>
+                <field name="student_id"/>
+                <field name="student_vat"/>
+                <field name="student_program_type_id"/>
+                <field name="origin_grade_id"/>
+                <field name="academic_result" widget="badge"
+                       decoration-success="academic_result == 'approved'"
+                       decoration-danger="academic_result == 'failed'"
+                       decoration-warning="academic_result == 'pending'"/>
+                <field name="action_type" widget="badge"
+                       decoration-success="action_type == 'promoted'"
+                       decoration-info="action_type == 'finalized'"/>
+                <field name="new_grade_id" optional="show"/>
+                <field name="target_session_id" optional="hide"/>
+                <field name="target_academic_year_id" optional="hide"/>
+                <field name="origin_enrollment_id" optional="show"/>
+                <field name="new_enrollment_id" optional="show"/>
+                <field name="execution_type" optional="show"/>
+                <field name="user_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="enrollment_continuity_log_search" model="ir.ui.view">
+        <field name="name">wk.school.colombo.enrollment.continuity.log.search</field>
+        <field name="model">wk.school.colombo.enrollment.continuity.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="student_id"/>
+                <field name="origin_grade_id"/>
+                <field name="new_grade_id"/>
+                <filter name="promoted" string="Promovidos" domain="[('action_type','=','promoted')]"/>
+                <filter name="finalized" string="Finalizados" domain="[('action_type','=','finalized')]"/>
+                <separator/>
+                <filter name="individual" string="Individual" domain="[('execution_type','=','individual')]"/>
+                <filter name="mass" string="Masiva" domain="[('execution_type','=','mass')]"/>
+                <group>
+                    <filter name="group_by_action_type" string="Acción" domain="[]" context="{'group_by':'action_type'}"/>
+                    <filter name="group_by_origin_grade" string="Nivel de origen" domain="[]" context="{'group_by':'origin_grade_id'}"/>
+                    <filter name="group_by_user" string="Usuario" domain="[]" context="{'group_by':'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="enrollment_continuity_log_action" model="ir.actions.act_window">
+        <field name="name">Promovidos y Finalizados</field>
+        <field name="res_model">wk.school.colombo.enrollment.continuity.log</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="enrollment_continuity_log_tree"/>
+        <field name="search_view_id" ref="enrollment_continuity_log_search"/>
+    </record>
+
+    <menuitem id="enrollment_continuity_log_menu"
+        name="Promovidos y Finalizados"
+        parent="wk_school_management.reporting_menu"
+        groups="wk_school_management.wk_school_management_officer_group"
+        sequence="25"
+        action="enrollment_continuity_log_action"
+    />
+
+</odoo>

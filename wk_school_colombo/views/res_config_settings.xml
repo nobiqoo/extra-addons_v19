@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_colombo" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.school.colombo</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="20"/>
+        <field name="inherit_id" ref="wk_school_management.res_config_settings_view_form_school"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='wk_school_management']" position="inside">
+                <block title="Cursos ofertados" name="colombo_populate_class_container">
+                    <setting id="colombo_same_day_completion"
+                             string="Cierre el mismo día de finalización"
+                             help="Permite marcar como hecho un curso ofertado cuya fecha de finalización sea igual a la fecha actual. Si se desactiva, se aplica la validación estándar y el curso solo puede cerrarse a partir del día siguiente.">
+                        <field name="wk_allow_same_day_class_completion"/>
+                    </setting>
+                </block>
+                <!-- Tarea 11293: parámetros que flexibilizan la inscripción y
+                     la facturación. Ambos nacen desactivados para conservar el
+                     comportamiento estándar del módulo. -->
+                <block title="Inscripciones y facturación" name="colombo_enrollment_container">
+                    <setting id="colombo_multiple_active_enrollments"
+                             string="Múltiples inscripciones activas"
+                             help="Permite que un estudiante tenga varias inscripciones en curso al mismo tiempo, siempre que sean de niveles académicos distintos. Se sigue bloqueando una segunda inscripción en curso en el mismo nivel.">
+                        <field name="wk_allow_multiple_active_enrollments"/>
+                    </setting>
+                    <setting id="colombo_billing_without_portal_user"
+                             string="Facturación sin usuario del portal"
+                             help="Permite confirmar el recibo de tarifas y facturar aunque el estudiante y su acudiente no tengan usuario del portal. No se crean usuarios del portal automáticamente.">
+                        <field name="wk_allow_billing_without_portal_user"/>
+                    </setting>
+                </block>
+                <!-- Requerimiento "Estados académicos del estudiante" (2.8):
+                     a quién se le asigna la actividad de reclasificación
+                     contable al aplazar a un estudiante. -->
+                <block title="Estados académicos" name="colombo_academic_status_container">
+                    <setting id="colombo_accounting_reclassification_user"
+                             string="Responsable de reclasificación contable"
+                             help="Usuario que recibe la actividad de reclasificación contable cuando se aplaza a un estudiante. Si se deja vacío, la actividad queda asignada a quien confirme el aplazamiento.">
+                        <field name="accounting_reclassification_user_id"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

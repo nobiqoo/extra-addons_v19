@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="print_account_payment_order_supplier_group_document">
+        <t t-set="lines" t-value="docs"/>
+        <t t-set="line0" t-value="lines[:1]"/>
+        <t t-set="order" t-value="line0.order_id"/>
+        <t t-set="partner" t-value="line0.partner_id.commercial_partner_id"/>
+        <t t-set="order" t-value="order.with_context({'lang': order.generated_user_id and order.generated_user_id.lang or partner.lang})"/>
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h2>Comprobante de pago proveedor</h2>
+                <div class="row mb-4" id="informations">
+                    <div class="col">
+                        <strong>Proveedor:</strong>
+                        <p t-field="partner.name"/>
+                    </div>
+                    <div class="col">
+                        <strong>Referencia orden:</strong>
+                        <p t-field="order.name"/>
+                    </div>
+                    <div class="col">
+                        <strong>Fecha ejecución:</strong>
+                        <p t-esc="order.get_date_scheduled()"/>
+                    </div>
+                    <div class="col">
+                        <strong>Moneda compañía:</strong>
+                        <p t-field="order.company_id.currency_id.name"/>
+                    </div>
+                </div>
+
+                <table class="o_has_total_table table o_main_table table-borderless">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Factura</th>
+                            <th class="text-center">Cuenta bancaria</th>
+                            <th class="text-center">Fecha valor</th>
+                            <th class="text-end">Importe</th>
+                            <th class="text-end">Moneda</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="total_amount" t-value="0"/>
+                        <tr t-foreach="lines" t-as="line">
+                            <t t-set="total_amount" t-value="total_amount + line.amount_currency"/>
+                            <td class="text-center">
+                                <t t-if="line.move_line_id.move_id and 'in_' in line.move_line_id.move_id.move_type">
+                                    <span t-esc="line.move_line_id.move_id.ref or line.move_line_id.move_id.payment_reference"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="line.move_line_id.move_id.name"/>
+                                </t>
+                            </td>
+                            <td class="text-center">
+                                <span t-esc="line.get_bank_account_name(line.partner_bank_id)"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="line.date"/>
+                            </td>
+                            <td class="text-end">
+                                <span t-field="line.amount_currency"/>
+                            </td>
+                            <td class="text-end">
+                                <span t-field="line.amount_company_currency"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="clearfix" name="so_total_summary">
+                    <div id="total" class="row mt-n3" name="total">
+                        <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                            <table class="o_total_table table table-borderless">
+                                <tr class="o_total">
+                                    <td>
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong
+                                            t-esc="total_amount"
+                                            t-options="{'widget': 'monetary', 'display_currency': order.company_currency_id}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="print_account_payment_order_supplier_group_main">
+        <t t-call="web.html_container">
+            <t t-call="account_payment_order_baseline.print_account_payment_order_supplier_group_document"/>
+        </t>
+    </template>
+</odoo>

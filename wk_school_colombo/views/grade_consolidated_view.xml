@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Requerimiento "Consolidado de notas por clase" (2.9-2.10): vista
+         inicial (lista de clases con estructura avanzada aplicada) y vista
+         detalle por clase (resultados por estudiante). -->
+    <record id="wk_grade_consolidated_list" model="ir.ui.view">
+        <field name="name">wk.school.colombo.grade.consolidated.list</field>
+        <field name="model">wk.school.colombo.grade.consolidated</field>
+        <field name="arch" type="xml">
+            <list string="Consolidado de notas">
+                <field name="subject_id" string="Módulo"/>
+                <field name="grade_id" string="Nivel"/>
+                <field name="program_type_id" string="Programa"/>
+                <field name="teacher_id" string="Docente"/>
+                <field name="academic_year_id" string="Periodo académico"/>
+                <field name="student_count"/>
+                <field name="overall_state" widget="badge"
+                       decoration-success="overall_state == 'published'"
+                       decoration-warning="overall_state == 'in_progress'"/>
+                <field name="midterm_state" widget="badge" optional="hide"
+                       decoration-success="midterm_state == 'confirmed'"
+                       invisible="cuts_count != '2'"/>
+                <field name="final_state" widget="badge" optional="hide"
+                       decoration-success="final_state == 'confirmed'"/>
+                <field name="is_active_class" optional="hide" string="Clase activa"/>
+                <field name="cuts_count" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="wk_grade_consolidated_search" model="ir.ui.view">
+        <field name="name">wk.school.colombo.grade.consolidated.search</field>
+        <field name="model">wk.school.colombo.grade.consolidated</field>
+        <field name="arch" type="xml">
+            <search string="Consolidado de notas">
+                <field name="subject_id"/>
+                <field name="grade_id"/>
+                <field name="teacher_id"/>
+                <field name="program_type_id"/>
+                <field name="academic_year_id"/>
+                <filter name="filter_active_class" string="Clase activa"
+                        domain="[('is_active_class', '=', True)]"/>
+                <group>
+                    <filter name="group_by_subject" string="Módulo" domain="[]" context="{'group_by':'subject_id'}"/>
+                    <filter name="group_by_grade" string="Nivel" domain="[]" context="{'group_by':'grade_id'}"/>
+                    <filter name="group_by_program_type" string="Programa" domain="[]" context="{'group_by':'program_type_id'}"/>
+                    <filter name="group_by_teacher" string="Docente" domain="[]" context="{'group_by':'teacher_id'}"/>
+                    <filter name="group_by_academic_year" string="Periodo académico" domain="[]" context="{'group_by':'academic_year_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="wk_grade_consolidated_form" model="ir.ui.view">
+        <field name="name">wk.school.colombo.grade.consolidated.form</field>
+        <field name="model">wk.school.colombo.grade.consolidated</field>
+        <field name="arch" type="xml">
+            <form string="Consolidado de notas">
+                <header>
+                    <button name="action_refresh" type="object" string="Actualizar" class="oe_highlight"/>
+                    <button name="action_confirm_midterm" type="object" string="Confirmar Midterm"
+                            invisible="cuts_count != '2' or midterm_state == 'confirmed'"
+                            groups="wk_school_management.wk_school_management_officer_group"
+                            confirm="¿Confirmar los resultados de Midterm? Dejarán de recalcularse automáticamente."/>
+                    <button name="action_confirm_final" type="object" string="Confirmar Final"
+                            invisible="final_state == 'confirmed'"
+                            groups="wk_school_management.wk_school_management_officer_group"
+                            confirm="¿Confirmar los resultados Final? Quedarán como histórico académico."/>
+                    <button name="action_reopen_final" type="object" string="Reabrir Final (Admin)"
+                            invisible="final_state != 'confirmed' or not allow_edit_confirmed"
+                            groups="wk_school_management.wk_school_management_admin_group"
+                            confirm="¿Reabrir el corte Final ya confirmado? Esta acción debe quedar justificada."/>
+                    <button name="action_publish_all" type="object" string="Publicar notas en portal (todos)"
+                            groups="wk_school_management.wk_school_management_officer_group"/>
+                    <button name="action_hide_all" type="object" string="Ocultar notas en portal (todos)"
+                            groups="wk_school_management.wk_school_management_officer_group"/>
+                    <button name="action_print_class_list_all" type="object" string="Class List (todos)"/>
+                    <button name="action_print_class_list_pass" type="object" string="Class List (Pass)"/>
+                    <button name="action_print_class_list_fail" type="object" string="Class List (Fail)"/>
+                    <button name="action_view_structure" type="object" string="Ver estructura"/>
+                    <button name="action_export_csv" type="object" string="Exportar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="populate_class_id" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="subject_id" readonly="1" string="Módulo"/>
+                            <field name="modality" readonly="1"/>
+                            <field name="teacher_id" readonly="1"/>
+                            <field name="academic_year_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="grading_scale_id" readonly="1" string="Estructura"/>
+                            <field name="cuts_count" invisible="1"/>
+                            <field name="allow_edit_confirmed" invisible="1"/>
+                            <field name="grade_id" readonly="1"/>
+                            <field name="pass_grade" readonly="1"/>
+                            <field name="absence_rule_summary" readonly="1" string="Regla de ausencias"/>
+                        </group>
+                    </group>
+
+                    <separator string="Controles administrativos"/>
+                    <group>
+                        <field name="teacher_edit_enabled" widget="boolean_toggle"/>
+                        <field name="confirmed_display" widget="boolean_toggle" readonly="1"/>
+                    </group>
+
+                    <separator string="Ponderaciones por corte"/>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h6>Ponderaciones Midterm</h6>
+                            <field name="class_assignment_type_ids" nolabel="1"
+                                   domain="[('weightage', '>', 0)]">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="component_id" string="Componente"/>
+                                    <field name="weightage" string="% Midterm"/>
+                                </list>
+                            </field>
+                        </div>
+                        <div class="col-lg-6" invisible="cuts_count != '2'">
+                            <h6>Ponderaciones Final</h6>
+                            <field name="class_assignment_type_ids" nolabel="1"
+                                   domain="[('weight_final', '>', 0)]">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="component_id" string="Componente"/>
+                                    <field name="weight_final" string="% Final"/>
+                                </list>
+                            </field>
+                        </div>
+                    </div>
+
+                    <notebook>
+                        <page string="Matriz">
+                            <field name="line_ids" widget="wk_grade_matrix">
+                                <list>
+                                    <field name="student_id"/>
+                                    <field name="components_json"/>
+                                    <field name="midterm_grade"/>
+                                    <field name="final_grade"/>
+                                    <field name="absence_hours"/>
+                                    <field name="ranking_badge"/>
+                                    <field name="result"/>
+                                    <field name="fail_reason"/>
+                                    <field name="performance_range_code"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Resultados">
+                            <field name="line_ids">
+                                <list editable="bottom" decoration-danger="result == 'fail'" decoration-success="result == 'pass'">
+                                    <!-- Requerimiento 2.10: "acciones masivas... sobre uno, varios o
+                                         todos los estudiantes" - botones de encabezado, habilitados
+                                         al marcar el checkbox de una o más filas (selección arbitraria,
+                                         no solo "todos" -ver action_publish_all/action_hide_all en el
+                                         encabezado del formulario- ni solo "uno a la vez"). El check
+                                         "Visible en portal" de cada fila sigue cubriendo el ajuste
+                                         individual posterior. -->
+                                    <header>
+                                        <button name="action_publish_selected" type="object"
+                                                string="Publicar seleccionados"
+                                                groups="wk_school_management.wk_school_management_officer_group"/>
+                                        <button name="action_hide_selected" type="object"
+                                                string="Ocultar seleccionados"
+                                                groups="wk_school_management.wk_school_management_officer_group"/>
+                                    </header>
+                                    <field name="grade_decimals" column_invisible="1"/>
+                                    <field name="student_id" readonly="1"/>
+                                    <field name="course_status" readonly="1"/>
+                                    <field name="midterm_grade" readonly="1" column_invisible="parent.cuts_count == '1'"
+                                           widget="wk_grade_float" options="{'decimals_field': 'grade_decimals'}"/>
+                                    <field name="midterm_ranking" readonly="1" column_invisible="parent.cuts_count == '1'" optional="hide"/>
+                                    <field name="final_grade" readonly="1"
+                                           widget="wk_grade_float" options="{'decimals_field': 'grade_decimals'}"/>
+                                    <field name="fin_quiz_average" readonly="1" optional="hide"
+                                           widget="wk_grade_float" options="{'decimals_field': 'grade_decimals'}"/>
+                                    <field name="absence_hours" readonly="1"/>
+                                    <field name="ranking_badge" readonly="1" string="Posición"/>
+                                    <field name="ranking" readonly="1" optional="hide"/>
+                                    <field name="performance_range_code" readonly="1" optional="show"/>
+                                    <field name="result" readonly="1" widget="badge"/>
+                                    <field name="fail_reason" readonly="1"/>
+                                    <field name="incomplete" readonly="1" optional="hide" string="Incompleto (Final)"/>
+                                    <field name="incomplete_midterm" readonly="1" optional="hide"
+                                           column_invisible="parent.cuts_count != '2'"/>
+                                    <field name="portal_visible" widget="boolean_toggle"
+                                           groups="wk_school_management.wk_school_management_officer_group"/>
+                                    <field name="comments"/>
+                                </list>
+                            </field>
+                            <group col="3">
+                                <field name="grade_decimals" invisible="1"/>
+                                <field name="avg_final_grade" readonly="1" string="Promedio general"
+                                       widget="wk_grade_float" options="{'decimals_field': 'grade_decimals'}"/>
+                                <field name="pass_pct" readonly="1" string="% Aprobados"/>
+                                <field name="fail_pct" readonly="1" string="% Reprobados"/>
+                            </group>
+                        </page>
+                        <page string="Estadísticas">
+                            <group>
+                                <group>
+                                    <field name="grade_decimals" invisible="1"/>
+                                    <field name="student_count" readonly="1"/>
+                                    <field name="avg_final_grade" readonly="1"
+                                           widget="wk_grade_float" options="{'decimals_field': 'grade_decimals'}"/>
+                                    <field name="pass_count" readonly="1"/>
+                                    <field name="fail_count" readonly="1"/>
+                                    <field name="pending_count" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="pass_pct" readonly="1"/>
+                                    <field name="fail_pct" readonly="1"/>
+                                    <field name="absence_alert_count" readonly="1"/>
+                                    <field name="performance_distribution_summary" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Ausencias">
+                            <field name="attendance_ids" readonly="1">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="student_id"/>
+                                    <field name="class_date"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="attendance_tag_ids" widget="many2many_tags"/>
+                                    <field name="absence_hours"/>
+                                    <field name="observations"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Comentarios">
+                            <field name="line_ids" nolabel="1">
+                                <list create="0" delete="0" editable="bottom">
+                                    <field name="student_id" readonly="1"/>
+                                    <field name="result" readonly="1" widget="badge"/>
+                                    <field name="comments"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Histórico">
+                            <group>
+                                <group invisible="cuts_count != '2'">
+                                    <field name="midterm_state" widget="badge" decoration-success="midterm_state == 'confirmed'"/>
+                                    <field name="midterm_confirmed_by" readonly="1"/>
+                                    <field name="midterm_confirmed_date" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="final_state" widget="badge" decoration-success="final_state == 'confirmed'"/>
+                                    <field name="final_confirmed_by" readonly="1"/>
+                                    <field name="final_confirmed_date" readonly="1"/>
+                                    <field name="final_reopened_by" readonly="1"
+                                           invisible="not final_reopened_by"/>
+                                    <field name="final_reopened_date" readonly="1"
+                                           invisible="not final_reopened_by"/>
+                                </group>
+                            </group>
+                            <field name="line_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="student_id"/>
+                                    <field name="has_confirmed_snapshot" widget="boolean_toggle"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="wk_grade_consolidated_action" model="ir.actions.act_window">
+        <field name="name">Consolidado de notas</field>
+        <field name="res_model">wk.school.colombo.grade.consolidated</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="wk_grade_consolidated_list"/>
+        <field name="search_view_id" ref="wk_grade_consolidated_search"/>
+        <!-- Requerimiento 2.9: "consultar las clases ofertadas activas" -
+             filtro activo por defecto, el usuario puede quitarlo para ver
+             también el Consolidado de clases ya inactivadas (histórico). -->
+        <field name="context">{'search_default_filter_active_class': 1}</field>
+    </record>
+
+    <menuitem id="grade_consolidated_menu"
+        name="Consolidado de notas"
+        parent="wk_school_management.teacher_main_menu"
+        sequence="45"
+        action="wk_grade_consolidated_action"/>
+
+</odoo>

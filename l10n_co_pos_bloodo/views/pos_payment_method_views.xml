@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="pos_payment_method_view_form_bloodo" model="ir.ui.view">
+            <field name="name">pos.payment.method.view.form.bloodo</field>
+            <field name="model">pos.payment.method</field>
+            <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='Payment methods']" position="inside">
+                    <group name="dian_data">
+                        <field name="fe_payment_option_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

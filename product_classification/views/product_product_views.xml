@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_product_view_form" model="ir.ui.view">
+        <field name="name">product.product.view.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="classification_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_sync_wizard_view_form" model="ir.ui.view">
+        <field name="name">product.sync.wizard.view.form</field>
+        <field name="model">product.sync.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Sincronizar cambios">
+                <field name="state" invisible="1"/>
+                <field name="field_names" invisible="1"/>
+                <sheet>
+                    <div class="alert alert-info" role="alert" invisible="state == 'done'">
+                        Este producto está vinculado a otras compañías. Confirme para aplicar
+                        allí los mismos cambios y mantener el maestro estandarizado.
+                    </div>
+
+                    <div class="alert alert-warning" role="alert"
+                         invisible="state == 'done' or not archived_warning">
+                        <field name="archived_warning" nolabel="1" readonly="1"
+                               style="white-space: pre-wrap;"/>
+                    </div>
+
+                    <group col="1" invisible="state == 'done'">
+                        <field name="product_tmpl_id"/>
+                    </group>
+
+                    <group string="Cambios a replicar" col="1" invisible="state == 'done'">
+                        <field name="changes_summary" nolabel="1" readonly="1"
+                               style="white-space: pre-wrap;"/>
+                    </group>
+
+                    <group string="Compañías destino" col="1" invisible="state == 'done'">
+                        <field name="target_summary" nolabel="1" readonly="1"
+                               style="white-space: pre-wrap;"/>
+                        <field name="include_archived"/>
+                    </group>
+
+                    <group col="1" invisible="state == 'draft'">
+                        <field name="result_log" nolabel="1" readonly="1"
+                               style="font-family: monospace; white-space: pre-wrap;"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_sync" type="object" string="Sincronizar"
+                            class="btn-primary" invisible="state == 'done'" data-hotkey="q"/>
+                    <button string="Ahora no" class="btn-secondary" special="cancel"
+                            invisible="state == 'done'" data-hotkey="z"/>
+                    <button string="Cerrar" class="btn-secondary" special="cancel"
+                            invisible="state == 'draft'"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

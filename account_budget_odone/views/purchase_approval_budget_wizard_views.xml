@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_approval_budget_wizard_view_form_inherit_odone" model="ir.ui.view">
+        <field name="name">purchase.approval.budget.wizard.view.form.inherit.odone</field>
+        <field name="model">purchase.approval.budget.wizard</field>
+        <field name="inherit_id" ref="purchase_approval.purchase_approval_budget_wizard_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@role='alert']//p" position="replace">
+                <p>LAS SIGUIENTES LÍNEAS NO CUENTAN CON PRESUPUESTO DISPONIBLE,
+                    POR ESA RAZÓN EN ESTE CASO DEBERÁ REALIZAR LA SOLICITUD DE APROBACIÓN POR
+                    PRESUPUESTO.</p>
+            </xpath>
+            <xpath expr="//page[.//field[@name='line_ids']]" position="attributes">
+                <attribute name="string">Líneas</attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,298 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.hr.payroll.co</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="hr.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//block[@name='employees_setting_container']" position="after">
+                    <block title="Políticas de nómina" name="payroll_policies" invisible="chart_template != 'co'">
+                        <!-- company_dependent="1" help="Set default company schedule to manage your employees working time" -->
+                        <setting id="payroll_policies_group_1">
+                            <div class="d-flex mt-1">
+                                <field name="pays_sub_trans_train_prod" class="ml14"/>
+                                <label for="pays_sub_trans_train_prod" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="pays_eg_b2_with_wage" class="ml14"/>
+                                <label for="pays_eg_b2_with_wage" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="pays_eg_general_complement" class="ml14"/>
+                                <label for="pays_eg_general_complement" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="pays_atep_b1_with_wage" class="ml14"/>
+                                <label for="pays_atep_b1_with_wage" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="discount_suspensions" class="ml14"/>
+                                <label for="discount_suspensions" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="average_sub_trans" class="ml14"/>
+                                <label for="average_sub_trans" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="pay_ccf_mat_pat" class="ml14"/>
+                                <label for="pay_ccf_mat_pat" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="social_benefits_with_last_wage" class="ml14"/>
+                                <label for="social_benefits_with_last_wage" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="deductions_with_previous_ibc" class="ml14"/>
+                                <label for="deductions_with_previous_ibc" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="does_not_allow_ibd_less_than_smmlv" class="ml14"/>
+                                <label for="does_not_allow_ibd_less_than_smmlv" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="average_prima_in_settlement_less_than_month" class="ml14"/>
+                                <label for="average_prima_in_settlement_less_than_month" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="accumulated_minimum_top_40" class="ml14"/>
+                                <label for="accumulated_minimum_top_40" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="discount_all_leave_in_social_benefits" class="ml14"/>
+                                <label for="discount_all_leave_in_social_benefits" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="pay_sub_trans_in_q2" class="ml14"/>
+                                <label for="pay_sub_trans_in_q2" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="pay_advance_vacation" class="ml14"/>
+                                <label for="pay_advance_vacation" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="pila_with_previous_ibc" class="ml14"/>
+                                <label for="pila_with_previous_ibc" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="apply_parafiscal_pila" class="ml14"/>
+                                <label for="apply_parafiscal_pila" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="discount_leave_days_in_retroactive" class="ml14"/>
+                                <label for="discount_leave_days_in_retroactive" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="assumed_pen_not_remunerate_licences" class="ml14"/>
+                                <label for="assumed_pen_not_remunerate_licences" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="assumed_disability_february" class="ml14"/>
+                                <label for="assumed_disability_february" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="full_quote_february_pila" class="ml14"/>
+                                <label for="full_quote_february_pila" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="pay_ccf_leave_pay" class="ml14"/>
+                                <label for="pay_ccf_leave_pay" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="apply_no_pay_leave_intces" class="ml14"/>
+                                <label for="apply_no_pay_leave_intces" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="apply_no_pay_leave_ces" class="ml14"/>
+                                <label for="apply_no_pay_leave_ces" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="intces_days_with_last_page" class="ml14"/>
+                                <label for="intces_days_with_last_page" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="total_avg_holidays" class="ml14"/>
+                                <label for="total_avg_holidays" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="include_social_base_report" class="ml14"/>
+                                <label for="include_social_base_report" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="analytic_distribution_contract" class="ml14"/>
+                                <label for="analytic_distribution_contract" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="allow_analytic_distribution_over_100" class="ml14"/>
+                                <label for="allow_analytic_distribution_over_100" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="dont_apply_labor_reform" class="ml14"/>
+                                <label for="dont_apply_labor_reform" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="prima_avg_variable" class="ml14"/>
+                                <label for="prima_avg_variable" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="take_net_salary_in_pila" class="ml14"/>
+                                <label for="take_net_salary_in_pila" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="use_partner_like_coach" class="ml14"/>
+                                <label for="use_partner_like_coach" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="sub_trans_q1_with_incomes" class="ml14"/>
+                                <label for="sub_trans_q1_with_incomes" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="calculate_hr_holiday_book_period" class="ml14"/>
+                                <label for="calculate_hr_holiday_book_period" class="o_light_label"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <field name="include_comp_earnings_in_prv_vac" class="ml14"/>
+                                <label for="include_comp_earnings_in_prv_vac" class="o_light_label"/>
+                            </div>
+                        </setting>
+                        <setting id="payroll_policies_group_2" string="Porcentajes de EPS y Pensión">
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th class="pb-2">Empleado</th>
+                                    <th class="pb-2">Empleador</th>
+                                </tr>
+                                <tr>
+                                    <th class="px-3">EPS</th>
+                                    <td><field name="eps_rate_employee" /></td>
+                                    <td><field name="eps_rate_employer" /></td>
+                                </tr>
+                                <tr>
+                                    <th class="px-3">Pensión</th>
+                                    <td><field name="pen_rate_employee" /></td>
+                                    <td><field name="pen_rate_employer" /></td>
+                                </tr>
+                            </table>
+                        </setting>
+                        <setting id="payroll_policies_group_3">
+                            <field name="compute_simple_provisions"/>
+                            <div class="d-flex mt-1" invisible="not compute_simple_provisions">
+                                <label for="holidays_percentage" class="o_light_label w-100"/>
+                                <field name="holidays_percentage" class="ml16 w-25"/>
+                            </div>
+                            <div class="d-flex mt-1" invisible="not compute_simple_provisions">
+                                <label for="prima_percentage" class="o_light_label w-100"/>
+                                <field name="prima_percentage" class="ml16 w-25"/>
+                            </div>
+                            <div class="d-flex mt-1" invisible="not compute_simple_provisions">
+                                <label for="severance_percentage" class="o_light_label w-100"/>
+                                <field name="severance_percentage" class="ml16 w-25"/>
+                            </div>
+                            <div class="d-flex mt-1" invisible="not compute_simple_provisions">
+                                <label for="interest_severance_percentage" class="o_light_label w-100"/>
+                                <field name="interest_severance_percentage" class="ml16 w-25"/>
+                            </div>
+                        </setting>
+                        <setting id="payroll_policies_group_4">
+                            <field name="apply_prim_conv"/>
+                            <div class="d-flex mt-1" invisible="not apply_prim_conv">
+                                <label for="percentage_prv_prim_conv" class="o_light_label w-100"/>
+                                <field name="percentage_prv_prim_conv" class="ml16 w-25"/>
+                            </div>
+                            <div class="d-flex mt-1" invisible="not apply_prim_conv">
+                                <label for="percentage_prv_prim_liq_conv" class="o_light_label w-100"/>
+                                <field name="percentage_prv_prim_liq_conv" class="ml16 w-25"/>
+                            </div>
+                            <div class="d-flex mt-1" invisible="not apply_prim_conv">
+                                <label for="percentage_ded_eps_conv" class="o_light_label w-100"/>
+                                <field name="percentage_ded_eps_conv" class="ml16 w-25"/>
+                            </div>
+                            <div class="d-flex mt-1" invisible="not apply_prim_conv">
+                                <label for="days_in_prim_conv" class="o_light_label w-100"/>
+                                <field name="days_in_prim_conv" class="ml16 w-25"/>
+                            </div>
+                            <div class="d-flex mt-1" invisible="not apply_prim_conv">
+                                <label for="days_in_prim_vac_conv" class="o_light_label w-100"/>
+                                <field name="days_in_prim_vac_conv" class="ml16 w-25"/>
+                            </div>
+                        </setting>
+                        <setting id="payroll_policies_group_5">
+                            <div class="d-flex mt-1">
+                                <label for="percentage_prv_nav" class="o_light_label w-100"/>
+                                <field name="percentage_prv_nav" class="ml16 w-25"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <label for="percentage_prv_day_31" class="o_light_label w-100"/>
+                                <field name="percentage_prv_day_31" class="ml16 w-25"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <label for="percentage_prv_aux_vac" class="o_light_label w-100"/>
+                                <field name="percentage_prv_aux_vac" class="ml16 w-25"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <label for="percentage_prv_old" class="o_light_label w-100"/>
+                                <field name="percentage_prv_old" class="ml16 w-25"/>
+                            </div>
+                        </setting>
+                    </block>
+                    <block title="Reforma Pensional" name="pension_reform_block">
+                        <setting>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="public_pension_administrator"
+                                        class="col-lg-3 o_light_label" />
+                                    <field name="public_pension_administrator" />
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                    <block title="Formato de Nómina" name="payroll_format">
+                        <setting>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="decimal_in_payroll_pdf"
+                                        class="col-lg-3 o_light_label" />
+                                    <field name="decimal_in_payroll_pdf" />
+                                </div>
+                                <div class="d-flex mt-1">
+                                    <field name="show_loan_balance_in_payslip" class="ml14"/>
+                                    <label for="show_loan_balance_in_payslip" class="o_light_label"/>
+                                </div>
+                                <div class="d-flex mt-1">
+                                    <field name="show_settlement_type_in_report" class="ml14"/>
+                                    <label for="show_settlement_type_in_report" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                    <block title="Beneficio día 31" name="day31_benefit">
+                        <setting id="day31_benefit_setting" string="Novedades automáticas del día 31"
+                            help="Categorías de novedad que se generan al calcular la nómina de un periodo que termina el día 31, para los contratos con 'Aplica beneficio día 31'. Deben estar asociadas al tipo de nómina y sin 'Depende de días trabajados'.">
+                            <div class="d-flex mt-1">
+                                <label for="day31_wage_novelty_type_id" class="o_light_label w-50"/>
+                                <field name="day31_wage_novelty_type_id" class="w-50"
+                                    domain="[('company_id', 'in', [company_id, False])]"/>
+                            </div>
+                            <div class="d-flex mt-1">
+                                <label for="day31_transport_novelty_type_id" class="o_light_label w-50"/>
+                                <field name="day31_transport_novelty_type_id" class="w-50"
+                                    domain="[('company_id', 'in', [company_id, False])]"/>
+                            </div>
+                        </setting>
+                    </block>
+                    <block title="Formato de Certificado de Ingresos y Retenciones" name="income_cert_format">
+                        <setting>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="decimal_in_income_cert_pdf"
+                                        class="col-lg-3 o_light_label" />
+                                    <field name="decimal_in_income_cert_pdf" />
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

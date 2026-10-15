@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="dian_event_send_wizard_form" model="ir.ui.view">
+            <field name="name">dian.event.send.wizard.form</field>
+            <field name="model">dian.event.send.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h3>El evento solamente se aplicará a FACTURAS VÁLIDAS</h3>
+                        <field name="message" nolabel="1" readonly="1" force-save="1"/>
+                        <field name="to_process" invisible="1"/>
+                        <notebook>
+                            <page name="errors" string="ERRORES">
+                                <field name="error_line_ids" force-save="1">
+                                    <list create="0" edit="0">
+                                        <field name="invoice_id"/>
+                                        <field name="error" widget="text" options="{'line_breaks': False}"/>
+                                        <field name="url_invoice" widget="url" text="VER" class="fa fa-eye"/>
+                                    </list>
+                                    <form create="0" edit="0">
+                                        <group>
+                                            <group>
+                                                <field name="invoice_id"/>
+                                            </group>
+                                            <group>
+                                                <field name="url_invoice" widget="url" text="VER" class="fa fa-eye"/>
+                                            </group>
+                                            <field name="error" widget="text"/>
+                                        </group>
+
+                                    </form>
+                                </field>
+                            </page>
+                            <page name="invoice" string="FACTURAS VÁLIDAS">
+                                <field name="invoice_ids" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button name="action_process_event" type="object" string="Procesar Evento" class="btn-primary" invisible="not invoice_ids"/>
+                        <button name="action_refresh" type="object" string="Refrescar" class="btn-secondary"/>
+                        <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,1550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Referencias y colores ENROLLABLE importados del portal de Safra. -->
+
+        <record id="fab_0504003" model="safra.fabric">
+            <field name="code">0504003</field>
+            <field name="name">Atenas</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504003_5" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504003"/>
+            <field name="code">5</field>
+            <field name="name">Café 35378-9</field>
+        </record>
+
+        <record id="fab_054302" model="safra.fabric">
+            <field name="code">054302</field>
+            <field name="name">BLACKOUT EBANO</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054302_2702" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054302"/>
+            <field name="code">2702</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_054302_2704" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054302"/>
+            <field name="code">2704</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_054302_2705" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054302"/>
+            <field name="code">2705</field>
+            <field name="name">Perla</field>
+        </record>
+        <record id="col_054302_2703" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054302"/>
+            <field name="code">2703</field>
+            <field name="name">Trigo</field>
+        </record>
+
+        <record id="fab_0504200" model="safra.fabric">
+            <field name="code">0504200</field>
+            <field name="name">Blackout Fiorella</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504200_2261" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504200"/>
+            <field name="code">2261</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_0504200_2258" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504200"/>
+            <field name="code">2258</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504200_2260" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504200"/>
+            <field name="code">2260</field>
+            <field name="name">Cafe</field>
+        </record>
+        <record id="col_0504200_2259" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504200"/>
+            <field name="code">2259</field>
+            <field name="name">Gris</field>
+        </record>
+
+        <record id="fab_0504203" model="safra.fabric">
+            <field name="code">0504203</field>
+            <field name="name">Blackout Jianna</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504203_2287" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504203"/>
+            <field name="code">2287</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_0504203_2286" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504203"/>
+            <field name="code">2286</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504203_2281" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504203"/>
+            <field name="code">2281</field>
+            <field name="name">Cafe</field>
+        </record>
+        <record id="col_0504203_2284" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504203"/>
+            <field name="code">2284</field>
+            <field name="name">Gris</field>
+        </record>
+
+        <record id="fab_0504224" model="safra.fabric">
+            <field name="code">0504224</field>
+            <field name="name">Blackout Marsella 2.80 Mt</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504224_2458" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504224"/>
+            <field name="code">2458</field>
+            <field name="name">Arena</field>
+        </record>
+        <record id="col_0504224_2457" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504224"/>
+            <field name="code">2457</field>
+            <field name="name">Linen</field>
+        </record>
+
+        <record id="fab_054296" model="safra.fabric">
+            <field name="code">054296</field>
+            <field name="name">Blackout Melisa</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054296_2671" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054296"/>
+            <field name="code">2671</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_054296_2670" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054296"/>
+            <field name="code">2670</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_054296_2673" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054296"/>
+            <field name="code">2673</field>
+            <field name="name">Gris</field>
+        </record>
+        <record id="col_054296_2672" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054296"/>
+            <field name="code">2672</field>
+            <field name="name">Taupe</field>
+        </record>
+
+        <record id="fab_0504014" model="safra.fabric">
+            <field name="code">0504014</field>
+            <field name="name">Blackout Pinpoint 1.83 Mts</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504014_38" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504014"/>
+            <field name="code">38</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504014_41" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504014"/>
+            <field name="code">41</field>
+            <field name="name">Crema</field>
+        </record>
+        <record id="col_0504014_43" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504014"/>
+            <field name="code">43</field>
+            <field name="name">Fawn</field>
+        </record>
+        <record id="col_0504014_44" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504014"/>
+            <field name="code">44</field>
+            <field name="name">Gris</field>
+        </record>
+        <record id="col_0504014_2729" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504014"/>
+            <field name="code">2729</field>
+            <field name="name">Humo</field>
+        </record>
+        <record id="col_0504014_46" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504014"/>
+            <field name="code">46</field>
+            <field name="name">Negro-Negro</field>
+        </record>
+        <record id="col_0504014_2730" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504014"/>
+            <field name="code">2730</field>
+            <field name="name">Titanio</field>
+        </record>
+
+        <record id="fab_054268" model="safra.fabric">
+            <field name="code">054268</field>
+            <field name="name">Blackout Pinpoint 2 Mt</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054268_2644" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054268"/>
+            <field name="code">2644</field>
+            <field name="name">Crema</field>
+        </record>
+
+        <record id="fab_0504220" model="safra.fabric">
+            <field name="code">0504220</field>
+            <field name="name">Blackout Pinpoint 2.50 Mts</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504220_2446" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220"/>
+            <field name="code">2446</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504220_2454" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220"/>
+            <field name="code">2454</field>
+            <field name="name">Crema</field>
+        </record>
+        <record id="col_0504220_2455" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220"/>
+            <field name="code">2455</field>
+            <field name="name">Fawn</field>
+        </record>
+        <record id="col_0504220_2456" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220"/>
+            <field name="code">2456</field>
+            <field name="name">Gris</field>
+        </record>
+        <record id="col_0504220_2722" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220"/>
+            <field name="code">2722</field>
+            <field name="name">Humo</field>
+        </record>
+        <record id="col_0504220_2484" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220"/>
+            <field name="code">2484</field>
+            <field name="name">Negro-Negro</field>
+        </record>
+        <record id="col_0504220_2721" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220"/>
+            <field name="code">2721</field>
+            <field name="name">Titanio</field>
+        </record>
+
+        <record id="fab_0504052" model="safra.fabric">
+            <field name="code">0504052</field>
+            <field name="name">Blackout Pinpoint 3.00 Mts</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504052_168" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504052"/>
+            <field name="code">168</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504052_169" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504052"/>
+            <field name="code">169</field>
+            <field name="name">Crema</field>
+        </record>
+        <record id="col_0504052_2357" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504052"/>
+            <field name="code">2357</field>
+            <field name="name">Fawn</field>
+        </record>
+        <record id="col_0504052_2655" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504052"/>
+            <field name="code">2655</field>
+            <field name="name">Negro Negro</field>
+        </record>
+
+        <record id="fab_054325" model="safra.fabric">
+            <field name="code">054325</field>
+            <field name="name">Blackout Shantung</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054325_2803" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054325"/>
+            <field name="code">2803</field>
+            <field name="name">Gris</field>
+        </record>
+
+        <record id="fab_054299" model="safra.fabric">
+            <field name="code">054299</field>
+            <field name="name">Blackout Tiffany</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054299_2683" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054299"/>
+            <field name="code">2683</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_054299_2682" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054299"/>
+            <field name="code">2682</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_054299_2685" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054299"/>
+            <field name="code">2685</field>
+            <field name="name">Gris</field>
+        </record>
+        <record id="col_054299_2684" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054299"/>
+            <field name="code">2684</field>
+            <field name="name">Taupe</field>
+        </record>
+
+        <record id="fab_0504236" model="safra.fabric">
+            <field name="code">0504236</field>
+            <field name="name">Blackout Zen</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504236_2488" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504236"/>
+            <field name="code">2488</field>
+            <field name="name">Arena</field>
+        </record>
+        <record id="col_0504236_2487" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504236"/>
+            <field name="code">2487</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_0504236_2486" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504236"/>
+            <field name="code">2486</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504236_2489" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504236"/>
+            <field name="code">2489</field>
+            <field name="name">Gris</field>
+        </record>
+
+        <record id="fab_0504018" model="safra.fabric">
+            <field name="code">0504018</field>
+            <field name="name">Budapest</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504018_58" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504018"/>
+            <field name="code">58</field>
+            <field name="name">Beige 079352-3</field>
+        </record>
+        <record id="col_0504018_59" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504018"/>
+            <field name="code">59</field>
+            <field name="name">Café 79352-5</field>
+        </record>
+        <record id="col_0504018_60" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504018"/>
+            <field name="code">60</field>
+            <field name="name">Crema 079352-2</field>
+        </record>
+
+        <record id="fab_0504219" model="safra.fabric">
+            <field name="code">0504219</field>
+            <field name="name">Cascada</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504219_2398" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504219"/>
+            <field name="code">2398</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_0504219_2397" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504219"/>
+            <field name="code">2397</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504219_2400" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504219"/>
+            <field name="code">2400</field>
+            <field name="name">Gris</field>
+        </record>
+        <record id="col_0504219_2399" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504219"/>
+            <field name="code">2399</field>
+            <field name="name">Perla</field>
+        </record>
+
+        <record id="fab_0504021" model="safra.fabric">
+            <field name="code">0504021</field>
+            <field name="name">Creta</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504021_71" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504021"/>
+            <field name="code">71</field>
+            <field name="name">Café 35391-1</field>
+        </record>
+
+        <record id="fab_054301" model="safra.fabric">
+            <field name="code">054301</field>
+            <field name="name">EBANO</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054301_2698" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054301"/>
+            <field name="code">2698</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_054301_2700" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054301"/>
+            <field name="code">2700</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_054301_2701" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054301"/>
+            <field name="code">2701</field>
+            <field name="name">Perla</field>
+        </record>
+        <record id="col_054301_2699" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054301"/>
+            <field name="code">2699</field>
+            <field name="name">Trigo</field>
+        </record>
+
+        <record id="fab_0504023" model="safra.fabric">
+            <field name="code">0504023</field>
+            <field name="name">Emilia</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504023_77" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504023"/>
+            <field name="code">77</field>
+            <field name="name">Chocolate 35360-5</field>
+        </record>
+
+        <record id="fab_0504187" model="safra.fabric">
+            <field name="code">0504187</field>
+            <field name="name">KALIFA 2092</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504187_268" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504187"/>
+            <field name="code">268</field>
+            <field name="name">2092 Café 2</field>
+        </record>
+        <record id="col_0504187_269" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504187"/>
+            <field name="code">269</field>
+            <field name="name">2092 Gris 4</field>
+        </record>
+
+        <record id="fab_0205005" model="safra.fabric">
+            <field name="code">0205005</field>
+            <field name="name">LINDA</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0205005_272" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0205005"/>
+            <field name="code">272</field>
+            <field name="name">2103 Café 5</field>
+        </record>
+        <record id="col_0205005_274" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0205005"/>
+            <field name="code">274</field>
+            <field name="name">2103 Chocolate 6</field>
+        </record>
+
+        <record id="fab_054297" model="safra.fabric">
+            <field name="code">054297</field>
+            <field name="name">Manantial</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054297_2675" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054297"/>
+            <field name="code">2675</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_054297_2674" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054297"/>
+            <field name="code">2674</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_054297_2676" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054297"/>
+            <field name="code">2676</field>
+            <field name="name">Gris</field>
+        </record>
+        <record id="col_054297_2677" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054297"/>
+            <field name="code">2677</field>
+            <field name="name">Taupe</field>
+        </record>
+        <record id="col_054297_2814" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054297"/>
+            <field name="code">2814</field>
+            <field name="name">Taupe 2</field>
+        </record>
+
+        <record id="fab_0504033" model="safra.fabric">
+            <field name="code">0504033</field>
+            <field name="name">Massif</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504033_99" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504033"/>
+            <field name="code">99</field>
+            <field name="name">Beige</field>
+        </record>
+
+        <record id="fab_054295" model="safra.fabric">
+            <field name="code">054295</field>
+            <field name="name">Melisa</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054295_2667" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054295"/>
+            <field name="code">2667</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_054295_2666" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054295"/>
+            <field name="code">2666</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_054295_2669" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054295"/>
+            <field name="code">2669</field>
+            <field name="name">Gris</field>
+        </record>
+        <record id="col_054295_2668" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054295"/>
+            <field name="code">2668</field>
+            <field name="name">Taupe</field>
+        </record>
+
+        <record id="fab_0504035" model="safra.fabric">
+            <field name="code">0504035</field>
+            <field name="name">Naturale</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504035_107" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504035"/>
+            <field name="code">107</field>
+            <field name="name">646-4 cafe</field>
+        </record>
+
+        <record id="fab_0504237" model="safra.fabric">
+            <field name="code">0504237</field>
+            <field name="name">Privacidad Zen</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504237_2492" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504237"/>
+            <field name="code">2492</field>
+            <field name="name">Arena</field>
+        </record>
+        <record id="col_0504237_2491" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504237"/>
+            <field name="code">2491</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_0504237_2490" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504237"/>
+            <field name="code">2490</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504237_2493" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504237"/>
+            <field name="code">2493</field>
+            <field name="name">Gris</field>
+        </record>
+
+        <record id="fab_0504044" model="safra.fabric">
+            <field name="code">0504044</field>
+            <field name="name">Roman</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504044_131" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504044"/>
+            <field name="code">131</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504044_133" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504044"/>
+            <field name="code">133</field>
+            <field name="name">Vainilla</field>
+        </record>
+
+        <record id="fab_054300" model="safra.fabric">
+            <field name="code">054300</field>
+            <field name="name">SCREEN 300</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054300_2686" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054300"/>
+            <field name="code">2686</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_054300_2687" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054300"/>
+            <field name="code">2687</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_054300_2689" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054300"/>
+            <field name="code">2689</field>
+            <field name="name">Café</field>
+        </record>
+        <record id="col_054300_2690" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054300"/>
+            <field name="code">2690</field>
+            <field name="name">Carbón</field>
+        </record>
+        <record id="col_054300_2688" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054300"/>
+            <field name="code">2688</field>
+            <field name="name">Gris</field>
+        </record>
+        <record id="col_054300_2691" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054300"/>
+            <field name="code">2691</field>
+            <field name="name">Negro</field>
+        </record>
+
+        <record id="fab_0504047" model="safra.fabric">
+            <field name="code">0504047</field>
+            <field name="name">Screen 350</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504047_2816" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504047"/>
+            <field name="code">2816</field>
+            <field name="name">Blanco óptico</field>
+        </record>
+        <record id="col_0504047_2643" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504047"/>
+            <field name="code">2643</field>
+            <field name="name">Carbón</field>
+        </record>
+        <record id="col_0504047_135" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504047"/>
+            <field name="code">135</field>
+            <field name="name">Ebony</field>
+        </record>
+        <record id="col_0504047_136" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504047"/>
+            <field name="code">136</field>
+            <field name="name">Grey</field>
+        </record>
+        <record id="col_0504047_137" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504047"/>
+            <field name="code">137</field>
+            <field name="name">Linen</field>
+        </record>
+        <record id="col_0504047_138" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504047"/>
+            <field name="code">138</field>
+            <field name="name">Vinotinto</field>
+        </record>
+        <record id="col_0504047_139" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504047"/>
+            <field name="code">139</field>
+            <field name="name">White</field>
+        </record>
+        <record id="col_0504047_140" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504047"/>
+            <field name="code">140</field>
+            <field name="name">White Linen</field>
+        </record>
+
+        <record id="fab_0504191" model="safra.fabric">
+            <field name="code">0504191</field>
+            <field name="name">Screen 351</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504191_284" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504191"/>
+            <field name="code">284</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_0504191_285" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504191"/>
+            <field name="code">285</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504191_283" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504191"/>
+            <field name="code">283</field>
+            <field name="name">Gris</field>
+        </record>
+        <record id="col_0504191_282" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504191"/>
+            <field name="code">282</field>
+            <field name="name">Negro</field>
+        </record>
+
+        <record id="fab_0504048" model="safra.fabric">
+            <field name="code">0504048</field>
+            <field name="name">Screen 550</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504048_141" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504048"/>
+            <field name="code">141</field>
+            <field name="name">Cafe</field>
+        </record>
+        <record id="col_0504048_142" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504048"/>
+            <field name="code">142</field>
+            <field name="name">Carbon</field>
+        </record>
+        <record id="col_0504048_143" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504048"/>
+            <field name="code">143</field>
+            <field name="name">Ebony</field>
+        </record>
+        <record id="col_0504048_144" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504048"/>
+            <field name="code">144</field>
+            <field name="name">Grey</field>
+        </record>
+        <record id="col_0504048_145" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504048"/>
+            <field name="code">145</field>
+            <field name="name">Linen</field>
+        </record>
+        <record id="col_0504048_147" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504048"/>
+            <field name="code">147</field>
+            <field name="name">White</field>
+        </record>
+        <record id="col_0504048_148" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504048"/>
+            <field name="code">148</field>
+            <field name="name">White Linen</field>
+        </record>
+
+        <record id="fab_0504049" model="safra.fabric">
+            <field name="code">0504049</field>
+            <field name="name">Screen 720</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504049_149" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504049"/>
+            <field name="code">149</field>
+            <field name="name">Ebony</field>
+        </record>
+        <record id="col_0504049_150" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504049"/>
+            <field name="code">150</field>
+            <field name="name">Grey</field>
+        </record>
+        <record id="col_0504049_151" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504049"/>
+            <field name="code">151</field>
+            <field name="name">Linen</field>
+        </record>
+        <record id="col_0504049_152" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504049"/>
+            <field name="code">152</field>
+            <field name="name">White</field>
+        </record>
+
+        <record id="fab_054303" model="safra.fabric">
+            <field name="code">054303</field>
+            <field name="name">Screen Asiático</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054303_2711" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054303"/>
+            <field name="code">2711</field>
+            <field name="name">Carbón</field>
+        </record>
+        <record id="col_054303_2708" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054303"/>
+            <field name="code">2708</field>
+            <field name="name">Grey</field>
+        </record>
+        <record id="col_054303_2710" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054303"/>
+            <field name="code">2710</field>
+            <field name="name">Humo</field>
+        </record>
+        <record id="col_054303_2707" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054303"/>
+            <field name="code">2707</field>
+            <field name="name">Linen</field>
+        </record>
+        <record id="col_054303_2709" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054303"/>
+            <field name="code">2709</field>
+            <field name="name">Titanio</field>
+        </record>
+        <record id="col_054303_2706" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054303"/>
+            <field name="code">2706</field>
+            <field name="name">White</field>
+        </record>
+
+        <record id="fab_0504050" model="safra.fabric">
+            <field name="code">0504050</field>
+            <field name="name">Screen Diseño</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504050_157" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504050"/>
+            <field name="code">157</field>
+            <field name="name">Chocolate</field>
+        </record>
+        <record id="col_0504050_2342" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504050"/>
+            <field name="code">2342</field>
+            <field name="name">Gris</field>
+        </record>
+        <record id="col_0504050_162" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504050"/>
+            <field name="code">162</field>
+            <field name="name">White</field>
+        </record>
+        <record id="col_0504050_163" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504050"/>
+            <field name="code">163</field>
+            <field name="name">White Linen</field>
+        </record>
+
+        <record id="fab_0504195" model="safra.fabric">
+            <field name="code">0504195</field>
+            <field name="name">Screen Diseño Bicolor</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504195_2249" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504195"/>
+            <field name="code">2249</field>
+            <field name="name">Capuchino 506</field>
+        </record>
+
+        <record id="fab_054238" model="safra.fabric">
+            <field name="code">054238</field>
+            <field name="name">Screen Escandinavo</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054238_2495" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054238"/>
+            <field name="code">2495</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_054238_2494" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054238"/>
+            <field name="code">2494</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_054238_2496" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054238"/>
+            <field name="code">2496</field>
+            <field name="name">Gris</field>
+        </record>
+
+        <record id="fab_0504207" model="safra.fabric">
+            <field name="code">0504207</field>
+            <field name="name">Screen Jacquard Cristal</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504207_2348" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504207"/>
+            <field name="code">2348</field>
+            <field name="name">Arena</field>
+        </record>
+        <record id="col_0504207_2349" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504207"/>
+            <field name="code">2349</field>
+            <field name="name">Gris</field>
+        </record>
+        <record id="col_0504207_2347" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504207"/>
+            <field name="code">2347</field>
+            <field name="name">Perla</field>
+        </record>
+
+        <record id="fab_0504208" model="safra.fabric">
+            <field name="code">0504208</field>
+            <field name="name">Screen Jacquard Flower</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504208_2351" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504208"/>
+            <field name="code">2351</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_0504208_2350" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504208"/>
+            <field name="code">2350</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504208_2352" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504208"/>
+            <field name="code">2352</field>
+            <field name="name">Gris</field>
+        </record>
+
+        <record id="fab_0504190" model="safra.fabric">
+            <field name="code">0504190</field>
+            <field name="name">SCREEN JACQUARD MADONA</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504190_2283" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504190"/>
+            <field name="code">2283</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_0504190_279" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504190"/>
+            <field name="code">279</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504190_2253" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504190"/>
+            <field name="code">2253</field>
+            <field name="name">Gris</field>
+        </record>
+        <record id="col_0504190_281" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504190"/>
+            <field name="code">281</field>
+            <field name="name">Negro</field>
+        </record>
+
+        <record id="fab_050439" model="safra.fabric">
+            <field name="code">050439</field>
+            <field name="name">Screen Kubic</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_050439_2498" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_050439"/>
+            <field name="code">2498</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_050439_2497" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_050439"/>
+            <field name="code">2497</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_050439_2499" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_050439"/>
+            <field name="code">2499</field>
+            <field name="name">Gris</field>
+        </record>
+
+        <record id="fab_054263" model="safra.fabric">
+            <field name="code">054263</field>
+            <field name="name">Screen Lienzo</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054263_2610" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054263"/>
+            <field name="code">2610</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_054263_2611" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054263"/>
+            <field name="code">2611</field>
+            <field name="name">Trigo</field>
+        </record>
+
+        <record id="fab_0504051" model="safra.fabric">
+            <field name="code">0504051</field>
+            <field name="name">Screen Noa</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504051_164" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504051"/>
+            <field name="code">164</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_0504051_165" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504051"/>
+            <field name="code">165</field>
+            <field name="name">blanco</field>
+        </record>
+        <record id="col_0504051_166" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504051"/>
+            <field name="code">166</field>
+            <field name="name">coffe</field>
+        </record>
+        <record id="col_0504051_2333" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504051"/>
+            <field name="code">2333</field>
+            <field name="name">Gris/Blanco</field>
+        </record>
+        <record id="col_0504051_2784" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504051"/>
+            <field name="code">2784</field>
+            <field name="name">II Curuba</field>
+        </record>
+        <record id="col_0504051_167" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504051"/>
+            <field name="code">167</field>
+            <field name="name">Negro/Gris</field>
+        </record>
+
+        <record id="fab_0504189" model="safra.fabric">
+            <field name="code">0504189</field>
+            <field name="name">SCREEN REFLECTIVO</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504189_277" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504189"/>
+            <field name="code">277</field>
+            <field name="name">2071 Gris 5</field>
+        </record>
+        <record id="col_0504189_278" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504189"/>
+            <field name="code">278</field>
+            <field name="name">2071 Plata 1</field>
+        </record>
+
+        <record id="fab_0504242" model="safra.fabric">
+            <field name="code">0504242</field>
+            <field name="name">Screen Rice II</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504242_2504" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504242"/>
+            <field name="code">2504</field>
+            <field name="name">Arena</field>
+        </record>
+        <record id="col_0504242_2505" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504242"/>
+            <field name="code">2505</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504242_2506" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504242"/>
+            <field name="code">2506</field>
+            <field name="name">Perla</field>
+        </record>
+
+        <record id="fab_0504196" model="safra.fabric">
+            <field name="code">0504196</field>
+            <field name="name">Screen Snow</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504196_2264" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504196"/>
+            <field name="code">2264</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_0504196_2263" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504196"/>
+            <field name="code">2263</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504196_2262" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504196"/>
+            <field name="code">2262</field>
+            <field name="name">Gris</field>
+        </record>
+
+        <record id="fab_0504186" model="safra.fabric">
+            <field name="code">0504186</field>
+            <field name="name">SCREEN SOMBRAS</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504186_265" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504186"/>
+            <field name="code">265</field>
+            <field name="name">2097 Beige 1</field>
+        </record>
+        <record id="col_0504186_266" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504186"/>
+            <field name="code">266</field>
+            <field name="name">2097 Café 2</field>
+        </record>
+
+        <record id="fab_0504058" model="safra.fabric">
+            <field name="code">0504058</field>
+            <field name="name">Sheer Screen</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504058_2343" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504058"/>
+            <field name="code">2343</field>
+            <field name="name">Arena</field>
+        </record>
+        <record id="col_0504058_190" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504058"/>
+            <field name="code">190</field>
+            <field name="name">Beige/cafe</field>
+        </record>
+        <record id="col_0504058_2353" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504058"/>
+            <field name="code">2353</field>
+            <field name="name">Blanco Optico</field>
+        </record>
+        <record id="col_0504058_191" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504058"/>
+            <field name="code">191</field>
+            <field name="name">Blanco/Cafe</field>
+        </record>
+        <record id="col_0504058_192" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504058"/>
+            <field name="code">192</field>
+            <field name="name">Blanco/Vinotinto</field>
+        </record>
+        <record id="col_0504058_193" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504058"/>
+            <field name="code">193</field>
+            <field name="name">Cafe</field>
+        </record>
+        <record id="col_0504058_194" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504058"/>
+            <field name="code">194</field>
+            <field name="name">Dark Grey</field>
+        </record>
+        <record id="col_0504058_195" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504058"/>
+            <field name="code">195</field>
+            <field name="name">Ebony</field>
+        </record>
+        <record id="col_0504058_196" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504058"/>
+            <field name="code">196</field>
+            <field name="name">Grey</field>
+        </record>
+        <record id="col_0504058_198" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504058"/>
+            <field name="code">198</field>
+            <field name="name">Gris/Blanco</field>
+        </record>
+        <record id="col_0504058_199" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504058"/>
+            <field name="code">199</field>
+            <field name="name">Gris/Negro</field>
+        </record>
+        <record id="col_0504058_200" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504058"/>
+            <field name="code">200</field>
+            <field name="name">Negro/Vinotinto</field>
+        </record>
+        <record id="col_0504058_201" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504058"/>
+            <field name="code">201</field>
+            <field name="name">White</field>
+        </record>
+        <record id="col_0504058_202" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504058"/>
+            <field name="code">202</field>
+            <field name="name">White Linen</field>
+        </record>
+
+        <record id="fab_054262" model="safra.fabric">
+            <field name="code">054262</field>
+            <field name="name">Sheer Screen Combi</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054262_2606" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054262"/>
+            <field name="code">2606</field>
+            <field name="name">Beige Café</field>
+        </record>
+        <record id="col_054262_2607" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054262"/>
+            <field name="code">2607</field>
+            <field name="name">Gris Negro</field>
+        </record>
+
+        <record id="fab_0504209" model="safra.fabric">
+            <field name="code">0504209</field>
+            <field name="name">Sheer Screen Elite</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504209_2356" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504209"/>
+            <field name="code">2356</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_0504209_2355" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504209"/>
+            <field name="code">2355</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504209_2354" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504209"/>
+            <field name="code">2354</field>
+            <field name="name">Gris</field>
+        </record>
+
+        <record id="fab_054247" model="safra.fabric">
+            <field name="code">054247</field>
+            <field name="name">Sheer Screen Elite II</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054247_2546" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054247"/>
+            <field name="code">2546</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_054247_2549" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054247"/>
+            <field name="code">2549</field>
+            <field name="name">Negro</field>
+        </record>
+
+        <record id="fab_054288" model="safra.fabric">
+            <field name="code">054288</field>
+            <field name="name">Sheer Screen Elite III</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054288_2656" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054288"/>
+            <field name="code">2656</field>
+            <field name="name">Blanco Optico</field>
+        </record>
+
+        <record id="fab_054304" model="safra.fabric">
+            <field name="code">054304</field>
+            <field name="name">Sheer Screen Emely</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054304_2714" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054304"/>
+            <field name="code">2714</field>
+            <field name="name">Arena</field>
+        </record>
+        <record id="col_054304_2712" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054304"/>
+            <field name="code">2712</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_054304_2715" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054304"/>
+            <field name="code">2715</field>
+            <field name="name">Gris/Blanco</field>
+        </record>
+        <record id="col_054304_2713" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054304"/>
+            <field name="code">2713</field>
+            <field name="name">White Linen</field>
+        </record>
+
+        <record id="fab_0504065" model="safra.fabric">
+            <field name="code">0504065</field>
+            <field name="name">Sheer Screen Extra Wide</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504065_2344" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504065"/>
+            <field name="code">2344</field>
+            <field name="name">Grey</field>
+        </record>
+        <record id="col_0504065_2345" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504065"/>
+            <field name="code">2345</field>
+            <field name="name">Gris/Blanco</field>
+        </record>
+        <record id="col_0504065_228" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504065"/>
+            <field name="code">228</field>
+            <field name="name">White</field>
+        </record>
+        <record id="col_0504065_229" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504065"/>
+            <field name="code">229</field>
+            <field name="name">White Line</field>
+        </record>
+
+        <record id="fab_054261" model="safra.fabric">
+            <field name="code">054261</field>
+            <field name="name">Sheer Screen Fina</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054261_2596" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054261"/>
+            <field name="code">2596</field>
+            <field name="name">Arena</field>
+        </record>
+        <record id="col_054261_2595" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054261"/>
+            <field name="code">2595</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_054261_2597" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054261"/>
+            <field name="code">2597</field>
+            <field name="name">Beige Café</field>
+        </record>
+        <record id="col_054261_2594" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054261"/>
+            <field name="code">2594</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_054261_2817" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054261"/>
+            <field name="code">2817</field>
+            <field name="name">Blanco óptico</field>
+        </record>
+        <record id="col_054261_2598" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054261"/>
+            <field name="code">2598</field>
+            <field name="name">Gris Blanco</field>
+        </record>
+        <record id="col_054261_2599" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054261"/>
+            <field name="code">2599</field>
+            <field name="name">Lino</field>
+        </record>
+
+        <record id="fab_0504235" model="safra.fabric">
+            <field name="code">0504235</field>
+            <field name="name">Sheer Screen II</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504235_2485" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504235"/>
+            <field name="code">2485</field>
+            <field name="name">White</field>
+        </record>
+
+        <record id="fab_0504240" model="safra.fabric">
+            <field name="code">0504240</field>
+            <field name="name">Sheer Screen Japonica</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504240_2501" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504240"/>
+            <field name="code">2501</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_0504240_2500" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504240"/>
+            <field name="code">2500</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_0504240_2502" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504240"/>
+            <field name="code">2502</field>
+            <field name="name">Gris</field>
+        </record>
+
+        <record id="fab_054305" model="safra.fabric">
+            <field name="code">054305</field>
+            <field name="name">Sheer Screen Parma</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054305_2717" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054305"/>
+            <field name="code">2717</field>
+            <field name="name">Arena</field>
+        </record>
+        <record id="col_054305_2718" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054305"/>
+            <field name="code">2718</field>
+            <field name="name">Gris/Blanco</field>
+        </record>
+        <record id="col_054305_2720" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054305"/>
+            <field name="code">2720</field>
+            <field name="name">Gris/Negro</field>
+        </record>
+        <record id="col_054305_2719" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054305"/>
+            <field name="code">2719</field>
+            <field name="name">Titanio</field>
+        </record>
+        <record id="col_054305_2716" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054305"/>
+            <field name="code">2716</field>
+            <field name="name">White linen</field>
+        </record>
+
+        <record id="fab_054260" model="safra.fabric">
+            <field name="code">054260</field>
+            <field name="name">Sheer Screen Silver</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054260_2589" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054260"/>
+            <field name="code">2589</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_054260_2590" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054260"/>
+            <field name="code">2590</field>
+            <field name="name">Gris Blanco</field>
+        </record>
+        <record id="col_054260_2588" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054260"/>
+            <field name="code">2588</field>
+            <field name="name">White</field>
+        </record>
+
+        <record id="fab_0504069" model="safra.fabric">
+            <field name="code">0504069</field>
+            <field name="name">Spot</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504069_238" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504069"/>
+            <field name="code">238</field>
+            <field name="name">Gris 35379-2</field>
+        </record>
+
+        <record id="fab_054313" model="safra.fabric">
+            <field name="code">054313</field>
+            <field name="name">Sunpro Y101</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054313_2748" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054313"/>
+            <field name="code">2748</field>
+            <field name="name">Azul Fuerte</field>
+        </record>
+        <record id="col_054313_2749" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054313"/>
+            <field name="code">2749</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_054313_2747" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054313"/>
+            <field name="code">2747</field>
+            <field name="name">Crema</field>
+        </record>
+        <record id="col_054313_2750" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054313"/>
+            <field name="code">2750</field>
+            <field name="name">Gris Piedra</field>
+        </record>
+        <record id="col_054313_2751" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054313"/>
+            <field name="code">2751</field>
+            <field name="name">Gris Silver</field>
+        </record>
+        <record id="col_054313_2752" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054313"/>
+            <field name="code">2752</field>
+            <field name="name">Negro Carbón</field>
+        </record>
+
+        <record id="fab_054298" model="safra.fabric">
+            <field name="code">054298</field>
+            <field name="name">Tiffany</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_054298_2679" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054298"/>
+            <field name="code">2679</field>
+            <field name="name">Beige</field>
+        </record>
+        <record id="col_054298_2678" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054298"/>
+            <field name="code">2678</field>
+            <field name="name">Blanco</field>
+        </record>
+        <record id="col_054298_2681" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054298"/>
+            <field name="code">2681</field>
+            <field name="name">Gris</field>
+        </record>
+        <record id="col_054298_2680" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_054298"/>
+            <field name="code">2680</field>
+            <field name="name">Taupe</field>
+        </record>
+
+        <record id="fab_0504217" model="safra.fabric">
+            <field name="code">0504217</field>
+            <field name="name">Trasluz Vision</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504217_2387" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504217"/>
+            <field name="code">2387</field>
+            <field name="name">100% Transparente</field>
+        </record>
+
+        <record id="fab_0504220_BKT" model="safra.fabric">
+            <field name="code">0504220-BKT</field>
+            <field name="name">Blackout Texturizado</field>
+            <field name="category">Enrollable</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Cebra_Azul" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Cebra_Azul</field>
+            <field name="name">Cebra Azul</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Cebra_Beige" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Cebra_Beige</field>
+            <field name="name">Cebra Beige</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Cebra_Gris" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Cebra_Gris</field>
+            <field name="name">Cebra Gris</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Cebra_Rosado" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Cebra_Rosado</field>
+            <field name="name">Cebra Rosado</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Matiz_Azul" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Matiz_Azul</field>
+            <field name="name">Matiz Azul</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Matiz_Rosado" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Matiz_Rosado</field>
+            <field name="name">Matiz Rosado</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Matiz_Verde" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Matiz_Verde</field>
+            <field name="name">Matiz Verde</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Pastel_Azul" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Pastel_Azul</field>
+            <field name="name">Pastel Azul</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Pastel_Rosado" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Pastel_Rosado</field>
+            <field name="name">Pastel Rosado</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Pastel_Verde" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Pastel_Verde</field>
+            <field name="name">Pastel Verde</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Pop_Azul" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Pop_Azul</field>
+            <field name="name">Pop Azul</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Pop_Beige" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Pop_Beige</field>
+            <field name="name">Pop Beige</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Pop_Rosado" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Pop_Rosado</field>
+            <field name="name">Pop Rosado</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Pop_Verde" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Pop_Verde</field>
+            <field name="name">Pop Verde</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Pop_Negro" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Pop_Negro</field>
+            <field name="name">Pop Negro</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Rayas_Beige" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Rayas_Beige</field>
+            <field name="name">Rayas Beige</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Rayas_Gris" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Rayas_Gris</field>
+            <field name="name">Rayas Gris</field>
+        </record>
+        <record id="col_0504220_BKT_2446_Rayas_Rosado" model="safra.fabric.color">
+            <field name="fabric_id" ref="fab_0504220_BKT"/>
+            <field name="code">2446-Rayas_Rosado</field>
+            <field name="name">Rayas Rosado</field>
+        </record>
+
+    </data>
+</odoo>

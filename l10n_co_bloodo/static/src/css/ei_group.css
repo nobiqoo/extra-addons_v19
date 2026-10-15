@@ -1,0 +1,63 @@
+.ei_title {
+    width: 50%;
+    height: 100px;
+    float: left;
+}
+.ei_title_qr {
+    border: 0px solid red !important;
+    text-align: right;
+    width: 40% !important;
+    height: 130px;
+    display: grid;
+    grid-template-columns: 60% 130px;
+    grid-template-areas: 'btn qr';
+}
+.ei_qr {
+    border: 1px solid rgb(185,185,185);
+    grid-area: qr;
+    text-align: center;
+}
+.ei_event_btn_box {
+    grid-area: btn;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.ei_event_btn {
+    width: 60%;
+    padding: 2px;
+    margin: 1px 5px 1px 1px;
+}
+
+.edi-group-h {
+    background: #dddeee;
+    border: 0px solid rgb(76,73,73);
+    border-radius: 15px !important;
+}
+.edi-group-h td {
+    border: 0px solid rgb(7,7,7) !important;
+    padding: 0 15px 0 5px !important;
+}
+.edi-group-h .o_horizontal_separator {
+    font-size: 17px;
+    border: 0px solid rgb(7,7,7) !important;
+    margin-top: -23px;
+}
+.fe-state-msg {
+    font-size: 11px;
+    color: black;
+    border: 1px solid rgb(162,160,160);
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
+    font-weight: bold;
+}
+.bg-fe-success {
+    background: #87c65e;
+}
+.edi_button_box {
+    text-align: right;
+}
+.edi_btn {
+    border-radius: 15px;
+    margin-right: 3px;
+}

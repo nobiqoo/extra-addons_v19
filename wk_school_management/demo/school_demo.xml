@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <!-- CLASS LOCATION DATA -->
+        <record id="class_location_1" model="wk.class.location">
+            <field name="name">Hall 1</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="class_location_2" model="wk.class.location">
+            <field name="name">Hall 2</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="class_location_3" model="wk.class.location">
+            <field name="name">Hall 3</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <!-- CLASS TIMESLOT DATA -->
+        <record id="class_timeslot_1" model="wk.class.timeslot">
+            <field name="start_time">8.0</field>
+            <field name="end_time">9.0</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="class_timeslot_2" model="wk.class.timeslot">
+            <field name="start_time">9.0</field>
+            <field name="end_time">10.0</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="class_timeslot_3" model="wk.class.timeslot">
+            <field name="start_time">10.0</field>
+            <field name="end_time">11.0</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <!--ASSIGNMENT TYPE DATA -->
+        <record id="assignment_type_1" model="wk.assignment.type">
+            <field name="name">Homework</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="assignment_type_2" model="wk.assignment.type">
+            <field name="name">Quiz</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="assignment_type_3" model="wk.assignment.type">
+            <field name="name">Exam</field>
+            <field name="sequence">3</field>
+        </record>
+        
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_config_settings_inherit_advance" model="ir.ui.view">
+        <field name="name">res.config.settings.advance</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='default_accounts']" position="inside">
+                <setting string="Expense Accounts" id="expense_accounts">
+                    <div class="content-group">
+                        <div class="row mt8">
+                            <label for="advance_account_employee"
+                                class="col-lg-5 o_light_label" />
+                            <field name="advance_account_employee" />
+                        </div>
+                        <div class="row mt8">
+                            <label for="refund_expense_account"
+                                class="col-lg-5 o_light_label" />
+                            <field name="refund_expense_account" />
+                        </div>
+                    </div>
+                </setting>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

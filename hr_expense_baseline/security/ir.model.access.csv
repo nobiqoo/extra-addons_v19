@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_expense_advance,access.hr.expense.advance,model_hr_expense_advance,hr.group_hr_user,1,1,1,1
+access_petty_cash,access.petty.cash,model_petty_cash,hr.group_hr_user,1,1,1,0
+access_hr_expense_advance_setting,access.hr.expense.advance.setting,model_hr_expense_advance_setting,hr.group_hr_manager,1,1,1,0

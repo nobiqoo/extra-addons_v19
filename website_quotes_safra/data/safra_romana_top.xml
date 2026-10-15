@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ROMANA TOP DOWN (08) - familia romana, overrides -->
+    <data noupdate="0">
+        <record id="system_08" model="safra.system">
+            <field name="tech_width_min">0.3</field><field name="tech_width_max">3.2</field>
+            <field name="tech_height_min">0.6</field><field name="tech_height_max">3.7</field>
+            <field name="tech_mechanism"></field>
+        </record>
+        <record id="sf_08_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_08_cenefa_corte" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_08_cenefa_lateral" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_08_cenefa_lined" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_08_extra_chain" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_08_width" model="safra.system.field">
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_08_height" model="safra.system.field">
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_08_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_08_fabric_id" model="safra.system.field">
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_08_color_id" model="safra.system.field">
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_08_coordinado" model="safra.system.field">
+            <field name="sequence">150</field>
+        </record>
+        <record id="sf_08_quantity_lamas" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_08"/>
+            <field name="field_id" ref="field_quantity_lamas"/>
+            <field name="sequence">155</field>
+        </record>
+        <record id="sf_08_sesgo" model="safra.system.field">
+            <field name="sequence">158</field>
+        </record>
+        <record id="sf_08_same_header" model="safra.system.field">
+            <field name="sequence">165</field>
+        </record>
+        <record id="sf_08_sequence_name" model="safra.system.field">
+            <field name="sequence">170</field>
+        </record>
+        <record id="sf_08_perfil" model="safra.system.field">
+            <field name="sequence">1000</field>
+            <field name="label_override">Tipo de Perfil</field>
+        </record>
+        <record id="sf_08_mando_position" model="safra.system.field">
+            <field name="sequence">1010</field>
+            <field name="label_override">Mando</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{'value':'derecha','name':'Derecho','sequence':10}),(0,0,{'value':'izquierda','name':'Izquierdo','sequence':20})]"/>
+        </record>
+        <record id="sf_08_aligned" model="safra.system.field">
+            <field name="sequence">1020</field>
+        </record>
+        <record id="sf_08_cenefa_type" model="safra.system.field">
+            <field name="sequence">1030</field>
+            <field name="label_override">Tipo de Cenefa</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{'value':'sin','name':'Sin Cenefa','sequence':10}),(0,0,{'value':'tela','name':'Cenefa Tela','sequence':20})]"/>
+        </record>
+        <record id="sf_08_cenefa_tela" model="safra.system.field">
+            <field name="sequence">1031</field>
+            <field name="label_override">Tela de Cenefa</field>
+            <field name="depends_field_id" ref="field_cenefa_type"/>
+            <field name="depends_value">tela</field>
+        </record>
+        <record id="sf_08_perfil_cenefa" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_08"/>
+            <field name="field_id" ref="field_perfil_cenefa"/>
+            <field name="sequence">1032</field>
+        </record>
+        <record id="sf_08_design_print" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_08"/>
+            <field name="field_id" ref="field_design_print"/>
+            <field name="sequence">1050</field>
+        </record>
+        <record id="sf_08_print_m2" model="safra.system.field">
+            <field name="sequence">1051</field>
+        </record>
+        <record id="sf_08_escuadras" model="safra.system.field">
+            <field name="sequence">1060</field>
+        </record>
+        <record id="sf_08_design_exterior" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_08"/>
+            <field name="field_id" ref="field_design_exterior"/>
+            <field name="sequence">1070</field>
+        </record>
+        <record id="sf_08_tela_al_reves" model="safra.system.field">
+            <field name="sequence">1080</field>
+        </record>
+        <record id="sf_08_location" model="safra.system.field">
+            <field name="sequence">1090</field>
+        </record>
+        <record id="sf_08_enclosed" model="safra.system.field">
+            <field name="sequence">1100</field>
+        </record>
+        <record id="sf_08_atravesar_tela" model="safra.system.field">
+            <field name="sequence">1110</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,61 @@
+<odoo>
+    <record model="ir.ui.view" id="view_account_balance_analytic_form">
+        <field name="name">view.account.balance.analytic.form</field>
+        <field name="model">account.balance.analytic.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Balance Centros de Costos">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="report_type"/>
+                            <label for="date_from" string="Rango de Fechas"/>
+                            <div class="o_row">
+                                <div class="col">
+                                    <field name="date_from" required="True"/>
+                                </div>
+                                <div class="col">
+                                    <field name="date_to" required="True"/>
+                                </div>
+                            </div>
+                            <field name="date_process"/>
+                        </group>
+                        <group>
+                            <field name="line_state"/>
+                            <field name="no_zero"/>
+                            <field name="show_partner"/>
+                        </group>
+                    </group>
+                    <group string="Filtros">
+                        <group string="Cuentas Contables">
+                            <field name="account_ids" widget="many2many_tags"/>
+                        </group>
+                        <group string="Cuentas Analíticas">
+                            <field name="analytic_account_ids"
+                                   widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Ver" class="btn-primary"
+                            name="button_export_html" type="object"/>
+                    or
+                    <button string="PDF" class="btn-primary"
+                            name="button_export_pdf" type="object"/>
+                    or
+                    <button string="EXCEL" class="btn-primary"
+                            name="action_confirm" type="object"/>
+                    or
+                    <button string="Cancelar" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_balance_analytic" model="ir.actions.act_window">
+        <field name="name">Balance Centros de Costos</field>
+        <field name="res_model">account.balance.analytic.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

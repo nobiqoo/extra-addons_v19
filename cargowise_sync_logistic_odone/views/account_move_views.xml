@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="view_account_move_form" model="ir.ui.view">
+            <field name="name">account.move.inherit.view.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account_logistic_odone.view_account_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='networks_ids']" position="before">
+                    <field name="code_cw"/>
+                    <field name="salesman_cw_id"
+                        domain="[('salesman_code_cw','!=',False)]"
+                        options="{'no_create': True, 'no_create_edit': True}"
+                        invisible="invoice_merge"/>
+                    <field name="salesman_cw_txt" invisible="not invoice_merge"/>
+                    <field name="shipmentid"/>
+                    <field name="department_code"/>
+                    <field name="invoice_merge"/>
+                    <field name="eta" invisible="invoice_merge"/>
+                    <field name="etd" invisible="invoice_merge"/>
+                    <field name="eta_txt" invisible="not invoice_merge"/>
+                    <field name="etd_txt" invisible="not invoice_merge"/>
+                    <field name="doc_validity"/>
+                    <field name="closure"/>
+                    <field name="service_level"/>
+                    <field name="id_consol"/>
+                    <!-- <button name="get_xml_request_cw" type="object" string="generar xml CW"/> -->
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page name="cw_log" string="CW Log"
+                        invisible="not code_cw and not ref_inv_cw_ids">
+                        <group name="ref_inv_cw" string="Invoice Reference CW"
+                            invisible="not ref_inv_cw_ids">
+                            <field name="ref_inv_cw_ids" readonly="1" nolabel="1">
+                                <list>
+                                    <field name="code_cw"/>
+                                    <field name="city" optional="hide"/>
+                                    <field name="customer_order" optional="hide"/>
+                                    <field name="hbl" optional="hide"/>
+                                    <field name="motor_ship" optional="hide"/>
+                                    <field name="position" optional="show"/>
+                                    <field name="destination" optional="hide"/>
+                                    <field name="text_weight" optional="hide"/>
+                                    <field name="volume" optional="hide"/>
+                                    <field name="salesman_cw_id" optional="show"/>
+                                    <button name="send_state_invoicing_to_cw"
+                                        string="Invoiced"
+                                        type="object" icon="fa-check-circle"/>
+                                    <button name="send_state_paid_to_cw"
+                                        string="Paid" 
+                                        type="object" icon="fa-money"/>
+                                    <button name="send_state_cancelled_to_cw"
+                                        string="Cancelled"
+                                        type="object" icon="fa-times-circle"/>
+                                </list>
+                                <form>
+                                    <group name="a">
+                                        <group name="aa">
+                                            <field name="code_cw"/>
+                                        </group>
+                                        <group name="ab">
+                                            <field name="move_id"/>
+                                        </group>
+                                    </group>
+                                    <group name="b">
+                                        <group name="ba">
+                                            <field name="city"/>
+                                            <field name="customer_order"/>
+                                            <field name="hbl"/>
+                                            <field name="motor_ship"/>
+                                        </group>
+                                        <group name="bb">
+                                            <field name="position"/>
+                                            <field name="destination"/>
+                                            <field name="text_weight"/>
+                                            <field name="volume"/>
+                                            <field name="salesman_cw_id"/>
+                                        </group>
+                                    </group>
+                                    <separator name="log_ref_cw" string="Log CW"/>
+                                    <field name="cw_log_ids"
+                                        context="{
+                                        'list_view_ref': 'cargowise_sync_logistic_odone.invoice_cw_log_tree',
+                                        'form_view_ref': 'cargowise_sync_logistic_odone.invoice_cw_log_form'
+                                    }"
+                                        nolabel="1"/>
+                                </form>
+                            </field>
+                        </group>
+                        <separator name="log_cw" string="Log CW"/>
+                        <button name="send_posted_invoice_to_cw" 
+                            string="Enviar Facturado" type="object"/>
+                        <button name="send_posted_paid_to_cw"
+                            string="Enviar Pagado" type="object"/>
+                        <button name="send_posted_cancelled_to_cw"
+                            string="Enviar Cancelado" type="object"/>
+                        <field name="cw_log_ids" readonly="1"
+                            context="{
+                            'list_view_ref': 'cargowise_sync_logistic_odone.invoice_cw_log_tree',
+                            'form_view_ref': 'cargowise_sync_logistic_odone.invoice_cw_log_form'
+                        }" nolabel="1"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_invoice_tree" model="ir.ui.view">
+            <field name="name">account.move.inherit.view.tree</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="code_cw"/>
+                </field>
+                <field name="invoice_date_due" position="after">
+                    <field name="doc_validity" optional="show"/>
+                    <field name="closure" optional="show"/>
+                    <field name="service_level" optional="show"/>
+                    <field name="shipmentid" optional="show"/>
+                    <field name="department_code" optional="show"/>
+                    <field name="eta" optional="show"/>
+                    <field name="etd" optional="show"/>
+                    <field name="eta_txt" optional="show"/>
+                    <field name="etd_txt" optional="show"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_filter" model="ir.ui.view">
+            <field name="name">account.move.inherit.view.search</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="shipmentid"/>
+                    <field name="department_code"/>
+                    <field name="closure"/>
+                    <field name="service_level"/>
+                </field>
+                <filter name="invoice_date" position="before">
+                    <filter name="doc_validity" string="Vigencia documento" date="doc_validity"/>
+                    <filter name="eta" string="ETA" date="eta"/>
+                    <filter name="etd" string="ETD" date="etd"/>
+                </filter>
+            </field>
+        </record>
+
+    </data>
+</odoo>

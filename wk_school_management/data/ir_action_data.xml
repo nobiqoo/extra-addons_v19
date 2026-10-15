@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>; ) --> 
+<!-- See LICENSE file for full copyright and licensing details. --> 
+<!-- License URL : https://store.webkul.com/license.html/ -->
+
+<odoo>
+    <data>
+    <!-- FOR STUDENT ASSIGNMENT -->
+        <record id='submit_assignment_action' model='ir.actions.server'>
+            <field name='name'>Submit Assignments</field>
+            <field name='model_id' ref="wk_school_management.model_wk_student_assignment"/>
+            <field name="binding_model_id" ref="wk_school_management.model_wk_student_assignment"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.submit_assignment_action()
+            </field>
+        </record>
+
+        <record id='evaluate_assignment_action' model='ir.actions.server'>
+            <field name='name'>Evaluate Assignments</field>
+            <field name='model_id' ref="wk_school_management.model_wk_student_assignment"/>
+            <field name="binding_model_id" ref="wk_school_management.model_wk_student_assignment"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.evaluate_assignment_action()
+            </field>
+        </record>
+
+    <!-- FOR SERVICE HOURS -->
+        <record id='approve_service_hour_action' model='ir.actions.server'>
+            <field name='name'>Approve Service Hours</field>
+            <field name='model_id' ref="wk_school_management.model_wk_service_hours"/>
+            <field name="binding_model_id" ref="wk_school_management.model_wk_service_hours"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.approve_service_hour()
+            </field>
+        </record>
+
+        <record id='reject_service_hour_action' model='ir.actions.server'>
+            <field name='name'>Reject Service Hours</field>
+            <field name='model_id' ref="wk_school_management.model_wk_service_hours"/>
+            <field name="binding_model_id" ref="wk_school_management.model_wk_service_hours"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.reject_service_hour()
+            </field>
+        </record>
+
+    <!-- FOR STUDENT TRANSCRIPT -->
+        <record id='student_transcript_action' model='ir.actions.server'>
+            <field name='name'>Student Transcript</field>
+            <field name='model_id' ref="wk_school_management.model_student_student"/>
+            <field name="binding_model_id" ref="wk_school_management.model_student_student"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.action_print_student_transcript()
+            </field>
+        </record>
+
+    <!-- FOR STUDENT ENROLLMENT -->
+        <record id='promote_bulk_enrollments_action' model='ir.actions.server'>
+            <field name='name'>Promote Students</field>
+            <field name='model_id' ref="wk_school_management.model_student_enrollment"/>
+            <field name="binding_model_id" ref="wk_school_management.model_student_enrollment"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.promote_bulk_enrollments()
+            </field>
+        </record>
+
+        <record id='terminate_bulk_enrollments_action' model='ir.actions.server'>
+            <field name='name'>Terminate Students</field>
+            <field name='model_id' ref="wk_school_management.model_student_enrollment"/>
+            <field name="binding_model_id" ref="wk_school_management.model_student_enrollment"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.terminate_enrollment()
+            </field>
+        </record>
+
+        <record id='complete_bulk_enrollments_action' model='ir.actions.server'>
+            <field name='name'>Complete Enrollments</field>
+            <field name='model_id' ref="wk_school_management.model_student_enrollment"/>
+            <field name="binding_model_id" ref="wk_school_management.model_student_enrollment"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.complete_bulk_enrollments()
+            </field>
+        </record>
+
+    <!-- FOR STUDENT Fee Slip -->
+        <record id="model_wk_fee_slip_action_share" model="ir.actions.server">
+            <field name="name">Share</field>
+            <field name="model_id" ref="wk_school_management.model_wk_fee_slip"/>
+            <field name="binding_model_id" ref="wk_school_management.model_wk_fee_slip"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_share()</field>
+        </record>
+
+    <!-- FOR SCHOLARSHIP PAY STATUS -->
+        <record id="wk_student_scholarship_update_action" model="ir.actions.server">
+            <field name="name">Mark Paid</field>
+            <field name="model_id" ref="wk_school_management.model_wk_student_scholarship"/>
+            <field name="binding_model_id" ref="wk_school_management.model_wk_student_scholarship"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_scholarship_paid()</field>
+        </record>
+
+    <!-- FOR GRANTING PORTAL ACCESS -->
+        <record id="student_student_grant_access_action" model="ir.actions.server">
+            <field name="name">Grant Portal Access</field>
+            <field name="model_id" ref="wk_school_management.model_student_student"/>
+            <field name="binding_model_id" ref="wk_school_management.model_student_student"/>
+            <field name="binding_view_types">form,list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.action_create_related_user()
+            </field>
+        </record>
+
+    <!-- FOR REVOKING PORTAL ACCESS -->
+        <record id="student_student_revoke_access_action" model="ir.actions.server">
+            <field name="name">Revoke Portal Access</field>
+            <field name="model_id" ref="wk_school_management.model_student_student"/>
+            <field name="binding_model_id" ref="wk_school_management.model_student_student"/>
+            <field name="binding_view_types">form,list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.action_revoke_portal_access()
+            </field>
+        </record>
+
+        <!-- For Activating Transport in Student -->
+         <record id="student_student_activate_transport_action" model="ir.actions.server">
+            <field name="name">Activate Transport</field>
+            <field name="model_id" ref="wk_school_management.model_student_student"/>
+            <field name="binding_model_id" ref="wk_school_management.model_student_student"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.action_activate_transport_bulk()
+            </field>
+        </record>action_deactivate_transport
+
+        <!-- For Dectivating Transport in Student -->
+         <record id="student_student_deactivate_transport_action" model="ir.actions.server">
+            <field name="name">Deactivate Transport</field>
+            <field name="model_id" ref="wk_school_management.model_student_student"/>
+            <field name="binding_model_id" ref="wk_school_management.model_student_student"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.action_deactivate_transport()
+            </field>
+        </record>
+
+        <!-- For Granting Librarian Access -->
+
+        <record id='grant_librarian_action' model='ir.actions.server'>
+            <field name='name'>Grant Education Librarian Access</field>
+            <field name='model_id' ref="model_hr_employee"/>
+            <field name="binding_model_id" ref="model_hr_employee"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.grant_librarian_access()
+            </field>
+        </record>
+
+        <!-- For Bulk Email Sending to Students -->
+        <record id="action_student_send_mail" model="ir.actions.server">
+            <field name="name">Send Email</field>
+            <field name="model_id" ref="wk_school_management.model_student_student"/>
+            <field name="binding_model_id" ref="wk_school_management.model_student_student"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                    'type': 'ir.actions.act_window',
+                    'name': 'Send Email',
+                    'res_model': 'mail.compose.message',
+                    'view_mode': 'form',
+                    'target': 'new',
+                    'context': {
+                        'default_composition_mode': 'mass_mail',
+                        'active_model': 'student.student',
+                        'active_ids': records.ids,
+                        'default_model': 'student.student',
+                        'default_res_ids': records.ids,
+                        'default_partner_ids': records.mapped('partner_id').ids,
+                        'default_subtype_xmlid': 'mail.mt_comment',
+                        'force_email': True,
+                    }
+                }
+            </field>
+        </record>
+
+    </data>
+</odoo>

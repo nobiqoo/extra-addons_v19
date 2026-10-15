@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="uom.product_uom_cm" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_cmt"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_CMT"/>
+    </record>
+    <record id="uom.product_uom_qt" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_qt"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_QTR"/>
+    </record>
+    <record id="uom.product_uom_day" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_day"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_E49"/>
+    </record>
+    <record id="uom.product_uom_dozen" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_dzn"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_DPC"/>
+    </record>
+    <record id="uom.product_uom_floz" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_oza"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_OZA"/>
+    </record>
+    <record id="uom.product_uom_gram" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_grm"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_GRM"/>
+    </record>
+    <record id="uom.product_uom_gal" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_gld"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_A76"/>
+    </record>
+    <record id="uom.product_uom_hour" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_hur"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_LH"/>
+    </record>
+    <record id="uom.product_uom_kgm" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_kgm"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_KGM"/>
+    </record>
+    <record id="uom.product_uom_km" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_ktm"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_KMT"/>
+    </record>
+    <record id="uom.product_uom_lb" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_lbr"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_LBR"/>
+    </record>
+    <record id="uom.product_uom_litre" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_ltr"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_LTR"/>
+    </record>
+    <record id="uom.product_uom_meter" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_mtr"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_MTR"/>
+    </record>
+    <record id="uom.product_uom_mile" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_mil"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_M52"/>
+    </record>
+    <record id="uom.product_uom_oz" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_onz"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_ONZ"/>
+    </record>
+    <record id="uom.product_uom_foot" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_fot"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_FOT"/>
+    </record>
+    <record id="uom.product_uom_inch" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_inh"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_INH"/>
+    </record>
+    <record id="uom.product_uom_ton" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_nt"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_NT"/>
+    </record>
+    <record id="uom.product_uom_unit" model="uom.uom">
+        <field name="dian_uom_id" ref="l10n_co_data_bloodo.product_uom_code_94"/>
+        <field name="dian_unspsc_id" ref="l10n_co_data_bloodo.unspsc_code_H87"/>
+    </record>
+</odoo>

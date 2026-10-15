@@ -1,0 +1,141 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_category_extended
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-20 22:56+0000\n"
+"PO-Revision-Date: 2023-12-20 22:56+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_category_extended
+#: model:ir.model.fields,field_description:product_category_extended.field_product_product__fracaweb_reference
+#: model:ir.model.fields,field_description:product_category_extended.field_product_template__fracaweb_reference
+msgid "Fracaweb reference"
+msgstr "Referencia fracaweb"
+
+#. module: product_category_extended
+#: model:ir.model,name:product_category_extended.model_product_category
+msgid "Product Category"
+msgstr "Categoría del Producto"
+
+#. module: product_category_extended
+#: model:ir.model,name:product_category_extended.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: product_category_extended
+#: model:ir.model,name:product_category_extended.model_product_template_attribute_line
+msgid "Product Template Attribute Line"
+msgstr "Linea de atributo de la plantilla de producto"
+
+#. module: product_category_extended
+#: model:ir.model.fields,field_description:product_category_extended.field_product_category__reference
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: product_category_extended
+#: model:ir.model.fields,field_description:product_category_extended.field_product_product__secuence_reference
+#: model:ir.model.fields,field_description:product_category_extended.field_product_template__secuence_reference
+msgid "Secuence"
+msgstr "Secuencia"
+
+#. module: product_category_extended
+#: model:ir.model.fields,field_description:product_category_extended.field_product_product__sigo_reference
+#: model:ir.model.fields,field_description:product_category_extended.field_product_template__sigo_reference
+msgid "Sigo reference"
+msgstr "Referencia sigo"
+
+#. module: product_category_extended
+#: code:addons/product_category_extended/models/product_template.py:0
+#, python-format
+msgid "Some category reference has format incorrect"
+msgstr "Alguna categoria contiene un formato incorrecto"
+
+#. module: product_category_extended
+#: model:ir.model.fields,field_description:product_category_extended.field_product_attribute_value__number
+msgid "Number"
+msgstr "Número"
+
+#. module: product_category_extended
+#: model:ir.model.fields,field_description:product_category_extended.field_product_attribute_value__secondary_value
+msgid "Secondary value"
+msgstr "Valor secundario"
+
+#. module: product_category_extended
+#: model_terms:ir.ui.view,arch_db:product_category_extended.product_template_add_refresh_variants_form_view
+msgid "Update variants code"
+msgstr "Actualizar códigos"
+
+#. module: product_category_extended
+#: model:ir.model.fields,field_description:product_category_extended.field_product_product__skip_automatic_reference
+#: model:ir.model.fields,field_description:product_category_extended.field_product_template__skip_automatic_reference
+msgid "Skip automatic reference"
+msgstr "Omitir referencia automática"
+
+#. module: product_category_extended
+#: model:ir.model.fields,field_description:product_category_extended.field_res_company__apply_product_reference
+msgid "Automatic code"
+msgstr "Código automatico en Productos"
+
+#. module: product_category_extended
+#: model_terms:ir.ui.view,arch_db:product_category_extended.res_company_add_inventory_tab_form
+msgid "Inventory"
+msgstr "Inventario"
+
+#. module: product_category_extended
+#: code:addons/product_category_extended/models/product_template.py:0
+#, python-format
+msgid "Attribute %s of the material: %s is not on the template attributes.\n "
+msgstr "El atributo %s del material: %s no esta dentro de los atributos de la plantilla.\n "
+
+#. module: product_category_extended
+#: code:addons/product_category_extended/models/product_template.py:0
+#, python-format
+msgid "The material %s with the attributes --> ["
+msgstr "El material %s con los atributos --> ["
+
+#. module: product_category_extended
+#: code:addons/product_category_extended/models/product_template.py:0
+#, python-format
+msgid "] was not found.\n"
+msgstr "] no fue encontrado.\n"
+
+
+#. module: product_category_extended
+#: model:ir.model.fields,field_description:product_category_extended.field_product_material_template_line__product_tmpl_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: product_category_extended
+#: model:ir.model.fields,field_description:product_category_extended.field_product_material_template_line__uom_qty
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: product_category_extended
+#: model:ir.model.fields,field_description:product_category_extended.field_product_material_template_line__tmpl_id
+msgid "Template"
+msgstr "Plantilla"
+
+#. module: product_category_extended
+#: model:ir.model.fields,field_description:product_category_extended.field_product_material_template_line__uom_id
+msgid "Unit of measure"
+msgstr "Unidad de medida"
+
+#. module: product_category_extended
+#: model:ir.model.fields,field_description:product_category_extended.field_product_template__material_ids
+#: model_terms:ir.ui.view,arch_db:product_category_extended.product_template_add_refresh_variants_form_view
+msgid "Materials"
+msgstr "Materiales"
+
+#. module: product_category_extended
+#: model_terms:ir.ui.view,arch_db:product_category_extended.product_template_add_refresh_variants_form_view
+msgid "Create material list"
+msgstr "Crear/actualizar listas de materiales"

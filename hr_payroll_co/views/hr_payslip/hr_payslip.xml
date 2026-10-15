@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_payslip_form" model="ir.ui.view">
+            <field name="name">hr.payslip.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="compute_slip" string="Calcular" type="object"
+                            invisible="state != 'draft' or location_code != 'co'" />
+                        <button name="to_paid" string="Causar" type="object"
+                            invisible="state != 'draft' or location_code != 'co'" />
+                        <button name="to_draft" string="Pasar a borrador" type="object"
+                            invisible="state != 'paid'" />
+                        <button name="send_mail" string="Enviar comprobante" type="object"
+                            class="oe_highlight" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,paid" />
+                    </header>
+                    <sheet>
+                        <div name="title">
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <field name="payslip_type_category" invisible="1" />
+                        <group>
+                            <group class="datos-empleado-vista-nomina">
+                                <field name="contract_id"
+                                    readonly="state == 'paid'" />
+                                <field name="liquidation_date"
+                                    readonly="state == 'paid'" />
+                                <field name="cutoff_date"
+                                    readonly="state == 'paid'"
+                                    invisible="1" />
+                                <field name="period_id" readonly="state == 'paid'" />
+                                <field name="journal_id"
+                                    readonly="state == 'paid'" />
+                                <field name="mail_sended" />
+                            </group>
+                            <group class="datos-empleado-vista-nomina">
+                                <field name="employee_id"
+                                    readonly="state == 'paid'" />
+                                <field name="accounting_date"
+                                    readonly="state == 'paid'" />
+                                <field name="payslip_type_id"
+                                    readonly="state == 'paid'" />
+                                <field name="move_id" />
+                            </group>
+                        </group>
+                        <notebook class="contenedor-nomina-vista-formulario">
+                            <page name="page_concepts" string="Detalle de nómina">
+                                <div class="row detalle-nomina">
+                                    <div class="col-md-6 devengos-contenedor">
+                                        <div class="alert alert-success" role="alert">
+                                            <b class="tiulo-detalle-nomina titulo-devengos fa fa-usd"> </b>
+                                            <b class="tiulo-detalle-nomina titulo-devengos">Devengos</b>
+                                        </div>
+                                        <field name="earnings_ids" class="col-md-12" mode="kanban"
+                                            context="{'kanban_view_ref':'hr_payroll_co.hr_payslip_line_kanban'}" />
+                                    </div>
+                                    <div class="col-md-6 deducciones-contenedor">
+                                        <div class="alert alert-danger" role="alert">
+                                            <b class="tiulo-detalle-nomina titulo-deducciones fa fa-minus-square"> </b>
+                                            <b class="tiulo-detalle-nomina titulo-deducciones">Deducciones</b>
+                                        </div>
+                                        <field name="deductions_ids" class="col-md-12" mode="kanban"
+                                            context="{'kanban_view_ref':'hr_payroll_co.hr_payslip_line_kanban'}" />
+                                    </div>
+                                </div>
+                                <div class="row detalle-nomina">
+                                    <div class="col-md-6 provisiones-contenedor">
+                                        <div class="alert alert-warning" role="alert">
+                                            <b class="tiulo-detalle-nomina titulo-provisiones fa fa-folder-open"> </b>
+                                            <b class="tiulo-detalle-nomina titulo-provisiones">Provisiones</b>
+                                        </div>
+                                        <field name="provisions_ids" class="col-md-12" mode="kanban"
+                                            context="{'kanban_view_ref':'hr_payroll_co.hr_payslip_line_kanban'}" />
+                                    </div>
+                                    <div class="col-md-6 neto-contenedor">
+                                        <div class="alert alert-primary" role="alert">
+                                            <b class="tiulo-detalle-nomina titulo-neto fa fa-money"> </b>
+                                            <b class="tiulo-detalle-nomina titulo-neto">Neto</b>
+                                        </div>
+                                        <field name="outcome_ids" class="col-md-12" mode="kanban"
+                                            context="{'kanban_view_ref':'hr_payroll_co.hr_payslip_line_kanban'}" />
+                                    </div>
+                                </div>
+                            </page>
+                            <page name="page_payslip_days" string="Detalle de días">
+                                <field name="payslip_day_ids">
+                                    <list>
+                                        <field name="day" />
+                                        <field name="day_type" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="page_error_log" string="Detalle de errores"
+                                invisible="error_log == ''">
+                                <field name="error_log" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_payslip_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.tree</field>
+            <field name="model">hr.payslip</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="employee_id" />
+                    <field name="contract_id" />
+                    <field name="payslip_type_id" />
+                    <field name="period_id" />
+                    <field name="state" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_payslip_search" model="ir.ui.view">
+            <field name="name">hr.payslip.search</field>
+            <field name="model">hr.payslip</field>
+            <field name="arch" type="xml">
+                <search string="Search payslip">
+                    <field name="name" />
+                    <field name="contract_id" />
+                    <field name="employee_id" />
+                    <field name="period_id" />
+                    <field name="payslip_type_id" />
+
+                    <separator />
+                    <filter name="paid" string="Pagada" domain="[('state', '=', 'paid')]" />
+                    <filter name="draft" string="Borrador" domain="[('state', '=', 'draft')]" />
+
+                    <separator />
+                    <filter name="posted_in_filter" date="accounting_date"
+                        string="Contabilizado en:" />
+
+                    <separator />
+                    <filter name="state_group" string="Estado" context="{'group_by': 'state'}" />
+                    <filter name="period_group" string="Periodo"
+                        context="{'group_by': 'period_id'}" />
+                    <filter name="payslip_type_group" string="Tipo de Nómina"
+                        context="{'group_by': 'payslip_type_id'}" />
+                </search>
+            </field>
+        </record>
+
+        <record id="hr_payslip_action" model="ir.actions.act_window">
+            <field name="name">Nóminas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payslip</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_payslip_menu_act" name="Nóminas" parent="payslip_menu_categ"
+            action="hr_payslip_action" sequence="1" />
+    </data>
+
+    <data noupdate="1">
+        <record id="seq_hr_payslip" model="ir.sequence">
+            <field name="name">Número Nómina</field>
+            <field name="code">seq.hr.payslip</field>
+            <field name="prefix">NOM-</field>
+            <field name="padding">10</field>
+        </record>
+    </data>
+</odoo>

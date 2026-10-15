@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="stock_quant_view_tree_inherit" model="ir.ui.view">
+        <field name="name">stock.quant.view.tree.inherit</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_inventory_editable"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='stock.action_stock_inventory_adjustement_name']" position="replace">
+                <button name="stock.action_stock_inventory_adjustement_name" groups="stock_adjustments.group_inventory_adjustments" type="action" string="Apply"/>
+            </xpath>
+            <xpath expr="//button[@name='action_apply_inventory']" position="replace">
+                <button name="action_apply_inventory" groups="stock_adjustments.group_physical_inventory_apply" type="object" string="Apply" class="btn btn-link" icon="fa-save" invisible="not inventory_quantity_set"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_quant_view_tree_editable_inherit" model="ir.ui.view">
+        <field name="name">stock.quant.view.tree.editable.inherit</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_editable"/>
+        <field name="arch" type="xml">
+            <field name="inventory_quantity_auto_apply" position="before">
+                <field name="has_group_inventory_adjustment" invisible="1"/>
+            </field>
+            <xpath expr="//field[@name='inventory_quantity_auto_apply']" position="attributes">
+                <attribute name="readonly">not has_group_inventory_adjustment</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem
+        id="stock.menu_action_inventory_tree"
+        sequence="10"
+        action="stock.action_view_inventory_tree"
+        parent="stock.menu_stock_adjustments"
+        groups="stock_adjustments.group_inventory_adjustments"/>
+</odoo>

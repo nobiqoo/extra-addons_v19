@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="purchase_service_acceptance.ServiceAcceptanceStatsBanner">
+        <div t-if="state.stats" class="o_psa_stats_banner d-flex flex-wrap justify-content-center gap-3 py-3 px-3 border-bottom bg-view flex-shrink-0">
+            <a href="#" class="o_psa_stat text-decoration-none text-reset d-flex flex-column align-items-center justify-content-start border rounded-0 bg-light px-5 py-3"
+               t-on-click.prevent="() => this.openFiltered('total')">
+                <span class="fs-2 fw-bold" t-out="state.stats.total.count"/>
+                <span class="text-muted">Total</span>
+            </a>
+            <a href="#" class="o_psa_stat text-decoration-none text-reset d-flex flex-column align-items-center justify-content-start border rounded-0 bg-light px-5 py-3"
+               t-on-click.prevent="() => this.openFiltered('confirmed')">
+                <span class="fs-2 fw-bold" t-out="state.stats.confirmed.count"/>
+                <span class="text-muted">Confirmed</span>
+            </a>
+            <a href="#" class="o_psa_stat text-decoration-none text-reset d-flex flex-column align-items-center justify-content-start border rounded-0 bg-light px-5 py-3"
+               t-on-click.prevent="() => this.openFiltered('waiting')">
+                <span class="fs-2 fw-bold" t-out="state.stats.waiting.count"/>
+                <span class="text-muted">Pending Acceptance</span>
+            </a>
+            <a href="#" class="o_psa_stat text-decoration-none text-reset d-flex flex-column align-items-center justify-content-start border rounded-0 bg-light px-5 py-3"
+               t-on-click.prevent="() => this.openFiltered('cancelled')">
+                <span class="fs-2 fw-bold" t-out="state.stats.cancelled.count"/>
+                <span class="text-muted">Cancelled</span>
+            </a>
+        </div>
+    </t>
+
+</templates>

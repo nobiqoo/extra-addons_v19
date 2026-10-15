@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_approval_quality_approver,approval.quality.approver,model_approval_quality_approver,base.group_user,1,1,1,1
+access_quality_check_approver_user,quality.check.approver user,model_quality_check_approver,base.group_user,1,1,1,1
+access_approval_role_user,access.approval.role.user,model_approval_role,base.group_user,1,1,1,1

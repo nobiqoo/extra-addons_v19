@@ -1,0 +1,25 @@
+<odoo>
+    <record id="view_biometric_odoo_to_biometric_wizard_form" model="ir.ui.view">
+        <field name="name">biometric.odoo.to.biometric.wizard.form</field>
+        <field name="model">biometric.odoo.to.biometric.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Cargar usuarios de Odoo al biométrico">
+                <group string="Empleados con Biometric ID">
+                    <field name="employee_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                </group>
+                <group string="Empleados sin Biometric ID">
+                    <field name="employee_ids_without_id" widget="many2many" context="{'default_device_id_num': ''}">
+                        <list editable="bottom">
+                            <field name="name"/>
+                            <field name="device_id_num"/>
+                        </list>
+                    </field>
+                </group>
+                <footer>
+                    <button name="action_save_biometric_id" type="object" string="Guardar cambios de Biometric ID" class="btn-secondary"/>
+                    <button name="action_upload_users" type="object" string="Cargar seleccionados al biométrico" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="biomedical_equipment_inspection_form_template" model="ir.actions.report">
+        <field name="name">Formato de Inspección de Equipos Biomédicos</field>
+        <field name="model">x_quality_check_worksheet_template_6</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">worksheet_template_eurodent.print_biomedical_equipment_inspection_form_template</field>
+        <field name="report_file">worksheet_template_eurodent.print_biomedical_equipment_inspection_form_template</field>
+        <field name="print_report_name">'Formato de Inspección de Equipos Biomédicos - %s' %(object.x_product_code)</field>
+        <!-- <field name="binding_model_id" ref="model_x_quality_check_worksheet_template_4" /> -->
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="print_biomedical_equipment_inspection_form_template">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="web.basic_layout">
+                <div class="header">
+                    <style>
+                        div {
+                        font-size:12px;
+                        }
+                        .tabla {
+                        width:100%;
+                        }
+                        .logo-empresa img {
+                        width: 60px ;
+                        }
+                        .tabla td {
+                        vertical-align: middle;
+                        padding:3px;
+                        }
+                    </style>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="tabla">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2" rowspan="4" width="181">
+                                                <!-- <img class="logo-empresa"
+                                                src="/web/content/28511/logo eurodent.png"/> -->
+                                                <span class="logo-empresa"
+                                                    t-field="doc.x_company_id.logo"
+                                                    t-options-widget="&quot;image&quot;"
+                                                    t-options-qweb_img_raw_data="1" />
+                                            </td>
+                                            <td colspan="11" rowspan="4" width="1529">FORMATO DE
+                                                INSPECCIÓN DE EQUIPOS BIOMEDICOS </td>
+                                            <td width="120">VERSIÓN</td>
+                                            <td width="87">02</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CÓDIGO</td>
+                                            <td>FM-ST-01</td>
+                                        </tr>
+                                        <tr>
+                                            <td>FECHA</td>
+                                            <td>26/02/2025</td>
+                                        </tr>
+                                        <tr>
+                                            <td>PÁGINA</td>
+                                            <td>
+                                                <span class="page" /> de <span class="topage" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page">
+                    <style>
+                        div {
+                        font-size:12px;
+                        }
+                        .tabla {
+                        width:100%;
+                        }
+                        .tabla td {
+                        padding: 3px;
+                        border:1px solid white;
+                        }
+                        .fila-bordeada td {
+                        border:1px solid black;
+                        vertical-align: middle;
+                        }
+                        .negrilla {
+                        font-weight: bold !important;
+                        margin:0;
+                        text-align:center;
+                        }
+                        .firma img {
+                        width:auto;
+                        }
+                    </style>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Calcula 'worksheet' en tiempo de renderizado -->
+                                <!-- <t t-set="worksheet"
+                                t-value="env[doc.worksheet_template_id.model_id.sudo().model].search([('x_quality_check_id','=',
+                                doc.id)])" /> -->
+                                <table class="tabla">
+                                    <tbody>
+                                        <tr>
+                                            <td style="border:1px solid black" colspan="3"
+                                                width="158">
+                                                <p class="negrilla">FECHA DE EJECUCIÓN:</p>
+                                            </td>
+                                            <td style="border:1px solid black" colspan="2"
+                                                width="206">
+                                                <span t-field="doc.x_execute_date" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2">
+                                                <p class="negrilla">NOMBRE:</p>
+                                            </td>
+                                            <td colspan="6">
+                                                <span t-field="doc.x_product_name" />
+                                            </td>
+                                            <td>
+                                                <p class="negrilla">MODELO:</p>
+                                            </td>
+                                            <td colspan="5">
+                                                <span t-field="doc.x_model" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2">
+                                                <p class="negrilla">REFERENCIA:</p>
+                                            </td>
+                                            <td colspan="6">
+                                                <span t-field="doc.x_product_code" />
+                                            </td>
+                                            <td>
+                                                <p class="negrilla">MARCA:</p>
+                                            </td>
+                                            <td colspan="5">
+                                                <span t-field="doc.x_brand_id" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2">
+                                                <p class="negrilla">SERIE:</p>
+                                            </td>
+                                            <td colspan="6">
+                                                <span t-field="doc.x_lot_ids" />
+                                            </td>
+                                            <td>
+                                                <p class="negrilla">OTT:</p>
+                                            </td>
+                                            <td colspan="5">
+                                                <span t-field="doc.x_ott_id" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="14">
+                                                <p class="negrilla">DATOS GENEREALES  DEL EQUIPO</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="14">
+                                                <p class="negrilla">VERIFICACION GENERAL</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2" rowspan="4" width="131">
+                                                <p class="negrilla">Verificación del Embalaje</p>
+                                            </td>
+                                            <td colspan="3">
+                                                La caja se encuentra sellada
+                                            </td>
+                                            <td colspan="2">
+                                                Cumple
+                                            </td>
+                                            <td>
+                                                <t t-if="doc.x_box_sealed == 'approve'">☒</t>
+                                            </td>
+                                            <td>
+                                                No cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_box_sealed == 'not_approve'">☒</t>
+                                            </td>
+                                            <td colspan="4" rowspan="4" width="326"> En caso que su
+                                                respuesta sea no cumple  especifique la falla y
+                                                acción: <t t-if="doc.x_packing_observation">
+                                                    <span t-field="doc.x_packing_observation" />
+                                                </t>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3">La caja no presenta humedad</td>
+                                            <td colspan="2">Cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_box_not_wet == 'approve'">☒</t>
+                                            </td>
+                                            <td>No cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_box_not_wet == 'not_approve'">☒</t>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3">La caja no presenta golpes</td>
+                                            <td colspan="2">Cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_box_free_knock == 'approve'">☒</t>
+                                            </td>
+                                            <td>No cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_box_free_knock == 'not_approve'">☒</t>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3">La caja cuenta con los datos del equipo</td>
+                                            <td colspan="2">Cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_box_equipment_data == 'approve'">☒</t>
+                                            </td>
+                                            <td>No cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_box_equipment_data == 'not_approve'">
+                                                    ☒</t>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2" rowspan="4" width="131">
+                                                <p class="negrilla">Verificación del estado
+                                                    físico del equipo</p>
+                                            </td>
+                                            <td colspan="3">No Presenta golpes</td>
+                                            <td colspan="2">Cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_free_knock == 'approve'">☒</t>
+                                            </td>
+                                            <td>No cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_free_knock == 'not_approve'">☒</t>
+                                            </td>
+                                            <td colspan="4" rowspan="4" width="326"> En caso que su
+                                                respuesta sea no cumple   especifique la falla y
+                                                acción: <t t-if="doc.x_equipment_observation">
+                                                    <span t-field="doc.x_equipment_observation" />
+                                                </t>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3"> No Presenta rayones</td>
+                                            <td colspan="2">Cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_not_scratches == 'approve'">☒</t>
+                                            </td>
+                                            <td>No cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_not_scratches == 'not_approve'">☒</t>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3">No Presenta suciedad</td>
+                                            <td colspan="2">Cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_not_dirty == 'approve'">☒</t>
+                                            </td>
+                                            <td>No cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_not_dirty == 'not_approve'">☒</t>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3">Ensamble en optimas condciones</td>
+                                            <td colspan="2">Cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_optimal_ensamble == 'approve'">☒</t>
+                                            </td>
+                                            <td>No cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_optimal_ensamble == 'not_approve'">☒</t>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="14">
+                                                <p class="negrilla">VERIFICACIÓN DE ACCESORIOS</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="4">
+                                                <p class="negrilla">El equipo cuenta con accesorios</p>
+                                            </td>
+                                            <td colspan="4">
+                                                <p class="negrilla">Accesorios completos</p>
+                                            </td>
+                                            <td colspan="4">
+                                                <p class="negrilla">Elementos de calibración</p>
+                                            </td>
+                                            <td colspan="2" rowspan="2">Otros: <span
+                                                    t-field="doc.x_accessories_other" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td>Aplica</td>
+                                            <td>
+                                                <t t-if="doc.x_accessories_include == 'approve'">☒</t>
+                                            </td>
+                                            <td>No Aplica</td>
+                                            <td>
+                                                <t t-if="doc.x_accessories_include == 'not_approve'">
+                                                    ☒</t>
+                                            </td>
+                                            <td>Cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_accessories_complete == 'approve'">☒</t>
+                                            </td>
+                                            <td>No Cumple</td>
+                                            <td>
+                                                <t
+                                                    t-if="doc.x_accessories_complete == 'not_approve'">
+                                                    ☒</t>
+                                            </td>
+                                            <td>Aplica</td>
+                                            <td>
+                                                <t t-if="doc.x_calibration_elements == 'approve'">☒</t>
+                                            </td>
+                                            <td>No Aplica</td>
+                                            <td>
+                                                <t
+                                                    t-if="doc.x_calibration_elements == 'not_approve'">
+                                                    ☒</t>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="14">
+                                                <p class="negrilla">LISTA DE ACCESORIOS</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="7">
+                                                <p class="negrilla">Accesorios Incluidos en el
+                                                    Equipo</p>
+                                            </td>
+                                            <td colspan="7">
+                                                <p class="negrilla">Accesorios Faltantes Según
+                                                    Manual</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="7">
+                                                <span t-field="doc.x_accessories_include_list" />
+                                            </td>
+                                            <td colspan="7">
+                                                <span t-field="doc.x_accessories_not_include_list" />
+                                            </td>
+                                        </tr>
+
+                                        <tr class="fila-bordeada">
+                                            <td colspan="14">
+                                                <p class="negrilla">LISTA DE SOFTWARE</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="4" rowspan="2">
+                                                <p class="negrilla">¿Cuenta con Software?</p>
+                                            </td>
+                                            <td>Aplica</td>
+                                            <td>
+                                                <t t-if="doc.x_has_software == 'apply'">☒</t>
+                                            </td>
+                                            <td colspan="8" rowspan="2"> Si aplica indique los
+                                                softwares: <span t-field="doc.x_which_software" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td>No Aplica</td>
+                                            <td>
+                                                <t t-if="doc.x_has_software == 'not_apply'">☒</t>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="14">
+                                                <p class="negrilla">PRUEBAS DE FUNCIONAMIENTO</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="4">
+                                                <p class="negrilla">El equipo enciende</p>
+                                            </td>
+                                            <td>Cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_equipment_turn_on == 'approve'">☒</t>
+                                            </td>
+                                            <td>No Cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_equipment_turn_on == 'not_approve'">☒</t>
+                                            </td>
+                                            <td colspan="6" rowspan="2">Si no cumple, especifique
+                                                que acción se realiza: <span
+                                                    t-field="doc.x_observation_functionality" /></td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="4">
+                                                <p class="negrilla">Funciona totalmente</p>
+                                            </td>
+                                            <td>Cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_equipment_work == 'approve'">☒</t>
+                                            </td>
+                                            <td>No Cumple</td>
+                                            <td>
+                                                <t t-if="doc.x_equipment_work == 'not_approve'">☒</t>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="14">
+                                                <p class="negrilla">Describa las pruebas de
+                                                    funcionamiento ejecutadas: </p>
+                                                <span t-field="doc.x_work_test" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td class="text-center" colspan="14">
+                                                <p class="negrilla">SELLOS DE VERIFICACIÓN</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2" width="131">
+                                                <p class="negrilla">Registro sanitario</p>
+                                            </td>
+                                            <td>Aplica</td>
+                                            <td>
+                                                <t
+                                                    t-if="doc.x_sanitary_registration_seal == 'apply'">
+                                                    ☒</t>
+                                            </td>
+                                            <td>No Aplica</td>
+                                            <td>
+                                                <t
+                                                    t-if="doc.x_sanitary_registration_seal == 'not_apply'">
+                                                    ☒</t>
+                                            </td>
+                                            <td colspan="2" rowspan="2">
+                                                <p class="negrilla">Garantía</p>
+                                            </td>
+                                            <td rowspan="2">Aplica</td>
+                                            <td rowspan="2">
+                                                <t t-if="doc.x_warranty == 'apply'">☒</t>
+                                            </td>
+                                            <td rowspan="2">No Aplica</td>
+                                            <td rowspan="2">
+                                                <t t-if="doc.x_warranty == 'not_apply'">☒</t>
+                                            </td>
+                                            <td rowspan="2">
+                                                <p class="negrilla">Revisión inicial</p>
+                                            </td>
+                                            <td rowspan="2">
+                                                <span t-field="doc.x_initial_check" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2" width="131">
+                                                <p class="negrilla">Cert. No Requiere</p>
+                                            </td>
+                                            <td>Aplica</td>
+                                            <td>
+                                                <t
+                                                    t-if="doc.x_not_required_certificate_seal == 'apply'">
+                                                    ☒</t>
+                                            </td>
+                                            <td>No Aplica</td>
+                                            <td>
+                                                <t
+                                                    t-if="doc.x_not_required_certificate_seal == 'not_apply'">
+                                                    ☒</t>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="tabla">
+                                    <tbody>
+                                        <tr class="fila-bordeada salto-pagina">
+                                            <td colspan="14">
+                                                <p class="negrilla">DATOS DE QUIEN EJECUTA LA
+                                                    REVISIÓN</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td width="25%" colspan="3">
+                                                <p class="negrilla">NOMBRE:</p>
+                                            </td>
+                                            <td width="25%" colspan="7">
+                                                <span t-field="doc.x_name_reviewed" />
+                                            </td>
+                                            <td width="25%" colspan="4" rowspan="2">
+                                                <span class="firma"
+                                                    t-field="doc.x_name_reviewed_signature"
+                                                    t-options-widget="&quot;image&quot;"
+                                                    t-options-qweb_img_raw_data="1" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3">
+                                                <p class="negrilla">DOCUMENTO DE IDENTIDAD:</p>
+                                            </td>
+                                            <td colspan="7">
+                                                <span t-field="doc.x_vat_reviewed" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3">
+                                                <p class="negrilla">CARGO:</p>
+                                            </td>
+                                            <td colspan="7">
+                                                <span t-field="doc.x_job_id" />
+                                            </td>
+                                            <td colspan="4">FIRMA</td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="14">
+                                                <p class="negrilla">VoBo DIRECCIÓN TÉCNICA</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3">
+                                                <p class="negrilla">NOMBRE:</p>
+                                            </td>
+                                            <td colspan="7">
+                                                <span t-field="doc.x_technical_manager" />
+                                            </td>
+                                            <td colspan="4" rowspan="2">
+                                                <span class="firma"
+                                                    t-field="doc.x_technical_manager_signature"
+                                                    t-options-widget="&quot;image&quot;"
+                                                    t-options-qweb_img_raw_data="1" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3">
+                                                <p class="negrilla">DOCUMENTO DE IDENTIDAD:</p>
+                                            </td>
+                                            <td colspan="7">
+                                                <span t-field="doc.x_vat_manager" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3">
+                                                <p class="negrilla">CARGO:</p>
+                                            </td>
+                                            <td colspan="7">
+                                                <span t-field="doc.x_job_manager_id" />
+                                            </td>
+                                            <td colspan="4">FIRMA</td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="14">Este documento es propiedad y copia
+                                                controlada de
+                                                Representaciones Eurodent S.A.S.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+
+    </template>
+
+</odoo>

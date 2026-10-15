@@ -1,0 +1,63 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="custom_helpdesk_team_view_form">
+      <field name="name">Custom helpdesk team view form</field>
+      <field name="model">helpdesk.team</field>
+      <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//div[@id='productivity']" position="after">
+          <h2>Servicios y otra información </h2>
+          <div class="row mt16 o_settings_container">
+            <div class="col-12">
+              <group>
+                <field name="partner_company_id" />
+              </group>
+              <field name="service_ids" widget="many2many">
+                <list editable="bottom">
+                  <field name="name" />
+                  <field name="category_id" />
+                  <field name="sub_category_id" />
+                </list>
+              </field>
+              <h3>Reglas de asignación del equipo</h3>
+              <field name="assignment_rule_ids"
+                invisible="not auto_assignment or assign_method !='by_rule'">
+                <list>
+                  <field name="name" />
+                  <field name="sub_category_id" />
+                  <field name="zone_id" />
+                  <field name="support_type_id" />
+                  <field name="priority" widget="priority" />
+                  <field name="user_ids" widget="many2many_avatar_user" />
+                </list>
+              </field>
+              <h3>Customización de reporte de ticket</h3>
+              <group col="4">
+                <group colspan="1">
+                  <label for="logo_report" string="Logo" />
+                  <field name="logo_report"
+                    widget="image"
+                    nolabel="1"
+                    class="oe_avatar"
+                    style="max-width:110px; max-height:110px;" />
+                </group>
+
+                <group colspan="3">
+                  <label for="footer_report" string="Pie de página" />
+                  <field name="footer_report"
+                    widget="html"
+                    nolabel="1" />
+                </group>
+              </group>
+            </div>
+          </div>
+        </xpath>
+        <xpath expr="//div[@name='member_ids']" position="attributes">
+          <attribute name="invisible">assign_method == 'by_rule'</attribute>
+        </xpath>
+      </field>
+    </record>
+
+
+  </data>
+</odoo>

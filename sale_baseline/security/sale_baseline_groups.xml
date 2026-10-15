@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="sale_baseline_category" model="ir.module.category">
+            <field name="name">Pagos</field>
+        </record>
+
+        <record id="group_edit_salesperson" model="res.groups">
+            <field name="name">Edit vendor in sales and invoice</field>
+            <field name="privilege_id" ref="base.module_category_hidden" />
+            <field name="comment">Allows you to edit the salesperson field in sales and invoices
+                when this restriction is active from the company configuration settings</field>
+            <field name="user_ids" eval="[(4, ref('base.user_admin'))]" />
+        </record>
+
+        <record id="group_confirm_partner_locked_no_buy" model="res.groups">
+            <field name="name">Publish sales to blocked partners for not buying</field>
+            <field name="privilege_id" ref="base.module_category_hidden" />
+            <field name="comment">Allows you to publish sale orders to blocked partners for not
+                buying in a certain time.</field>
+            <field name="user_ids" eval="[(4, ref('base.user_admin'))]" />
+        </record>
+
+        <record id="sales_team.group_sale_manager" model="res.groups">
+            <field name="implied_ids"
+                eval="[(4, ref('sale_baseline.group_confirm_partner_locked_no_buy'))]" />
+        </record>
+
+        <record id="sale_baseline_privilege_credit" model="res.groups.privilege">
+            <field name="name">Control de límite de crédito</field>
+            <field name="category_id" ref="sale_baseline.sale_baseline_category" />
+        </record>
+
+        <record id="group_block_credit_limit" model="res.groups">
+            <field name="name">Bloquear Límite de crédito</field>
+            <field name="privilege_id" ref="sale_baseline.sale_baseline_privilege_credit" />
+            <field name="comment">
+                - Permite activar el bloqueo de ventas por límite de crédito desde el tercero
+                - Los usuarios en este grupo pueden autorizar la confirmación de pedidos de venta
+                bloqueados por límite de crédito.
+            </field>
+        </record>
+
+        <record id="sale_baseline_privilege_expired_invoice" model="res.groups.privilege">
+            <field name="name">Control de facturas vencidas</field>
+            <field name="category_id" ref="sale_baseline.sale_baseline_category" />
+        </record>
+        <record id="group_block_expired_invoice" model="res.groups">
+            <field name="name">Bloquear por facturas vencidas</field>
+            <field name="privilege_id" ref="sale_baseline.sale_baseline_privilege_expired_invoice" />
+            <field name="comment">
+                - Permite activar el bloqueo de ventas por facturas vencidas desde el tercero
+                - Los usuarios en este grupo pueden autorizar la confirmación de pedidos de venta
+                bloqueados por facturas vencidas.
+            </field>
+        </record>
+
+        <!-- Security group for distrias -->
+        <record id="group_block_cancel_picking" model="res.groups">
+            <field name="name">Block button action cancel</field>
+        </record>
+
+        <record id="sale_baseline_privilege_price_edit" model="res.groups.privilege">
+            <field name="name">Control de edición de líneas</field>
+            <field name="category_id" ref="base.module_category_sales_sales" />
+        </record>
+
+        <!-- Security group to edit price lines -->
+        <record id="group_line_price_edit" model="res.groups">
+            <field name="name">Edit Lines Price</field>
+            <field name="privilege_id" ref="sale_baseline.sale_baseline_privilege_price_edit" />
+            <field name="comment">
+                - Allows to edit price lines in sell orders when the restriction is active from the
+                company configuration settings
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_novelty_form" model="ir.ui.view">
+            <field name="name">hr.novelty.form</field>
+            <field name="model">hr.novelty</field>
+            <field name="inherit_id" ref="model_basic_payslip_novelty_form" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/field[@name='approve_date']"
+                    position='after'>
+                    <field name="type_novelty" readonly="state != 'draft'" />
+                </xpath>
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/span[@name='label_dates']"
+                    position='inside'>
+                    <b invisible="type_novelty != 'RECURRENT'">Duración</b>
+                    <b invisible="type_novelty != 'STATIC'">Fecha</b>
+                </xpath>
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/div/field[@name='date_end']"
+                    position='attributes'>
+                    <attribute name="invisible">type_novelty == 'STATIC'</attribute>
+                    <attribute name="readonly">state != 'draft'</attribute>
+                </xpath>
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/field[@name='company_id']"
+                    position='after'>
+                    <field name="novelty_type_id" readonly="state != 'draft'" />
+                    <field name="day31_generated" invisible="not day31_generated" />
+                </xpath>
+                <xpath expr="//sheet/group[@name='group_basic_data']" position='after'>
+                    <notebook>
+                        <page name='page_novelty_line' string="Lineas de Novedad">
+                            <field name="novelty_line_ids">
+                                <list>
+                                    <field name="period_id" />
+                                    <field name="amount" />
+                                    <field name="state" />
+                                    <!-- <field name="payslip_id"/> -->
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_novelty_tree" model="ir.ui.view">
+            <field name="name">hr.novelty.tree</field>
+            <field name="model">hr.novelty</field>
+            <field name="type">list</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="contract_id" />
+                    <field name="employee_id" />
+                    <field name="novelty_type_id" />
+                    <field name="amount" optional="show" />
+                    <field name="day31_generated" optional="show" />
+                    <field name="state" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_novelty_search" model="ir.ui.view">
+            <field name="name">hr.novelty.search</field>
+            <field name="model">hr.novelty</field>
+            <field name="inherit_id" ref="model_basic_payslip_novelty_search" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="type_novelty" />
+                    <field name="novelty_type_id" />
+
+                    <separator />
+                    <filter name="recurrent_filter" string="Recurrente"
+                        domain="[('type_novelty','=','RECURRENT')]" />
+                    <filter name="static_filter" string="Estatica"
+                        domain="[('type_novelty','=','STATIC')]" />
+                    <filter name="day31_filter" string="Generadas día 31"
+                        domain="[('day31_generated','=',True)]" />
+
+                    <separator />
+                    <filter name="type_novelty_group" string="Tipo"
+                        context="{'group_by': 'type_novelty'}" />
+                    <filter name="novelty_type_group" string="Categoría de Novedad"
+                        context="{'group_by': 'novelty_type_id'}" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_novelty_action" model="ir.actions.act_window">
+            <field name="name">Novedades</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.novelty</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_novelty_menu_act" name="Novedades" parent="novelty_menu_categ"
+            action="hr_novelty_action" sequence="1" />
+
+    </data>
+
+    <data noupdate="1">
+        <record id="seq_hr_novelty" model="ir.sequence">
+            <field name="name">Número Novedad</field>
+            <field name="code">seq.hr.novelty</field>
+            <field name="prefix">NOV-</field>
+            <field name="padding">10</field>
+        </record>
+    </data>
+</odoo>

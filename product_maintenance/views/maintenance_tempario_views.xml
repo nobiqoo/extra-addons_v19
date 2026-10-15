@@ -1,0 +1,75 @@
+<odoo>
+    <!-- Vista árbol -->
+    <record id="view_maintenance_tempario_list" model="ir.ui.view">
+        <field name="name">maintenance.tempario.list</field>
+        <field name="model">maintenance.tempario</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <!-- <field name="product_maintenance_id"/>
+                <field name="utilization_type"/>
+                <field name="daily_use"/> -->
+                <field name="frequency"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista formulario -->
+    <record id="view_maintenance_tempario_form" model="ir.ui.view">
+        <field name="name">maintenance.tempario.form</field>
+        <field name="model">maintenance.tempario</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <!-- <field name="product_maintenance_id"/>
+                        <field name="utilization_type"/>
+                        <field name="daily_use"/> -->
+                        <field name="frequency"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Actividades">
+                            <field name="activity_ids">
+                                <list editable="bottom">
+                                    <field name="activity_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Repuestos">
+                            <field name="spare_part_ids">
+                                <list editable="bottom">
+                                    <field name="spare_part_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Modelos">
+                            <field name="model_ids">
+                                <list editable="bottom">
+                                    <field name="model_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_maintenance_tempario" model="ir.actions.act_window">
+        <field name="name">Temparios</field>
+        <field name="res_model">maintenance.tempario</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menú en Maestros de Mantenimiento -->
+    <menuitem
+        id="menu_maintenance_tempario"
+        name="Temparios"
+        parent="menu_maintenance_masters_root"
+        action="action_maintenance_tempario"
+        sequence="30"
+    />
+</odoo>

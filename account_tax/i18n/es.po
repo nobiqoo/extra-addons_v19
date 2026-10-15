@@ -1,0 +1,311 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_tax
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-05 00:57+0000\n"
+"PO-Revision-Date: 2024-06-05 00:57+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_tax
+#: model:ir.model.fields,help:account_tax.field_account_bank_statement_line__base_calculate
+#: model:ir.model.fields,help:account_tax.field_account_move__base_calculate
+#: model:ir.model.fields,help:account_tax.field_account_payment__base_calculate
+#: model:ir.model.fields,help:account_tax.field_purchase_order__base_calculate
+#: model:ir.model.fields,help:account_tax.field_sale_order__base_calculate
+msgid "Automatically calculate base taxes"
+msgstr "Calcular automáticamente base de impuestos"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_city__base_value
+msgid "Base Value"
+msgstr "Valor de la base"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_city__base_value_consu
+msgid "Base Value Consu"
+msgstr "Bienes valor de la base"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_city__base_value_service
+msgid "Base Value Service"
+msgstr "Servicios valor de la base"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_account_tax__base_city
+msgid "Base by city?"
+msgstr "¿Base por ciudad?"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_account_tax__base_value
+msgid "Base value"
+msgstr "Valor de la base"
+
+#. module: account_tax
+#: model_terms:ir.ui.view,arch_db:account_tax.view_account_move_form
+#: model_terms:ir.ui.view,arch_db:account_tax.view_purchase_order_form
+#: model_terms:ir.ui.view,arch_db:account_tax.view_sale_order_form
+msgid "Calculate"
+msgstr "Calcular"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_account_bank_statement_line__base_calculate
+#: model:ir.model.fields,field_description:account_tax.field_account_move__base_calculate
+#: model:ir.model.fields,field_description:account_tax.field_account_payment__base_calculate
+#: model:ir.model.fields,field_description:account_tax.field_purchase_order__base_calculate
+#: model:ir.model.fields,field_description:account_tax.field_sale_order__base_calculate
+msgid "Calculate taxes?"
+msgstr "¿Calcular impuestos?"
+
+#. module: account_tax
+#: model:ir.actions.act_window,name:account_tax.action_res_city
+#: model:ir.ui.menu,name:account_tax.menu_res_city
+#: model_terms:ir.ui.view,arch_db:account_tax.view_res_city_tree
+msgid "Cities"
+msgstr "Ciudades"
+
+#. module: account_tax
+#: model:ir.model,name:account_tax.model_res_city
+#: model:ir.model.fields,field_description:account_tax.field_account_bank_statement_line__city_id
+#: model:ir.model.fields,field_description:account_tax.field_account_move__city_id
+#: model:ir.model.fields,field_description:account_tax.field_account_payment__city_id
+#: model:ir.model.fields,field_description:account_tax.field_purchase_order__city_id
+#: model:ir.model.fields,field_description:account_tax.field_res_city_classification__city_id
+#: model:ir.model.fields,field_description:account_tax.field_sale_order__city_id
+#: model_terms:ir.ui.view,arch_db:account_tax.view_res_city_form
+msgid "City"
+msgstr "Ciudad"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_partner_classification__code
+msgid "Code"
+msgstr "Código"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_city_classification__company_id
+#: model:ir.model.fields,field_description:account_tax.field_res_partner_classification__company_id
+msgid "Company"
+msgstr "Compañia"
+
+#. module: account_tax
+#: model:ir.model.fields,help:account_tax.field_res_city__base_value_consu
+msgid "Consumible Retention base for ICT."
+msgstr "Base de bienes de la retención para ICA"
+
+#. module: account_tax
+#: model:ir.model,name:account_tax.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_city_classification__create_uid
+#: model:ir.model.fields,field_description:account_tax.field_res_partner_classification__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_city_classification__create_date
+#: model:ir.model.fields,field_description:account_tax.field_res_partner_classification__create_date
+msgid "Created on"
+msgstr "Creado"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_product_category__taxes_categ_id
+#: model:ir.model.fields,field_description:account_tax.field_product_product__taxes_id
+#: model:ir.model.fields,field_description:account_tax.field_product_template__taxes_id
+msgid "Customer Taxes"
+msgstr "Impuestos del Cliente"
+
+#. module: account_tax
+#: model:ir.model.fields,help:account_tax.field_product_category__supplier_taxes_categ_id
+#: model:ir.model.fields,help:account_tax.field_product_product__supplier_taxes_id
+#: model:ir.model.fields,help:account_tax.field_product_template__supplier_taxes_id
+msgid "Default taxes used when buying the product."
+msgstr "Impuestos predeterminados usados cuando se compra el producto"
+
+#. module: account_tax
+#: model:ir.model.fields,help:account_tax.field_product_category__taxes_categ_id
+#: model:ir.model.fields,help:account_tax.field_product_product__taxes_id
+#: model:ir.model.fields,help:account_tax.field_product_template__taxes_id
+msgid "Default taxes used when selling the product."
+msgstr "Impuestos predeterminados usados cuando se vende el producto"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_city_classification__display_name
+#: model:ir.model.fields,field_description:account_tax.field_res_partner_classification__display_name
+msgid "Display Name"
+msgstr "Nombre Público"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_account_tax__base_type
+msgid "Group by city?"
+msgstr "¿Agrupación por ciudad?"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_city_classification__id
+#: model:ir.model.fields,field_description:account_tax.field_res_partner_classification__id
+msgid "ID"
+msgstr ""
+
+#. module: account_tax
+#: model:ir.actions.act_window,name:account_tax.action_res_partner_classification
+#: model:ir.model,name:account_tax.model_res_partner_classification
+#: model:ir.model.fields,field_description:account_tax.field_res_city_classification__classification_id
+#: model:ir.ui.menu,name:account_tax.menu_account_configuration_isic
+#: model:ir.ui.menu,name:account_tax.menu_res_partner_classification
+#: model_terms:ir.ui.view,arch_db:account_tax.view_res_partner_classification_form
+#: model_terms:ir.ui.view,arch_db:account_tax.view_res_partner_classification_search
+#: model_terms:ir.ui.view,arch_db:account_tax.view_res_partner_classification_tree
+#: model_terms:ir.ui.view,arch_db:account_tax.view_res_partner_form
+msgid "ISIC"
+msgstr "CIIU"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_partner__classification_id
+#: model:ir.model.fields,field_description:account_tax.field_res_users__classification_id
+msgid "ISIC Main"
+msgstr "CIIU Principal"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_partner__classifications_ids
+#: model:ir.model.fields,field_description:account_tax.field_res_users__classifications_ids
+msgid "ISIC Minor"
+msgstr "CIIU Secuandarias"
+
+#. module: account_tax
+#: model:ir.model,name:account_tax.model_res_city_classification
+msgid "ISIC Rate"
+msgstr "Tarifa CIIU"
+
+#. module: account_tax
+#: model:ir.model,name:account_tax.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_city_classification__write_uid
+#: model:ir.model.fields,field_description:account_tax.field_res_partner_classification__write_uid
+msgid "Last Updated by"
+msgstr "Actualizado por"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_city_classification__write_date
+#: model:ir.model.fields,field_description:account_tax.field_res_partner_classification__write_date
+msgid "Last Updated on"
+msgstr "Actualizado"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_account_tax__base_minimum
+msgid "Minimum base?"
+msgstr "¿Base mínima?"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_partner_classification__name
+#: model_terms:ir.ui.view,arch_db:account_tax.view_res_partner_classification_search
+msgid "Name"
+msgstr "Nombre"
+
+#. module: account_tax
+#: model:ir.model,name:account_tax.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: account_tax
+#: model:ir.model,name:account_tax.model_product_category
+msgid "Product Category"
+msgstr "Categoría del Producto"
+
+#. module: account_tax
+#: model:ir.model,name:account_tax.model_purchase_order
+msgid "Purchase Order"
+msgstr "Orden de Compra"
+
+#. module: account_tax
+#: model:ir.model,name:account_tax.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea de Orden de Compra"
+
+#. module: account_tax
+#: model_terms:ir.ui.view,arch_db:account_tax.view_res_city_form
+msgid "Rates"
+msgstr "Tarifas"
+
+#. module: account_tax
+#: model_terms:ir.ui.view,arch_db:account_tax.view_account_tax_form
+msgid "Retention"
+msgstr "Retención"
+
+#. module: account_tax
+#: model:ir.model.fields,help:account_tax.field_res_city__base_value
+msgid "Retention base for ICT."
+msgstr "Base de la retención para ICA"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_city__classification_ids
+#: model:ir.model.fields,field_description:account_tax.field_res_partner_classification__classification_ids
+#: model_terms:ir.ui.view,arch_db:account_tax.view_res_partner_classification_form
+msgid "Retention rates"
+msgstr "Tarfias de retención"
+
+#. module: account_tax
+#: model:ir.model,name:account_tax.model_sale_order
+msgid "Sales Order"
+msgstr "Orden de Venta"
+
+#. module: account_tax
+#: model:ir.model,name:account_tax.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de la Orden de Venta"
+
+#. module: account_tax
+#: model:ir.model.fields,help:account_tax.field_res_city__base_value_service
+msgid "Service Retention base for ICT."
+msgstr "Base de servicios de la retención para ICA"
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_partner__economic_subactivity
+#: model:ir.model.fields,field_description:account_tax.field_res_users__economic_subactivity
+msgid "Subactividad económica"
+msgstr ""
+
+#. module: account_tax
+#: model:ir.model,name:account_tax.model_account_tax
+#: model:ir.model.fields,field_description:account_tax.field_res_city_classification__tax_id
+msgid "Tax"
+msgstr "Impuesto"
+
+#. module: account_tax
+#: model_terms:ir.ui.view,arch_db:account_tax.view_product_category_form
+#: model_terms:ir.ui.view,arch_db:account_tax.view_res_city_form
+msgid "Taxes"
+msgstr "Impuestos"
+
+#. module: account_tax
+#: model:ir.model.constraint,message:account_tax.constraint_res_city_classification_unique_city_classification
+msgid "The ISIC must be unique per city!"
+msgstr "El CIIU debe ser unico por ciudad!"
+
+#. module: account_tax
+#: model:ir.model.constraint,message:account_tax.constraint_res_partner_classification_unique_code
+msgid "The code must be unique per company!"
+msgstr "El código debe ser unico por compañia!"
+
+#. module: account_tax
+#: model:ir.model.fields,help:account_tax.field_account_tax__base_type
+msgid "The tax is replaced according to the city."
+msgstr "El impuesto es reemplazado segun la ciudad."
+
+#. module: account_tax
+#: model:ir.model.fields,field_description:account_tax.field_product_category__supplier_taxes_categ_id
+#: model:ir.model.fields,field_description:account_tax.field_product_product__supplier_taxes_id
+#: model:ir.model.fields,field_description:account_tax.field_product_template__supplier_taxes_id
+msgid "Vendor Taxes"
+msgstr "Impuestos de proveedor"

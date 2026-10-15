@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wk_school_management.promote_bulk_enrollments_action" model="ir.actions.server">
+        <field name="name">Promover seleccionados</field>
+        <field name="group_ids" eval="[(6, 0, [ref('wk_school_management.wk_school_management_officer_group')])]"/>
+    </record>
+
+</odoo>

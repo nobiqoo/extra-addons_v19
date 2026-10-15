@@ -1,0 +1,15 @@
+<odoo>
+    <record id="purchase_order_form_lock_project" model="ir.ui.view">
+        <field name="name">purchase.order.form.lock.project</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="project_purchase.view_order_form_inherit_project_purchase"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='project_id']" position="attributes">
+                <attribute name="readonly">not can_edit_po</attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

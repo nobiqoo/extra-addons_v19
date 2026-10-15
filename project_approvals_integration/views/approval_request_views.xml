@@ -1,0 +1,71 @@
+<odoo>
+  <!-- LISTA -->
+  <record id="approval_request_tree_inherit_project" model="ir.ui.view">
+    <field name="name">approval.request.tree.project.cols</field>
+    <field name="model">approval.request</field>
+    <!-- usar el xmlid real -->
+    <field name="inherit_id" ref="approvals.approval_request_view_tree"/>
+    <field name="arch" type="xml">
+      <!-- en v18 es <list>, no <tree> -->
+      <xpath expr="//list/field[@name='name']" position="after">
+        <field name="request_owner_id"/>
+        <field name="reference"/>
+        <field name="project_id"/>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- FORMULARIO -->
+  <record id="approval_request_form_inherit_project" model="ir.ui.view">
+    <field name="name">approval.request.form.project</field>
+    <field name="model">approval.request</field>
+    <field name="inherit_id" ref="approvals.approval_request_view_form"/>
+    <field name="arch" type="xml">
+      <!-- mostrar reference -->
+      <xpath expr="//field[@name='reference']" position="attributes">
+          <attribute name="invisible">0</attribute>
+          <attribute name="readonly">request_status != 'new'</attribute>
+      </xpath>
+      <xpath expr="//field[@name='reference']" position="after">
+      <field name="project_id"
+            readonly="request_status != 'new'"
+            options="{'no_open': False, 'no_create_edit': False}"/>
+      </xpath>
+    </field>
+  </record>
+  
+  <record id="approval_request_list_for_task" model="ir.ui.view">
+    <field name="name">approval.request.list.for.task</field>
+    <field name="model">approval.request</field>
+    <field name="arch" type="xml">
+      <list string="Requisiciones" create="true" delete="false">
+        <field name="name" string="N.º Requerimiento"/>
+        <field name="po_number"/>
+        <field name="request_owner_id" string="Solicitante"/>
+        <field name="request_status" string="Estado"/>
+        <field name="date" string="Fecha de solicitud"/>
+        <field name="project_id"/>
+      </list>
+    </field>
+  </record>
+
+  <record id="approval_request_list_for_task" model="ir.ui.view">
+    <field name="name">approval.request.list.for.task</field>
+    <field name="model">approval.request</field>
+    <field name="arch" type="xml">
+      <list string="Requisiciones" create="true" sample="1">
+        <field name="name" string="N.º Requerimiento"/>
+        <field name="po_number" string="Orden de Compra"/>
+        <field name="request_owner_id" string="Solicitante" widget="many2one_avatar_user"/>
+        <field name="request_status" string="Estado" widget="badge"
+                decoration-info="request_status == 'new'"
+                decoration-warning="request_status == 'pending'"
+                decoration-success="request_status == 'approved'"
+                decoration-danger="request_status == 'refused'"/>
+        <field name="request_date_display" string="Fecha de solicitud"/>
+        <field name="project_id" string="Proyecto"/>
+      </list>
+    </field>
+  </record>
+
+</odoo>

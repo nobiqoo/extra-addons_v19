@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+        
+        <record id="res_city_dian_view_form" model="ir.ui.view">
+            <field name="name">res.city.dian.view.form</field>
+            <field name="model">res.city</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="zipcode"/>
+                            </group>
+                            <group>
+                                <field name="state_id"/>
+                                <field name="country_id"/>
+                            </group>
+                            <group>
+                                <field name="dian_code"/>
+                                <field name="active" readonly="1"/>
+                            </group>
+                            <group></group>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="res_city_dian_view_tree" model="ir.ui.view">
+            <field name="name">res.city.view.tree</field>
+            <field name="model">res.city</field>
+            <field name="inherit_id" ref="base_address_extended.view_city_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list" position="attributes">
+                    <attribute name="editable"></attribute>
+                </xpath>
+                <field name="zipcode" position="after">
+                    <field name="dian_code"/>
+                    <field name="state_id" position="move"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="res_city_dian_view_search" model="ir.ui.view">
+            <field name="name">res.city.view.search</field>
+            <field name="model">res.city</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="zipcode"/>
+                    <field name="dian_code"/>
+                    <field name="state_id"/>
+                    <field name="country_id"/>
+                    <group name="groupby">
+                        <filter name="state_groupby" string="Departamento" context="{'group_by': 'state_id'}"/>
+                        <filter name="country_groupby" string="País" context="{'group_by': 'country_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="base_address_extended.action_res_city_tree" model="ir.actions.act_window">
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- <record id="res_city_dian_action" model="ir.actions.act_window">
+            <field name="name">Ciudades</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.city</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="res_city_dian_view_tree"/>
+            <field name="search_view_id" ref="res_city_dian_view_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p><p>
+                </p>
+            </field>
+        </record> -->
+
+        <!-- <menuitem id="menu_act_res_city_dian" 
+            name="Ciudades"
+            parent="contacts.menu_localisation"
+            action="res_city_dian_action"
+            sequence="2"/> -->
+    </data>
+</odoo>

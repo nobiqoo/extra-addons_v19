@@ -1,0 +1,3 @@
+"id","name","technical_name","active"
+"product_maintenance.type_maintenance","Mantenimiento de Revisión","maintenance","True"
+"product_maintenance.type_maintenance_preinst","Mantenimiento de Preinstalación","maintenance_preinst","True"

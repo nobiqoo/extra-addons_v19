@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+
+    <data>
+        <record id="wk_lesson_plan_form" model="ir.ui.view">
+            <field name="name">wk.lesson.plan.form</field>
+            <field name="model">wk.lesson.plan</field>
+            <field name="arch" type="xml">
+                <form string="Lesson Plan">
+                    <header>
+                        <button name="approve_lesson_plan" string="Approve" type="object" class="oe_highlight" invisible="(state != 'draft') or (id == False) or context.get('from_grade_subject')" confirm="Are you sure you want to approve this lesson plan?"/>
+                        <button name="cancel_lesson_plan" string="Cancel" type="object" class="oe_highlight" invisible="(state != 'draft') or (id == False) or context.get('from_grade_subject')" confirm="Are you sure you want to cancel this lesson plan?"/>
+                        <button name="reset_lesson_plan" string="Reset" type="object" class="oe_highlight" invisible="(state == 'draft') or (id == False) or context.get('from_grade_subject')" confirm="Are you sure you want to reset this lesson plan?"/>
+                        
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approve"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Ex. LP-001" readonly="state in ('approve','cancel')"/>
+                            </h1>
+                        </div>
+                        <group name="plan_details1">
+                            <group>
+                                <field name="grade_id" readonly="state in ('approve','cancel')" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                <field name="section_id" readonly="state in ('approve','cancel')" invisible="not section_visibility" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                <field name="subject_id" readonly="state in ('approve','cancel')" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>    
+                                <field name="plan_visibility" widget="radio" readonly="state in ('approve','cancel')"/>
+                                <field name="grade_id_domain" invisible="1"/>
+                            </group>
+                            <group name="plan_details2">    
+                                <field name="responsible_id" readonly="1"/> 
+                                <field name="company_id" readonly="is_single_company" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" groups="base.group_multi_company"/> 
+                            </group>
+                        </group>
+                        <group string="Lesson Plan">
+                            <field colspan="2" name="description" nolabel="1" placeholder="Write your lesson plans here." readonly="state in ('approve','cancel')"/>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_lesson_plan_tree" model="ir.ui.view">
+            <field name="name">wk.lesson.plan.list</field>
+            <field name="model">wk.lesson.plan</field>
+            <field name="arch" type="xml">
+                <list string="Lesson Plan">
+                    <field name="name"/>
+                    <field name="grade_id"/>
+                    <field name="section_id" optional="hide"/>
+                    <field name="subject_id"/>
+                    <field name="responsible_id"/>
+                    <field name="state" widget="badge" decoration-success="state =='approve'" decoration-danger="state =='cancel'" decoration-primary="state =='draft'"/>
+                    <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                    <field name="company_id"
+                        groups="base.group_multi_company"
+                        optional="show"
+                        readonly="1"/>
+                    <field name="create_date"/>
+                    <field name="write_date"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="wk_lesson_plan_search" model="ir.ui.view">
+           <field name="name">wk.lesson.plan.search</field>
+           <field name="model">wk.lesson.plan</field>
+           <field name="arch" type="xml">
+               <search string="Lesson Plans">
+                    <field name="name" filter_domain="['|','|','|', ('name', 'ilike', self), ('grade_id', 'ilike', self),('subject_id', 'ilike', self),('responsible_id', 'ilike', self)]"/>
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                    <filter name="approve" string="Approved" domain="[('state','=','approve')]"/>
+                    <filter name="cancel" string="Cancelled" domain="[('state','=','cancel')]"/>
+                    <group>
+                        <filter name="group_grade_id" string="Grade" domain="[]" context="{'group_by':'grade_id'}"/>
+                        <filter name="group_subject_id" string="Subject" domain="[]" context="{'group_by':'subject_id'}"/>
+                        <filter name="group_responsible_id" string="Prepared By" domain="[]" context="{'group_by':'responsible_id'}"/>
+                        <filter name="group_by_school"  string="School" domain="[]" context="{'group_by':'company_id'}" />
+                    </group>
+               </search>
+           </field>
+        </record>
+        
+        <record id="wk_lesson_plan_action" model="ir.actions.act_window">
+            <field name="name">Lesson Plan</field>
+            <field name="res_model">wk.lesson.plan</field>
+            <field name="view_mode">form,list</field>
+            <field name="path">teacher-lesson-plan</field>
+            <field name="view_id" ref="wk_lesson_plan_tree"/>
+        </record>
+
+    </data>    
+</odoo>    

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<templates xml:space="preserve">
+    <t t-name="wk_school_management_system.FilterBasedOnGrades" t-inherit="web.CalendarController" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_calendar_container')]" position="before">
+            <div class="d-md-block dashboard-panel" t-if="bookingModel()">
+                <t t-set="upcomingClasses" t-value="0"/>
+                <t t-set="completedClasses" t-value="0"/>
+                <div class="row m-2 navbar-calendar-container">
+                    <div class="col-md-3 col-12 mb-sm-1 navbar-booking-card">
+                        <div class="border upcoming_classes_dashboard selected_grade_container border-grey text-light mainData text-center align-items-center p-4 d-flex" t-on-click="openViewonClick">
+                            <div class="d-flex align-items-center upcoming_classes_dashboard border-end">
+                                <div class="me-3">
+                                    <img src="/wk_school_management/static/src/img/upcoming_classes.png" title="Upcoming Classes" class="upcoming_classes_dashboard"/>
+                                </div>
+                            </div>
+                            <div class="ms-5 upcoming_classes_dashboard">
+                                <div class="row">
+                                    <span class="upcoming_classes_dashboard" id="current_date_check_in" style="font-size:21px;text-align: left;font-weight:700">
+                                        <t t-esc="model.meta.productData.upcoming_classes"/>
+                                    </span>
+                                </div>
+                                <div class="row">
+                                    <span class="upcoming_classes_dashboard wk_label">Upcoming Classes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-12 mb-sm-1 navbar-booking-card completed_classes_dashboard">
+                        <div class="border completed_classes_dashboard selected_grade_container border-grey text-light mainData text-center align-items-center p-4 d-flex" t-on-click="openViewonClick">
+                            <div class="d-flex align-items-center completed_classes_dashboard border-end">
+                                <div class="me-3">
+                                    <img src="/wk_school_management/static/src/img/complete_classes.png" title="Completed Classes" class="completed_classes_dashboard"/>
+                                </div>
+                            </div>
+                            <div class="ms-5 completed_classes_dashboard">
+                                <div class="row">
+                                    <span class="completed_classes_dashboard" id="current_date_check_in" style="font-size:21px;text-align: left;font-weight:700">
+                                        <t t-esc="model.meta.productData.completed_classes"/>
+                                    </span>
+                                </div>
+                                <div class="row">
+                                    <span class="completed_classes_dashboard wk_label">Completed Classes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-12 mb-sm-1 available-portion navbar-booking-card toDo_assignment">
+                        <div class="border toDo_assignment selected_grade_container border-grey text-light mainData text-center align-items-center p-4 d-flex" t-on-click="openViewonClick">
+                            <div class="d-flex align-items-center toDo_assignment border-end">
+                                <div class="me-3">
+                                    <img src="/wk_school_management/static/src/img/pending_assignments.png" title="To-do Assignments" class="toDo_assignment"/>
+                                </div>
+                            </div>
+                            <div class="ms-5 toDo_assignment">
+                                <div class="row">
+                                    <span class="toDo_assignment" id="current_date_check_in" style="font-size:21px;text-align: left;font-weight:700">
+                                        <t t-esc="model.meta.productData.to_do_assignments"/>
+                                    </span>
+                                </div>
+                                <div class="row">
+                                    <span class="toDo_assignment wk_label">To-do Assignments</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-12 mb-sm-1 available-portion navbar-booking-card completed_assignment">
+                        <div class="border completed_assignment selected_grade_container border-grey text-light mainData text-center align-items-center p-4 d-flex" t-on-click="openViewonClick">
+                            <div class="d-flex align-items-center completed_assignment border-end">
+                                <div class="me-3">
+                                    <img src="/wk_school_management/static/src/img/completed_assignments.png" title="To-do Assignments" class="completed_assignment"/>
+                                </div>
+                            </div>
+                            <div class="ms-5 completed_assignment">
+                                <div class="row">
+                                    <span class="completed_assignment" id="current_date_check_in" style="font-size:21px;text-align: left;font-weight:700">
+                                        <t t-esc="model.meta.productData.completed_assignments"/>
+                                    </span>
+                                </div>
+                                <div class="row">
+                                    <span class="completed_assignment wk_label">Completed Assignments</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>

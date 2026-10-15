@@ -1,0 +1,82 @@
+<odoo>
+    <record model="ir.ui.view" id="view_pyg_position_wizard_form">
+        <field name="name">view.pyg.position.wizard.form</field>
+        <field name="model">pyg.position.wizard</field>
+        <field name="arch" type="xml">
+            <form string="PyG por posición">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="template_id"/>
+                        </group>
+                    </group>
+                    <group string="Filtro">
+                        <group>
+                            <field name="account_root_ids" invisible="1"/>
+                            <field name="account_ids" widget="many2many_tags"
+                                   options="{'no_create': True, 'no_create_edit': True}"/>
+                        </group>
+                        <group>
+                            <field name="analytic_account_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Ver reporte" name="view_report" type="object" class="oe_highlight"/>
+                    <button string="Cancelar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pyg_position_wizard" model="ir.actions.act_window">
+        <field name="name">P&amp;G por posición (Dinámico)</field>
+        <field name="res_model">pyg.position.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_pyg_position_xlsx_wizard_form">
+        <field name="name">view.pyg.position.xlsx.wizard.form</field>
+        <field name="model">pyg.position.wizard</field>
+        <field name="arch" type="xml">
+            <form string="PyG por posición - Excel">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="template_id"/>
+                        </group>
+                    </group>
+                    <group string="Filtro">
+                        <group>
+                            <field name="account_root_ids" invisible="1"/>
+                            <field name="account_ids" widget="many2many_tags"
+                                   options="{'no_create': True, 'no_create_edit': True}"/>
+                        </group>
+                        <group>
+                            <field name="analytic_account_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Descargar Excel" name="generate_xlsx" type="object" class="oe_highlight"/>
+                    <button string="Cancelar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pyg_position_xlsx_wizard" model="ir.actions.act_window">
+        <field name="name">PyG por posición</field>
+        <field name="res_model">pyg.position.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_pyg_position_xlsx_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

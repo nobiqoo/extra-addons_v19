@@ -1,0 +1,2867 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_co_bloodo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-01 06:30+0000\n"
+"PO-Revision-Date: 2024-05-01 06:30+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_co_bloodo
+#: model:mail.template,body_html:l10n_co_bloodo.dian_email_template
+msgid ""
+"\n"
+"            <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: #222222; background-color: #FFF; \">\n"
+"                <p style=\"margin:0px 0 12px 0;box-sizing:border-box;\">\n"
+"                    Señor(es),\n"
+"                    <br>\n"
+"                    <t t-out=\"object.partner_id.name\"></t>\n"
+"                </p>\n"
+"                <p style=\"margin:0px 0 12px 0;box-sizing:border-box;\">\n"
+"                    Le informamos que ha recibido una factura/nota electrónica de <t t-out=\"object.company_id.name\"></t>:\n"
+"                </p>\n"
+"                <p style=\"margin:0px 0 12px 0;box-sizing:border-box;\">\n"
+"                    Número de factura: <strong t-out=\"object.fe_invoice_name\" style=\"box-sizing:border-box;font-weight:500;\"></strong><br>\n"
+"                    A nombre de: <strong t-out=\"object.partner_id.name\" style=\"box-sizing:border-box;font-weight:500;\"></strong><br>\n"
+"                    Valor Total: <strong t-out=\"object.amount_total\" style=\"box-sizing:border-box;font-weight:500;\"></strong> <strong t-out=\"object.currency_id.name\" style=\"box-sizing:border-box;font-weight:500;\"></strong>\n"
+"                </p>\n"
+"                <p style=\"margin:0px 0 12px 0;box-sizing:border-box;\">\n"
+"                    Si tiene inquietud respecto a la información contenida en la factura/nota electrónica, \n"
+"                    responda este correo electrónico.\n"
+"                </p>\n"
+"                <p style=\"margin:0px 0 12px 0;box-sizing:border-box;\">\n"
+"                    Si pasados tres (3) días hábiles siguientes a la recepción de la factura/nota electrónica, no se ha recibido un correo indicando rechazo de la factura/nota electrónica, el sistema la dará por aceptada.\n"
+"                    <br>\n"
+"                    <br>\n"
+"                    Escriba a <t t-out=\"object.company_id.edi_email\"></t> si desea modificar sus datos para el envío de la factura/nota electrónica.\n"
+"                </p>\n"
+"                <br>\n"
+"                <p style=\"margin:0px 0 12px 0;box-sizing:border-box;\">Cordialmente,</p>\n"
+"                <t t-out=\"object.invoice_user_id.signature\"></t>\n"
+"                <!-- <p><strong><t t-out=\"object.company_id.name\"></t></strong></p> -->\n"
+"            </div>\n"
+"            "
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:mail.template,body_html:l10n_co_bloodo.dian_event_email_template
+msgid ""
+"\n"
+"            <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"                <p>\n"
+"                    Señor(es),\n"
+"                    <br>\n"
+"                    <t t-out=\"object.partner_id.name\"/>\n"
+"                </p>\n"
+"                <p t-if=\"object.is_supplier_ei\">\n"
+"                    Le informamos que se ha generado el evento <strong t-out=\"object.ie_event_active_id.ev_id.display_name\"/><br>\n"
+"                    a la factura/nota electrónica <strong t-out=\"object.name_ei_ref\"/>.\n"
+"                </p>\n"
+"                <p t-else=\"\">\n"
+"                    Le informamos que se ha generado el evento <strong t-out=\"object.ie_event_active_id.ev_id.display_name\"/><br>\n"
+"                    a la factura/nota electrónica <strong t-out=\"object.name\"/>.\n"
+"                </p>\n"
+"                <p t-if=\"object.ie_event_active_id.notes\">\n"
+"                    <strong>NOTA:</strong> <t t-out=\"object.ie_event_active_id.notes\"/>\n"
+"                </p>\n"
+"                <p>\n"
+"                    <!-- Si pasados tres (3) días hábiles siguientes a la recepción de la factura/nota electrónica, no se ha recibido un correo indicando rechazo de la factura/nota electrónica, el sistema la dará por aceptada. -->\n"
+"                    <br>\n"
+"                    <br>\n"
+"                    Escriba a <t t-out=\"object.company_id.edi_email\"/> si desea modificar sus datos para el envío de la factura/nota electrónica.\n"
+"                </p>\n"
+"                <br>\n"
+"                <p>Cordialmente,</p>\n"
+"                <t t-out=\"object.invoice_user_id.signature\"/>\n"
+"                <!-- <p><strong><t t-out=\"object.company_id.name\"/></strong></p> -->\n"
+"            </div>\n"
+"            "
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"\n"
+"            Cordial Saludo,<br/><br/>La factura {inv}\n"
+"             del cliente {cli} no pudo ser\n"
+"             enviada a la Dian según el protocolo establecido previamente. Por\n"
+"             favor revise el estado de la misma en el menú Documentos Dian e\n"
+"             intente reprocesarla según el procedimiento definido.\n"
+"            <br/> {com}."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid ""
+"\n"
+"- No tiene documento de identificación."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid ""
+"\n"
+"- No tiene documento de identificaxión."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid ""
+"\n"
+"- No tiene dígito de verificación."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid ""
+"\n"
+"- No tiene el departamento."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid ""
+"\n"
+"- No tiene el país."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid ""
+"\n"
+"- No tiene el tipo de obligación fiscal."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid ""
+"\n"
+"- No tiene la ciudad."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid ""
+"\n"
+"- No tiene la responsabilidad fiscal."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid ""
+"\n"
+"- No tiene número de identificación."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid ""
+"\n"
+"- Tipo de documento [%s] no tiene código DIAN."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid " - Correo Factura Electrónica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid "%s no tiene dígito de verificación."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid "%s no tiene número de identificación."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid "%s no tiene tipo de identificación."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid "%s no tiene un departmento establecido."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid "%s no tiene un país establecido."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid "%s no tiene una ciudad establecida."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.report,print_report_name:l10n_co_bloodo.action_report_einvoicing_print
+msgid "'Factura Electrónica %s' % object.name"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid ""
+"- El descuento o cargo en las líneas de la factura no puede superar el "
+"100%.\n"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid ""
+"- El descuento o cargo supera el valor base en la linea del producto %s\n"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid "- El valor base en la linea del producto %s no debe ser negativo. (%s)\n"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid "- La línea de factura %s no tiene referencia en el producto.\n"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid "- La unidad de medida \"%s\", no tiene el código definido por la DIAN.\n"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid ""
+"- Líneas de factura con precio o cantidad cero (0) generan rechazo en la "
+"facturación electrónica.\n"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.consignment_data_form_view
+msgid "01"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.consignment_data_form_view
+msgid "02"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.consignment_data_form_view
+msgid "03"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.consignment_data_form_view
+msgid "04"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_journal.py:0
+#: code:addons/l10n_co_bloodo/models/account_journal.py:0
+#, python-format
+msgid ": Secuencia Nota Crédito"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_journal.py:0
+#: code:addons/l10n_co_bloodo/models/account_journal.py:0
+#, python-format
+msgid ": Secuencia Nota Débito"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.mail_notification_paynow_bloodo
+msgid "<b>OdoOne SAS</b>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid ""
+"<br/>\n"
+"                                    NIT:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "<span class=\"o_stat_text\">Importar fac. electrónica</span>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "<span class=\"o_stat_text\">Notas Crédito</span>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid ""
+"<span groups=\"account.group_show_line_subtotals_tax_excluded\">SUBTOTAL</span>\n"
+"                                        <span groups=\"account.group_show_line_subtotals_tax_included\">V. TOTAL</span>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid ""
+"<span style=\"font-weight:bold;\">El diario no tiene una resolución DIAN "
+"activa en su secuencia.</span><br/>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid ""
+"<span style=\"font-weight:bold;\">La resolución de la DIAN está por vencer o"
+" se está agotando su numeración. Verifique la configuración en la secuencia "
+"del diario.</span><br/>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "<span>CANTIDAD</span>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "<span>DESCRIPCIÓN</span>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "<span>DOC. ORIGEN</span>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "<span>DTO. (%)</span>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "<span>ITEM</span>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "<span>SKU</span>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "<span>V. UNITARIO</span>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "<strong class=\"mr16\">SUBTOTAL</strong>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "<strong>Amount Due</strong>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "<strong>TOTAL EN LETRAS: </strong>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_operation_type__09
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__operation_type_ei_ref__09
+msgid "AIU"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "ALERTA! La Factura %s no fue enviada a la DIAN."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Accept"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_account_invoice_send
+msgid "Account Invoice Send"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Acknowledgment of receipt"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_account_debit_note
+msgid "Add Debit Note wizard"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__is_inactive_resolution
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__is_inactive_resolution
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__is_inactive_resolution
+msgid "Advertir Resolución Inactiva?"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_warning
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_warning
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_warning
+msgid "Advertir por rangos reolución?"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__target_environment_id
+msgid "Ambiente de destino"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__ds_target_environment_id
+msgid "Ambiente de destino (DS)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__dian_ar_json
+msgid "AppResp"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__dian_ar_file
+msgid "AppResponse DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__ev_ar_file
+msgid "AppResponse Event"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_ar_file
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_ar_file
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_ar_file
+msgid "ApplicationResponse"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Archivos"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_ad_file
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_ad_file
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_ad_file
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__ad_file
+msgid "AttachedDocument"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__btn_create
+msgid "Btn create"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "CONCEPTO DE CORRECCION"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "CUDE:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.history_dian_event_form
+msgid "CUDEs"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "CUDS Factura:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "CUDS:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__uuid_ei_ref
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__uuid_ei_ref
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__uuid_ei_ref
+msgid "CUFE (Ref)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "CUFE Factura:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_cufe_cude_ref
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_cufe_cude_ref
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_cufe_cude_ref
+msgid "CUFE/CUDE"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_cufe_cude_uncoded
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_cufe_cude_uncoded
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_cufe_cude_uncoded
+msgid "CUFE/CUDE uncoded"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "CUFE:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Calcular XML"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_line__fe_datetime_invoice
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_move__fe_datetime_invoice
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_payment__fe_datetime_invoice
+msgid ""
+"Campo técnico utilizado para almacenar la hora de validación de la factura."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_import_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.aml_consignment_data_form_view
+msgid "Cancelar"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__quantity
+msgid "Cantidad transportada"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__way_to_pay__cash
+msgid "Cash"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Celular:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__certificate_file
+msgid "Certificado"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Check status"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Ciudad:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_correction_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_debit_note__fe_correction_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_correction_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move_reversal__fe_correction_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_correction_id
+msgid "Concepto de corrección"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move_reversal__ds_correction_id
+msgid "Concepto de corrección (DS)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ie_claim_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ie_claim_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ie_claim_id
+msgid "Concepto de rechazo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_account_journal_seq_form
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_company_form
+msgid "Configuración"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_line__fe_invoice_name
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_move__fe_invoice_name
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_payment__fe_invoice_name
+msgid "Consecutivo de la factura electrónica publicada en la DIAN."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_company_form
+msgid "Consultar Rangos"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/wizards/invoice_import_wizard.py:0
+#, python-format
+msgid "Contact does not exist"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_res_company__edi_email
+msgid "Correo de origen para facturación electrónica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__mail_sent
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__mail_sent
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__mail_sent
+msgid "Correo enviado?"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__edi_email
+msgid "Correos FE"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__edi_email_error
+msgid "Correos para errores"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Crear AttachedDocument"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.actions.act_window,help:l10n_co_bloodo.action_move_out_debit_note_type
+msgid "Crear una nota Débito"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_import_wizard_form
+msgid "Create Partner"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__create_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__create_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__create_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__create_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__create_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__create_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__way_to_pay__credit
+msgid "Credit"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__edi_code
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_journal__edi_code
+msgid "Código corto"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_line__ev_fe_state
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_move__ev_fe_state
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_payment__ev_fe_state
+msgid "Código de estado del evento entregado a la DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ie_event_status
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ie_event_status
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ie_event_status
+msgid "Código de estado evento"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_state
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_state
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_state
+msgid "Código estado DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Códigos"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "DATOS DEL CLIENTE"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "DATOS DEL PROVEEDOR"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__dian_uuid
+msgid "DIAN CUDE"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.server,name:l10n_co_bloodo.cron_dian_event_process_ir_actions_server
+#: model:ir.cron,cron_name:l10n_co_bloodo.cron_dian_event_process
+#: model:ir.cron,name:l10n_co_bloodo.cron_dian_event_process
+msgid "DIAN Event Process"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.server,name:l10n_co_bloodo.ir_cron_eids_senden_ir_actions_server
+#: model:ir.cron,cron_name:l10n_co_bloodo.ir_cron_eids_senden
+#: model:ir.cron,name:l10n_co_bloodo.ir_cron_eids_senden
+msgid "DIAN Send Docs"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__dian_code
+msgid "DIAN code"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__dian_number
+msgid "DIAN number"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.history_dian_event_form
+msgid "DIAN response"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Data"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_qr_data
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_qr_data
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_qr_data
+msgid "Datos QR"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"Debe seleccionar un concepto de rechazo para enviar el evento de rechazo a "
+"la DIAN."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__dian_name
+msgid "Dian Event"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__is_einvoicing_journal
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__is_einvoicing_journal
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__is_einvoicing_journal
+msgid "Diario con fac electrónica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__partner_data
+msgid "Dict partner"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Dirección:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_is_direct_payment
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_is_direct_payment
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_is_direct_payment
+msgid "Direct Payment from Colombia"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_company.py:0
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__res_company__type_einvoicing__edi_dir
+#, python-format
+msgid "Directa a la DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_company.py:0
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__res_company__type_support_doc__edi_dir
+#, python-format
+msgid "Directo a la DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "Documento"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_company_form
+msgid "Documento Soporte"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Documento Soporte N°:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_type__03
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_type_ei_ref__03
+msgid "Documento electrónico de transmisión - tipo 03"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__type_support_doc
+msgid "Documento soporte"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_company_form
+msgid "Documentos Enviados"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__remaining_days
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_journal__remaining_days
+msgid "Días restantes"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid "ERROR!!! El CUFE calculado no es igual al CUFE de la respuesta DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid ""
+"ERROR: No se puede definir el tipo de documento electrónico de esta factura "
+"de compra"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid ""
+"ERROR: No se puede definir el tipo de documento electrónico de esta factura "
+"de compra."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"ERROR: No se puede definir el tipo de documento electrónico de este asiento"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"ERROR: No se puede definir el tipo de documento electrónico de este asiento."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_log_ids
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_log_ids
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_log_ids
+msgid "Edi log"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/ir_sequence.py:0
+#, python-format
+msgid ""
+"El Número siguiente debe ser mayor en uno al número final, para representar "
+"una secuencia terminada o Número siguiente debe incluirse en el Rango de "
+"números."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"El XML no tiene un tipo de identificación reconocido por esta base de datos "
+"[%s]"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/wizards/invoice_import_wizard.py:0
+#, python-format
+msgid ""
+"El contacto no existe. Desea crearlo para continuar con la importación?\n"
+"\n"
+"%s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"El código de evento que está intentando enviar es incorrecto.\n"
+"Los códigos permitidos son: \n"
+"\n"
+"030:    Acuse de recibo de Factura Electrónica de Venta\n"
+"031:    Reclamo de la Factura Electrónica de Venta\n"
+"032:    Recibo del bien o prestación del servicio\n"
+"033:    Aceptación expresa\n"
+"034:    Aceptación Tácita"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "El diario no tiene una resolución de facturación electrónica activa."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid "El documento de identificación de %s no está establecido. \n"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid ""
+"El documento electrónico de la factura referencia (%s) no está procesado correctamente por la DIAN. \n"
+"\n"
+"Valide que la factura no se encuentre rechazada o sin procesar ante la DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid ""
+"El importe de la retención \"%s\" es igual a cero (0). La retención debe "
+"tener monto diferente a cero (0)."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid ""
+"El importe del impuesto \"%s\" es negativo, el impuesto debe tener un monto "
+"mayor o igual a cero (0)."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid ""
+"El importe del impuesto \"%s\" es negativo, los impuestos deben tener un "
+"monto mayor o igual a cero (0)."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid "El impuesto \"%s\", no tiene asignado el código definido por la DIAN."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid "El impuesto \"%s\", no tiene asignado el código definido por la DIAN.."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/ir_sequence.py:0
+#, python-format
+msgid ""
+"El intervalo de fechas debe ser único o no se debe incluir una fecha en otro"
+" intervalo de fechas."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/ir_sequence.py:0
+#, python-format
+msgid "El número final debe ser mayor o igual que el número inicial."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__debit_note_sequence_number_next
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_journal__debit_note_sequence_number_next
+msgid ""
+"El siguiente número de secuencia se utilizará para la siguiente nota de "
+"débito."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/ir_sequence.py:0
+#, python-format
+msgid "El sistema necesita al menos una resolución DIAN activa."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/ir_sequence.py:0
+#, python-format
+msgid "El sistema solo necesita una resolución DIAN activa."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"El(los) correo(s) para fallas de facturas electrónicas no está configurado. \n"
+"No se le notificará si algo sale mal. \n"
+" Vaya a Configuración > Compañía > Correos para notificación de errores."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.mail_notification_paynow_bloodo
+msgid "Electronic invoicing system powered by"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_company_form
+msgid "Emails"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Enviar Doc."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_send_later
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_send_later
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_send_later
+msgid "Enviar después"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__exec_env
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__exe_env
+msgid "Environment"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"Error desconocido en metodo %s.\n"
+"Contacte a su administrador.\n"
+"\n"
+"%s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"Error desconocido en metodo %s.\n"
+"Contacte a su administrador.\n"
+"\n"
+"Código estado: %s.\n"
+" Razón: %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"Error desconocido en metodo %s. \n"
+"\n"
+" Contacte con su administrador.\n"
+"\n"
+"Código estado: %s.\n"
+" Razón: %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"Error desconocido en metodo %s. \n"
+"Contacte con su administrador.\n"
+"\n"
+"%s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_company.py:0
+#, python-format
+msgid ""
+"Error desconocido,\n"
+"Código de estado: %s,\n"
+"Razón: %s.\n"
+"\n"
+"%s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_company.py:0
+#, python-format
+msgid ""
+"Error desconocido: %s\n"
+"."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"Error en metodo GetStatus.\n"
+"Estado: %s \n"
+"Reason: %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"Error en metodo GetStatusEvent.\n"
+"Estado: %s \n"
+"Razón: %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"Error en metodo GetStatusZip. \n"
+"Estado: %s \n"
+"Razón: %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid ""
+"Error extrayendo datos del tercero:  %s\n"
+"%s\n"
+"Por favor, configurelo desde Contactos."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_partner.py:0
+#, python-format
+msgid ""
+"Error extrayendo datos del tercero: %s\n"
+"%s\n"
+"\n"
+"Por favor, configurelo desde Contactos."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "Es necesario el Incoterm para esta factura tipo exportación."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid ""
+"Es requerido relacionar al proveedor con la factura para generar el "
+"documento soporte."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "Esta factura no tiene un ApplicationResponse"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "Esta factura no tiene un archivo de factura XML"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "Esta operación no está permitida si el documento no está en borrador."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Esta seguro de ACEPTAR esta factura electrónica?"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Esta seguro de RECHAZAR esta factura electrónica?"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_account_journal_seq_form
+msgid "Establecer secuencias"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_state_msg
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_state_msg
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_state_msg
+msgid "Estado DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ev_fe_state
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ev_fe_state
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ev_fe_state
+msgid "Estado de envío del evento"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ie_event_display
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ie_event_display
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ie_event_display
+msgid "Estado evento"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_operation_type__10
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__operation_type_ei_ref__10
+msgid "Estandar"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__debit_note_sequence_id
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_journal__debit_note_sequence_id
+msgid ""
+"Este campo contiene la información relacionada con la numeración de las "
+"notas de débito electrónicas de este diario."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_journal.py:0
+#, python-format
+msgid ""
+"Este diario ya contiene elementos, por lo tanto, no puede modificar su "
+"nombre corto."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__note_ei
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_journal__note_ei
+msgid ""
+"Este texto será mostrado en la representación gráfica de factura "
+"electrónica."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__ev_id
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.history_dian_event_form
+msgid "Event"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__ev_uuid
+msgid "Event CUDE"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__ev_active
+msgid "Event active"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__ev_code
+msgid "Event code"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__name
+msgid "Event number"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:mail.template,name:l10n_co_bloodo.dian_event_email_template
+msgid "Evento Factura Electrónica - Enviar por Email"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ie_event_active_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ie_event_active_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ie_event_active_id
+msgid "Evento activo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_line__ie_event_display
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_move__ie_event_display
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_payment__ie_event_display
+msgid ""
+"Evento activo de la fac. electrónica, consulta el estado para mantenerla "
+"actualizada."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:mail.template,subject:l10n_co_bloodo.dian_event_email_template
+msgid ""
+"Evento;{{object.is_supplier_ei and object.name_ei_ref or "
+"object.fe_invoice_name}};{{object.company_id.partner_id.vat}};{{object.company_id.name}};{{object.ie_event_active_id.name}};{{object.ie_event_status}}"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_type_ei_ref__96
+msgid "Eventos (ApplicationResponse)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__is_supplier_ei
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__is_supplier_ei
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__is_supplier_ei
+msgid "FE proveedor"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "FECHA FACTURA"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "FECHA VENCIMIENTO"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__is_einvoicing
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_journal__is_einvoicing
+msgid "Fac. electrónica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Fac. electrónica proveedor"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__move_id
+#, python-format
+msgid "Factura"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Factura Afectada:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.report,name:l10n_co_bloodo.action_report_einvoicing_print
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_invoice_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_invoice_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_invoice_name
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Factura Electrónica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:mail.template,name:l10n_co_bloodo.dian_email_template
+msgid "Factura Electrónica - Enviar por Email"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Factura Electrónica de Venta:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Factura Referencia"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_type__02
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_type_ei_ref__02
+msgid "Factura de exportación"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_type__01
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_type_ei_ref__01
+msgid "Factura de venta"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_type__04
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_type_ei_ref__04
+msgid "Factura electrónica de Venta - tipo 04"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__is_external_invoice
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__is_external_invoice
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__is_external_invoice
+msgid "Factura externa?"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_account_journal_edi_form
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_company_form
+msgid "Facturación Electrónica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__type_einvoicing
+msgid "Facturación electrónica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__issue_date_ei_ref
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__issue_date_ei_ref
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__issue_date_ei_ref
+msgid "Fecha (Ref)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Fecha Factura:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ie_event_active_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ie_event_active_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ie_event_active_date
+msgid "Fecha de registro del evento"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_datetime_invoice
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_datetime_invoice
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_datetime_invoice
+msgid "Fecha validación"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.history_dian_event_form
+msgid "Files"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__way_to_pay
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__way_to_pay
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__way_to_pay
+msgid "Forma de pago"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Generar ZIP"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "GetStatus"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "GetStatusZip"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.aml_consignment_data_form_view
+msgid "Guardar"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__is_einvoicing
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_line__is_einvoicing_journal
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_journal__is_einvoicing
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_move__is_einvoicing_journal
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_payment__is_einvoicing_journal
+msgid ""
+"Habilita la opción configurar la resolución DIAN para facturación "
+"electrónica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ie_event_history_ids
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ie_event_history_ids
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ie_event_history_ids
+msgid "Historial eventos"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Historico eventos"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_history_dian_event
+msgid "History of DIAN events"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_line__ie_event_history_ids
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_move__ie_event_history_ids
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_payment__ie_event_history_ids
+msgid "Histórico de eventos"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "Import supplier e-invoice"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"Incoterm no está correctamente parametrizado.\n"
+"id: %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_company_form
+msgid "Info"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__resolution_text
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_journal__resolution_text
+msgid "Info de resolución"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__tributary_information
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_company_form
+msgid "Información Tributaria"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_account_journal_edi_form
+msgid "Información sobre resolución de facturación electrónica."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__move_id
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.history_dian_event_search
+msgid "Invoice"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_invoice_import_wizard
+msgid "Invoice import wizard"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/ir_sentences.py:0
+#, python-format
+msgid ""
+"La contraseña del certificado o el archivo del certificado no es válido.\n"
+"Excepción: %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"La factura [id: %s] no se encuentra en estado borrador y no se puede publicar. \n"
+"Por favor, refresque la página para actualizar la información."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_line__fe_send_later
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_move__fe_send_later
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_payment__fe_send_later
+msgid ""
+"La factura electrónica será enviada posteriormente a través de un proceso en"
+" segundo plano que se ejecuta cada 15 minutos."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/ir_sequence.py:0
+#, python-format
+msgid "La fecha final debe ser mayor o igual que la fecha inicial."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid ""
+"La nota %s no tiene referencia de facturación \n"
+"\n"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move_line.py:0
+#, python-format
+msgid ""
+"Las facturas de exportación requieren un código aduanero en todos los "
+"productos, complete esta información antes de validar la factura."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data____last_update
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log____last_update
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event____last_update
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__write_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__write_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__write_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__write_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__write_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__write_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__edi_technical_key
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_journal__edi_technical_key
+msgid "Llave técnica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Log"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Logo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__add_lines
+msgid "Líneas?"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_mandante_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_mandante_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_mandante_id
+msgid "Mandante"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_operation_type__11
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__operation_type_ei_ref__11
+msgid "Mandatos"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__debit_note_sequence
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_journal__debit_note_sequence
+msgid ""
+"Marque esta casilla si no desea compartir la misma secuencia para las "
+"facturas y notas de débito electrónicas realizadas desde este diario."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Medio de pago:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_line__ev_fe_response
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_move__ev_fe_response
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_payment__ev_fe_response
+msgid ""
+"Mensaje de respuesta de la entrega del evento. Aquí puede ver la lista de "
+"validaciones para corregir si el evento ha sido rechazado."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__msg
+msgid "Message"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Moneda:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__move_id
+msgid "Move"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "NIT:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__name
+msgid "Name"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__dian_ar_fname
+msgid "Name AppResponse DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__ev_ar_fname
+msgid "Name AppResponse Event"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__ad_fname
+msgid "Name AttachedDocument"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__edi_request_fname
+msgid "Name Request"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__zip_fname
+msgid "Name ZIP doc"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__doc_fname
+msgid "Name file"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/wizards/invoice_import_wizard.py:0
+#, python-format
+msgid ""
+"Name: %s\n"
+"Identification: %s\n"
+"Tel: %s\n"
+"Email: %s\n"
+"Address: %s, %s, %s, %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_company.py:0
+#: code:addons/l10n_co_bloodo/models/res_company.py:0
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__res_company__type_einvoicing__no
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__res_company__type_support_doc__no
+#, python-format
+msgid "No Aplica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid "No es posible identificar la factura referencia de esta Nota."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/ir_sequence.py:0
+#, python-format
+msgid "No existe una resolución de facturación autorizada activa."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "No hay eventos registrados en la DIAN para la factura %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "No hay un CUFE de referencia para consultar el estado."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "No hay un CUFE de referencia para consultar estado."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "No hay un archivo XML para procesar."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "No hay un elemento tree para obtener los datos del tercero."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "No hay un registro de evento para adjuntar al correo."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "No se puede enviar un documento de tipo %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_ar_fname
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_ar_fname
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_ar_fname
+msgid "Nombre ApplicationResponse"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_ad_fname
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_ad_fname
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_ad_fname
+msgid "Nombre Attached"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_pdf_fname
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_pdf_fname
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_pdf_fname
+msgid "Nombre Pdf"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_xml_fname
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_xml_fname
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_xml_fname
+msgid "Nombre XML"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_zip_fname
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_zip_fname
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_zip_fname
+msgid "Nombre Zip"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__certificate_filename
+msgid "Nombre certificado"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_type_ei_ref__91
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__type_note__credit
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_account_journal_seq_form
+#, python-format
+msgid "Nota Crédito"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Nota Crédito de Factura Electrónica de Venta:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_operation_type__20
+msgid "Nota Crédito que referencia una factura electrónica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_operation_type__22
+msgid "Nota Crédito sin referencia a facturas"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_type_ei_ref__92
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__type_note__debit
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_account_journal_seq_form
+#, python-format
+msgid "Nota Débito"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Nota Débito de Factura Electrónica de Venta:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_operation_type__30
+msgid "Nota Débito que referencia una factura electrónica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_operation_type__32
+msgid "Nota Débito sin referencia a facturas"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Nota de Ajuste de Documento Soporte N°:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "Notas Crédito"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.act_window,name:l10n_co_bloodo.action_move_out_debit_note_type
+#: model:ir.ui.menu,name:l10n_co_bloodo.menu_act_out_debit_note
+msgid "Notas Débito"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__credit_note_ids
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__credit_note_ids
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__credit_note_ids
+msgid "Notas crédito"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__note_ei
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_journal__note_ei
+msgid "Notas en fac. electrónica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__notes
+msgid "Notes"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__name_ei_ref
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__name_ei_ref
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__name_ei_ref
+msgid "N° Factura (Ref)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__credit_note_count
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__credit_note_count
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__credit_note_count
+msgid "Número de notas crédito"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_consignment_data__rndc_id
+msgid "Número de radicado de aceptación remesa"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_ir_sequence_date_range__number_to
+msgid "Número final"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_ir_sequence_date_range__number_from
+msgid "Número inicial"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__consignment_id
+msgid "Número remesa"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__remaining_numbers
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_journal__remaining_numbers
+msgid "Números restantes"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"Ocurrió un error!!\n"
+" La fecha de vencimiento no puede ser menor a la fecha de factura o se esta calculando incorrectamente."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_payment_option_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_payment_option_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_payment_option_id
+msgid "Opción de pago"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/wizards/account_debit_note.py:0
+#, python-format
+msgid ""
+"Operación no permitida.\n"
+"La factura electrónica debe estar rechazada por el adquiriente para poder crear una factura rectificativa.\n"
+"\n"
+"Estado actual: %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"Operación no permitida.\n"
+"La factura electrónica debe ser rechazada por el adquirente para crear una factura rectificativa.\n"
+"\n"
+"Estado actual: %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_operation_type
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_operation_type
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_operation_type
+msgid "Operation Type"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__order_ref
+msgid "Orden de compra"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Orden de pedido:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__other
+msgid "Otro"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Paid on"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_res_company__edi_email_error
+msgid "Para agregar varios correos, se debe separar con una coma (,)."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid ""
+"Para publicar esta nota se requiere que la factura referencia (%s) esté "
+"publicada."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Plazo de pago:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Por favor utilice la siguiente referencia al realizar su pago:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"Por favor, Cargue el archivo que desea subir como factura de proveedor.\n"
+"Puede ser el documento XML <AttachedDocument> o <Invoice> o el archivo .Zip que los contiene."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_ir_sequence_date_range__prefix
+msgid "Prefijo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_account_journal_seq_form
+msgid "Principal"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_company.py:0
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__res_company__ds_target_environment_id__1
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__res_company__target_environment_id__1
+#, python-format
+msgid "Producción"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Product receipt"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__debit_note_sequence_number_next
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_journal__debit_note_sequence_number_next
+msgid "Próximo número Nota Débito"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__certificate_password
+msgid "Pwd certificado"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_qr_image
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_qr_image
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_qr_image
+msgid "QR"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__rndc_id
+msgid "Radicado remesa"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_company_form
+msgid "Rangos"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Razón Social:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__reason
+msgid "Reason"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Reenviar Correo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_type_ei_ref
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_type_ei_ref
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_type_ei_ref
+msgid "Ref Type"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Registrar remesa"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__dian_date_event
+msgid "Registration date"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.act_window,name:l10n_co_bloodo.aml_consignemt_data_action
+msgid "Registro Remesas"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move_line.py:0
+#, python-format
+msgid "Registro de remesas"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move_line__consignment_ids
+msgid "Registro remesas"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Reject"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_consignment_data
+msgid "Remesa de transporte"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__consignment_data__transport_rec__1
+msgid "Remesa de transporte registrada en el RNDC"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move_line__consignment_txt
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.aml_consignment_data_form_view
+msgid "Remesas"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_pdf_file
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_pdf_file
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_pdf_file
+msgid "Rep gráfica (Pdf)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__report_template
+msgid "Report Template"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__edi_request_file
+msgid "Request"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_ir_sequence_date_range__edi_resolution
+msgid "Resolución"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_ir_sequence_date_range__active_resolution
+msgid "Resolución activa"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__ei_fiscal_respo
+msgid "Responabilidad fiscal"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__response
+msgid "Response"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__response_get_numbering_range
+msgid "Response of numbering ranges"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_response
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_response
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_response
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Respuesta DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Respuesta Eventos"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ev_fe_response
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ev_fe_response
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ev_fe_response
+msgid "Respuesta de entrega evento"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__ds_software_id
+msgid "SD Software Id"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__ds_software_pin
+msgid "SD Software PIN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__ds_test_set_id
+msgid "SD Test Set Id"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_ssc
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_ssc
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_ssc
+msgid "SSC"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_ssc_uncoded
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_ssc_uncoded
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_ssc_uncoded
+msgid "SSC uncoded"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"Se debe seleccionar un \"Concepto de rechazo\" para eviar el evento de "
+"Rechazo de esta factura."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid ""
+"Se identificaron los siguientes errores a nivel de línea en la factura id=%s:\n"
+"\n"
+"%s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__edi_code
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_journal__edi_code
+msgid "Se utiliza para crear el prefijo de las secuencias"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__debit_note_sequence_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_journal__debit_note_sequence_id
+msgid "Secuencia de Nota Débito"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_account_journal_seq_form
+msgid "Secuencia para NC"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_account_journal_seq_form
+msgid "Secuencia para ND"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__debit_note_sequence
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_journal__debit_note_sequence
+msgid "Secuencia para nota débito"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_account_journal_seq_form
+msgid "Secuencias"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "Send Invoice"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_company_form
+msgid "Sent documents"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_ir_sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_ir_sequence_date_range
+msgid "Sequence Date Range"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__consignment_data__transport_rec__0
+msgid "Servicio adicional"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__signature_policy_description
+msgid "Signature policy description"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__signature_policy_file
+msgid "Signature policy file"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__signature_policy_filename
+msgid "Signature policy file name"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__software_id
+msgid "Software Id"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__software_pin
+msgid "Software PIN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__status_code
+msgid "Status Code"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid "Su factura no ha sido validada."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_company.py:0
+#, python-format
+msgid "Success!"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__doc_file_id
+msgid "Supplier invoice file"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_account_journal_edi_form
+msgid "Support document"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+msgid "Tacit acceptance"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Teléfono:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__res_company__ds_target_environment_id__2
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__res_company__target_environment_id__2
+msgid "Test"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__test_set_id
+msgid "Test Set Id"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_res_company__ei_fiscal_respo
+msgid ""
+"Texto de responsabilidad fiscal que se presenta en el encabezado del formato"
+" de factura electronica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_import_journal_creation__resolution_text
+#: model:ir.model.fields,help:l10n_co_bloodo.field_account_journal__resolution_text
+msgid ""
+"Texto informativo sobre la resolución de facturación electrónica que "
+"aparecerá en la representación gráfica."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/ir_sentences.py:0
+#, python-format
+msgid ""
+"The DIAN response could not be processed. \n"
+"XMLresponse:\n"
+" %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_company.py:0
+#, python-format
+msgid ""
+"The certificate file and password were set correctly.\n"
+"\n"
+"\n"
+" %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/wizards/invoice_import_wizard.py:0
+#, python-format
+msgid "There is no a file to upload invoice."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/wizards/invoice_import_wizard.py:0
+#, python-format
+msgid "There is not a XML file in the Zip file uploaded."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/wizards/invoice_import_wizard.py:0
+#, python-format
+msgid "This file cannot be processed to upload the invoice."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__type_note
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__type_note
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__type_note
+msgid "Tipo de nota"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__operation_type_ei_ref
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__operation_type_ei_ref
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__operation_type_ei_ref
+msgid "Tipo de operación (Ref)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_type
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_type
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_type
+msgid "Tipo fac. electrónica"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__transport_rec
+msgid "Tipo servicio"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.consignment_data_tree_view
+msgid "Total flete"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_edi_document_log
+msgid "Transaction log Colombian E-Invoicing"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__fe_operation_type__12
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__operation_type_ei_ref__12
+msgid "Transporte"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__type_request
+msgid "Type"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__udm
+msgid "UdM"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_import_wizard_form
+msgid "Upload invoice"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_url
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_url
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_url
+msgid "Url"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__signature_policy_url
+msgid "Url signature policy"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__freight
+msgid "Valor flete"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.report_account_move_einvoicing_document
+msgid "Vendedor:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_company_form
+msgid "Verify certificate"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/res_company.py:0
+#, python-format
+msgid "Warning!"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_xml_file
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_xml_file
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_xml_file
+msgid "XML"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"XML desconocido\n"
+"\n"
+"XML no corresponde a una factura electrónica."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_zip_file
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_zip_file
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_zip_file
+msgid "ZIP"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__zip_file
+msgid "ZIP document"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__fe_zip_key
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_zip_key
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_zip_key
+msgid "ZipKey"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__zip_sent
+msgid "Zips enviados"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__02
+msgid "[02] Documento validado por la DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__030
+msgid "[030] Acuse de recibo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__031
+msgid "[031] Reclamo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__032
+msgid "[032] Recibo del bien"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__033
+msgid "[033] Aceptación expresa"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__034
+msgid "[034] Aceptación Tácita"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__04
+msgid "[03] Documento rechazado por la DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__ad_sent
+msgid "ad enviados"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__ar_sent
+msgid "ar enviados"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__ars_sent
+msgid "ars enviados"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid "crédito"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__ds_sent
+msgid "ds enviados"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/account_move_ds.py:0
+#, python-format
+msgid "débito"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move_reversal__is_edoc
+msgid "e-Document"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__fv_sent
+msgid "fv enviados"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__consignment_data__udm__gll
+msgid "gal"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__consignment_data__udm__kgm
+msgid "kg"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__move_line_id
+msgid "línea de factura"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__nas_sent
+msgid "nas enviados"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__nc_sent
+msgid "nc enviados"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__nd_sent
+msgid "nd enviados"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:mail.template,subject:l10n_co_bloodo.dian_email_template
+msgid ""
+"{{object.company_id.partner_id.vat}}; {{object.company_id.name}}; "
+"{{object.fe_invoice_name}}; {{(not object.type_note and object.fe_type) or "
+"(object.type_note == 'credit' and '91') or (object.type_note == 'debit' and "
+"'92') }}; {{object.company_id.name}};"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: code:addons/l10n_co_bloodo/models/account_move.py:0
+#, python-format
+msgid ""
+"¡¡¡Respuesta no procesada, el tipo de doc electrónico es desconocido.!!!"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_ir_sequence__edi_resolution_control
+msgid "¿Usar el control de resoluciones DIAN?"
+msgstr ""

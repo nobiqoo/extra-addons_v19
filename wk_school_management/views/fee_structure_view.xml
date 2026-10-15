@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <!-- PRODUCT.PRODUCT INHERITED -->
+        <record id="product_product_view_form_normal_inherit" model="ir.ui.view">
+            <field name="name">product.product.view.form.normal.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='options']" position="inside">
+                    <span class="d-inline-block">
+                        <field name="is_fee_element"/>
+                        <label for="is_fee_element"/>
+                    </span>
+                    <span class="d-inline-block">
+                        <field name="libray_element"/>
+                        <label for="libray_element"/>
+                    </span>
+                </xpath>
+            </field>
+        </record>
+
+        <record id='product_product_search_inherit_fee_element' model='ir.ui.view'>
+            <field name="name">product.product.search.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <filter string="Fee Element" name="fee_element" domain="[('is_fee_element','=',True)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ACCOUNT MOVE INHERITED -->
+        <record model="ir.ui.view" id="account_invoice_form_fee">
+            <field name="name">Account Invoice</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="fee_slip_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="get_fee_slip_id" icon="fa-pencil-square-o" type="object" 
+                        class="oe_stat_button"
+                        string="Fee Slip" invisible="fee_slip_id == False"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- FEE STRUCTURE VIEWS -->
+
+        <record id="wk_fee_structure_form" model="ir.ui.view">
+            <field name="name">fee.structure.medium.form</field>
+            <field name="model">fee.structure</field>
+            <field name="arch" type="xml">
+                <form string="Fee Structure">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="name" string="Component Name"/>
+                                <field name="name" placeholder="Ex. Class 11th Fee"/>
+                            </h1>
+                        </div>
+                        <group name="structure_details1">
+                            <group>
+                                <field name="grade_id"/>               
+                                <field name="late_fee_enable"/>
+                                <label invisible="late_fee_enable == False" for="late_fee_amount" string="Late fee charges"/>
+                                <div invisible="late_fee_enable == False" class="d-flex">
+                                    <field name="late_fee_amount" widget="integer" class="oe_inline" />
+                                    <span>per Day</span>                          
+                                </div>
+                            </group>
+                            <group>
+                                <field name="currency_id"/>   
+                                <field name="company_id" readonly="is_single_company" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" groups="base.group_multi_company"/>               
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="components" string="Components">
+                                <field name="fee_component_ids">
+                                    <list>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="product_id" domain="[('is_fee_element','=',True)]" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                        <field name="fee" sum="Total" string="Fee(Yearly)"/>
+                                        <field name="frequency"/>
+                                    </list>
+                                </field>
+                            </page> 
+                            <page name="terms_and_conditions" string="Terms and Conditions">
+                                <group string="Terms and Conditions">
+                                    <field colspan="2" name="description" nolabel="1" placeholder="Terms and conditions..."/>
+                                </group>
+                            </page> 
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_fee_structure_tree" model="ir.ui.view">
+            <field name="name">fee.structure.list</field>
+            <field name="model">fee.structure</field>
+            <field name="arch" type="xml">
+                <list string="Fee Structure">
+                    <field name="name"/>
+                    <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                    <field name="company_id"
+                        groups="base.group_multi_company"
+                        optional="show"
+                        readonly="1"/>
+                    <field name="grade_id"/> 
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="wk_fee_structure_search" model="ir.ui.view">
+            <field name="name">fee.structure.search</field>
+            <field name="model">fee.structure</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Name"/>
+                    <group>
+                        <filter name="group_by_grade"  string="Grade" domain="[]" context="{'group_by':'grade_id'}" />
+                        <filter name="group_by_currency"  string="Currency" domain="[]" context="{'group_by':'currency_id'}" />
+                        <filter name="group_by_school"  string="School" domain="[]" context="{'group_by':'company_id'}" />
+                    </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="fee_component_form" model="ir.ui.view">
+            <field name="name">fee.component.medium.form</field>
+            <field name="model">fee.component</field>
+            <field name="arch" type="xml">
+                <form string="Fee Component">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="product_id" string="Component Name"/>
+                                <field name="product_id" domain="[('is_fee_element','=',True)]" placeholder="Ex. Admission Fee" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                            </h1>
+                        </div>
+                        <group name="component_details1">
+                            <group>
+                                <field name="fee"/>
+                                <field name="frequency"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fee_component_tree" model="ir.ui.view">
+            <field name="name">fee.component.list</field>
+            <field name="model">fee.component</field>
+            <field name="arch" type="xml">
+                <list editable="bottom" string="Fee Component">
+                    <field name="sequence" widget="handle"/>
+                    <field name="product_id" domain="[('is_fee_element','=',True)]" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                    <field name="fee" sum="Total" string="Fee(Yearly)"/>
+                    <field name="frequency"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fee_structure_action" model="ir.actions.act_window">
+            <field name="name">Fee Structure</field>
+            <field name="res_model">fee.structure</field>
+            <field name="view_mode">list,form</field>
+            <field name="path">school-fee-structure</field>
+            <field name="view_id" ref="wk_fee_structure_tree"/>
+        </record>
+        
+        <record id="fee_component_action" model="ir.actions.act_window">
+            <field name="name">Fee Component</field>
+            <field name="res_model">fee.component</field>
+            <field name="view_mode">list,form</field>
+            <field name="path">school-fee-component</field>
+            <field name="view_id" ref="fee_component_tree"/>
+        </record>
+
+    </data>    
+</odoo>    

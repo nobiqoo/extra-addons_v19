@@ -1,0 +1,21 @@
+/* Grilla de 2 columnas para el selector de empresas del wizard de replicación:
+   sin esto el widget many2many_checkboxes apila una empresa por fila y el
+   nombre largo de cada compañía se envuelve en varias líneas. */
+.o_replicate_company_checkboxes > div[aria-atomic="true"] {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.5rem;
+    row-gap: 0.1rem;
+}
+
+.o_replicate_company_checkboxes .form-check {
+    margin-bottom: 0;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+}
+
+@media (max-width: 576px) {
+    .o_replicate_company_checkboxes > div[aria-atomic="true"] {
+        grid-template-columns: 1fr;
+    }
+}

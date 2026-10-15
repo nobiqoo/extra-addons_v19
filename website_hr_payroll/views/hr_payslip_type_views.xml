@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Agrega campo "Enviar nómina en portal" al formulario de Categoría de Nómina -->
+        <record id="hr_payslip_type_form_send_in_portal" model="ir.ui.view">
+            <field name="name">hr.payslip.type.form.send_in_portal</field>
+            <field name="model">hr.payslip.type</field>
+            <field name="inherit_id" ref="hr_payroll_co.hr_payslip_type_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[field[@name='category']]" position="after">
+                    <group>
+                        <field name="send_in_portal"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Agrega columna en la vista lista de Categoría de Nómina -->
+        <record id="hr_payslip_type_tree_send_in_portal" model="ir.ui.view">
+            <field name="name">hr.payslip.type.tree.send_in_portal</field>
+            <field name="model">hr.payslip.type</field>
+            <field name="inherit_id" ref="hr_payroll_co.hr_payslip_type_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list/field[@name='name']" position="after">
+                    <field name="send_in_portal"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

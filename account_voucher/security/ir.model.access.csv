@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_voucher_manager,account.voucher.manager,model_account_voucher,account.group_account_manager,1,1,1,1
+access_account_voucher_user,account.voucher.user,model_account_voucher,account.group_account_invoice,1,1,1,0
+access_account_voucher_line_manager,account.voucher.line.manager,model_account_voucher_line,account.group_account_manager,1,1,1,1
+access_account_voucher_line_user,account.voucher.line.user,model_account_voucher_line,account.group_account_invoice,1,1,1,1
+access_account_voucher_wizard_user,account.voucher.wizard.user,model_account_voucher_wizard,account.group_account_invoice,1,1,1,1
+access_account_voucher_advance,account_voucher_advance.user,model_account_voucher_advance,base.group_user,1,1,1,1
+access_account_advance,account_advance.user,model_account_advance,base.group_user,1,1,1,1
+access_voucher_mail_error,voucher_mail_error.user,model_voucher_mail_error,base.group_user,1,1,1,1
+access_account_loans,access.account.loans,model_account_loans,account.group_account_manager,1,1,1,1

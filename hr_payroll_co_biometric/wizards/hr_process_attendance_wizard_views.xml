@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vista formulario del wizard -->
+    <record id="view_hr_process_attendance_wizard_form" model="ir.ui.view">
+        <field name="name">hr.process.attendance.wizard.form</field>
+        <field name="model">hr.process.attendance.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Procesar / Generar Turnos">
+                <group>
+                    <field name="action" widget="radio"/>
+                </group>
+
+                <group string="Período">
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                </group>
+
+                <group string="Filtros">
+                    <field name="schedule_id"/>
+                    <field name="department_id"/>
+                    <field name="employee_ids" widget="many2many_tags"
+                           options="{'no_create': True}"/>
+                </group>
+
+                <!-- Solo visible para generación -->
+                <group string="Configuración de Generación"
+                       invisible="action != 'generate'">
+                    <group string="Asignación">
+                        <field name="shift_assignment_mode"/>
+                        <field name="shift_id"
+                               string="Turno a Asignar"
+                               invisible="shift_assignment_mode != 'single'"
+                               required="action == 'generate' and shift_assignment_mode == 'single'"/>
+                        <field name="shift_id"
+                               string="Turno Predeterminado"
+                               invisible="shift_assignment_mode != 'by_employee'"/>
+                    </group>
+                    <group string="Exclusiones">
+                        <field name="exclude_sundays"/>
+                        <field name="exclude_holidays"/>
+                    </group>
+                </group>
+
+                <separator string="Turnos por Empleado"
+                           invisible="action != 'generate' or shift_assignment_mode != 'by_employee'"/>
+                <div class="alert alert-info" role="status"
+                     invisible="action != 'generate' or shift_assignment_mode != 'by_employee'">
+                    Seleccione el turno correspondiente para cada empleado. El turno predeterminado solo completa líneas vacías.
+                </div>
+                <field name="employee_shift_line_ids"
+                       nolabel="1"
+                       class="w-100"
+                       invisible="action != 'generate' or shift_assignment_mode != 'by_employee'">
+                    <list string="Turnos por Empleado" editable="bottom">
+                        <field name="employee_id" string="Empleado" required="1"
+                               options="{'no_create': True}"/>
+                        <field name="department_id" string="Departamento" readonly="1" optional="show"/>
+                        <field name="shift_id" string="Turno Asignado" required="1"
+                               options="{'no_create': True}"/>
+                    </list>
+                </field>
+
+                <!-- Resultado -->
+                <group invisible="not result_message" string="Resultado">
+                    <field name="result_message" nolabel="1" readonly="1"/>
+                </group>
+                <field name="has_overtime_alert" invisible="1"/>
+                <div class="alert alert-warning" role="alert"
+                     invisible="not has_overtime_alert">
+                    <strong>Se superaron los límites de horas extra</strong>
+                    <field name="overtime_alert_message" nolabel="1" readonly="1"/>
+                </div>
+
+                <footer>
+                    <button name="action_execute" string="Ejecutar"
+                            type="object" class="oe_highlight"/>
+                    <button string="Cerrar" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción para abrir el wizard desde menú -->
+    <record id="action_hr_process_attendance_wizard" model="ir.actions.act_window">
+        <field name="name">Procesar Asistencias / Generar Turnos</field>
+        <field name="res_model">hr.process.attendance.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

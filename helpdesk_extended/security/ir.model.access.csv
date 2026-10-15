@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_damage_type_sm_all,damage_type_sm_all,model_damage_type_sm,base.group_user,1,1,1,1
+access_damage_type_sm_public,damage_type_sm_public,model_damage_type_sm,base.group_user,1,0,0,0
+access_helpdesk_ticket_image_sm_all,helpdesk_ticket_image_sm_all,model_helpdesk_ticket_image_sm,base.group_user,1,1,1,1
+
+access_helpdesk_tag,helpdesk.tag,helpdesk.model_helpdesk_tag,helpdesk_extended.group_helpdesk_sales_sm,1,0,0,0
+access_helpdesk_sla_status,helpdesk.sla.status,helpdesk.model_helpdesk_sla_status,helpdesk_extended.group_helpdesk_sales_sm,1,0,0,0
+access_helpdesk_sla,helpdesk.sla,helpdesk.model_helpdesk_sla,helpdesk_extended.group_helpdesk_sales_sm,1,0,0,0
+access_helpdesk_stage,helpdesk.stage,model_helpdesk_stage,helpdesk_extended.group_helpdesk_sales_sm,1,0,0,0
+access_helpdesk_ticket,helpdesk.ticket,model_helpdesk_ticket,helpdesk_extended.group_helpdesk_sales_sm,1,0,1,0
+access_helpdesk_team_public,helpdesk.team,helpdesk_extended.model_helpdesk_team,helpdesk_extended.group_helpdesk_sales_sm,1,0,0,0

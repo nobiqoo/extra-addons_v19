@@ -1,0 +1,71 @@
+<odoo>
+    <record id="paperformat_pyg_position_report" model="report.paperformat">
+        <field name="name">P&amp;G por posición</field>
+        <field name="default" eval="True"/>
+        <field name="format">Letter</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="paperformat_pyg_analytic_position_report" model="report.paperformat">
+        <field name="name">Informe de Comisiones</field>
+        <field name="default" eval="True"/>
+        <field name="format">Letter</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="pyg_position_report_xlsx" model="ir.actions.report">
+        <field name="name">P&amp;G por posición XLSX</field>
+        <field name="model">report.account_pyg.pyg_position_report</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">account_pyg.pyg_position_report</field>
+        <field name="report_file">pyg_position_report</field>
+        <field name="attachment_use" eval="False"/>
+    </record>
+
+    <record id="pyg_position_report_pdf" model="ir.actions.report">
+        <field name="name">P&amp;G por posición PDF</field>
+        <field name="model">pyg.position.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="paperformat_id" ref="account_pyg.paperformat_pyg_position_report"/>
+        <field name="report_name">account_pyg.pyg_position_report_document</field>
+        <field name="report_file">account_pyg.pyg_position_report_document</field>
+        <field name="print_report_name">P&amp;G por posición</field>
+    </record>
+
+    <record id="pyg_analytic_position_report_xlsx" model="ir.actions.report">
+        <field name="name">Informe de Comisiones XLSX</field>
+        <field name="model">report.account_pyg.pyg_analytic_position_report</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">account_pyg.pyg_analytic_position_report</field>
+        <field name="report_file">pyg_analytic_position_report</field>
+        <field name="attachment_use" eval="False"/>
+    </record>
+
+    <record id="pyg_analytic_position_report_pdf" model="ir.actions.report">
+        <field name="name">Informe de Comisiones PDF</field>
+        <field name="model">pyg.analytic.position.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="paperformat_id" ref="account_pyg.paperformat_pyg_analytic_position_report"/>
+        <field name="report_name">account_pyg.pyg_analytic_position_report_document</field>
+        <field name="report_file">account_pyg.pyg_analytic_position_report_document</field>
+        <field name="print_report_name">Informe de Comisiones</field>
+    </record>
+</odoo>

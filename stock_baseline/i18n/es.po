@@ -1,0 +1,193 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_baseline
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-15 04:26+0000\n"
+"PO-Revision-Date: 2025-09-15 04:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_baseline
+#: model_terms:ir.ui.view,arch_db:stock_baseline.stock_warehouse_view_form_inherit
+msgid "Add a user..."
+msgstr "Agregue un Usuario..."
+
+#. module: stock_baseline
+#: model:res.groups,name:stock_baseline.group_hide_standard_price
+msgid "Administrador Costo Producto"
+msgstr ""
+
+#. module: stock_baseline
+#: model_terms:ir.ui.view,arch_db:stock_baseline.res_config_settings_view_form
+msgid "Allow negative inventory."
+msgstr "Permite inventario negativo."
+
+#. module: stock_baseline
+#: model:ir.model.fields,help:stock_baseline.field_res_company__note_sale_to_picking
+#: model:ir.model.fields,help:stock_baseline.field_res_config_settings__note_sale_to_picking
+#: model_terms:ir.ui.view,arch_db:stock_baseline.res_config_settings_view_form
+msgid "Allows you to keep the sales order note to the delivery order note."
+msgstr ""
+"Le permite mantener la nota de pedido de venta en la nota de pedido de "
+"entrega."
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_procurement_group__analytic_account_id
+#: model:ir.model.fields,field_description:stock_baseline.field_stock_picking__analytic_account_id
+msgid "Analytic Account"
+msgstr "Cuenta analítica"
+
+#. module: stock_baseline
+#: model:ir.model,name:stock_baseline.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Línea analítica"
+
+#. module: stock_baseline
+#: model:ir.model,name:stock_baseline.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: stock_baseline
+#: model:ir.model,name:stock_baseline.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: stock_baseline
+#: model:ir.model.fields,help:stock_baseline.field_res_company__picking_analytic
+#: model:ir.model.fields,help:stock_baseline.field_res_config_settings__picking_analytic
+#: model_terms:ir.ui.view,arch_db:stock_baseline.res_config_settings_view_form
+msgid "Create analytical lines on the transfer."
+msgstr "Crea líneas analíticas en la transferencia."
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_product_product__is_group_manager
+#: model:ir.model.fields,field_description:stock_baseline.field_product_template__is_group_manager
+msgid "Es grupo de gerente"
+msgstr ""
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_product_product__is_group_user
+#: model:ir.model.fields,field_description:stock_baseline.field_product_template__is_group_user
+msgid "Es grupo de usuario"
+msgstr ""
+
+#. module: stock_baseline
+#: model:ir.model,name:stock_baseline.model_stock_warehouse_orderpoint
+msgid "Minimum Inventory Rule"
+msgstr "Regla de inventario mínimo"
+
+#. module: stock_baseline
+#: model:ir.model,name:stock_baseline.model_stock_picking_type
+msgid "Picking Type"
+msgstr "Tipo de recolección"
+
+#. module: stock_baseline
+#: model:ir.model,name:stock_baseline.model_procurement_group
+msgid "Procurement Group"
+msgstr "Grupo de aprovisionamiento"
+
+#. module: stock_baseline
+#: model:ir.model,name:stock_baseline.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_baseline
+#: model:ir.model,name:stock_baseline.model_product_product
+msgid "Product Variant"
+msgstr "Variante del producto"
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_stock_picking_type__package_label_report_template_pdf
+msgid "Report Template PDF"
+msgstr ""
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_stock_picking_type__package_label_report_template_zpl
+msgid "Report Template ZPL"
+msgstr ""
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_res_company__note_sale_to_picking
+#: model:ir.model.fields,field_description:stock_baseline.field_res_config_settings__note_sale_to_picking
+msgid "Sales order note in the delivery order"
+msgstr "Nota de orden de venta en la orden de entrega"
+
+#. module: stock_baseline
+#: model:ir.model,name:stock_baseline.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de stock"
+
+#. module: stock_baseline
+#: model:ir.model.fields,help:stock_baseline.field_procurement_group__analytic_account_id
+#: model:ir.model.fields,help:stock_baseline.field_stock_picking__analytic_account_id
+msgid "The analytic account related to a sales order."
+msgstr "La cuenta analítica relacionada a una órden de venta."
+
+#. module: stock_baseline
+#: model:ir.model,name:stock_baseline.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir "
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_res_company__picking_analytic
+#: model:ir.model.fields,field_description:stock_baseline.field_res_config_settings__picking_analytic
+msgid "Transfer Analytic"
+msgstr "Transferencia analítica"
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_stock_warehouse__user_ids
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: stock_baseline
+#: model:ir.model.fields,help:stock_baseline.field_stock_warehouse__user_ids
+msgid "Users allowed to validate operations about this warehouse."
+msgstr "Usuarios que pueden validar recepciones en este almacén"
+
+#. module: stock_baseline
+#: model:ir.model.fields,help:stock_baseline.field_res_company__validate_incoming_receptions
+#: model:ir.model.fields,help:stock_baseline.field_res_config_settings__validate_incoming_receptions
+#: model_terms:ir.ui.view,arch_db:stock_baseline.res_config_settings_view_form
+msgid ""
+"Users will need permissions to validate incoming receptions. This setting "
+"requires to assign users to warehouses."
+msgstr ""
+"Usuario necesitarán permisos para validar recepciones. Esta configuración "
+"requiere asignación de los usuarios en los almacenes"
+
+#. module: stock_baseline
+#: model:res.groups,name:stock_baseline.group_user_hide_standard_price
+msgid "Usuario Costo Product"
+msgstr ""
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_res_company__validate_incoming_receptions
+#: model:ir.model.fields,field_description:stock_baseline.field_res_config_settings__validate_incoming_receptions
+msgid "Validate Incoming Receptions by Users"
+msgstr "Validar Recepciones para usuarios autorizados"
+
+#. module: stock_baseline
+#: model_terms:ir.ui.view,arch_db:stock_baseline.stock_warehouse_view_form_inherit
+msgid "Validation"
+msgstr "Validación"
+
+#. module: stock_baseline
+#: model:ir.model,name:stock_baseline.model_stock_warehouse
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: stock_baseline
+#. odoo-python
+#: code:addons/stock_baseline/models/stock_picking.py:0
+msgid ""
+"You don't have permissions to validate incoming shipments in this warehouse."
+msgstr ""
+"No tienes permisos para validar recepciones en este almacén"

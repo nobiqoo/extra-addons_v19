@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_payslip_line_kanban" model="ir.ui.view">
+            <field name="name">hr.payslip.line.kanban</field>
+            <field name="model">hr.payslip.line</field>
+            <field name="arch" type="xml">
+                <kanban string="Kanban Description">
+                    <field name="name" />
+                    <field name="value" />
+                    <field name="qty" />
+                    <field name="rate" />
+                    <field name="total" />
+                    <templates>
+                        <t t-name="card">
+                            <div class="oe_kanban_card oe_kanban_global_click panel-body" style="margin-top: 0px; margin-bottom: 0px; width:100%">
+                                <span style="float: left; width: 20%;">
+                                    <field name="name" nolabel="1" />
+                                </span>
+                                <span style="float: left; width: 20%;">
+                                    <field name="value" nolabel="1" />
+                                </span>
+                                <span style="float: left; width: 20%;">
+                                    <field name="qty" nolabel="1" />
+                                </span>
+                                <span style="float: left; width: 20%;">
+                                    <field name="rate" nolabel="1" />
+                                    %
+                                </span>
+                                <span style="float: left; width: 20%;">
+                                    <field name="total" nolabel="1" />
+                                </span>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="hr_payslip_line_form" model="ir.ui.view">
+            <field name="name">hr.payslip.line.form</field>
+            <field name="model">hr.payslip.line</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div name="title">
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="category" />
+                                <field name="value" />
+                                <field name="qty" />
+                                <field name="rate" />
+                                <field name="total" />
+                                
+                            </group>
+                            <group>
+                                <field name="concept_id" />
+                                <field name="leave_id" />
+                                <field name="novelty_id" />
+                                <field name="overtime_id" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Logs">
+                                <field name="log_ids">
+                                    <list editable="bottom">
+                                        <field name="date_from" optional="show"/>
+                                        <field name="date_to" optional="show"/>
+                                        <field name="no_pay_leave_days" optional="show"/>
+                                        <field name="paternal_license_days" optional="show"/>
+                                        <field name="worked_days" optional="show"/>
+                                        <field name="contract_duration" optional="show"/>
+                                        <field name="holidays_days_left" optional="show"/>
+                                        <field name="ibd" optional="show"/>
+                                        <field name="rate" optional="show"/>
+                                        <field name="total_salary" optional="show"/>
+                                        <field name="total_earnings" optional="show"/>
+                                        <field name="total_comp_earnings" optional="show"/>
+                                        <field name="total_o_salarial_earnings" optional="show"/>
+                                        <field name="total_o_rights" optional="show"/>
+                                        <field name="total_o_earnings" optional="show"/>
+                                        <field name="total_variable" optional="show"/>
+                                        <field name="total_subsidy" optional="show"/>
+                                        <field name="total_base" optional="show"/>
+                                        <field name="total" optional="show"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

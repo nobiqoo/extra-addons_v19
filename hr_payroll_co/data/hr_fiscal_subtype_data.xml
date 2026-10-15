@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="1">
+        <record id="hr_fiscal_subtype_co_00" model="hr.fiscal.subtype">
+            <field name="name">Ninguno</field>
+            <field name="code">00</field>
+        </record>
+        <record id="hr_fiscal_subtype_co_01" model="hr.fiscal.subtype">
+            <field name="name">Dependiente pensionado por vejez activo</field>
+            <field name="code">01</field>
+        </record>
+        <record id="hr_fiscal_subtype_co_02" model="hr.fiscal.subtype">
+            <field name="name">Independiente pensionado por vejez activo</field>
+            <field name="code">02</field>
+        </record>
+        <record id="hr_fiscal_subtype_co_03" model="hr.fiscal.subtype">
+            <field name="name">Cotizante no obligado a cotización a pensiones por edad</field>
+            <field name="code">03</field>
+        </record>
+        <record id="hr_fiscal_subtype_co_04" model="hr.fiscal.subtype">
+            <field name="name">Cotizante con requisitos cumplidos para pensión</field>
+            <field name="code">04</field>
+        </record>
+        <record id="hr_fiscal_subtype_co_05" model="hr.fiscal.subtype">
+            <field name="name">Cotizante a quien se le ha reconocido indemnización sustitutiva o devolución de saldos</field>
+            <field name="code">05</field>
+        </record>
+        <record id="hr_fiscal_subtype_co_06" model="hr.fiscal.subtype">
+            <field name="name">Cotizante perteneciente a un régimen exceptuado de pensiones o a entidades autorizadas para recibir aportes exclusivamente de un grupo de sus propios trabajadores</field>
+            <field name="code">06</field>
+        </record>
+        <record id="hr_fiscal_subtype_co_07" model="hr.fiscal.subtype">
+            <field name="name">Afiliado al ahorro programado de largo plazo y cotizante al régimen contributivo de salud</field>
+            <field name="code">07</field>
+        </record>
+        <record id="hr_fiscal_subtype_co_08" model="hr.fiscal.subtype">
+            <field name="name">Afiliado al ahorro programado de largo plazo y no cotizante al régimen contributivo de salud</field>
+            <field name="code">08</field>
+        </record>
+    </data>
+</odoo>

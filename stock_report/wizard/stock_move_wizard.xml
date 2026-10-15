@@ -1,0 +1,43 @@
+<odoo>
+    <record model="ir.ui.view" id="view_stock_move_wizard_form">
+        <field name="name">view.stock.move.wizard.form</field>
+        <field name="model">stock.move.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Kardex Report">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="user_id" invisible="True" />
+                            <field name="range_id" />
+                            <field name="date_start" required="True" />
+                            <field name="date_end" required="True" />
+                        </group>
+                        <group>
+                            <field name="company_id" invisible="1" />
+                            <field name="company_id" required="True" groups="base.group_multi_company" />
+                            <field name="categories_ids" widget="many2many_tags" />
+                            <field name="products_ids" domain="[('type','=','consu'),'|',('company_id','=',False),('company_id','=',company_id)]" widget="many2many_tags" />
+                            <field name="warehouses_ids" domain="[('company_id','=',False),('company_id','=',company_id)]" groups="stock.group_stock_multi_warehouses" widget="many2many_tags" />
+                            <field name="locations_ids" domain="[('usage','=','internal'),'|',('company_id','=',False),('company_id','=',company_id)]" groups="stock.group_stock_multi_locations" widget="many2many_tags" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Generate XLSX report" name="generate_report" type="object" class="oe_highlight" context="{'report_type': 'xlsx'}" />
+                    <button string="Generate PDF report" name="generate_report" type="object" class="oe_highlight" context="{'report_type': 'pdf'}" />
+                    <button string="Generate HTML report" name="generate_report" type="object" class="oe_highlight" context="{'report_type': 'html'}" />
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_move_wizard" model="ir.actions.act_window">
+        <field name="name">Kardex Report</field>
+        <field name="res_model">stock.move.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_stock_move_wizard" action="action_stock_move_wizard" sequence="250" parent="stock.menu_warehouse_report" />
+</odoo>

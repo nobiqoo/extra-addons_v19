@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- VERTICAL PREMIUM (48) -->
+    <data noupdate="0">
+        <record id="system_48" model="safra.system"><field name="tech_width_min">0.24</field><field name="tech_width_max">6</field><field name="tech_height_min">0.9</field><field name="tech_height_max">3.2</field><field name="tech_mechanism"></field></record>
+        <record id="sf_48_width" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_width"/>
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_48_height" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_height"/>
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_48_quantity" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_quantity"/>
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_48_fabric_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_fabric_id"/>
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_48_color_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_color_id"/>
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_48_coordinado" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_coordinado"/>
+            <field name="sequence">150</field>
+        </record>
+        <record id="sf_48_mando_vertical" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_mando_vertical"/>
+            <field name="sequence">1000</field>
+        </record>
+        <record id="sf_48_apertura" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_apertura"/>
+            <field name="sequence">1010</field>
+            <field name="label_override">Tipo de Apertura</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{'value':'1','name':'Derecha','sequence':10}),(0,0,{'value':'2','name':'Izquierda','sequence':20}),(0,0,{'value':'3','name':'Extremos','sequence':30}),(0,0,{'value':'4','name':'Centro','sequence':40})]"/>
+        </record>
+        <record id="sf_48_pesa_lama" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_pesa_lama"/>
+            <field name="sequence">1020</field>
+        </record>
+        <record id="sf_48_color_cabezal" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_color_cabezal"/>
+            <field name="sequence">1030</field>
+            <field name="label_override">Color del cabezal</field>
+        </record>
+        <record id="sf_48_cabezal_forrado" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_cabezal_forrado"/>
+            <field name="sequence">1040</field>
+        </record>
+        <record id="sf_48_extra_chain" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_extra_chain"/>
+            <field name="sequence">1050</field>
+            <field name="label_override">Altura Cadena / Cordón</field>
+        </record>
+        <record id="sf_48_cabezal_tela" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_cabezal_tela"/>
+            <field name="sequence">1060</field>
+            <field name="label_override">Tela cabezal forrado</field>
+            <field name="depends_field_id" ref="field_cabezal_forrado"/>
+            <field name="depends_value">1</field>
+        </record>
+        <record id="sf_48_design_print" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_design_print"/>
+            <field name="sequence">1070</field>
+        </record>
+        <record id="sf_48_print_m2" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_print_m2"/>
+            <field name="sequence">1071</field>
+        </record>
+        <record id="sf_48_design_exterior" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_design_exterior"/>
+            <field name="sequence">1080</field>
+        </record>
+        <record id="sf_48_escuadras" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_escuadras"/>
+            <field name="sequence">1090</field>
+        </record>
+        <record id="sf_48_location" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_location"/>
+            <field name="sequence">1100</field>
+        </record>
+        <record id="sf_48_enclosed" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_enclosed"/>
+            <field name="sequence">1110</field>
+        </record>
+        <record id="sf_48_distribucion_lamas" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_48"/>
+            <field name="field_id" ref="field_distribucion_lamas"/>
+            <field name="sequence">1120</field>
+        </record>
+    </data>
+</odoo>

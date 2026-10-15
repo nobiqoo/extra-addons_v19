@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_account_report_niif_pl" model="ir.actions.client">
+            <field name="name">Pérdidas y ganancias NIIF</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('account_report.profit_and_loss_niif')}"/>
+        </record>
+
+        <record id="action_account_report_bs_niif" model="ir.actions.client">
+            <field name="name">Balance de situación NIIF</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('account_report.balance_sheet_niif')}"/>
+        </record>
+    </data>
+</odoo>

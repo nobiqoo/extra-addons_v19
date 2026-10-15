@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="wk_school_session_view_tree" model="ir.ui.view">
+            <field name="name">wk.school.session.list</field>
+            <field name="model">wk.school.session</field>
+            <field name="arch" type="xml">
+                <list string="Sessions">
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="state" decoration-success="state =='complete'" decoration-warning="state =='progress'" decoration-primary="state =='new'" widget='badge'/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="wk_school_session_view_form" model="ir.ui.view">
+            <field name="name">wk.school.session.form</field>
+            <field name="model">wk.school.session</field>
+            <field name="arch" type="xml">
+                <form string="Session" duplicate="0">
+                    <header >
+                        <button name="progress_session" string="Start" type="object" class="oe_highlight" invisible="state != 'new' or id == False "  confirm="Are you sure you want to start this session?"/>
+                        <button name="complete_session" string="Complete" type="object" class="oe_highlight" invisible="state != 'progress' or id == False"  confirm="Are you sure you want to complete this session?"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="name" string="Session" />
+                                <field name="name" placeholder="Session 2026-2027" readonly="state != 'new'"/>
+                            </h1>
+                        </div>
+                        <br/>
+                        <group>
+                            <group>
+                                <field name="start_date" readonly="state != 'new'"/>             
+                            </group>
+                            <group>         
+                                <field name="end_date" readonly="state != 'new'"/>       
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="academic_year" string="Academic Year">
+                                <field name="academic_year_ids" context="{'list_view_ref':'wk_school_management.view_session_academic_year_tree'}">
+                                        <form string="Academic Year">
+                                            <sheet>
+                                                <div class="oe_title">
+                                                    <h1>
+                                                        <label for="name" string="Title"/>
+                                                        <field name="name" placeholder="Ex. Year 2026-2027"/>
+                                                    </h1>
+                                                </div>
+                                                <group name="year_details1">
+                                                    <group name="year_details2">         
+                                                    <label for="start_date" string="Duration" />
+                                                        <div>
+                                                            <field name="start_date" class="oe_inline" style="width:25% !important;"/> - <field name="end_date" class="oe_inline" nolabel="1" style="width:25% !important;"/>
+                                                        </div>    
+                                                    </group>
+
+                                                    <group name="year_details3">         
+                                                        <field name="divide_weightage"/>  
+                                                     </group>
+                                                </group>
+                                                <notebook>
+                                                    <page name="terms" string="Terms">
+                                                        <field name="term_ids">
+                                                            <list editable='bottom'>
+                                                                <field name="name"/>
+                                                                <field name="start_date"/>
+                                                                <field name="end_date"/>
+                                                                <field name="weightage" readonly='parent.divide_weightage == True'/>
+                                                            </list>
+                                                        </field>
+                                                    </page>  
+                                                </notebook>
+                                            </sheet>
+                                        </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_school_session_search" model="ir.ui.view">
+           <field name="name">wk.school.session.search</field>
+           <field name="model">wk.school.session</field>
+           <field name="arch" type="xml">
+               <search string="School Session">
+                    <field name="name" filter_domain="[('name', 'ilike', self)]"/>
+                    <filter name="new" string="New" domain="[('state','=','new')]"/>
+                    <filter name="progress" string="In Progress" domain="[('state','=','progress')]" />
+                    <filter name="complete" string="Complete" domain="[('state','=','complete')]" />
+                    <group>
+                        <filter name="group_by_state"  string="Status" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+               </search>
+           </field>
+        </record>
+
+        <record id="wk_school_session_action" model="ir.actions.act_window">
+            <field name="name">Session</field>
+            <field name="res_model">wk.school.session</field>
+            <field name="path">school-session</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new Session
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

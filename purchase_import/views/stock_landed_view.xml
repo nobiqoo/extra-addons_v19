@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_stock_landed_cost_form" model="ir.ui.view">
+        <field name="name">view.stock.landed.cost.form</field>
+        <field name="model">stock.landed.cost</field>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vendor_bill_id']" position="after">
+                <field name="import_ids" widget="many2many_tags" />
+            </xpath>
+            <xpath expr="//field[@name='cost_lines']/form/group[1]/group[1]/field[@name='product_id']" position="before">
+                <field name="partner_id" />
+            </xpath>
+            <xpath expr="//field[@name='cost_lines']/list/field[@name='product_id']" position="before">
+                <field name="partner_id" />
+            </xpath>
+            <xpath expr="//field[@name='valuation_adjustment_lines']/list/field[@name='additional_landed_cost']" position="attributes">
+                <attribute name="sum">Cost</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id='action_stock_landed_cost' model='ir.actions.act_window'>
+        <field name="name">Landed Costs</field>
+        <field name="res_model">stock.landed.cost</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="context">{}</field>
+        <field name="domain">[('import_is','=',True)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new landed cost
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_stock_landed_cost" action="action_stock_landed_cost" parent="menu_purchase_import_parent" sequence="15" />
+</odoo>

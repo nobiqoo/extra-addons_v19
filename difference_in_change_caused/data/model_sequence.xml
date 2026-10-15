@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+
+    <record id="difference_in_change_sequence" model="ir.sequence">
+        <field name="name">Difference in change: sequence</field>
+        <field name="code">difference.in.change.sequence</field>
+        <field name="prefix">EXCH/</field>
+        <field name="padding">5</field>
+    </record>
+
+</odoo>

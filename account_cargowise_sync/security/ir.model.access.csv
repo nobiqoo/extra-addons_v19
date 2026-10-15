@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_invoice_cw_log_user,access.invoice.cw.log.user,model_invoice_cw_log,base.group_user,1,1,1,1
+access_invoice_reference_cw_user,access.invoice.reference.cw.user,model_invoice_reference_cw,base.group_user,1,1,1,1
+access_log_cw_conector_user,access.log.cw.conector.user,model_log_cw_conector,base.group_user,1,1,1,1

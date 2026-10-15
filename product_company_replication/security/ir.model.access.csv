@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_replicate_wizard,access.product.replicate.wizard,model_product_replicate_wizard,base.group_user,1,1,1,1
+access_product_sync_wizard,access.product.sync.wizard,model_product_sync_wizard,base.group_user,1,1,1,1

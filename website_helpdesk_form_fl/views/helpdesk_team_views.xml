@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="view_helpdesk_team_form_inherit_task_templates" model="ir.ui.view">
+    <field name="name">helpdesk.team.form.task.templates.inherit</field>
+    <field name="model">helpdesk.team</field>
+    <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//sheet[1]" position="inside">
+        <notebook>
+          <page string="Plantillas de Tareas">
+            <field name="task_template_ids">
+              <list editable="bottom">
+                <!-- <field name="active"/> -->
+                <field name="project_id" required="1" />
+                <field name="name" />
+                <field name="user_id" />
+                <field name="description" />
+                <field name="predecessor_id" />
+                <field name="next_stage_id" />
+                <field name="sequence" />
+              </list>
+            </field>
+            <p class="text-muted">Al crear un ticket en este equipo se generarán estas tareas
+              automáticamente.</p>
+          </page>
+        </notebook>
+      </xpath>
+
+      <xpath expr="//div[@id='productivity']" position="inside">
+        <setting
+          help="Al activar este campo, los adjuntos serán visibles para los tickets asignados a este equipo" groups="website_helpdesk_form_fl.group_manage_field_visualization_attachment">
+          <field name="attachments_are_visible" class="mt16 o_light_label" />
+        </setting>
+      </xpath>
+    </field>
+  </record>
+
+  <record id="view_helpdesk_team_task_template_list" model="ir.ui.view">
+    <field name="name">helpdesk.team.task.template.list</field>
+    <field name="model">helpdesk.team.task.template</field>
+    <field name="arch" type="xml">
+      <list>
+        <!-- <field name="sequence"/>
+        <field name="active"/> -->
+        <field name="team_id" />
+        <field name="name" />
+        <field name="project_id" />
+        <field name="user_id" />
+        <field name="create_ticket_message" />
+      </list>
+    </field>
+  </record>
+
+  <record id="view_helpdesk_team_task_template_form" model="ir.ui.view">
+    <field name="name">helpdesk.team.task.template.form</field>
+    <field name="model">helpdesk.team.task.template</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <!-- <field name="active"/> -->
+            <field name="team_id" required="1" />
+            <field name="name" placeholder="Si vacío, usa asunto del ticket" />
+            <field name="project_id" required="1" />
+            <field name="user_id" />
+            <field name="description" />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_helpdesk_team_task_template" model="ir.actions.act_window">
+    <field name="name">Plantillas de Tareas (Helpdesk)</field>
+    <field name="res_model">helpdesk.team.task.template</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <menuitem id="menu_helpdesk_config_task_templates" name="Plantillas de Tareas"
+    parent="helpdesk.helpdesk_menu_config" action="action_helpdesk_team_task_template" sequence="35" />
+</odoo>

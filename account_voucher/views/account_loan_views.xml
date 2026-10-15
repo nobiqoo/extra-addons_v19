@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_loan_tree" model="ir.ui.view">
+            <field name="name">view.account.loan.tree</field>
+            <field name="model">account.loans</field>
+            <field name="arch" type="xml">
+                <list edit="false">
+                    <field name="name" />
+                    <field name="partner_id" />
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_account_loan_form" model="ir.ui.view">
+            <field name="name">account.loans.form</field>
+            <field name="model">account.loans</field>
+            <field name="arch" type="xml">
+                <form string="Préstamos A Empleados">
+                    <header>
+                        <button name="to_cancel" string="Cancelar" type="object" invisible="state == 'cancel'"/>
+                        <button name="to_draft" string="Pasar a borrador" type="object" invisible="state in ['draft', 'disbursed', 'cancel']"/>
+                        <button name="to_confirm" string="Confirmar" type="object" invisible="state != 'draft'"/>
+                        <button name="to_disbursed" string="Desembolsa" type="object" invisible="state != 'confirm'"/>
+                        <button name="to_paid" string="Pasar a Pagado" type="object" invisible="state != 'disbursed'" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,disbursed,paid" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"></div>
+                        <div class="oe_title" invisible="state != 'draft'">
+                            <h1>
+                                <field name="name" readonly="True"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group name="group1">
+                                <field name="name" readonly="state != 'draft'"/>
+                                <field name="partner_id" readonly="state != 'draft'"/>
+                                <field name="loan_date" readonly="state != 'draft'"/>
+                                <field name="journal_id" readonly="state != 'draft'"/>
+                                <field name="account_move_id" />
+                            </group>
+                            <group name="group2">
+                                <field name="loan_amount" readonly="state != 'draft'"/>
+                                <field name="repayment_term" readonly="state != 'draft'"/>
+                                <field name="with_interest" readonly="state != 'draft'"/>
+                                <field name="value_interest" widget="percentage" readonly="state != 'draft'" invisible="with_interest == False"/>
+                                <field name="installment_amount" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_account_loan" model="ir.actions.act_window">
+            <field name="name">Préstamos A Empleados</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.loans</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="menu_account_loan" parent="account.menu_finance_payables" sequence="6" action="action_account_loan" />
+
+    </data>
+
+    <data noupdate="1">
+        <record id="seq_account_loan" model="ir.sequence">
+            <field name="name">Número Préstamo</field>
+            <field name="code">seq.account.loans</field>
+            <field name="prefix">PAE-</field>
+            <field name="padding">10</field>
+        </record>
+    </data>
+
+</odoo>

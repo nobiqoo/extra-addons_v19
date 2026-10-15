@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ======================== TELAS ======================== -->
+
+    <record id="view_safra_fabric_tree" model="ir.ui.view">
+        <field name="name">safra.fabric.tree</field>
+        <field name="model">safra.fabric</field>
+        <field name="arch" type="xml">
+            <list string="Referencias / Telas">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="system_ids" widget="many2many_tags" optional="show"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_safra_fabric_form" model="ir.ui.view">
+        <field name="name">safra.fabric.form</field>
+        <field name="model">safra.fabric</field>
+        <field name="arch" type="xml">
+            <form string="Referencia / Tela">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="action_view_stock" class="oe_stat_button" icon="fa-cubes">
+                            <field name="stock_disponible" widget="statinfo" string="Disponible (m)"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="category_id"/>
+                            <!-- Revisión 17-sep: los sistemas van junto a la
+                                 categoría, no en un grupo aparte. -->
+                            <field name="system_ids" widget="many2many_tags"
+                                   options="{'no_create': True}"/>
+                            <!-- Reunión 13-oct (filas 50-52): la presentación
+                                 de las opciones se configura aquí. -->
+                            <field name="display_mode" placeholder="La del campo"/>
+                            <field name="es_control" invisible="1"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Parametrización">
+                            <field name="is_blackout"/>
+                            <field name="is_sheer"/>
+                            <field name="is_printable"/>
+                            <field name="is_texturable"/>
+                            <field name="is_doublefaced"/>
+                            <field name="pierceable_type"/>
+                            <field name="is_anadido" invisible="pierceable_type == 'no'"/>
+                            <field name="is_sesgable"/>
+                            <!-- Pendientes 24-sep (10.3): «Tela con franjas»
+                                 y «Familia Sheer» son lo mismo — queda solo
+                                 Familia Sheer (has_franjas se fusionó). -->
+                            <field name="permite_cenefa_entera"/>
+                            <field name="peso_gm2"/>
+                            <field name="grosor_mm"/>
+                            <field name="cant_min_stock"/>
+                            <field name="warehouse_ids" widget="many2many_tags"
+                                   options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <!-- Revisión 17-sep: «Colores» es impreciso — son
+                             atributos/variables (perfiles, sesgos, etc.). -->
+                        <page string="Atributos / Variables">
+                            <field name="color_ids">
+                                <list editable="bottom">
+                                    <!-- Pendientes 24-sep (10.1): lo que se
+                                         asocia es el PRODUCTO del maestro. -->
+                                    <field name="product_tmpl_id" string="Producto"/>
+                                    <!-- Reunión 28-sep (fila 50): la imagen de cada opción
+                                         (perfiles, cabezales, motores…) se carga aquí y el
+                                         portal la muestra según la presentación del campo. -->
+                                    <field name="image" widget="image" options="{'size': [0, 40]}" optional="show"/>
+                                    <field name="u_color_id"/>
+                                    <field name="etiqueta" optional="show"/>
+                                    <field name="system_ids" widget="many2many_tags" optional="show"
+                                           options="{'no_create': True}"/>
+                                    <!-- Reunión 13-oct (filas 56-57): controles —
+                                         motores compatibles y canales por línea. -->
+                                    <field name="motor_ids" widget="many2many_tags"
+                                           column_invisible="not parent.es_control"
+                                           options="{'no_create': True}"/>
+                                    <field name="canales" column_invisible="not parent.es_control"/>
+                                    <field name="code" readonly="product_tmpl_id"/>
+                                    <field name="name" column_invisible="1"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Campos que la usan" invisible="not field_ids">
+                            <field name="field_ids" readonly="1">
+                                <list>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="section_id"/>
+                                    <field name="display_mode"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_safra_fabric" model="ir.actions.act_window">
+        <field name="name">Referencias / Telas</field>
+        <field name="res_model">safra.fabric</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Punto 16: menú propio para las referencias de categoría Sesgo,
+         donde se relacionan los productos que aplican (pestaña Colores). -->
+    <record id="action_safra_fabric_sesgo" model="ir.actions.act_window">
+        <field name="name">Sesgos</field>
+        <field name="res_model">safra.fabric</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain" eval="[('category_id', '=', ref('website_quotes_safra.popt_refcat_sesgo'))]"/>
+        <field name="context" eval="{'default_category_id': ref('website_quotes_safra.popt_refcat_sesgo')}"/>
+    </record>
+
+    <!-- ======================== SISTEMAS ======================== -->
+
+    <record id="view_safra_system_tree" model="ir.ui.view">
+        <field name="name">safra.system.tree</field>
+        <field name="model">safra.system</field>
+        <field name="arch" type="xml">
+            <list string="Sistemas">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="product_tmpl_id"/>
+                <field name="weight_factor" optional="hide"/>
+                <field name="active" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_safra_system_form" model="ir.ui.view">
+        <field name="name">safra.system.form</field>
+        <field name="model">safra.system</field>
+        <field name="arch" type="xml">
+            <form string="Sistema">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="product_tmpl_id"/>
+                            <field name="active"/>
+                            <!-- Pendientes 24-sep (1.1): visibilidad del
+                                 sistema por grupos de usuarios. -->
+                            <field name="group_ids" widget="many2many_tags"/>
+                        </group>
+                        <group string="Ficha técnica del portal">
+                            <field name="tech_width_min"/>
+                            <field name="tech_width_max"/>
+                            <field name="tech_height_min"/>
+                            <field name="tech_height_max"/>
+                            <field name="img_group"/>
+                            <field name="weight_factor"/>
+                        </group>
+                        <group string="Ficha técnica de exhibición">
+                            <field name="exh_width_min" placeholder="Igual a la ficha"/>
+                            <field name="exh_width_max" placeholder="Igual a la ficha"/>
+                            <field name="exh_height_min" placeholder="Igual a la ficha"/>
+                            <field name="exh_height_max" placeholder="Igual a la ficha"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Campos del sistema">
+                            <field name="mapping_ids" context="{'default_system_id': id}">
+                                <list editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="field_id"/>
+                                    <field name="label_override" optional="show"/>
+                                    <field name="required"/>
+                                    <field name="depends_field_id" optional="hide"/>
+                                    <field name="depends_value" optional="hide"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_safra_system" model="ir.actions.act_window">
+        <field name="name">Sistemas</field>
+        <field name="res_model">safra.system</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ======================== COTIZACIONES ======================== -->
+
+    <record id="view_safra_quote_tree" model="ir.ui.view">
+        <field name="name">safra.quote.tree</field>
+        <field name="model">safra.quote</field>
+        <field name="arch" type="xml">
+            <list string="Cotizaciones Safra" decoration-info="state == 'draft'" decoration-success="state == 'confirmed'" decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <field name="date"/>
+                <field name="amount_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'confirmed'" decoration-danger="state == 'cancelled'"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_safra_quote_form" model="ir.ui.view">
+        <field name="name">safra.quote.form</field>
+        <field name="model">safra.quote</field>
+        <field name="arch" type="xml">
+            <form string="Cotización Safra">
+                <header>
+                    <button name="action_confirm" string="Confirmar" type="object" class="btn-primary"
+                            invisible="state not in ('draft', 'design_approved')"/>
+                    <button name="action_cancel" string="Cancelar" type="object"
+                            invisible="state not in ('draft', 'pending_design', 'design_approved', 'confirmed')"/>
+                    <button name="action_draft" string="Restablecer borrador" type="object" invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,pending_design,design_approved,confirmed"/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="action_view_design_tickets" type="object"
+                                class="oe_stat_button" icon="fa-paint-brush"
+                                invisible="design_ticket_count == 0">
+                            <field name="design_ticket_count" widget="statinfo" string="Tickets diseño"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="safra_express"/>
+                            <field name="amount_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Persianas">
+                            <field name="line_ids">
+                                <list optional="show">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="system_id"/>
+                                    <field name="fabric_id"/>
+                                    <field name="color_id"/>
+                                    <field name="width"/>
+                                    <field name="height"/>
+                                    <field name="quantity"/>
+                                    <field name="location"/>
+                                    <field name="lote_sugerido_id" optional="show"/>
+                                    <field name="has_motor"/>
+                                    <field name="cenefa_type"/>
+                                    <field name="safra_express"/>
+                                    <field name="price_unit"/>
+                                    <field name="price_total"/>
+                                </list>
+                                <form string="Persiana">
+                                    <group>
+                                        <group string="Datos Básicos">
+                                            <field name="system_id"/>
+                                            <field name="sequence_name"/>
+                                            <field name="exhibition"/>
+                                            <field name="same_header"/>
+                                            <field name="soporte_izq" invisible="not same_header"/>
+                                            <field name="soporte_der" invisible="not same_header"/>
+                                        </group>
+                                        <group string="Dimensiones">
+                                            <field name="width"/>
+                                            <field name="height"/>
+                                            <field name="quantity"/>
+                                            <field name="location"/>
+                                            <field name="lote_sugerido_id"/>
+                                            <field name="aligned"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group string="Tela">
+                                            <field name="fabric_id"/>
+                                            <field name="color_id"/>
+                                            <field name="fabric_id_2"/>
+                                            <field name="color_id_2" invisible="not fabric_id_2"/>
+                                            <field name="fabric_id_3" invisible="not fabric_id_2"/>
+                                            <field name="color_id_3" invisible="not fabric_id_3"/>
+                                            <field name="fabric_id_4" invisible="not fabric_id_3"/>
+                                            <field name="color_id_4" invisible="not fabric_id_4"/>
+                                            <field name="fabric_id_5" invisible="not fabric_id_4"/>
+                                            <field name="color_id_5" invisible="not fabric_id_5"/>
+                                            <field name="tela_al_reves"/>
+                                            <field name="atravesar_tela"/>
+                                            <field name="coordinado"/>
+                                        </group>
+                                        <group string="Accesorios">
+                                            <field name="orientation"/>
+                                            <field name="mando_position"/>
+                                            <field name="enclosed"/>
+                                            <field name="escuadras"/>
+                                            <field name="bolsillo_size"/>
+                                            <field name="extra_chain"/>
+                                            <field name="safra_express"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group string="Motor" invisible="not has_motor">
+                                            <field name="motor"/>
+                                            <field name="interruptor_rf"/>
+                                            <field name="motor_support_type"/>
+                                            <field name="control"/>
+                                            <field name="control_channel"/>
+                                            <field name="requires_charger"/>
+                                        </group>
+                                        <group string="Activar Motor">
+                                            <field name="has_motor"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group string="Cenefa">
+                                            <field name="cenefa_type"/>
+                                            <field name="cenefa_lateral" invisible="cenefa_type == 'sin'"/>
+                                            <field name="cenefa_lined" invisible="cenefa_type == 'sin'"/>
+                                            <field name="cenefa_tela" invisible="cenefa_type != 'tela'"/>
+                                            <field name="cenefa_corte" invisible="cenefa_type != 'tela'"/>
+                                        </group>
+                                        <group string="Cover Light">
+                                            <field name="cover_light_profile"/>
+                                            <field name="coverlight_felpa" invisible="cover_light_profile == 'sin'"/>
+                                            <field name="coverlight_45" invisible="cover_light_profile == 'sin'"/>
+                                        </group>
+                                    </group>
+                                    <group string="Diseño de Impresión">
+                                        <field name="design_print"/>
+                                        <field name="custom_design"/>
+                                        <field name="design_exterior"/>
+                                        <field name="print_m2"/>
+                                    </group>
+                                    <group string="Diseño personalizado" invisible="not design_print and not custom_design">
+                                        <field name="design_image" widget="image" options="{'size': [0, 160]}"/>
+                                        <field name="design_filename"/>
+                                        <field name="design_comment"/>
+                                        <field name="design_analysis"/>
+                                        <field name="design_ticket_id"/>
+                                        <field name="design_m2_cobro"/>
+                                        <field name="design_approved"/>
+                                    </group>
+                                    <group string="Atributos del portal" invisible="not attributes_display">
+                                        <field name="attributes_display" nolabel="1" colspan="2"/>
+                                    </group>
+                                    <group string="Precio">
+                                        <field name="price_unit"/>
+                                        <field name="price_total"/>
+                                    </group>
+                                    <field name="description" placeholder="Comentarios…"/>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Notas">
+                            <field name="note" placeholder="Notas internas…"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_safra_quote_search" model="ir.ui.view">
+        <field name="name">safra.quote.search</field>
+        <field name="model">safra.quote</field>
+        <field name="arch" type="xml">
+            <search string="Buscar cotizaciones">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <filter string="Borrador" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Confirmadas" name="confirmed" domain="[('state','=','confirmed')]"/>
+                <separator/>
+                <filter string="Mis cotizaciones" name="my_quotes" domain="[('user_id','=',uid)]"/>
+                <group>
+                    <filter string="Cliente" name="partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Estado" name="state_group" context="{'group_by': 'state'}"/>
+                    <filter string="Fecha" name="date_group" context="{'group_by': 'date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_safra_quote" model="ir.actions.act_window">
+        <field name="name">Cotizaciones Safra</field>
+        <field name="res_model">safra.quote</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_my_quotes': 1}</field>
+    </record>
+
+    <!-- ======================== MENÚ ======================== -->
+
+    <menuitem id="menu_safra_root" name="Cotizador Safra" sequence="90"
+              web_icon="website_quotes_safra,static/description/icon.png"/>
+    <menuitem id="menu_safra_quotes" name="Cotizaciones" parent="menu_safra_root" action="action_safra_quote" sequence="10"/>
+    <menuitem id="menu_safra_fabrics" name="Referencias / Telas" parent="menu_safra_root" action="action_safra_fabric" sequence="20"/>
+    <menuitem id="menu_safra_fabric_sesgos" name="Sesgos" parent="menu_safra_root" action="action_safra_fabric_sesgo" sequence="25"/>
+    <menuitem id="menu_safra_systems" name="Sistemas" parent="menu_safra_root" action="action_safra_system" sequence="30"/>
+
+
+    <!-- ======================== CATÁLOGO DE COLORES (U_color) ======================== -->
+
+    <record id="view_safra_color_tree" model="ir.ui.view">
+        <field name="name">safra.color.tree</field>
+        <field name="model">safra.color</field>
+        <field name="arch" type="xml">
+            <list string="Colores" editable="bottom">
+                <field name="name"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_safra_color" model="ir.actions.act_window">
+        <field name="name">Colores (U_color)</field>
+        <field name="res_model">safra.color</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <!-- El menú Colores (U_color) vive bajo Configuración: se declara en
+         safra_field_views.xml (donde ya existe menu_safra_config). -->
+
+    <!-- Pendiente 4 (Safra, 5-oct): revalidar cotizaciones elegidas y
+         anular las que, sin confirmar, ya no cumplen. -->
+    <record id="action_safra_quote_revisar_vigencia" model="ir.actions.server">
+        <field name="name">Revisar vigencia (anular las que ya no cumplen)</field>
+        <field name="model_id" ref="model_safra_quote"/>
+        <field name="binding_model_id" ref="model_safra_quote"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_revisar_vigencia()</field>
+    </record>
+</odoo>

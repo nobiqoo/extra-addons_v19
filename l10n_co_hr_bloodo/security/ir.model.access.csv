@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_edi_hr_log_all,l10n_co_hr_bloodo.access_edi_hr_log_all,model_edi_hr_log,base.group_user,1,1,1,1
+access_edi_hr_document_all,l10n_co_hr_bloodo.access_edi_hr_document_all,model_edi_hr_document,base.group_user,1,1,1,1
+access_edi_hr_processing_all,l10n_co_hr_bloodo.access_edi_hr_processing_all,model_edi_hr_processing,base.group_user,1,1,1,1
+access_dian_concept_type_all,l10n_co_hr_bloodo.access_dian_concept_type_all,model_dian_concept_type,base.group_user,1,1,1,1

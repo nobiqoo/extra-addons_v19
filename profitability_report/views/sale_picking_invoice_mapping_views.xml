@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="sale_order_view_form_inherit" model="ir.ui.view">
+		<field name="name">sale.order.view.form.inherit</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//header" position="inside">
+				<button name="create_mapping_button" string="Picking Invoice Mappings" groups="profitability_report.group_profitability_report_manager"
+					type="object" class="oe_highlight">
+					<i class="fa fa-exchange" title="Crear mapeo entre albaranes y facturas"/>
+				</button>
+			</xpath>
+			<xpath expr="//notebook" position="inside">
+				<page string="Picking Invoice Mapping" name="picking_invoice_mapping" groups="profitability_report.group_profitability_report_manager">
+					<group>
+						<group>
+							<field name="picking_invoice_count" string="Total Mappings" />
+						</group>
+					</group>
+					<field name="picking_invoice_mapping_ids" readonly="1">
+						<list string="Picking Invoice Mappings" create="false" edit="false"
+							delete="false">
+							<field name="picking_sequence" string="Secuencia" />
+							<field name="picking_id" string="Picking" />
+							<field name="picking_type_code" string="Tipo" widget="badge"
+								decoration-success="picking_type_code == 'outgoing'"
+								decoration-info="picking_type_code == 'incoming'" />
+							<field name="invoice_id" string="Factura/Nota Crédito" />
+							<field name="invoice_type" string="Tipo Documento" widget="badge"
+								decoration-success="invoice_type == 'out_invoice'"
+								decoration-warning="invoice_type == 'out_refund'" />
+							<field name="invoice_date" string="Fecha Factura" />
+						</list>
+					</field>
+				</page>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="sale_picking_invoice_mapping_view_tree" model="ir.ui.view">
+		<field name="name">sale.picking.invoice.mapping.view.tree</field>
+		<field name="model">sale.picking.invoice.mapping</field>
+		<field name="arch" type="xml">
+			<list string="Picking Invoice Mappings" create="0" edit="0" delete="0">
+				<field name="picking_sequence" />
+				<field name="sale_order_id" />
+				<field name="picking_id" />
+				<field name="invoice_id" />
+				<field name="invoice_date" />
+				<field name="invoice_type" widget="badge"
+					decoration-success="invoice_type == 'out_invoice'"
+					decoration-warning="invoice_type == 'out_refund'" />
+				<field name="picking_type_code" widget="badge"
+					decoration-success="picking_type_code == 'outgoing'"
+					decoration-info="picking_type_code == 'incoming'" />
+				<field name="manual" />
+			</list>
+		</field>
+	</record>
+
+	<record id="sale_picking_invoice_mapping_action" model="ir.actions.act_window">
+		<field name="name">Sale Picking Invoice Mapping</field>
+		<field name="res_model">sale.picking.invoice.mapping</field>
+		<field name="view_mode">list</field>
+		<field name="domain">[]</field>
+		<field name="context">{}</field>
+	</record>
+
+	<menuitem
+		id="sale_picking_invoice_mapping_menu"
+		name="Sale Picking Invoice Mapping"
+		action="sale_picking_invoice_mapping_action"
+		parent="sale.sale_menu_root"
+		groups="profitability_report.group_profitability_report_manager"
+		sequence="50"/>
+
+</odoo>

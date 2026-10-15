@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="account_move_view_form_service_acceptance" model="ir.ui.view">
+        <field name="name">account.move.form.service.acceptance</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_service_acceptances" type="object"
+                    class="oe_stat_button" icon="fa-check-square-o"
+                    invisible="service_acceptance_count == 0">
+                    <field name="service_acceptance_count" widget="statinfo" string="Service Acceptance"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

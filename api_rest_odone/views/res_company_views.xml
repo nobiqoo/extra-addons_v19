@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_company_form_api_rest_odone" model="ir.ui.view">
+        <field name="name">res.company.form.api.rest.odone</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_info']" position="after">
+                <page string="Integración API REST" name="api_rest_integration">
+                    <group string="Configuración de Asientos">
+                        <field name="api_integration_journal_id"/>
+                    </group>
+                    <group string="Autenticación">
+                        <label for="api_rest_api_key"/>
+                        <div class="o_field_widget">
+                            <field name="api_rest_api_key"
+                                   widget="CopyClipboardChar"
+                                   placeholder="Haga clic en 'Generar' para crear una clave segura"/>
+                            <button name="action_generate_api_rest_key"
+                                    string="Generar nueva API Key"
+                                    type="object"
+                                    class="btn btn-sm btn-secondary mt4"
+                                    confirm="¿Desea generar una nueva API Key? La clave anterior quedará inválida y deberá actualizarla en todos los sistemas externos."/>
+                        </div>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        <strong>Uso:</strong> Envíe la API Key en el header HTTP
+                        <code>X-API-Key: &lt;clave&gt;</code> al llamar el endpoint
+                        <code>POST /api/v1/account/moves</code>.
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

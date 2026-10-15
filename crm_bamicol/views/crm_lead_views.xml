@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="crm_lead_view_form_architect" model="ir.ui.view">
+        <field name="name">crm.lead.form.architect</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='won_status']" position="after">
+                <field name="architect_required" invisible="True"/>
+            </xpath>
+
+            <xpath expr="//group[@invisible=&quot;type == 'opportunity'&quot;]//field[@name='user_id']" position="after">
+                <field name="architect_id" string="Arquitecto" placeholder="Seleccionar arquitecto..." options="{'no_create': True}" required="architect_required"/>
+            </xpath>
+
+            <xpath expr="//group[@invisible=&quot;type == 'lead'&quot;]//field[@name='user_id']" position="after">
+                <field name="architect_id" string="Arquitecto" placeholder="Seleccionar arquitecto..." options="{'no_create': True}" required="architect_required"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="crm_lead_view_list_architect" model="ir.ui.view">
+        <field name="name">crm.lead.list.architect</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//list//field[@name='user_id']" position="after">
+                <field name="architect_id" optional="show"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="crm_lead_view_list_leads_architect" model="ir.ui.view">
+        <field name="name">crm.lead.list.leads.architect</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_leads"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//list//field[@name='user_id']" position="after">
+                <field name="architect_id" optional="show"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+    <record id="crm_lead_view_search_architect" model="ir.ui.view">
+        <field name="name">crm.lead.search.architect</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="architect_id" string="Arquitecto" filter_domain="[('architect_id', 'child_of', self)]"/>
+            </xpath>
+
+            <xpath expr="//filter[@name='assigned_to_me']" position="after">
+                <filter string="Sin Arquitecto" name="no_architect" domain="[('architect_id', '=', False)]"/>
+                <filter string="Con Arquitecto" name="with_architect" domain="[('architect_id', '!=', False)]"/>
+            </xpath>
+
+            <xpath expr="//filter[@name='salesperson']" position="after">
+                <filter string="Arquitecto" name="group_by_architect" context="{'group_by': 'architect_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="crm_lead_view_search_leads_architect" model="ir.ui.view">
+        <field name="name">crm.lead.search.leads.architect</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="architect_id" string="Arquitecto" filter_domain="[('architect_id', 'child_of', self)]"/>
+            </xpath>
+
+            <xpath expr="//filter[@name='assigned_to_me']" position="after">
+                <filter string="Sin Arquitecto" name="no_architect_lead" domain="[('architect_id', '=', False)]"/>
+                <filter string="Con Arquitecto" name="with_architect_lead" domain="[('architect_id', '!=', False)]"/>
+            </xpath>
+
+            <xpath expr="//filter[@name='salesperson']" position="after">
+                <filter string="Arquitecto" name="group_by_architect_lead" context="{'group_by': 'architect_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="crm_lead_view_form_quick_create_architect" model="ir.ui.view">
+        <field name="name">crm.lead.form.quick_create.architect</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.quick_create_opportunity_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='team_id']" position="after">
+                <field name="architect_required" invisible="True"/>
+            </xpath>
+
+            <xpath expr="//div[field[@name='phone']]" position="after">
+                <div class="d-flex align-items-center" colspan="2">
+                    <i class="fa fa-pencil" title="Arquitecto"/>
+                    <field name="architect_id" string="Arquitecto" placeholder="Seleccionar arquitecto..." nolabel="1" class="o_field_highlight w-100 mb-0" options="{'no_create': True}" required="architect_required"/>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="crm_lead_view_kanban_architect" model="ir.ui.view">
+        <field name="name">crm.lead.kanban.architect</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='user_id'][@widget='many2one_avatar_user']" position="before">
+                <field name="architect_id" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//footer//field[@name='user_id']" position="before">
+                <field name="architect_id" widget="many2one_avatar" invisible="not architect_id" class="ms-2" readonly="1" options="{'no_create': 1, 'no_open': 1}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="crm_lead_view_kanban_leads_architect" model="ir.ui.view">
+        <field name="name">crm.lead.kanban.leads.architect</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_lead_kanban"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="architect_id" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//footer//field[@name='user_id']" position="before">
+                <field name="architect_id" widget="many2one_avatar" invisible="not architect_id" class="ms-2" readonly="1" options="{'no_create': 1, 'no_open': 1}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

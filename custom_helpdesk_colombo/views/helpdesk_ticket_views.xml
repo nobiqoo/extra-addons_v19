@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record id="helpdesk_ticket_view_form_colombo" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.form.colombo</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email_cc']" position="before">
+                    <field name="guardian_id"/>
+                    <field name="guardian_phone" widget="phone"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

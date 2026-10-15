@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="wk_attendance_tag_view_form" model="ir.ui.view">
+            <field name="name">wk.attendance.tag.form</field>
+            <field name="model">wk.attendance.tag</field>
+            <field name="arch" type="xml">
+                <form string="Attendance Tag">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="name" string="Name"/>
+                                <field name="name" placeholder="Tardy..."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Description">
+                                <field colspan="2" name="description" nolabel="1" placeholder="Description.."/>
+                            </group>
+                            <group>
+                                <field name="color" required="True" widget="color_picker"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_attendance_tag_view_list" model="ir.ui.view">
+            <field name="name">wk.attendance.tag.list</field>
+            <field name="model">wk.attendance.tag</field>
+            <field name="arch" type="xml">
+                <list string="Attendance Tags">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="color" widget="color_picker" />
+                </list>
+            </field>
+        </record>
+
+        <record id="wk_attendance_tag_action" model="ir.actions.act_window">
+            <field name="name">Attendance Tag</field>
+            <field name="res_model">wk.attendance.tag</field>
+            <field name="view_mode">list,form</field>
+            <field name="path">school-attendance-tag</field>
+        </record>
+
+        <record id="wk_student_class_attendance_view_form" model="ir.ui.view">
+            <field name="name">wk.student.class.attendance.form</field>
+            <field name="model">wk.student.class.attendance</field>
+            <field name="arch" type="xml">
+                <form string="Class Attendance">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="%(wk_school_management.get_attendance_action)d" type="action" 
+                                class="oe_stat_button">
+                                    <i class="o_button_icon fa fa-clock-o" title="Attendance"></i>
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_text">
+                                            Attendance
+                                        </span>
+                                    </div>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="student_id" string="Student"/><br></br>
+                                <field name="student_id" options="{'no_create': True}"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="class_id" options="{'no_create': True}"/>
+                                <field name="state"/>
+                                <field name="company_id" readonly="is_single_company" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="class_date"/>
+                                <field name="attendance_tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                                <field name="class_ids_domain" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_student_class_attendance_view_list" model="ir.ui.view">
+            <field name="name">wk.student.class.attendance.list</field>
+            <field name="model">wk.student.class.attendance</field>
+            <field name="arch" type="xml">
+                <list string="Class Attendance">
+                    <field name="student_id"/>
+                    <field name="class_date"/>
+                    <field name="class_id"/>
+                    <field name="attendance_tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                    <field name="create_date"/>
+                    <field name="state" widget="badge" decoration-danger="state=='absent'" decoration-success="state=='present'"/>
+                    <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                    <field name="company_id"
+                        groups="base.group_multi_company"
+                        optional="show"
+                        readonly="1"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="wk_student_class_attendance_view_search" model="ir.ui.view">
+           <field name="name">wk.student.class.attendance.view.search</field>
+           <field name="model">wk.student.class.attendance</field>
+           <field name="arch" type="xml">
+               <search>
+                    <field name="student_id" />
+                    <field name="class_date"/>
+                    <filter name="present" string="Present" domain="[('state','=','present')]"/>
+                    <filter name="absent" string="Absent" domain="[('state','=','absent')]"/>
+                    <separator/>
+                    <group>
+                        <filter name="group_by_student"  string="Student" domain="[]" context="{'group_by':'student_id'}" />
+                        <filter name="group_by_type"  string="Status" domain="[]" context="{'group_by':'state'}" />
+                        <filter name="group_by_today"  string="Today" domain="[('class_date','=',context_today())]" context="{}" />
+                        <filter name="group_by_class"  string="Class" domain="[]" context="{'group_by':'class_id'}" />
+                        <filter name="group_by_school"  string="School" domain="[]" context="{'group_by':'company_id'}" />
+                        <filter name="group_by_date"  string="Date" domain="[]" context="{'group_by':'class_date'}" />
+                    </group>
+               </search>
+           </field>
+        </record>
+
+        <record id="wk_student_class_attendance_calendar_view" model="ir.ui.view">
+            <field name="name">wk.student.class.attendance.calendar</field>
+            <field name="model">wk.student.class.attendance</field>
+            <field name="arch" type="xml">
+                <calendar string="Attendance" create="0" delete="0" quick_create="0" mode="month" 
+                  date_start="class_date"
+                    event_open_popup="true" color="state">
+                    <field name="student_id"/>
+                    <field name="class_id"/>
+                    <field name="state" color="kanban_color"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="wk_student_class_attendance_action" model="ir.actions.act_window">
+            <field name="name">Class Attendance</field>
+            <field name="res_model">wk.student.class.attendance</field>
+            <field name="view_mode">list,form,calendar</field>
+            <field name="path">student-class-attendance</field>
+        </record>
+
+    </data>
+</odoo>

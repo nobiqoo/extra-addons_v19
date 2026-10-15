@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="voucher_mass_mail_wizard_form" model="ir.ui.view">
+            <field name="name">voucher.mass.mail.wizard.form</field>
+            <field name="model">voucher.mass.mail.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <label for="date_from" string="Fecha"/>
+                            <div class="o_row">
+                                <div class="o_row">
+                                    <field name="date_from" required="True"/>
+                                </div> - 
+                                <field name="date_to" required="True"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="partner_ids" options="{'no_create': True, 'no_create_edit': True}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="voucher_ids">
+                            <list>
+
+                            </list>
+                        </field>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

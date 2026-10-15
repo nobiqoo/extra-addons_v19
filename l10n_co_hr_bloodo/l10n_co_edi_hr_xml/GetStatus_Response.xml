@@ -1,0 +1,35 @@
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope"
+    xmlns:a="http://www.w3.org/2005/08/addressing"
+    xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    <s:Header>
+        <a:Action s:mustUnderstand="1">http://wcf.dian.colombia/IWcfDianCustomerServices/GetStatusResponse</a:Action>
+        <o:Security s:mustUnderstand="1"
+            xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+            <u:Timestamp u:Id="_0">
+                <u:Created>2021-01-02T09:54:14.154Z</u:Created>
+                <u:Expires>2021-01-02T09:59:14.154Z</u:Expires>
+            </u:Timestamp>
+        </o:Security>
+    </s:Header>
+    <s:Body>
+        <GetStatusResponse xmlns="http://wcf.dian.colombia">
+            <GetStatusResult xmlns:b="http://schemas.datacontract.org/2004/07/DianResponse"
+                xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <b:ErrorMessage xmlns:c="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+                    <c:string>Regla: NIE901, Rechazo: Error al validar regla Nómina Individual Electrónica - NominaIndividual (raíz): Namespace prefix 'xmlns' has not been declared</c:string>
+                    <c:string>Regla: NIE140, Rechazo: Se debe colocar el Valor Pagado por Bonificación No Salarial</c:string>
+                    <c:string>Regla: ZB01, Rechazo: Fallo en el schema XML del archivo (Nomina Individual) - The complexType 'urn:un:unece:uncefact:data:specification:CoreComponentTypeSchemaModule:2:AmountType' has already been declared. -</c:string>
+                    <c:string>Regla: NIE060, Notificación: Se debe colocar el Nombre del Cargo que el Trabajador ocupa en la empresa. Manejo Interno</c:string>
+                </b:ErrorMessage>
+                <b:IsValid>false</b:IsValid>
+                <b:StatusCode>99</b:StatusCode>
+                <b:StatusDescription>Validación contiene errores en campos mandatorios.</b:StatusDescription>
+                <b:StatusMessage>Documento con errores en campos mandatorios.</b:StatusMessage>
+                <b:XmlBase64Bytes>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiIHN0YW5kYWxvbmU9Im5vIj8+……………. +DQogICAgPC9jYWM6TGluZVJlc3BvbnNlPg0KICA8L2NhYzpEb2N1bWVudFJlc3BvbnNlPg0KPC9BcHBsaWNhdGlvblJlc3BvbnNlPg==</b:XmlBase64Bytes>
+                <b:XmlBytes i:nil="true"/>
+                <b:XmlDocumentKey>660ebb7fdd77b6d67a00448e7afde2959992c53ad1bf14b9a394272c56ee8cc64b75dc08940625e39390a0af3d8d7cb9</b:XmlDocumentKey>
+                <b:XmlFileName>Nomina Individual Electronica-firmado-SHA256</b:XmlFileName>
+            </GetStatusResult>
+        </GetStatusResponse>
+    </s:Body>
+</s:Envelope>

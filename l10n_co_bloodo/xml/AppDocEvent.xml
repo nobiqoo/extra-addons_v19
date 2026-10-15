@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ApplicationResponse xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"
+                     xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                     xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                     xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+                     xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+                     xmlns:sts="dian:gov:co:facturaelectronica:Structures-2-1"
+                     xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"
+                     xmlns:xades141="http://uri.etsi.org/01903/v1.4.1#"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2 http://docs.oasis-open.org/ubl/os-UBL-2.1/xsd/maindoc/UBL-ApplicationResponse-2.1.xsd">
+	<ext:UBLExtensions>
+		<ext:UBLExtension>
+			<ext:ExtensionContent>
+				<sts:DianExtensions>
+					<sts:InvoiceSource>
+						<cbc:IdentificationCode listAgencyID="6"
+						                        listAgencyName="United Nations Economic Commission for Europe"
+						                        listSchemeURI="urn:oasis:names:specification:ubl:codelist:gc:CountryIdentificationCode-2.1">CO</cbc:IdentificationCode>
+					</sts:InvoiceSource>
+					<sts:SoftwareProvider>
+						<sts:ProviderID schemeID="{{ProviderIDschemeID}}"
+						                schemeName="{{ProviderIDschemeName}}"
+						                schemeAgencyID="195"
+						                schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">{{ProviderID}}</sts:ProviderID>
+						<sts:SoftwareID schemeAgencyID="195"
+						                schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">{{SoftwareID}}</sts:SoftwareID>
+					</sts:SoftwareProvider>
+					<sts:SoftwareSecurityCode schemeAgencyID="195"
+					                          schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">{{SoftwareSecurityCode}}</sts:SoftwareSecurityCode>
+					<sts:AuthorizationProvider>
+						<sts:AuthorizationProviderID schemeID="4"
+						                             schemeName="31"
+						                             schemeAgencyID="195"
+						                             schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)">800197268</sts:AuthorizationProviderID>
+					</sts:AuthorizationProvider>
+                    <!-- TODO: Url del doc referenciado sobre este evento -->
+                    <!-- https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey=f2a09fc9a83fbc7b2a14e4adc89ef5917c96f375a3d102ce4e2d20d5cf64e1ca6ff8a618e3c14bb43a783a1595e8fc09 -->
+					<sts:QRCode>{{QRCode}}</sts:QRCode>
+				</sts:DianExtensions>
+			</ext:ExtensionContent>
+		</ext:UBLExtension>
+        <ext:UBLExtension>
+			<ext:ExtensionContent/>
+		</ext:UBLExtension>
+	</ext:UBLExtensions>
+	<cbc:UBLVersionID>UBL 2.1</cbc:UBLVersionID>
+	<cbc:CustomizationID>1</cbc:CustomizationID>
+	<cbc:ProfileID>DIAN 2.1: ApplicationResponse de la Factura Electrónica de Venta</cbc:ProfileID>
+	<cbc:ProfileExecutionID>{{ProfileExecutionID}}</cbc:ProfileExecutionID>
+	<!-- TODO: Consecutivo própio del generador del evento -->
+    <cbc:ID>{{ID}}</cbc:ID>
+    <!-- CUDE del evento -->
+	<cbc:UUID schemeID="{{ProfileExecutionID}}"
+	          schemeName="CUDE-SHA384">{{UUID}}</cbc:UUID>
+	<cbc:IssueDate>{{IssueDate}}</cbc:IssueDate>
+	<cbc:IssueTime>{{IssueTime}}</cbc:IssueTime>
+    <!-- TODO Para aceptación tácita requiere una nota Pag: 301 -->
+	{% for Note in Notes -%}
+	<cbc:Note>{{Note}}</cbc:Note>
+	{% endfor -%}
+    <!-- TODO: Quien genera el evento -->
+	<cac:SenderParty>
+		<cac:PartyTaxScheme>
+			<cbc:RegistrationName>{{SenderParty.RegistrationName}}</cbc:RegistrationName>
+			<cbc:CompanyID schemeAgencyID="195"
+			               schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+			               schemeID="{% if SenderParty.schemeName == '31' %}{{SenderParty.schemeID}}{% else %}0{% endif %}"
+			               schemeName="{{SenderParty.schemeName}}"
+			               schemeVersionID="{{SenderParty.AdditionalAccountID}}">{{SenderParty.CompanyID}}</cbc:CompanyID>
+			<cac:TaxScheme>
+				<cbc:ID>{{SenderParty.TaxSchemeID}}</cbc:ID>
+				<cbc:Name>{{SenderParty.TaxSchemeName}}</cbc:Name>
+			</cac:TaxScheme>
+		</cac:PartyTaxScheme>
+	</cac:SenderParty>
+    <!-- TODO: Quien recibe el evento -->
+	<cac:ReceiverParty>
+		<cac:PartyTaxScheme>
+			<cbc:RegistrationName>{{ReceiverParty.RegistrationName}}</cbc:RegistrationName>
+			<cbc:CompanyID schemeAgencyID="195"
+			               schemeAgencyName="CO, DIAN (Dirección de Impuestos y Aduanas Nacionales)"
+			               schemeID="{% if ReceiverParty.schemeName == '31' %}{{ReceiverParty.schemeID}}{% else %}0{% endif %}"
+			               schemeName="{{ReceiverParty.schemeName}}"
+			               schemeVersionID="{{ReceiverParty.AdditionalAccountID}}">{{ReceiverParty.CompanyID}}</cbc:CompanyID>
+			<cac:TaxScheme>
+				<cbc:ID>{{ReceiverParty.TaxSchemeID}}</cbc:ID>
+				<cbc:Name>{{ReceiverParty.TaxSchemeName}}</cbc:Name>
+			</cac:TaxScheme>
+		</cac:PartyTaxScheme>
+	</cac:ReceiverParty>
+    <!-- Asta aquí va los elementos comunes -->
+	<cac:DocumentResponse>
+		<cac:Response>
+        <!-- 
+            02:     Documento validado por la DIAN (DIAN)
+            04:     Documento rechazado por la DIAN (DIAN)
+            030:    Acuse de recibo de Factura Electrónica de Venta (Adq)
+            031:    Reclamo de la Factura Electrónica de Venta (Adq)
+            032:    Recibo del bien o prestación del servicio: (Adq)
+            033:    Aceptación expresa (Adq)
+            034:    Aceptación Tácita (Emi)
+
+            Reclamo
+            01:     Documento con inconsistencias
+            02:     Mercancía no entregada totalmente
+            03:     Mercancía no entregada parcialmente
+            04:     Servicio no prestado
+         -->
+            {% if EventCode in ('030', '032', '033', '034') %}
+			<cbc:ResponseCode>{{EventCode}}</cbc:ResponseCode>
+            {% elif EventCode == '031' %}
+			<cbc:ResponseCode listID="{{EventListID}}" name="EventListName">{{EventCode}}</cbc:ResponseCode>
+            {% endif %}
+            <cbc:Description>{{EventName}}</cbc:Description>
+		</cac:Response>
+		<cac:DocumentReference>
+            <!-- Prefijo + Numero de la factura electronica -->
+			<cbc:ID>{{RefID}}</cbc:ID>
+			<cbc:UUID schemeName="{{RefUUID_Algoritm}}">{{RefUUID}}</cbc:UUID>
+			<cbc:DocumentTypeCode>{{RefDocTypeCode}}</cbc:DocumentTypeCode>
+		</cac:DocumentReference> 
+        {% if EventCode in ('030', '032') %}
+		<cac:IssuerParty>
+			<cac:Person>
+				<cbc:ID {% if Person.schemeName == '31' %}schemeID="{{Person.schemeID}}"{% endif %}
+				        schemeName="{{Person.schemeName}}">{{Person.ID}}</cbc:ID>
+				<cbc:FirstName>{{Person.FirstName}}</cbc:FirstName>
+				<cbc:FamilyName>{{Person.FamilyName}}</cbc:FamilyName>
+				<cbc:JobTitle>{{Person.JobTitle}}</cbc:JobTitle>
+				<cbc:OrganizationDepartment>{{Person.OrgDep}}</cbc:OrganizationDepartment>
+			</cac:Person>
+		</cac:IssuerParty>
+        {% endif %}
+	</cac:DocumentResponse>
+</ApplicationResponse>

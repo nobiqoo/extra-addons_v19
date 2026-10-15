@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- <record id="group_report_ar_in_sales" model="res.groups">
+            <field name="name">Reporte de cartera en ventas</field>
+            <field name="category_id" ref="base_data_baseline.category_1800_baseline"/>
+        </record> -->
+
+    </data>
+</odoo>

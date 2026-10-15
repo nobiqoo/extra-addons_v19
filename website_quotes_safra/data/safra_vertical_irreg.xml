@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- VERTICAL IRREGULAR (55) -->
+    <data noupdate="0">
+        <record id="system_55" model="safra.system"><field name="tech_width_min">0.3</field><field name="tech_width_max">4.5</field><field name="tech_height_min">0.9</field><field name="tech_height_max">7</field><field name="tech_mechanism"></field></record>
+        <record id="sf_55_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_55_cenefa_corte" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_55_cenefa_lateral" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_55_cenefa_lined" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_55_cenefa_tela" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_55_cenefa_type" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_55_mando_position" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_55_tela_al_reves" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_55_width" model="safra.system.field">
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_55_height" model="safra.system.field">
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_55_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_55_fabric_id" model="safra.system.field">
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_55_color_id" model="safra.system.field">
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_55_coordinado" model="safra.system.field">
+            <field name="sequence">150</field>
+        </record>
+        <record id="sf_55_mando_vertical" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_55"/>
+            <field name="field_id" ref="field_mando_vertical"/>
+            <field name="sequence">1000</field>
+        </record>
+        <record id="sf_55_extra_chain" model="safra.system.field">
+            <field name="sequence">1010</field>
+            <field name="label_override">Altura Cadena / Cordón</field>
+        </record>
+        <record id="sf_55_apertura" model="safra.system.field">
+            <field name="sequence">1020</field>
+            <field name="label_override">Tipo de Apertura</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{'value':'1','name':'Derecha','sequence':10}),(0,0,{'value':'2','name':'Izquierda','sequence':20}),(0,0,{'value':'3','name':'Extremos','sequence':30}),(0,0,{'value':'4','name':'Centro','sequence':40})]"/>
+        </record>
+        <record id="sf_55_escuadras" model="safra.system.field">
+            <field name="sequence">1030</field>
+        </record>
+        <record id="sf_55_print_m2" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_55"/>
+            <field name="field_id" ref="field_print_m2"/>
+            <field name="sequence">1040</field>
+        </record>
+        <record id="sf_55_location" model="safra.system.field">
+            <field name="sequence">1050</field>
+        </record>
+        <record id="sf_55_enclosed" model="safra.system.field">
+            <field name="sequence">1060</field>
+        </record>
+    </data>
+</odoo>

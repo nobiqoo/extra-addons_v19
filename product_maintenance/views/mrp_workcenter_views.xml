@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_workcenter_view_form_inherit_product_maintenance" model="ir.ui.view">
+        <field name="name">mrp.workcenter.form.inherit.product.maintenance</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <field name="use_product_maintenance_in_workcenters" invisible="1"/>
+            </xpath>
+            <xpath expr="//page[@name='equipment']" position="attributes">
+                <attribute name="invisible">use_product_maintenance_in_workcenters</attribute>
+            </xpath>
+            <xpath expr="//page[@name='equipment']" position="after">
+                <page string="Equipo" name="product_maintenance_equipment" invisible="not use_product_maintenance_in_workcenters">
+                    <field name="product_maintenance_ids"
+                           context="{'default_workcenter_id': id, 'default_company_id': company_id}">
+                        <list string="Productos de Mantenimiento" editable="bottom">
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="brand_id"/>
+                            <field name="model_id"/>
+                            <field name="mtbf"/>
+                            <field name="mttr"/>
+                            <field name="estimated_next_failure" string="Próximo fallo estimado"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

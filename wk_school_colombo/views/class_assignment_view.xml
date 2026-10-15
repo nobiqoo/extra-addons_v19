@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tarea 11292: la columna "Valor para calcular el promedio"
+         (point_obtained) es un dato intermedio del calculo de la nota y no
+         aporta al maestro en la lista de estudiantes de la actividad. Se
+         oculta la columna; el campo se sigue calculando y se usa en los
+         promedios por periodo y en los boletines.
+
+         Subtarea 8 (2.7, 2.8): para una Actividad de una estructura de
+         calificación avanzada, se ocultan los campos de conversión por
+         rangos de la Escala estándar y se agrega el acceso a la pantalla
+         de Class Performance por criterio, igual que en el asistente
+         "Evaluar" (ver wizard/evaluation_wizard_view.xml). -->
+    <record id="class_assignment_form_colombo" model="ir.ui.view">
+        <field name="name">wk.class.assignment.form.colombo</field>
+        <field name="model">wk.class.assignment</field>
+        <field name="inherit_id" ref="wk_school_management.class_assignment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='student_assignment_ids']/list/field[@name='point_obtained']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='student_assignment_ids']/list/field[@name='scale_line_id']" position="attributes">
+                <attribute name="column_invisible">parent.grading_scale_id</attribute>
+            </xpath>
+            <xpath expr="//field[@name='student_assignment_ids']/list/field[@name='percent_obtained']" position="attributes">
+                <attribute name="column_invisible">parent.grading_scale_id</attribute>
+            </xpath>
+            <xpath expr="//field[@name='student_assignment_ids']/list/field[@name='marks_obtained']" position="attributes">
+                <attribute name="string">Calificación</attribute>
+                <attribute name="readonly">is_class_performance or grades_locked_for_me</attribute>
+            </xpath>
+            <xpath expr="//field[@name='student_assignment_ids']/list/field[@name='marks_obtained']" position="before">
+                <field name="is_class_performance" column_invisible="1"/>
+                <field name="grades_locked_for_me" column_invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='student_assignment_ids']/list/field[@name='exempted']" position="before">
+                <button name="action_open_cp_form" type="object"
+                        string="Calificar Class Performance" icon="fa-list"
+                        invisible="not is_class_performance"/>
+            </xpath>
+            <xpath expr="//field[@name='scale_id']" position="after">
+                <field name="grading_scale_id" readonly="1"/>
+                <field name="component_id" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

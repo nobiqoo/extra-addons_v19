@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="product_unspsc_code_view_tree" model="ir.ui.view">
+            <field name="name">product_unspsc_code_tree</field>
+            <field name="model">product.unspsc.dian_code</field>
+            <field name="arch" type="xml">
+                <list editable="bottom">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="applies_to"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="product_unspsc_code_view_search" model="ir.ui.view">
+            <field name="name">product_unspsc_code_search</field>
+            <field name="model">product.unspsc.dian_code</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <field name="code" filter_domain="[('code','ilike',self)]"/>
+                    <group name="group_by">
+                        <filter name="group_by_applies_to" string="Applies to" context="{'group_by': 'applies_to'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_product_unspsc_code" model="ir.actions.act_window">
+            <field name="name">UNSPSC codes</field>
+            <field name="res_model">product.unspsc.dian_code</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{'search_default_filter_by_req_dian': 1}</field>
+        </record>
+
+    </data>
+</odoo>

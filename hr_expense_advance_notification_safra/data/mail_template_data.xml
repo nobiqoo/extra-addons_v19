@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_template_advance_approved_accounting" model="mail.template">
+            <field name="name">Anticipo Aprobado - Información Contable Requerida</field>
+            <field name="model_id" ref="hr_expense_baseline.model_hr_expense_advance"/>
+            <field name="email_from">{{ (object.company_id.email or user.email_formatted) }}</field>
+            <field name="subject">Anticipo Aprobado - Diligenciar Información Contable: {{ object.name }}</field>
+            <field name="body_html" type="html">
+                <div style="background:#F0F0F0;color:#515166;padding:10px 0px;font-family:Arial,Helvetica,sans-serif;font-size:14px;">
+                    <table style="width:600px;margin:5px auto;background:white;border:1px solid #e1e1e1;">
+                        <tbody>
+                            <tr>
+                                <td style="padding:20px 30px;">
+
+                                    <p style="font-size:18px;font-weight:bold;color:#875A7B;margin-bottom:16px;">
+                                        Anticipo a Empleado Aprobado
+                                    </p>
+
+                                    <hr style="background-color:#e1e1e1;border:none;height:1px;margin:16px 0;" />
+
+                                    <p>Estimado/a equipo contable,</p>
+
+                                    <p>
+                                        Se ha aprobado un anticipo a empleado en el sistema.
+                                    </p>
+                                    <p>
+                                        Por favor ingresar al registro correspondiente y diligenciar la siguiente
+                                        información para continuar con el proceso:
+                                    </p>
+
+                                    <ul style="margin:12px 0;padding-left:20px;">
+                                        <li style="margin-bottom:6px;">
+                                            <strong>Diario contable</strong>
+                                        </li>
+                                        <li style="margin-bottom:6px;">
+                                            <strong>Fecha de registro</strong>
+                                        </li>
+                                    </ul>
+
+                                    <hr style="background-color:#e1e1e1;border:none;height:1px;margin:16px 0;" />
+
+                                    <table style="width:100%;border-collapse:collapse;margin:12px 0;">
+                                        <tr>
+                                            <td style="padding:6px 0;color:#888;width:40%;">
+                                                <strong>Referencia:</strong>
+                                            </td>
+                                            <td style="padding:6px 0;">
+                                                <t t-out="object.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:6px 0;color:#888;">
+                                                <strong>Empleado:</strong>
+                                            </td>
+                                            <td style="padding:6px 0;">
+                                                <t t-out="object.employee_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:6px 0;color:#888;">
+                                                <strong>Monto:</strong>
+                                            </td>
+                                            <td style="padding:6px 0;">
+                                                <t t-out="format_amount(object.amount, object.currency_id)"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:6px 0;color:#888;">
+                                                <strong>Fecha de Solicitud:</strong>
+                                            </td>
+                                            <td style="padding:6px 0;">
+                                                <t t-out="format_date(object.request_date)"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:6px 0;color:#888;">
+                                                <strong>Fecha de Aprobación:</strong>
+                                            </td>
+                                            <td style="padding:6px 0;">
+                                                <t t-out="format_date(object.approval_date) if object.approval_date else ''"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <div style="text-align:center;margin:24px 0;">
+                                        <a t-attf-href="{{ object.get_base_url() }}/web#id={{ object.id }}&amp;model=hr.expense.advance&amp;view_type=form" style="padding:10px 20px;font-size:13px;color:#FFFFFF;text-decoration:none;font-weight:bold;background-color:#875A7B;border-radius:4px;display:inline-block;">
+                                            Ver Anticipo
+                                        </a>
+                                    </div>
+
+                                    <hr style="background-color:#e1e1e1;border:none;height:1px;margin:16px 0;" />
+
+                                    <p style="color:#888;font-size:12px;">
+                                        Este correo fue generado automáticamente por el sistema.<br/>
+                                    <t t-out="object.company_id.name"/>
+                                </p>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="text-align:center;font-size:12px;color:#888;">
+                        Powered by <a target="_blank" href="https://www.odoo.com" style="color:#9E588B;">Odoo</a>.
+                </p>
+            </div>
+        </field>
+    </record>
+</data>
+</odoo>

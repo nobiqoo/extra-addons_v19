@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ===================== FORMULARIO COTIZADOR ===================== -->
+
+    <template id="portal_quoter_errors" name="Cotizador Safra - Errores de validación">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="safra-quoter">
+                    <h2 class="safra-title">El pedido no se pudo guardar</h2>
+                    <div class="alert alert-danger">
+                        <p class="mb-2"><strong>Corrija los siguientes errores e intente de nuevo:</strong></p>
+                        <ul class="mb-0">
+                            <t t-foreach="errors" t-as="e">
+                                <li>Persiana <t t-esc="e['line']"/>: <t t-esc="e['message']"/></li>
+                            </t>
+                        </ul>
+                    </div>
+                    <a href="javascript:history.back()" class="btn btn-secondary">Volver al formulario</a>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_quoter_form" name="Cotizador Safra">
+        <t t-call="website.layout">
+            <div class="container py-5">
+              <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+              <div class="safra-quoter">
+                <h2 class="safra-title">Agregar Producto a Pedido</h2>
+                <div class="safra-distribuidor">
+                    <strong>Distribuidor aliado</strong>
+                    Recuerde que para el ingreso de sus pedidos cuenta con el acompañamiento técnico de su asesor, esto previo a la digitación de su pedido.
+                </div>
+
+                <!-- Datos serializados para el JS -->
+                <script type="application/json" id="safra-systems-data">
+                    <t t-out="systems_json"/>
+                </script>
+                <script type="application/json" id="safra-default-config">
+                    <t t-out="default_config_json"/>
+                </script>
+
+                <form id="safra-quoter-form" method="post" action="/cotizador/submit"
+                      enctype="multipart/form-data"
+                      t-att-data-default-system="default_system_id">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <div id="lines-container"></div>
+
+                    <div class="text-center mb-3">
+                        <button type="button" id="btn-add-line" class="btn-add-line">
+                            <i class="fa fa-plus"/> Agregar línea
+                        </button>
+                    </div>
+
+                    <!-- Revisión sprint 1 (f138): Safra Express aplica al
+                         pedido completo, no a cada persiana. -->
+                    <div class="safra-express-order">
+                        <label>
+                            <input type="checkbox" name="safra_express" value="1"/>
+                            ¿Solicita Safra Express? <span class="safra-help">Aplica para todo el pedido</span>
+                        </label>
+                    </div>
+
+                    <div class="safra-totals">
+                        <div class="trow"><span class="lbl">Subtotal:</span><span id="total-subtotal">$ 0</span></div>
+                        <div class="trow"><span class="lbl">Impuestos (IVA 19%):</span><span id="total-iva">$ 0</span></div>
+                        <div class="trow grand"><span class="lbl">Total:</span><span id="total-grand" data-price="0">$ 0</span></div>
+                    </div>
+
+                    <div class="safra-actions">
+                        <button type="button" id="btn-secuencia" class="btn-safra-light"><i class="fa fa-link"/> Configurar Secuencia</button>
+                        <button type="button" id="btn-summary" class="btn-safra-light"><i class="fa fa-list-alt"/> Ver resumen de pedido</button>
+                        <button type="submit" class="btn-safra"><i class="fa fa-paper-plane"/> Finalizar pedido</button>
+                        <a href="/" class="btn-safra-light">Cancelar</a>
+                    </div>
+                </form>
+              </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- ===================== LISTA DE MIS COTIZACIONES ===================== -->
+
+    <template id="portal_my_quotes" name="Mis Cotizaciones Safra">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Mis Cotizaciones</h2>
+                    <a href="/cotizador" class="btn btn-primary">
+                        <i class="fa fa-plus"/> Nueva cotización
+                    </a>
+                </div>
+                <t t-if="quotes">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Referencia</th>
+                                <th>Fecha</th>
+                                <th>Persianas</th>
+                                <th>Total estimado</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="quotes" t-as="q">
+                                <tr>
+                                    <td><t t-esc="q.name"/></td>
+                                    <td><t t-esc="q.date"/></td>
+                                    <td><t t-esc="len(q.line_ids)"/></td>
+                                    <td>$ <t t-esc="'{:,.0f}'.format(q.amount_total)"/></td>
+                                    <td>
+                                        <span t-attf-class="badge #{ 'bg-secondary' if q.state == 'draft' else 'bg-success' if q.state == 'confirmed' else 'bg-danger' }">
+                                            <t t-esc="dict(q._fields['state'].selection).get(q.state)"/>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a t-att-href="'/mis-cotizaciones/%d' % q.id" class="btn btn-sm btn-outline-primary">Ver</a>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+                <t t-else="">
+                    <div class="alert alert-info">
+                        No tienes cotizaciones aún. <a href="/cotizador">¡Crea tu primera cotización!</a>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <!-- ===================== DETALLE DE COTIZACIÓN ===================== -->
+
+    <template id="portal_quote_detail" name="Detalle Cotización Safra">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Cotización <t t-esc="quote.name"/></h2>
+                    <a href="/mis-cotizaciones" class="btn btn-outline-secondary">
+                        <i class="fa fa-arrow-left"/> Volver
+                    </a>
+                </div>
+
+                <!-- Reunión 09-oct (fila 2): resultado de confirmar desde el portal -->
+                <div t-if="confirmacion and confirmacion.get('ok')" class="alert alert-success">
+                    <i class="fa fa-check-circle"/> La cotización quedó <strong>confirmada</strong>.
+                </div>
+                <div t-if="confirmacion and not confirmacion.get('ok')" class="alert alert-danger">
+                    <strong>La cotización se anuló:</strong> al revisarla ya no cumple las condiciones para continuar.
+                    <ul class="mb-0 mt-1">
+                        <li t-foreach="confirmacion.get('errores') or []" t-as="err">
+                            Persiana <t t-esc="err['line']"/>: <t t-esc="err['message']"/>
+                        </li>
+                    </ul>
+                    <div class="mt-2 small">Puede crear una nueva cotización con los datos corregidos.</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <strong>Fecha:</strong> <t t-esc="quote.date"/>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Estado:</strong>
+                        <span t-attf-class="badge #{ 'bg-secondary' if quote.state == 'draft' else 'bg-warning text-dark' if quote.state == 'pending_design' else 'bg-info' if quote.state == 'design_approved' else 'bg-success' if quote.state == 'confirmed' else 'bg-danger' }">
+                            <t t-esc="dict(quote._fields['state'].selection).get(quote.state)"/>
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Total estimado:</strong> $ <t t-esc="'{:,.0f}'.format(quote.amount_total)"/>
+                        <span t-if="quote.safra_express" class="badge bg-warning text-dark ms-2">Safra Express</span>
+                    </div>
+                </div>
+
+                <table class="table table-bordered table-sm">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Referencia</th>
+                            <th>Color</th>
+                            <th>Ancho</th>
+                            <th>Alto</th>
+                            <th>Cant.</th>
+                            <th>Localización</th>
+                            <th>Precio unit.</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="quote.line_ids" t-as="line">
+                            <tr>
+                                <td><t t-esc="line_index + 1"/></td>
+                                <td><t t-esc="line.fabric_id.name"/></td>
+                                <td><t t-esc="line.color_id.name"/></td>
+                                <td><t t-esc="line.width"/> m</td>
+                                <td><t t-esc="line.height"/> m</td>
+                                <td><t t-esc="line.quantity"/></td>
+                                <td><t t-esc="line.location"/></td>
+                                <td>$ <t t-esc="'{:,.0f}'.format(line.price_unit)"/></td>
+                                <td>$ <t t-esc="'{:,.0f}'.format(line.price_total)"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-primary">
+                            <td colspan="8" class="text-end fw-bold">Total estimado:</td>
+                            <td class="fw-bold">$ <t t-esc="'{:,.0f}'.format(quote.amount_total)"/></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <!-- Puntos 10-11: diseños personalizados de la cotización -->
+                <t t-set="design_lines" t-value="quote.line_ids.filtered('custom_design')"/>
+                <t t-if="design_lines">
+                    <h4 class="mt-4">Diseños personalizados</h4>
+                    <div t-foreach="design_lines" t-as="dline" class="border rounded p-3 mb-2 d-flex gap-3 align-items-start">
+                        <img t-if="dline.design_image" t-att-src="image_data_uri(dline.design_image)"
+                             style="max-height:110px;max-width:160px;object-fit:contain" class="border rounded" alt="Diseño"/>
+                        <div>
+                            <div><strong><t t-esc="dline.system_id.name"/></strong>
+                                — <t t-esc="dline.fabric_id.name"/> <t t-esc="dline.color_id.name"/>
+                                (<t t-esc="dline.width"/> × <t t-esc="dline.height"/> m)</div>
+                            <div class="small">Diseño: <t t-esc="dline._design_display()"/></div>
+                            <div t-if="dline.design_filename" class="text-muted small">
+                                Archivo: <t t-esc="dline.design_filename"/></div>
+                            <div t-if="dline.design_comment" class="small">
+                                Comentario: <t t-esc="dline.design_comment"/></div>
+                            <div t-if="dline.design_analysis" class="small text-muted"
+                                 style="white-space:pre-line"><t t-esc="dline.design_analysis"/></div>
+                            <div t-if="dline.design_ticket_id" class="small mt-1">
+                                <span t-if="dline.design_approved" class="badge bg-success">
+                                    Diseño aprobado · <t t-esc="'%.2f' % dline.design_m2_cobro"/> m² para cobro</span>
+                                <span t-else="" class="badge bg-warning text-dark">
+                                    En revisión del área de diseño</span>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+
+                <div class="mt-4 d-flex flex-wrap gap-2 align-items-center">
+                    <form t-if="quote.state in confirmables" method="post"
+                          t-attf-action="/mis-cotizaciones/#{quote.id}/confirmar" class="m-0"
+                          onsubmit="return confirm('¿Confirmar el pedido? Antes de confirmarlo se revisa de nuevo y, si ya no cumple las condiciones (referencias, colores o existencias que cambiaron), la cotización se anula.');">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-check"/> Confirmar pedido
+                        </button>
+                    </form>
+                    <span t-if="quote.state == 'pending_design'" class="text-muted small">
+                        Podrá confirmar el pedido cuando el área de diseño apruebe los diseños.
+                    </span>
+                    <a href="/cotizador" class="btn btn-primary">Nueva cotización</a>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Entrada en el menú del portal (home) -->
+    <template id="portal_my_home_menu_safra" inherit_id="portal.portal_my_home" name="Cotizaciones Safra" customize_show="True" priority="30">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+            <t t-set="portal_client_category_enable" t-value="True"/>
+        </xpath>
+        <div id="portal_client_category" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/website_quotes_safra/static/src/img/blinds_icon.svg'"/>
+                <t t-set="title">Cotizaciones de Persianas</t>
+                <t t-set="text">Cotiza y consulta tus persianas enrollables</t>
+                <t t-set="url" t-value="'/mis-cotizaciones'"/>
+                <t t-set="config_card" t-value="True"/>
+            </t>
+        </div>
+    </template>
+
+</odoo>

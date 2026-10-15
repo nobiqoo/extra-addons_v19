@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Acción del Reporte PDF -->
+    <record id="action_report_storage_analysis" model="ir.actions.report">
+        <field name="name">Reporte de Almacenamiento</field>
+        <field name="model">storage.analysis</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">storage_analyzer.report_storage_analysis</field>
+        <field name="report_file">storage_analyzer.report_storage_analysis</field>
+        <field name="binding_model_id" ref="model_storage_analysis"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Plantilla de Envoltura General del Reporte -->
+    <template id="report_storage_analysis">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #333;">
+                        
+                        <!-- Cabecera de Reporte -->
+                        <div class="row border-bottom pb-3 mb-4">
+                            <div class="col-8">
+                                <h2 style="color: #01666b; font-weight: bold;">Reporte de Almacenamiento</h2>
+                                <h4 style="color: #666;"><t t-out="o.name"/></h4>
+                            </div>
+                            <div class="col-4 text-right">
+                                <div style="font-size: 14px;"><strong>Fecha de Análisis:</strong></div>
+                                <div style="font-size: 14px;"><t t-out="o.analysis_date" t-options='{"widget": "datetime"}'/></div>
+                                <div class="mt-2">
+                                    <span t-if="o.alert_level == 'normal'" class="badge bg-success" style="font-size: 13px; padding: 5px 10px;">Normal</span>
+                                    <span t-elif="o.alert_level == 'warning'" class="badge bg-warning" style="font-size: 13px; padding: 5px 10px; color: #000;">Advertencia</span>
+                                    <span t-elif="o.alert_level == 'critical'" class="badge bg-danger" style="font-size: 13px; padding: 5px 10px;">Crítico</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 1: Resumen Ejecutivo y KPIs -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 style="color: #01666b; border-bottom: 2px solid #01666b; padding-bottom: 5px; font-weight: bold;">1. Resumen de Almacenamiento</h4>
+                            </div>
+                        </div>
+                        <div class="row text-center mb-4">
+                            <div class="col-3">
+                                <div class="card border border-info shadow-sm" style="border-radius: 5px;">
+                                    <div class="card-header bg-info text-white py-2" style="font-size: 13px; font-weight: bold;">TAMAÑO TOTAL</div>
+                                    <div class="card-body py-3">
+                                        <h3 class="m-0" style="color: #17a2b8; font-weight: bold;"><t t-out="'%.2f' % o.total_size_gb"/> GB</h3>
+                                        <small class="text-muted"><t t-out="'%.1f' % o.total_size"/> MB</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="card border border-primary shadow-sm" style="border-radius: 5px;">
+                                    <div class="card-header bg-primary text-white py-2" style="font-size: 13px; font-weight: bold;">BASE DE DATOS</div>
+                                    <div class="card-body py-3">
+                                        <h3 class="m-0" style="color: #007bff; font-weight: bold;"><t t-out="'%.1f' % o.database_size"/> MB</h3>
+                                        <small class="text-muted"><t t-out="o.table_count"/> tablas analizadas</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="card border border-success shadow-sm" style="border-radius: 5px;">
+                                    <div class="card-header bg-success text-white py-2" style="font-size: 13px; font-weight: bold;">FILESTORE</div>
+                                    <div class="card-body py-3">
+                                        <h3 class="m-0" style="color: #28a745; font-weight: bold;"><t t-out="'%.1f' % o.filestore_size"/> MB</h3>
+                                        <small class="text-muted"><t t-out="o.total_attachments"/> adjuntos</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="card border border-warning shadow-sm" style="border-radius: 5px;">
+                                    <div class="card-header bg-warning py-2" style="font-size: 13px; font-weight: bold; color: #212529;">ADJUNTOS EN BD</div>
+                                    <div class="card-body py-3">
+                                        <h3 class="m-0" style="color: #ffc107; font-weight: bold;"><t t-out="'%.1f' % o.attachments_db_size"/> MB</h3>
+                                        <small class="text-muted">Porcentaje Uso: <t t-out="'%.1f' % o.usage_percentage"/>%</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notas o bitácora de análisis -->
+                        <div t-if="o.note" class="row mb-5">
+                            <div class="col-12">
+                                <div class="p-3 bg-light border" style="border-radius: 5px;">
+                                    <strong>Notas de Análisis:</strong>
+                                    <p class="m-0 text-muted"><t t-out="o.note"/></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 2: Desglose de Adjuntos por Modelo y Tipo (SNAPSHOTS) -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 style="color: #01666b; border-bottom: 2px solid #01666b; padding-bottom: 5px; font-weight: bold;">2. Consumo de Adjuntos por Modelo y Tipo de Archivo</h4>
+                            </div>
+                        </div>
+                        <table class="table table-sm table-striped border mb-5" style="font-size: 12px;">
+                            <thead class="bg-light" style="color: #01666b; border-bottom: 2px solid #01666b;">
+                                <tr>
+                                    <th class="py-2"><strong>Modelo Técnico</strong></th>
+                                    <th class="py-2"><strong>Descripción del Modelo</strong></th>
+                                    <th class="py-2"><strong>Tipo de Archivo</strong></th>
+                                    <th class="py-2 text-right"><strong>Cantidad</strong></th>
+                                    <th class="py-2 text-right"><strong>Tamaño Acumulado (MB)</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.model_filetype_line_ids[:10]" t-as="l">
+                                    <tr style="border-bottom: 1px solid #eee;">
+                                        <td class="py-1"><t t-out="l.res_model"/></td>
+                                        <td class="py-1"><t t-out="l.model_description"/></td>
+                                        <td class="py-1"><span class="badge bg-secondary" style="font-size: 10px;"><t t-out="l.file_type"/></span></td>
+                                        <td class="py-1 text-right"><t t-out="l.attachment_count"/></td>
+                                        <td class="py-1 text-right font-weight-bold" style="color: #333;"><t t-out="'%.2f' % l.total_size"/> MB</td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <p style="page-break-before: always;"></p>
+
+                        <!-- Sección 3: Top 10 Tablas de Base de Datos -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 style="color: #01666b; border-bottom: 2px solid #01666b; padding-bottom: 5px; font-weight: bold;">3. Top 10 Tablas PostgreSQL por Consumo de Datos</h4>
+                            </div>
+                        </div>
+                        <table class="table table-sm table-striped border mb-5" style="font-size: 11px;">
+                            <thead class="bg-light" style="color: #01666b; border-bottom: 2px solid #01666b;">
+                                <tr>
+                                    <th class="py-2"><strong>Nombre de Tabla</strong></th>
+                                    <th class="py-2"><strong>Modelo Técnico</strong></th>
+                                    <th class="py-2"><strong>Descripción de Odoo</strong></th>
+                                    <th class="py-2 text-right"><strong>Registros</strong></th>
+                                    <th class="py-2 text-right"><strong>Datos (MB)</strong></th>
+                                    <th class="py-2 text-right"><strong>Índices (MB)</strong></th>
+                                    <th class="py-2 text-right"><strong>Total (MB)</strong></th>
+                                    <th class="py-2 text-right"><strong>% del Total</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Listar solo las 10 tablas más grandes para el reporte PDF (Ajustado a Top 10) -->
+                                <t t-foreach="o.table_line_ids[:10]" t-as="t">
+                                    <tr style="border-bottom: 1px solid #eee;">
+                                        <td class="py-1"><strong><t t-out="t.table_name"/></strong></td>
+                                        <td class="py-1"><t t-out="t.model_name"/></td>
+                                        <td class="py-1 text-muted"><t t-out="t.model_description"/></td>
+                                        <td class="py-1 text-right"><t t-out="t.row_count_formatted"/></td>
+                                        <td class="py-1 text-right"><t t-out="'%.2f' % t.table_size"/></td>
+                                        <td class="py-1 text-right"><t t-out="'%.2f' % t.index_size"/></td>
+                                        <td class="py-1 text-right font-weight-bold" style="color: #01666b;"><t t-out="'%.2f' % t.total_size"/> MB</td>
+                                        <td class="py-1 text-right"><t t-out="'%.2f' % (t.size_percentage * 100)"/>%</td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <!-- Sección 4: Gráfico y Tabla de Tendencia de Almacenamiento -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4 style="color: #01666b; border-bottom: 2px solid #01666b; padding-bottom: 5px; font-weight: bold;">4. Historial de Crecimiento de Almacenamiento</h4>
+                            </div>
+                        </div>
+                        
+                        <!-- Barra de Gráfico Visual usando CSS Inline (Compatible con wkhtmltopdf) -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="border p-3" style="background-color: #fafafa; border-radius: 5px;">
+                                    <strong style="font-size: 13px; color: #555; display: block; margin-bottom: 15px;">Evolución del Tamaño Total (MB) y Proporción Visual:</strong>
+                                    <!-- Obtener tendencias ordenadas para graficar -->
+                                    <t t-set="trends" t-value="o.env['storage.analysis.trend'].search([], order='analysis_date asc', limit=7)"/>
+                                    <t t-set="max_size" t-value="max(trends.mapped('total_size')) or 1.0"/>
+                                    <t t-foreach="trends" t-as="tr">
+                                        <div class="row align-items-center mb-2" style="font-size: 12px;">
+                                            <div class="col-2">
+                                                <strong><t t-out="tr.analysis_date" t-options='{"widget": "date"}'/></strong>
+                                            </div>
+                                            <div class="col-8">
+                                                <div style="background-color: #e9ecef; border-radius: 3px; height: 16px; overflow: hidden; width: 100%;">
+                                                    <div class="bg-info" t-attf-style="width: #{(tr.total_size / max_size) * 100}%; height: 100%; border-radius: 3px; transition: width 0.6s ease;"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-2 text-right">
+                                                <strong><t t-out="'%.1f' % tr.total_size"/> MB</strong>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tabla Detallada del Historial -->
+                        <table class="table table-sm table-striped border" style="font-size: 11px;">
+                            <thead class="bg-light" style="color: #01666b; border-bottom: 2px solid #01666b;">
+                                <tr>
+                                    <th class="py-2"><strong>Fecha de Registro</strong></th>
+                                    <th class="py-2 text-right"><strong>PostgreSQL (MB)</strong></th>
+                                    <th class="py-2 text-right"><strong>Filestore (MB)</strong></th>
+                                    <th class="py-2 text-right"><strong>Total (MB)</strong></th>
+                                    <th class="py-2 text-right"><strong>Tasa Crecimiento Diario</strong></th>
+                                    <th class="py-2 text-right"><strong>Fecha Proyectada Llenado</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="trends" t-as="tr">
+                                    <tr style="border-bottom: 1px solid #eee;">
+                                        <td class="py-1"><strong><t t-out="tr.analysis_date" t-options='{"widget": "date"}'/></strong></td>
+                                        <td class="py-1 text-right"><t t-out="'%.1f' % tr.database_size"/></td>
+                                        <td class="py-1 text-right"><t t-out="'%.1f' % tr.filestore_size"/></td>
+                                        <td class="py-1 text-right font-weight-bold" style="color: #01666b;"><t t-out="'%.1f' % tr.total_size"/> MB</td>
+                                        <td class="py-1 text-right" style="color: #28a745;"><t t-out="'+%.2f' % tr.daily_growth_rate if tr.daily_growth_rate &gt; 0 else '%.2f' % tr.daily_growth_rate"/> MB</td>
+                                        <td class="py-1 text-right text-muted"><t t-out="tr.projected_full_date or 'No proyectado'"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        
+                        <div class="row mt-4">
+                            <div class="col-12 text-muted text-center" style="font-size: 10px;">
+                                Reporte de Almacenamiento generado automáticamente para Odoo SH. OdOne S.A.S.
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

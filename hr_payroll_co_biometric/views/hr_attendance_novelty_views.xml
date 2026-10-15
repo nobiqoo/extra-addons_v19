@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ─── Vista lista ──────────────────────────────────────────────────── -->
+    <record id="view_hr_attendance_novelty_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.novelty.list</field>
+        <field name="model">hr.attendance.novelty</field>
+        <field name="arch" type="xml">
+            <list string="Novedades de Asistencia"
+                  decoration-success="state == 'applied'"
+                  decoration-warning="state in ('review','approved')"
+                  decoration-danger="state == 'rejected'"
+                  decoration-muted="state == 'draft'">
+                <field name="name"/>
+                <field name="work_date"/>
+                <field name="employee_id"/>
+                <field name="department_id" optional="show"/>
+                <field name="novelty_type"/>
+                <field name="description"/>
+                <field name="minutes" optional="show"/>
+                <field name="extra_hours" optional="show"/>
+                <field name="extra_day_qty" optional="show"/>
+                <field name="extra_night_qty" optional="show"/>
+                <field name="overtime_id" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'applied'"
+                       decoration-warning="state in ('review','approved')"
+                       decoration-danger="state == 'rejected'"/>
+                <button name="action_to_review" string="Revisar" type="object"
+                        icon="fa-eye" invisible="state != 'draft'"/>
+                <button name="action_approve" string="Aprobar" type="object"
+                        icon="fa-check" class="text-success"
+                        groups="hr_payroll_co_biometric.group_biometric_hr"
+                        invisible="state not in ('draft','review')"/>
+                <button name="action_apply" string="Aplicar" type="object"
+                        icon="fa-send"
+                        groups="hr_payroll_co_biometric.group_biometric_hr"
+                        invisible="state != 'approved'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Acción disponible en Acciones al seleccionar varias novedades -->
+    <record id="action_apply_attendance_novelties_mass" model="ir.actions.server">
+        <field name="name">Aplicar novedades seleccionadas</field>
+        <field name="model_id" ref="model_hr_attendance_novelty"/>
+        <field name="binding_model_id" ref="model_hr_attendance_novelty"/>
+        <field name="binding_view_types">list</field>
+        <field name="group_ids" eval="[(4, ref('hr_payroll_co_biometric.group_biometric_hr'))]"/>
+        <field name="state">code</field>
+        <field name="code">action = records.action_apply_mass()</field>
+    </record>
+
+    <!-- ─── Vista formulario ─────────────────────────────────────────────── -->
+    <record id="view_hr_attendance_novelty_form" model="ir.ui.view">
+        <field name="name">hr.attendance.novelty.form</field>
+        <field name="model">hr.attendance.novelty</field>
+        <field name="arch" type="xml">
+            <form string="Novedad de Asistencia">
+                <header>
+                    <button name="action_to_review" string="Enviar a Revisión"
+                            type="object" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_approve" string="Aprobar"
+                            type="object" class="oe_highlight"
+                            groups="hr_payroll_co_biometric.group_biometric_hr"
+                            invisible="state not in ('draft','review')"/>
+                    <button name="action_reject" string="Rechazar"
+                            type="object" class="btn-danger"
+                            groups="hr_payroll_co_biometric.group_biometric_hr"
+                            invisible="state not in ('draft','review')"/>
+                    <button name="action_apply" string="Aplicar"
+                            type="object" class="oe_highlight"
+                            groups="hr_payroll_co_biometric.group_biometric_hr"
+                            invisible="state != 'approved'"
+                            confirm="¿Confirma la aplicación de esta novedad? Si es hora extra, se creará el registro en nómina."/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,review,approved,applied"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Información">
+                            <field name="employee_id"
+                                   readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"/>
+                            <field name="work_date"
+                                   readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"/>
+                            <field name="novelty_type"
+                                   readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"/>
+                            <field name="attendance_record_id"
+                                   readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"/>
+                        </group>
+                        <group string="Valores">
+                            <field name="minutes"
+                                   readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"/>
+                            <field name="extra_hours"
+                                readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"
+                                invisible="novelty_type not in ['extra_hours', 'night_surcharge', 'compensatory']"/>
+                            <field name="extra_day_qty"
+                                readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"
+                                invisible="novelty_type != 'extra_day_hours'"/>
+                            <field name="extra_night_qty"
+                                readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"
+                                invisible="novelty_type != 'extra_night_hours'"/>
+                            <field name="overtime_id" readonly="1"
+                                invisible="novelty_type not in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"/>
+                            <field name="compensatory_date"
+                                   readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"
+                                   invisible="novelty_type != 'compensatory'"/>
+                        </group>
+                    </group>
+                    <group string="Descripción">
+                        <field name="description" nolabel="1" colspan="2"
+                               readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"/>
+                    </group>
+                    <group invisible="state != 'rejected'" string="Motivo de Rechazo">
+                        <field name="rejection_reason" nolabel="1" colspan="2"/>
+                    </group>
+                    <group string="Aprobación" invisible="state not in ('approved','applied')">
+                        <field name="approved_by" readonly="1"/>
+                        <field name="approved_date" readonly="1"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ─── Vista pivote dinámica por categoría de hora extra ──────────── -->
+    <record id="view_hr_attendance_novelty_overtime_pivot" model="ir.ui.view">
+        <field name="name">hr.attendance.novelty.overtime.pivot</field>
+        <field name="model">hr.attendance.novelty</field>
+        <field name="arch" type="xml">
+            <pivot string="Horas Extras por Categoría" sample="1">
+                <field name="employee_id" type="row"/>
+                <field name="work_date" type="row" interval="day"/>
+                <field name="shift_id" type="row"/>
+                <field name="overtime_type_id" type="col"/>
+                <field name="extra_hours" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- ─── Búsqueda ──────────────────────────────────────────────────────── -->
+    <record id="view_hr_attendance_novelty_search" model="ir.ui.view">
+        <field name="name">hr.attendance.novelty.search</field>
+        <field name="model">hr.attendance.novelty</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Novedades">
+                <field name="employee_id"/>
+                <field name="work_date" string="Fecha"/>
+                <filter string="Tardanzas" name="delay" domain="[('novelty_type','=','delay')]"/>
+                <filter string="Ausencias" name="absence"
+                        domain="[('novelty_type','in',['absence','partial_absence'])]"/>
+                <filter string="Horas Extras" name="extra"
+                    domain="[('novelty_type','in',['extra_hours','extra_day_hours','extra_night_hours','night_surcharge'])]"/>
+                <filter string="Compensatorios" name="comp"
+                        domain="[('novelty_type','=','compensatory')]"/>
+                <filter string="Inconsistencias Biométricas" name="bio_issue"
+                        domain="[('novelty_type','=','biometric_issue')]"/>
+                <separator/>
+                <filter string="Pendientes de Revisión" name="pending"
+                        domain="[('state','in',['draft','review'])]"/>
+                <filter string="Aprobadas" name="approved"
+                        domain="[('state','=','approved')]"/>
+                <filter string="Aplicadas" name="applied"
+                        domain="[('state','=','applied')]"/>
+                <group>
+                    <filter string="Empleado" name="group_employee"
+                            context="{'group_by': 'employee_id'}"/>
+                    <filter string="Tipo" name="group_type"
+                            context="{'group_by': 'novelty_type'}"/>
+                    <filter string="Estado" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Mes" name="group_month"
+                            context="{'group_by': 'work_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ─── Acción ──────────────────────────────────────────────────────── -->
+    <record id="action_hr_attendance_novelty" model="ir.actions.act_window">
+        <field name="name">Novedades de Asistencia</field>
+        <field name="res_model">hr.attendance.novelty</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_hr_attendance_novelty_search"/>
+        <field name="context">{'search_default_pending': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay novedades pendientes
+            </p>
+        </field>
+    </record>
+
+    <record id="action_hr_attendance_novelty_overtime_pivot" model="ir.actions.act_window">
+        <field name="name">Horas Extras por Categoría</field>
+        <field name="res_model">hr.attendance.novelty</field>
+        <field name="view_mode">pivot,list</field>
+        <field name="view_id" ref="view_hr_attendance_novelty_overtime_pivot"/>
+        <field name="domain">[
+            ('overtime_type_id', '!=', False),
+            ('novelty_type', 'in', [
+                'extra_hours', 'extra_day_hours', 'extra_night_hours',
+                'night_surcharge', 'compensatory'
+            ])
+        ]</field>
+        <field name="search_view_id" ref="view_hr_attendance_novelty_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay horas extras categorizadas para analizar
+            </p>
+        </field>
+    </record>
+
+    <!-- Acción solo novedades pendientes para pendiente de aprobación -->
+    <record id="action_hr_attendance_novelty_pending" model="ir.actions.act_window">
+        <field name="name">Novedades Pendientes</field>
+        <field name="res_model">hr.attendance.novelty</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('state', 'in', ['draft', 'review'])]</field>
+        <field name="search_view_id" ref="view_hr_attendance_novelty_search"/>
+    </record>
+
+</odoo>

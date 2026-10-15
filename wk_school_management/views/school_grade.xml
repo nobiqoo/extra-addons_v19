@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+
+    <data>
+        <record id="wk_school_grade_form" model="ir.ui.view">
+            <field name="name">wk.school.grade.form</field>
+            <field name="model">wk.school.grade</field>
+            <field name="arch" type="xml">
+                <form string="Grade Details">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="get_grade_teachers" icon="fa-users" type="object" 
+                                class="oe_stat_button">
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_value">
+                                            <field name="teacher_count"/>
+                                        </span>
+                                        <span class="o_stat_text">
+                                            Teachers
+                                        </span>
+                                    </div>
+                            </button>
+                        </div>
+
+                        <div class="oe_title">
+                            <h1>
+                                <label for="name" string="Grade"/>
+                                <field name="name" placeholder="Ex. 10th"/>
+                            </h1>
+                        </div>
+                        <group name="grade_details1">
+                            <group>
+                                <field name="scale_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" />             
+                            </group>
+                            <group>
+                                <field name="company_id" readonly="is_single_company" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" groups="base.group_multi_company"/>             
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="subjects" string="Subjects">
+                                <field name="subject_ids">
+                                    <list editable='bottom'>
+                                        <field name="name"/>
+                                        <field name="subject_code"/>
+                                        <field name="credit_value"/>
+                                        <field name="teacher_ids" widget="many2many_tags" readonly="1"/>
+                                        <field name="optional_choice" widget="checkbox"/>
+                                        <field name="scale_id" required="1" readonly="optional_choice == False" force_save="1" context="{'default_scale_id': scale_id}" domain="[('gpa_calculation', '=', False)]" options="{'no_create': True, 'no_edit': True}"/>
+                                    </list>
+                                </field>
+                            </page>  
+                            <page name="sections" string="Sections">
+                                <field name="section_ids">
+                                    <list editable='bottom'>
+                                        <field name="name"/>
+                                        <field name="company_id" readonly="is_single_company" groups="base.group_multi_company"/>
+                                        <field name="create_date"/>
+                                    </list>
+                                </field>
+                            </page>     
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_school_grade_tree" model="ir.ui.view">
+            <field name="name">wk.school.grade.list</field>
+            <field name="model">wk.school.grade</field>
+            <field name="arch" type="xml">
+                <list string="Grades">
+                    <field name="name"/>
+                    <field name="section_ids"/>
+                    <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                    <field name="company_id"
+                        groups="base.group_multi_company"
+                        readonly="1"/>
+                    <field name="create_date"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="wk_school_grade_search" model="ir.ui.view">
+           <field name="name">wk.school.grade.search</field>
+           <field name="model">wk.school.grade</field>
+           <field name="arch" type="xml">
+               <search string="Grade">
+                    <field name="name" filter_domain="['|', ('name', 'ilike', self), ('scale_id', 'ilike', self)]"/>
+                    <field name="company_id"/>
+                    <group>
+                        <filter name="group_school" string="School" domain="[]" context="{'group_by':'company_id'}"/>
+                        <filter name="group_scale_id" string="Scale" domain="[]" context="{'group_by':'scale_id'}"/>
+                    </group>
+               </search>
+           </field>
+        </record>
+        
+        <record id="wk_school_grade_action" model="ir.actions.act_window">
+            <field name="name">Grades</field>
+            <field name="res_model">wk.school.grade</field>
+            <field name="path">school-grades</field>
+            <field name="view_mode">form,list</field>
+            <field name="view_id" ref="wk_school_grade_tree"/>
+        </record>
+    </data>    
+</odoo>    

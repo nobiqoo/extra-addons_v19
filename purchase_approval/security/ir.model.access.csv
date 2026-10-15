@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_approval_setting_admin,access.purchase.approval.setting.admin,model_purchase_approval_setting,purchase.group_purchase_manager,1,1,1,1
+access_purchase_approval_line_admin,access.purchase.approval.line.admin,model_purchase_approval_line,purchase.group_purchase_manager,1,1,1,1
+access_purchase_order_approval,access.purchase.order.approval,model_purchase_order_approval,base.group_user,1,1,1,1
+access_purchase_approval_budget_line_wizard,access.purchase.approval.budget.line.wizard,model_purchase_approval_budget_line_wizard,base.group_user,1,1,1,1
+access_purchase_approval_budget_wizard,access.purchase.approval.budget.wizard,model_purchase_approval_budget_wizard,base.group_user,1,1,1,1
+access_purchase_appoval_reason_budget_wizard,access.purchase.appoval.reason.budget.wizard,model_purchase_appoval_reason_budget_wizard,base.group_user,1,1,1,1

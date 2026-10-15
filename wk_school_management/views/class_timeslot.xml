@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+
+    <data>
+        <record id="class_timeslot_form" model="ir.ui.view">
+            <field name="name">wk.class.timeslot.form</field>
+            <field name="model">wk.class.timeslot</field>
+            <field name="arch" type="xml">
+                <form string="Timeslots">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <br/>
+                        <group>
+                            <group>
+                                <field name="start_time" widget='float_time'/>             
+                            </group>
+                            <group>         
+                                <field name="end_time" widget='float_time'/>       
+                            </group>
+                        </group>
+                        <span><i class="fa fa-exclamation-triangle" title="Date"/> <strong> Enter the time in 24h time format.</strong></span>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="class_timeslot_tree" model="ir.ui.view">
+            <field name="name">wk.class.timeslot.list</field>
+            <field name="model">wk.class.timeslot</field>
+            <field name="arch" type="xml">
+                <list string="Timeslots">
+                   <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="start_time" widget='float_time' optional='hide'/> 
+                    <field name="end_time" widget='float_time' optional='hide'/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                </list>
+            </field>
+        </record>
+        
+        <record id="class_timeslot_action" model="ir.actions.act_window">
+            <field name="name">Timeslots</field>
+            <field name="res_model">wk.class.timeslot</field>
+            <field name="view_mode">form,list</field>
+            <field name="view_id" ref="class_timeslot_tree"/>
+            <field name="path">school-class-timeslot</field>
+        </record>
+    </data>    
+</odoo>    

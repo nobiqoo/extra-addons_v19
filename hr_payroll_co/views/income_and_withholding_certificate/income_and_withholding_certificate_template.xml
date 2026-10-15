@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="income_and_withholding_certificate_template_form" model="ir.ui.view">
+            <field name="name">income.and.withholding.certificate.template.form</field>
+            <field name="model">income.and.withholding.certificate.template</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="General">
+                            <group>
+                                <field name="template_date" />
+                            </group>
+                            <group>
+                                <field name="company_id" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="coordinates_page" string="Coordenadas">
+                                <group string="Encabezado">
+                                    <group>
+                                        <field name="year_top" />
+                                        <field name="year_left" />
+                                    </group>
+                                    <group>
+                                        <field name="form_number_top" />
+                                        <field name="form_number_left" />
+                                    </group>
+                                </group>
+                                <group string="Retenedor">
+                                    <group>
+                                        <field name="nit_top" />
+                                        <field name="nit_left" />
+                                    </group>
+                                    <group>
+                                        <field name="verification_code_top" />
+                                        <field name="verification_code_left" />
+                                    </group>
+                                    <group>
+                                        <field name="retainer_first_last_name_top" />
+                                        <field name="retainer_first_last_name_left" />
+                                    </group>
+                                    <group>
+                                        <field name="retainer_second_last_name_top" />
+                                        <field name="retainer_second_last_name_left" />
+                                    </group>
+                                    <group>
+                                        <field name="retainer_first_name_top" />
+                                        <field name="retainer_first_name_left" />
+                                    </group>
+                                    <group>
+                                        <field name="retainer_second_name_top" />
+                                        <field name="retainer_second_name_left" />
+                                    </group>
+                                    <group>
+                                        <field name="social_reason_top" />
+                                        <field name="social_reason_left" />
+                                    </group>
+                                </group>
+                                <group string="Empleado">
+                                    <group>
+                                        <field name="employee_document_type_top" />
+                                        <field name="employee_document_type_left" />
+                                    </group>
+                                    <group>
+                                        <field name="employee_vat_top" />
+                                        <field name="employee_vat_left" />
+                                    </group>
+                                    <group>
+                                        <field name="employee_first_last_name_top" />
+                                        <field name="employee_first_last_name_left" />
+                                    </group>
+                                    <group>
+                                        <field name="employee_second_last_name_top" />
+                                        <field name="employee_second_last_name_left" />
+                                    </group>
+                                    <group>
+                                        <field name="employee_first_name_top" />
+                                        <field name="employee_first_name_left" />
+                                    </group>
+                                    <group>
+                                        <field name="employee_second_name_top" />
+                                        <field name="employee_second_name_left" />
+                                    </group>
+                                </group>
+                                <group string="Lugar y fechas">
+                                    <group>
+                                        <field name="date_from_year_top" />
+                                        <field name="date_from_year_left" />
+                                    </group>
+                                    <group>
+                                        <field name="date_from_month_top" />
+                                        <field name="date_from_month_left" />
+                                    </group>
+                                    <group>
+                                        <field name="date_from_day_top" />
+                                        <field name="date_from_day_left" />
+                                    </group>
+                                    <group>
+                                        <field name="date_to_year_top" />
+                                        <field name="date_to_year_left" />
+                                    </group>
+                                    <group>
+                                        <field name="date_to_month_top" />
+                                        <field name="date_to_month_left" />
+                                    </group>
+                                    <group>
+                                        <field name="date_to_day_top" />
+                                        <field name="date_to_day_left" />
+                                    </group>
+                                    <group>
+                                        <field name="date_year_top" />
+                                        <field name="date_year_left" />
+                                    </group>
+                                    <group>
+                                        <field name="date_month_top" />
+                                        <field name="date_month_left" />
+                                    </group>
+                                    <group>
+                                        <field name="date_day_top" />
+                                        <field name="date_day_left" />
+                                    </group>
+                                    <group>
+                                        <field name="holding_place_top" />
+                                        <field name="holding_place_left" />
+                                    </group>
+                                    <group>
+                                        <field name="departament_code_top" />
+                                        <field name="departament_code_left" />
+                                    </group>
+                                    <group>
+                                        <field name="city_code_top" />
+                                        <field name="city_code_left" />
+                                    </group>
+                                </group>
+                                <group string="Conceptos de los ingresos">
+                                    <group>
+                                        <field name="salary_payments_top" />
+                                        <field name="salary_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="bonus_payments_top" />
+                                        <field name="bonus_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="food_payments_top" />
+                                        <field name="food_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="fee_payments_top" />
+                                        <field name="fee_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="service_payments_top" />
+                                        <field name="service_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="commission_payments_top" />
+                                        <field name="commission_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="social_benefit_payments_top" />
+                                        <field name="social_benefit_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="travel_payments_top" />
+                                        <field name="travel_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="proxy_payments_top" />
+                                        <field name="proxy_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="cooperative_work_payments_top" />
+                                        <field name="cooperative_work_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="other_payments_top" />
+                                        <field name="other_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="severance_payments_top" />
+                                        <field name="severance_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="severance_cst_payments_top" />
+                                        <field name="severance_cst_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="severance_fund_payments_top" />
+                                        <field name="severance_fund_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="pension_payments_top" />
+                                        <field name="pension_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="financial_support_payments_top" />
+                                        <field name="financial_support_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="total_payments_top" />
+                                        <field name="total_payments_left" />
+                                    </group>
+                                    <group>
+                                        <field name="health_contributions_top" />
+                                        <field name="health_contributions_left" />
+                                    </group>
+                                </group>
+                                <group string="Conceptos de los aportes">
+                                    <group>
+                                        <field name="pension_contributions_top" />
+                                        <field name="pension_contributions_left" />
+                                    </group>
+                                    <group>
+                                        <field name="voluntary_contributions_rais_top" />
+                                        <field name="voluntary_contributions_rais_left" />
+                                    </group>
+                                    <group>
+                                        <field name="afp_contribution_top" />
+                                        <field name="afp_contribution_left" />
+                                    </group>
+                                    <group>
+                                        <field name="afc_contributions_top" />
+                                        <field name="afc_contributions_left" />
+                                    </group>
+                                    <group>
+                                        <field name="avc_contributions_top" />
+                                        <field name="avc_contributions_left" />
+                                    </group>
+                                    <group>
+                                        <field name="average_salary_top" />
+                                        <field name="average_salary_left" />
+                                    </group>
+                                </group>
+                                <group string="Detalle de retención">
+                                    <group>
+                                        <field name="withholding_tax_top" />
+                                        <field name="withholding_tax_left" />
+                                    </group>
+                                    <group>
+                                        <field name="retainer_top" />
+                                        <field name="retainer_left" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="concepts_page" string="Conceptos">
+                                <group string="Ingresos">
+                                    <field name="salary_payments" widget="many2many_tags" />
+                                    <field name="bonus_payments" widget="many2many_tags" />
+                                    <field name="food_payments" widget="many2many_tags" />
+                                    <field name="fee_payments" widget="many2many_tags" />
+                                    <field name="service_payments" widget="many2many_tags" />
+                                    <field name="commission_payments" widget="many2many_tags" />
+                                    <field name="social_benefit_payments" widget="many2many_tags" />
+                                    <field name="travel_payments" widget="many2many_tags" />
+                                    <field name="proxy_payments" widget="many2many_tags" />
+                                    <field name="cooperative_work_payments" widget="many2many_tags" />
+                                    <field name="other_payments" widget="many2many_tags" />
+                                    <field name="severance_payments" widget="many2many_tags" />
+                                    <field name="severance_cst_payments" widget="many2many_tags" />
+                                    <field name="severance_fund_payments" widget="many2many_tags" />
+                                    <field name="pension_payments" widget="many2many_tags" />
+                                    <field name="financial_support_payments" widget="many2many_tags" />
+                                </group>
+                                <group string="Aportes">
+                                    <field name="health_contributions" widget="many2many_tags" />
+                                    <field name="pension_contributions" widget="many2many_tags" />
+                                    <field name="voluntary_contributions_rais"
+                                        widget="many2many_tags" />
+                                    <field name="afp_contribution" widget="many2many_tags" />
+                                    <field name="afc_contributions" widget="many2many_tags" />
+                                    <field name="avc_contributions" widget="many2many_tags" />
+                                    <field name="withholding_tax" widget="many2many_tags" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="income_and_withholding_certificate_template_tree" model="ir.ui.view">
+            <field name="name">income.and.withholding.certificate.template.tree</field>
+            <field name="model">income.and.withholding.certificate.template</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="template_date" />
+                    <field name="company_id" />
+                </list>
+            </field>
+        </record>
+
+        <record id="income_and_withholding_certificate_template_action"
+            model="ir.actions.act_window">
+            <field name="name">Plantillas de certificados de ingreso y retención</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">income.and.withholding.certificate.template</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem
+            id="income_and_withholding_certificate_template_menu_act"
+            name="Plantillas de certificados de ingreso y retención"
+            action="income_and_withholding_certificate_template_action"
+            parent="hr.menu_human_resources_configuration"
+            sequence="4" />
+    </data>
+</odoo>

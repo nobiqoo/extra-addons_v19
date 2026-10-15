@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="0">
+        <record id="menu_purchase_import_parent" model="ir.ui.menu">
+            <field name="name">Integrations</field>
+            <field name="parent_id" ref="purchase.menu_purchase_root" />
+            <field name="sequence" eval="3" />
+            <field name="group_ids" eval="[Command.link(ref('purchase_import.group_purchase_import'))]" />
+        </record>
+    </data>
+</odoo>

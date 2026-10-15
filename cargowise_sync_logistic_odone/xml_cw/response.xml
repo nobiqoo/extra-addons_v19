@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UniversalResponse version="1.1" xmlns="http://www.cargowise.com/Schemas/Universal/2011/11">
+	<Status>ERR</Status>
+	<Data />
+	<ProcessingLog>Comment found at Line 9 :-
+		Servidor de Pruebas/Entrenamiento -&gt; TRN
+		Servidor de Producción -&gt; PRD
+
+		Error - DataContext ServerId was specified, however it does not match the system ServerId.</ProcessingLog>
+</UniversalResponse>
+
+<?xml version="1.0" encoding="utf-8"?>
+<UniversalResponse version="1.1" xmlns="http://www.cargowise.com/Schemas/Universal/2011/11">
+	<Status>ERR</Status>
+	<Data />
+	<ProcessingLog>Error - DataContext ServerId was specified, however it does not match the system
+		ServerId.</ProcessingLog>
+</UniversalResponse>

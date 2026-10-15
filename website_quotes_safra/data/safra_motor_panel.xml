@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- MOTOR PANEL ENSAMBLADO (34) -->
+    <data noupdate="0">
+        <record id="system_34" model="safra.system"><field name="tech_width_min">0.7</field><field name="tech_width_max">8.8</field><field name="tech_height_min">0</field><field name="tech_height_max">7</field><field name="tech_mechanism"></field></record>
+        <record id="sf_34_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_34_has_motor" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_34_interruptor_rf" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_34_riel_dividido" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_34_width" model="safra.system.field">
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_34_height" model="safra.system.field">
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_34_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_34_fabric_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_34"/>
+            <field name="field_id" ref="field_fabric_id"/>
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_34_color_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_34"/>
+            <field name="field_id" ref="field_color_id"/>
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_34_motor" model="safra.system.field">
+            <field name="sequence">1000</field>
+            <field name="label_override">Tipo Motor</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;2&#x27;,&#x27;name&#x27;:&#x27;Motor Panel Lujo SA52EN/ 45-24&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;3&#x27;,&#x27;name&#x27;:&#x27;Motor PANEL DOMOTICA 4 CABLES&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;6&#x27;,&#x27;name&#x27;:&#x27;Motor Ultrasilencioso Cortina/Panel Wifi/Rf&#x27;,&#x27;sequence&#x27;:30})]"/>
+            <field name="clear_depends" eval="True"/>
+        </record>
+        <record id="sf_34_control" model="safra.system.field">
+            <field name="sequence">1010</field>
+            <field name="label_override">Control</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;0&#x27;,&#x27;name&#x27;:&#x27;Sin Control&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;1&#x27;,&#x27;name&#x27;:&#x27;Inalambrico Panel 2 Canales&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;5&#x27;,&#x27;name&#x27;:&#x27;Inalámbrico Panel 15 Canales&#x27;,&#x27;sequence&#x27;:30}),(0,0,{&#x27;value&#x27;:&#x27;4&#x27;,&#x27;name&#x27;:&#x27;Control Motor Wifi/RF&#x27;,&#x27;sequence&#x27;:40})]"/>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="sf_34_mando_vertical" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_34"/>
+            <field name="field_id" ref="field_mando_vertical"/>
+            <field name="sequence">1020</field>
+            <field name="label_override">Mando</field>
+        </record>
+        <record id="sf_34_apertura" model="safra.system.field">
+            <field name="sequence">1030</field>
+            <field name="label_override">Tipo de Apertura</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;1&#x27;,&#x27;name&#x27;:&#x27;Derecha&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;2&#x27;,&#x27;name&#x27;:&#x27;Izquierda&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;3&#x27;,&#x27;name&#x27;:&#x27;Extremos&#x27;,&#x27;sequence&#x27;:30}),(0,0,{&#x27;value&#x27;:&#x27;4&#x27;,&#x27;name&#x27;:&#x27;Centro&#x27;,&#x27;sequence&#x27;:40})]"/>
+        </record>
+        <record id="sf_34_traslape_centro" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_34"/>
+            <field name="field_id" ref="field_traslape_centro"/>
+            <field name="sequence">1040</field>
+        </record>
+        <record id="sf_34_interruptor_panel" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_34"/>
+            <field name="field_id" ref="field_interruptor_panel"/>
+            <field name="sequence">1050</field>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="sf_34_control_channel" model="safra.system.field">
+            <field name="sequence">1060</field>
+            <field name="label_override">Canal del Control</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;0&#x27;,&#x27;name&#x27;:&#x27;Sin canal&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;1&#x27;,&#x27;name&#x27;:&#x27;Canal 1&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;2&#x27;,&#x27;name&#x27;:&#x27;Canal 2&#x27;,&#x27;sequence&#x27;:30}),(0,0,{&#x27;value&#x27;:&#x27;3&#x27;,&#x27;name&#x27;:&#x27;Canal 3&#x27;,&#x27;sequence&#x27;:40}),(0,0,{&#x27;value&#x27;:&#x27;4&#x27;,&#x27;name&#x27;:&#x27;Canal 4&#x27;,&#x27;sequence&#x27;:50}),(0,0,{&#x27;value&#x27;:&#x27;5&#x27;,&#x27;name&#x27;:&#x27;Canal 5&#x27;,&#x27;sequence&#x27;:60}),(0,0,{&#x27;value&#x27;:&#x27;6&#x27;,&#x27;name&#x27;:&#x27;Canal 6&#x27;,&#x27;sequence&#x27;:70}),(0,0,{&#x27;value&#x27;:&#x27;7&#x27;,&#x27;name&#x27;:&#x27;Canal 7&#x27;,&#x27;sequence&#x27;:80}),(0,0,{&#x27;value&#x27;:&#x27;8&#x27;,&#x27;name&#x27;:&#x27;Canal 8&#x27;,&#x27;sequence&#x27;:90}),(0,0,{&#x27;value&#x27;:&#x27;9&#x27;,&#x27;name&#x27;:&#x27;Canal 9&#x27;,&#x27;sequence&#x27;:100}),(0,0,{&#x27;value&#x27;:&#x27;10&#x27;,&#x27;name&#x27;:&#x27;Canal 10&#x27;,&#x27;sequence&#x27;:110})]"/>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="sf_34_tela_al_reves" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_34"/>
+            <field name="field_id" ref="field_tela_al_reves"/>
+            <field name="sequence">1070</field>
+        </record>
+    </data>
+</odoo>

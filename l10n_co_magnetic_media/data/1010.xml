@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- 1001 -->
+        <record id="form_1010" model="mag.media">
+            <field name="code">1010</field>
+            <field name="name">1010 - Información de socios, accionistas, comuneros y/o cooperados</field>
+            <field name="smaller_amount">3000000</field>
+            <field name="query">
+WITH principal AS (
+SELECT
+    mm.smaller_amount as Mini,
+    it.dian_code as A,
+    rp.vat as B,
+    rp.l10n_co_verification_code as C,
+    rp.lastname1 as D,
+    rp.lastname2 as E,
+    rp.name1 as F,
+    rp.name2 as G,
+    rp.name as H,
+    rp.street as I,
+    rcs.dian_code as J,
+    SUBSTRING(rcsc.dian_code, 3) as K,
+    rc.medios_code as L,
+    (CASE WHEN mmlc.sequence = 'M' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'M' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'M' AND mmlc.type = 'sf' THEN SUM(aml.debit-aml.credit)
+        WHEN mmlc.sequence = 'M' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+    ) as M,
+    (CASE WHEN mmlc.sequence = 'N' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'N' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'N' AND mmlc.type = 'sf' THEN SUM(aml.debit-aml.credit)
+        WHEN mmlc.sequence = 'N' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+    ) as N,
+    (CASE WHEN mmlc.sequence = 'O' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'O' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'O' AND mmlc.type = 'sf' THEN SUM(aml.debit-aml.credit)
+        WHEN mmlc.sequence = 'O' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+    ) as O
+FROM mag_media mm
+INNER JOIN mag_media_lines mml ON mml.magnetic_id = mm.id
+INNER JOIN mag_media_lines_concepts mmlc ON mmlc.line_id = mml.id
+INNER JOIN (
+    select aammlcr.account_account_id as account_id, aammlcr.mag_media_lines_concepts_id as concept_id
+    from account_account_mag_media_lines_concepts_rel aammlcr
+    union all
+    select aaat.account_account_id as account_id, mmlcaat.concept_ids as concept_id
+    from mag_media_lines_concepts_account_account_tag mmlcaat
+    inner join account_account_tag aat on aat.id = mmlcaat.tag_ids
+    inner join account_account_account_tag aaat on aaat.account_account_tag_id = aat.id
+) AS aa ON aa.concept_id = mmlc.id
+INNER JOIN account_move_line aml ON aml.account_id = aa.account_id
+LEFT JOIN res_partner rp ON rp.id = aml.partner_id
+LEFT JOIN l10n_latam_identification_type it ON it.id = rp.l10n_latam_identification_type_id
+LEFT JOIN res_country_state rcs ON rcs.id = rp.state_id
+LEFT JOIN res_city rcsc ON rcsc.id = rp.city_id
+LEFT JOIN res_country rc ON rc.id = rp.country_id
+WHERE mm.id = {id}
+    AND aml.date BETWEEN '{date_from}' AND '{date_to}'
+    AND aml.parent_state = 'posted'
+    AND aml.company_id = {company_id}
+GROUP BY
+    mml.code,
+    it.dian_code,
+    rp.vat,
+    rp.l10n_co_verification_code,
+    rp.name1,
+    rp.name2,
+    rp.lastname1,
+    rp.lastname2,
+    rp.name,
+    rp.street,
+    rcs.dian_code,
+    rcsc.dian_code,
+    rc.medios_code,
+    mmlc.sequence,
+    mmlc.type,
+    mm.smaller_amount
+)
+SELECT
+    A as "Tipo documento",
+    B as "Número identificación del socio o accionistas",
+    C as "DV",
+    D as "Primer apellido del socio o accionistas",
+    E as "Segundo apellido del socio o accionistas",
+    F as "Primer nombre del socio o accionistas",
+    G as "Segundo nombre del socio o accionistas",
+    H as "Razón social del socio o accionistas",
+    I as "Direccion del socio o accionistas",
+    J as "Código departamento",
+    K as "Código municipio",
+    L as "País de residencia o domicilio",
+    M as "Valor patrimonial acciones o aportes al 31-12",
+    N as "Porcentaje de participación",
+    O as "Porcentaje de participación (posición decimal)"
+FROM (
+    SELECT A, B, C, D, E, F, G, H, I, J, K, L, SUM(M) AS M, SUM(N) AS N, SUM(O) AS O
+    FROM principal
+    GROUP BY A, B, C, D, E, F, G, H, I, J, K, L, Mini
+    HAVING SUM(M) &gt;= Mini::float
+
+    UNION
+
+    SELECT
+        '43' as A,
+        '222222222' as B,
+        '7' as C,
+        'CUANTIAS MENORES' as D,
+        '' as E,
+        '' as F,
+        '' as G,
+        '' as H,
+        NULL as I,
+        NULL as J,
+        NULL as K,
+        NULL as L,
+        SUM(M) as M,
+        SUM(N) as N,
+        SUM(O) as O
+    FROM (
+        SELECT A, B, C, D, E, F, G, H, I, J, K, L, SUM(M) AS M, SUM(N) AS N, SUM(O) AS O, Mini
+        FROM principal
+        GROUP BY A, B, C, D, E, F, G, H, I, J, K, L, Mini
+        HAVING SUM(M) &lt; Mini::float
+    ) AS cm
+    GROUP BY Mini
+) AS datos
+ORDER BY A, B
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="bank_txt_select_wizard_form" model="ir.ui.view">
+            <field name="name">bank.txt.select.wizard.form</field>
+            <field name="model">res.bank.txt.select.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="msg" readonly="1" nolabel="1"/>
+                    <group>
+                        <group>
+
+                        </group>
+                        <group>
+                            <field name="order_id" readonly="1" invisible="1"/>
+                            <field name="bank_id" readonly="1" invisible="1"/>
+                            <field name="txt_doc_id" domain="[('bank_id','=',bank_id)]" options="{'no_create': True, 'no_create_edit': True}"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="generate_txt" string="Generate txt" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" class="btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

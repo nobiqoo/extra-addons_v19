@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="class_assignment_form" model="ir.ui.view">
+            <field name="name">wk.class.assignment.form</field>
+            <field name="model">wk.class.assignment</field>
+            <field name="arch" type="xml">
+                <form string="Class Assignment" create="0">
+                    <header invisible="id == False">
+                        <button name="add_new_students" string="New Students to add" type="object" 
+                                    class="oe_highlight bg-success" invisible="student_in_class == assignment_students or state != 'progress'"/>
+                        <button name="evaluate_assignment" string="Evaluate" type="object" class="oe_highlight" invisible="state != 'progress'" />
+                        <button name="start_assignment" string="Allocate" type="object" class="oe_highlight" invisible="state != 'new'"  confirm="Are you sure you want to start this assignment?"/>
+                        <button name="complete_assignment" string="Mark Done" class="oe_highlight" type="object" invisible="state != 'progress'" confirm="Are you sure you want to complete this assignment?"/>
+                        <button name="reset_assignment" string="Reset" type="object" class="oe_highlight" invisible="state != 'complete' or (id == False)" confirm="Are you sure you want to reset this assignment?"/>
+                        <field name='state' widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="name" string="Name"/>
+                                <field name="name" placeholder="Maths grade-12 assignment"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="grade_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                <field name="section_id" invisible="not section_visibility" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                <field name="class_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                <field name="total_marks" readonly="state in ('complete','progress')"/>
+                                <field name="teacher_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state in ('complete','progress')"/>
+                                <label for="start_date" string="Duration" />
+                                <div>
+                                    <field name="start_date" class="oe_inline" style="width:20% !important;" readonly="state in ('complete','progress')"/> - <field name="end_date" class="oe_inline" nolabel="1" style="width:20% !important;" readonly="state in ('complete','progress')"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="subject_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                <field name="scale_id" readonly="1"/>
+                                <field name="assignment_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state in ('complete','progress')"/>
+                                <field name="type_id"/>
+                                <field name="company_id" readonly="is_single_company" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" groups="base.group_multi_company"/>
+                                <field name="student_in_class" invisible="1"/>
+                                <field name="assignment_students" invisible="1"/>
+                                
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Students">
+                                <field name='student_assignment_ids' readonly="1"  force_save="1" context="{'default_grade_id': grade_id,'default_subject_id': subject_id,
+                                                                               'default_start_date': start_date,
+                                                                               'default_end_date': end_date,'default_total_marks': total_marks,
+                                                                               'default_assignment_id': assignment_id}">
+                                        <list>
+                                            <field name='student_id'/>
+                                            <field name='assignment_id'/>
+                                            <field name="scale_line_id"/>
+                                            <field name="marks_obtained"/>
+                                            <field name="percent_obtained"/>
+                                            <field name="point_obtained"/>
+                                            <field name="description"/>
+                                            <field name="exempted"/>
+                                            <field name="state" widget="badge" decoration-success="state =='evaluate'" decoration-warning="state =='submit'"/>
+                                            <field name="start_date" optional="hide"/>
+                                            <field name="end_date" optional="hide"/>
+                                            <field name="total_marks" optional="hide"/>
+                                            <field name="create_date" optional="hide"/>
+                                        </list>
+                                </field>
+                            </page>
+                            <page string="Assignment Description">
+                                <group string=" Description">
+                                    <field colspan="2" name="description" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="Assignment Attachments">
+                                <field name='attachment_ids' mode="kanban"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="class_assignment_tree" model="ir.ui.view">
+            <field name="name">wk.class.assignment.list</field>
+            <field name="model">wk.class.assignment</field>
+            <field name="arch" type="xml">
+                <list string="Class Assignment" create="0">
+                    <field name="name"/>
+                    <field name="class_id"/>
+                    <field name="teacher_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="grade_id" optional="hide"/>
+                    <field name="section_id" optional="hide"/>
+                    <field name="total_marks"/>
+                    <field name="type_id"/>
+                    <field name='state' widget='badge' decoration-success="state =='complete'" decoration-warning="state =='progress'" decoration-primary="state =='new'"/>
+                    <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                    <field name="company_id"
+                        groups="base.group_multi_company"
+                        optional="show"
+                        readonly="1"/>
+                    <field name="write_uid" optional="hide"/>
+                    <field name="create_date" optional="hide"/>
+                    <field name="create_uid" optional="hide"/>
+                    <field name="write_date" optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="class_assignment_search" model="ir.ui.view">
+           <field name="name">wk.class.assignment.search</field>
+           <field name="model">wk.class.assignment</field>
+           <field name="arch" type="xml">
+               <search string="Class Assignment">
+                    <searchpanel>
+                        <field name="class_id" icon="fa-check-square-o" enable_counters="1"/>
+                        <field name="grade_id" icon="fa-id-card-o" enable_counters="1"/>
+                        <field name="teacher_id" icon="fa-users" enable_counters="1"/>
+                    </searchpanel>
+                    <field name="name" filter_domain="['|','|','|', ('name', 'ilike', self), ('teacher_id', 'ilike', self),('subject_id', 'ilike', self),('assignment_id', 'ilike', self)]"/>
+                    <filter name="new" string="New" domain="[('state','=','new')]"/>
+                    <filter name="progress" string="In Progress" domain="[('state','=','progress')]" />
+                    <filter name="complete" string="Complete" domain="[('state','=','complete')]" />
+                    <group>
+                        <filter name="group_grade_id" string="Grade" domain="[]" context="{'group_by':'grade_id'}"/>
+                        <filter name="group_subject_id" string="Subject" domain="[]" context="{'group_by':'subject_id'}"/>
+                        <filter name="group_teacher_id" string="Teacher" domain="[]" context="{'group_by':'teacher_id'}"/>
+                        <filter name="group_scale_id" string="Scale" domain="[]" context="{'group_by':'scale_id'}"/>
+                        <filter name="group_class_id" string="Class" domain="[]" context="{'group_by':'class_id'}"/>
+                        <filter name="group_type_id" string="Assignment Type" domain="[]" context="{'group_by':'type_id'}"/>
+                    </group>
+               </search>
+           </field>
+        </record>
+        
+        <record id="class_assignment_action" model="ir.actions.act_window">
+            <field name="name">Class Assignment</field>
+            <field name="res_model">wk.class.assignment</field>
+            <field name="view_mode">form,list</field>
+            <field name="path">teacher-class-assignment</field>
+            <field name="view_id" ref="class_assignment_tree"/>
+        </record>
+
+    </data>    
+</odoo>    

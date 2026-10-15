@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_concept_form" model="ir.ui.view">
+            <field name="name">hr.concept.form</field>
+            <field name="model">hr.concept</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="model_basic_payslip_novelty_type_form" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[@name='title']" position='inside'>
+                    <h1>Concepto de Nómina</h1>
+                </xpath>
+                <xpath expr="//sheet/notebook//page[@name='page_setup']/group[@name='group_setup']" position='after'>
+                    <group name='group_info' string="Información">
+                        <field name="documentation" nolabel="1" />
+                    </group>
+                    <group invisible="1">
+                        <field name="file_old_name" invisible="1"/>
+                        <field name="file_old" filename="txt_filename" widget="binary" readonly="0"/>
+                        <button name="sync_old_lines" string="Sicronizar Todo" type="object"/> 
+                        <button name="action_export_csv" string="Exportar Todo" type="object"/> 
+                    </group>
+                </xpath>
+                <field name="partner_id" position="after">
+                    <field name="apply_tax_base"/>
+                    <field name="tax_id" invisible="apply_tax_base != True"  required="apply_tax_base == True"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="hr_concept_tree" model="ir.ui.view">
+            <field name="name">hr.concept.tree</field>
+            <field name="model">hr.concept</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="code" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_concept_action" model="ir.actions.act_window">
+            <field name="name">Conceptos de Nómina</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.concept</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_concept_menu_act" name="Conceptos de Nómina" parent="setup_payslip_menu_categ" action="hr_concept_action" sequence="2" />
+
+    </data>
+</odoo>

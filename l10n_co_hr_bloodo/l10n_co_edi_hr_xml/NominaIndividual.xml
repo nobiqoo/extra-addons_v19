@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<NominaIndividual xmlns="dian:gov:co:facturaelectronica:NominaIndividual"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+                  xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+                  xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"
+                  xmlns:xades141="http://uri.etsi.org/01903/v1.4.1#"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  SchemaLocation=""
+                  xsi:schemaLocation="dian:gov:co:facturaelectronica:NominaIndividual NominaIndividualElectronicaXSD.xsd">
+	<ext:UBLExtensions>
+		<ext:UBLExtension>
+			<ext:ExtensionContent/>
+		</ext:UBLExtension>
+	</ext:UBLExtensions>
+	<Novedad CUNENov="{{CuneNov}}">{{Novedad}}</Novedad>
+	<Periodo
+		FechaIngreso="{{Per.FechaIngreso}}"
+		{% if Per.FechaRetiro %}FechaRetiro="{{Per.FechaRetiro}}"{% endif %}
+	    FechaLiquidacionInicio="{{Per.FechaLiquidacionInicio}}"
+	    FechaLiquidacionFin="{{Per.FechaLiquidacionFin}}"
+	    TiempoLaborado="{{Per.TiempoLaborado}}"
+	    FechaGen="{{Per.FechaGen}}"/>
+	<NumeroSecuenciaXML 
+		{% if NSX.CodigoTrabajador %}CodigoTrabajador="{{NSX.CodigoTrabajador}}"{% endif %}
+	    Prefijo="{{NSX.Prefijo}}"
+	    Consecutivo="{{NSX.Consecutivo}}"
+	    Numero="{{NSX.Numero}}"/>
+	<LugarGeneracionXML
+		Pais="{{LGX.Pais}}"
+	    DepartamentoEstado="{{LGX.DepartamentoEstado}}"
+	    MunicipioCiudad="{{LGX.MunicipioCiudad}}"
+	    Idioma="{{LGX.Idioma}}"/>
+	<ProveedorXML 
+		RazonSocial="{{PrX.RazonSocial}}"
+		{% if PrX.PrimerApellido %}PrimerApellido="{{PrX.PrimerApellido}}"{% endif %}
+		{% if PrX.SegundoApellido %}SegundoApellido="{{PrX.SegundoApellido}}"{% endif %}
+		{% if PrX.PrimerNombre %}PrimerNombre="{{PrX.PrimerNombre}}"{% endif %}
+		{% if PrX.OtrosNombres %}OtrosNombres="{{PrX.OtrosNombres}}"{% endif %}
+		NIT="{{PrX.NIT}}"
+		DV="{{PrX.DV}}"
+		SoftwareID="{{PrX.SoftwareID}}"
+		SoftwareSC="{{PrX.SoftwareSC}}"/>
+	<CodigoQR>{{CodigoQR}}</CodigoQR>
+	<InformacionGeneral
+		Version="{{IGe.Version}}"
+		Ambiente="{{IGe.Ambiente}}"
+		TipoXML="{{IGe.TipoXML}}"
+		CUNE="{{IGe.CUNE}}"
+		EncripCUNE="{{IGe.EncripCUNE}}"
+		FechaGen="{{IGe.FechaGen}}"
+		HoraGen="{{IGe.HoraGen}}"
+		PeriodoNomina="{{IGe.PeriodoNomina}}"
+		TipoMoneda="{{IGe.TipoMoneda}}"
+		TRM="{{IGe.TRM}}"/>
+	{% for Nota in Notas.values() -%}
+	<Notas>{{Nota}}</Notas>
+	{% endfor -%}
+	<Empleador 
+		RazonSocial="{{Emp.RazonSocial}}"
+		{% if Emp.PrimerApellido %}PrimerApellido="{{Emp.PrimerApellido}}"{% endif %}
+		{% if Emp.SegundoApellido %}SegundoApellido="{{Emp.SegundoApellido}}"{% endif %}
+		{% if Emp.PrimerNombre %}PrimerNombre="{{Emp.PrimerNombre}}"{% endif %}
+		{% if Emp.OtrosNombres %}OtrosNombres="{{Emp.OtrosNombres}}"{% endif %}
+		NIT="{{Emp.NIT}}"
+		DV="{{Emp.DV}}"
+		Pais="{{Emp.Pais}}"
+		DepartamentoEstado="{{Emp.DepartamentoEstado}}"
+		MunicipioCiudad="{{Emp.MunicipioCiudad}}"
+		Direccion="{{Emp.Direccion}}"/>
+	<Trabajador 
+		TipoTrabajador="{{Tra.TipoTrabajador}}"
+		SubTipoTrabajador="{{Tra.SubTipoTrabajador}}"
+		AltoRiesgoPension="{{Tra.AltoRiesgoPension}}"
+		TipoDocumento="{{Tra.TipoDocumento}}"
+		NumeroDocumento="{{Tra.NumeroDocumento}}"
+		PrimerApellido="{{Tra.PrimerApellido}}"
+		SegundoApellido="{{Tra.SegundoApellido}}"
+		PrimerNombre="{{Tra.PrimerNombre}}"
+		{% if Tra.OtrosNombres %}OtrosNombres="{{Tra.OtrosNombres}}"{% endif %}
+		LugarTrabajoPais="{{Tra.LugarTrabajoPais}}"
+		LugarTrabajoDepartamentoEstado="{{Tra.LugarTrabajoDepartamentoEstado}}"
+		LugarTrabajoMunicipioCiudad="{{Tra.LugarTrabajoMunicipioCiudad}}"
+		LugarTrabajoDireccion="{{Tra.LugarTrabajoDireccion}}"
+		SalarioIntegral="{{Tra.SalarioIntegral}}"
+		TipoContrato="{{Tra.TipoContrato}}"
+		Sueldo="{{Tra.Sueldo}}"
+		{% if Tra.CodigoTrabajador %}CodigoTrabajador="{{Tra.CodigoTrabajador}}"{% endif %}/>
+	<Pago
+		Forma="{{Pag.Forma}}"
+	    Metodo="{{Pag.Metodo}}"
+	    {% if Pag.Banco %}Banco="{{Pag.Banco}}"{% endif %}
+	    {% if Pag.TipoCuenta %}TipoCuenta="{{Pag.TipoCuenta}}"{% endif %}
+	    {% if Pag.NumeroCuenta %}NumeroCuenta="{{Pag.NumeroCuenta}}"{% endif %}/>
+	<FechasPagos>
+		{% for FechaPago in FechaPagos.values() -%}
+		<FechaPago>{{FechaPago}}</FechaPago>
+		{% endfor -%}
+	</FechasPagos>
+	<Devengados>
+		<Basico 
+			DiasTrabajados="{{Dev_Bas_DiasTrabajados}}"
+		    SueldoTrabajado="{{Dev_Bas_SueldoTrabajado}}"/>
+		{% for Tra in Dev_Transporte -%}
+		<Transporte 
+			{% if Tra.AuxilioTransporte != '0.00' %}AuxilioTransporte="{{Tra.AuxilioTransporte}}"{% endif %}
+			{% if Tra.ViaticoManutAlojS != '0.00' %}ViaticoManutAlojS="{{Tra.ViaticoManutAlojS}}"{% endif %}
+			{% if Tra.ViaticoManutAlojNS != '0.00' %}ViaticoManutAlojNS="{{Tra.ViaticoManutAlojNS}}"{% endif %}/>
+		{% endfor -%}
+		{% if Dev_HEDs %}
+		<HEDs>
+			{% for HED in Dev_HEDs -%}
+			<HED 
+				{% if HED.HoraInicio and HED.HoraFin %}
+				HoraInicio="{{HED.HoraInicio}}"
+				HoraFin="{{HED.HoraFin}}"
+				{% endif %}
+				Cantidad="{{HED.Cantidad}}"
+				Porcentaje="{{HED.Porcentaje}}"
+				Pago="{{HED.Pago}}"/>
+			{% endfor -%}
+		</HEDs>
+		{% endif %}
+		{% if Dev_HENs %}
+		<HENs>
+			{% for HEN in Dev_HENs -%}
+			<HEN 
+				{% if HEN.HoraInicio and HEN.HoraFin %}
+				HoraInicio="{{HEN.HoraInicio}}"
+				HoraFin="{{HEN.HoraFin}}"
+				{% endif %}
+				Cantidad="{{HEN.Cantidad}}"
+				Porcentaje="{{HEN.Porcentaje}}"
+				Pago="{{HEN.Pago}}"/>
+			{% endfor -%}
+		</HENs>
+		{% endif %}
+		{% if Dev_HRNs %}
+		<HRNs>
+			{% for HRN in Dev_HRNs -%}
+			<HRN 
+				{% if HRN.HoraInicio and HRN.HoraFin %}
+				HoraInicio="{{HRN.HoraInicio}}"
+				HoraFin="{{HRN.HoraFin}}"
+				{% endif %}
+				Cantidad="{{HRN.Cantidad}}"
+				Porcentaje="{{HRN.Porcentaje}}"
+				Pago="{{HRN.Pago}}"/>
+			{% endfor -%}
+		</HRNs>
+		{% endif %}
+		{% if Dev_HEDDFs %}
+		<HEDDFs>
+			{% for HEDDF in Dev_HEDDFs -%}
+			<HEDDF 
+				{% if HEDDF.HoraInicio and HEDDF.HoraFin %}
+				HoraInicio="{{HEDDF.HoraInicio}}"
+				HoraFin="{{HEDDF.HoraFin}}"
+				{% endif %}
+				Cantidad="{{HEDDF.Cantidad}}"
+				Porcentaje="{{HEDDF.Porcentaje}}"
+				Pago="{{HEDDF.Pago}}"/>
+			{% endfor -%}
+		</HEDDFs>
+		{% endif %}
+		{% if Dev_HRDDFs %}
+		<HRDDFs>
+			{% for HRDDF in Dev_HRDDFs -%}
+			<HRDDF
+				{% if HRDDF.HoraInicio and HRDDF.HoraFin %}
+				HoraInicio="{{HRDDF.HoraInicio}}"
+				HoraFin="{{HRDDF.HoraFin}}"
+				{% endif %}
+				Cantidad="{{HRDDF.Cantidad}}"
+				Porcentaje="{{HRDDF.Porcentaje}}"
+				Pago="{{HRDDF.Pago}}"/>
+			{% endfor -%}
+		</HRDDFs>
+		{% endif %}
+		{% if Dev_HENDFs %}
+		<HENDFs>
+			{% for HENDF in Dev_HENDFs -%}
+			<HENDF
+				{% if HENDF.HoraInicio and HENDF.HoraFin %}
+				HoraInicio="{{HENDF.HoraInicio}}"
+				HoraFin="{{HENDF.HoraFin}}"
+				{% endif %}
+				Cantidad="{{HENDF.Cantidad}}"
+				Porcentaje="{{HENDF.Porcentaje}}"
+				Pago="{{HENDF.Pago}}"/>
+			{% endfor -%}
+		</HENDFs>
+		{% endif %}
+		{% if Dev_HRNDFs %}
+		<HRNDFs>
+			{% for HRNDF in Dev_HRNDFs -%}
+			<HRNDF
+				{% if HRNDF.HoraInicio and HRNDF.HoraFin %}
+				HoraInicio="{{HRNDF.HoraInicio}}"
+				HoraFin="{{HRNDF.HoraFin}}"
+				{% endif %}
+				Cantidad="{{HRNDF.Cantidad}}"
+				Porcentaje="{{HRNDF.Porcentaje}}"
+				Pago="{{HRNDF.Pago}}"/>
+			{% endfor -%}
+		</HRNDFs>
+		{% endif %}
+		{% if Dev_Vacaciones %}
+		<Vacaciones>
+			{% for VComun in Dev_Vacaciones.VacacionesComunes -%}
+			<VacacionesComunes FechaInicio="{{VComun.FechaInicio}}"
+			                   FechaFin="{{VComun.FechaFin}}"
+			                   Cantidad="{{VComun.Cantidad}}"
+			                   Pago="{{VComun.Pago}}"/>
+			{% endfor -%}
+			{% for VCompe in Dev_Vacaciones.VacacionesCompensadas -%}
+			<VacacionesCompensadas Cantidad="{{VCompe.Cantidad}}"
+			                       Pago="{{VCompe.Pago}}"/>
+			{% endfor -%}
+		</Vacaciones>
+		{% endif %}
+		{% if Dev_Pri_Cantidad and Dev_Pri_Pago %}
+		<Primas Cantidad="{{Dev_Pri_Cantidad}}"
+		        Pago="{{Dev_Pri_Pago}}"
+		        PagoNS="{{Dev_Pri_PagoNS}}"/>
+		{% endif %}
+		{% if Dev_Ces_Pago or Dev_Ces_Porcentaje or Dev_Ces_PagoIntereses %}
+		<Cesantias Pago="{{Dev_Ces_Pago}}"
+		           Porcentaje="{{Dev_Ces_Porcentaje}}"
+		           PagoIntereses="{{Dev_Ces_PagoIntereses}}"/>
+		{% endif %}
+		{% if Dev_Incapacidades %}
+		<Incapacidades>
+			{% for Incap in Dev_Incapacidades -%}
+			<Incapacidad FechaInicio="{{Incap.FechaInicio}}"
+			             FechaFin="{{Incap.FechaFin}}"
+			             Cantidad="{{Incap.Cantidad}}"
+			             Tipo="{{Incap.Tipo}}"
+			             Pago="{{Incap.Pago}}"/>
+			{% endfor -%}
+		</Incapacidades>
+		{% endif %}
+		{% if Dev_Licencias %}
+		<Licencias>
+			{% for LicMP in Dev_Licencias.LicenciaMP -%}
+			<LicenciaMP FechaInicio="{{LicMP.FechaInicio}}"
+			            FechaFin="{{LicMP.FechaFin}}"
+			            Cantidad="{{LicMP.Cantidad}}"
+			            Pago="{{LicMP.Pago}}"/>
+			{% endfor -%}
+			{% for LicR in Dev_Licencias.LicenciaR -%}
+			<LicenciaR FechaInicio="{{LicR.FechaInicio}}"
+			           FechaFin="{{LicR.FechaFin}}"
+			           Cantidad="{{LicR.Cantidad}}"
+			           Pago="{{LicR.Pago}}"/>
+			{% endfor -%}
+			{% for LicNR in Dev_Licencias.LicenciaNR -%}
+			<LicenciaNR FechaInicio="{{LicNR.FechaInicio}}"
+						FechaFin="{{LicNR.FechaFin}}"
+						Cantidad="{{LicNR.Cantidad}}"/>
+			{% endfor -%}
+		</Licencias>
+		{% endif %}
+		{% if Dev_Bonificaciones %}
+		<Bonificaciones>
+			{% for Bonif in Dev_Bonificaciones -%}
+			<Bonificacion
+				{% if Bonif.BonificacionS %}
+				BonificacionS="{{Bonif.BonificacionS}}"
+				{% endif %}
+				{% if Bonif.BonificacionNS %}
+				BonificacionNS="{{Bonif.BonificacionNS}}"
+				{% endif %}
+			/>
+			{% endfor -%}
+		</Bonificaciones>
+		{% endif %}
+		{% if Dev_Auxilios %}
+		<Auxilios>
+			{% for Aux in Dev_Auxilios -%}
+			<Auxilio 
+				{% if Aux.AuxilioS %}AuxilioS="{{Aux.AuxilioS}}"{% endif %}
+			    {% if Aux.AuxilioNS %}AuxilioNS="{{Aux.AuxilioNS}}"{% endif %}/>
+			{% endfor -%}
+		</Auxilios>
+		{% endif %}
+		{% if Dev_HuelgasLegales %}
+		<HuelgasLegales>
+			{% for HuLeg in Dev_HuelgasLegales -%}
+			<HuelgaLegal FechaInicio="{{HuLeg.FechaInicio}}"
+			             FechaFin="{{HuLeg.FechaFin}}"
+			             Cantidad="{{HuLeg.Cantidad}}"/>
+			{% endfor -%}
+		</HuelgasLegales>
+		{% endif %}
+		{% if Dev_OtrosConceptos %}
+		<OtrosConceptos>
+			{% for OConc in Dev_OtrosConceptos %}
+			<OtroConcepto DescripcionConcepto="{{OConc.DescripcionConcepto}}"
+				{% if OConc.ConceptoS %}ConceptoS="{{OConc.ConceptoS}}"{% endif %}
+				{% if OConc.ConceptoNS %}ConceptoNS="{{OConc.ConceptoNS}}"{% endif %}/>
+			{% endfor %}
+		</OtrosConceptos>
+		{% endif %}
+		{% if Dev_Compensaciones %}
+		<Compensaciones>
+			{% for Compe in Dev_Compensaciones -%}
+			<Compensacion CompensacionO="{{Compe.CompensacionO}}"
+			              CompensacionE="{{Compe.CompensacionE}}"/>
+			{% endfor -%}
+		</Compensaciones>
+		{% endif %}
+		{% if Dev_BonoEPCTVs %}
+		<BonoEPCTVs>
+			{% for Bono in Dev_BonoEPCTVs -%}
+			<BonoEPCTV PagoS="{{Bono.PagoS}}"
+			           PagoNS="{{Bono.PagoNS}}"
+			           PagoAlimentacionS="{{Bono.PagoAlimentacionS}}"
+			           PagoAlimentacionNS="{{Bono.PagoAlimentacionNS}}"/>
+			{% endfor -%}
+		</BonoEPCTVs>
+		{% endif %}
+		{% if Dev_Comisiones %}
+		<Comisiones>
+			{% for Comision in Dev_Comisiones.values() -%}
+			<Comision>{{Comision}}</Comision>
+			{% endfor -%}
+		</Comisiones>
+		{% endif %}
+		{% if Dev_PagosTerceros %}
+		<PagosTerceros>
+			{% for PagoTercero in Dev_PagosTerceros.values() -%}
+			<PagoTercero>{{PagoTercero}}</PagoTercero>
+			{% endfor -%}
+		</PagosTerceros>
+		{% endif %}
+		{% if Dev_Anticipos %}
+		<Anticipos>
+			{% for Anticipo in Dev_Anticipos.values() -%}
+			<Anticipo>{{Anticipo}}</Anticipo>
+			{% endfor -%}
+		</Anticipos>
+		{% endif %}
+		<Dotacion>{{Dev_Dotacion}}</Dotacion>
+		<ApoyoSost>{{Dev_ApoyoSost}}</ApoyoSost>
+		<Teletrabajo>{{Dev_Teletrabajo}}</Teletrabajo>
+		<BonifRetiro>{{Dev_BonifRetiro}}</BonifRetiro>
+		<Indemnizacion>{{Dev_Indemnizacion}}</Indemnizacion>
+		<Reintegro>{{Dev_Reintegro}}</Reintegro>
+	</Devengados>
+	<Deducciones>
+		<Salud Porcentaje="{{Ded_Salud_Porcentaje}}"
+		       Deduccion="{{Ded_Salud_Deduccion}}"/>
+		<FondoPension Porcentaje="{{Ded_FoPen_Porcentaje}}"
+		              Deduccion="{{Ded_FoPen_Deduccion}}"/>
+		<FondoSP 
+		{% if Ded_FoSP_Porcentaje != '0.00' or Ded_FoSP_Deduccion != '0.00' %}
+			Porcentaje="{{Ded_FoSP_Porcentaje}}"
+		    DeduccionSP="{{Ded_FoSP_Deduccion}}"
+		{% endif %}
+		{% if Ded_FoSP_PorcentajeSub != '0.00' or Ded_FoSP_DeduccionSub != '0.00' %}
+		    PorcentajeSub="{{Ded_FoSP_PorcentajeSub}}"
+		    DeduccionSub="{{Ded_FoSP_DeduccionSub}}"
+		{% endif %}
+		/>
+		{% if Ded_Sindicatos %}
+		<Sindicatos>
+			{% for Sindicato in Ded_Sindicatos -%}
+			<Sindicato Porcentaje="{{Sindicato.Porcentaje}}"
+			           Deduccion="{{Sindicato.Deduccion}}"/>
+			{% endfor -%}
+		</Sindicatos>
+		{% endif %}
+		{% if Ded_Sanciones %}
+		<Sanciones>
+			{% for Sancion in Ded_Sanciones -%}
+			<Sancion SancionPublic="{{Sancion.SancionPublic}}"
+			         SancionPriv="{{Sancion.SancionPriv}}"/>
+			{% endfor -%}
+		</Sanciones>
+		{% endif %}
+		{% if Ded_Libranzas %}
+		<Libranzas>
+			{% for Libranza in Ded_Libranzas -%}
+			<Libranza Descripcion="{{Libranza.Descripcion}}"
+			          Deduccion="{{Libranza.Deduccion}}"/>
+			{% endfor -%}
+		</Libranzas>
+		{% endif %}
+		{% if Ded_PagosTerceros %}
+		<PagosTerceros>
+			{% for PagoTercero in Ded_PagosTerceros.values() -%}
+			<PagoTercero>{{PagoTercero}}</PagoTercero>
+			{% endfor -%}
+		</PagosTerceros>
+		{% endif %}
+		{% if Ded_Anticipos %}
+		<Anticipos>
+			{% for Anticipo in Ded_Anticipos.values() -%}
+			<Anticipo>{{Anticipo}}</Anticipo>
+			{% endfor -%}
+		</Anticipos>
+		{% endif %}
+		{% if Ded_OtrasDeducciones %}
+		<OtrasDeducciones>
+			{% for OtraDeduccion in Ded_OtrasDeducciones.values() -%}
+			<OtraDeduccion>{{OtraDeduccion}}</OtraDeduccion>
+			{% endfor -%}
+		</OtrasDeducciones>
+		{% endif %}
+		<PensionVoluntaria>{{Ded_PensionVoluntaria}}</PensionVoluntaria>
+		<RetencionFuente>{{Ded_RetencionFuente}}</RetencionFuente>
+		<AFC>{{Ded_AFC}}</AFC>
+		{% if Ded_Cooperativa %}<Cooperativa>{{Ded_Cooperativa}}</Cooperativa>{% endif %}
+		<EmbargoFiscal>{{Ded_EmbargoFiscal}}</EmbargoFiscal>
+		<PlanComplementarios>{{Ded_PlanComplementarios}}</PlanComplementarios>
+		<Educacion>{{Ded_Educacion}}</Educacion>
+		<Reintegro>{{Ded_Reintegro}}</Reintegro>
+		<Deuda>{{Ded_Deuda}}</Deuda>
+	</Deducciones>
+	<Redondeo>{{Redondeo}}</Redondeo>
+	<DevengadosTotal>{{DevengadosTotal}}</DevengadosTotal>
+	<DeduccionesTotal>{{DeduccionesTotal}}</DeduccionesTotal>
+	<ComprobanteTotal>{{ComprobanteTotal}}</ComprobanteTotal>
+</NominaIndividual>

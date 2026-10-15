@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <data noupdate="1">
+
+        <record id="crm_lead_database_rule" model="ir.rule">
+            <field name="name">Crm Base de datos regla Multi-Company</field>
+            <field ref="model_crm_lead_database" name="model_id"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+
+        <record id="crm_lead_state_rule" model="ir.rule">
+            <field name="name">Crm estado regla Multi-Company</field>
+            <field ref="model_crm_lead_state" name="model_id"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+
+        <record id="crm_lead_industry_rule" model="ir.rule">
+            <field name="name">Crm industria regla Multi-Company</field>
+            <field ref="model_crm_lead_industry" name="model_id"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+
+        <record id="crm_lead_service_rule" model="ir.rule">
+            <field name="name">Crm servicio regla Multi-Company</field>
+            <field ref="model_crm_lead_service" name="model_id"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+
+        <record id="crm_lead_partner_type_rule" model="ir.rule">
+            <field name="name">Crm tipo de cliente regla Multi-Company</field>
+            <field ref="model_crm_lead_partner_type" name="model_id"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+
+        <record id="crm_lead_transport_rule" model="ir.rule">
+            <field name="name">Crm tipo de transporte regla Multi-Company</field>
+            <field ref="model_crm_lead_transport" name="model_id"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+
+    </data>
+
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        
+        <record id="dian_payment_option_view_tree" model="ir.ui.view">
+            <field name="model">dian.payment.option</field>
+            <field name="arch" type="xml">
+                <list string="Payment options">
+                    <field name="dian_code"/>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="dian_payment_option_view_form" model="ir.ui.view">
+            <field name="model">dian.payment.option</field>
+            <field name="arch" type="xml">
+                <form string="Payment options">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name='name' required='1'/>
+                                <field name='dian_code' required='1'/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="dian_payment_option_view_search" model="ir.ui.view">
+            <field name="model">dian.payment.option</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <field name="dian_code" filter_domain="[('dian_code','ilike',self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_dian_payment_option" model="ir.actions.act_window">
+            <field name="name">Opciones de pago</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dian.payment.option</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="dian_payment_option_view_tree"/>
+        </record>
+
+    </data>
+</odoo>

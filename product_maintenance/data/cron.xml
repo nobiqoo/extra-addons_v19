@@ -1,0 +1,10 @@
+<odoo>
+    <record id="ir_cron_product_maintenance" model="ir.cron">
+        <field name="name">Producto: Notificar proximidad de mantenimientos</field>
+        <field name="model_id" ref="product_maintenance.model_product_maintenance"/>
+        <field name="state">code</field>
+        <field name="code">model.action_cron_notify_maintenance()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+    </record>
+</odoo>

@@ -1,0 +1,463 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* tax_certificate_management
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-16 21:16+0000\n"
+"PO-Revision-Date: 2024-02-16 21:16+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "<b>Amount in letters:</b>"
+msgstr "<b>Valor en letras:</b>"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid ""
+"<b>Sing</b><br/><br/>\n"
+"                            ___________________________________________________"
+msgstr ""
+"<b>Firma/sello</b><br/><br/>\n"
+"                            ___________________________________________________"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "<b>Observations:</b>"
+msgstr "<b>Observaciones:</b>"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "<b>Total deductible taxes:</b>"
+msgstr "<b>Total de impuestos deducibles:</b>"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "NIT:"
+msgstr "NIT:"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "Phone:"
+msgstr "Telefono:"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "Web site:"
+msgstr "Sitio web:"
+
+#. module: tax_certificate_management
+#: model:mail.template,body_html:tax_certificate_management.withholding_certificate_report_email_template
+msgid "Dear, <strong t-out=\"object.partner_id.name\"/> In this email we send you the requested tax certificate. <br/>\n"
+msgstr "Estimado/a, <strong t-out=\"object.partner_id.name\"/> en este email le enviamos el certificado de impuestos solicitado. <br/>\n"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields.selection,name:tax_certificate_management.selection__certificate_period__periodicity__annual
+msgid "Annual"
+msgstr "Anual"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report_line__base_amount
+msgid "Base amount"
+msgstr "Monto base"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report_line__amount_withheld
+msgid "Amount withheld"
+msgstr "Valor retenido"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields.selection,name:tax_certificate_management.selection__certificate_period__periodicity__biannual
+msgid "Biannual"
+msgstr "Semestral"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields.selection,name:tax_certificate_management.selection__certificate_period__periodicity__bimonthly
+msgid "Bimonthly"
+msgstr "Bimestral"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificates_wizard_confirm_view_form
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.certificate_report_send_mail_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields.selection,name:tax_certificate_management.selection__withholding_certificate_type__type__certificate
+msgid "Certificate"
+msgstr "Certificado"
+
+#. module: tax_certificate_management
+#: model:ir.actions.act_window,name:tax_certificate_management.certificate_period_action
+#: model:ir.model,name:tax_certificate_management.model_certificate_period
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report__certificate_period_id
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificates_wizard__certificate_period_id
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificates_wizard_confirm__certificate_period_id
+#: model:ir.ui.menu,name:tax_certificate_management.certificate_period_action_menu
+msgid "Certificate period"
+msgstr "Periodo"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type_line__type_id
+msgid "Certificate type"
+msgstr "Tipo de certificado"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "City practiced"
+msgstr "Ciudad donde se practico"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "City"
+msgstr "Ciudad"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "City recorded"
+msgstr "Ciudad donde se consigno"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type__city_generated_id
+msgid "City where it was generated"
+msgstr "Ciudad donde se practico"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type__city_paid_id
+msgid "City where it was paid"
+msgstr "Ciudad donde se consigno"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_certificate_period__company_id
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report_line__company_id
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type__company_id
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificates_wizard__company_id
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificates_wizard_confirm__company_id
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report__company_id
+msgid "Company"
+msgstr "Compañia"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "Concept"
+msgstr "Concepto"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificates_wizard_confirm_view_form
+msgid "Create reports for partners with movements"
+msgstr "Crear reportes para terceros con movimientos"
+
+#. module: tax_certificate_management
+#: model:ir.actions.act_window,name:tax_certificate_management.action_withholding_certificates_wizard
+#: model:ir.ui.menu,name:tax_certificate_management.menu_withholding_certificates_wizard
+msgid "Create withholding certificates"
+msgstr "Crear certificados de retenciones"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "Date"
+msgstr "Fecha"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_certificate_period__date_from
+msgid "Date from"
+msgstr "Desde"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_certificate_period__date_to
+msgid "Date to"
+msgstr "Hasta"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "Description"
+msgstr "Descripción"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "Detained"
+msgstr "Retenido"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "Direction"
+msgstr "Dirección"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "GENERAL INFORMATION"
+msgstr "INFORMACIÓN GENERAL"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificates_wizard_view_form
+msgid "Generate certificates"
+msgstr "Generar certificados"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type__ica
+msgid "ICA"
+msgstr "ICA"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificates_wizard_confirm__description
+msgid "Message:"
+msgstr "Mensaje:"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields.selection,name:tax_certificate_management.selection__certificate_period__periodicity__monthly
+msgid "Monthly"
+msgstr "Mensual"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report_line__movements_qty
+msgid "Movements qty"
+msgstr "# Movimientos"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "NIT"
+msgstr "NIT"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_certificate_period__name
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report__name
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type__name
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "Name"
+msgstr "Nombre"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type__notes
+msgid "Notes"
+msgstr "Notas"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report__partner_id
+msgid "Partner"
+msgstr "Tercero"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificates_wizard__partner_ids
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificates_wizard_confirm__partner_ids
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificates_wizard_confirm_view_form
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificates_wizard_view_form
+msgid "Partners"
+msgstr "Terceros"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report_line__percentage
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type_line__percentage
+msgid "Percentage"
+msgstr "Porcentaje"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report_line__period
+msgid "Period"
+msgstr "Periodo"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_certificate_period__periodicity
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report__periodicity
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificates_wizard__periodicity
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificates_wizard_confirm__periodicity
+msgid "Periodicity"
+msgstr "Periodicidad"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_view_form
+msgid "Print pdf report"
+msgstr "Imprimir reporte PDF"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields.selection,name:tax_certificate_management.selection__certificate_period__periodicity__quarterly
+msgid "Quarterly"
+msgstr "Cuatrimestral"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "Rango"
+msgstr "Rango"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_view_form
+msgid "Send email"
+msgstr "Enviar EMAIL"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields.selection,name:tax_certificate_management.selection__withholding_certificate_type__type__statement
+msgid "Statement"
+msgstr "Declaración"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report_line__tax_id
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type_line__tax
+msgid "Tax"
+msgstr "Impuesto"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report_line__tax_account
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type_line__tax_account
+msgid "Tax account"
+msgstr "Cuenta"
+
+#. module: tax_certificate_management
+#: model:mail.template,subject:tax_certificate_management.withholding_certificate_report_email_template
+msgid "Tax certificate"
+msgstr "Certificado de impuestos"
+
+#. module: tax_certificate_management
+#: model:ir.ui.menu,name:tax_certificate_management.tax_certificate_management_principal_menu
+msgid "Tax certificate configuration"
+msgstr "Configuración de retenciones"
+
+#. module: tax_certificate_management
+#: model:res.groups,name:tax_certificate_management.tax_certificate_management_group
+msgid "Tax certificate management"
+msgstr "Gestión de retenciones"
+
+#. module: tax_certificate_management
+#: model:mail.template,name:tax_certificate_management.withholding_certificate_report_email_template
+msgid "Tax certificate ready for review"
+msgstr "Certificado de retenciones listo para revisar"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report__line_ids
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type__line_ids
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_view_form
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_type_view_form
+msgid "Tax lines"
+msgstr "Lineas retenidas"
+
+#. module: tax_certificate_management
+#: code:addons/tax_certificate_management/models/certificate_period.py:0
+#, python-format
+msgid "The date end could be greater than init date."
+msgstr "La fecha final debe ser mayor que la fecha inicial."
+
+#. module: tax_certificate_management
+#: code:addons/tax_certificate_management/wizard/certificate_report_send_mail.py:0
+#, python-format
+msgid "There are no reports to send."
+msgstr "No hay reportes para enviar!"
+
+#. module: tax_certificate_management
+#: code:addons/tax_certificate_management/models/certificate_period.py:0
+#, python-format
+msgid "The year of date end and init date must be the same."
+msgstr "El año de las fechas inicial y final debe ser el mismo."
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type__type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type__title
+msgid "Title"
+msgstr "Titulo"
+
+#. module: tax_certificate_management
+#: model:ir.actions.report,name:tax_certificate_management.tax_certificate_management_tmpl_action
+#: model:ir.model,name:tax_certificate_management.model_withholding_certificate_report
+msgid "Withholding certificate report"
+msgstr "Reporte de retenciones"
+
+#. module: tax_certificate_management
+#: model:ir.model,name:tax_certificate_management.model_withholding_certificate_report_line
+msgid "Withholding certificate report line"
+msgstr "Lineas de retenciones"
+
+#. module: tax_certificate_management
+#: model:ir.actions.act_window,name:tax_certificate_management.withholding_certificate_report_action
+#: model:ir.ui.menu,name:tax_certificate_management.withholding_certificate_report_menu
+msgid "Withholding certificate reports"
+msgstr "Certificado de retenciones"
+
+#. module: tax_certificate_management
+#: model:ir.actions.act_window,name:tax_certificate_management.withholding_certificate_type_action
+#: model:ir.model,name:tax_certificate_management.model_withholding_certificate_type
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report__certificate_id
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificates_wizard__certificate_id
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificates_wizard_confirm__certificate_id
+#: model:ir.ui.menu,name:tax_certificate_management.withholding_certificate_type_menu
+msgid "Withholding certificate type"
+msgstr "Tipo de certificado"
+
+#. module: tax_certificate_management
+#: model:ir.model,name:tax_certificate_management.model_withholding_certificate_type_line
+msgid "Withholding certificate type line"
+msgstr "Tipo de certificado de retenciones"
+
+#. module: tax_certificate_management
+#: model:ir.model,name:tax_certificate_management.model_withholding_certificates_wizard
+msgid "Withholding certificates"
+msgstr "Certificado de retenciones"
+
+#. module: tax_certificate_management
+#: model:ir.model,name:tax_certificate_management.model_withholding_certificates_wizard_confirm
+msgid "Withholding certificates confirm"
+msgstr "Confirmar certificado de impuestos"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report_line__report_id
+msgid "Withholding report"
+msgstr "Reporte"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificates_wizard_confirm__wizard_id
+msgid "Wizard"
+msgstr "Wizard"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_type_view_form
+msgid "impression"
+msgstr "Impresión"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.withholding_certificate_report_template
+msgid "to"
+msgstr "a"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.certificate_report_send_mail_view_form
+msgid "Do you want to send the certificates of the selected reports?"
+msgstr "Desea enviar los certificados de los reportes seleccionados?"
+
+#. module: tax_certificate_management
+#: model_terms:ir.ui.view,arch_db:tax_certificate_management.certificate_report_send_mail_view_form
+msgid "Send emails"
+msgstr "Enviar emails"
+
+#. module: tax_certificate_management
+#: model:ir.actions.act_window,name:tax_certificate_management.send_certificate_reports_action
+msgid "Send emails"
+msgstr "Enviar emails"
+
+#. module: tax_certificate_management
+#: code:addons/tax_certificate_management/models/withholding_certificate_type.py:0
+#, python-format
+msgid "You cannot repeat an account by type of certificate."
+msgstr "No se puede repetir cuenta por tipo de certificado."
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type__keep_header_cities
+msgid "Keep main cities"
+msgstr "Mantener ciudades en la cabecera"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_type_line__city_id
+msgid "City (ICA Apply)"
+msgstr "Ciudad (Aplica para ICA)"
+
+#. module: tax_certificate_management
+#: model:ir.model.fields,field_description:tax_certificate_management.field_withholding_certificate_report_line__city_id
+msgid "City"
+msgstr "Ciudad"

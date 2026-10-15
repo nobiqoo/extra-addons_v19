@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="helpdesk_ticket_form_inherit_tasks_button" model="ir.ui.view">
+    <field name="name">helpdesk.ticket.form.tasks.button.inherit</field>
+    <field name="model">helpdesk.ticket</field>
+    <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//div[hasclass('oe_button_box')][1]" position="inside">
+        <button class="oe_stat_button" type="object" name="action_view_tasks" icon="fa-tasks" invisible="not partner_id or task_count == 0">
+          <div class="o_field_widget o_stat_info">
+            <div class="d-flex align-items-baseline gap-1">
+              <span class="o_stat_value order-1">
+                <field name="task_count" nolabel="1"/>
+              </span>
+              <span class="o_stat_text order-2">Tareas</span>
+            </div>
+          </div>
+        </button>
+      </xpath>
+    </field>
+  </record>
+  <record id="view_project_task_tree_helpdesk_ticket" model="ir.ui.view">
+    <field name="name">project.task.list.helpdesk.ticket</field>
+    <field name="model">project.task</field>
+    <field name="arch" type="xml">
+      <list string="Tareas del ticket">
+        <field name="name"/>
+        <field name="project_id"/>
+        <field name="user_ids" widget="many2many_tags"/>
+        <field name="stage_id"/>
+        <field name="date_deadline"/>
+        <field name="priority"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- Pestaña RRHH con tus campos -->
+  <record id="helpdesk_ticket_form_inherit_hr_fields" model="ir.ui.view">
+    <field name="name">helpdesk.ticket.form.hr.fields.inherit</field>
+    <field name="model">helpdesk.ticket</field>
+    <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//page[@name='description']" position="after">
+        <page string="Información Formulario">
+          <group string="Datos">
+            <group>
+              <field name="employee_name"/>
+              <field name="job_id"/>
+              <field name="manager_id"/>
+              <field name="hr_coordinator_id"/>
+              <field name="city_id"/>
+            </group>
+            <group>
+              <field name="document_number"/>
+              <field name="department_id"/>
+              <field name="wage"/>
+              <field name="contract_term"/>
+              <field name="entry_date"/>
+              <field name="attachments_are_visible" invisible="1"/>
+            </group>
+          </group>
+          <group string="Adjuntos" groups="website_helpdesk_form_fl.group_manage_visualization_attachment" invisible="not attachments_are_visible">
+            <field name="arl_affiliation" filename="arl_affiliation_fname"/>
+            <field name="ccf_affiliation" filename="ccf_affiliation_fname"/>
+            <field name="email_authorization" filename="email_authorization_fname"/>
+            <field name="bank_certificate" filename="bank_certificate_fname"/>
+            <field name="severance_certificate" filename="severance_certificate_fname"/>
+            <field name="eps_certificate" filename="eps_certificate_fname"/>
+            <field name="pension_certificate" filename="pension_certificate_fname"/>
+            <field name="id_card" filename="id_card_fname"/>
+            <field name="job_application" filename="job_application_fname"/>
+          </group>
+        </page>
+      </xpath>
+    </field>
+  </record>
+
+  <record id="mail_template_change_responsible" model="mail.template">
+    <field name="name">Nuevo responsable asignado - ticket</field>
+    <field name="model_id" ref="helpdesk.model_helpdesk_ticket"/>
+    <field name="subject">Se reasignó un nuevo ticket - #{{ object.ticket_ref }}</field>
+    <field name="email_to">{{ object.user_id.partner_id.email }}</field>
+    <field name="body_html" type="html">
+        <p>Hola,</p>
+        <p>Se le reasignó el siguiente ticket <strong><t t-out="object.name"/></strong>.</p>
+        <p>
+        <a t-att-href="object.get_base_url() + '/odoo/helpdesk.ticket/' + str(object.id)"
+           style="background-color:#875A7B;
+                  color:white;
+                  padding:10px 16px;
+                  text-decoration:none;
+                  border-radius:5px;">
+            Ver ticket
+        </a>
+        </p>
+
+        
+    </field>
+</record>
+</odoo>

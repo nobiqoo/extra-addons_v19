@@ -1,0 +1,177 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wk_school_colombo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/populate_class.py:0
+msgid ""
+"All assignment types must be assigned before completing the class.\n"
+"Missing: %s"
+msgstr ""
+"Todos los tipos de tareas deben asignarse antes de completar la clase.\n"
+"Falta: %s"
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/populate_class.py:0
+msgid "Assign Class Assignment"
+msgstr "Asignar actividad a la clase"
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/populate_class.py:0
+msgid ""
+"Class can only be marked as completed once the duration of the class gets "
+"over."
+msgstr ""
+"La clase solo se puede marcar como completada una vez que finaliza la "
+"duración de la clase."
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/wizard/assignment_wizard.py:0
+msgid "The number of days for the assignment cannot be negative."
+msgstr "El número de días para la actividad no puede ser negativo."
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/wizard/assignment_wizard.py:0
+msgid "Start date for assignment should be before the end date!!"
+msgstr ""
+"¡La fecha de inicio de la actividad debe ser anterior a la fecha de "
+"finalización!"
+
+#
+# Tarea 11292: mensajes de validacion reescritos en wk_school_colombo para
+# poder traducirlos (los originales de Webkul usan f-strings dentro de _()).
+#
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/weekly_schedule.py:0
+msgid "AM"
+msgstr "a. m."
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/weekly_schedule.py:0
+msgid "PM"
+msgstr "p. m."
+
+# El texto no lleva punto final: la hora termina siempre en "a. m." / "p. m.",
+# que ya aporta el punto de cierre de la oracion.
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/weekly_schedule.py:0
+msgid ""
+"The location %(location)s is already booked for the selected period on "
+"%(weekday)s, from %(start)s to %(end)s."
+msgstr ""
+"La ubicación %(location)s ya se encuentra reservada para el horario "
+"seleccionado del %(weekday)s, de %(start)s a %(end)s"
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/student_enrollment.py:0
+msgid "An enrollment already exists for %(student)s in grade %(grade)s."
+msgstr "Ya existe una inscripción para %(student)s en el nivel %(grade)s."
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/fee_slip.py:0
+msgid ""
+"The student %(student)s does not have any portal access (student or "
+"parent). Please provide portal access to proceed!"
+msgstr ""
+"El estudiante %(student)s no tiene acceso al portal, ni como estudiante ni "
+"mediante un acudiente. Asigne acceso al portal para continuar."
+
+#
+# Tarea 11293: mensajes de los metodos reimplementados en wk_school_colombo.
+# Los cuatro primeros conservan el msgid de Webkul porque el metodo se
+# reescribio aqui: las traducciones de código se leen del .po del propio
+# modulo, asi que hay que repetirlas en este catalogo.
+#
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/student_enrollment.py:0
+msgid "Only new application can be marked as confirm."
+msgstr "Solo una inscripción nueva se puede confirmar."
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/populate_class.py:0
+msgid "Classes only in new stage are allowed to be started."
+msgstr "Solo se pueden iniciar las clases en estado Nuevo."
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/populate_class.py:0
+msgid "Add assignment types and their weightage."
+msgstr "Agregue los tipos de actividad y su ponderación."
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/populate_class.py:0
+msgid "Please make sure to make assignment type weightage sum to be 100%."
+msgstr "La ponderación de los tipos de actividad debe sumar 100 %."
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/student_enrollment.py:0
+msgid "The student already has an active enrollment in this class."
+msgstr "El estudiante ya cuenta con una inscripción activa en esta clase ofertada."
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/populate_class.py:0
+msgid ""
+"The evaluation setting of a class cannot be changed once the class has been "
+"created."
+msgstr ""
+"No se puede cambiar si la clase tiene actividades de evaluación después de "
+"haberla creado."
+
+#
+# El original (wk_school_management) usa un msgid distinto para este mismo
+# mensaje y su es.po lo tradujo mal ("Assignment" -> "cesión", en vez de
+# "tarea"). Se reescribe el método completo (ver populate_class.py,
+# assign_assignment) con un msgid propio para no depender de esa traducción.
+#
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/populate_class.py:0
+msgid "The assignment can only be created within the term of the class."
+msgstr "La tarea solo se puede asignar dentro del periodo de la clase."
+
+#
+# El original (wk_school_management) arma este mismo mensaje con un
+# f-string interpolado ANTES de pasarlo a _(), así que el msgid nunca es
+# fijo y no se puede traducir desde ningún catálogo. Se reescribe la
+# validación completa (ver models/class_attendance.py,
+# _unique_attendance_date_wise) con parámetros de sustitución normales.
+#
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/class_attendance.py:0
+msgid ""
+"The attendance for %(student)s already exists for date %(date)s in class "
+"%(class_name)s."
+msgstr ""
+"Ya existe un registro de asistencia para %(student)s en la fecha %(date)s "
+"en la clase %(class_name)s."

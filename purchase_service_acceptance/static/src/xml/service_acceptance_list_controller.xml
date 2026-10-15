@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="purchase_service_acceptance.ServiceAcceptanceListView" t-inherit="web.ListView" t-inherit-mode="primary">
+        <xpath expr="//t[@t-component='props.Renderer']" position="replace">
+            <div class="o_psa_content d-flex flex-column h-100">
+                <ServiceAcceptanceStatsBanner/>
+                <div class="o_psa_list_wrap flex-grow-1 overflow-auto">$0</div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

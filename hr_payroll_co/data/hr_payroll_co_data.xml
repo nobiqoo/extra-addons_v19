@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <function model="ir.module.module" name="hook_to_upgrade" />
+
+        <menuitem id="hr_payroll_co_menu_root" name="Recursos Humanos" sequence="20"
+            groups="manager_payslip,user_payslip" />
+
+        <menuitem id="payslip_menu_categ" name="Nómina" parent="hr_payroll_co_menu_root"
+            sequence="4" />
+
+        <menuitem id="contribution_menu_categ" name="Autoliquidación"
+            parent="hr_payroll_co_menu_root" sequence="5" />
+
+        <menuitem id="novelty_menu_categ" name="Novedades de nómina"
+            parent="hr_payroll_co_menu_root" sequence="6" />
+
+        <menuitem id="reports_menu_categ" name="Informes" parent="hr_payroll_co_menu_root"
+            sequence="7" />
+
+        <menuitem id="income_and_withholding_certificate_menu_categ"
+            name="Certificados de ingreso y retención"
+            parent="reports_menu_categ"
+            sequence="3" />
+
+        <menuitem id="setup_novelty_menu_categ" name="Novedades de nómina"
+            parent="hr.menu_human_resources_configuration" sequence="1" />
+
+        <menuitem id="hr_period_menu_categ" name="Periodos de nómina"
+            parent="hr.menu_human_resources_configuration" sequence="1" />
+
+        <menuitem id="setup_payslip_menu_categ" name="Nómina"
+            parent="hr.menu_human_resources_configuration" sequence="1" />
+
+        <menuitem id="hr_contract_menu_categ" name="Contratos"
+            parent="hr.menu_human_resources_configuration" sequence="3" />
+
+        <record id="res_city_action" model="ir.actions.act_window">
+            <field name="name">Ciudades-Municipios</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.city</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="menu_country_city_partner" name="Ciudades-Municipios"
+            parent="contacts.menu_localisation" action="res_city_action" sequence="3" />
+
+        <record id="contacts.menu_country_group" model="ir.ui.menu">
+            <field name="sequence">4</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="wk_student_subjects_form" model="ir.ui.view">
+            <field name="name">wk.student.subjects.form</field>
+            <field name="model">wk.student.subjects</field>
+            <field name="arch" type="xml">
+                <form string="Students" create="false">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="get_assigned_assignments" icon="fa-calendar" type="object" 
+                                class="oe_stat_button">
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_value">
+                                            <field name="total_assignments"/>
+                                        </span>
+                                        <span class="o_stat_text">
+                                            Assignments
+                                        </span>
+                                    </div>
+                            </button>
+                        </div>
+                        <field name="student_image" widget='image' class="oe_avatar"/>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="name" string="Name" />
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <br/>
+                        <group>
+                            <group>
+                                <field name="student_id"/>
+                                <field name="session_id"/>
+                                <field name="grade_id"/>
+                                <field name="section_id" invisible="not section_visibility" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                <field name="scale_line_id" force_save="1"/>
+                                <field name="company_id" readonly="is_single_company" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" groups="base.group_multi_company"/>
+                            </group>
+                            <group >
+                                <field name="enrollment_id" readonly='1'/>
+                                <field name="academic_year_id"/>
+                                <field name="subject_code"/>
+                                <field name="subject_id" readonly='1'/>
+                                <field name="credit_value"/>
+                                <field name="scale_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="report_term" string="Term Reports">
+                                <field name='term_report_ids' widget="one2many" readonly="1" force_save="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_student_subjects_tree" model="ir.ui.view">
+            <field name="name">wk.student.subjects.list</field>
+            <field name="model">wk.student.subjects</field>
+            <field name="arch" type="xml">
+                <list string="Students" create="false" edit="false">
+                    <field name="name"/>
+                    <field name="student_id"/>
+                    <field name="enrollment_id"/>
+                    <field name="grade_id"/>
+                    <field name="section_id" optional="hide"/>
+                    <field name="subject_id"/>
+                    <field name="session_id"/>
+                    <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                    <field name="company_id"
+                        groups="base.group_multi_company"
+                        optional="show"
+                        readonly="1"/>
+                    <field name="state" widget="badge" decoration-success="state =='complete'" decoration-warning="state =='progress'" decoration-primary="state =='draft'"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="wk_student_subjects_kanban" model="ir.ui.view">
+            <field name="name">wk.student.subjects.kanban</field>
+            <field name="model">wk.student.subjects</field>
+            <field name="arch" type="xml">
+                <kanban create="0" edit="0">
+                    <field name='student_id'/>
+                    <field name='grade_id'/>
+                    <field name='session_id'/>
+                    <templates>
+                        <t t-name="card" class="flex-row">
+                            <aside class="o_kanban_aside_full">
+                                <field name="student_image" class="o_kanban_image_fill w-100" widget="image" options="{'img_class': 'object-fit-cover'}" alt="Student image"/>
+                            </aside>
+                            <main class="ps-2 ps-md-0">
+                                <field name="name" class="fw-bold"/>
+                                <div t-if="record.enrollment_id.raw_value">
+                                    <span class="fw-normal">Enrollment No.: </span>
+                                    <strong><field name="enrollment_id"/></strong>
+                                </div>
+                                <div t-if="record.grade_id.raw_value">
+                                    <span class="fw-normal">Grade: </span>
+                                    <strong><field name="grade_id"/></strong>
+                                </div>
+                                <div t-if="record.session_id.raw_value">
+                                    <span class="fw-normal">Session: </span>
+                                    <strong><field name="session_id"/></strong>
+                                </div>
+                            </main>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="wk_student_subjects_search" model="ir.ui.view">
+           <field name="name">wk.student.subjects.search</field>
+           <field name="model">wk.student.subjects</field>
+           <field name="arch" type="xml">
+               <search>
+                    <field name="name" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="subject_id"/>
+                    <field name="enrollment_id"/>
+                    <field name="grade_id"/>
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                    <filter name="progress" string="In progress" domain="[('state','=','progress')]"/>
+                    <filter name="complete" string="Completed" domain="[('state','=','complete')]"/>
+
+                    <group>
+                        <filter name="group_by_student"  string="Student" domain="[]" context="{'group_by':'student_id'}"/>
+                        <filter name="group_by_subject"  string="Subject" domain="[]" context="{'group_by':'subject_id'}"/>
+                        <filter name="group_by_session"  string="Session" domain="[]" context="{'group_by':'session_id'}"/>
+                        <filter name="group_by_academic_year"  string="Academic Year" domain="[]" context="{'group_by':'academic_year_id'}"/>
+                        <filter name="group_by_class"  string="Grade" domain="[]" context="{'group_by':'grade_id'}" />
+                        <filter name="group_by_school"  string="School" domain="[]" context="{'group_by':'company_id'}" />
+                    </group>
+               </search>
+           </field>
+        </record>
+
+        <record id="wk_student_subjects_action" model="ir.actions.act_window">
+            <field name="name">Report Card</field>
+            <field name="res_model">wk.student.subjects</field>
+            <field name="view_mode">form,list,kanban</field>
+            <field name="path">student-report-card</field>
+            <field name="view_id" ref="wk_student_subjects_tree"/>
+        </record>
+
+    </data>    
+</odoo>    

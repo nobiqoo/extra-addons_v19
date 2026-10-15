@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>; ) --> 
+<!-- See LICENSE file for full copyright and licensing details. --> 
+<!-- License URL : https://store.webkul.com/license.html/ -->
+
+<odoo>
+    <data>
+        <record id='ir_cron_update_fee_slip' model='ir.cron'>
+            <field name='name'>Fee Slip:Update Status</field>
+            <field name='model_id' ref='model_wk_fee_slip'/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="state">code</field>
+            <field name="code">model.fee_slip_update()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+        </record>
+
+        <record id='ir_cron_create_student_attendance' model='ir.cron'>
+            <field name='name'>Student Attendance:Create Student Attendances</field>
+            <field name='model_id' ref='model_wk_student_attendance'/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="state">code</field>
+            <field name="code">model.student_attendance_create()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+        </record>
+    </data>
+</odoo>

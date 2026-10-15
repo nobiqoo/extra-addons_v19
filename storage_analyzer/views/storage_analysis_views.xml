@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- ============================================ -->
+    <!-- VISTA FORMULARIO: Análisis de Almacenamiento -->
+    <!-- ============================================ -->
+    <record id="view_storage_analysis_form" model="ir.ui.view">
+        <field name="name">storage.analysis.form</field>
+        <field name="model">storage.analysis</field>
+        <field name="arch" type="xml">
+            <form string="Análisis de Almacenamiento">
+                <header>
+                    <button name="action_run" type="object" 
+                            string="Ejecutar Análisis" 
+                            class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_view_spreadsheet_dashboard" type="object"
+                            string="Visualizar Tablero"
+                            class="oe_highlight"
+                            invisible="state != 'done'"/>
+                    <button name="action_draft" type="object"
+                            string="Volver a Borrador"
+                            invisible="state in ('draft', 'running')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,running,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_spreadsheet_dashboard" type="object"
+                                class="oe_stat_button"
+                                icon="fa-bar-chart"
+                                invisible="state != 'done'"
+                                string="Tablero"/>
+                    </div>
+                    
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="state != 'draft'"/>
+                        </h1>
+                    </div>
+                    
+                    <group>
+                        <group>
+                            <field name="analysis_date" readonly="state != 'draft'"/>
+                            <field name="alert_level" widget="badge" decoration-success="alert_level == 'normal'" decoration-warning="alert_level == 'warning'" decoration-danger="alert_level == 'critical'"/>
+                        </group>
+                        <group>
+                            <field name="usage_percentage" widget="progressbar"/>
+                            <field name="ref_id" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <!-- KPIs Principales -->
+                    <div class="row mt-4" invisible="state != 'done'" groups="storage_analyzer.group_storage_analyzer_user">
+                        <div class="col-3">
+                            <div class="card border-info">
+                                <div class="card-header text-center bg-info text-white">
+                                    <strong>Tamaño Total</strong>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h3><field name="total_size_gb" widget="float" options="{'precision': 2}"/> GB</h3>
+                                    <span class="text-muted"><field name="total_size" widget="float" options="{'precision': 2}"/> MB</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card border-primary">
+                                <div class="card-header text-center bg-primary text-white">
+                                    <strong>Base de Datos</strong>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h3><field name="database_size" widget="float" options="{'precision': 2}"/> MB</h3>
+                                    <span class="text-muted"><field name="table_count"/> tablas</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card border-success">
+                                <div class="card-header text-center bg-success text-white">
+                                    <strong>Filestore</strong>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h3><field name="filestore_size" widget="float" options="{'precision': 2}"/> MB</h3>
+                                    <span class="text-muted"><field name="total_attachments"/> adjuntos</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card border-warning">
+                                <div class="card-header text-center bg-warning">
+                                    <strong>Adjuntos en DB</strong>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h3><field name="attachments_db_size" widget="float" options="{'precision': 2}"/> MB</h3>
+                                    <span class="text-muted">Usar filestore</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <notebook>
+                        <!-- Pestaña: Resumen -->
+                        <page string="Resumen" name="summary">
+                            <group>
+                                <group string="Almacenamiento">
+                                    <field name="database_size"/>
+                                    <field name="filestore_size"/>
+                                    <field name="attachments_store_size"/>
+                                    <field name="attachments_db_size"/>
+                                    <field name="total_size"/>
+                                    <field name="total_size_gb"/>
+                                </group>
+                                <group string="Adjuntos">
+                                    <field name="total_attachments"/>
+                                </group>
+                            </group>
+                            <field name="note" placeholder="Notas adicionales..." readonly="state != 'draft'"/>
+                        </page>
+
+                        <!-- Pestaña: Detalle por Tabla -->
+                        <page string="Detalle por Tabla" name="table_details">
+                            <field name="table_line_ids" readonly="1">
+                                <list string="Tablas" decoration-danger="size_percentage &gt; 0.2" decoration-warning="size_percentage &gt; 0.1">
+                                    <field name="table_name"/>
+                                    <field name="model_name"/>
+                                    <field name="model_description"/>
+                                    <field name="row_count" sum="Total Registros"/>
+                                    <field name="row_count_formatted"/>
+                                    <field name="table_size" sum="Total" optional="show"/>
+                                    <field name="index_size" sum="Total" optional="show"/>
+                                    <field name="total_size" sum="Total"/>
+                                    <field name="size_percentage" widget="percentage" sum="Total" optional="show"/>
+                                    <field name="category" optional="show"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Pestaña: Detalle por Tipo -->
+                        <page string="Detalle por Tipo" name="filetype_details">
+                            <field name="model_filetype_line_ids" readonly="1">
+                                <list string="Tablas x Tipo de adjunto">
+                                    <field name="res_model"/>
+                                    <field name="model_description"/>
+                                    <field name="file_type"/>
+                                    <field name="total_size" sum="Total tamaño"/>
+                                    <field name="attachment_count" sum="Total"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Pestaña: Detalle de Adjuntos -->
+                        <page string="Detalle de Adjuntos" name="attachment_details">
+                            <field name="attachment_line_ids" readonly="1">
+                                <list string="Adjuntos" decoration-danger="file_size &gt; 100" decoration-warning="file_size &gt; 50">
+                                    <field name="name"/>
+                                    <field name="file_size"/>
+                                    <field name="storage_type"/>
+                                    <field name="res_model"/>
+                                    <field name="mimetype"/>
+                                    <field name="file_category"/>
+                                    <field name="create_date"/>
+                                    <button name="action_open_attachment" type="object" icon="fa-external-link" title="Abrir adjunto"/>
+                                    <button name="action_open_record" type="object" icon="fa-link" title="Abrir registro"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ============================================ -->
+    <!-- VISTA LISTA: Análisis de Almacenamiento -->
+    <!-- ============================================ -->
+    <record id="view_storage_analysis_tree" model="ir.ui.view">
+        <field name="name">storage.analysis.tree</field>
+        <field name="model">storage.analysis</field>
+        <field name="arch" type="xml">
+            <list string="Análisis de Almacenamiento" decoration-success="alert_level == 'normal'" decoration-warning="alert_level == 'warning'" decoration-danger="alert_level == 'critical'">
+                <field name="ref_id" invisible="1"/>
+                <field name="name"/>
+                <field name="analysis_date"/>
+                <field name="database_size" sum="Total"/>
+                <field name="filestore_size" sum="Total"/>
+                <field name="total_size" sum="Total"/>
+                <field name="total_attachments" sum="Total"/>
+                    <field name="state" widget="badge" decoration-muted="state == 'draft'" decoration-info="state == 'running'" decoration-success="state == 'done'" decoration-danger="state == 'error'"/>
+                <field name="alert_level" widget="badge" optional="show"/>
+                <field name="usage_percentage" widget="progressbar" optional="show"/>
+                <field name="is_latest" widget="boolean" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================================ -->
+    <!-- VISTA BÚSQUEDA: Análisis de Almacenamiento -->
+    <!-- ============================================ -->
+    <record id="view_storage_analysis_search" model="ir.ui.view">
+        <field name="name">storage.analysis.search</field>
+        <field name="model">storage.analysis</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Análisis">
+                <field name="name"/>
+                <field name="analysis_date"/>
+                <filter name="draft" string="Borrador" domain="[('state', '=', 'draft')]"/>
+                <filter name="running" string="En Ejecución" domain="[('state', '=', 'running')]"/>
+                <filter name="done" string="Completados" domain="[('state', '=', 'done')]"/>
+                <filter name="error" string="Con Error" domain="[('state', '=', 'error')]"/>
+                <filter name="today" string="Hoy" domain="[('analysis_date', '>=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]"/>
+                <filter name="this_week" string="Esta Semana" domain="[('analysis_date', '>=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <filter name="this_month" string="Este Mes" domain="[('analysis_date', '>=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                <group>
+                    <filter name="group_by_state" string="Estado" context="{'group_by': 'state'}"/>
+                    <filter name="group_by_date" string="Fecha" context="{'group_by': 'analysis_date:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ============================================ -->
+    <!-- ACCIÓN: Análisis de Almacenamiento -->
+    <!-- ============================================ -->
+    <record id="action_storage_analysis" model="ir.actions.act_window">
+        <field name="name">Análisis de Almacenamiento</field>
+        <field name="res_model">storage.analysis</field>
+        <field name="view_mode">list,form,pivot,graph</field>
+        <field name="search_view_id" ref="view_storage_analysis_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear primer análisis de almacenamiento
+            </p>
+            <p>
+                Ejecute un análisis para ver el consumo de almacenamiento de su instancia Odoo.
+            </p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="NAP" model="dian.concept.type">
+            <field name="name">No aplica</field>
+            <field name="dian_code">NAP</field>
+            <field name="type"></field>
+        </record>
+
+        <!-- PROVISIONS -->
+
+        <record id="ppri" model="dian.concept.type">
+            <field name="name">Provisiones Prima</field>
+            <field name="dian_code">PPRI</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="pces" model="dian.concept.type">
+            <field name="name">Provisiones Cesantías</field>
+            <field name="dian_code">PCES</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="pice" model="dian.concept.type">
+            <field name="name">Provisiones Intereses Cesantías</field>
+            <field name="dian_code">PICE</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="pvac" model="dian.concept.type">
+            <field name="name">Provisiones Vacaciones</field>
+            <field name="dian_code">PVAC</field>
+            <field name="type">dev</field>
+        </record>
+
+        <!-- EARNINGS -->
+
+        <record id="bas" model="dian.concept.type">
+            <field name="name">Basico</field>
+            <field name="dian_code">BAS</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="tpt" model="dian.concept.type">
+            <field name="name">Auxilio transporte</field>
+            <field name="dian_code">TPT</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="vma" model="dian.concept.type">
+            <field name="name">Viaticos Manutencion Alojamiento</field>
+            <field name="dian_code">VMA</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="vac" model="dian.concept.type">
+            <field name="name">Vacaciones comunes</field>
+            <field name="dian_code">VAC</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="vap" model="dian.concept.type">
+            <field name="name">Vacaciones compensadas</field>
+            <field name="dian_code">VAP</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="vacl" model="dian.concept.type">
+            <field name="name">Vacaciones Liquidación</field>
+            <field name="dian_code">VACL</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="pri" model="dian.concept.type">
+            <field name="name">Prima</field>
+            <field name="dian_code">PRI</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="pril" model="dian.concept.type">
+            <field name="name">Prima Liquidación</field>
+            <field name="dian_code">PRIL</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="ces" model="dian.concept.type">
+            <field name="name">Cesantías</field>
+            <field name="dian_code">CES</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="cesl" model="dian.concept.type">
+            <field name="name">Cesantías Liquidación</field>
+            <field name="dian_code">CESL</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="ice" model="dian.concept.type">
+            <field name="name">Intereses Cesantías</field>
+            <field name="dian_code">ICE</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="icel" model="dian.concept.type">
+            <field name="name">Intereses Cesantías Liquidación</field>
+            <field name="dian_code">ICEL</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="bon" model="dian.concept.type">
+            <field name="name">Bonificaciones</field>
+            <field name="dian_code">BON</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="aux" model="dian.concept.type">
+            <field name="name">Auxilios</field>
+            <field name="dian_code">AUX</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="hgl" model="dian.concept.type">
+            <field name="name">Huelgas legales</field>
+            <field name="dian_code">HGL</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="ocp" model="dian.concept.type">
+            <field name="name">Otros conceptos</field>
+            <field name="dian_code">OCP</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="cor" model="dian.concept.type">
+            <field name="name">Compensaciones ordinarias</field>
+            <field name="dian_code">COR</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="cex" model="dian.concept.type">
+            <field name="name">Compensaciones extraordinarias</field>
+            <field name="dian_code">CEX</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="bep" model="dian.concept.type">
+            <field name="name">Bono EPCTVs</field>
+            <field name="dian_code">BEP</field>
+            <field name="type">dev</field>
+        </record>
+        
+        <record id="bea" model="dian.concept.type">
+            <field name="name">Bono EPCTVs alimentación</field>
+            <field name="dian_code">BEA</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="com" model="dian.concept.type">
+            <field name="name">Comisiones</field>
+            <field name="dian_code">COM</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="ptp" model="dian.concept.type">
+            <field name="name">Pagos a terceros</field>
+            <field name="dian_code">PTP</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="ant" model="dian.concept.type">
+            <field name="name">Anticipos</field>
+            <field name="dian_code">ANT</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="dot" model="dian.concept.type">
+            <field name="name">Dotación</field>
+            <field name="dian_code">DOT</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="aso" model="dian.concept.type">
+            <field name="name">Apoyo sostenimiento</field>
+            <field name="dian_code">ASO</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="ttr" model="dian.concept.type">
+            <field name="name">Teletrabajo</field>
+            <field name="dian_code">TTR</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="brt" model="dian.concept.type">
+            <field name="name">Bonificación Retiro</field>
+            <field name="dian_code">BRT</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="ind" model="dian.concept.type">
+            <field name="name">Indemnización</field>
+            <field name="dian_code">IND</field>
+            <field name="type">dev</field>
+        </record>
+
+        <record id="rei" model="dian.concept.type">
+            <field name="name">Reintegro</field>
+            <field name="dian_code">REI</field>
+            <field name="type">dev</field>
+        </record>
+
+        <!-- DEDUCTIONS -->
+        
+        <record id="eps" model="dian.concept.type">
+            <field name="name">Salud</field>
+            <field name="dian_code">EPS</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="pen" model="dian.concept.type">
+            <field name="name">Pensión</field>
+            <field name="dian_code">PEN</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="fsl" model="dian.concept.type">
+            <field name="name">Fondo solidaridad</field>
+            <field name="dian_code">FSL</field>
+            <field name="type">ded</field>
+        </record>
+        
+        <record id="fsb" model="dian.concept.type">
+            <field name="name">Fondo subsistencia</field>
+            <field name="dian_code">FSB</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="spu" model="dian.concept.type">
+            <field name="name">Sanción pública</field>
+            <field name="dian_code">SPU</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="spv" model="dian.concept.type">
+            <field name="name">Sanción privada</field>
+            <field name="dian_code">SPV</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="lib" model="dian.concept.type">
+            <field name="name">Libranzas</field>
+            <field name="dian_code">LIB</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="ptr" model="dian.concept.type">
+            <field name="name">Pagos a terceros</field>
+            <field name="dian_code">PTR</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="adv" model="dian.concept.type">
+            <field name="name">Anticipos</field>
+            <field name="dian_code">ADV</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="odd" model="dian.concept.type">
+            <field name="name">Otras deducciones</field>
+            <field name="dian_code">ODD</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="pvl" model="dian.concept.type">
+            <field name="name">Pensión voluntaria</field>
+            <field name="dian_code">PVL</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="rft" model="dian.concept.type">
+            <field name="name">Retención en la fuente</field>
+            <field name="dian_code">RFT</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="afc" model="dian.concept.type">
+            <field name="name">AFC (Ahorro fomento a la construcción)</field>
+            <field name="dian_code">AFC</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="coo" model="dian.concept.type">
+            <field name="name">Cooperativa</field>
+            <field name="dian_code">COO</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="emb" model="dian.concept.type">
+            <field name="name">Embargo fiscal</field>
+            <field name="dian_code">EMB</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="cpn" model="dian.concept.type">
+            <field name="name">Plan complementario</field>
+            <field name="dian_code">CPN</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="edu" model="dian.concept.type">
+            <field name="name">Educación</field>
+            <field name="dian_code">EDU</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="rin" model="dian.concept.type">
+            <field name="name">Reintegro</field>
+            <field name="dian_code">RIN</field>
+            <field name="type">ded</field>
+        </record>
+
+        <record id="deu" model="dian.concept.type">
+            <field name="name">Deuda</field>
+            <field name="dian_code">DEU</field>
+            <field name="type">ded</field>
+        </record>
+
+        <!-- OVERTIME -->
+        
+        <record id="hed" model="dian.concept.type">
+            <field name="name">Hora Extra Diurna</field>
+            <field name="dian_code">HED</field>
+            <field name="percentage">25.00</field>
+            <field name="type">overtime</field>
+        </record>
+
+        <record id="hen" model="dian.concept.type">
+            <field name="name">Hora Extra Nocturna</field>
+            <field name="dian_code">HEN</field>
+            <field name="percentage">75.00</field>
+            <field name="type">overtime</field>
+        </record>
+
+        <record id="hrn" model="dian.concept.type">
+            <field name="name">Hora Recargo Nocturno</field>
+            <field name="dian_code">HRN</field>
+            <field name="percentage">35.00</field>
+            <field name="type">overtime</field>
+        </record>
+
+        <record id="heddf" model="dian.concept.type">
+            <field name="name">Hora Extra Diurna Dominical y Festivos</field>
+            <field name="dian_code">HEDDF</field>
+            <field name="percentage">100.00</field>
+            <field name="type">overtime</field>
+        </record>
+
+        <record id="hrddf" model="dian.concept.type">
+            <field name="name">Hora Recargo Diurno Dominical y Festivos</field>
+            <field name="dian_code">HEDDF</field>
+            <field name="percentage">75.00</field>
+            <field name="type">overtime</field>
+        </record>
+
+        <record id="hendf" model="dian.concept.type">
+            <field name="name">Hora Extra Nocturna Dominical y Festivos</field>
+            <field name="dian_code">HENDF</field>
+            <field name="percentage">150.00</field>
+            <field name="type">overtime</field>
+        </record>
+
+        <record id="hrndf" model="dian.concept.type">
+            <field name="name">Hora Recarco Nocturno Dominical y Festivos</field>
+            <field name="dian_code">HRNDF</field>
+            <field name="percentage">110.00</field>
+            <field name="type">overtime</field>
+        </record>
+        
+    </data>
+</odoo>

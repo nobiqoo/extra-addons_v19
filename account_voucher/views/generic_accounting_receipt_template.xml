@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <template id="generic_accounting_receipt">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <t t-call="account_voucher.generic_accounting_receipt_document"/>
+                    <p style="page-break-after: always;"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="generic_accounting_receipt_document">
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" />
+            <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;display=swap" rel="stylesheet" />
+            <div class="header">
+                <style>
+                    .logo img{
+                        height: 150px !important;
+                        border: 0px solid red;
+                    }
+                    .row {
+                        margin-top:10px;
+                    }
+                    span {
+                        font-family: 'Lato', sans-serif;
+                    }
+                    p {
+                        font-size:14px;
+                        margin:0px;
+                        line-height:16px;
+                        color:#606060;
+                    }
+                    br {
+                        height:2px;
+                    }
+                    #nombre-compania {
+                        font-size:14px;
+                    }
+                    strong {
+                        font-weight: 900;
+                    }
+                    .dato-factura-titulo {
+                        color: #110979;
+                    }
+                    .numero-factura {
+                        font-size: 18px;
+                    }
+                    .imagen-calidad {
+                        width:120px;
+                    }
+                    .tabla {
+                        width:100%;
+                    }
+                    .tabla td {
+                        border: 1px solid white;
+                    }
+                    .tabla th {
+                        vertical-align:middle;
+                        color: #0054A4;
+                        }
+                    .texto-resolucion {
+                        color: blue;
+                        text-align: right;
+                    }
+                    .titulo-seccion {
+                        text-align: center;
+                    }
+                    .tabla-lineas-factura-productos .cantidad p {
+                        text-align: center;
+                    }
+                    .cufe {
+                        font-size:11px !important;
+                    }
+                    .favor-liquidar {
+                        font-size:8px !important;
+                    }
+                </style>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="tabla">
+                            <tr>
+                                <td width="30%">
+                                    <div class="logo">
+                                        <span t-field="doc.company_id.logo" t-options-widget="&quot;image&quot;" />
+                                        <br />
+                                    </div>
+                                </td>
+                                <td width="30%">
+                                    <p>
+                                        <b t-field="doc.company_id.name"/>
+                                        <br/>
+                                        <b>NIT:</b>
+                                        <span t-field="doc.company_id.vat"/>
+                                        <br/>
+                                        <b>Dirección:</b>
+                                        <span t-field="doc.company_id.street"/>
+                                        <br/>
+                                        <span t-field="doc.company_id.city"/>
+                                    </p>
+                                </td>
+                                <td class="text-right" width="60%">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="page">
+                <style>
+                    .row {
+                        margin-top:10px;
+                    }
+                    span {
+                        font-family: 'Lato', sans-serif;
+                    }
+                    p {
+                        font-size:14px;
+                        margin:0px;
+                        line-height:16px;
+                        color:#606060;
+                    }
+                    br {
+                        height:2px;
+                    }
+                    #nombre-compania {
+                        font-size:14px;
+                    }
+                    strong {
+                        font-weight: 900;
+                    }
+                    .dato-factura-titulo {
+                        color: #110979;
+                    }
+                    .numero-factura {
+                        font-size: 18px;
+                    }
+                    .imagen-calidad {
+                        width:120px;
+                    }
+                    .tabla {
+                        width:100%;
+                    }
+                    .tabla td {
+                        vertical-align:middle;
+                        border: 1px solid white;
+                    }
+                    .tabla th {
+                        vertical-align:middle;
+                        color: #0054A4;
+                        border: 1px solid white;
+                    }
+                    .texto-resolucion {
+                        color: blue;
+                        text-align: right;
+                    }
+                    .titulo-seccion {
+                        text-align: center;
+                    }
+                    .tabla-lineas-factura-productos .cantidad p {
+                        text-align: center;
+                    }
+                    .cufe {
+                        font-size:11px !important;
+                    }
+                    .favor-liquidar {
+                        font-size:8px !important;
+                    }
+                    .tabla-lineas tr {
+                        border-bottom: 2px solid rgb(225,235,237) !important;
+                    }
+                </style>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <table class="tabla">
+                                <tr>
+                                    <td>
+                                        <p>COMPROBANTE No:</p>
+                                        <span t-field="doc.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <b>NIT:</b>
+                                            <span t-field="doc.partner_id.vat"/>
+                                            <br/>
+                                            <br/>
+                                            <b>NOMBRE DEL PROVEEDOR:</b>
+                                            <span t-field="doc.partner_id.name"/>
+                                            <br/>
+                                            <b>DIRECCIÓN:</b>
+                                            <span t-field="doc.partner_id.street"/>
+                                            <br/>
+                                            <b>CIUDAD:</b>
+                                            <span t-field="doc.partner_id.city"/>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-6">
+                            <table class="tabla">
+                                <tr>
+                                    <td>
+                                        <p>
+                                            COMPROBANTE:
+                                        </p>
+                                    </td>
+                                    <td class="text-right">
+                                        <p>
+                                            <b t-field="doc.journal_id"/>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            FECHA:
+                                        </p>
+                                    </td>
+                                    <td class="text-right">
+                                        <p>
+                                            <b t-field="doc.date" t-field-options="{'format': 'MM/yyyy'}"/>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <p>
+                                <b>CONDICIONES TRIBUTARIAS:</b> <span t-field="doc.journal_id.conditions_tax"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <br/>
+                            <br/>
+                            <t t-set="total_debito" t-value="0"/>
+                            <t t-set="total_credito" t-value="0"/>
+                            <table class="table table-condensed tabla tabla-lineas">
+                                <tr>
+                                    <th>Referencia</th>
+                                    <th>Cuenta</th>
+                                    <th>Detalle</th>
+                                    <th>Empresa/Cliente</th>
+                                    <th t-if="doc.ifrs_type != 'ifrs'">Débito</th>
+                                    <th t-if="doc.ifrs_type != 'ifrs'">Crédito</th>
+                                    <th t-if="doc.ifrs_type == 'ifrs'">Débito NIIF</th>
+                                    <th t-if="doc.ifrs_type == 'ifrs'">Crédito NIIF</th>
+                                    <th>Cuenta Analítica</th>
+                                    <th>Moneda</th>
+                                </tr>
+                                <t t-foreach="doc.line_ids" t-as="l">
+                                    <t t-set="debit" t-value="doc.ifrs_type == 'ifrs' and l.ifrs_debit or l.debit"/>
+                                    <t t-set="credit" t-value="doc.ifrs_type == 'ifrs' and l.ifrs_credit or l.credit"/>
+                                    <t t-set="total_debito" t-value="total_debito + debit"/>
+                                    <t t-set="total_credito" t-value="total_credito + credit"/>
+                                    <tr>
+                                        <td>
+                                            <p>
+                                                <span t-field="l.account_id.code"/>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span t-field="l.account_id.name"/>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span t-field="l.name"/>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span t-field="l.partner_id"/>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span t-esc="debit" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span t-esc="credit" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <!-- <span t-field="l.analytic_account_id"/> -->
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span t-field="doc.currency_id"/>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td colspan="3"/>
+                                    <td>
+                                        <p>
+                                            <b>Total</b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span t-field="doc.currency_id.symbol"/> <b t-esc="'{0:,.2f}'.format(total_debito)"/>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span t-field="doc.currency_id.symbol"/> <b t-esc="'{0:,.2f}'.format(total_credito)"/>
+                                        </p>
+                                    </td>
+                                    <td colspan="2"/>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+    </data>
+</odoo>

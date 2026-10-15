@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Requerimiento "Estructura de calificación avanzada" (2.7): se
+         conserva la visual actual del asistente "Asignar tarea". Con una
+         Escala avanzada aplicada a la clase, el campo "Actividad" pasa a
+         ser el Componente de esa estructura (component_id); "Tipo" y la
+         Actividad aprobada original (type_id/assignment_id) se siguen
+         completando por debajo (ver wizard/assignment_wizard.py), pero
+         quedan ocultos para no duplicar lo que el usuario ya eligió. -->
+    <record id="assignment_wizard_form_colombo" model="ir.ui.view">
+        <field name="name">wk.assignment.wizard.form.colombo</field>
+        <field name="model">wk.assignment.wizard</field>
+        <field name="inherit_id" ref="wk_school_management.assignment_wizard_form"/>
+        <field name="arch" type="xml">
+            <field name="type_id" position="before">
+                <field name="grading_scale_id" invisible="1"/>
+                <field name="component_id" invisible="not grading_scale_id"
+                       options="{'no_create_edit': True, 'no_create': True}"/>
+            </field>
+            <field name="type_id" position="attributes">
+                <attribute name="invisible">grading_scale_id</attribute>
+            </field>
+            <field name="assignment_id" position="attributes">
+                <attribute name="invisible">grading_scale_id</attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>

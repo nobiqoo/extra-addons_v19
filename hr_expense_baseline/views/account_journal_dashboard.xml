@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="account_journal_voucher_inherit_form" model="ir.ui.view">
+        <field name="name">account.journal.voucher.inherit.form</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='bank_account']/group/group/field[@name='currency_id']"
+                position="before">
+                <field name="petty_cash" invisible="1" />
+                <field name="fund" String="Fund" invisible="petty_cash != True" force_save="1"/>
+            </xpath>
+            <xpath expr="//page[@name='bank_account']" position="inside">
+                <group string="Expense and Petty Cash">
+                    <group string="Expensive">
+                        <field name="account_refund_expensive" string="Account Refund Expensive"
+                            colspan="2" />
+                    </group>
+                    <group string="Petty Cash" invisible="petty_cash != True">
+                        <field name="account_payable_cash" string="Account Payable Cash" colspan="2" />
+                        <field name="account_refund_petty_cash" string="Account Refund Petty Cash"
+                            colspan="2" />
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='advanced_settings']/group" position="inside">
+                <group string="Petty Cash">
+                    <div class="text-muted" colspan="2">To activate select cash or bank type</div>
+                    <field name="petty_cash" string="Petty Cash"
+                        invisible="type not in ['cash','bank']" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

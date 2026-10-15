@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Configuración por defecto de las validaciones del motor
+         (safra.quote.line._validations). Primer lote: las computables con la
+         estructura por ancho, las fórmulas de alto/peso y los kits (archivo
+         "Restricciones y Validaciones de Productos"). Editables en
+         Configuración > Validaciones; noupdate para respetar los ajustes. -->
+    <data noupdate="1">
+        <record id="val_rango_ancho" model="safra.validation.rule">
+            <field name="code">V_RANGO_ANCHO</field>
+            <field name="name">Ancho dentro del rango del sistema</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_rango_alto" model="safra.validation.rule">
+            <field name="code">V_RANGO_ALTO</field>
+            <field name="name">Alto dentro del rango del sistema</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_estructura" model="safra.validation.rule">
+            <field name="code">V_ESTRUCTURA</field>
+            <field name="name">Componentes identificados (tabla de estructura)</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_alto_maximo" model="safra.validation.rule">
+            <field name="code">V_ALTO_MAXIMO</field>
+            <field name="name">Alto máximo calculado (espacio/carga)</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_requiere_motor" model="safra.validation.rule">
+            <field name="code">V_REQUIERE_MOTOR</field>
+            <field name="name">Debe ir motorizada por peso</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_peso_maximo" model="safra.validation.rule">
+            <field name="code">V_PESO_MAXIMO</field>
+            <field name="name">Peso vs carga máxima del mecanismo</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_alto_3x" model="safra.validation.rule">
+            <field name="code">V_ALTO_3X_ANCHO</field>
+            <field name="name">Alto mayor a 3 veces el ancho</field>
+            <field name="severity">warning</field>
+        </record>
+        <record id="val_ancho_min_motor" model="safra.validation.rule">
+            <field name="code">V_ANCHO_MIN_MOTOR</field>
+            <field name="name">Ancho mínimo para motorizar (0.80 m)</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_control_motor" model="safra.validation.rule">
+            <field name="code">V_CONTROL_MOTOR</field>
+            <field name="name">Control compatible con el motor (kit)</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_localizacion" model="safra.validation.rule">
+            <field name="code">V_LOCALIZACION</field>
+            <field name="name">Localización obligatoria</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_segunda_tela" model="safra.validation.rule">
+            <field name="code">V_SEGUNDA_TELA</field>
+            <field name="name">Segunda tela en 2 en 1 / Sheer 2 en 1</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_enrolle_sheer" model="safra.validation.rule">
+            <field name="code">V_ENROLLE_SHEER</field>
+            <field name="name">Sheer 2en1: enrollado solo al frente</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_cadena_extra" model="safra.validation.rule">
+            <field name="code">V_CADENA_EXTRA</field>
+            <field name="name">Cadena/cordón extra en rango</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_atravesado" model="safra.validation.rule">
+            <field name="code">V_ATRAVESADO</field>
+            <field name="name">Atravesado solo en telas atravesables</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_estampado_m2" model="safra.validation.rule">
+            <field name="code">V_ESTAMPADO_M2</field>
+            <field name="name">M² de impresión cubren la persiana</field>
+            <field name="severity">error</field>
+        </record>
+        <!-- P10-11: diseño personalizado -->
+        <record id="val_diseno_seleccion" model="safra.validation.rule">
+            <field name="code">V_DISENO_SELECCION</field>
+            <field name="name">Diseño Impresión: diseño seleccionado</field>
+            <field name="severity">error</field>
+        </record>
+        <!-- Revisión sprint 1: corte de cenefa entera según la tela -->
+        <record id="val_cenefa_entera" model="safra.validation.rule">
+            <field name="code">V_CENEFA_ENTERA</field>
+            <field name="name">Cenefa entera solo en telas que lo permiten</field>
+            <field name="severity">error</field>
+        </record>
+        <!-- P19: fórmula Best Fit de Panel Track -->
+        <record id="val_panel_lamas" model="safra.validation.rule">
+            <field name="code">V_PANEL_LAMAS</field>
+            <field name="name">Panel: combinación ancho/traslape/telos fabricable</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_panel_apertura" model="safra.validation.rule">
+            <field name="code">V_PANEL_APERTURA</field>
+            <field name="name">Panel: apertura coherente con la tabla de combinaciones</field>
+            <field name="severity">warning</field>
+        </record>
+        <!-- Fase 5.4c: configurador de secuencia (mismo cabezal) -->
+        <record id="val_secuencia" model="safra.validation.rule">
+            <field name="code">V_SECUENCIA</field>
+            <field name="name">Secuencia: reglas de soportes y tracción</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_secuencia_pendiente" model="safra.validation.rule">
+            <field name="code">V_SECUENCIA_PENDIENTE</field>
+            <field name="name">Secuencia: configuración pendiente</field>
+            <field name="severity">warning</field>
+        </record>
+    </data>
+</odoo>

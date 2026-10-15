@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="search_template_seller">
+        <button t-if="options.get('seller')" type="button" class="o-no-caret btn btn-secondary dropdown-toggle account_seller_filter" data-bs-toggle="dropdown">
+            <span class="fa fa-folder-open"/> Sales
+        </button>
+        <ul class="dropdown-menu o_filter_menu" role="menu">
+            <li class="o_account_report_search js_account_seller_m2m"/>
+        </ul>
+    </template>
+    primary="True"
+    <template id="search_seller_template" inherit_id="account_reports.search_template">
+        <xpath expr="//div[hasclass('o_account_reports_filter_partner')]" position="after">
+            <div class="btn-group dropdown o_account_reports_filter_seller" t-if="options.get('seller')">
+                <t t-call="account_report.search_template_seller"/>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

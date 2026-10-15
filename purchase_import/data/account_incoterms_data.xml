@@ -1,0 +1,47 @@
+<odoo>
+    <data noupdate="0">
+        <record id="account.incoterm_EXW" model="account.incoterms">
+            <field name="incoterms_type">ge</field>
+        </record>
+
+        <record id="account.incoterm_FCA" model="account.incoterms">
+            <field name="incoterms_type">gf</field>
+        </record>
+
+        <record id="account.incoterm_FAS" model="account.incoterms">
+            <field name="incoterms_type">gf</field>
+        </record>
+
+        <record id="account.incoterm_FOB" model="account.incoterms">
+            <field name="incoterms_type">gf</field>
+        </record>
+
+        <record id="account.incoterm_CFR" model="account.incoterms">
+            <field name="incoterms_type">gc</field>
+        </record>
+
+        <record id="account.incoterm_CIF" model="account.incoterms">
+            <field name="incoterms_type">gc</field>
+        </record>
+
+        <record id="account.incoterm_CPT" model="account.incoterms">
+            <field name="incoterms_type">gc</field>
+        </record>
+
+        <record id="account.incoterm_CIP" model="account.incoterms">
+            <field name="incoterms_type">gc</field>
+        </record>
+
+        <record id="account.incoterm_DPU" model="account.incoterms">
+            <field name="incoterms_type">gd</field>
+        </record>
+
+        <record id="account.incoterm_DAP" model="account.incoterms">
+            <field name="incoterms_type">gd</field>
+        </record>
+
+        <record id="account.incoterm_DDP" model="account.incoterms">
+            <field name="incoterms_type">gd</field>
+        </record>
+    </data>
+</odoo>

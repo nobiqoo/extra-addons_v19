@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="helpdesk_ticket_view_form" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.inherit.view.form</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_open_helpdesk_ticket']" position="after">
+                    <button name="action_view_income" type="object" class="oe_stat_button" icon="fa-area-chart" groups="sales_team.group_sale_salesman,purchase.group_purchase_user" invisible="helpdesk_ticket_income_expense == False">
+                        <field widget="statinfo" name="income_count" string="Income"/>
+                    </button>
+                    <button name="action_view_expense" type="object" class="oe_stat_button" icon="fa-cubes" groups="sales_team.group_sale_salesman,purchase.group_purchase_user" invisible="helpdesk_ticket_income_expense == False">
+                        <field widget="statinfo" name="expense_count" string="Expense"/>
+                    </button>
+                </xpath>
+                <xpath expr="//group[2]/field[@name='email_cc']" position="after">
+                    <field name="helpdesk_ticket_income_expense" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="helpdesk_ticket_view_form_inherit_helpdesk_timesheet" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.view.form.inherit.helpdesk.timesheet</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="financial" string="Financial info" groups="sales_team.group_sale_salesman,purchase.group_purchase_user" invisible="helpdesk_ticket_income_expense == False">
+                        <group name="financial_summary" string="Financial Summary">
+                            <group name="plan" string="Planned">
+                                <field name="helpdesk_ticket_income_expense" invisible="1"/>
+                                <field name="company_currency_id" invisible="1"/>
+                                <field name="plan_income" />
+                                <field name="plan_expense" />
+                                <field name="plan_margin" widget="percentage"/>
+                            </group>
+                            <group name="real" string="Real">
+                                <field name="real_income" />
+                                <field name="real_expense" />
+                                <field name="real_margin" widget="percentage"/>
+                            </group>
+                        </group>
+                        <separator name="income" string="Income"/>
+                        <field name="income_ids" readonly="0">
+                            <list class="o_sale_order" sample="1" decoration-info="state in ['draft', 'sent']" decoration-muted="state == 'cancel'">
+                                <field name="name" optional="show"/>
+                                <field name="create_date" optional="show"/>
+                                <field name="partner_id" optional="show"/>
+                                <field name="user_id" optional="hide" widget="many2one_avatar_user"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="amount_untaxed" optional="hide" sum="Total Untaxed amount" widget="monetary"/>
+                                <field name="amount_tax" optional="hide" sum="Tax Total" widget="monetary"/>
+                                <field name="amount_total" optional="show" sum="Total amount" widget="monetary"/>
+                                <field name="state" optional="show" decoration-success="state == 'sale' or state == 'done'" decoration-info="state == 'draft' or state == 'sent'" widget="badge"/>
+                                <field name="invoice_status" optional="show"/>
+                            </list>
+                        </field>
+                        <separator name="expense" string="Expense"/>
+                        <field name="expense_ids" readonly="0">
+                            <list class="o_purchase_order" sample="1" decoration-info="state in ['draft', 'sent']" decoration-muted="state == 'cancel'">
+                                <field name="priority" optional="show" widget="priority" nolabel="1"/>
+                                <field name="partner_ref" optional="hide"/>
+                                <field name="name" string="Reference" readonly="1" decoration-bf="1"/>
+                                <field name="date_approve" optional="hide" invisible="context.get('quotation_only', False)" />
+                                <field name="partner_id" optional="show"/>
+                                <field name="date_planned" optional="hide" invisible="context.get('quotation_only', False)" />
+                                <field name="user_id" optional="show" widget="many2one_avatar_user"/>
+                                <field name="date_order" optional="show" invisible="state in ['purchase', 'done', 'cancel'] or not context.get('quotation_only', False)" widget="remaining_days"/>
+                                <field name="origin" optional="hide"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="amount_untaxed" optional="hide" sum="Total Untaxed amount" string="Untaxed" widget="monetary" />
+                                <field name="amount_total" optional="show" sum="Total amount" widget="monetary" decoration-bf="state in ['purchase', 'done']"/>
+                                <field name="state" optional="show" widget="badge" decoration-success="state == 'purchase' or state == 'done'" decoration-warning="state == 'to approve'" decoration-info="state == 'draft' or state == 'sent'"/>
+                                <field name="invoice_status" optional="show"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="view_crossovered_budget_line_tree_odone_inherit_project" model="ir.ui.view">
+    <field name="name">view.crossovered.budget.line.tree.odone.inherit.project</field>
+    <field name="model">crossovered.budget.lines</field>
+    <field name="inherit_id" ref="account_budget_odone.view_crossovered_budget_line_tree_odone" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='crossovered_budget_id']" position="attributes">
+        <attribute name="column_invisible">0</attribute>
+        <attribute name="optional">show</attribute>
+      </xpath>
+    </field>
+  </record>
+</odoo>

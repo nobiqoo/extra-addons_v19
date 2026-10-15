@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_product_template_form" model="ir.ui.view">
+        <field name="name">view.product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='purchase']//group[@name='bill']" position="inside">
+                <field name="import_type" invisible="not landed_cost_ok" required="landed_cost_ok" />
+            </xpath>
+            <xpath expr="//page[@name='purchase']/group" position="inside">
+                <group string="Tariffes">
+                    <field name="tariffes_ids" widget="many2many_tags"
+                        domain="[('type_tax_use','=','purchase')]"
+                        context="{'default_type_tax_use':'purchase'}" />
+                    <label for="tariff_ids" string="Tariffes" />
+                    <field name="tariff_ids" nolabel="1">
+                        <list editable="bottom">
+                            <field name="template_id" column_invisible="1" />
+                            <field name="country_id" />
+                            <field name="taxes_ids" widget="many2many_tags" required="1"
+                                domain="[('type_tax_use','=','purchase')]"
+                                context="{'default_type_tax_use':'purchase'}" />
+                        </list>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

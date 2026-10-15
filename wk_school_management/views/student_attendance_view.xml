@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+
+    <data>
+        <record id="wk_student_attendance_form" model="ir.ui.view">
+            <field name="name">wk.student.attendance.form</field>
+            <field name="model">wk.student.attendance</field>
+            <field name="arch" type="xml">
+                <form string="Student Attendance">
+                    <header invisible="id == False">
+                        <button name="lock_attendance" string="Lock" type="object" class="oe_highlight" invisible="state != 'new' or id == False "  confirm="Are you sure you want to lock this attendance?"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="student_id" string="Student"/><br></br>
+                                <field name="student_id" options="{'no_create': True}" readonly="state == 'lock'"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="attendance_date" readonly="state == 'lock'"/>
+                                <field name="check_in" readonly="state == 'lock'"/>
+                                <field name="current_academic_year_id"/>
+                            </group>
+                            <group>
+                                <field name="attendance_state" readonly="state == 'lock'"/>
+                                <field name="check_out" readonly="state == 'lock'"/>
+                                <field name="company_id" readonly="is_single_company" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" groups="base.group_multi_company"/>
+                                <field name="total_hours_spent" widget="float_time"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="class_attendance" string="Class Attendance">
+                                <field name="class_attendance_ids" readonly="state == 'lock'" context="{'default_student_id':student_id,'default_class_date':attendance_date}">
+                                    <list editable="bottom">
+                                        <field name="student_id" optional="hide" readonly="1"/>
+                                        <field name="class_date" optional="hide"/>
+                                        <field name="class_id" options="{'no_create': True}"/>
+                                        <field name="state" widget="badge" decoration-danger="state=='absent'" decoration-success="state=='present'"/>
+                                        <field name="class_ids_domain" column_invisible="1"/>
+                                    </list>                     
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_student_attendance_tree" model="ir.ui.view">
+            <field name="name">wk.student.attendance.list</field>
+            <field name="model">wk.student.attendance</field>
+            <field name="arch" type="xml">
+                <list string="Attendance">
+                    <field name="student_id"/>
+                    <field name="current_academic_year_id"/>
+                    <field name="attendance_date"/>
+                    <field name="check_in"/>
+                    <field name="check_out" optional="hide"/>
+                    <field name="total_hours_spent" widget="float_time" optional="hide"/>
+                    <field name="write_date"/>
+                    <field name="attendance_state" widget="badge" decoration-danger = "attendance_state =='absent'" decoration-success="attendance_state =='present'"/>
+                    <field name="state" widget="badge" decoration-success="state == 'lock'" decoration-primary="state == 'new'"/>
+                    <field name="create_date" optional="hide"/>
+                    <field name="create_uid" optional="hide"/>
+                    <field name="write_uid" optional="hide"/>
+                    <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                    <field name="company_id"
+                        groups="base.group_multi_company"
+                        optional="show"
+                        readonly="1"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="wk_student_attendance_calendar_view" model="ir.ui.view">
+            <field name="name">wk.student.attendance.calendar</field>
+            <field name="model">wk.student.attendance</field>
+            <field name="arch" type="xml">
+                <calendar string="Attendance" create="0" mode="month" date_start="attendance_date" event_open_popup='True' color="attendance_state" >
+                    <field name="student_id"/>
+                    <field name="attendance_state" color="kanban_color" />
+                </calendar>
+            </field>
+        </record>
+
+        <record id="wk_student_attendance_search" model="ir.ui.view">
+           <field name="name">wk.student.attendance.search</field>
+           <field name="model">wk.student.attendance</field>
+           <field name="arch" type="xml">
+               <search>
+                    <field name="student_id" />
+                    <field name="attendance_date"/>
+                    <filter name="present" string="Present" domain="[('attendance_state','=','present')]"/>
+                    <filter name="absent" string="Absent" domain="[('attendance_state','=','absent')]"/>
+                    <separator/>
+                    <filter name="new" string="New" domain="[('state','=','new')]"/>
+                    <filter name="lock" string="Locked" domain="[('state','=','lock')]"/>
+                    <group>
+                        <filter name="group_by_student"  string="Student" domain="[]" context="{'group_by':'student_id'}" />
+                        <filter name="group_by_date"  string="Date" domain="[]" context="{'group_by':'attendance_date'}" />
+                        <filter name="group_by_type"  string="Attendance Status" domain="[]" context="{'group_by':'attendance_state'}" />
+                        <filter name="group_by_today"  string="Today" domain="[('attendance_date','=',context_today())]" context="{}" />
+                    </group>
+               </search>
+           </field>
+        </record>
+        
+        <record id="wk_student_attendance_action" model="ir.actions.act_window">
+            <field name="name">Attendances </field>
+            <field name="res_model">wk.student.attendance</field>
+            <field name="view_mode">list,calendar,form</field>
+            <field name="path">student-attendance</field>
+            <field name="view_id" ref="wk_student_attendance_tree"/>
+            <field name="context">{'search_default_group_by_today': 1}</field>
+        </record>
+
+        <record id="get_attendance_action" model="ir.actions.act_window">
+            <field name="name">Student Attendance</field>
+            <field name="res_model">wk.student.attendance</field>
+            <field name="view_mode">form,list</field>
+            <field name="path">attendance</field>
+            <field name="domain">[('class_attendance_ids','in',active_id)]</field>
+            <field name="search_view_id" ref="wk_student_attendance_search"/>
+            <field name="view_id" ref="wk_student_attendance_tree"/>
+        </record>
+
+        <record model="ir.actions.server" id="open_student_kiosk_url">
+            <field name="name">Open Kiosk Url</field>
+            <field name="model_id" ref="wk_school_management.model_res_company"/>
+            <field name="path">student-attendance-kiosk</field>
+            <field name="binding_model_id" ref="wk_school_management.model_res_company"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = model._action_open_student_kiosk_mode()
+            </field>
+            <field name="group_ids" eval="[(4, ref('wk_school_management_officer_group'))]"/>
+        </record>
+
+        <!-- PUBLIC HOLIDAYS VIEWS -->
+
+        <record id="wk_student_public_holidays_views_form" model="ir.ui.view">
+            <field name="name">wk.student.public.holidays.name</field>
+            <field name="model">wk.student.public.holidays</field>
+            <field name="arch" type="xml">
+                <form string="Public Holidays">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="name" string="Title"/>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>         
+                                <field name="date"/>  
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_student_public_holidays_views_tree" model="ir.ui.view">
+            <field name="name">wk.student.public.holidays.list</field>
+            <field name="model">wk.student.public.holidays</field>
+            <field name="arch" type="xml">
+                <list string="Public Holidays">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="create_uid"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="wk_student_public_holidays_search" model="ir.ui.view">
+           <field name="name">wk.student.public.holidays.search</field>
+           <field name="model">wk.student.public.holidays</field>
+           <field name="arch" type="xml">
+               <search>
+                    <field name="name" />
+                    <group>
+                        <filter name="group_by_date"  string="Date" domain="[]" context="{'group_by':'date'}" />
+                        <filter name="group_by_today"  string="Today" domain="[('date','=',context_today())]" context="{}" />
+                    </group>
+               </search>
+           </field>
+        </record>
+
+        <record id="wk_student_public_holidays_action" model="ir.actions.act_window">
+            <field name="name">Public Holidays </field>
+            <field name="res_model">wk.student.public.holidays</field>
+            <field name="path">student-public-holidays</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="wk_student_public_holidays_views_tree"/>
+        </record>
+
+    </data>    
+</odoo>    

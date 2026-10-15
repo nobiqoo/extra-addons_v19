@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- PAPEL COLGADURA (43) -->
+    <data noupdate="0">
+        <record id="system_43" model="safra.system"><field name="tech_width_min">0</field><field name="tech_width_max">0</field><field name="tech_height_min">0</field><field name="tech_height_max">0</field><field name="tech_mechanism"></field></record>
+        <record id="sf_43_width" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_43"/>
+            <field name="field_id" ref="field_width"/>
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_43_height" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_43"/>
+            <field name="field_id" ref="field_height"/>
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_43_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_43_fabric_id" model="safra.system.field">
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_43_color_id" model="safra.system.field">
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_43_location" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_43"/>
+            <field name="field_id" ref="field_location"/>
+            <field name="sequence">1000</field>
+        </record>
+    </data>
+</odoo>

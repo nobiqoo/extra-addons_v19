@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="inherit_view_id_inherit_res_config_settings"
+            model="ir.ui.view">
+
+        <field name="name">res.config.settings.followup.policy</field>
+
+        <field name="model">res.config.settings</field>
+
+        <field name="inherit_id"
+               ref="account.res_config_settings_view_form"/>
+
+        <field name="arch" type="xml">
+
+            <xpath expr="//block[@id='default_accounts']"
+                   position="inside">
+
+                <setting string="Follow-up Policy"
+                         id="followup_policy_setting">
+
+                    <div class="content-group">
+
+                        <div class="row mt8">
+
+                            <label for="followup_policy"
+                                   class="col-lg-5 o_light_label"/>
+
+                            <field name="followup_policy"/>
+
+                        </div>
+
+                        <div class="row mt8"
+                             invisible="not followup_policy">
+
+                            <label for="followup_account_ids"
+                                   class="col-lg-5 o_light_label"/>
+
+                            <field name="followup_account_ids"
+                                   widget="many2many_tags"
+                                   domain="[('account_type','=','asset_receivable')]"
+                                   options="{'no_create': True}"/>
+                        </div>
+                        <div class="row mt8"
+                             invisible="not followup_policy">
+
+                            <label for="followup_excluded_journal_ids"
+                                    class="col-lg-5 o_light_label"/>
+
+                            <field name="followup_excluded_journal_ids"
+                                    widget="many2many_tags"
+                                    options="{'no_create': True}"/>
+                        </div>
+
+                    </div>
+
+                </setting>
+
+            </xpath>
+
+        </field>
+
+    </record>
+
+</odoo>

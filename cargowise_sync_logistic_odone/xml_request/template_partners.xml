@@ -1,0 +1,140 @@
+<methodCall>
+    <!-- used to call methods of odoo models -->
+    <methodName>execute</methodName>
+    <params>
+        <!-- database name -->
+        <param>
+            <value>
+                <string>logistic-staging-4474379</string>
+            </value>
+        </param>
+        <!-- user id -->
+        <param>
+            <value>
+                <int>17</int>
+            </value>
+        </param>
+        <!-- user’s password-->
+        <param>
+            <value>
+                <string>apiuser</string>
+            </value>
+        </param>
+        <!-- model name -->
+        <param>
+            <value>
+                <string>res.partner</string>
+            </value>
+        </param>
+        <!-- method name -->
+        <param>
+            <value>
+                <string>create_partner_cargowise</string>
+            </value>
+        </param>
+        <!-- Debe ir vacio -->
+        <param>
+            <value></value>
+        </param>
+        <param>
+            <!-- create a struct where you identify the field name,
+                 thefield type and the value you want to insert in it -->
+            <value>
+                <struct>
+                    <!-- Tipo de tercero (persona natural o compañia) -->
+                    <!-- Valor (P: persona natural, J: compañia)-->
+                    <member>
+                        <name>partner_type</name>
+                        <value>
+                            <string>P</string>
+                        </value>
+                    </member>
+                    <!-- Nombre completo del tercero o compañia -->
+                    <member>
+                        <name>name</name>
+                        <value>
+                            <string>Juan Perez</string>
+                        </value>
+                    </member>
+                    <!-- Dirección -->
+                    <member>
+                        <name>street</name>
+                        <value>
+                            <string>calle 32 # 12-44</string>
+                        </value>
+                    </member>
+                    <!-- Ciudad -->
+                    <member>
+                        <name>city</name>
+                        <value>
+                            <string>Cartagena</string>
+                        </value>
+                    </member>
+                    <!-- Departamento -->
+                    <member>
+                        <name>state</name>
+                        <value>
+                            <string>BOL</string>
+                        </value>
+                    </member>
+                    <!-- País -->
+                    <member>
+                        <name>country</name>
+                        <value>
+                            <string>CO</string>
+                        </value>
+                    </member>
+                    <!-- Tipo Identificación -->
+                    <member>
+                        <name>type_id</name>
+                        <value>
+                            <string>NIT</string>
+                        </value>
+                    </member>
+                    <!-- Número de Identificación -->
+                    <member>
+                        <name>vat</name>
+                        <value>
+                            <string>222333444</string>
+                        </value>
+                    </member>
+                    <!-- Teléfono -->
+                    <member>
+                        <name>phone</name>
+                        <value>
+                            <string>33334444</string>
+                        </value>
+                    </member>
+                    <!-- Correo Electrónico -->
+                    <member>
+                        <name>email</name>
+                        <value>
+                            <string>prueba2@rcp.com</string>
+                        </value>
+                    </member>
+                    <!-- Comercial -->
+                    <member>
+                        <name>vendor</name>
+                        <value>
+                            <string>ADP</string>
+                        </value>
+                    </member>
+                    <!-- ID Tercero -->
+                    <member>
+                        <name>id_partner</name>
+                        <value>
+                            <string>A002</string>
+                        </value>
+                    </member>
+                    <!-- ID Organización -->
+                    <member>
+                        <name>org_id</name>
+                        <value>
+                            <string>B001</string>
+                        </value>
+                    </member>
+                </struct>
+            </value>
+        </param>
+    </params>
+</methodCall>

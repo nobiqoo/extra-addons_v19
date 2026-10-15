@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="manager_payslip" model="res.groups">
+            <field name="name">Jefe de Nómina</field>
+            <field name="privilege_id" ref="hr.res_groups_privilege_employees"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]" />
+        </record>
+
+        <record id="user_payslip" model="res.groups">
+            <field name="name">Empleado de Nómina</field>
+            <field name="privilege_id" ref="hr.res_groups_privilege_employees"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]" />
+        </record>
+
+        <record id="payroll_service_admin_group" model="res.groups">
+            <field name="name">Administrador nómina servicio</field>
+            <field name="privilege_id" ref="hr.res_groups_privilege_employees"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]" />
+        </record>
+
+        <record id="group_contract_novelty_validate" model="res.groups">
+            <field name="name">Nómina: Validar novedades de contrato</field>
+            <field name="privilege_id" ref="hr.res_groups_privilege_employees"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]" />
+        </record>
+
+    </data>
+
+    <data noupdate="1">
+        <record model="ir.rule" id="eps_update_history_rule">
+            <field name="name">Cambio de EPS: multi-company</field>
+            <field name="model_id" ref="model_eps_update_history" />
+            <field name="global" eval="True" />
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="pension_update_history_rule">
+            <field name="name">Cambio de Pension: multi-company</field>
+            <field name="model_id" ref="model_pension_update_history" />
+            <field name="global" eval="True" />
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="severance_update_history_rule">
+            <field name="name">Cambio de Cesantias: multi-company</field>
+            <field name="model_id" ref="model_severance_update_history" />
+            <field name="global" eval="True" />
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="wage_update_history_rule">
+            <field name="name">Cambio de Salario: multi-company</field>
+            <field name="model_id" ref="model_wage_update_history" />
+            <field name="global" eval="True" />
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="hr_equipment_rule">
+            <field name="name">Dotaciones de RRHH: multi-company</field>
+            <field name="model_id" ref="model_hr_equipment" />
+            <field name="global" eval="True" />
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="hr_contract_group_rule">
+            <field name="name">Grupos de Contratos: multi-company</field>
+            <field name="model_id" ref="model_hr_contract_group" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="hr_contract_rule">
+            <field name="name">Contratos: multi-company</field>
+            <field name="model_id" ref="model_hr_contract" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="hr_contract_type_rule">
+            <field name="name">Tipos de Contratos: multi-company</field>
+            <field name="model_id" ref="model_hr_contract_type" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_leave_type_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de categoría de ausencias</field>
+            <field name="model_id" ref="model_hr_leave_type" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_leave_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de ausencias</field>
+            <field name="model_id" ref="model_hr_leave" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_novelty_type_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de categoría de novedades</field>
+            <field name="model_id" ref="model_hr_novelty_type" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_novelty_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de novedades</field>
+            <field name="model_id" ref="model_hr_novelty" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_contract_novelty_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de novedades de contrato</field>
+            <field name="model_id" ref="model_hr_contract_novelty" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_loan_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de Préstamo</field>
+            <field name="model_id" ref="model_hr_loan" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_overtime_type_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de categoría de hora extra</field>
+            <field name="model_id" ref="model_hr_overtime_type" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_overtime_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de hora extra</field>
+            <field name="model_id" ref="model_hr_overtime" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_overtime_sync_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de sincronización de hora extra</field>
+            <field name="model_id" ref="model_hr_overtime_sync" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('line_ids','=',False),('line_ids.company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_concept_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de concepto de nómina</field>
+            <field name="model_id" ref="model_hr_concept" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids), ('location_code', 'in', [x.chart_template for x in user.env.companies])]</field>
+        </record>
+
+        <record id="hr_payslip_type_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de categoría de nómina</field>
+            <field name="model_id" ref="model_hr_payslip_type" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_payslip_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de nóminas</field>
+            <field name="model_id" ref="model_hr_payslip" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_payslip_processing_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de procesamiento nóminas</field>
+            <field name="model_id" ref="model_hr_payslip_processing" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="economic_variable_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de Variables económicas</field>
+            <field name="model_id" ref="model_economic_variable" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_contribution_form_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de Planilla de aportes</field>
+            <field name="model_id" ref="model_hr_contribution_form" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_concept_rtefte_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de concepto rtefte</field>
+            <field name="model_id" ref="model_hr_concept_rtefte" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_payslip_line_log_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de logs de nómina</field>
+            <field name="model_id" ref="model_hr_payslip_line_log" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_period_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de periodos de nómina</field>
+            <field name="model_id" ref="model_hr_period" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_category_form" model="ir.ui.view">
+        <field name="name">view.product.category.form</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="account.view_category_property_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='first']" position="after">
+                <group name="account_tax">
+                    <group string="Taxes">
+                        <field name="taxes_categ_id" widget="many2many_tags" context="{'default_type_tax_use':'sale', 'search_default_sale': 1}" />
+                        <field name="supplier_taxes_categ_id" widget="many2many_tags" context="{'default_type_tax_use':'purchase', 'search_default_purchase': 1}" />
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_category_tree_inherit_recompute_taxes" model="ir.ui.view">
+        <field name="name">product.category.tree.recompute.taxes</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_list_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="inside">
+                <header>
+                    <button name="action_recompute_product_taxes" type="object" string="Recalcular Impuestos" class="btn-primary" context="{}" icon="fa-refresh" confirm="¿Está seguro de recalcular los impuestos en los productos de las categorías seleccionadas?"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+</odoo>

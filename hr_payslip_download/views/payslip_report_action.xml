@@ -1,0 +1,10 @@
+<odoo>
+    <record id="action_download_payslips_server" model="ir.actions.server">
+        <field name="name">Descargar Nóminas</field>
+        <field name="model_id" ref="model_hr_payslip"/>
+        <field name="state">code</field>
+        <field name="code">
+                action = env['hr.payslip'].browse(env.context.get('active_ids')).action_download_payslips()
+        </field>
+    </record>
+</odoo>

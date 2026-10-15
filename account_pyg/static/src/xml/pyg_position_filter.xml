@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="account_pyg.PygListFilterRenderer" t-inherit="web.ListRenderer" t-inherit-mode="primary">
+        <xpath expr="//div[hasclass('o_list_renderer')]" position="before">
+            <div class="o_pyg_position_filter container mb-2 p-2 border rounded">
+                <div class="row align-items-end g-2">
+                    <div class="col-auto">
+                        <label class="form-label">Fecha Inicio:</label>
+                        <input type="date" class="form-control form-control-sm"
+                               t-model="filterState.date_from"/>
+                    </div>
+                    <div class="col-auto">
+                        <label class="form-label">Fecha Fin:</label>
+                        <input type="date" class="form-control form-control-sm"
+                               t-model="filterState.date_to"/>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary btn-sm"
+                                t-on-click="_onApplyFilter">
+                            Aplicar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>

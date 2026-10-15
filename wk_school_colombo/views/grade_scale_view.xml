@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Requerimiento "Resultado académico, Promoción y Finalización" (2.1):
+         indicador mínimo de aprobación por tramo de la Escala de
+         calificación (ver models/grade_scale.py), administrable por
+         Officer/Admin. -->
+    <record id="wk_grade_scales_form_colombo" model="ir.ui.view">
+        <field name="name">wk.grade.scales.form.colombo</field>
+        <field name="model">wk.grade.scales</field>
+        <field name="inherit_id" ref="wk_school_management.wk_grade_scales_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='scale_line_ids']/list/field[@name='effort']" position="before">
+                <field name="passes" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

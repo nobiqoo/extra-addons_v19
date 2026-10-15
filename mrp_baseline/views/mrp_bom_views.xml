@@ -1,0 +1,22 @@
+<odoo>
+    <record id="mrp_bom_form_view_mrp" model="ir.ui.view">
+        <field name="name">mrp.bom.view.form.inherit</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='miscellaneous']" position="before">
+                <page string="BoM Costs" groups="mrp_baseline.group_mrp_cost" invisible="type == 'phantom'">
+                    <field name="cost_ids">
+                        <list String="Costs" editable="bottom">
+                            <field name="bom_id" invisible="True" />
+                            <field name="product_id" required="True" />
+                            <field name="account_id" required="True" />
+                            <field name="split_method" invisible="True" />
+                            <field name="price_unit" required="True" />
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

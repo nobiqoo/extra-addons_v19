@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="wk_school_colombo.GradeMatrixField">
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered o_grade_matrix_table">
+                <thead>
+                    <t t-if="finalColumns.length">
+                        <tr>
+                            <th rowspan="2">Estudiante</th>
+                            <th t-att-colspan="midtermColumns.length">Midterm</th>
+                            <th t-att-colspan="finalColumns.length">Final</th>
+                            <th rowspan="2">Final Grade</th>
+                            <th rowspan="2">ABS</th>
+                            <th rowspan="2">Posición</th>
+                            <th rowspan="2">Rango</th>
+                            <th rowspan="2">Pass/Fail</th>
+                        </tr>
+                        <tr>
+                            <t t-foreach="midtermColumns" t-as="col" t-key="col_index">
+                                <th><t t-esc="col.name"/></th>
+                            </t>
+                            <t t-foreach="finalColumns" t-as="col" t-key="col_index">
+                                <th><t t-esc="col.name"/></th>
+                            </t>
+                        </tr>
+                    </t>
+                    <t t-else="">
+                        <tr>
+                            <th>Estudiante</th>
+                            <t t-foreach="midtermColumns" t-as="col" t-key="col_index">
+                                <th><t t-esc="col.name"/></th>
+                            </t>
+                            <th>Final Grade</th>
+                            <th>ABS</th>
+                            <th>Posición</th>
+                            <th>Rango</th>
+                            <th>Pass/Fail</th>
+                        </tr>
+                    </t>
+                </thead>
+                <tbody>
+                    <tr t-foreach="rows" t-as="row" t-key="row.id">
+                        <td><t t-esc="row.studentName"/></td>
+                        <t t-foreach="row.midtermCells" t-as="cell" t-key="cell_index">
+                            <td class="text-end"><t t-esc="cellValue(cell)"/></td>
+                        </t>
+                        <t t-foreach="row.finalCells" t-as="cell" t-key="cell_index">
+                            <td class="text-end"><t t-esc="cellValue(cell)"/></td>
+                        </t>
+                        <td class="text-end fw-bold"><t t-esc="row.finalGrade"/></td>
+                        <td class="text-end"><t t-esc="row.absenceHours"/></td>
+                        <td><t t-esc="row.rankingBadge"/></td>
+                        <td><t t-esc="row.performanceRangeCode"/></td>
+                        <td t-att-class="row.resultClass"><t t-esc="row.resultLabel"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </t>
+</templates>

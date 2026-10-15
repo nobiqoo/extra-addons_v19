@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_account_report_pb_work" model="ir.actions.client">
+            <field name="name">Reporte de Cartera (Obras)</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('sale_order_work.aged_partner_balance_work_report')}" />
+        </record>
+
+    </data>
+</odoo>

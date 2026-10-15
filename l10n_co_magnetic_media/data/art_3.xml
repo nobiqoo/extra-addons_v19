@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ART. 3 -->
+        <record id="form_art_dist_3" model="mag.media">
+            <field name="code">ART. 3</field>
+            <field name="name">ART. 3 - Venta de bienes</field>
+            <field name="smaller_amount">0</field>
+            <field name="query">
+                <![CDATA[
+SELECT
+    A as "Año",
+    B as "CIIU",
+    C as "Tipo de documento",
+    D as "Número de documento",
+    E as "Nombres y Apellidos o Razón Social",
+    F as "Dirección",
+    G as "Teléfono",
+    H as "Email",
+    I as "Código ciudad o municipio (codificación DANE)",
+    J as "Código Departamento (codificación DANE)",
+    K as "Concepto del pago o abono en cuenta",
+    L as "Valor total ingreso bruto sin IVA",
+    M as "Valor total de las devoluciones, rebajas y descuentos"
+FROM (
+    SELECT
+        EXTRACT('Year' FROM aml.date) as A,
+        rp.classification_id as B,
+        CASE
+            WHEN it.l10n_co_edi_code IS NOT NULL THEN it.l10n_co_edi_code
+            ELSE it.dian_code
+        END as C,
+        rp.vat as D,
+        rp.name as E,
+        rp.street as F,
+        rp.phone as G,
+        rp.email as H,
+        rcsc.dian_code as I,
+        rcs.dian_code as J,
+        mml.code as K,
+        CASE
+            WHEN mm.smaller_amount != 0.00 THEN
+                CASE
+                    WHEN SUM(CASE
+                            WHEN mmlc.sequence = 'L' AND mmlc.type = 'd' THEN aml.debit
+                            WHEN mmlc.sequence = 'L' AND mmlc.type = 'c' THEN aml.credit
+                            WHEN mmlc.sequence = 'L' AND mmlc.type = 'sf' THEN aml.debit - aml.credit
+                            WHEN mmlc.sequence = 'L' AND mmlc.type = 'bi' THEN aml.tax_base_amount
+                            ELSE 0
+                        END) > mm.smaller_amount
+                    THEN SUM(CASE
+                            WHEN mmlc.sequence = 'L' AND mmlc.type = 'd' THEN aml.debit
+                            WHEN mmlc.sequence = 'L' AND mmlc.type = 'c' THEN aml.credit
+                            WHEN mmlc.sequence = 'L' AND mmlc.type = 'sf' THEN aml.debit - aml.credit
+                            WHEN mmlc.sequence = 'L' AND mmlc.type = 'bi' THEN aml.tax_base_amount
+                            ELSE 0
+                        END)
+                END
+            ELSE SUM(CASE
+                    WHEN mmlc.sequence = 'L' AND mmlc.type = 'd' THEN aml.debit
+                    WHEN mmlc.sequence = 'L' AND mmlc.type = 'c' THEN aml.credit
+                    WHEN mmlc.sequence = 'L' AND mmlc.type = 'sf' THEN aml.debit - aml.credit
+                    WHEN mmlc.sequence = 'L' AND mmlc.type = 'bi' THEN aml.tax_base_amount
+                    ELSE 0
+                END)
+        END as L,
+        CASE
+            WHEN mm.smaller_amount != 0.00 THEN
+                CASE
+                    WHEN SUM(CASE
+                            WHEN mmlc.sequence = 'M' AND mmlc.type = 'd' THEN aml.debit
+                            WHEN mmlc.sequence = 'M' AND mmlc.type = 'c' THEN aml.credit
+                            WHEN mmlc.sequence = 'M' AND mmlc.type = 'sf' THEN aml.debit - aml.credit
+                            WHEN mmlc.sequence = 'M' AND mmlc.type = 'bi' THEN aml.tax_base_amount
+                            ELSE 0
+                        END) > mm.smaller_amount
+                    THEN SUM(CASE
+                            WHEN mmlc.sequence = 'M' AND mmlc.type = 'd' THEN aml.debit
+                            WHEN mmlc.sequence = 'M' AND mmlc.type = 'c' THEN aml.credit
+                            WHEN mmlc.sequence = 'M' AND mmlc.type = 'sf' THEN aml.debit - aml.credit
+                            WHEN mmlc.sequence = 'M' AND mmlc.type = 'bi' THEN aml.tax_base_amount
+                            ELSE 0
+                        END)
+                END
+            ELSE SUM(CASE
+                    WHEN mmlc.sequence = 'M' AND mmlc.type = 'd' THEN aml.debit
+                    WHEN mmlc.sequence = 'M' AND mmlc.type = 'c' THEN aml.credit
+                    WHEN mmlc.sequence = 'M' AND mmlc.type = 'sf' THEN aml.debit - aml.credit
+                    WHEN mmlc.sequence = 'M' AND mmlc.type = 'bi' THEN aml.tax_base_amount
+                    ELSE 0
+                END)
+        END as M
+    FROM
+        mag_media mm
+        INNER JOIN mag_media_lines mml ON mml.magnetic_id = mm.id
+        INNER JOIN mag_media_lines_concepts mmlc ON mmlc.line_id = mml.id
+        INNER JOIN (
+            SELECT aammlcr.account_account_id as account_id, aammlcr.mag_media_lines_concepts_id as concept_id
+            FROM account_account_mag_media_lines_concepts_rel aammlcr
+            UNION ALL
+            SELECT aaat.account_account_id as account_id, mmlcaat.concept_ids as concept_id
+            FROM mag_media_lines_concepts_account_account_tag mmlcaat
+            INNER JOIN account_account_tag aat ON aat.id = mmlcaat.tag_ids
+            INNER JOIN account_account_account_tag aaat ON aaat.account_account_tag_id = aat.id
+        ) as aa ON aa.concept_id = mmlc.id
+        LEFT JOIN account_move_line aml ON aml.account_id = aa.account_id
+        AND (
+            NOT EXISTS (SELECT 1 FROM mag_media_lines_concepts_journal_rel mmlcjr WHERE mmlcjr.concept_id = mmlc.id)
+            OR aml.journal_id IN (SELECT journal_id FROM mag_media_lines_concepts_journal_rel WHERE concept_id = mmlc.id)
+        )
+        LEFT JOIN res_partner rp ON rp.id = aml.partner_id
+        LEFT JOIN l10n_latam_identification_type it ON it.id = rp.l10n_latam_identification_type_id
+        LEFT JOIN res_city rcsc ON rcsc.id = rp.city_id
+        LEFT JOIN res_country_state rcs ON rcs.id = rp.state_id
+    WHERE
+        mm.id = {id}
+        AND aml.date BETWEEN '{date_from}' AND '{date_to}'
+        AND aml.parent_state = 'posted'
+        AND aml.company_id = {company_id}
+        {city_filter}
+    GROUP BY
+        EXTRACT('Year' FROM aml.date),
+        rp.classification_id,
+        it.l10n_co_edi_code,
+        it.dian_code,
+        rp.vat,
+        rp.name,
+        rp.street,
+        rp.phone,
+        rp.email,
+        rcsc.dian_code,
+        mml.code,
+        rcs.dian_code,
+        mm.smaller_amount
+    HAVING
+        (mm.smaller_amount = 0) OR
+        (mm.smaller_amount != 0 AND SUM(CASE
+            WHEN mmlc.sequence = 'K' AND mmlc.type = 'd' THEN aml.debit
+            WHEN mmlc.sequence = 'K' AND mmlc.type = 'c' THEN aml.credit
+            WHEN mmlc.sequence = 'K' AND mmlc.type = 'sf' THEN aml.debit - aml.credit
+            WHEN mmlc.sequence = 'K' AND mmlc.type = 'bi' THEN aml.tax_base_amount
+            ELSE 0
+        END) > mm.smaller_amount)
+) as datos;
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

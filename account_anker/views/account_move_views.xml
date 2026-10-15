@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        La vista base account.view_account_invoice_filter en esta instancia
+        v19 solo trae los filtros "Por pagar" (not_paid/partial) y
+        "En proceso de pago" (in_payment) para el estado de pago de las
+        facturas de clientes. En v17 (y en versiones más recientes de
+        Odoo 19 aguas arriba) también existían filtros separados para
+        "Pagado" (paid) y "Revertido" (reversed), que Anker sigue usando
+        en su flujo de conciliación de cartera.
+
+        Se agregan aquí en lugar de tocar la vista base para no afectar a
+        otros clientes que comparten el mismo módulo account_logistic_odone.
+    -->
+    <record id="view_account_invoice_filter_anker" model="ir.ui.view">
+        <field name="name">account.invoice.select.anker</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <filter name="in_payment" position="after">
+                <filter name="paid_anker" string="Pagado"
+                        domain="[('state', '=', 'posted'), ('payment_state', '=', 'paid')]"/>
+                <filter name="reversed_anker" string="Revertido"
+                        domain="[('state', '=', 'posted'), ('payment_state', '=', 'reversed')]"/>
+            </filter>
+            <!--
+                Agrupar por Estado de pago con un clic, en vez de tener que
+                crear el "grupo personalizado" a mano cada vez.
+            -->
+            <filter name="status" position="after">
+                <filter name="group_by_payment_state_anker" string="Estado de pago"
+                        context="{'group_by': 'payment_state'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

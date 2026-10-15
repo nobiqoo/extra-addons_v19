@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="group_hr_appraisal_360_report_user" model="res.groups">
+        <field name="name">Usuario de informes 360</field>
+        <field name="category_id" ref="hr.group_hr_user"/>
+        <field name="implied_ids" eval="[(4, ref('hr_appraisal.group_hr_appraisal_user'))]"/>
+    </record>
+
+    <record id="group_hr_appraisal_360_report_manager" model="res.groups">
+        <field name="name">Responsable de informes 360</field>
+        <field name="category_id" ref="hr.group_hr_manager"/>
+        <field name="implied_ids" eval="[(4, ref('hr_appraisal.group_hr_appraisal_manager'))]"/>
+    </record>
+</odoo>

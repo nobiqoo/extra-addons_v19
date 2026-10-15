@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="report_purchase_form" model="ir.ui.view">
+        <field name="name">report.purchase.form</field>
+        <field name="model">journal.audit.report</field>
+        <field name="arch" type="xml">
+            <form string="Auditoría de Diarios">
+                <sheet>
+                    <div class="oe_button_box">
+                        <button name="button_bi" type="object" class="oe_stat_button" icon="fa-sort-amount-asc" string="Analizar" context="{'pivot': True}"/>
+                        <button name="get_xlsx_report" type="object" class="oe_stat_button" icon="fa-file-excel-o" string="Excel"/>
+                    </div>
+                    <h1>
+                        <strong>Auditoria de Diarios</strong>
+                    </h1>
+                    <group col="2" string="Fechas de Corte">
+                        <group colspan="1">
+                            <field name="date_from"/>
+                        </group>
+                        <group colspan="1">
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                    <group string="Filtros">
+                        <group string="Diarios">
+                            <field name="journal_ids" widget="many2many_tags"/>
+                        </group>
+                        <div>
+                            <p invisible="xls_file == False" class="oe_inline" name="xls_file">
+                                Download the XLSX details file: <field name="xls_file" readonly="1" filename="xls_filename"/>
+                            </p>
+                        </div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="audit_journal_line_pivot" model="ir.ui.view">
+        <field name="name">audit.journal.line.pivot</field>
+        <field name="model">audit.journal.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Auditoría de Diarios">
+                <field name="date" type="row"/>
+                <field name="move_id" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="audit_journal_line_tree" model="ir.ui.view">
+        <field name="name">audit.journal.line.tree</field>
+        <field name="model">audit.journal.line</field>
+        <field name="arch" type="xml">
+            <list string="Auditoría de Diarios">
+                <field name="date" optional="show"/>
+                <field name="create_date" optional="show"/>
+                <field name="move_id" optional="show"/>
+                <field name="partner_id" optional="show"/>
+                <field name="journal_id" optional="hide"/>
+                <field name="account_id" optional="show"/>
+                <field name="name_aml" optional="show"/>
+                <field name="debit" sum="total" widget="monetary"/>
+                <field name="credit" sum="total" widget="monetary"/>
+                <field name="state" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="audit_journal_line_search" model="ir.ui.view">
+        <field name="name">audit.journal.line.search</field>
+        <field name="model">audit.journal.line</field>
+        <field name="arch" type="xml">
+            <search string="Reporte de Auditoría">
+                <group expand="0" string="Group By">
+                    <filter name="group_move_id" string="Asiento" context="{'group_by':'move_id'}"/>
+                    <filter name="group_partner_id" string="Tercero" context="{'group_by':'partner_id'}"/>
+                    <separator/>
+                    <filter string="Fecha" name="date" context="{'group_by':'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_audit_journal" model="ir.actions.act_window">
+        <field name="name">Auditoría de Diarios</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">journal.audit.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+
+
+</odoo>

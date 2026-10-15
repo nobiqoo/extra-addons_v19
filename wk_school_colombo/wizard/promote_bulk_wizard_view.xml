@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="promote_bulk_wizard_view_form" model="ir.ui.view">
+        <field name="name">wk.school.colombo.promote.bulk.wizard.form</field>
+        <field name="model">wk.school.colombo.promote.bulk.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Promover / Finalizar inscripciones">
+                <field name="line_ids">
+                    <list editable="bottom">
+                        <field name="enrollment_id" readonly="1" force_save="1"/>
+                        <field name="student_id" readonly="1"/>
+                        <field name="current_grade_id" readonly="1"/>
+                        <field name="academic_result" widget="badge"
+                               decoration-success="academic_result == 'approved'"
+                               decoration-danger="academic_result == 'failed'"
+                               decoration-warning="academic_result == 'pending'"
+                               readonly="1"/>
+                        <field name="new_grade_id" options="{'no_create': True}"/>
+                        <field name="target_session_id" options="{'no_create': True}"/>
+                        <field name="target_academic_year_id" options="{'no_create': True}"/>
+                        <field name="result_action" readonly="1"/>
+                        <field name="validation_message" readonly="1"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_process" type="object"
+                            string="Procesar" class="btn-primary"
+                            groups="wk_school_management.wk_school_management_officer_group"/>
+                    <button string="Cancelar" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="promote_bulk_wizard_action" model="ir.actions.act_window">
+        <field name="name">Promover / Finalizar inscripciones</field>
+        <field name="res_model">wk.school.colombo.promote.bulk.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

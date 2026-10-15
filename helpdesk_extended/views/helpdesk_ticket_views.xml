@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="helpdesk_ticket_view_form" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.view.form</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='stage_id']" position="attributes">
+                    <attribute name="groups">helpdesk.group_helpdesk_manager,helpdesk.group_helpdesk_user</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[1]" position="attributes">
+                    <attribute name="string">INFORMACION CASO</attribute>
+                </xpath>
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="technician_id" options="{'no_create': True, 'no_create_edit': True}" domain="[('is_technician','=',True)]"/>
+                    <field name="tech_city_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='priority']" position="after">
+                    <field name="invoice_number"/>
+                </xpath>
+                <xpath expr="//field[@name='sla_deadline']" position="after">
+                    <field name="retry_ticket_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tag_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[2]" position="attributes">
+                    <attribute name="string">INFORMACION CLIENTE</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[2]" position="inside">
+                    <xpath expr="//sheet/group/group[2]/field[@name='partner_id']" position="move"/>
+                    <!-- <xpath expr="//field[@name='partner_name']" position="move"/> -->
+                    <field name="customer_dealer"/>
+                    <!-- <xpath expr="//field[@name='partner_email']" position="move"/> -->
+                    <xpath expr="//field[@name='partner_phone']" position="move"/>
+                    <xpath expr="//field[@name='email_cc']" position="move"/>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[2]" position="after">
+                    <group string="INFORMACION MOSTRADOR">
+                        <field name="partner_vat" readonly="1" force_save="1"/>
+                        <field name="partner_mobile" readonly="1" force_save="1"/>
+                    </group>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[1]" position="after">
+                    <group string="CONTROL PRODUCTO">
+                        <!-- <xpath expr="//field[@name='product_id']" position="move"/> -->
+                        <field name="product_id" invisible="company_id == False" groups="stock.group_stock_user"/>
+                        <field name="product_categ_id" readonly="1" force_save="1" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="product_brand_id" readonly="1" force_save="1" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="product_picking_ids" readonly="1" invisible="1"/>
+                        <field name="damage_type_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="location_product_id" domain="[('company_id','=',company_id),('usage','=','internal')]" options="{'no_create': True, 'no_create_edit': True}"/>
+
+                        <field name="date_start_sm" invisible="1"/>
+                        <field name="date_due_sm" invisible="1"/>
+                        <field name="days_after_init" invisible="1" />
+                        <field name="days_after_init_str" invisible="1" widget="badge" decoration-success="days_after_init &lt; 8" decoration-warning="days_after_init &gt;= 8 and days_after_init &lt; 12" decoration-danger="days_after_init &gt; 12"/>
+                        <field name="stock_product_input_count" invisible="1" />
+                        <field name="stock_product_output_count" invisible="1" />
+                    </group>
+                </xpath>
+
+                <xpath expr="//form[1]/sheet[1]/group[1]" position="after">
+                    <group name="data1">
+                        <group name="data_left" string="DATOS ENVIO">
+                            <field name="o_city_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="o_shipping_address"/>
+                            <field name="o_state_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="o_country_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                        </group>
+                        <group name="data_right" string="INFORMACION ADICIONAL">
+                            <field name="company_id" groups="base.group_multi_company" context="{'create': False}"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="user_id" class="field_user_id" domain="['&amp;', ('id', 'in', domain_user_ids), ('share', '=', False)]" widget="many2one_avatar_user"/>
+                            <field name="domain_user_ids" invisible="1"/>
+                        </group>
+                    </group>
+                    <group name="data2">
+                        <group name="data2_left" string="CONTROL INGRESO">
+                            <field name="date_in_ctb"/>
+                            <field name="guide_number_in"/>
+                            <field name="url_guide_in" widget="url"/>
+                        </group>
+                        <group name="data2_right" string="CONTROL SALIDA">
+                            <field name="date_out_ctb"/>
+                            <field name="guide_number" string="Guía de salida"/>
+                            <field name="url_guide" widget="url" string="URL guía de salida"/>
+                        </group>
+                    </group>
+                </xpath>
+
+                <field name="description" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="description" position="after">
+                    <notebook>
+                        <page name="description" string="Description">
+                            <field name="description" class="oe-bordered-editor field_description" placeholder="Description of the ticket..."/>
+                        </page>
+                        <page name="images" string="Images">
+                            <field name="image_sm_ids">
+                                <list editable="top" default_order="create_date desc">
+                                    <field name="create_date" optional="hide"/>
+                                    <field name="write_date" string="Loaded on"/>
+                                    <field name="name" class="oe_read_only"/>
+                                    <field name="image" filename="name"/>
+                                    <button name="view_image" type="object" icon="fa-eye" title="View Image"/>
+                                </list>
+                                <form>
+                                    <field name="image" />
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </field>
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="object" name="action_open_product_picking" icon="fa-truck" invisible="stock_product_picking_count == 0">
+                        <field name="stock_product_picking_count" widget="statinfo" string="Product moves"/>
+                    </button>
+                </div>
+                <xpath expr="//header/field[@name='stage_id']" position="before">
+                    <button name="register_product_entry" string="Register entry" type="object" class="btn btn-info" invisible="stock_product_input_count != 0"/>
+                    <button name="register_product_output" string="Register output" type="object" class="btn btn-info" invisible="stock_product_input_count == 0 or stock_product_output_count != 0"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--
+            DEPENDE DE REPARACIONES
+        <record id="helpdesk_ticket_view_form_inherit_stock_user" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.view.form</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_repair.helpdesk_ticket_view_form_inherit_stock_user"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='%(helpdesk_repair.action_repair_order_form)d']" position="attributes">
+                    <attribute name="context">{'default_product_id': product_id, 'default_lot_id': lot_id, 'default_partner_id': partner_id, 'default_ticket_id': id, 'default_company_id': company_id, 'default_invoice_number': invoice_number}</attribute>
+                </xpath>
+            </field>
+        </record> -->
+
+        <record id="helpdesk_ticket_image_sm_view_form" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.image.sm.view.form</field>
+            <field name="model">helpdesk.ticket.image.sm</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="image" readonly="1" widget="image"/>
+                    <footer>
+                        <button string="Close" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="helpdesk_tickets_view_tree" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.view.tree</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="partner_vat" optional="hide"/>
+                    <field name="partner_mobile" optional="hide"/>
+                    <field name="create_date" optional="show"/>
+                    <field name="date_in_ctb" optional="show"/>
+                    <field name="date_out_ctb" optional="show"/>
+                    <field name="date_start_sm" invisible="1" optional="show"/>
+                    <field name="days_after_init" invisible="1" />
+                    <field name="date_due_sm" invisible="1" widget="remaining_days" optional="show"/>
+                    <field name="days_after_init_str" invisible="1" optional="show" widget="badge" decoration-success="days_after_init &lt; 8" decoration-warning="days_after_init &gt;= 8 and days_after_init &lt; 12" decoration-danger="days_after_init &gt; 12"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="helpdesk_ticket_view_kanban" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.view.kanban</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='activity_ids']" position="after">
+                    <field name="days_after_init" invisible="1" />
+                    <field name="days_after_init_str" invisible="1" widget="badge" decoration-success="days_after_init &lt; 8" decoration-warning="days_after_init &gt;= 8 and days_after_init &lt; 12" decoration-danger="days_after_init &gt; 12"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- <record id="helpdesk_ticket_view_form_inherit_helpdesk_stock" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.view.form.inherit.helpdesk.extended</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_stock.helpdesk_ticket_view_form_inherit_helpdesk_stock"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record> -->
+
+        <record id="helpdesk_tickets_view_search" model="ir.ui.view">
+            <field name="name">helpdesk.tickets.view.search</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_search"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="partner_vat"/>
+                    <field name="partner_mobile"/>
+                    <field name="product_categ_id"/>
+                    <field name="product_brand_id"/>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="filter_domain">['|', '|', '|', '|', '|', ('partner_id', 'ilike', self), ('partner_email', 'ilike', self), ('partner_phone', 'ilike', self), ('partner_vat', 'ilike', self), ('partner_mobile', 'ilike', self)]</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="helpdesk_stage_view_form_inherit" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.view.form.inherit</field>
+            <field name="model">helpdesk.stage</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_stage_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='fold']" position="after">
+                    <field name="is_restricted"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

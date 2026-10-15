@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Kits motorizados de la hoja 2 del Excel matriz_unificada_variables:
+         por motor x tubo, los componentes que arma produccion y los controles
+         compatibles que ofrece el portal. Editable en Cotizador Safra >
+         Configuracion > Kits Motorizados.
+         El motor SA35Q ("Motor Domotica 4 Cables", opcion 4) habilita el
+         Interruptor Receptor RF; el de Bateria (27) la pregunta de cargador;
+         los Somfy (22/23/24) se compran completos. -->
+    <data noupdate="1">
+
+        <!-- Motor Enrollable Wifi /RF 6-28 -->
+        <record id="kit_26_r24" model="safra.motor.kit">
+            <field name="motor_value">26</field>
+            <field name="motor_name">Motor Enrollable Wifi /RF 6-28</field>
+            <field name="tubo">R24</field>
+            <field name="corona">Corona 47mm Motor Enrollable Wifi/Rf</field>
+            <field name="adaptador">Adaptador Mando 47mm Motor Enrollable Wifi/Rf</field>
+            <field name="soportes">Adaptador 1 1/2&#x27; a 2&#x27; Para Tubo R24 (1) - Terminal R16SL - Soporte Mando/Terminal R24SL Grande - Tapa Soporte/Terminal</field>
+            <field name="control_names">Control Motor Wifi/RF</field>
+            <field name="control_values">22</field>
+        </record>
+        <record id="kit_26_tubo_40mm_motorizado" model="safra.motor.kit">
+            <field name="motor_value">26</field>
+            <field name="motor_name">Motor Enrollable Wifi /RF 6-28</field>
+            <field name="tubo">Tubo 40mm (Motorizado)</field>
+            <field name="corona">Corona Motor Tubo de 40mm</field>
+            <field name="adaptador">Adaptador Motor Tubo de 40mm</field>
+            <field name="soportes">Terminal R16SL - Soporte Mando/Terminal R8SL/R8BSL/R16SL - Tapa Soporte/Terminal R8SL/R8BSL/R16SL</field>
+            <field name="control_names">Control Motor Wifi/RF</field>
+            <field name="control_values">22</field>
+        </record>
+        <record id="kit_26_tubo_2_12" model="safra.motor.kit">
+            <field name="motor_value">26</field>
+            <field name="motor_name">Motor Enrollable Wifi /RF 6-28</field>
+            <field name="tubo">Tubo 2 1/2</field>
+            <field name="corona">Corona Motor de 45mm a 63.6mm</field>
+            <field name="adaptador">Adaptador Motor 2&quot;1/2</field>
+            <field name="soportes">Kit Soporte Motor Skylinen Motor - Tornillo Prisionero 3/16 x 3/8 Tubo R24</field>
+            <field name="control_names">Control Motor Wifi/RF</field>
+            <field name="control_values">22</field>
+        </record>
+        <record id="kit_26_tubo_3" model="safra.motor.kit">
+            <field name="motor_value">26</field>
+            <field name="motor_name">Motor Enrollable Wifi /RF 6-28</field>
+            <field name="tubo">Tubo 3</field>
+            <field name="corona">Corona Motor de 45mm a 63.6mm</field>
+            <field name="adaptador">Adaptador Motor 2&quot;1/2</field>
+            <field name="soportes">Kit Soporte Motor Skylinen Motor - Tornillo Prisionero 3/16 x 3/8 Tubo R24</field>
+            <field name="control_names">Control Motor Wifi/RF</field>
+            <field name="control_values">22</field>
+        </record>
+
+        <!-- Motor Bateria 6/24 Incluye Cargador -->
+        <record id="kit_27_r24" model="safra.motor.kit">
+            <field name="motor_value">27</field>
+            <field name="motor_name">Motor Bateria 6/24 Incluye Cargador</field>
+            <field name="tubo">R24</field>
+            <field name="corona">Corona Motor de 35mm a 50mm</field>
+            <field name="adaptador">Adaptador Motor Tubo de 40mm</field>
+            <field name="soportes">Adaptador 1 1/2&#x27; a 2&#x27; Para Tubo R24 (1) - Terminal R16SL - Soporte Mando/Terminal R24SL Grande - Tapa Soporte/Terminal</field>
+            <field name="control_names">Control Monocanal Motor Bateria 6/24 / Control Multicanal Motor Bateria 6/24 15 Canales</field>
+            <field name="control_values">23,24</field>
+            <field name="aplica_cargador" eval="True"/>
+        </record>
+        <record id="kit_27_tubo_40mm_motorizado" model="safra.motor.kit">
+            <field name="motor_value">27</field>
+            <field name="motor_name">Motor Bateria 6/24 Incluye Cargador</field>
+            <field name="tubo">Tubo 40mm (Motorizado)</field>
+            <field name="corona">Corona Motor Tubo de 40mm</field>
+            <field name="adaptador">Adaptador Motor Tubo de 40mm</field>
+            <field name="soportes">Terminal R16SL - Soporte Mando/Terminal R8SL/R8BSL/R16SL - Tapa Soporte/Terminal R8SL/R8BSL/R16SL</field>
+            <field name="control_names">Control Monocanal Motor Bateria 6/24 / Control Multicanal Motor Bateria 6/24 15 Canales</field>
+            <field name="control_values">23,24</field>
+            <field name="aplica_cargador" eval="True"/>
+        </record>
+
+        <!-- Motor Tope Mecanico GN/33 Ultrasilencioso RF -->
+        <record id="kit_2_r24" model="safra.motor.kit">
+            <field name="motor_value">2</field>
+            <field name="motor_name">Motor Tope Mecanico GN/33 Ultrasilencioso RF</field>
+            <field name="tubo">R24</field>
+            <field name="corona">Corona Motor de 35mm a 50mm</field>
+            <field name="adaptador">Adaptador Motor 50mm r24</field>
+            <field name="soportes">Adaptador 1 1/2&#x27; a 2&#x27; Para Tubo R24 (1) - Terminal R16SL - Soporte Mando/Terminal R24SL Grande - Tapa Soporte/Terminal</field>
+            <field name="control_names">Control inalambrico 2 canales / Control inalambrico 15 canales lujo</field>
+            <field name="control_values">25,4</field>
+        </record>
+        <record id="kit_2_tubo_40mm_motorizado" model="safra.motor.kit">
+            <field name="motor_value">2</field>
+            <field name="motor_name">Motor Tope Mecanico GN/33 Ultrasilencioso RF</field>
+            <field name="tubo">Tubo 40mm (Motorizado)</field>
+            <field name="corona">Corona Motor Tubo de 40mm</field>
+            <field name="adaptador">Adaptador Motor Tubo de 40mm</field>
+            <field name="soportes">Terminal R16SL - Soporte Mando/Terminal R8SL/R8BSL/R16SL - Tapa Soporte/Terminal R8SL/R8BSL/R16SL</field>
+            <field name="control_names">Control inalambrico 2 canales / Control inalambrico 15 canales lujo</field>
+            <field name="control_values">25,4</field>
+        </record>
+        <record id="kit_2_tubo_2_12" model="safra.motor.kit">
+            <field name="motor_value">2</field>
+            <field name="motor_name">Motor Tope Mecanico GN/33 Ultrasilencioso RF</field>
+            <field name="tubo">Tubo 2 1/2</field>
+            <field name="corona">Corona Motor de 45mm a 63.6mm</field>
+            <field name="adaptador">Adaptador Motor 2&quot;1/2</field>
+            <field name="soportes">Kit Soporte Motor Skylinen Motor - Tornillo Prisionero 3/16 x 3/8 Tubo R24</field>
+            <field name="control_names">Control inalambrico 2 canales / Control inalambrico 15 canales lujo</field>
+            <field name="control_values">25,4</field>
+        </record>
+        <record id="kit_2_tubo_3" model="safra.motor.kit">
+            <field name="motor_value">2</field>
+            <field name="motor_name">Motor Tope Mecanico GN/33 Ultrasilencioso RF</field>
+            <field name="tubo">Tubo 3</field>
+            <field name="corona">Corona Motor de 45mm a 63.6mm</field>
+            <field name="adaptador">Adaptador Motor 2&quot;1/2</field>
+            <field name="soportes">Kit Soporte Motor Skylinen Motor - Tornillo Prisionero 3/16 x 3/8 Tubo R24</field>
+            <field name="control_names">Control inalambrico 2 canales / Control inalambrico 15 canales lujo</field>
+            <field name="control_values">25,4</field>
+        </record>
+
+        <!-- Motor Silencioso Interruptor Tope Mecanico SA35Q-6/24 -->
+        <record id="kit_4_r24" model="safra.motor.kit">
+            <field name="motor_value">4</field>
+            <field name="motor_name">Motor Silencioso Interruptor Tope Mecanico SA35Q-6/24</field>
+            <field name="tubo">R24</field>
+            <field name="corona">Corona Motor de 35mm a 50mm</field>
+            <field name="adaptador">Adaptador Motor 50mm r24</field>
+            <field name="soportes">Adaptador 1 1/2&#x27; a 2&#x27; Para Tubo R24 (1) - Terminal R16SL - Soporte Mando/Terminal R24SL Grande - Tapa Soporte/Terminal</field>
+            <field name="interruptor">Receptor Rf 433MHz</field>
+            <field name="control_names">Control inalambrico 15 canales lujo / Control inalambrico monocanal lujo</field>
+            <field name="control_values">4</field>
+        </record>
+        <record id="kit_4_tubo_40mm_motorizado" model="safra.motor.kit">
+            <field name="motor_value">4</field>
+            <field name="motor_name">Motor Silencioso Interruptor Tope Mecanico SA35Q-6/24</field>
+            <field name="tubo">Tubo 40mm (Motorizado)</field>
+            <field name="corona">Corona Motor Tubo de 40mm</field>
+            <field name="adaptador">Adaptador Motor Tubo de 40mm</field>
+            <field name="soportes">Terminal R16SL - Soporte Mando/Terminal R8SL/R8BSL/R16SL - Tapa Soporte/Terminal R8SL/R8BSL/R16SL</field>
+            <field name="interruptor">Receptor Rf 433MHz</field>
+            <field name="control_names">Control inalambrico 15 canales lujo / Control inalambrico monocanal lujo</field>
+            <field name="control_values">4</field>
+        </record>
+        <record id="kit_4_tubo_2_12" model="safra.motor.kit">
+            <field name="motor_value">4</field>
+            <field name="motor_name">Motor Silencioso Interruptor Tope Mecanico SA35Q-6/24</field>
+            <field name="tubo">Tubo 2 1/2</field>
+            <field name="corona">Corona Motor de 45mm a 63.6mm</field>
+            <field name="adaptador">Adaptador Motor 2&quot;1/2</field>
+            <field name="soportes">Kit Soporte Motor Skylinen Motor - Tornillo Prisionero 3/16 x 3/8 Tubo R24</field>
+            <field name="interruptor">Receptor Rf 433MHz</field>
+            <field name="control_names">Control inalambrico 15 canales lujo / Control inalambrico monocanal lujo</field>
+            <field name="control_values">4</field>
+        </record>
+        <record id="kit_4_tubo_3" model="safra.motor.kit">
+            <field name="motor_value">4</field>
+            <field name="motor_name">Motor Silencioso Interruptor Tope Mecanico SA35Q-6/24</field>
+            <field name="tubo">Tubo 3</field>
+            <field name="corona">Corona Motor de 45mm a 63.6mm</field>
+            <field name="adaptador">Adaptador Motor 2&quot;1/2</field>
+            <field name="soportes">Kit Soporte Motor Skylinen Motor - Tornillo Prisionero 3/16 x 3/8 Tubo R24</field>
+            <field name="interruptor">Receptor Rf 433MHz</field>
+            <field name="control_names">Control inalambrico 15 canales lujo / Control inalambrico monocanal lujo</field>
+            <field name="control_values">4</field>
+        </record>
+
+        <!-- Motor Somfy LSN RTS 6/33 -->
+        <record id="kit_22_r24" model="safra.motor.kit">
+            <field name="motor_value">22</field>
+            <field name="motor_name">Motor Somfy LSN RTS 6/33</field>
+            <field name="tubo">R24</field>
+            <field name="control_names">Controles Somfy Situo</field>
+            <field name="control_values">16,17</field>
+            <field name="compra_completa" eval="True"/>
+            <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
+        </record>
+        <record id="kit_22_tubo_40mm_motorizado" model="safra.motor.kit">
+            <field name="motor_value">22</field>
+            <field name="motor_name">Motor Somfy LSN RTS 6/33</field>
+            <field name="tubo">Tubo 40mm (Motorizado)</field>
+            <field name="control_names">Controles Somfy Situo</field>
+            <field name="control_values">16,17</field>
+            <field name="compra_completa" eval="True"/>
+            <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
+        </record>
+        <record id="kit_22_tubo_2_12" model="safra.motor.kit">
+            <field name="motor_value">22</field>
+            <field name="motor_name">Motor Somfy LSN RTS 6/33</field>
+            <field name="tubo">Tubo 2 1/2</field>
+            <field name="control_names">Controles Somfy Situo</field>
+            <field name="control_values">16,17</field>
+            <field name="compra_completa" eval="True"/>
+            <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
+        </record>
+        <record id="kit_22_tubo_3" model="safra.motor.kit">
+            <field name="motor_value">22</field>
+            <field name="motor_name">Motor Somfy LSN RTS 6/33</field>
+            <field name="tubo">Tubo 3</field>
+            <field name="control_names">Controles Somfy Situo</field>
+            <field name="control_values">16,17</field>
+            <field name="compra_completa" eval="True"/>
+            <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
+        </record>
+
+        <!-- Motor Somfy 406A2 Sonesse Rts 6/24 3.5m Unit -->
+        <record id="kit_23_r24" model="safra.motor.kit">
+            <field name="motor_value">23</field>
+            <field name="motor_name">Motor Somfy 406A2 Sonesse Rts 6/24 3.5m Unit</field>
+            <field name="tubo">R24</field>
+            <field name="control_names">Controles Somfy Situo</field>
+            <field name="control_values">16,17</field>
+            <field name="compra_completa" eval="True"/>
+            <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
+        </record>
+        <record id="kit_23_tubo_40mm_motorizado" model="safra.motor.kit">
+            <field name="motor_value">23</field>
+            <field name="motor_name">Motor Somfy 406A2 Sonesse Rts 6/24 3.5m Unit</field>
+            <field name="tubo">Tubo 40mm (Motorizado)</field>
+            <field name="control_names">Controles Somfy Situo</field>
+            <field name="control_values">16,17</field>
+            <field name="compra_completa" eval="True"/>
+            <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
+        </record>
+        <record id="kit_23_tubo_2_12" model="safra.motor.kit">
+            <field name="motor_value">23</field>
+            <field name="motor_name">Motor Somfy 406A2 Sonesse Rts 6/24 3.5m Unit</field>
+            <field name="tubo">Tubo 2 1/2</field>
+            <field name="control_names">Controles Somfy Situo</field>
+            <field name="control_values">16,17</field>
+            <field name="compra_completa" eval="True"/>
+            <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
+        </record>
+        <record id="kit_23_tubo_3" model="safra.motor.kit">
+            <field name="motor_value">23</field>
+            <field name="motor_name">Motor Somfy 406A2 Sonesse Rts 6/24 3.5m Unit</field>
+            <field name="tubo">Tubo 3</field>
+            <field name="control_names">Controles Somfy Situo</field>
+            <field name="control_values">16,17</field>
+            <field name="compra_completa" eval="True"/>
+            <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
+        </record>
+
+        <!-- Motor Somfy 406S2 LSN Rts 433 6/33 -->
+        <record id="kit_24_r24" model="safra.motor.kit">
+            <field name="motor_value">24</field>
+            <field name="motor_name">Motor Somfy 406S2 LSN Rts 433 6/33</field>
+            <field name="tubo">R24</field>
+            <field name="control_names">Controles Somfy Situo</field>
+            <field name="control_values">16,17</field>
+            <field name="compra_completa" eval="True"/>
+            <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
+        </record>
+        <record id="kit_24_tubo_40mm_motorizado" model="safra.motor.kit">
+            <field name="motor_value">24</field>
+            <field name="motor_name">Motor Somfy 406S2 LSN Rts 433 6/33</field>
+            <field name="tubo">Tubo 40mm (Motorizado)</field>
+            <field name="control_names">Controles Somfy Situo</field>
+            <field name="control_values">16,17</field>
+            <field name="compra_completa" eval="True"/>
+            <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
+        </record>
+        <record id="kit_24_tubo_2_12" model="safra.motor.kit">
+            <field name="motor_value">24</field>
+            <field name="motor_name">Motor Somfy 406S2 LSN Rts 433 6/33</field>
+            <field name="tubo">Tubo 2 1/2</field>
+            <field name="control_names">Controles Somfy Situo</field>
+            <field name="control_values">16,17</field>
+            <field name="compra_completa" eval="True"/>
+            <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
+        </record>
+        <record id="kit_24_tubo_3" model="safra.motor.kit">
+            <field name="motor_value">24</field>
+            <field name="motor_name">Motor Somfy 406S2 LSN Rts 433 6/33</field>
+            <field name="tubo">Tubo 3</field>
+            <field name="control_names">Controles Somfy Situo</field>
+            <field name="control_values">16,17</field>
+            <field name="compra_completa" eval="True"/>
+            <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
+        </record>
+
+    </data>
+</odoo>

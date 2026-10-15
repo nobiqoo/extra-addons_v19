@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="dian_invoice_synchronizer_view_form" model="ir.ui.view">
+        <field name="name">dian.invoice.synchronizer.view.form</field>
+        <field name="model">dian.invoice.synchronizer</field>
+        <field name="arch" type="xml">
+            <form string="DIAN Invoice Synchronization">
+                <header>
+                    <div class="alert alert-info" role="alert">
+                        <p class="mb-0">
+                            <i class="fa fa-info-circle me-2" /> Enter the DIAN token URL to
+                            synchronize electronic invoices. </p>
+                    </div>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <span>DIAN Invoice Synchronization</span>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Token">
+                            <field name="token_url"
+                                placeholder="Paste here the token URL sent by the DIAN"
+                                widget="url" />
+                        </group>
+                        <group string="Date Selection">
+                            <field name="year" />
+                            <field name="month" />
+                            <field name="week" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Information" name="info">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="alert alert-warning" role="alert">
+                                        <strong>Note:</strong> The token is only valid for 1 hour.
+                                        Make sure the token URL is valid and has the necessary
+                                        permissions to access DIAN services. </div>
+                                </div>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="sync"
+                        string="Synchronize Invoices"
+                        class="btn-primary"
+                        type="object"
+                        icon="fa-refresh" />
+                    <button string="Cancel"
+                        class="btn-secondary"
+                        special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="dian_invoice_synchronizer_action" model="ir.actions.act_window">
+        <field name="name">Synchronize invoices</field>
+        <field name="res_model">dian.invoice.synchronizer</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="dian_invoice_synchronizer_menu"
+        name="Synchronize invoices"
+        action="dian_invoice_synchronizer_action"
+        parent="dian_invoices_menu_categ"
+        sequence="1" />
+
+</odoo>

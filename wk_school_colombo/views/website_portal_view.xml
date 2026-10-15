@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tarea 11152: el estudiante puede no tener fotografia.
+         image_data_uri() indexa el valor del campo (base64_source[:1]) y con
+         False lanza TypeError, asi que la barra lateral del portal dejaba de
+         renderizar para cualquier estudiante sin foto. Se cae al placeholder
+         estandar de Odoo, el mismo que sirve /web/image cuando el campo esta
+         vacio. El otro uso de image_data_uri en esta plantilla
+         (portal_student_dashboard) ya esta protegido con t-if. -->
+    <template id="dashboard_left_portion_colombo"
+              inherit_id="wk_school_management.dashboard_left_portion">
+        <xpath expr="//img[hasclass('user_img')]" position="attributes">
+            <attribute name="t-att-src">image_data_uri(student.student_image) if student.student_image else '/web/static/img/placeholder.png'</attribute>
+        </xpath>
+    </template>
+
+</odoo>

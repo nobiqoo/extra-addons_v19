@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="history_dian_event_form" model="ir.ui.view">
+            <field name="name">history.dian.event.form</field>
+            <field name="model">history.dian.event</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="move_id"/>
+                                <field name="exe_env"/>
+                            </group>
+                            <group name="files" string="Files">
+                                <field name="ev_ar_file" widget="Binary" filename="ev_ar_fname" readonly="1"/>
+                                <field name="ev_ar_fname" invisible="1"/>
+                                <field name="dian_ar_file" widget="Binary" filename="dian_ar_fname" readonly="1"/>
+                                <field name="dian_ar_fname" invisible="1"/>
+                                <field name="ad_file" widget="Binary" filename="ad_fname" readonly="1"/>
+                                <field name="ad_fname" invisible="1"/>
+                                <field name="zip_file" widget="Binary" filename="zip_fname" readonly="1"/>
+                                <field name="zip_fname" invisible="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group name="event" string="Event">
+                                <field name="name"/>
+                                <field name="ev_code"/>
+                                <field name="ev_id"/>
+                                <field name="ev_active" readonly="1"/>
+                                <field name="notes"/>
+                            </group>
+                            <group name="dian" string="DIAN response">
+                                <field name="dian_number"/>
+                                <field name="dian_code"/>
+                                <field name="dian_name" widget="badge" 
+                                    decoration-success="dian_code != '04'"
+                                    decoration-danger="dian_code == '04'"/>
+                                <field name="dian_date_event"/>
+                            </group>
+                        </group>
+                        <group name="uuid" string="CUDEs">
+                            <field name="ev_uuid"/>
+                            <field name="dian_uuid"/>
+                        </group>
+                        <field name="dian_ar_json"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="history_dian_event_tree" model="ir.ui.view">
+            <field name="name">history.dian.event.tree</field>
+            <field name="model">history.dian.event</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="ev_code"/>
+                    <field name="ev_id" optional="show"/>
+                    <field name="dian_number" optional="show"/>
+                    <field name="dian_code"/>
+                    <field name="dian_name" optional="show" widget="badge"
+                        decoration-success="dian_code != '04'"
+                        decoration-danger="dian_code == '04'"/>
+                    <field name="dian_date_event"/>
+                    <field name="create_date" optional="hide"/>
+                    <field name="ev_active" readonly="1" optional="show"/>
+                    <field name="exe_env" optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="history_dian_event_search" model="ir.ui.view">
+            <field name="name">history.dian.event.search</field>
+            <field name="model">history.dian.event</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="move_id"/>
+                    <field name="name"/>
+                    <field name="dian_code"/>
+                    <field name="dian_name"/>
+                    <field name="dian_date_event"/>
+                    <group name="group_by">
+                        <filter string="Invoice" name="by_move" domain="[]" context="{'group_by': 'move_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    
+    </data>
+</odoo>

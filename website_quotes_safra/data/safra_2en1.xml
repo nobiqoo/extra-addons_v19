@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ENROLLABLE 2 EN 1 (32): doble capa (Premium + Enrollable). Reusa el
+         catálogo con overrides + campos propios de la 2da capa. -->
+    <data noupdate="0">
+        <record id="system_32" model="safra.system">
+            <field name="tech_width_min">0.3</field><field name="tech_width_max">2.8</field>
+            <field name="tech_height_min">0.3</field><field name="tech_height_max">3</field>
+            <field name="tech_mechanism"></field>
+        </record>
+        <record id="field_perfileria2" model="safra.field">
+            <field name="code">perfileria2</field><field name="name">Perfilería Persiana Enrollable</field>
+            <field name="section_id" ref="section_estructura"/><field name="field_type">selection</field>
+            <field name="col_size">4</field><field name="sequence">700</field>
+        </record>
+        <record id="opt_perfileria2_0" model="safra.field.option">
+            <field name="field_id" ref="field_perfileria2"/><field name="value">1</field><field name="name">Estandar</field><field name="sequence">10</field>
+        </record>
+        <record id="opt_perfileria2_1" model="safra.field.option">
+            <field name="field_id" ref="field_perfileria2"/><field name="value">4</field><field name="name">Lujo</field><field name="sequence">20</field>
+        </record>
+        <record id="opt_perfileria2_2" model="safra.field.option">
+            <field name="field_id" ref="field_perfileria2"/><field name="value">6</field><field name="name">Perfil Cuadrado</field><field name="sequence">30</field>
+        </record>
+        <record id="field_mando2" model="safra.field">
+            <field name="code">mando2</field><field name="name">Mando Persiana Enrollable</field>
+            <field name="section_id" ref="section_accesorios"/><field name="field_type">selection</field>
+            <field name="col_size">4</field><field name="sequence">700</field>
+        </record>
+        <record id="opt_mando2_0" model="safra.field.option">
+            <field name="field_id" ref="field_mando2"/><field name="value">izquierda</field><field name="name">Izquierda</field><field name="sequence">10</field>
+        </record>
+        <record id="opt_mando2_1" model="safra.field.option">
+            <field name="field_id" ref="field_mando2"/><field name="value">derecha</field><field name="name">Derecha</field><field name="sequence">20</field>
+        </record>
+        <record id="field_color_cabezal" model="safra.field">
+            <field name="code">color_cabezal</field><field name="name">Color del Cabezal</field>
+            <field name="section_id" ref="section_cabezal"/><field name="field_type">selection</field>
+            <field name="col_size">4</field><field name="sequence">700</field>
+        </record>
+        <record id="opt_color_cabezal_0" model="safra.field.option">
+            <field name="field_id" ref="field_color_cabezal"/><field name="value">blanco</field><field name="name">Blanco</field><field name="sequence">10</field>
+        </record>
+        <record id="opt_color_cabezal_1" model="safra.field.option">
+            <field name="field_id" ref="field_color_cabezal"/><field name="value">ivory</field><field name="name">Ivory</field><field name="sequence">20</field>
+        </record>
+        <record id="opt_color_cabezal_2" model="safra.field.option">
+            <field name="field_id" ref="field_color_cabezal"/><field name="value">cafe</field><field name="name">Café</field><field name="sequence">30</field>
+        </record>
+        <record id="opt_color_cabezal_3" model="safra.field.option">
+            <field name="field_id" ref="field_color_cabezal"/><field name="value">negro</field><field name="name">Negro</field><field name="sequence">40</field>
+        </record>
+        <record id="opt_color_cabezal_4" model="safra.field.option">
+            <field name="field_id" ref="field_color_cabezal"/><field name="value">gris</field><field name="name">Gris</field><field name="sequence">50</field>
+        </record>
+        <record id="sf_32_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_32_escuadras" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_32_custom_design" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_32_width" model="safra.system.field">
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_32_height" model="safra.system.field">
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_32_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_32_fabric_id" model="safra.system.field">
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_32_color_id" model="safra.system.field">
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_32_fabric_id_2" model="safra.system.field">
+            <field name="sequence">150</field>
+        </record>
+        <record id="sf_32_color_id_2" model="safra.system.field">
+            <field name="sequence">160</field>
+        </record>
+        <record id="sf_32_coordinado" model="safra.system.field">
+            <field name="sequence">170</field>
+        </record>
+        <record id="sf_32_perfil" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_32"/>
+            <field name="field_id" ref="field_perfil"/>
+            <field name="sequence">1000</field>
+            <field name="label_override">Perfilería Persiana Premium</field>
+        </record>
+        <record id="sf_32_cabezal_tipo" model="safra.system.field">
+            <field name="sequence">1005</field>
+        </record>
+        <record id="sf_32_perfileria2" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_32"/>
+            <field name="field_id" ref="field_perfileria2"/>
+            <field name="sequence">1006</field>
+        </record>
+        <record id="sf_32_mando_position" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_32"/>
+            <field name="field_id" ref="field_mando_position"/>
+            <field name="sequence">1010</field>
+            <field name="label_override">Mando Persiana Premium</field>
+        </record>
+        <record id="sf_32_mando2" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_32"/>
+            <field name="field_id" ref="field_mando2"/>
+            <field name="sequence">1011</field>
+        </record>
+        <record id="sf_32_orientation" model="safra.system.field">
+            <field name="sequence">1020</field>
+            <field name="label_override">Orientación del Enrollado</field>
+        </record>
+        <record id="sf_32_color_cabezal" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_32"/>
+            <field name="field_id" ref="field_color_cabezal"/>
+            <field name="sequence">1025</field>
+        </record>
+        <record id="sf_32_aligned" model="safra.system.field">
+            <field name="sequence">1030</field>
+        </record>
+        <record id="sf_32_interruptor_rf" model="safra.system.field">
+            <field name="sequence">1035</field>
+            <field name="clear_depends" eval="True"/>
+        </record>
+        <record id="sf_32_cover_light_profile" model="safra.system.field">
+            <field name="sequence">1040</field>
+        </record>
+        <record id="sf_32_coverlight_45" model="safra.system.field">
+            <field name="sequence">1041</field>
+        </record>
+        <record id="sf_32_coverlight_felpa" model="safra.system.field">
+            <field name="sequence">1042</field>
+        </record>
+        <record id="sf_32_extra_chain" model="safra.system.field">
+            <field name="sequence">1050</field>
+        </record>
+        <record id="sf_32_cabezal_forrado" model="safra.system.field">
+            <field name="sequence">1055</field>
+        </record>
+        <record id="sf_32_cabezal_tela" model="safra.system.field">
+            <field name="sequence">1056</field>
+        </record>
+        <record id="sf_32_design_print" model="safra.system.field">
+            <field name="sequence">1060</field>
+        </record>
+        <record id="sf_32_print_m2" model="safra.system.field">
+            <field name="sequence">1061</field>
+        </record>
+        <record id="sf_32_design_exterior" model="safra.system.field">
+            <field name="sequence">1070</field>
+        </record>
+        <record id="sf_32_location" model="safra.system.field">
+            <field name="sequence">1080</field>
+        </record>
+        <record id="sf_32_tela_al_reves" model="safra.system.field">
+            <field name="sequence">1090</field>
+        </record>
+        <record id="sf_32_enclosed" model="safra.system.field">
+            <field name="sequence">1100</field>
+        </record>
+        <record id="sf_32_atravesar_tela" model="safra.system.field">
+            <field name="sequence">1110</field>
+        </record>
+    </data>
+</odoo>

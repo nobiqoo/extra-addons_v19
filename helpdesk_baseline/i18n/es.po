@@ -1,0 +1,187 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* helpdesk_baseline
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-01 17:03+0000\n"
+"PO-Revision-Date: 2022-09-01 17:03+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: helpdesk_baseline
+#: model:ir.model.fields,help:helpdesk_baseline.field_helpdesk_ticket__helpdesk_ticket_income_expense
+#: model:ir.model.fields,help:helpdesk_baseline.field_res_company__helpdesk_ticket_income_expense
+#: model:ir.model.fields,help:helpdesk_baseline.field_res_config_settings__helpdesk_ticket_income_expense
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.res_config_settings_view_form
+msgid "Allows to manage income and expenses from help desk tickets."
+msgstr "Permite administrar ingresos y costos de los tickets de mesa de ayuda."
+
+#. module: helpdesk_baseline
+#: model:ir.model,name:helpdesk_baseline.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: helpdesk_baseline
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_helpdesk_ticket__company_currency_id
+msgid "Company Currency"
+msgstr "Moneda de la compañía"
+
+#. module: helpdesk_baseline
+#: model:ir.model,name:helpdesk_baseline.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de configuración"
+
+#. module: helpdesk_baseline
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.helpdesk_ticket_view_form
+msgid "Description"
+msgstr "Descripción"
+
+#. module: helpdesk_baseline
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.helpdesk_ticket_view_form
+msgid "Description of the ticket..."
+msgstr "Descripción del ticket"
+
+#. module: helpdesk_baseline
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_helpdesk_ticket__expense_ids
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.helpdesk_ticket_view_form
+msgid "Expense"
+msgstr "costos"
+
+#. module: helpdesk_baseline
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_helpdesk_ticket__expense_count
+msgid "Expense count"
+msgstr "Recuento de costos"
+
+#. module: helpdesk_baseline
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.res_config_settings_view_form
+msgid "Financial Information"
+msgstr "Información Financiera"
+
+#. module: helpdesk_baseline
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.helpdesk_ticket_view_form
+msgid "Financial Summary"
+msgstr "Resumen Financiero"
+
+#. module: helpdesk_baseline
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.helpdesk_ticket_view_form
+msgid "Financial info"
+msgstr "Información financiera"
+
+#. module: helpdesk_baseline
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.res_config_settings_view_form
+msgid "Helpdesk"
+msgstr "Mesa de ayuda"
+
+#. module: helpdesk_baseline
+#: model:ir.model,name:helpdesk_baseline.model_helpdesk_ticket
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_purchase_order__ticket_id
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_sale_order__ticket_id
+msgid "Helpdesk Ticket"
+msgstr "Ticket de servicio de asistencia"
+
+#. module: helpdesk_baseline
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_helpdesk_ticket__income_ids
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.helpdesk_ticket_view_form
+msgid "Income"
+msgstr "Ingresos"
+
+#. module: helpdesk_baseline
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_helpdesk_ticket__helpdesk_ticket_income_expense
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_res_company__helpdesk_ticket_income_expense
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_res_config_settings__helpdesk_ticket_income_expense
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.res_config_settings_view_form
+msgid "Income and Expense in helpdesk Tickets"
+msgstr "Ingresos y costos en los tickets de mesa de ayuda"
+
+#. module: helpdesk_baseline
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_helpdesk_ticket__income_count
+msgid "Income count"
+msgstr "Recuento de ingresos"
+
+#. module: helpdesk_baseline
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.helpdesk_ticket_view_form
+msgid "Planned"
+msgstr "Planificado"
+
+#. module: helpdesk_baseline
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_helpdesk_ticket__plan_expense
+msgid "Planned Expense"
+msgstr "Costo planificado"
+
+#. module: helpdesk_baseline
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_helpdesk_ticket__plan_income
+msgid "Planned Income"
+msgstr "Ingreso planificado"
+
+#. module: helpdesk_baseline
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_helpdesk_ticket__plan_margin
+msgid "Planned Margin"
+msgstr "Margen planificado"
+
+#. module: helpdesk_baseline
+#: model:ir.model,name:helpdesk_baseline.model_purchase_order
+msgid "Purchase Order"
+msgstr "Orden de Compra"
+
+#. module: helpdesk_baseline
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.helpdesk_ticket_view_form
+msgid "Real"
+msgstr "Real"
+
+#. module: helpdesk_baseline
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_helpdesk_ticket__real_expense
+msgid "Real Expense"
+msgstr "Costo Real"
+
+#. module: helpdesk_baseline
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_helpdesk_ticket__real_income
+msgid "Real Income"
+msgstr "Ingreso Real"
+
+#. module: helpdesk_baseline
+#: model:ir.model.fields,field_description:helpdesk_baseline.field_helpdesk_ticket__real_margin
+msgid "Real Margin"
+msgstr "Margen Real"
+
+#. module: helpdesk_baseline
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.helpdesk_ticket_view_form
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: helpdesk_baseline
+#: model:ir.model,name:helpdesk_baseline.model_sale_order
+msgid "Sales Order"
+msgstr "Orden de Venta"
+
+#. module: helpdesk_baseline
+#: model:ir.actions.act_window,name:helpdesk_baseline.action_helpdesk_config_settings
+#: model:ir.ui.menu,name:helpdesk_baseline.menu_helpdesk_general_settings
+msgid "Settings"
+msgstr "Ajustes"
+
+#. module: helpdesk_baseline
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.helpdesk_ticket_view_form
+msgid "Tax Total"
+msgstr "Total impuestos"
+
+#. module: helpdesk_baseline
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.helpdesk_ticket_view_form
+msgid "Total Untaxed amount"
+msgstr "Monto libre de impuestos"
+
+#. module: helpdesk_baseline
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.helpdesk_ticket_view_form
+msgid "Total amount"
+msgstr "Monto total"
+
+#. module: helpdesk_baseline
+#: model_terms:ir.ui.view,arch_db:helpdesk_baseline.helpdesk_ticket_view_form
+msgid "Untaxed"
+msgstr "Libre de impuestos"

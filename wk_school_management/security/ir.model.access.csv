@@ -1,0 +1,150 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+application_form_user,application_form_user Access,model_wk_application_form,wk_school_management_officer_group,1,1,1,1
+application_form_teacher,application_form_teacher Access,model_wk_application_form,wk_school_management_staff_group,0,0,0,0
+
+wk_school_grade_user,wk_school_grade_user Access,model_wk_school_grade,wk_school_management_officer_group,1,1,1,1
+wk_school_grade_staff,wk_school_grade_staff Access,model_wk_school_grade,wk_school_management_staff_group,1,0,0,0
+wk_school_session_staff,wk_school_session Access staff,model_wk_school_session,wk_school_management_staff_group,0,0,0,0
+wk_school_session_officer,wk_school_session Access officer,model_wk_school_session,wk_school_management_officer_group,1,1,1,1
+
+fee_component_user,fee_component_user Access,model_fee_component,base.group_user,1,1,1,1
+fee_structure_user,fee_structure_user Access,model_fee_structure,base.group_user,1,1,1,1
+enrollment_form_user,enrollment_form_user Access,model_student_enrollment,wk_school_management_officer_group,1,1,1,1
+enrollment_form_teacher,enrollment_form_teacher Access,model_student_enrollment,wk_school_management_staff_group,1,0,0,0
+
+wk_fee_generate_wizard_user,wk_fee_generate_wizard_user Access,model_wk_fee_generate_wizard,wk_school_management_officer_group,1,1,1,1
+cancel_reset_reason_user, cancel_reset_reason_user Access,model_cancel_reset_reason,base.group_user,1,1,1,1
+
+student_student_staff, student_student_staff Access,model_student_student,wk_school_management_staff_group,1,0,0,0
+student_student_librarian, student_student_librarian Access,model_student_student,group_librarian_group,1,0,0,0
+hr_employee_librarian, hr_employee_librarian Access,model_hr_employee,group_librarian_group,1,0,0,0
+wk_school_grade_librarian,wk_school_grade_librarian Access,model_wk_school_grade,group_librarian_group,1,0,0,0
+enrollment_form_librarian,enrollment_form_librarian Access,model_student_enrollment,group_librarian_group,1,0,0,0
+
+
+student_student_officer, student_student_officer Access,model_student_student,wk_school_management_officer_group,1,1,1,0
+student_student_user, student_student_user Access,model_student_student,wk_school_management_admin_group,1,1,1,1
+
+notice_board_user, notice_board_user Access,model_wk_notice_board,base.group_user,1,1,1,1
+student_assignment_user, student_assignment_user Access,model_wk_student_assignment,base.group_user,1,1,1,1
+class_timetable_user, class_timetable_user Access,model_wk_class_timetable,base.group_user,1,1,1,1
+student_attendance_user, student_attendance_user Access,model_wk_student_attendance,base.group_user,1,1,1,1
+wk_fee_summary_user, wk_fee_summary_user Access,model_wk_fee_summary,base.group_user,1,1,1,1
+wk_fee_slip_user, wk_fee_slip_user Access,model_wk_fee_slip,base.group_user,1,1,1,1
+wk_fee_slip_lines_user, wk_fee_slip_lines_user Access,model_wk_fee_slip_lines,base.group_user,1,1,1,1
+wk_grade_term_user, wk_grade_term_user Access,model_wk_grade_terms,base.group_user,1,1,1,1
+wk_grade_subjects_user, wk_grade_subjects_user Access,model_wk_grade_subjects,wk_school_management_officer_group,1,1,1,1
+wk_grade_subjects_staff, wk_grade_subjects_staff Access,model_wk_grade_subjects,wk_school_management_staff_group,1,0,0,0
+wk_grade_subjects_portal, wk_grade_subjects_portal Access,model_wk_grade_subjects,base.group_portal,1,0,0,0
+
+wk_student_subjects_user, wk_student_subjects_user Access,model_wk_student_subjects,base.group_user,1,1,1,1
+
+wk_school_class_user, wk_school_class_user Access,model_wk_school_class,wk_school_management_officer_group,1,1,1,1
+wk_school_class_staff, wk_school_class_staff Access,model_wk_school_class,wk_school_management_staff_group,1,0,0,0
+wk_student_scholarship_officer, wk_student_scholarship_officer Access,model_wk_student_scholarship,wk_school_management_officer_group,1,1,1,1
+wk_student_scholarship_staff, wk_student_scholarship_staff Access,model_wk_student_scholarship,wk_school_management_staff_group,1,0,0,0
+
+hr_employee_staff, hr_employee_staff Access,model_hr_employee,wk_school_management_staff_group,1,0,0,0
+hr_employee_user, hr_employee_user Access,model_hr_employee,wk_school_management_officer_group,1,1,1,1
+school_leave_type_responsible,school_leave_type_responsible Access,hr_payroll_co.model_hr_leave_type,group_school_leave_responsible,1,1,1,0
+school_leave_responsible,school_leave_responsible Access,hr_payroll_co.model_hr_leave,group_school_leave_responsible,1,1,1,0
+school_leave_line_responsible,school_leave_line_responsible Access,hr_payroll_co.model_hr_leave_line,group_school_leave_responsible,1,0,0,0
+wk_grade_scales_staff,wk_grade_scales_staff Access,model_wk_grade_scales,wk_school_management_staff_group,1,0,0,0
+wk_grade_scale_line_staff,wk_grade_scale_line_staff Access,model_wk_grade_scale_line,wk_school_management_staff_group,1,0,0,0
+wk_grade_scales_officer,wk_grade_scales_officer Access,model_wk_grade_scales,wk_school_management_officer_group,1,1,1,1
+wk_grade_scale_line_officer,wk_grade_scale_line_officer Access,model_wk_grade_scale_line,wk_school_management_officer_group,1,1,1,1
+
+
+wk_enroll_wizard_user,wk_enroll_wizard_user Access,model_wk_enroll_wizard,base.group_user,1,1,1,1
+wk_scholarship_update_wizard_user,wk_scholarship_update_wizard_user Access,model_wk_scholarship_update_wizard,base.group_user,1,1,1,1
+wk_class_location_user,wk_class_location_user Access,model_wk_class_location,base.group_user,1,1,1,1
+wk_class_location_portal,wk_class_location_portal Access,model_wk_class_location,base.group_portal,1,0,0,0
+wk_class_timeslot_user,wk_class_timeslot_user Access,model_wk_class_timeslot,base.group_user,1,1,1,1
+wk_class_timeslot_portal,wk_class_timeslot_portal Access,model_wk_class_timeslot,base.group_portal,1,0,0,0
+wk_lesson_plan_user,wk_lesson_plan_user Access,model_wk_lesson_plan,base.group_user,1,1,1,1
+wk_lesson_plan_staff,wk_lesson_plan_staff Access,model_wk_lesson_plan,wk_school_management_staff_group,1,1,1,1
+wk_grade_section_staff,wk_grade_section_staff Access,model_wk_grade_section,wk_school_management_staff_group,1,1,1,1
+
+wk_weekly_schedule_user,wk_weekly_schedule_user Access,model_wk_weekly_schedule,base.group_user,1,1,1,1
+wk_assignment_type_user,wk_assignment_type_user Access,model_wk_assignment_type,base.group_user,1,1,1,1
+wk_grade_assignment_user,wk_grade_assignment_user Access,model_wk_grade_assignment,base.group_user,1,1,1,1
+wk_class_assignment_user,wk_class_assignment_user Access,model_wk_class_assignment,base.group_user,1,1,1,1
+wk_assignment_wizard_user,wk_assignment_wizard_user Access,model_wk_assignment_wizard,base.group_user,1,1,1,1
+wk_confirm_timetable_user,wk_confirm_timetable_user Access,model_wk_confirm_timetable,base.group_user,1,1,1,1
+wk_academic_year_user,wk_academic_year_user Access,model_wk_academic_year,base.group_user,1,1,1,1
+wk_class_assignment_type_user,wk_class_assignment_type_user Access,model_wk_class_assignment_type,base.group_user,1,1,1,1
+wk_evaluation_wizard_user,wk_evaluation_wizard_user Access,model_wk_evaluation_wizard,base.group_user,1,1,1,1
+wk_assignment_attachment_user,wk_assignment_attachment_user Access,model_wk_assignment_attachment,base.group_user,1,1,1,1
+wk_term_reports_user,wk_term_reports_user Access,model_wk_term_reports,base.group_user,1,1,1,1
+wk_service_hours_user,wk_service_hours_user Access,model_wk_service_hours,base.group_user,1,1,1,1
+wk_discipline_type_user,wk_discipline_type_user Access,model_wk_discipline_type,base.group_user,1,1,1,1
+wk_student_discipline_user,wk_student_discipline_user Access,model_wk_student_discipline,base.group_user,1,1,1,1
+wk_portal_wizard_user,wk_portal_wizard_user Access,model_wk_portal_wizard_user,base.group_user,1,1,1,1
+
+wk_book,wk_book_user Access,model_wk_books,base.group_user,1,1,1,1
+book_category,book_category_user Access,model_book_category,base.group_user,1,0,0,0
+book_category_librarian,book_category_librarian Access,model_book_category,group_librarian_group,1,0,0,0
+book_category_school_admin,book_category_school_admin Access,model_book_category,wk_school_management_admin_group,1,1,1,1
+
+book_tags,book_tag_user Access,model_wk_book_tag,base.group_user,1,1,1,1
+
+book_history,booking_history_user Access,model_wk_book_history,base.group_user,1,1,1,1
+book_copy,book_copies_user Access,model_wk_book_copy,base.group_user,1,1,1,1
+book_scan_wizard,book_scan_wizard Access,model_barcode_book_wizard,base.group_user,1,1,1,1
+barcode_scan_line,barcode_scan_line Access,model_barcode_scan_line,base.group_user,1,1,1,1
+book_wk_book_issue,book_wk_book_issue Access,model_wk_wizard_book_issue,base.group_user,1,1,1,1
+
+book_history_portal,booking_history_user portal accesss,model_wk_book_history,base.group_portal,1,0,0,0
+book_book_library_fine,book_library_fine_user portal accesss,model_book_library_fine,base.group_user,1,1,1,1
+
+
+wk_student_promote_user,wk_student_promote_user Access,model_wk_student_promote,base.group_user,1,1,1,1
+wk_student_document_type_user,wk_student_document_type_user Access,model_wk_student_document_type,base.group_user,1,1,1,1
+wk_student_document_type_portal,wk_student_document_type_portal Access,model_wk_student_document_type,base.group_portal,1,0,0,0
+wk_student_document_type_public,wk_student_document_type_public Access,model_wk_student_document_type,base.group_public,1,0,0,0
+
+wk_attendance_tag_staff,wk_attendance_tag_staff Access,model_wk_attendance_tag,wk_school_management_staff_group,1,0,0,0
+wk_attendance_tag_officer,wk_attendance_tag_officer Access,model_wk_attendance_tag,wk_school_management_officer_group,1,0,0,0
+wk_attendance_tag_admin,wk_attendance_tag_admin Access,model_wk_attendance_tag,wk_school_management_admin_group,1,1,1,1
+wk_student_class_attendance_staff,wk_student_class_attendance_staff Access,model_wk_student_class_attendance,wk_school_management_staff_group,1,1,1,1
+wk_student_attendance_staff,wk_student_attendance_staff Access,model_wk_student_attendance,wk_school_management_staff_group,1,1,1,1
+wk_student_public_holidays_admin,wk_student_public_holidays_admin Access,model_wk_student_public_holidays,wk_school_management_admin_group,1,1,1,1
+wk_attendance_wizard_user,wk_attendance_wizard_user Access,model_wk_attendance_wizard,base.group_user,1,1,1,1
+wk_message_wizard_user,wk_message_wizard_user Access,model_wk_message_wizard,base.group_user,1,1,1,1
+wk_class_attendance_wizard_user,wk_class_attendance_wizard_user Access,model_wk_class_attendance_wizard,base.group_user,1,1,1,1
+wk_student_transcript_wizard_user,wk_student_transcript_wizard_user Access,model_wk_student_transcript_wizard,base.group_user,1,1,1,1
+wk_student_enrollment_subject_user,wk_student_enrollment_subject_user Access,model_wk_student_enrollment_subject,base.group_user,1,1,1,1
+
+enrollment_form_portal,enrollment_form_portal Access,model_student_enrollment,base.group_portal,1,1,0,0
+subject_student_portal,subject_student_portal Access,model_wk_student_subjects,base.group_portal,1,1,0,0
+wk_fee_slip_lines_portal, wk_fee_slip_lines_portal Access,model_wk_fee_slip_lines,base.group_portal,1,0,0,0
+wk_fee_slip_portal, wk_fee_slip_portal Access,model_wk_fee_slip,base.group_portal,1,0,0,0
+wk_student_assignment_portal, wk_student_assignment_portal Access,model_wk_student_assignment,base.group_portal,1,0,0,0
+wk_service_hour_portal,wk_service_hour_portal Access,model_wk_service_hours,base.group_portal,1,0,0,0
+wk_notice_board_portal,wk_notice_board_portal Access,model_wk_notice_board,base.group_portal,1,0,0,0
+wk_student_discipline_portal,wk_student_discipline_portal Access,model_wk_student_discipline,base.group_portal,1,0,0,0
+student_student_portal, student_student_portal Access,model_student_student,base.group_portal,1,1,0,0
+wk_class_timetable_portal,wk_class_timetable_portal Access,model_wk_class_timetable,base.group_portal,1,0,0,0
+wk_student_attendance_portal,wk_student_attendance_portal Access,model_wk_student_attendance,base.group_portal,1,0,0,0
+wk_transport_trip_line_portal,wk_transport_trip_line_portal Access,model_transport_trip_line,base.group_portal,1,0,0,0
+wk_transport_trip_portal,wk_transport_trip_portal Access,model_transport_trip,base.group_portal,1,0,0,0
+
+wk_transport_route_user,wk_transport_route_user Access,model_transport_route,base.group_user,1,1,1,1
+wk_transport_trip_user,wk_transport_trip_user Access,model_transport_trip,base.group_user,1,1,1,1
+wk_transport_trip_line_user,wk_transport_trip_line_user Access,model_transport_trip_line,base.group_user,1,1,1,1
+wk_transport_location_user,wk_transport_location_user Access,model_transport_location,base.group_user,1,1,1,1
+wk_transport_route_stop_user,wk_transport_route_stop_user Access,model_transport_route_stop,base.group_user,1,1,1,1
+wk_student_route_wizard_user,wk_student_route_wizard_user Access,model_student_route_wizard,base.group_user,1,1,1,1
+wk_discipline_wizard_user,wk_discipline_wizard_user Access,model_wk_discipline_wizard,base.group_user,1,1,1,1
+wk_timetable_postpone_wizard_user,wk_timetable_postpone_wizard_user Access,model_wk_timetable_postpone_wizard,base.group_user,1,1,1,1
+
+public_application_portal_settings,application_portal_settings_public,model_application_portal_settings,base.group_public,1,0,0,0
+officer_access_application_portal_settings,application_portal_settings_officer,model_application_portal_settings,wk_school_management_officer_group,1,1,1,1
+
+public_application_portal_fields,application_portal_fields_public,model_application_portal_fields,base.group_public,1,0,0,0
+officer_access_application_portal_fields,application_portal_fields_officer,model_application_portal_fields,wk_school_management_officer_group,1,1,1,1
+access_field_add_domain,access_field_add_domain1,model_field_add_domain,base.group_user,1,1,1,0
+wk_hr_version_staff,wk_hr_version_staff Access,hr.model_hr_version,wk_school_management_staff_group,1,0,0,0
+
+

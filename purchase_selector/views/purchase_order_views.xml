@@ -1,0 +1,43 @@
+<odoo>
+  <data>
+
+    <record id="view_purchase_order_form_inherit_approvals_link" model="ir.ui.view">
+      <field name="name">purchase.order.form.approvals.link</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.purchase_order_form"/>
+      <field name="arch" type="xml">
+
+        <xpath expr="//header" position="inside">
+          <button name="action_view_approval_requests"
+                  type="object"
+                  class="oe_stat_button"
+                  icon="fa-clipboard"
+                  attrs="{'invisible': [('approval_request_ids','=',[])]}">
+            <field name="approval_request_ids" widget="statinfo" string="Requisiciones"/>
+          </button>
+        </xpath>
+
+        <xpath expr="//sheet/notebook" position="inside">
+          <page string="Requisiciones origen">
+            <field name="approval_request_ids"
+                   widget="many2many_tags"
+                   options="{'no_create': True}"/>
+          </page>
+        </xpath>
+
+      </field>
+    </record>
+
+    <record id="view_purchase_order_line_form_inherit_apl" model="ir.ui.view">
+      <field name="name">purchase.order.line.form.approval.line</field>
+      <field name="model">purchase.order.line</field>
+      <field name="inherit_id" ref="purchase.view_purchase_order_line_form2"/>
+      <field name="arch" type="xml">
+        <xpath expr="//group" position="inside">
+          <field name="approval_line_id" readonly="1"/>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

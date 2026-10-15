@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mrp_production_byproduct_inherit" model="ir.ui.view">
+        <field name="name">mrp.production.byproduct.inherit.stock.felupe</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='finished_products']//field[@name='move_byproduct_ids']//list/field[@name='cost_share']" position="after">
+                <field name="cost_sharing_float" optional="show" force_save="1"/>
+                <field name="cost_prom" optional="show" force_save="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

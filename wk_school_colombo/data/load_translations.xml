@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Tarea 11155. Las traducciones de este modulo corrigen terminos que
+        wk_school_management ya trae traducidos, y Odoo no pisa una traduccion
+        que ya existe en la base a menos que el servidor arranque con la
+        bandera de sobrescritura de i18n. En Odoo.sh no se puede pasar esa
+        bandera, asi que las traducciones nunca se aplicaban.
+
+        Esta llamada vuelve a cargar los archivos .po de este modulo con la
+        sobrescritura activada, en cada instalacion y en cada actualizacion.
+        Solo alcanza a este modulo: _update_translations ordena unicamente los
+        modulos del recordset recibido, no sus dependencias.
+    -->
+    <function model="ir.module.module" name="_update_translations">
+        <value eval="[ref('base.module_wk_school_colombo')]"/>
+        <value eval="None"/>
+        <value eval="True"/>
+    </function>
+</odoo>

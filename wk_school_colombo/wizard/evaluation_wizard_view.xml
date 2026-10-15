@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tarea 11156: cuando la actividad permite evaluacion sin entrega
+         digital, "Marcas obtenidas" queda editable aunque la asignacion
+         individual siga en estado Nuevo. El resto de columnas y la forma en
+         que el asistente carga las lineas no se modifican.
+
+         Subtarea 8, requerimiento 2.8: para una estructura de calificación
+         avanzada (grading_scale_id), se ocultan los campos de conversión
+         por rangos de la Escala estándar -que no participan en el cálculo
+         de estas estructuras- y se muestra solo la "Calificación". Las
+         actividades de Class Performance (is_class_performance) no
+         registran un puntaje directo: se califican por criterio desde un
+         botón que abre esa pantalla (ver models/grade_assignment.py). -->
+    <record id="wk_evaluation_wizard_form_colombo" model="ir.ui.view">
+        <field name="name">wk.evaluation.wizard.form.colombo</field>
+        <field name="model">wk.evaluation.wizard</field>
+        <field name="inherit_id" ref="wk_school_management.wk_evaluation_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='student_assignment_ids']" position="before">
+                <field name="grading_scale_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='student_assignment_ids']/list/field[@name='marks_obtained']" position="before">
+                <field name="allow_eval_without_submission" column_invisible="1"/>
+                <field name="is_class_performance" column_invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='student_assignment_ids']/list/field[@name='marks_obtained']" position="before">
+                <field name="grades_locked_for_me" column_invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='student_assignment_ids']/list/field[@name='marks_obtained']" position="attributes">
+                <attribute name="readonly">(state == 'new' and not allow_eval_without_submission) or is_class_performance or grades_locked_for_me</attribute>
+                <attribute name="string">Calificación</attribute>
+            </xpath>
+            <!-- Tarea 11292: se oculta la columna "Valor para calcular el
+                 promedio" (point_obtained), que es de solo lectura y solo
+                 refleja un paso intermedio del calculo de la nota. -->
+            <xpath expr="//field[@name='student_assignment_ids']/list/field[@name='point_obtained']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <!-- Subtarea 8 (2.8): campos de conversión de la Escala
+                 estándar, ocultos solo para estructuras avanzadas. -->
+            <xpath expr="//field[@name='student_assignment_ids']/list/field[@name='scale_line_id']" position="attributes">
+                <attribute name="column_invisible">parent.grading_scale_id</attribute>
+            </xpath>
+            <xpath expr="//field[@name='student_assignment_ids']/list/field[@name='percent_obtained']" position="attributes">
+                <attribute name="column_invisible">parent.grading_scale_id</attribute>
+            </xpath>
+            <!-- Subtarea 8 (2.4, 2.8.11): acceso a la pantalla de Class
+                 Performance por criterio, en vez de un puntaje directo. -->
+            <xpath expr="//field[@name='student_assignment_ids']/list/field[@name='exempted']" position="before">
+                <button name="action_open_cp_form" type="object"
+                        string="Calificar Class Performance" icon="fa-list"
+                        invisible="not is_class_performance"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

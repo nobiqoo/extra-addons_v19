@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<templates xml:space="preserve">
+	<t t-name="wk_school_management.transcript_page">
+    <div class="my-1 mx-3" style="background-color:white;border: 1px solid #E1E7EF;border-radius:0.5rem;">
+      <div class="p_detail_header d-none mb-3 p-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                  <span class="fw-bolder" style="color: #525050;">Name:  </span><t t-out="student_information['name']"/>
+                </div>
+                <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                  <span class="fw-bolder" style="color: #525050;">Email:  </span><t t-out="student_information['email']"/>
+                </div>
+                <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                  <span class="fw-bolder" style="color: #525050;">Address:  </span><t t-out="student_information['adress']"/>
+                </div>
+                <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                  <span class="fw-bolder" style="color: #525050;">Date Of Birth:  </span><t t-out="student_information['dob']"/>
+                </div>
+                <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                  <span class="fw-bolder" style="color: #525050;">Mobile:  </span><t t-out="student_information['phone_number']"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                  <span class="fw-bolder" style="color: #525050;">Name:  </span><t t-out="school_information['name']"/>
+                </div>
+                <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                  <span class="fw-bolder" style="color: #525050;">Email:  </span><t t-out="school_information['email']"/>
+                </div>
+                <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                  <span class="fw-bolder" style="color: #525050;">Session:  </span><t t-out="school_information.session_name"/>
+                </div>
+                <div class="my-2" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                    <span class="fw-bolder" style="color: #525050;">Session Status:  </span>
+                    <t t-if="school_information.session_status == 'new'">
+                        <span class="badge rounded-pill border" style="color:#2563EA !important;background-color:#cfdbf7 !important;font-size:14px;font-family: 'Inter', sans-serif;">New</span>
+                    </t>
+                    <t t-elif="school_information.session_status == 'progress'">
+                        <span class="badge rounded-pill border" style="color:#B35309 !important;background-color:#ffe9c4 !important;font-size:14px;font-family: 'Inter', sans-serif;">Progress</span>
+                    </t>
+                    <t t-elif="school_information.session_status == 'complete'">
+                        <span class="badge rounded-pill border" style="color:#047857 !important;background-color:#caf7ea !important;font-size:14px;font-family: 'Inter', sans-serif;">Complete</span>
+                    </t>
+                </div>
+                <div class="my-1" style="color: #525050;font-family: 'Helvetica', 'Arial', sans-serif;">
+                    <span class="fw-bolder">Issue Date:  </span><t t-out="issue_date"/>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="p_table_header p-3 d-none" style="background-color: #F7F9FB;">
+        <div t-if = "error_message" class="p_error_message">
+          <h4 style="color: #525050;font-family: 'Helvetica', 'Arial', sans-serif;"><t t-out="error_message"/></h4>
+        </div>
+        <div class="p_table_data row" id="transcript_table_header">
+          <t t-foreach='records' t-as='records' t-key="records[0]['enrollment']">
+            <div class="col-md-12">
+              <div class="grade_table_detail mb-2">
+                <div class="enrolment_data row" style="color: #525050;font-family: 'Helvetica', 'Arial', sans-serif;">
+                  <div class='col-6'>
+                    <span class="academic_yr mt-4 fw-bolder">Academic Year : </span>
+                    <t t-out="records[0]['academic_year']"/>
+                  </div>
+                  <div class='col-6'>
+                    <span class="grade mt-4 fw-bolder">Grade : </span>
+                    <t t-out="records[0]['grade']"/>
+                  </div>
+                </div>
+                <table class="table table-borderless" style="width: 100%;border: none; margin-top: 20px;">
+                  <thead style="border: none;">
+                    <tr style="font-size: 17px;border: 2px solid #979797;background-color: #e1e1e1;">
+                      <th style="text-align: center; border: none; padding: 8px;font-weight:600">Term</th>
+                      <th style="text-align: center; border: none; padding: 8px;font-weight:600">Subject Code</th>
+                      <th style="text-align: center; border: none; padding: 8px;font-weight:600">Subject</th>
+                      <th style="text-align: center; border: none; padding: 8px;font-weight:600">Credit</th>
+                      <th style="text-align: center; border: none; padding: 8px;font-weight:600">Grade</th>
+                      <th style="text-align: center; border: none; padding: 8px;font-weight:600">SGPA</th>
+                      <th style="text-align: center; border: none; padding: 8px;font-weight:600">CGPA</th>
+                    </tr>
+                  </thead>
+                  <tbody style="border: none; font-size: 16px;">
+                    <t t-foreach="records[0]['terms']" t-as="term" t-key="term['id']">
+                      <t t-set="row_count" t-value="term['subjects'].length"/>
+                      <t t-foreach="term['subjects']" t-as="subject" t-index="subject_index" t-key="subject['subject_code'] or subject_index">
+                        <tr style="border: none;">
+                          <t t-if="subject_index == 0">
+                            <td t-attf-rowspan="{{ row_count }}"
+                                style="text-align: center;border: none; padding: 8px;">
+                                <t t-esc="term['name']"/>
+                            </td>
+                          </t>
+                          <td style="text-align: center; border: none; padding: 8px;">
+                            <t t-esc="subject['subject_code']"/>
+                          </td>
+                          <td style="text-align: center; border: none; padding: 8px;">
+                            <t t-esc="subject['subject_name']"/>
+                          </td>
+                          <td style="text-align: center; border: none; padding: 8px;">
+                            <t t-esc="subject['credit_value']"/>
+                          </td>
+                          <td style="text-align: center; border: none; padding: 8px;">
+                            <t t-esc="subject['grade'] or '-'"/>
+                          </td>
+                          <t t-if="subject_index == 0">
+                            <td t-attf-rowspan="{{ row_count }}"
+                                style="text-align: center;border: none; padding: 8px;">
+                                <t t-esc="term['sgpa'] or '-'"/>
+                            </td>
+                            <td t-attf-rowspan="{{ row_count }}"
+                                style="text-align: center;border: none; padding: 8px;">
+                                <t t-esc="term['cgpa'] or '-'"/>
+                            </td>
+                          </t>
+                        </tr>
+                      </t>
+                      <tr>
+                        <td colspan="7" style="border-top: 1px solid #bfbfbf;"></td>
+                      </tr>
+                    </t>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </t>
+        </div>
+      </div>
+    </div>
+  </t>
+</templates>

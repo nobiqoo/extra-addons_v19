@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ============================================ -->
+    <!-- MENÚ PRINCIPAL: Storage Analyzer -->
+    <!-- ============================================ -->
+    <menuitem id="menu_storage_analyzer_root" 
+              name="Storage Analyzer"
+              web_icon="storage_analyzer,static/description/icon.png"
+              groups="storage_analyzer.group_storage_analyzer_user"
+              sequence="50"/>
+
+    <!-- Submenú: Análisis -->
+    <menuitem id="menu_storage_analysis" 
+              name="Análisis" 
+              parent="menu_storage_analyzer_root"
+              action="action_storage_analysis"
+              sequence="10"/>
+
+    <!-- Submenú: Detalles -->
+    <menuitem id="menu_storage_details" 
+              name="Detalles" 
+              parent="menu_storage_analyzer_root"
+              sequence="20"/>
+
+    <menuitem id="menu_storage_analysis_table" 
+              name="Tablas" 
+              parent="menu_storage_details"
+              action="action_storage_analysis_table"
+              sequence="10"/>
+
+    <menuitem id="menu_storage_analysis_attachment" 
+              name="Adjuntos" 
+              parent="menu_storage_details"
+              action="action_storage_analysis_attachment"
+              sequence="20"/>
+
+    <menuitem id="menu_storage_analysis_model_filetype" 
+              name="Adjuntos por modelo y tipo" 
+              parent="menu_storage_details"
+              action="action_storage_analysis_model_filetype"
+              sequence="30"/>
+
+    <!-- Submenú: Tendencias -->
+    <menuitem id="menu_storage_analysis_trend" 
+              name="Tendencias" 
+              parent="menu_storage_analyzer_root"
+              action="action_storage_analysis_trend"
+              sequence="30"/>
+
+    <menuitem id="menu_storage_config_settings"
+              name="Ajustes"
+              parent="menu_storage_analyzer_root"
+              action="action_storage_config_settings"
+              groups="storage_analyzer.group_storage_analyzer_manager"
+              sequence="100"/>
+
+    
+</odoo>

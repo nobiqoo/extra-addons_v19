@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_days_off_year_view_form" model="ir.ui.view">
+            <field name="name">hr.days.off.year.view.form</field>
+            <field name="model">hr.days.off.year</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                        <group>
+                            <field name="year" readonly="name != False" />
+                        </group>
+                        <notebook>
+                            <page name="days_off" string="Días Festivos">
+                                <field name="days_off">
+                                    <list editable="bottom">
+                                        <field name="name" />
+                                        <field name="date" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_days_off_year_view_tree" model="ir.ui.view">
+            <field name="name">hr.days.off.year.view.tree</field>
+            <field name="model">hr.days.off.year</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="year" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_days_off_year_action" model="ir.actions.act_window">
+            <field name="name">Calendario de festivos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.days.off.year</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_days_off_year_menu_act" name="Calendario de festivos"
+            parent="hr.menu_human_resources_configuration" action="hr_days_off_year_action" sequence="4" />
+    </data>
+</odoo>

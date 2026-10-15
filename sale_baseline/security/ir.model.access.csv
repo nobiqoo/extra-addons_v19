@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_profitability_report,access_profitability_report,model_profitability_report,base.group_user,1,1,1,1
+access_profitability_report_wizard,access.profitability.report.wizard,model_profitability_report_wizard,base.group_user,1,1,1,1
+access_credit_limit_history,credit_limit_history.user,model_credit_limit_history,base.group_user,1,1,1,1

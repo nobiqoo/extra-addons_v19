@@ -1,0 +1,327 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* portfolio_report_by_works
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-16 19:19+0000\n"
+"PO-Revision-Date: 2024-09-16 19:19+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#, python-format
+msgid "Amount"
+msgstr "Monto"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Amount residual"
+msgstr "Monto pendiente"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Total residual"
+msgstr "Total pendiente"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Invoice amount"
+msgstr "Valor factura"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Total amount"
+msgstr "Valor total"
+
+#. module: portfolio_report_by_works
+#: model_terms:ir.ui.view,arch_db:portfolio_report_by_works.portfolio_works_report_view_form
+msgid "Create portfolio detail"
+msgstr "Crear detalle de cartera"
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report__create_uid
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report_xlsx__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report__create_date
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report_xlsx__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Total customer "
+msgstr "TOTAL CLIENTE "
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Cut Date"
+msgstr "Fecha de corte"
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report__cut_date
+msgid "Cut date"
+msgstr "Fecha de corte"
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report__customer_ids
+msgid "Cutomers"
+msgstr "Clientes"
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report__display_name
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report_xlsx__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Download File"
+msgstr "Descargar archivo"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Due date"
+msgstr "Fecha de vencimiento"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Due days"
+msgstr "Días de vencimiento"
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report__file_binary
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report_xlsx__file_binary
+msgid "File"
+msgstr "Archivo"
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report__file_name
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report_xlsx__file_name
+msgid "File name"
+msgstr "Nombre archivo"
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,help:portfolio_report_by_works.field_portfolio_works_report__work_ids
+msgid "Fill only if you like apply the filter, else leave void."
+msgstr ""
+
+#. module: portfolio_report_by_works
+#: model_terms:ir.ui.view,arch_db:portfolio_report_by_works.portfolio_works_report_view_form
+msgid "Generate report"
+msgstr "Generar reporte"
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report__id
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report_xlsx__id
+msgid "ID"
+msgstr ""
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Invoice date"
+msgstr "Fecha factura"
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,help:portfolio_report_by_works.field_portfolio_works_report__cut_date
+msgid "Invoices up to this date will be consulted."
+msgstr "Las facturas hasta esta fecha seran consultadas"
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report____last_update
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report_xlsx____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report__write_uid
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report_xlsx__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report__write_date
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report_xlsx__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "NIT"
+msgstr "NIT"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Number"
+msgstr "Número"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#, python-format
+msgid "Paid percentaje:"
+msgstr "Porcentaje pagado:"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#, python-format
+msgid "Payment date"
+msgstr "Fecha de pago"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#, python-format
+msgid "Payment method"
+msgstr "Methodo de pago"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#, python-format
+msgid "Pending amount"
+msgstr "Monto pendiente"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Portfolio Detail"
+msgstr "Detalle de cartera"
+
+#. module: portfolio_report_by_works
+#: model:ir.actions.act_window,name:portfolio_report_by_works.portfolio_works_report_action
+#: model:ir.model,name:portfolio_report_by_works.model_portfolio_works_report
+#: model:ir.ui.menu,name:portfolio_report_by_works.portfolio_works_report_menu
+msgid "Portfolio works report"
+msgstr "Reporte de cartera por obras"
+
+#. module: portfolio_report_by_works
+#: model:ir.model,name:portfolio_report_by_works.model_portfolio_works_report_xlsx
+msgid "Portfolio works report xlsx"
+msgstr ""
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#, python-format
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report_xlsx__report_id
+msgid "Report"
+msgstr "Reporte"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#, python-format
+msgid "SUBTOTAL:"
+msgstr ""
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#, python-format
+msgid "Salary adjustment:"
+msgstr ""
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Seller"
+msgstr "Vendedor"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#, python-format
+msgid "Total:"
+msgstr ""
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#, python-format
+msgid "Voucher name"
+msgstr "Nombre del Voucher"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "Work"
+msgstr "Obra"
+
+#. module: portfolio_report_by_works
+#: model:ir.model.fields,field_description:portfolio_report_by_works.field_portfolio_works_report__work_ids
+msgid "Works"
+msgstr "Obras"
+
+#. module: portfolio_report_by_works
+#. odoo-python
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#: code:addons/portfolio_report_by_works/models/portfolio_works_report_xlsx.py:0
+#, python-format
+msgid "portfolio_detail"
+msgstr "detalle_de_cartera"

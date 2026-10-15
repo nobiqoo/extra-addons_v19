@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_loan_form" model="ir.ui.view">
+            <field name="name">hr.loan.form</field>
+            <field name="model">hr.loan</field>
+            <field name="inherit_id" ref="model_basic_payslip_novelty_form" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header" position="inside">
+                    <button name="open_payment_wizard" type="object" string="Abonar Préstamo" class="btn-primary" invisible="state != 'validated'"/>
+                </xpath>
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/field[@name='approve_date']"
+                    position='after'>
+                    <field name="quotas" readonly="state != 'draft'"/>
+                    <field name="paid_balance" readonly="1" />
+                    <field name="remaining_installments" readonly="1" />
+                    <field name="with_disbursement" readonly="state != 'draft'"/>
+                </xpath>
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/field[@name='amount']"
+                    position='after'>
+                    <field name="with_interest" readonly="state != 'draft'"/>
+                    <field name="novelty_interest_loan_id" invisible="with_interest == False" readonly="state != 'draft'"/>
+                    <field name="value_interest" widget="percentage" invisible="with_interest == False" readonly="state != 'draft'"/>
+                    <field name="journal_id" readonly="state != 'draft'" />
+                    <field name="payment" invisible="payment == False"/>
+                    <field name="novelty_type_loan_id" readonly="state != 'draft'"/>
+                </xpath>
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/span[@name='label_dates']"
+                    position='inside'>
+                    <b>Fecha Inicio</b>
+                </xpath>
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/div/field[@name='date_end']"
+                    position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//sheet/group[@name='group_basic_data']" position='after'>
+                    <notebook>
+                        <page name='page_novelty_line' string="Novedades">
+                            <field name="novelty_ids">
+                                <list>
+                                    <field name="name" />
+                                    <field name="amount" />
+                                    <field name="state" />
+                                    <field name="novelty_type_id" />
+                                    <field name="payslip_id" />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_loan_tree" model="ir.ui.view">
+            <field name="name">hr.loan.tree</field>
+            <field name="model">hr.loan</field>
+            <field name="type">list</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="contract_id" />
+                    <field name="employee_id" />
+                    <field name="state" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_loan_action" model="ir.actions.act_window">
+            <field name="name">Préstamo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.loan</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_loan_menu_act" name="Préstamo" parent="novelty_menu_categ"
+            action="hr_loan_action" sequence="3" />
+
+    </data>
+
+    <data noupdate="1">
+        <record id="seq_hr_loan" model="ir.sequence">
+            <field name="name">Número Préstamo</field>
+            <field name="code">seq.hr.loan</field>
+            <field name="prefix">PRE-</field>
+            <field name="padding">10</field>
+        </record>
+    </data>
+</odoo>

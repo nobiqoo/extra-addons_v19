@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_picking_form_reception_act" model="ir.ui.view">
+        <field name="name">stock.picking.view.form.reception.act</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <!-- Reception Act header fields -->
+            <xpath expr="//group[@name='other_infos']" position="after">
+                <group name="reception_act" string="Reception Act">
+                    <field name="reception_area"/>
+                    <field name="reception_site"/>
+                    <field name="reception_product_type"/>
+                    <field name="reception_responsible_id" widget="many2one_avatar_user"/>
+                    <field name="signature" widget="signature" options="{'full_name': 'reception_responsible_id'}"/>
+                </group>
+            </xpath>
+            <!-- Reception Act line fields, hidden by default (optional columns) -->
+            <xpath expr="//field[@name='move_ids']/list/field[@name='description_picking']" position="after">
+                <field name="brand_id" optional="hide"/>
+                <field name="commercial_presentation" optional="hide"/>
+                <field name="sanitary_registration" optional="hide"/>
+                <field name="shelf_life" optional="hide"/>
+                <field name="risk_class" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

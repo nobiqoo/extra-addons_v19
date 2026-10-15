@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="name">account.journal.form.l10n_co_bloodo_geoflora</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="l10n_co_bloodo.view_account_journal_edi_form"/>
+        <field name="arch" type="xml">
+            <field name="resolution_text" position="after">
+                <field name="resolution_text_en" placeholder="Electronic invoicing resolution information." widget="html"/>
+            </field>
+            <field name="note_ei" position="after">
+                <field name="note_ei_en" widget="html"/>
+            </field>
+        </field>
+    </record>
+</odoo>

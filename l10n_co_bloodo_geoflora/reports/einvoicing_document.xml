@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_account_move_einvoicing_document" inherit_id="l10n_co_bloodo.report_account_move_einvoicing_document">
+
+        <!-- Idioma del cliente: los campos traducibles se leen en su idioma y
+             los textos fijos pasan por doc._rg_text -->
+        <xpath expr="//t[@t-set='o']" position="before">
+            <t t-set="rg_lang" t-value="doc._get_rg_lang()"/>
+            <t t-set="doc" t-value="doc.with_context(lang=rg_lang)"/>
+            <t t-set="rg_t" t-value="doc._rg_text"/>
+        </xpath>
+
+        <!-- Encabezado -->
+        <xpath expr="//p[hasclass('p_company')]" position="replace">
+            <p class="p_company">
+                <b style="font-size:16px" t-field="doc.company_id.name"/>
+                <br/>
+                <t t-out="rg_t('NIT: ')"/><span t-field="doc.company_id.vat"/>
+                <br/>
+                <t t-if="doc.company_id.street">
+                    <span t-field="doc.company_id.street"/>
+                </t>
+                <t t-if="doc.company_id.city">
+                    , <span t-field="doc.company_id.city"/>
+                </t>
+                <t t-if="doc.company_id.state_id">
+                    , <span t-field="doc.company_id.state_id"/>
+                </t>
+                <br/>
+                <t t-if="doc.company_id.phone">
+                    <span t-out="rg_t('Tel: ') + doc.company_id.phone"/>
+                </t>
+                <br/>
+                <t t-if="doc.company_id.email">
+                    <span t-out="'Email: ' + doc.company_id.email"/>;
+                </t>
+                <t t-if="doc.company_id.website">
+                    <span t-out="'Web: ' + doc.company_id.website"/>
+                </t>
+                <br/>
+            </p>
+        </xpath>
+        <xpath expr="//p[hasclass('p_number')]" position="replace">
+            <p class="p_number">
+                <span style="font-size:18px">
+                    <t t-if="doc.move_type == 'out_invoice' and not doc.type_note">
+                        <t t-if="doc.journal_id.is_einvoicing" t-out="rg_t('Factura Electrónica de Venta N°: ')"/>
+                        <t t-else="" t-out="rg_t('Factura de Venta N°: ')"/>
+                    </t>
+                    <t t-elif="doc.move_type == 'out_refund' and doc.type_note=='credit'">
+                        <t t-if="doc.journal_id.is_einvoicing" t-out="rg_t('Nota Crédito Electrónica N°: ')"/>
+                        <t t-else="" t-out="rg_t('Nota Crédito de Venta N°: ')"/>
+                    </t>
+                    <t t-elif="doc.move_type == 'out_invoice' and doc.type_note=='debit'">
+                        <t t-if="doc.journal_id.is_einvoicing" t-out="rg_t('Nota Débito Electrónica N°: ')"/>
+                        <t t-else="" t-out="rg_t('Nota Débito de Venta N°: ')"/>
+                    </t>
+                    <t t-elif="doc.move_type == 'in_invoice'">
+                        <t t-if="doc.journal_id.is_einvoicing">Documento Soporte N°: </t>
+                        <t t-else="">Factura de Proveedor N°: </t>
+                    </t>
+                    <t t-elif="doc.move_type == 'in_refund'">
+                        <t t-if="doc.journal_id.is_einvoicing">Nota de Ajuste de Documento Soporte N°: </t>
+                        <t t-else="">Nota Crédito de Proveedor N°: </t>
+                    </t>
+                    <b style="color:#6D2D87"><t t-out="doc.fe_invoice_name or doc.name"/></b>
+                </span>
+                <br/>
+                <span style="font-size:14px" t-out="doc._rg_field_text(doc.company_id, 'ei_fiscal_respo')"/>
+            </p>
+        </xpath>
+
+        <!-- Datos del cliente, con la dirección de entrega -->
+        <xpath expr="//table[hasclass('table_customer') and @cellpadding and not(@border)]" position="replace">
+            <t t-set="rg_foreign" t-value="doc.currency_id.id != doc.company_id.currency_id.id"/>
+            <t t-set="rg_left_rows" t-value="doc._get_rg_delivery_rows()"/>
+            <t t-set="rg_right_rows" t-value="(['trm'] if rg_foreign else []) + (['incoterm'] if rg_foreign and doc.invoice_incoterm_id else [])"/>
+            <table class="table_customer" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th t-if="doc.move_type in ('out_refund', 'out_invoice')" colspan="2" align="center" style="background-color:#CBCBCB; width: 60%" t-out="rg_t('DATOS DEL CLIENTE')"/>
+                    <th t-if="doc.move_type in ('in_refund', 'in_invoice')" colspan="2" align="center" style="background-color:#CBCBCB; width: 60%">DATOS DEL PROVEEDOR</th>
+                    <th align="center" style="background-color:#CBCBCB; width: 18%" t-out="rg_t('FECHA VALIDACIÓN')"/>
+                    <td align="center" style="width: 22%; border: 1px solid black;"><span t-field="doc.fe_datetime_invoice"/></td>
+                </tr>
+                <tr>
+                    <td class="td_tag" style="width: 15%;" rowspan="2" valign="middle" align="left" t-out="rg_t('Razón Social:')"/>
+                    <td class="td_val" style="width: 45%;" rowspan="2"><span t-field="doc.partner_id"/></td>
+                    <th align="center" style="background-color:#CBCBCB; width: 18%" t-out="rg_t('FECHA FACTURA')"/>
+                    <td align="center" style="width: 22%; border: 1px solid black;"><span t-field="doc.invoice_date"/></td>
+                </tr>
+                <tr>
+                    <th align="center" style="background-color:#CBCBCB; width: 18%" t-out="rg_t('FECHA VENCIMIENTO')"/>
+                    <td align="center" style="width: 22%; border: 1px solid black;"><span t-field="doc.invoice_date_due"/></td>
+                </tr>
+                <tr>
+                    <td class="td_tag" t-out="rg_t('NIT:')"/>
+                    <td class="td_val"><span t-field="doc.partner_id.vat"/>
+                        <t t-if="doc.partner_id.l10n_co_verification_code" t-out="'-'+str(doc.partner_id.l10n_co_verification_code)"/>
+                    </td>
+                    <td class="td_tag" t-out="rg_t('Plazo de pago:')"/>
+                    <td class="td_val"><span t-field="doc.invoice_payment_term_id"/></td>
+                </tr>
+                <tr>
+                    <td class="td_tag" t-out="rg_t('Dirección:')"/>
+                    <td class="td_val"><span t-out="doc.partner_id.street"/></td>
+                    <td class="td_tag" t-out="rg_t('Medio de pago:')"/>
+                    <td class="td_val"><span t-field="doc.fe_payment_option_id"/></td>
+                </tr>
+                <tr>
+                    <td class="td_tag" t-out="rg_t('Ciudad:')"/>
+                    <td class="td_val"><span t-field="doc.partner_id.city_id"/> <span t-field="doc.partner_id.state_id"/> <span t-field="doc.partner_id.country_id"/></td>
+                    <td class="td_tag" t-out="rg_t('Vendedor:')"/>
+                    <td class="td_val"><span t-field="doc.invoice_user_id"/></td>
+                </tr>
+                <tr>
+                    <td class="td_tag" t-out="rg_t('Teléfono:')"/>
+                    <td class="td_val"><span t-field="doc.partner_id.phone"/></td>
+                    <td class="td_tag" t-out="rg_t('Orden de pedido:')"/>
+                    <td class="td_val"><span t-field="doc.ref"/></td>
+                </tr>
+                <tr>
+                    <td class="td_tag" t-out="rg_t('Celular:')"/>
+                    <td class="td_val"><span t-field="doc.partner_id.phone"/></td>
+                    <td class="td_tag" t-out="rg_t('Moneda:')"/>
+                    <td class="td_val"><span t-field="doc.currency_id"/></td>
+                </tr>
+                <tr t-foreach="range(max(len(rg_left_rows), len(rg_right_rows)))" t-as="rg_i">
+                    <t t-if="rg_i &lt; len(rg_left_rows)">
+                        <td class="td_tag" t-out="rg_left_rows[rg_i][0]"/>
+                        <td class="td_val" t-out="rg_left_rows[rg_i][1]"/>
+                    </t>
+                    <t t-else="">
+                        <td class="td_tag"/>
+                        <td class="td_val"/>
+                    </t>
+                    <t t-set="rg_right" t-value="rg_right_rows[rg_i] if rg_i &lt; len(rg_right_rows) else False"/>
+                    <t t-if="rg_right == 'trm'">
+                        <td class="td_tag" t-out="rg_t('TRM:')"/>
+                        <td class="td_val"><span t-field="doc.current_exchange_rate"/></td>
+                    </t>
+                    <t t-elif="rg_right == 'incoterm'">
+                        <td class="td_tag" t-out="rg_t('Incoterm:')"/>
+                        <td class="td_val"><span t-field="doc.invoice_incoterm_id"/></td>
+                    </t>
+                    <t t-else="">
+                        <td class="td_tag"/>
+                        <td class="td_val"/>
+                    </t>
+                </tr>
+            </table>
+        </xpath>
+
+        <!-- Notas crédito / débito -->
+        <xpath expr="//t[starts-with(@t-if, 'doc.type_note in')]/table" position="replace">
+            <table class="table_customer">
+                <tr>
+                    <td class="td_tag" style="width: 15%;" t-out="rg_t('Factura Afectada:')"/>
+                    <td class="td_val" style="width: 45%;"><span t-out="doc.name_ei_ref"/></td>
+                    <th colspan="2" style="width: 40%;" t-out="rg_t('CONCEPTO DE CORRECCION')"/>
+                </tr>
+                <tr>
+                    <td class="td_tag" t-out="rg_t('Fecha Factura:')"/>
+                    <td class="td_val"><span t-out="doc.issue_date_ei_ref"/></td>
+                    <td class="td_val" colspan="2" rowspan="2"><span t-field="doc.fe_correction_id"/></td>
+                </tr>
+            </table>
+        </xpath>
+
+        <!-- Detalle sin agrupar (casilla de la compañía desactivada) -->
+        <xpath expr="//table[@name='invoice_line_table']" position="attributes">
+            <attribute name="t-if">not doc.company_id.rg_group_invoice_lines</attribute>
+        </xpath>
+        <xpath expr="//table[@name='invoice_line_table']/thead/tr" position="replace">
+            <tr>
+                <t t-set="colspan" t-value="6"/>
+                <th width="4%" name="th_item" class="text-center"><span t-out="rg_t('ITEM')"/></th>
+                <th width="11%" name="th_code" class="text-center"><span t-out="rg_t('REF.')"/></th>
+                <th width="25%" name="th_description" class="text-center"><span t-out="rg_t('DESCRIPCIÓN')"/></th>
+                <th width="8%" name="th_quantity" class="text-center"><span t-out="rg_t('CANTIDAD')"/></th>
+                <th width="5%" name="th_unit" class="text-center"><span t-out="rg_t('UNIDAD')"/></th>
+                <th width="10%" name="th_priceunit" t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span t-out="rg_t('V. UNITARIO')"/></th>
+                <th width="7%" name="th_price_unit" t-if="display_discount" t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                    <span t-out="rg_t('DTO. (%)')"/>
+                    <t t-set="colspan" t-value="colspan+1"/>
+                </th>
+                <th width="8%" name="th_subtotal" class="text-center"><span t-out="rg_t('SUBTOTAL')"/></th>
+            </tr>
+        </xpath>
+
+        <xpath expr="//table[@name='invoice_line_table']" position="after">
+            <style>
+                .rg_compact { font-size: 10px; line-height: 1.15; }
+                .rg_compact th, .rg_compact td { padding: 1px 3px; }
+            </style>
+            <!-- Detalle agrupado por categoría y valor unitario (solo presentación) -->
+            <t t-if="doc.company_id.rg_group_invoice_lines">
+                <t t-set="rg_categories" t-value="doc._get_rg_grouped_lines()"/>
+                <t t-set="rg_show_uom" t-value="len(set(g['uom'] for c in rg_categories for g in c['groups'])) &gt; 1"/>
+                <t t-set="rg_show_discount" t-value="any(g['discount'] for c in rg_categories for g in c['groups'])"/>
+                <table class="table-sm invoice_line_table rg_compact" name="invoice_line_table_grouped">
+                    <thead>
+                        <tr>
+                            <th width="40%" class="text-center"><span t-out="rg_t('DESCRIPCIÓN')"/></th>
+                            <th width="15%" class="text-center"><span t-out="rg_t('CANTIDAD')"/></th>
+                            <th t-if="rg_show_uom" width="8%" class="text-center"><span t-out="rg_t('UNIDAD')"/></th>
+                            <th width="15%" class="text-center"><span t-out="rg_t('V. UNITARIO')"/></th>
+                            <th t-if="rg_show_discount" width="7%" class="text-center"><span t-out="rg_t('DTO. (%)')"/></th>
+                            <th width="20%" class="text-center"><span t-out="rg_t('SUBTOTAL')"/></th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <t t-foreach="rg_categories" t-as="rg_category">
+                            <tr style="background-color: #e6e6e6; border-top: 1px solid black;">
+                                <td colspan="99"><strong><t t-out="rg_t('CATEGORÍA: ')"/><t t-out="rg_category['name'].upper()"/></strong></td>
+                            </tr>
+                            <tr t-foreach="rg_category['groups']" t-as="rg_group">
+                                <td><span t-out="rg_group['description']"/></td>
+                                <td class="text-right">
+                                    <span t-out="rg_group['quantity']" t-options="{'widget': 'float', 'decimal_precision': 'Product Unit'}"/>
+                                </td>
+                                <td t-if="rg_show_uom" class="text-right"><span t-out="rg_group['uom']"/></td>
+                                <td class="text-right">
+                                    <!-- Precio real de la línea: mínimo los decimales de "Product Price", hasta 6 -->
+                                    <span class="text-nowrap" t-out="rg_group['price_unit']" t-options="{'widget': 'float', 'min_precision': rg_price_digits}"/>
+                                </td>
+                                <td t-if="rg_show_discount" class="text-right">
+                                    <span t-out="rg_group['discount']" t-options="{'widget': 'float', 'decimal_precision': 'Discount'}"/>
+                                </td>
+                                <td class="text-right">
+                                    <span class="text-nowrap" t-out="rg_group['subtotal']" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                </td>
+                            </tr>
+                            <tr style="border-top: 1px solid black; border-bottom: 1px solid black;">
+                                <td><strong><t t-out="rg_t('Subtotal ')"/><t t-out="rg_category['name']"/></strong></td>
+                                <td class="text-right">
+                                    <strong t-if="rg_category['quantity'] is not False" t-out="rg_category['quantity']" t-options="{'widget': 'float', 'decimal_precision': 'Product Unit'}"/>
+                                </td>
+                                <td t-if="rg_show_uom"/>
+                                <td/>
+                                <td t-if="rg_show_discount"/>
+                                <td class="text-right">
+                                    <strong class="text-nowrap" t-out="rg_category['subtotal']" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+
+            <!-- Información WebFlor de los pedidos de origen -->
+            <t t-set="rg_webflor" t-value="doc._get_rg_webflor_data()"/>
+            <div t-if="rg_webflor" class="row mt-1" style="page-break-inside: avoid; font-family: arial, sans-serif;">
+                <div class="col-6">
+                    <table class="table-sm invoice_line_table rg_compact" name="webflor_general">
+                        <thead>
+                            <tr><th colspan="2" class="text-center"><span t-out="rg_t('INFORMACIÓN WEBFLOR')"/></th></tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="rg_webflor['general']" t-as="rg_row">
+                                <td width="45%"><strong t-out="rg_row[0]"/></td>
+                                <td><span t-out="rg_row[1]"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table class="table-sm invoice_line_table rg_compact" name="webflor_logistic">
+                        <thead>
+                            <tr><th colspan="2" class="text-center"><span t-out="rg_t('LOGÍSTICA / ADUANA')"/></th></tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="rg_webflor['logistic']" t-as="rg_row">
+                                <td width="45%"><strong t-out="rg_row[0]"/></td>
+                                <td><span t-out="rg_row[1]"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-set='display_discount']" position="after">
+            <t t-set="rg_price_digits" t-value="doc.env['decimal.precision'].precision_get('Product Price')"/>
+        </xpath>
+
+        <!-- Totales -->
+        <xpath expr="//div[@id='resolution']/span" position="replace">
+            <span t-out="doc._rg_field_text(doc.journal_id, 'resolution_text')"/>
+        </xpath>
+        <xpath expr="//b[text()='Tipo de moneda']" position="replace">
+            <b t-out="rg_t('Tipo de moneda')"/>
+        </xpath>
+        <xpath expr="//b[text()='Pesos ($)']" position="replace">
+            <b t-out="rg_t('Pesos ($)')"/>
+        </xpath>
+        <xpath expr="//tr[hasclass('o_subtotal')]/td/strong" position="replace">
+            <strong t-out="rg_t('Subtotal')"/>
+        </xpath>
+        <xpath expr="//tr[hasclass('o_total')]/td/strong" position="replace">
+            <strong t-out="rg_t('Total')"/>
+        </xpath>
+        <xpath expr="//t[@t-call='account.document_tax_totals']" position="attributes">
+            <attribute name="t-lang">rg_lang</attribute>
+        </xpath>
+
+        <!-- Plan de pagos cuando el término de pago tiene cuotas -->
+        <xpath expr="//div[@id='total']" position="after">
+            <t t-set="rg_installments" t-value="doc._get_rg_installments()"/>
+            <div t-if="rg_installments" class="row mt-1" style="page-break-inside: avoid; font-family: arial, sans-serif;">
+                <div class="col-6">
+                    <table class="table-sm invoice_line_table rg_compact" name="rg_installments">
+                        <thead>
+                            <tr><th colspan="3" class="text-center"><span t-out="rg_t('PLAN DE PAGOS')"/></th></tr>
+                            <tr>
+                                <th width="20%" class="text-center"><span t-out="rg_t('CUOTA')"/></th>
+                                <th width="40%" class="text-center"><span t-out="rg_t('VENCIMIENTO')"/></th>
+                                <th width="40%" class="text-center"><span t-out="rg_t('VALOR')"/></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="rg_installments" t-as="rg_installment">
+                                <td class="text-center"><span t-out="rg_installment['number']"/></td>
+                                <td class="text-center"><span t-out="rg_installment['date_maturity']" t-options="{'widget': 'date'}"/></td>
+                                <td class="text-right">
+                                    <span class="text-nowrap" t-out="rg_installment['amount']" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </xpath>
+
+        <!-- CUFE, total en letras, referencia de pago y notas -->
+        <xpath expr="//p[hasclass('p_cufe')]" position="replace">
+            <p class="p_cufe">
+                <b>
+                    <t t-if="doc.move_type == 'out_invoice' and not doc.type_note">CUFE: </t>
+                    <t t-if="doc.move_type in ('out_invoice', 'out_refund') and doc.type_note">CUDE: </t>
+                    <t t-if="doc.move_type in ('in_invoice', 'in_refund')">CUDS: </t>
+                </b>
+                <t t-out="doc.fe_cufe_cude_ref"/>
+                <t t-if="doc.type_note in ('credit', 'debit') or doc.move_type == 'in_refund'">
+                    <br/>
+                    <b>
+                        <t t-if="doc.move_type != 'in_refund'" t-out="rg_t('CUFE Factura:')"/>
+                        <t t-if="doc.move_type == 'in_refund'">CUDS Factura:</t>
+                    </b>
+                    <t t-out="doc.uuid_ei_ref"/>
+                </t>
+            </p>
+        </xpath>
+        <xpath expr="//div[hasclass('tletras')]" position="replace">
+            <div class="tletras">
+                <p class="text-justify"><strong t-out="rg_t('TOTAL EN LETRAS: ')"/> <span t-if="doc.currency_id" t-out="doc._get_rg_amount_in_words()"/></p>
+            </div>
+        </xpath>
+        <xpath expr="//p[hasclass('p_info')]" position="replace">
+            <p class="p_info" t-if="doc.move_type in ('out_invoice', 'in_refund') and doc.payment_reference">
+                <t t-out="rg_t('Por favor utilice la siguiente referencia al realizar su pago: ')"/><b><span t-field="doc.payment_reference"/></b>
+            </p>
+        </xpath>
+        <xpath expr="//span[@t-raw='doc.journal_id.note_ei']" position="replace">
+            <span class="p_info" t-out="doc._rg_field_text(doc.journal_id, 'note_ei')"/>
+        </xpath>
+        <xpath expr="//span[@t-raw='doc.company_id.tributary_information']" position="replace">
+            <span class="p_info" t-raw="doc._rg_field_text(doc.company_id, 'tributary_information')"/>
+        </xpath>
+
+        <!-- Pie -->
+        <xpath expr="//div[@name='financial_infos']/following-sibling::ul[1]" position="replace">
+            <ul class="list-inline mb4">
+                <li class="list-inline-item d-inline" t-out="rg_t('Fabricante Software y Proveedor Tecnológico: ODONE S.A.S.')"/>
+                <li class="list-inline-item d-inline" t-out="rg_t('NIT: 901.361.603-8')"/>
+                <li class="list-inline-item d-inline" t-out="rg_t('Nombre Software: ODONE')"/>
+            </ul>
+        </xpath>
+
+    </template>
+
+</odoo>

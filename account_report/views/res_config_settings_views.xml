@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_cartera" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.account.report.cartera</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='default_accounts']" position="after">
+                <block title="Informes de Cartera" name="ocr_reports">
+                    <setting string="Diario de saldos iniciales"
+                             help="Diario cuyas líneas usan la Fecha de apertura como fecha de factura en Cartera y DataCredito">
+                        <field name="ocr_opening_journal_id"/>
+                    </setting>
+                    <setting string="Cuentas de anticipos"
+                             help="Prefijo de las cuentas de anticipos incluidas en Cartera">
+                        <field name="ocr_advance_account_prefix"/>
+                    </setting>
+                    <setting string="Cuentas adicionales de Cartera"
+                             help="Cuentas que el informe de Cartera consulta siempre, sin importar su tipo, mostrando todo su movimiento pendiente">
+                        <field name="ocr_cartera_extra_account_ids"
+                               widget="many2many_tags"
+                               options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                    </setting>
+                    <setting string="Filtros del Recaudo"
+                             help="Prefijo de cuentas, cuentas y diarios excluidos, e identificaciones genéricas excluidas">
+                        <field name="ocr_collection_account_prefix"/>
+                        <field name="ocr_collection_excluded_accounts"/>
+                        <field name="ocr_collection_excluded_journal_codes"/>
+                        <field name="ocr_excluded_partner_vats"/>
+                    </setting>
+                    <setting string="Filtros de DataCredito"
+                             help="Cuentas y prefijos de cuenta excluidos del plano DataCredito">
+                        <field name="ocr_datacredito_excluded_accounts"/>
+                        <field name="ocr_datacredito_excluded_prefixes"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

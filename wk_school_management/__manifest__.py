@@ -1,0 +1,191 @@
+# -*- coding: utf-8 -*-
+#################################################################################
+#
+# Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>)
+# See LICENSE file for full copyright and licensing details.
+# License URL : <https://store.webkul.com/license.html/>;
+#
+#################################################################################
+
+{
+    "name": "Education Management System",
+    "summary": """Odoo Education management app streamlines all educational institutes by integrating essential functions into a single platform.school management, education management, webkul education management, college management software, institute management, campus management software, student information system, teacher management, attendance tracking, fees management, Education ERP, assignment management, student portal, LMS, learning management, school ERP solution, university management, coaching management, Odoo school management.
+    """,
+    "category": "School Management",
+    "version": "5.0.4",
+    "sequence": 10,
+    "author": "Webkul Software Pvt. Ltd.",
+    "license": "Other proprietary",
+    "website": "https://store.webkul.com/odoo-education-management-system.html",
+    "description": """
+        Odoo's Odoo Education Management is designed to transform how schools handle their administrative and academic responsibilities. 
+        It brings together key functionalities such as student information management, scheduling, enrollment processing, and teacher coordination into one seamless system.
+    """,
+    "depends": [
+        'base_geolocalize',
+        'website',
+        'hr_attendance',
+        'hr_payroll_co',
+        'account_payment',
+        'fleet',
+    ],
+    "demo": [
+        'demo/school_demo.xml',
+    ],
+    "data": [
+        'security/ir_rule.xml',
+        'security/ir.model.access.csv',
+
+        'data/ir_sequence_data.xml',
+        'data/ir_action_data.xml',
+        'report/application_report.xml',
+        'data/mail_template.xml',
+        'data/ir_cron_data.xml',
+        'data/report_paperformat.xml',
+
+        'wizard/cancel_reason.xml',
+        'wizard/enroll_wizard.xml',
+        'wizard/assignment_wizard.xml',
+        'wizard/timetable_wizard.xml',
+        'wizard/evaluation_wizard.xml',
+        'wizard/res_config_settings.xml',
+        'wizard/attendance_wizard.xml',
+        'wizard/payment_link_wizard.xml',
+        'wizard/portal_wizard.xml',
+        'wizard/fee_slip_wizard.xml',
+        'wizard/student_route_wizard.xml',
+        'wizard/field_add_domain.xml',
+        'wizard/book_wizard_barcode.xml',
+
+        'views/student_attendance_view.xml',
+        'views/student_enrollment.xml',
+        'views/student_student_view.xml',
+        'report/library_card.xml',
+        'report/student_id_card.xml',
+        'report/enrollment_report.xml',
+        'report/term_report_card.xml',
+        'report/student_transcript.xml',
+        'views/wk_application_form_view.xml',
+        'views/wk_school_school_view.xml',
+        'views/school_grade.xml',
+        'views/school_session_view.xml',
+        'views/fee_structure_view.xml',
+        'views/class_timetable.xml',
+        'views/hr_employee_view.xml',
+        'views/res_partner.xml',
+        'views/notice_board_view.xml',
+        'views/student_assignment_view.xml',
+        'views/fee_summary.xml',
+        'views/student_subject.xml',
+        'views/grade_scale.xml',
+        'views/grade_subject.xml',
+        'views/weekly_schedule.xml',
+        'views/populate_class.xml',
+        'views/class_timeslot.xml',
+        'views/lesson_plan.xml',
+        'views/class_location.xml',
+        'views/assignment_attachment.xml',
+        'views/grade_assignment.xml',
+        'views/class_assignment.xml',
+        'views/academic_year.xml',
+        'views/term_report.xml',
+        'views/service_hours.xml',
+        'views/student_discipline.xml',
+        'views/class_attendance.xml',
+        'views/payment_views.xml',
+        'views/student_scholarship.xml',
+        'views/attendance_kiosk.xml',
+        'views/transport_route.xml',
+        'views/transport_trip.xml',
+        'views/transport_location.xml',
+        'views/advance_application_portal.xml',
+        'views/library_dashboard.xml',
+        'views/book.xml',
+        'views/book_category.xml',
+        'views/booking_history.xml',
+        'views/menu_item.xml',
+        'views/website_application_form.xml',
+        'views/website_portal.xml',
+    ],
+    "assets": {
+        "web.assets_backend": [
+            "wk_school_management/static/src/css/dashboard.css",
+            'wk_school_management/static/src/xml/transcript.xml',
+            'wk_school_management/static/src/js/transcript.js',
+            'wk_school_management/static/src/xml/gradesheet.xml',
+            'wk_school_management/static/src/js/gradesheet.js',
+            'wk_school_management/static/src/manual_barcode/manual_barcode.xml',
+            'wk_school_management/static/src/manual_barcode/manual_barcode.js',
+            'wk_school_management/static/src/lib_barcode/barcode.scss',
+            'wk_school_management/static/src/lib_barcode/barcode_sven.xml',
+            'wk_school_management/static/src/lib_barcode/barcode_scan.js',
+            'wk_school_management/static/src/views/**/*',
+            'wk_school_management/static/src/scss/calendar.scss',
+            "wk_school_management/static/src/public_kiosk/*",
+            "wk_school_management/static/src/components/**/*",
+        ],
+
+        "web.assets_frontend": [
+            "wk_school_management/static/src/css/portal_dashboard.css",
+            "wk_school_management/static/src/js/application_form.js",
+            'wk_school_management/static/src/xml/student_portal.xml',
+            "wk_school_management/static/src/js/student_portal.js",
+            "wk_school_management/static/src/js/student_attendance.js",
+            "wk_school_management/static/src/js/payment_form.js",
+
+            "/web/static/lib/fullcalendar/core/index.global.js",
+            "/web/static/lib/fullcalendar/core/locales-all.global.js",
+            "/web/static/lib/fullcalendar/interaction/index.global.js",
+            "/web/static/lib/fullcalendar/daygrid/index.global.js",
+            "/web/static/lib/fullcalendar/luxon3/index.global.js",
+            "/web/static/lib/fullcalendar/timegrid/index.global.js",
+            "/web/static/lib/fullcalendar/list/index.global.js",
+        ],
+
+        'wk_school_management.assets_public_attendance': [
+            # Front-end libraries
+            ('include', 'web._assets_helpers'),
+            ('include', 'web._assets_primary_variables'),
+            ('include', 'web._assets_frontend_helpers'),
+            'web/static/lib/jquery/jquery.js',
+            'web/static/src/scss/pre_variables.scss',
+            'web/static/lib/bootstrap/scss/_variables.scss',
+            'web/static/lib/bootstrap/scss/_variables-dark.scss',
+            'web/static/lib/bootstrap/scss/_maps.scss',
+            ('include', 'web._assets_bootstrap_frontend'),
+            ('include', 'web._assets_bootstrap_backend'),
+            '/web/static/lib/odoo_ui_icons/*',
+            '/web/static/lib/bootstrap/scss/_functions.scss',
+            '/web/static/lib/bootstrap/scss/_mixins.scss',
+            '/web/static/lib/bootstrap/scss/utilities/_api.scss',
+            'web/static/src/libs/fontawesome/css/font-awesome.css',
+            ('include', 'web._assets_core'),
+
+            # Public Kiosk app and its components
+            "wk_school_management/static/src/public_kiosk/*",
+            "wk_school_management/static/src/components/**/*",
+            "wk_school_management/static/src/scss/attendance_kiosk.scss",
+            "web/static/src/views/fields/formatters.js",
+
+            # document link
+            "web/static/src/session.js",
+            "web/static/src/views/widgets/standard_widget_props.js",
+            "web/static/src/views/widgets/documentation_link/*",
+
+            # Barcode reader utils
+            "barcodes/static/src/components/barcode_scanner.js",
+            "barcodes/static/src/components/barcode_scanner.xml",
+            "barcodes/static/src/components/barcode_scanner.scss",
+            "barcodes/static/src/barcode_service.js",
+
+        ]
+    },
+    "images": ['static/description/banner.gif'],
+    "application": True,
+    "installable": True,
+    "auto_install": False,
+    "pre_init_hook": "pre_init_check",
+    "live_test_url": "https://education-management.odoo-demo.webkul.in/",
+    "price": 399,
+    "currency": 'USD',
+}

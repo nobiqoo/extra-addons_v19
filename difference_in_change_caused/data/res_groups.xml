@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <record id="exchange_difference_privilege" model="res.groups.privilege">
+        <field name="name">Exchange Difference</field>
+        <field name="category_id" ref="base.module_category_accounting_accounting"/>
+    </record>
+    <record id="exchange_difference_manager" model="res.groups">
+        <field name="name">Exchange difference manager</field>
+        <field name="privilege_id" ref="exchange_difference_privilege"/>
+    </record>
+
+</odoo>

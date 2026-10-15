@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="menu_account_configuration_isic" model="ir.ui.menu">
+            <field name="name">ISIC</field>
+            <field name="parent_id" ref="account.menu_finance_configuration" />
+            <field name="sequence" eval="10" />
+            <field name="active" eval="True" />
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ─── Lista de Programaciones ────────────────────────────────────────── -->
+    <record id="view_hr_shift_schedule_tree" model="ir.ui.view">
+        <field name="name">hr.shift.schedule.tree</field>
+        <field name="model">hr.shift.schedule</field>
+        <field name="arch" type="xml">
+            <list string="Programaciones de Turnos"
+                  decoration-info="state == 'draft'"
+                  decoration-success="state == 'confirmed'"
+                  decoration-muted="state in ('cancel', 'done')">
+                <field name="name"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="address_id"/>
+                <field name="department_id"/>
+                <field name="user_id"/>
+                <field name="line_count"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'confirmed'"
+                       decoration-muted="state in ('done','cancel')"/>
+                <field name="company_id" groups="base.group_multi_company" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ─── Formulario de Programación ─────────────────────────────────────── -->
+    <record id="view_hr_shift_schedule_form" model="ir.ui.view">
+        <field name="name">hr.shift.schedule.form</field>
+        <field name="model">hr.shift.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Programación de Turnos">
+                <header>
+                    <button name="action_confirm" string="Confirmar" type="object"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_process_attendance" string="Procesar Asistencias" type="object"
+                            class="btn-secondary" invisible="state != 'confirmed'"
+                            confirm="¿Desea procesar las marcaciones biométricas para todos los turnos de esta programación?"/>
+                    <button name="action_done" string="Marcar como Ejecutado" type="object"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_cancel" string="Cancelar" type="object"
+                            invisible="state in ('cancel', 'done')"/>
+                    <button name="action_draft" string="Restablecer Borrador" type="object"
+                            invisible="state != 'cancel'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_attendance_records" type="object"
+                                class="oe_stat_button" icon="fa-calendar-check-o"
+                                invisible="attendance_record_count == 0">
+                            <field name="attendance_record_count" widget="statinfo" string="Asistencias"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Período">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="user_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Organización">
+                            <field name="address_id"/>
+                            <field name="department_id"/>
+                        </group>
+                    </group>
+
+                    <div class="o_form_buttons_view mb-3">
+                        <button name="action_generate_lines_wizard"
+                                string="Generar Turnos Masivamente"
+                                type="object"
+                                class="btn btn-secondary"
+                                invisible="state != 'draft'"/>
+                    </div>
+
+                    <!-- Líneas de asignación -->
+                    <field name="line_ids" mode="list">
+                        <list string="Asignaciones de Turno" editable="bottom"
+                              decoration-danger="state == 'absent'"
+                              decoration-warning="state == 'novelty'"
+                              decoration-success="state == 'processed'">
+                            <field name="employee_id" required="1"/>
+                            <field name="department_id" readonly="1" optional="show"/>
+                            <field name="shift_id" required="1"/>
+                            <field name="work_date" required="1"/>
+                            <field name="planned_start" readonly="1" optional="show"/>
+                            <field name="planned_end" readonly="1" optional="show"/>
+                            <field name="is_sunday" readonly="1" optional="show"/>
+                            <field name="is_holiday" readonly="1" optional="show"/>
+                            <field name="state" widget="badge"
+                                   decoration-success="state == 'processed'"
+                                   decoration-warning="state == 'novelty'"
+                                   decoration-danger="state == 'absent'"
+                                   optional="show"/>
+                            <field name="attendance_record_id" optional="show" readonly="1"/>
+                        </list>
+                    </field>
+
+                    <group>
+                        <field name="notes" colspan="2"
+                               placeholder="Observaciones de la programación..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ─── Búsqueda ──────────────────────────────────────────────────────── -->
+    <record id="view_hr_shift_schedule_search" model="ir.ui.view">
+        <field name="name">hr.shift.schedule.search</field>
+        <field name="model">hr.shift.schedule</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Programaciones">
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="address_id" string="Sede"/>
+                <filter string="Borradores" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Confirmadas" name="confirmed" domain="[('state','=','confirmed')]"/>
+                <filter string="Ejecutadas" name="done" domain="[('state','=','done')]"/>
+                <separator/>
+                <filter string="Este mes" name="this_month"
+                        domain="[('date_start','&gt;=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d')),
+                                 ('date_end','&lt;=', (context_today() + relativedelta(day=31)).strftime('%Y-%m-%d'))]"/>
+                <group>
+                    <filter string="Estado" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Sede" name="group_address" context="{'group_by': 'address_id'}"/>
+                    <filter string="Departamento" name="group_dept" context="{'group_by': 'department_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ─── Acción ──────────────────────────────────────────────────────── -->
+    <record id="action_hr_shift_schedule" model="ir.actions.act_window">
+        <field name="name">Programaciones de Turnos</field>
+        <field name="res_model">hr.shift.schedule</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_hr_shift_schedule_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea la primera programación de turnos
+            </p>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         VISTAS DE LÍNEAS DE PROGRAMACIÓN (Calendario + Gantt)
+    ══════════════════════════════════════════════════════════════════════ -->
+
+    <!-- ─── Vista Lista de Líneas (independiente) ──────────────────────── -->
+    <record id="view_hr_shift_schedule_line_tree" model="ir.ui.view">
+        <field name="name">hr.shift.schedule.line.tree</field>
+        <field name="model">hr.shift.schedule.line</field>
+        <field name="arch" type="xml">
+            <list string="Programación de Turnos"
+                  decoration-danger="state == 'absent'"
+                  decoration-warning="state == 'novelty'"
+                  decoration-success="state == 'processed'">
+                <field name="work_date"/>
+                <field name="employee_id"/>
+                <field name="department_id" optional="show"/>
+                <field name="shift_id"/>
+                <field name="planned_start" optional="show"/>
+                <field name="planned_end" optional="show"/>
+                <field name="is_sunday" optional="show"/>
+                <field name="is_holiday" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'processed'"
+                       decoration-warning="state == 'novelty'"
+                       decoration-danger="state == 'absent'"/>
+                <field name="schedule_id" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ─── Vista Calendario ───────────────────────────────────────────── -->
+    <record id="view_hr_shift_schedule_line_calendar" model="ir.ui.view">
+        <field name="name">hr.shift.schedule.line.calendar</field>
+        <field name="model">hr.shift.schedule.line</field>
+        <field name="arch" type="xml">
+            <calendar string="Programación de Turnos"
+                      date_start="planned_start"
+                      date_stop="planned_end"
+                      color="shift_id"
+                      mode="month"
+                      quick_create="0">
+                <field name="display_name"/>
+                <field name="employee_id"/>
+                <field name="shift_id"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- ─── Vista Gantt (requiere módulo web_gantt / Enterprise) ──────── -->
+    <record id="view_hr_shift_schedule_line_gantt" model="ir.ui.view">
+        <field name="name">hr.shift.schedule.line.gantt</field>
+        <field name="model">hr.shift.schedule.line</field>
+        <field name="arch" type="xml">
+            <gantt string="Programación Gantt"
+                   date_start="planned_start"
+                   date_stop="planned_end"
+                   color="shift_id"
+                   default_group_by="employee_id"
+                   >
+                <field name="employee_id"/>
+                <field name="shift_id"/>
+                <field name="state"/>
+                <field name="is_sunday"/>
+                <field name="is_holiday"/>
+            </gantt>
+        </field>
+    </record>
+
+    <!-- ─── Búsqueda de Líneas ─────────────────────────────────────────── -->
+    <record id="view_hr_shift_schedule_line_search" model="ir.ui.view">
+        <field name="name">hr.shift.schedule.line.search</field>
+        <field name="model">hr.shift.schedule.line</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Turnos Programados">
+                <field name="employee_id"/>
+                <field name="shift_id"/>
+                <field name="work_date"/>
+                <field name="schedule_id"/>
+                <field name="address_id" string="Sede"/>
+                <field name="department_id"/>
+                <separator/>
+                <filter string="Programados" name="scheduled" domain="[('state','=','scheduled')]"/>
+                <filter string="Procesados" name="processed" domain="[('state','=','processed')]"/>
+                <filter string="Con Novedad" name="novelty" domain="[('state','=','novelty')]"/>
+                <filter string="Ausentes" name="absent" domain="[('state','=','absent')]"/>
+                <separator/>
+                <filter string="Dominicales" name="sunday" domain="[('is_sunday','=',True)]"/>
+                <filter string="Festivos" name="holiday" domain="[('is_holiday','=',True)]"/>
+                <separator/>
+                <filter string="Hoy" name="today"
+                        domain="[('work_date','=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Esta semana" name="this_week"
+                        domain="[('work_date','&gt;=', (context_today() - datetime.timedelta(days=context_today().weekday())).strftime('%Y-%m-%d'))]"/>
+                <group>
+                    <filter string="Empleado" name="group_employee" context="{'group_by': 'employee_id'}"/>
+                    <filter string="Turno" name="group_shift" context="{'group_by': 'shift_id'}"/>
+                    <filter string="Sede" name="group_address" context="{'group_by': 'address_id'}"/>
+                    <filter string="Departamento" name="group_dept" context="{'group_by': 'department_id'}"/>
+                    <filter string="Fecha" name="group_date" context="{'group_by': 'work_date:day'}"/>
+                    <filter string="Programación" name="group_schedule" context="{'group_by': 'schedule_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ─── Acción de Líneas (calendario/gantt/lista) ──────────────────── -->
+    <record id="action_hr_shift_schedule_line" model="ir.actions.act_window">
+        <field name="name">Turnos Programados</field>
+        <field name="res_model">hr.shift.schedule.line</field>
+        <field name="view_mode">calendar,gantt,list</field>
+        <field name="search_view_id" ref="view_hr_shift_schedule_line_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay turnos programados en el período seleccionado.
+            </p>
+        </field>
+    </record>
+
+</odoo>

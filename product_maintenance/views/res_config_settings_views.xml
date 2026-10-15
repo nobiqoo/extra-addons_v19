@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.repair.order</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="40"/>
+            <field name="inherit_id" ref="maintenance.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//app[@name='maintenance']" position="inside">
+                    <block title="Mantenimientos" id="product_maintenance_setting">
+                        <setting
+                                id="parts_in_maintenance"
+                                company_dependent="1"
+                                string="Usar proceso de piezas nativo en mantenimiento"
+                                help="Cuando esté marcado se usuará el proceso nativo en las reparaciones para movimientos de inventaro en piezas">
+                            <field name="use_native_parts_in_maintenance"/>
+                        </setting>
+                        <setting
+                                id="require_product_to_repair_in_maintenance"
+                                company_dependent="1"
+                                string="Requerir producto a reparar en mantenimiento"
+                                help="Cuando esté marcado, las órdenes de mantenimiento exigirán diligenciar el producto a reparar.">
+                            <field name="require_product_to_repair_in_maintenance"/>
+                        </setting>
+                        <setting
+                                id="show_maintenance_tab_in_product_maintenance"
+                                company_dependent="1"
+                                string="Mostrar pestaña de mantenimiento en productos de mantenimiento"
+                                help="Cuando esté marcado, se mostrará la pestaña de estadísticas de mantenimiento en los productos de mantenimiento.">
+                            <field name="show_maintenance_tab_in_product_maintenance"/>
+                        </setting>
+                        <setting
+                                id="use_product_maintenance_in_workcenters"
+                                company_dependent="1"
+                                string="Usar productos de mantenimiento en centros de trabajo"
+                                help="Cuando esté marcado, la pestaña Equipo de los centros de trabajo mostrará productos de mantenimiento en lugar de equipos nativos.">
+                            <field name="use_product_maintenance_in_workcenters"/>
+                        </setting>
+                        <setting
+                                id="use_product_maintenance_from_manufacturing"
+                                company_dependent="1"
+                                string="Crear órdenes de mantenimiento desde fabricación"
+                                help="Cuando esté marcado, el botón Solicitud de mantenimiento de fabricación creará órdenes de mantenimiento de localización.">
+                            <field name="use_product_maintenance_from_manufacturing"/>
+                        </setting>
+                        <!-- Integración activos fijos: validación obligatoria de cuenta analítica -->
+                        <setting
+                                id="require_analytic_in_maintenance"
+                                company_dependent="1"
+                                string="Requerir cuenta analítica en mantenimiento"
+                                help="Cuando esté marcado, se exigirá que el activo fijo asociado al equipo de mantenimiento tenga cuenta analítica configurada y que las órdenes de mantenimiento no se creen sin cuenta analítica.">
+                            <field name="require_analytic_in_maintenance"/>
+                        </setting>
+                    </block>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

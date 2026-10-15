@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <record id="student_application_details_print" model="ir.actions.report">
+        <field name="name">Application</field>
+        <field name="model">wk.application.form</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wk_school_management.report_application</field>
+        <field name="report_file">wk_school_management.report_application</field>
+        <field name="print_report_name">'%s - Application' % (object.student_name).replace('/', '')</field>
+        <field name="binding_model_id" ref="model_wk_application_form"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="print_student_application">
+        <t t-call="web.external_layout">
+            <div class="oe_structure"/>
+            <t t-foreach="docs" t-as="application">
+                <div style="page-break-after: always;">
+                    <div style="background:#F7F9FB">
+                        <div class="text-center pt-5 pb-4" style="color:#0F172A;font-family: Inter;font-size: 28px;font-weight: 800;line-height: 41.15px;">
+                            Admission Enquiry Form
+                            <h6 class="text-center mt-2" style="color:#334155">
+                                You are applying for <t t-out="application.company_id.name"/>
+                            </h6>
+                        </div>
+                        <div class="d-flex flex-column mb-3" style="padding:0% 10%">
+                            <div class="row mb-1">
+                                <div class="col-12">
+                                    <div class="mb-3" style="border: 1px solid #E1E7EF;border-radius:8px;background:white;box-shadow: 0px 0px 24px -4px #00000008;">
+                                        <div class="p-4">
+                                            <div style="color:#0F172A;font-family: Inter;font-size: 24px;font-weight: 600;line-height: 29.05px;">
+                                                Applicant Information
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-12">
+                                                    <div class="d-flex">
+                                                        <div class="mb-2 col-3">
+                                                            <span>Applicant's Name</span>
+                                                            <span style="color:red;"> *</span>
+                                                        </div>
+                                                        <div class="col-9 p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.student_name"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row my-3">
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Gender</span>
+                                                            <span style="color:red;"> *</span>
+                                                        </div>
+                                                        <div>
+                                                            <label> 
+                                                                <input value="male" type="radio" name="gender" class="form-check-input me-1" t-att-checked="application.gender == 'male'"/>
+                                                                <span class="me-1">Male</span>
+                                                            </label>
+                                                            <label>
+                                                                <input value="female" type="radio" name="gender" class="form-check-input me-1" t-att-checked="application.gender == 'female'"/>
+                                                                <span class="me-1">Female</span>
+                                                            </label>
+                                                            <label>
+                                                                <input value="other" type="radio" name="gender" class="form-check-input me-1" t-att-checked="application.gender == 'other'"/>
+                                                                <span class="me-1">Other</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Date of Birth</span>
+                                                            <span style="color:red;"> *</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.dob"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Grade</span>
+                                                            <span style="color:red;"> *</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.grade_id.name"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row my-3">
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Email</span>
+                                                            <span style="color:red;"> *</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.email"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Mobile No.</span>
+                                                            <span style="color:red;"> *</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.phone"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Any identified need/disability/ailment?</span>
+                                                            <span style="color:red;"> *</span>
+                                                        </div>
+                                                        <div>
+                                                            <select name="medical_disability" id="disability" class="form-control">
+                                                                <option value="yes" t-att-selected="application.medical_disability == 'yes'">Yes</option>
+                                                                <option value="no" t-att-selected="application.medical_disability == 'no'">No</option>
+                                                            </select>                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Blood Group</span>
+                                                        </div>
+                                                        <div>
+                                                            <div>
+                                                                <select name="blood_group" id="blood_group" class="form-control">
+                                                                    <option value="A+" t-att-selected="application.blood_group == 'a+'">A+</option>
+                                                                    <option value="A-" t-att-selected="application.blood_group == 'a-'">A-</option>
+                                                                    <option value="B+" t-att-selected="application.blood_group == 'b+'">B+</option>
+                                                                    <option value="B-" t-att-selected="application.blood_group == 'b-'">B-</option>
+                                                                    <option value="AB+" t-att-selected="application.blood_group == 'ab+'">AB+</option>
+                                                                    <option value="AB-" t-att-selected="application.blood_group == 'ab-'">AB-</option>
+                                                                    <option value="O+" t-att-selected="application.blood_group == 'o+'">O+</option>
+                                                                    <option value="O-" t-att-selected="application.blood_group == 'o-'">O-</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div t-if="application.known_medical_disability" class="row my-2">
+                                                <div class="col-12 mb-sm-1" id="medical_issue_field">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Please Specify</span>
+                                                            <span style="color:red;"> *</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.known_medical_disability"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <div class="mb-3" style="border: 1px solid #E1E7EF;border-radius:8px;background:white;box-shadow: 0px 0px 24px -4px #00000008;">
+                                        <div class="p-4">
+                                            <div style="color:#0F172A;font-family: Inter;font-size: 24px;font-weight: 600;line-height: 29.05px;">
+                                                Parents &amp; Other Details
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Mother's Name</span>
+                                                            <span style="color:red;"> *</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.mother_name"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Father's Name</span>
+                                                            <span style="color:red;"> *</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.father_name"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Mother's Contact</span>
+                                                            <span style="color:red;"> *</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.mothers_contact"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Father's Contact</span>
+                                                            <span style="color:red;"> *</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.fathers_contact"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Mother's Occupation</span>
+                                                            <span style="color:red;"> *</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.mothers_occupation"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Father's Occupation</span>
+                                                            <span style="color:red;"> *</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.fathers_occupation"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-12">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Street Address</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.street"/><t t-out="application.street2"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>City</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.city"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>State</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.state_id.name"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Postal/ZIP Code</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.zip"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Country</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.country_id.name"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-12">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="mb-2">
+                                                            <span>Ask your queries</span>
+                                                        </div>
+                                                        <div class="p-1 ps-2" style="border: 1px solid;border-radius: 5px;">
+                                                            <t t-out="application.queries"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="row mt-3" t-if="application.attachment_ids">
+                                                <t t-foreach="application.attachment_ids" t-as="attachment_id">
+                                                    <div class="col-12">
+                                                        <t t-out="attachment_id.name"/>
+                                                    </div>
+                                                </t>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>        
+    </template>
+
+    <template id="report_application">
+        <t t-call="web.html_container">
+            <t t-call="wk_school_management.print_student_application"/>
+        </t>
+    </template>
+</odoo>

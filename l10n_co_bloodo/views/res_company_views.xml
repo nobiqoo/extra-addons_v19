@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="view_company_form" model="ir.ui.view">
+            <field name="name">res.company.inherit.view.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="before">
+                    <group>
+                        <group>
+                            <field name="type_einvoicing" invisible="not fiscal_position_local"/>
+                            <field name="type_support_doc" invisible="not fiscal_position_local"/>
+                        </group>
+                        <group></group>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Facturación Electrónica" name="einvoicing" invisible="type_einvoicing != 'edi_dir'">
+                        <div>
+                            <button string="Descargar XML Facturas" name="action_xml_by_key" type="object" class="btn-outline-info" icon="fa-eye"/>
+                        </div>
+                        <group>
+                            <group string="Documentos Enviados">
+                                <group>
+                                    <field name="fv_sent"/>
+                                    <field name="nc_sent"/>
+                                    <field name="nd_sent"/>
+                                </group>
+                                <group>
+                                    <field name="zip_sent"/>
+                                    <field name="ar_sent"/>
+                                    <field name="ad_sent"/>
+                                </group>
+                            </group>
+                            <group string="Emails">
+                                <field name="edi_email"/>
+                                <field name="edi_email_error"/>
+                                <field name="report_template" domain="[('model','=','account.move')]"/>
+                                <field name="report_template_nc" domain="[('model','=','account.move')]"/>
+                                <field name="report_template_exp" domain="[('model','=','account.move')]"/>
+                                <field name="fname_pdf_same_xml"/>
+                                <field name="email_attach_doc"/>
+                            </group>
+                        </group>
+                        <group string="Configuración" name="config">
+                            <group name="a">
+                                <field name="target_environment_id" required="type_einvoicing == 'edi_dir'"/>
+                                <field name="test_set_id" required="type_einvoicing == 'edi_dir'"/>
+                                <field name="software_id" required="type_einvoicing == 'edi_dir'"/>
+                                <field name="software_pin" required="type_einvoicing == 'edi_dir'"/>
+                                <field name="fe_send_later"/>
+                            </group>
+                            <group name="b">
+                                <field name="certificate_filename" invisible="1"/>
+                                <field name="certificate_file" widget="binary"  filename="certificate_filename" required="type_einvoicing == 'edi_dir'"/>
+                                <label for="certificate_password" />
+                                <div>
+                                    <field name="certificate_password" password="1" required="type_einvoicing == 'edi_dir'"/>
+                                    <br/>
+                                    <button name="verify_certificate" string="Verify certificate" type="object" class="oe_stat_button" icon="fa-check"/>
+                                </div>
+                                <field name="signature_policy_filename" invisible="1"/>
+                                <field name="signature_policy_file" widget="binary" filename="signature_policy_filename"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="signature_policy_description" required="type_einvoicing == 'edi_dir'"/>
+                            <field name="signature_policy_url" required="type_einvoicing == 'edi_dir'"/>
+                        </group>
+                        <group string="Info">
+                            <!-- <group> -->
+                                <field name="ei_fiscal_respo"/>
+                                <field name="tributary_information" placeholder="Información Tributaria" widget="html"/>
+                            <!-- </group> -->
+                        </group>
+                        <group string="Rangos">
+                            <label for="response_get_numbering_range"/>
+                            <div>
+                                <button name="action_GetNumberingRange" string="Consultar Rangos" type="object" class="oe_stat_button" icon="fa-check"/>
+                                <field name="response_get_numbering_range"/>
+                            </div>
+                        </group>
+                    </page>
+                    <page string="Documento Soporte" name="ds" invisible="type_support_doc != 'edi_dir'">
+                        <group>
+                            <group string="Sent documents">
+                                <group>
+                                    <field name="ds_sent"/>
+                                    <field name="nas_sent"/>
+                                </group>
+                                <group>
+                                    <field name="ars_sent"/>
+                                </group>
+                            </group>
+                            <group string="">
+                            </group>
+                        </group>
+                        <group string="Configuración">
+                            <field name="ds_target_environment_id" required="type_support_doc == 'edi_dir'"/>
+                            <field name="ds_test_set_id" required="type_support_doc == 'edi_dir'"/>
+                            <field name="ds_software_id" required="type_support_doc == 'edi_dir'"/>
+                            <field name="ds_software_pin" required="type_support_doc == 'edi_dir'"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

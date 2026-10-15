@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="res_users_rndc_view_form" model="ir.ui.view">
+            <field name="name">res.users.rndc.view.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="RNDC">
+                        <group name="a">
+                            <group name="a">
+                                <field name="rndc_user"/>
+                                <field name="rndc_pwd" password="1"/>
+                            </group>
+                            <group name="b"></group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

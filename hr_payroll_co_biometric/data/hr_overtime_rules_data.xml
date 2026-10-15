@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Las reglas por defecto para Colombia (HED, HEN, HEDF) se crean
+    automáticamente via post_init_hook en hooks.py al instalar el módulo.
+
+    Este archivo queda intencionalmente vacío; las reglas pueden ser
+    creadas, modificadas o extendidas desde:
+    Control de Turnos → Configuración → Reglas de Horas Extras
+-->
+<odoo noupdate="1">
+</odoo>

@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+
+    <data>
+        <record id="action_backend_dashboard" model="ir.actions.client">
+                <field name="name">Dashboard</field>
+                <field name="tag">action_school_dashboard</field>
+                <field name="path">school-dashboard</field>
+        </record>
+
+        <record id="action_student_transcript" model="ir.actions.client">
+                <field name="name">Transcript</field>
+                <field name="tag">action_dashboard_transcript</field>
+                <field name="path">student-transcript</field>
+        </record>
+
+        <record id="action_student_gradesheet" model="ir.actions.client">
+                <field name="name">Gradesheet</field>
+                <field name="tag">action_dashboard_gradesheet</field>
+                <field name="path">student-gradesheet</field>
+        </record>
+
+        <record id="action_partner_form_inherit" model="ir.actions.act_window">
+            <field name="name">Parents</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="domain">[('is_parent', '=', True)]</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a Parent Contact in your address book
+              </p><p>
+                Odoo helps you track all activities related to your parents contact.
+              </p>
+            </field>
+        </record>
+
+        <record id="product_normal_action_fee_element" model="ir.actions.act_window">
+            <field name="name">Fee Elements</field>
+            <field name="res_model">product.product</field>
+            <field name="view_mode">kanban,list,form,activity</field>
+            <field name="context">{"search_default_fee_element":1}</field>
+            <field name="path">school-fee-elements</field>
+            <field name="view_id" ref="product.product_product_tree_view"/>
+            <field name="search_view_id" ref="product_product_search_inherit_fee_element"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new fee element
+              </p>
+            </field>
+        </record>
+    
+        <menuitem id="school_management_menu"
+                name="Education Management"
+                groups="wk_school_management_staff_group"
+                web_icon="wk_school_management,static/description/education_icon.png"
+            >
+
+                <menuitem id="dashboard_form_menu"
+                            name="Dashboard"                           
+                            sequence="0"
+                            action="action_backend_dashboard"
+                />
+
+                <menuitem id="my_profile_teacher"
+                               name="My Profile"
+                               sequence="1">
+                         
+                        <menuitem id="teacher_profile_menu111"
+                                 name="Profile"
+                                 groups="base.group_user"
+                                 sequence="10"
+                                 action="open_view_teacher_list_my"/>
+                        <menuitem id="teacher_scheduled_class_menu"
+                                 name="Timetables"
+                                 groups="wk_school_management.wk_school_management_staff_group"
+                                 sequence="20"
+                                 action="wk_class_timetable_action"/>
+                        <menuitem id="teacher_notice_menu"
+                                name="Notice"
+                                groups="wk_school_management.wk_school_management_staff_group"
+                                sequence="50"
+                                action="wk_notice_board_action"/>                       
+                </menuitem>
+
+                <menuitem id="my_assignment_teacher"
+                        name="Assignments"
+                        sequence="20">
+                         
+                         <menuitem id="teacher_assignment_menu"
+                                 name="Assignments"
+                                 groups="wk_school_management.wk_school_management_staff_group"
+                                 sequence="10"
+                                 action="class_assignment_action"
+                         />
+ 
+                         <menuitem id="teacher_lesson_plans_menu"
+                                 name="Lesson Plans"
+                                 groups="wk_school_management.wk_school_management_staff_group"
+                                 sequence="20"
+                                 action="wk_lesson_plan_action"
+                         />
+
+                         <menuitem id="teacher_grade_assignment_menu"
+                            name="Grade Assignments"
+                            groups="wk_school_management.wk_school_management_staff_group"
+                            sequence="30"
+                            action="grade_assignment_action"/>
+ 
+                 </menuitem>
+
+                <menuitem id="application_main_menu"
+                          name="Applications"
+                          groups="wk_school_management.wk_school_management_officer_group"
+                          sequence="3"
+                          action="application_form_action">                      
+                </menuitem>
+
+                <menuitem id="enrollment_form_menu"
+                          name="Enrollments"
+                          sequence="4"
+                          groups="wk_school_management.wk_school_management_officer_group"
+                          action="enrollment_form_action">
+                </menuitem>
+                             
+                <menuitem id="student_form_menu"
+                            name="Students"
+                            sequence="6">
+
+                            <menuitem id="student_detail_menu"
+                               name="Students"
+                               groups="wk_school_management.wk_school_management_staff_group,group_librarian_group"
+                               sequence="1"
+                               action="student_student_action"/>
+
+                            <menuitem id="student_timetable_menu"
+                               name="Timetables"
+                               groups="wk_school_management_officer_group"
+                               sequence="2"
+                               action="wk_class_timetable_action"/>
+
+                            <menuitem id="student_assignment_menu"
+                               name="Assignments"
+                               groups="wk_school_management.wk_school_management_staff_group"
+                               sequence="3"
+                               action="wk_student_assignment_action"/>
+
+                            <menuitem id="res_partner_parent_menu"
+                               name="Parents"
+                               groups="wk_school_management.wk_school_management_officer_group"
+                               sequence="4"
+                               action="action_partner_form_inherit"/>
+
+                              <menuitem id="student_service_hours_menu"
+                               name="Service Hours"
+                               groups="wk_school_management.wk_school_management_staff_group"
+                               sequence="5"
+                               action="wk_service_hours_action"
+                              />
+
+                              <menuitem id="student_discipline_menu"
+                                name="Discipline"
+                                groups="wk_school_management.wk_school_management_staff_group"
+                                sequence="6"
+                                action="discipline_action"/>
+
+                            <menuitem id="menu_school_student_attendance"
+                                sequence="8"
+                                name="Attendance">
+
+                                <menuitem id="student_attendance_menu"
+                                        name="Attendances"
+                                        groups="wk_school_management.wk_school_management_officer_group"
+                                        sequence="10"
+                                        action="wk_student_attendance_action"/>
+                                
+                                <menuitem id="student_kiosk_barcode"
+                                        name="Attendance Kiosk"
+                                        groups="wk_school_management.wk_school_management_officer_group"
+                                        sequence="20"
+                                        action="open_student_kiosk_url"/>
+
+                             </menuitem>
+                        </menuitem>
+                
+                <menuitem id="class_main_menu"
+                              name="Classes"
+                              sequence="5">
+                        
+                        <menuitem id="populate_class_menu"
+                                name="Populate Classes"
+                                groups="base.group_user"
+                                sequence="10"
+                                action="wk_school_class_action"
+                        />
+
+                        <menuitem id="class_attendance_menu"
+                            name="Class Attendances"
+                            groups="wk_school_management.wk_school_management_staff_group"
+                            sequence="20"
+                            action="wk_student_class_attendance_action"
+                        />
+
+                        <menuitem id="school_grade_menu"
+                                name="Grades"
+                                groups="wk_school_management.wk_school_management_officer_group"
+                                sequence="30"
+                                action="wk_school_grade_action"
+                        />
+
+                        <menuitem id="grade_subjects_menu"
+                                name="Subjects"
+                                groups="wk_school_management.wk_school_management_officer_group"
+                                sequence="40"
+                                action="wk_grade_subjects_action"
+                        />
+                </menuitem>
+
+                <menuitem id="teacher_main_menu"
+                        name="Teachers"
+                        groups="wk_school_management.wk_school_management_officer_group"
+                        sequence="7">
+
+                        <menuitem id="teacher_sub_menu"
+                                name="Teacher"
+                                sequence="10"
+                                action="open_view_teacher_list_my" />
+
+                        <menuitem id="class_assignment_menu"
+                                name="Assignments"
+                                sequence="20"
+                                action="class_assignment_action" />
+
+                        <menuitem id="lesson_plan_menu"
+                                name="Lesson Plans"
+                                sequence="30"
+                                action="wk_lesson_plan_action"/>
+
+                        <menuitem id="grade_assignment_menu"
+                                name="Grade Assignments"
+                                sequence="40"
+                                action="grade_assignment_action"/>
+
+                        <menuitem id="faculty_attendance_menu"
+                                name="Attendances"
+                                sequence="50"
+                                action="hr_attendance.hr_attendance_action" />
+
+                        <menuitem id="faculty_timeoff_menu"
+                                name="Time Off"
+                                sequence="60"
+                                action="hr_payroll_co.hr_leave_action" />
+                </menuitem>
+
+                <menuitem id="transport_main_menu"
+                        name="Transport"
+                        groups="wk_school_management.wk_school_management_staff_group"
+                        sequence="7">
+
+                        <menuitem id="transport_route_menu"
+                                name="Routes"
+                                sequence="10"
+                                action="action_transport_route" />
+
+                        <menuitem id="transport_trip_menu"
+                                name="Trips"
+                                sequence="20"
+                                action="action_transport_trip" />
+
+                        <menuitem id="transport_location_menu"
+                                name="Transport Locations"
+                                sequence="30"
+                                groups="wk_school_management.wk_school_management_officer_group"
+                                action="action_transport_location"/>
+
+                </menuitem>
+
+                <menuitem id="notice_board_form_menu"
+                            name="Notice Board"
+                            groups="wk_school_management.wk_school_management_admin_group"
+                            sequence="8"
+                            action="wk_notice_board_action"
+                />
+
+                <menuitem id="reporting_menu"
+                          name="Reportings"
+                          sequence="9"
+                          groups="wk_school_management.wk_school_management_officer_group">
+                        
+                        <menuitem id="fee_slip_menu"
+                               name="Fee Slips"
+                               groups="wk_school_management.wk_school_management_officer_group"
+                               sequence="10"
+                               action="wk_fee_slip_action"/>
+
+                        <menuitem id="student_scholarship_menu"
+                                name="Scholarships"
+                                groups="wk_school_management.wk_school_management_officer_group"
+                                sequence="20"
+                                action="wk_student_scholarship_action"/>
+
+                        <menuitem id="student_gradesheet_menu"
+                                name="Grade Sheet"
+                                groups="wk_school_management.wk_school_management_staff_group"
+                                sequence="30"
+                                action="action_student_gradesheet"/>
+
+                        <menuitem id="student_transcript_menu"
+                                name="Transcript"
+                                groups="wk_school_management.wk_school_management_officer_group"
+                                sequence="40"
+                                action="action_student_transcript"/>
+                        
+                        <menuitem id="student_report_card_menu"
+                                name="Report Card"
+                                groups="wk_school_management.wk_school_management_admin_group"
+                                sequence="50"
+                                action="wk_student_subjects_action"/>
+                </menuitem>
+
+                <menuitem id="school_configuration"
+                                name="Configuration"
+                                sequence="10"
+                                groups="wk_school_management.wk_school_management_officer_group">
+
+                        <menuitem id="menu_school_general_settings"
+                              name="Settings"
+                              sequence="1"
+                              action="action_school_config_settings"
+                              groups="base.group_system"/>
+
+                        <menuitem name="Application Portal Settings"
+                                id="application_portal_main_menu"
+                                action="application_portal_action"
+                                sequence="2"/>
+
+                        <menuitem id="menu_school_config"
+                                sequence="3"
+                                name="Academics">
+
+                                <menuitem id="session_menu"
+                                        name="Sessions"
+                                        groups="base.group_user"
+                                        sequence="10"
+                                        action="wk_school_session_action"
+                                />
+
+                                <menuitem id="academic_year_menu"
+                                        name="Academic Years"
+                                        groups="base.group_user"
+                                        sequence="20"
+                                        action="wk_academic_year_action"
+                                />
+
+                                <menuitem id="location_menu"
+                                        name="Class Locations"
+                                        groups="base.group_user"
+                                        sequence="30"
+                                        action="class_location_action"
+                                />
+
+                                <menuitem id="timeslot_menu"
+                                        name="Timeslots"
+                                        groups="base.group_user"
+                                        sequence="40"
+                                        action="class_timeslot_action"
+                                />
+
+                        </menuitem>
+
+                        <menuitem id="menu_school_config2"
+                                sequence="4"
+                                name="Fees">
+
+                                <menuitem id="fee_structure_menu"
+                                        name="Fee Structures"
+                                        groups="wk_school_management.wk_school_management_admin_group"
+                                        sequence="10"
+                                        action="fee_structure_action"
+                                />
+
+                                <menuitem id="fee_element_menu"
+                                        name="Fee Elements"
+                                        groups="wk_school_management.wk_school_management_admin_group"
+                                        sequence="20"
+                                        action="product_normal_action_fee_element"
+                                />
+                                <menuitem id="payment_transaction_menu"
+                                        name="Fee Transactions"
+                                        action="payment.action_payment_transaction"
+                                        groups="base.group_no_one"
+                                        sequence="30"
+                                />
+                        </menuitem>
+
+                        <menuitem id="menu_school_config3"
+                                sequence="5"
+                                name="Miscellaneous">
+
+                                <menuitem id="assignment_type_menu"
+                                        name="Assignment Types"
+                                        groups="base.group_user"
+                                        sequence="10"
+                                        action="assignment_type_action"
+                                />
+
+                                <menuitem id="discipline_type_menu"
+                                        name="Discipline Types"
+                                        groups="wk_school_management.wk_school_management_admin_group"
+                                        sequence="20"
+                                        action="wk_discipline_type_action"
+                                />
+
+                                <menuitem id="document_type_menu"
+                                        name="Student Document Types"
+                                        groups="base.group_user"
+                                        sequence="30"
+                                        action="wk_student_document_type_action"
+                                />
+
+                                <menuitem id="grade_scale_menu"
+                                        name="Grade Scales"
+                                        groups="base.group_user"
+                                        sequence="45"
+                                        action="wk_grade_scales_action"
+                                />
+
+                                <menuitem id="attendance_tag_menu"
+                                        name="Attendance Tags"
+                                        groups="wk_school_management.wk_school_management_admin_group"
+                                        sequence="55"
+                                        action="wk_attendance_tag_action"
+                                />
+
+                                <menuitem id="public_holidays_menu"
+                                        name="Public Holidays"
+                                        groups="wk_school_management.wk_school_management_admin_group"
+                                        sequence="60"
+                                        action="wk_student_public_holidays_action"
+                                />
+                        </menuitem>
+                </menuitem>
+        </menuitem>
+
+        <menuitem id="library_school_management_menu"
+                name="Library Management"
+                groups="group_librarian_group"
+                web_icon="wk_school_management,static/description/library_icon.png">
+
+                <menuitem id="dashboard_library_menu"
+                            name="Dashboard"                           
+                            sequence="0"
+                            action="wk_action_dashboard"/>
+
+                <menuitem id="book_request_library_menu"
+                            name="Book Requests"                           
+                            sequence="1"
+                            action="wk_booking_history_action"/>
+
+                <menuitem id="librarian_library_menu"
+                            name="Librarian"                           
+                            sequence="2"
+                            action="open_view_librarian_list"/>
+
+                <menuitem id="student_library_menu"
+                            name="Students"                           
+                            sequence="3"
+                            action="student_student_action"/>
+                
+                <menuitem id="overdues_fines_library_menu"
+                            name="Overdue Fines"                           
+                            sequence="3"
+                            action="wk_book_fine_action"/>
+                
+                <menuitem id="all_book_library_menu"
+                            name="All Books"                           
+                            sequence="4">
+
+                        <menuitem id="book_library_menu"
+                                name="Books"
+                                sequence="10"
+                                action="wk_book_action"/>
+
+                        <menuitem id="book_copies_menu"
+                                name="Book Copies"
+                                sequence="20"
+                                action="wk_book_copies_action"/>
+                </menuitem>
+
+                <menuitem id="configuration_library_menu"
+                            name="Configuration"                           
+                            sequence="5"
+                            groups="wk_school_management_admin_group"
+                            >
+
+                        <menuitem id="categories_menu"
+                                name="Categories"
+                                sequence="10"
+                                action="wk_category_action"/>
+
+                        <menuitem id="tags_menu"
+                                name="Tags"
+                                sequence="20"
+                                action="wk_tag_action"/>
+                </menuitem>
+    </menuitem>
+    </data>
+</odoo>            

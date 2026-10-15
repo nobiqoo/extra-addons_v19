@@ -1,0 +1,32 @@
+<odoo>
+    <!-- Vista tipo árbol filtrada -->
+    <record id="product_template_spare_list_view" model="ir.ui.view">
+        <field name="name">product.template.spare.list</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="default_code"/>
+                <field name="list_price"/>
+                <field name="is_spare_part"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Acción que muestra solo productos con is_spare_part = True -->
+    <record id="action_spare_parts_only" model="ir.actions.act_window">
+        <field name="name">Repuestos</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('is_spare_part','=',True)]</field>
+    </record>
+
+    <!-- Menú Repuestos bajo Maestros de Mantenimiento -->
+    <menuitem
+        id="menu_spare_parts"
+        name="Repuestos"
+        parent="menu_maintenance_masters_root"
+        action="action_spare_parts_only"
+        sequence="20"
+    />
+</odoo>

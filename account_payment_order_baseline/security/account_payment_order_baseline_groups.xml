@@ -1,0 +1,18 @@
+<odoo noupdate="True">
+    <record id="group_confirm_payments_payment_order" model="res.groups">
+        <field name="name">Confirm payments</field>
+        <field name="privilege_id" ref="base.module_category_hidden" />
+    </record>
+    <record id="group_generate_payment_file_payment_order" model="res.groups">
+        <field name="name">Generate payment file</field>
+        <field name="privilege_id" ref="base.module_category_hidden" />
+    </record>
+    <record id="group_file_uploaded_successfully_payment_order" model="res.groups">
+        <field name="name">File uploaded successfully</field>
+        <field name="privilege_id" ref="base.module_category_hidden" />
+    </record>
+    <record id="group_action_cancel_payment_order" model="res.groups">
+        <field name="name">Cancel payment</field>
+        <field name="privilege_id" ref="base.module_category_hidden" />
+    </record>
+</odoo>

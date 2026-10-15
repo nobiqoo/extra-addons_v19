@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="withholding_certificate_report_email_template" model="mail.template">
+            <field name="name">Tax certificate ready for review</field>
+            <field name="model_id" ref="tax_certificate_management.model_withholding_certificate_report" />
+            <field name="subject">Tax certificate</field>
+            <field name="partner_to">{{object.partner_id.id}}</field>
+            <!-- <field name="report_name">{{'tax_certificate_report ' + object.name}}</field> -->
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 15px;"> Dear, <strong
+                            t-out="object.partner_id.name" /> In this email we send you the requested tax certificate. <br/>
+                    </p>
+                    <p>Cordially,</p><br/>
+                    <p><strong t-out="object.company_id.name" /></p>
+                </div>
+            </field>
+            <field name="report_template_ids"
+                eval="[(4, ref('tax_certificate_management.tax_certificate_management_tmpl_action'))]"/>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

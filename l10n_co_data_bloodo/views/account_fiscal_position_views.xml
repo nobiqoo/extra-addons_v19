@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_fiscal_position_form" model="ir.ui.view">
+            <field name="name">account.fiscal.position</field>
+            <field name="model">account.fiscal.position</field>
+            <field name="inherit_id" ref="account.view_account_position_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group" position="inside">
+                    <field name="fiscal_position_local" invisible="1"/>
+                    <group name="dian" string="Facturación electrónica" invisible="not fiscal_position_local">
+                        <field name="dian_tax_scheme_id" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                        <field name="dian_obligation_type_ids" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" widget="many2many_tags"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

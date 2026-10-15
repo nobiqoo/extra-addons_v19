@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="res_partner_co_form">
+      <field name="name">res.partner.co.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//sheet/notebook/page[@name='internal_notes']" position="after">
+          <page name="human_resource" string="Recursos Humanos">
+            <group invisible="company_type == 'company'">
+              <field name="employee" />
+              <field name="employee2emergency_id" />
+            </group>
+            <group name="group_company_hr_info" invisible="company_type == 'person'">
+              <group name="group_company_hr_info_checks">
+                <field name="eps" />
+                <field name="arl" />
+                <field name="afp" />
+                <field name="ccf" />
+              </group>
+              <group name="group_company_hr_info_codes">
+                <field name="eps_code" />
+                <field name="arl_code" />
+                <field name="afp_code" />
+                <field name="ccf_code" />
+              </group>
+            </group>
+          </page>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

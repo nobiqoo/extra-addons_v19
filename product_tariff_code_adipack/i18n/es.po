@@ -1,0 +1,44 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_tariff_code_adipack
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-10 15:46+0000\n"
+"PO-Revision-Date: 2026-09-10 10:46-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.9\n"
+
+#. module: product_tariff_code_adipack
+#: model_terms:ir.ui.view,arch_db:product_tariff_code_adipack.report_account_move_einvoicing_document_tariff_code
+msgid "<span>TARIFF</span>"
+msgstr "<span>CÓDIGO ARANCELARIO</span>"
+
+#. module: product_tariff_code_adipack
+#: model:ir.model.fields,field_description:product_tariff_code_adipack.field_product_template__display_name
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: product_tariff_code_adipack
+#: model:ir.model.fields,field_description:product_tariff_code_adipack.field_product_template__id
+msgid "ID"
+msgstr "ID"
+
+#. module: product_tariff_code_adipack
+#: model:ir.model,name:product_tariff_code_adipack.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: product_tariff_code_adipack
+#: model:ir.model.fields,field_description:product_tariff_code_adipack.field_product_product__tariff_code
+#: model:ir.model.fields,field_description:product_tariff_code_adipack.field_product_template__tariff_code
+msgid "Tariff code"
+msgstr "Código arancelario"

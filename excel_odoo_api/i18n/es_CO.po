@@ -1,0 +1,150 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* excel_odoo_api
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-22 23:35+0000\n"
+"PO-Revision-Date: 2023-10-22 23:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search__access_key
+msgid "Access key"
+msgstr "Llave"
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: excel_odoo_api
+#: model:res.groups,comment:excel_odoo_api.excel_data_search_manager
+msgid "Allows create querys for import tables from odoo into excel"
+msgstr "Permite crear cosultas a la base de datos de odoo para importarlas en excel"
+
+#. module: excel_odoo_api
+#: model:res.groups,name:excel_odoo_api.excel_data_search_manager
+msgid "Create tables for excel"
+msgstr "Crear tablas para excel ODC"
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: excel_odoo_api
+#: model:ir.model.fields.selection,name:excel_odoo_api.selection__excel_data_search__query_type__direct
+msgid "Direct"
+msgstr "Directa"
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search__id
+msgid "ID"
+msgstr ""
+
+#. module: excel_odoo_api
+#: model:ir.model.fields.selection,name:excel_odoo_api.selection__excel_data_search__type_out__json
+msgid "JSON"
+msgstr ""
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: excel_odoo_api
+#: model_terms:ir.ui.view,arch_db:excel_odoo_api.excel_data_search_form_view
+msgid "Query"
+msgstr "Consulta"
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search__query_type
+msgid "Query type"
+msgstr "Tipo de consulta"
+
+#. module: excel_odoo_api
+#: model_terms:ir.ui.view,arch_db:excel_odoo_api.excel_data_search_form_view
+msgid "SELECT ..."
+msgstr ""
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search__query
+msgid "SQL Query"
+msgstr "Consulta SQL"
+
+#. module: excel_odoo_api
+#: model_terms:ir.ui.view,arch_db:excel_odoo_api.excel_data_search_form_view
+#: model_terms:ir.ui.view,arch_db:excel_odoo_api.excel_data_search_tree_view
+msgid "Short description"
+msgstr "Breve descripción"
+
+#. module: excel_odoo_api
+#: model:ir.model.fields.selection,name:excel_odoo_api.selection__excel_data_search__type_out__table
+msgid "Table"
+msgstr "Tabla"
+
+#. module: excel_odoo_api
+#: model:ir.actions.act_window,name:excel_odoo_api.excel_data_search_action
+#: model:ir.model,name:excel_odoo_api.model_excel_data_search
+#: model:ir.ui.menu,name:excel_odoo_api.excel_data_search_menu
+msgid "Table generator for excel"
+msgstr "Generador de tablas para excel"
+
+#. module: excel_odoo_api
+#: code:addons/excel_odoo_api/models/excel_data_search.py:0
+#, python-format
+msgid "The access key is already used by another document"
+msgstr "La llave de acceso ya está usada por otro documento"
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search__type_out
+msgid "Output type"
+msgstr "Tipo de salida"
+
+#. module: excel_odoo_api
+#: model_terms:ir.ui.view,arch_db:excel_odoo_api.excel_data_search_form_view
+msgid "Update key"
+msgstr "Actualizar llave"
+
+#. module: excel_odoo_api
+#: model:ir.model.fields,field_description:excel_odoo_api.field_excel_data_search__url
+msgid "Url"
+msgstr ""

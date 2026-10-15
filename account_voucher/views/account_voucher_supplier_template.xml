@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <template id="account_voucher_supplier">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <t t-call="account_voucher.account_voucher_supplier_document" />
+                    <p style="page-break-after: always;"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="account_voucher_supplier_document">
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" />
+            <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;display=swap" rel="stylesheet" />
+            <div class="header">
+                <style>
+                    .row {
+                    margin-top:10px;
+                    }
+                    span {
+                        font-family: 'Lato', sans-serif;
+                    }
+                    p {
+                        font-size:14px;
+                        margin:0px;
+                        line-height:16px;
+                        color:#606060;
+                    }
+                    br {
+                        height:2px;
+                    }
+                    #nombre-compania {
+                        font-size:14px;
+                    }
+                    strong {
+                        font-weight: 900;
+                    }
+                    .dato-factura-titulo {
+                        color: #110979;
+                    }
+                    .numero-factura {
+                        font-size: 18px;
+                    }
+                    .imagen-calidad {
+                        width:120px;
+                    }
+                    .tabla {
+                        width:100%;
+                    }
+                    .tabla th {
+                        vertical-align:middle;
+                    color: #0054A4;
+                    }
+                    .texto-resolucion {
+                        color: blue;
+                        text-align: right;
+                    }
+                    .titulo-seccion {
+                        text-align: center;
+                    }
+                    .tabla-lineas-factura-productos .cantidad p {
+                        text-align: center;
+                    }
+                    .cufe {
+                        font-size:11px !important;
+                    }
+                    .favor-liquidar {
+                        font-size:8px !important;
+                    }
+                </style>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="tabla">
+                            <tr>
+                                <td width="30%">
+                                    <div class="logo">
+                                        <span t-field="doc.company_id.logo" t-options-widget="&quot;image&quot;" />
+                                        <br />
+                                    </div>
+                                </td>
+                                <td width="30%">
+                                    <p>
+                                        <b t-field="doc.company_id.name" />
+                                        <br />
+                                        <b>
+                                            NIT:
+                                        </b>
+                                        <span t-field="doc.company_id.vat" />
+                                        <br />
+                                        <b>
+                                            Dirección:
+                                        </b>
+                                        <span t-field="doc.company_id.street" />
+                                        <br />
+                                    </p>
+                                </td>
+                                <td class="text-right" width="60%">
+                                    <p>
+                                        <span t-field="doc.company_id.company_registry" />
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="page">
+                <style>
+                    .row {
+                    margin-top:10px;
+                    }
+                    span {
+                        font-family: 'Lato', sans-serif;
+                    }
+                    p {
+                        font-size:14px;
+                        margin:2px 0px 2px 0px;
+                        padding:0px;
+                        line-height:16px;
+                        color:#606060;
+                    }
+                    br {
+                        height:2px;
+                    }
+                    #nombre-compania {
+                        font-size:14px;
+                    }
+                    strong {
+                        font-weight: 900;
+                    }
+                    .dato-factura-titulo {
+                        color: #110979;
+                    }
+                    .numero-factura {
+                        font-size: 18px;
+                    }
+                    .imagen-calidad {
+                        width:120px;
+                    }
+                    .tabla {
+                        width:100%;
+                    }
+                    .tabla td {
+                        vertical-align:middle;
+                    }
+                    .tabla th {
+                        vertical-align:middle;
+                    color: #0054A4;
+                    }
+                    .texto-resolucion {
+                        color: blue;
+                        text-align: right;
+                    }
+                    .titulo-seccion {
+                        text-align: center;
+                    }
+                    .tabla-lineas-factura-productos .cantidad p {
+                        text-align: center;
+                    }
+                    .cufe {
+                        font-size:11px !important;
+                    }
+                    .favor-liquidar {
+                        font-size:8px !important;
+                    }
+                    hr {
+                        margin:5px 0px;
+                        padding:0px;
+                        border:none;
+                        border-bottom:1px solid grey;
+                    }
+                </style>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center" t-if="doc.partner_type == 'customer'">
+                            <b>RECIBO DE CAJA</b>
+                        </div>
+                        <div class="col-12 text-center" t-if="doc.partner_type == 'supplier'">
+                            <b>COMPROBANTE DE EGRESO</b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <hr />
+                            <table class="table-condensed tabla">
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <b>
+                                                TIPO DE DOCUMENTO:
+                                            </b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span t-field="doc.journal_id"/> <span t-field="doc.name"/>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <b>
+                                                MONEDA: 
+                                            </b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span t-field="doc.currency_id"/>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <b>
+                                                NÚMERO DE COMPROBANTE:
+                                            </b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span t-field="doc.move_id"/>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <b>
+                                                FECHA:
+                                            </b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span t-field="doc.date"/>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <hr />
+                            <table class="table-condensed tabla">
+                                <tr>
+                                    <t t-if="doc.currency_id.name == 'COP'">
+                                        <td width="30%">
+                                            <p>
+                                                <b>
+                                                    REFERENCIA DE PAGO:
+                                                </b>
+                                            </p>
+                                        </td>
+                                        <td width="70%">
+                                            <p>
+                                                <span t-field="doc.voucher_reference"/>
+                                            </p>
+                                        </td>
+                                    </t>
+                                    <t t-if="doc.currency_id.name != 'COP'">
+                                        <td>
+                                            <p>
+                                                <b>
+                                                    REFERENCIA DE PAGO:
+                                                </b>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span t-field="doc.voucher_reference"/>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <b>
+                                                    TRM:
+                                                </b>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span t-field="doc.exchange_rate"/>
+                                            </p>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <hr />
+                            <table class="table-condensed tabla">
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <b>
+                                                A NOMBRE:
+                                            </b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span t-field="doc.partner_id"/>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <b>
+                                                NIT:
+                                            </b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span t-field="doc.partner_id.vat"/>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <b>
+                                                SALDO PAGADO:
+                                            </b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span t-field="doc.currency_id"/> <span t-field="doc.amount"/>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <b>
+                                                SALDO PENDIENTE:
+                                            </b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <p><b>INFORMACIÓN DEL PAGO</b></p>
+                            <table class="table table-condensed tabla">
+                                <tr>
+                                    <th>
+                                        ASIENTO CONTABLE
+                                    </th>
+                                    <th>
+                                        FECHA
+                                    </th>
+                                    <th>
+                                        IMPORTE ORIGINAL
+                                    </th>
+                                    <th>
+                                        SALDO DE FACTURA
+                                    </th>
+                                    <th>
+                                        VALOR PAGADO
+                                    </th>
+                                </tr>
+                                <t t-set="total_original" t-value="0" />
+                                <t t-set="total_saldo" t-value="0" />
+                                <t t-set="total_pagado" t-value="0" />
+                                <t t-foreach="doc.line_passive_ids" t-as="l">
+                                    <t t-set="total_original" t-value="total_original + l.amount_original" />
+                                    <t t-set="total_saldo" t-value="total_saldo + l.amount_unreconciled" />
+                                    <t t-set="total_pagado" t-value="total_pagado + l.amount" />
+                                    <tr>
+                                        <td>
+                                            <p>
+                                                <span t-field="l.name" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span t-field="l.date_original" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span t-field="l.amount_original" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span t-field="l.amount_unreconciled" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span t-field="l.amount" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <b>
+                                                TOTAL:
+                                            </b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span t-field="doc.currency_id.symbol" />
+                                            <b t-esc="'{0:,.2f}'.format(total_original)" />
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span t-field="doc.currency_id.symbol" />
+                                            <b t-esc="'{0:,.2f}'.format(total_saldo)" />
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span t-field="doc.currency_id.symbol" />
+                                            <b t-esc="'{0:,.2f}'.format(total_pagado)" />
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <p><b>AJUSTES Y RETENCIONES</b></p>
+                            <table class="table table-condensed tabla">
+                                <tr>
+                                    <th width="30%">
+                                        CUENTA
+                                    </th>
+                                    <th>
+                                        COMENTARIO
+                                    </th>
+                                    <th>
+                                        ETIQUETAS ANALÍTICAS
+                                    </th>
+                                    <th>
+                                        VALOR
+                                    </th>
+                                </tr>
+                                <t t-set="total_conciliado" t-value="0" />
+                                <t t-foreach="doc.line_reconcile_ids" t-as="s">
+                                    <t t-set="total_conciliado" t-value="total_conciliado + s.amount" />
+                                    <tr>
+                                        <td>
+                                            <p>
+                                                <span t-field="s.account_id" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span t-field="s.comment" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <!-- <span t-field="s.analytic_tag_ids" /> -->
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span t-esc="s.amount" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <b>
+                                                TOTAL:
+                                            </b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span t-field="doc.currency_id.symbol" />
+                                            <b t-esc="'{0:,.2f}'.format(total_conciliado)" />
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-4">
+                            <hr/>
+                            ELABORADO POR
+                        </div>
+                        <div class="col-4">
+                            <hr/>
+                            APROBADO POR
+                        </div>
+                        <div class="col-4">
+                            <hr/>
+                            BENEFICIARIO-NIT
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+    </data>
+</odoo>

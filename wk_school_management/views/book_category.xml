@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="class_category_form" model="ir.ui.view">
+            <field name="name">book.category.form</field>
+            <field name="model">book.category</field>
+            <field name="arch" type="xml">
+                <form string="Book Category">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" required="True" placeholder="Category .."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="parent_id" />
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="class_category_tree" model="ir.ui.view">
+            <field name="name">book.category.list</field>
+            <field name="model">book.category</field>
+            <field name="arch" type="xml">
+                <list string="Category">
+                    <field name="name"/>
+                    <field name="parent_id"/>
+                </list>
+            </field>
+        </record>
+        
+        <record id="wk_category_action" model="ir.actions.act_window">
+            <field name="name">Categories</field>
+            <field name="res_model">book.category</field>
+            <field name="view_mode">list,form</field>
+            <field name="path">categories</field>
+        </record>
+
+        <record id="book_tag_form" model="ir.ui.view">
+            <field name="name">wk.book.tag.form</field>
+            <field name="model">wk.book.tag</field>
+            <field name="arch" type="xml">
+                <form string="Book Tags">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" required="True" placeholder="Tag .."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="color" widget="color_picker"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="book_tag_tree" model="ir.ui.view">
+            <field name="name">wk.book.tag.list</field>
+            <field name="model">wk.book.tag</field>
+            <field name="arch" type="xml">
+                <list string="Tags">
+                    <field name="name"/>
+                    <field name="color" widget="color_picker"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="wk_tag_action" model="ir.actions.act_window">
+            <field name="name">Tags</field>
+            <field name="res_model">wk.book.tag</field>
+            <field name="view_mode">list,form</field>
+            <field name="path">book-tags</field>
+        </record>
+
+        <record id="copy_book_tree" model="ir.ui.view">
+            <field name="name">wk.book.copy.list</field>
+            <field name="model">wk.book.copy</field>
+            <field name="arch" type="xml">
+                <list string="Copies" create="0">
+                    <field name="isbn"/>
+                    <field name="copy_book_id"/>
+                    <field name="category_ids" widget="many2many_tags"/>
+                    <field name="author"/>
+                    <field name="currency_id" column_invisible="1"/>
+                    <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}" optional='hide'/>
+                    <field name="state" widget="badge" decoration-primary="state=='draft'" decoration-success="state=='available'" decoration-danger="state in ('cancel')" decoration-warning="state=='not_available'"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="copy_book_form" model="ir.ui.view">
+            <field name="name">wk.book.copy.form</field>
+            <field name="model">wk.book.copy</field>
+            <field name="arch" type="xml">
+                <form string="Library Book" create="0">
+                    <header>
+                        <button name="action_damaged_copies" string="Damage" class="oe_highlight" invisible="state != 'available'" type="object" confirm="Are you sure you want to mark this copy as damaged?" />
+                        <field name="state" widget="statusbar" statusbar_visible="available,not_available"/>
+                    </header>
+                    <sheet>
+                       <field name="image" widget="image" class="oe_avatar oe_left"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Book Name" required="True"/>
+                            </h1>
+                            <label for="category_ids" class="oe_edit_only"/>
+                            <h2><field name="category_ids" widget="many2many_tags" required="True"/></h2>
+                        </div>
+                        <notebook>
+                            <page string="Information">
+                                <group>
+                                    <group>
+                                        <field name="isbn" readonly="1"/>
+                                        <field name="author" required="True"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True, 'color_field': 'color'}"/>
+                                    </group>
+                                </group>
+                                <label for="description" string="Description"/>
+                                <field name="description"/>
+                            </page>
+                    
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_book_copy_search" model="ir.ui.view">
+            <field name="name">wk.book.copy.search</field>
+            <field name="model">wk.book.copy</field>
+            <field name="arch" type="xml">
+                 <search string="Book Copies">
+                    <field name="name" string="Books" filter_domain="['|', '|', ('name', 'ilike', self), ('isbn', 'ilike', self),('author', 'ilike', self)]"/>
+                    <field name="isbn" string="ISBN" filter_domain="[('isbn','ilike',self)]"/>
+                    <field name="author" string="Author" filter_domain="[('author','ilike',self)]"/>
+                    <filter name="available_book_filter" string="Available books" domain="[('state','=','available')]"/>
+                    <group>
+                       <filter string="Category" name="group_by_category" context="{'group_by':'category_ids'}" />
+                       <filter string="State" name="group_by_state" context="{'group_by':'state'}" />
+                       <filter string="Book" name="group_by_book" context="{'group_by':'copy_book_id'}" />
+                   </group>
+                </search>
+            </field>
+        </record>
+    
+        <record id="seq_book_copy" model="ir.sequence">
+            <field name="name">Book copys</field>
+            <field name="code">seq.book.copy</field>
+            <field name="prefix">BS</field>
+            <field name="padding">5</field>
+        </record>
+    </data>    
+</odoo>    

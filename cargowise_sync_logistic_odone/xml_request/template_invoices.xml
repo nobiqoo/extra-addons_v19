@@ -1,0 +1,269 @@
+<methodCall>
+    <!-- used to call methods of odoo models -->
+    <methodName>execute</methodName>
+    <params>
+        <!-- database name -->
+        <param>
+            <value>
+                <string>logistic-staging-4551658</string>
+            </value>
+        </param>
+        <!-- user id -->
+        <param>
+            <value>
+                <int>69</int>
+            </value>
+        </param>
+        <!-- user’s password-->
+        <param>
+            <value>
+                <string>cdb1d0fd8da788419ce8185168d8a1e6eff598b4</string>
+            </value>
+        </param>
+        <!-- model name -->
+        <param>
+            <value>
+                <string>account.move</string>
+            </value>
+        </param>
+        <!-- method name -->
+        <param>
+            <value>
+                <string>create_invoice_cargowise</string>
+            </value>
+        </param>
+        <param>
+            <value>
+            </value>
+        </param>
+        <param>
+            <!-- create a struct where you identify the field name,
+                the field type and the value you want to insert in it -->
+            <value>
+                <struct>
+                    <!-- Tipo de Factura (FV, FC, FV-NC, FV-ND, FC-NC, FC-ND) -->
+                    <member>
+                        <name>type_invoice</name>
+                        <value>
+                            <string>FV</string>
+                        </value>
+                    </member>
+                    <!-- ID Prefactura -->
+                    <member>
+                        <name>invoice_id</name>
+                        <value>
+                            <string>INV001</string>
+                        </value>
+                    </member>
+                    <!-- ID cargowise de la Factura a la que se va a aplicar NC o ND -->
+                    <!-- Valor (Este campo es obligatorio si el type_invoice es NC o ND)-->
+                    <member>
+                        <name>ref_invoice</name>
+                        <value>
+                            <string></string>
+                        </value>
+                    </member>
+                    <!-- Cliente -->
+                    <!-- Valor (Código cargowise del tercero (id_partner))-->
+                    <member>
+                        <name>partner</name>
+                        <value>
+                            <string>A001</string>
+                        </value>
+                    </member>
+                    <!-- Ciudad -->
+                    <member>
+                        <name>city</name>
+                        <value>
+                            <string>Cartagena</string>
+                        </value>
+                    </member>
+                    <!-- Orden del Cliente -->
+                    <member>
+                        <name>customer_order</name>
+                        <value>
+                            <string>ABC001</string>
+                        </value>
+                    </member>
+                    <!-- HBL -->
+                    <member>
+                        <name>hbl</name>
+                        <value>
+                            <string>ABC123</string>
+                        </value>
+                    </member>
+                    <!-- MN -->
+                    <member>
+                        <name>mn</name>
+                        <value>
+                            <string>ABC123</string>
+                        </value>
+                    </member>
+                    <!-- Posición -->
+                    <member>
+                        <name>position</name>
+                        <value>
+                            <string>ABC123</string>
+                        </value>
+                    </member>
+                    <!-- Trayecto -->
+                    <member>
+                        <name>journey</name>
+                        <value>
+                            <string>ABC123</string>
+                        </value>
+                    </member>
+                    <!-- Peso -->
+                    <member>
+                        <name>weight</name>
+                        <value>
+                            <string>ABC123</string>
+                        </value>
+                    </member>
+                    <!-- Volúmen -->
+                    <member>
+                        <name>volume</name>
+                        <value>
+                            <string>ABC123</string>
+                        </value>
+                    </member>
+                    <!-- Moneda -->
+                    <!-- Valor (Código de la moneda ISO-4217 [COP,EUR,USD])-->
+                    <member>
+                        <name>currency</name>
+                        <value>
+                            <string></string>
+                        </value>
+                    </member>
+                    <!-- Comercial -->
+                    <member>
+                        <name>vendor</name>
+                        <value>
+                            <string>ADP</string>
+                        </value>
+                    </member>
+                    <!-- Lineas de la Factura -->
+                    <member>
+                        <name>lines</name>
+                        <value>
+                            <array>
+                                <data>
+                                    <!-- LINEA #1 -->
+                                    <value>
+                                        <struct>
+                                            <!-- Producto -->
+                                            <!-- Valor (Código cargowise del producto)-->
+                                            <member>
+                                                <name>product</name>
+                                                <value>
+                                                    <string>P01</string>
+                                                </value>
+                                            </member>
+                                            <!-- Descripción -->
+                                            <member>
+                                                <name>description</name>
+                                                <value>
+                                                    <string>P01, Descripción de la línea</string>
+                                                </value>
+                                            </member>
+                                            <!-- Ciudad linea -->
+                                            <member>
+                                                <name>city_line</name>
+                                                <value>
+                                                    <string>Bogotá</string>
+                                                </value>
+                                            </member>
+                                            <!-- Código -->
+                                            <member>
+                                                <name>code_line</name>
+                                                <value>
+                                                    <string>C001</string>
+                                                </value>
+                                            </member>
+                                            <!-- Cantidad -->
+                                            <member>
+                                                <name>qty</name>
+                                                <value>
+                                                    <double>2</double>
+                                                </value>
+                                            </member>
+                                            <!-- Precio Unitario -->
+                                            <member>
+                                                <name>price_unit</name>
+                                                <value>
+                                                    <double>10</double>
+                                                </value>
+                                            </member>
+                                            <!-- MONEDA -->
+                                            <member>
+                                                <name>currency</name>
+                                                <value>
+                                                    <string>USD</string>
+                                                </value>
+                                            </member>
+                                        </struct>
+                                    </value>
+                                    <!-- LINEA #2 -->
+                                    <value>
+                                        <struct>
+                                            <!-- Producto -->
+                                            <member>
+                                                <name>product</name>
+                                                <value>
+                                                    <string>P02</string>
+                                                </value>
+                                            </member>
+                                            <!-- Descripción -->
+                                            <member>
+                                                <name>description</name>
+                                                <value>
+                                                    <string>P02, Descripción de la línea2</string>
+                                                </value>
+                                            </member>
+                                            <!-- Ciudad linea -->
+                                            <member>
+                                                <name>city_line</name>
+                                                <value>
+                                                    <string>Cali</string>
+                                                </value>
+                                            </member>
+                                            <!-- Código -->
+                                            <member>
+                                                <name>code_line</name>
+                                                <value>
+                                                    <string>C002</string>
+                                                </value>
+                                            </member>
+                                            <!-- Cantidad -->
+                                            <member>
+                                                <name>qty</name>
+                                                <value>
+                                                    <double>2</double>
+                                                </value>
+                                            </member>
+                                            <!-- Precio Unitario -->
+                                            <member>
+                                                <name>price_unit</name>
+                                                <value>
+                                                    <double>10</double>
+                                                </value>
+                                            </member>
+                                            <!-- MONEDA -->
+                                            <member>
+                                                <name>currency</name>
+                                                <value>
+                                                    <string>EUR</string>
+                                                </value>
+                                            </member>
+                                        </struct>
+                                    </value>
+                                    <!-- LINEA #n... -->
+                                </data>
+                            </array>
+                        </value>
+                    </member>
+                </struct>
+            </value>
+        </param>
+    </params>
+</methodCall>

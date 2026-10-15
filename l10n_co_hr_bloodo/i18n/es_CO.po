@@ -1,0 +1,653 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_co_edi_hr_payroll_co
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-05 01:26+0000\n"
+"PO-Revision-Date: 2022-04-05 01:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__hr_target_environment
+msgid "Ambiente Destino"
+msgstr "Ambiente Destino"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_ar_file
+msgid "Ap. Response File"
+msgstr "XML AppResponse"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_ar_fname
+msgid "ApplicationResponse XML Filename"
+msgstr "XML AppResponse nombre"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:l10n_co_edi_hr_payroll_co.view_company_form
+msgid "Archivos Enviados"
+msgstr "Archivos Enviados"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:l10n_co_edi_hr_payroll_co.edi_hr_document_view_form
+msgid "Automation"
+msgstr "Automatización"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__hr_certificate_file
+msgid "Certificado"
+msgstr "Certificado"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__to_check_status
+msgid "Check status"
+msgstr "Comprobar estado"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model,name:l10n_co_edi_hr_payroll_co.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields.selection,name:l10n_co_edi_hr_payroll_co.selection__edi_hr_document__state__richtig
+msgid "Correcto"
+msgstr "Correcto"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__create_uid
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__create_date
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:l10n_co_edi_hr_payroll_co.view_company_form
+msgid "Credenciales"
+msgstr "Credenciales"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_cune
+msgid "Cune"
+msgstr "CUNE"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_cune_uncode
+msgid "Cune Uncode"
+msgstr "Cune Uncode"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_cune_origin
+msgid "Cune origin"
+msgstr "Ref. CUNE"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__hr_edi_response
+msgid "DIAN Response"
+msgstr "Respuesta DIAN"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__hr_edi_state
+msgid "DIAN State"
+msgstr "Estado DIAN"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__hr_signature_policy_description
+msgid "Descripción Política de firma"
+msgstr "Descripción Política de firma"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_hr_payslip__edi_doc_ids
+msgid "Dian document"
+msgstr "Documento Dian"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__display_name
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__display_name
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_hr_payslip__display_name
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__display_name
+msgid "Display Name"
+msgstr "Nombre Público"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/edi_hr_document.py:0
+#, python-format
+msgid ""
+"ERROR: No se puede definir el tipo de documento electrónico de la nómina %s"
+msgstr ""
+"ERROR: No se puede definir el tipo de documento electrónico de la nómina %s"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/edi_hr_document.py:0
+#, python-format
+msgid ""
+"ERROR: No se puede definir el tipo de documento electrónico para la nómina "
+"%s"
+msgstr ""
+"ERROR: No se puede definir el tipo de documento electrónico para la nómina "
+"%s"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/edi_hr_document.py:0
+#, python-format
+msgid "Edi HR Documents"
+msgstr "Documento de nómina electrónica"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.actions.server,name:l10n_co_edi_hr_payroll_co.ir_cron_edi_hr_dokumenten_senden_ir_actions_server
+#: model:ir.cron,cron_name:l10n_co_edi_hr_payroll_co.ir_cron_edi_hr_dokumenten_senden
+#: model:ir.cron,name:l10n_co_edi_hr_payroll_co.ir_cron_edi_hr_dokumenten_senden
+msgid "Edi Hr: XML Send"
+msgstr "Edi Hr: XML Send"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.actions.server,name:l10n_co_edi_hr_payroll_co.ir_cron_edi_hr_dokumenten_status_erhalten_ir_actions_server
+#: model:ir.cron,cron_name:l10n_co_edi_hr_payroll_co.ir_cron_edi_hr_dokumenten_status_erhalten
+#: model:ir.cron,name:l10n_co_edi_hr_payroll_co.ir_cron_edi_hr_dokumenten_status_erhalten
+msgid "Edi Hr: XML Status"
+msgstr "Edi Hr: XML Status"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__edi_hr_id
+#: model:ir.ui.menu,name:l10n_co_edi_hr_payroll_co.edi_he_document_menu_act
+msgid "Documento electrónico"
+msgstr "Documento electrónico"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.actions.act_window,name:l10n_co_edi_hr_payroll_co.edi_hr_document_action
+msgid "Nóminas Electrónicas"
+msgstr ""
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_url
+msgid "Edi URL"
+msgstr "URL doc."
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_doc_origin_id
+msgid "Doc. electrónico origen"
+msgstr ""
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/edi_hr_document.py:0
+#, python-format
+msgid "El documento de identificación de %s no está establecido. \n"
+msgstr "El documento de identificación de %s no está establecido. \n"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model,name:l10n_co_edi_hr_payroll_co.model_edi_hr_document
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__name
+msgid "Documento de Nómina Electrónica"
+msgstr ""
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:l10n_co_edi_hr_payroll_co.view_company_form
+msgid "Entorno"
+msgstr "Entorno"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields.selection,name:l10n_co_edi_hr_payroll_co.selection__edi_hr_document__state__gesendet
+msgid "Enviado"
+msgstr "Enviado"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:l10n_co_edi_hr_payroll_co.edi_hr_document_view_form
+msgid "Enviar XML"
+msgstr "Enviar XML"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__exec_env
+msgid "Environment"
+msgstr "Ambiente"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields.selection,name:l10n_co_edi_hr_payroll_co.selection__edi_hr_document__state__fehler
+msgid "Error"
+msgstr "Error"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/edi_hr_document.py:0
+#, python-format
+msgid ""
+"Error desconocido en método %s. \n"
+"\n"
+"%s"
+msgstr ""
+"Error desconocido en método %s. \n"
+"\n"
+"%s"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/edi_hr_document.py:0
+#, python-format
+msgid ""
+"Error en método %s. \n"
+"\n"
+"%s.\n"
+"%s"
+msgstr ""
+"Error en método %s. \n"
+"\n"
+"%s.\n"
+"%s"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/edi_hr_document.py:0
+#, python-format
+msgid ""
+"Error en método GetStatus. \n"
+"%s \n"
+"%s"
+msgstr ""
+"Error en método GetStatus. \n"
+"%s \n"
+"%s"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/edi_hr_document.py:0
+#, python-format
+msgid ""
+"Error en método GetStatusZip. \n"
+"%s \n"
+"%s"
+msgstr ""
+"Error en método GetStatusZip. \n"
+"%s \n"
+"%s"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/edi_hr_document.py:0
+#, python-format
+msgid ""
+"Errores en campos de la nómina electrónica: \n"
+"\n"
+"%s"
+msgstr ""
+"Errores en campos de la nómina electrónica: \n"
+"\n"
+"%s"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:l10n_co_edi_hr_payroll_co.edi_hr_document_view_form
+msgid "Generar XML"
+msgstr "Generar XML"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_datum
+msgid "Generation date"
+msgstr "fecha generación"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_gen_datum_origin
+msgid "Generation date origin"
+msgstr "Ref. fecha generación"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:l10n_co_edi_hr_payroll_co.edi_hr_document_view_form
+msgid "Get Status"
+msgstr "Comprobar estado"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:l10n_co_edi_hr_payroll_co.edi_hr_document_view_form
+msgid "Get Status Zip"
+msgstr "Comprobar estado (ZIP)"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__id
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__id
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_hr_payslip__id
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/edi_hr_document.py:0
+#, python-format
+msgid "Es necesario definir el tipo de documento de nómina electrónico \"%s\"."
+msgstr ""
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/edi_hr_document.py:0
+#, python-format
+msgid ""
+"La nómina %s ya tiene documentos electrónicos. \n"
+"Por favor, verifique el documento."
+msgstr ""
+"La nómina %s ya tiene documentos electrónicos. \n"
+"Por favor, verifique el documento."
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document____last_update
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log____last_update
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_hr_payslip____last_update
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company____last_update
+msgid "Last Modified on"
+msgstr "Última Modificación el"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__write_uid
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__write_uid
+msgid "Last Updated by"
+msgstr "Última Modificación por"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__write_date
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:l10n_co_edi_hr_payroll_co.edi_hr_document_view_form
+msgid "Log"
+msgstr "Log"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_log_ids
+msgid "Log Dian"
+msgstr "Log Dian"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model,name:l10n_co_edi_hr_payroll_co.model_edi_hr_log
+msgid "Log de transacción Nómina Electrónica Colombiana"
+msgstr "Log de transacción Nómina Electrónica Colombiana"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__edi_request_fname
+msgid "Name Request"
+msgstr "Nombre Request"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__hr_certificate_filename
+msgid "Nombre Certificado"
+msgstr "Nombre Certificado"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__hr_signature_policy_filename
+msgid "Nombre archivo política de firma"
+msgstr "Nombre archivo política de firma"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields.selection,name:l10n_co_edi_hr_payroll_co.selection__edi_hr_document__state__neu
+msgid "Nuevo"
+msgstr "Nuevo"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_zahl
+msgid "Number"
+msgstr "Número"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_zahl_origin
+msgid "Number origin"
+msgstr "Ref. Número"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model,name:l10n_co_edi_hr_payroll_co.model_hr_payslip
+msgid "Nómina"
+msgstr "Nómina"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields.selection,name:l10n_co_edi_hr_payroll_co.selection__edi_hr_document__edi_type__niae_e
+msgid "Nómina Ajuste (Eliminar)"
+msgstr "Nómina Ajuste (Eliminar)"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields.selection,name:l10n_co_edi_hr_payroll_co.selection__edi_hr_document__edi_type__niae_r
+msgid "Nómina Ajuste (Reemplazar)"
+msgstr "Nómina Ajuste (Reemplazar)"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:l10n_co_edi_hr_payroll_co.hr_payslip_form
+#: model_terms:ir.ui.view,arch_db:l10n_co_edi_hr_payroll_co.view_company_form
+msgid "Nómina Electrónica"
+msgstr "Nómina Electrónica"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields.selection,name:l10n_co_edi_hr_payroll_co.selection__edi_hr_document__edi_type__nie
+msgid "Nómina Individual"
+msgstr "Nómina Individual"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__niae_sent
+msgid "Nóminas de ajuste enviadas"
+msgstr "Nóminas de ajuste enviadas"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__nie_sent
+msgid "Nóminas enviadas"
+msgstr "Nóminas enviadas"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/edi_hr_document.py:0
+#, python-format
+msgid ""
+"Ocurrió un error generando el documento electrónico de la nómina \"%s\": \n"
+"\n"
+"Error:\n"
+"%s"
+msgstr ""
+"Ocurrió un error generando el documento electrónico de la nómina \"%s\": \n"
+"\n"
+"Error:\n"
+"%s"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__payslip_id
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__hr_id
+msgid "Payslip"
+msgstr "Nómina"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__origin_payslip_id
+msgid "Payslip origin"
+msgstr "Ref. Nómina"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__to_send
+msgid "Pending shipment"
+msgstr "Envío pendiente"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__hr_signature_policy_file
+msgid "Política de firma"
+msgstr "Política de firma"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields.selection,name:l10n_co_edi_hr_payroll_co.selection__res_company__hr_target_environment__1
+msgid "Producción"
+msgstr "Producción"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__hr_certificate_password
+msgid "Pwd Certificado"
+msgstr "Pwd Certificado"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_qr_image
+msgid "QR code"
+msgstr "Código QR"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__reason
+msgid "Reason"
+msgstr "Razón"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields.selection,name:l10n_co_edi_hr_payroll_co.selection__edi_hr_document__state__abgelehnt
+msgid "Rechazado"
+msgstr "Rechazado"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__edi_request_file
+msgid "Request"
+msgstr "Request"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__response
+#: model_terms:ir.ui.view,arch_db:l10n_co_edi_hr_payroll_co.edi_hr_document_view_form
+msgid "Response"
+msgstr "Respuesta"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_ssc
+msgid "SSC"
+msgstr "SSC"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_ssc_uncode
+msgid "SSC uncode"
+msgstr "SSC uncode"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__hr_test_set_id
+msgid "Set Pruebas Id"
+msgstr "Set Pruebas Id"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,help:l10n_co_edi_hr_payroll_co.field_edi_hr_document__to_check_status
+msgid ""
+"Si el estado de este documento es \"Enviado\" y este campo está activo, se "
+"consultará el estado en la DIAN por medio de una acción planificada"
+msgstr ""
+"Si el estado de este documento es \"Enviado\" y este campo está activo, se "
+"consultará el estado en la DIAN por medio de una acción planificada"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,help:l10n_co_edi_hr_payroll_co.field_edi_hr_document__to_send
+msgid ""
+"Si el estado de este documento es \"Nuevo\" y este campo está activo, será "
+"enviado a la DIAN por medio de una acción planificada"
+msgstr ""
+"Si el estado de este documento es \"Nuevo\" y este campo está activo, será "
+"enviado a la DIAN por medio de una acción planificada"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__hr_software_id
+msgid "Software ID"
+msgstr "Software ID"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__hr_software_pin
+msgid "Software PIN"
+msgstr "Software PIN"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__state
+msgid "State"
+msgstr "Estado"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__status_code
+msgid "Status Code"
+msgstr "Código de Estado"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields.selection,name:l10n_co_edi_hr_payroll_co.selection__res_company__hr_target_environment__2
+msgid "Test"
+msgstr "Test"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/l10n_co_edi_sentences.py:0
+#, python-format
+msgid ""
+"The DIAN response could not be processed. \n"
+"XMLresponse:\n"
+" %s"
+msgstr ""
+"La respuesta de la DIAN no púdo ser procesada. \n"
+"XMLresponse:\n"
+" %s"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/l10n_co_edi_sentences.py:0
+#, python-format
+msgid ""
+"The certificate password or certificate file is not valid.\n"
+"Exception: %s"
+msgstr ""
+"La contraseña del certificado o el archivo del certificado no es válido.\n"
+"Excepción: %s"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_type
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_log__type_request
+msgid "Type"
+msgstr "Tipo"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: code:addons/l10n_co_edi_hr_payroll_co/models/edi_hr_document.py:0
+#: code:addons/l10n_co_edi_hr_payroll_co/models/edi_hr_document.py:0
+#, python-format
+msgid "Undefined"
+msgstr "Indefinido"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__hr_signature_policy_url
+msgid "Url Politica de firma"
+msgstr "Url Politica de firma"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_xml_file
+msgid "XML"
+msgstr "XML"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_xml_fname
+msgid "XML name"
+msgstr "Nombre XML"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_zip_file
+msgid "Zip"
+msgstr "Zip"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_res_company__z_sent
+msgid "Zip enviados"
+msgstr "Zip enviados"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_zip_fname
+msgid "Zip name"
+msgstr "Nombre Zip"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.model.fields,field_description:l10n_co_edi_hr_payroll_co.field_edi_hr_document__edi_zip_key
+msgid "ZipKey"
+msgstr "ZipKey"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model:ir.actions.server,name:l10n_co_edi_hr_payroll_co.action_edi_hr_create
+msgid "Nómina Electrónica: Generar"
+msgstr ""
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:l10n_co_edi_hr_payroll_co.edi_hr_document_view_search
+msgid "edi"
+msgstr "edi"
+
+#. module: l10n_co_edi_hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:l10n_co_edi_hr_payroll_co.edi_hr_document_view_form
+msgid "hr"
+msgstr "hr"

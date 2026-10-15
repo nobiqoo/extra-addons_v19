@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="seq_niae_e" model="ir.sequence">
+            <field name="name">NIAE-E</field>
+            <field name="code">niae.e</field>
+            <field name="prefix">DEL-</field>
+            <field name="padding">1</field>
+            <field name="company_id" eval="False"></field>
+        </record>
+
+        <record id="seq_niae_r" model="ir.sequence">
+            <field name="name">NIAE-R</field>
+            <field name="code">niae.r</field>
+            <field name="prefix">REM-</field>
+            <field name="padding">1</field>
+            <field name="company_id" eval="False"></field>
+        </record>
+
+        <record id="seq_nie" model="ir.sequence">
+            <field name="name">NIE</field>
+            <field name="code">nie</field>
+            <field name="prefix">NOM-</field>
+            <field name="padding">1</field>
+            <field name="company_id" eval="False"></field>
+        </record>
+    </data>
+</odoo>

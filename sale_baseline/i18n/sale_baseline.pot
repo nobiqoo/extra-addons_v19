@@ -1,0 +1,1058 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_baseline
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-21 16:55+0000\n"
+"PO-Revision-Date: 2025-11-21 16:55+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_baseline
+#: model:res.groups,comment:sale_baseline.group_line_price_edit
+msgid ""
+"\n"
+"                - Allows to edit price lines in sell orders when the restriction is active from the company configuration settings\n"
+"            "
+msgstr ""
+
+#. module: sale_baseline
+#: model:res.groups,comment:sale_baseline.group_block_expired_invoice
+msgid ""
+"\n"
+"                - Permite activar el bloqueo de ventas por facturas vencidas desde el tercero\n"
+"                - Los usuarios en este grupo pueden autorizar la confirmación de pedidos de venta bloqueados por facturas vencidas.\n"
+"            "
+msgstr ""
+
+#. module: sale_baseline
+#: model:res.groups,comment:sale_baseline.group_block_credit_limit
+msgid ""
+"\n"
+"                - Permite activar el bloqueo de ventas por límite de crédito desde el tercero\n"
+"                - Los usuarios en este grupo pueden autorizar la confirmación de pedidos de venta bloqueados por límite de crédito.\n"
+"            "
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/models/sale_order.py:0
+#, python-format
+msgid ""
+"%(pr)s ha superado su Límite de crédito: %(lc)s\n"
+"\n"
+"Crédito: %(cr)s\n"
+"Valor orden: %(vt)s"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.actions.server,name:sale_baseline.cron_add_tag_to_non_buyers_ir_actions_server
+msgid "Add tag to non buyers"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__add_tag_to_non_buyers
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__add_tag_to_non_buyers
+msgid "Add tag to non buyers and block them"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__allow_confirm_sale_for_administrators
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__allow_confirm_sale_for_administrators
+msgid "Allow confirm sale for administrators"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_res_company__salesperson_not_editable
+#: model:ir.model.fields,help:sale_baseline.field_res_config_settings__salesperson_not_editable
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_res_config_settings
+msgid ""
+"Allows to restrict the edition of the salesperson field in sales and "
+"invoices."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_res_company__add_tag_to_non_buyers
+#: model:ir.model.fields,help:sale_baseline.field_res_config_settings__add_tag_to_non_buyers
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_res_config_settings
+msgid ""
+"Allows you to add a tag and block to the customer who has not purchased in "
+"the last few months."
+msgstr ""
+
+#. module: sale_baseline
+#: model:res.groups,comment:sale_baseline.group_edit_salesperson
+msgid ""
+"Allows you to edit the salesperson field in sales and invoices when this "
+"restriction is active from the company configuration settings"
+msgstr ""
+
+#. module: sale_baseline
+#: model:res.groups,comment:sale_baseline.group_confirm_partner_locked_no_buy
+msgid ""
+"Allows you to publish sale orders to blocked partners for not buying in a "
+"certain time."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_sale_order__unlock_for_overdue_invoices
+msgid "Autorizar con Fac. Ven."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_sale_order__unlock_for_credit_limit
+msgid "Autorizar con LdC"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_sale_order__unlock_for_overdue_invoices
+msgid "Autorizar si el cliente esta bloqueado por facturas vencidas."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_sale_order__unlock_for_credit_limit
+msgid "Autorizar si el cliente esta bloqueado por límite de crédito."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__block_credit_limit
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__block_credit_limit
+msgid "Block Credit Limit"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__block_expired_invoice
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__block_expired_invoice
+msgid "Block Expired Invoice"
+msgstr ""
+
+#. module: sale_baseline
+#: model:res.groups,name:sale_baseline.group_block_cancel_picking
+msgid "Block button action cancel"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__block_credit_limit
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__block_credit_limit
+msgid "Block by credit limit"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__block_expired_invoice
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__block_expired_invoice
+msgid "Block expired invoice"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__is_blocked_not_buy
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__is_blocked_not_buy
+msgid "Blocked for time without buying"
+msgstr ""
+
+#. module: sale_baseline
+#: model:res.groups,name:sale_baseline.group_block_credit_limit
+msgid "Bloquear Límite de crédito"
+msgstr ""
+
+#. module: sale_baseline
+#: model:res.groups,name:sale_baseline.group_block_expired_invoice
+msgid "Bloquear por facturas vencidas"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__bom_type
+msgid "Bom Type"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.profitability_report_wizard_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report_wizard__category_id
+msgid "Categories"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__category_id
+msgid "Category"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_sale_order__check_user_edit_line
+#: model:ir.model.fields,field_description:sale_baseline.field_sale_order_line__check_user_edit_line
+msgid "Check User Edit Line"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_order_form
+msgid "Confirm"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__unit_cost
+msgid "Cost"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_credit_limit_history__create_uid
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__create_uid
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_credit_limit_history__create_date
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__create_date
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_credit_limit_history__credit
+msgid "Credit"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_credit_limit_history
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__credit_limit_history_ids
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__credit_limit_history_ids
+msgid "Credit Limit History"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__credit_limit_readonly
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__credit_limit_readonly
+msgid "Credit Limit Readonly"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_res_partner_account_form
+msgid "Credit control"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_res_partner_history_credit_inherit
+msgid "Credit limit History"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report_wizard__partner_id
+msgid "Customer"
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/models/sale_order.py:0
+#, python-format
+msgid "Customer blocked for time without making purchases."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_credit_limit_history__date
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__date
+msgid "Date"
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/models/res_company.py:0
+#: code:addons/sale_baseline/models/res_config_settings.py:0
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__day_limit_invoice_block
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__day_limit_invoice_block
+#: model:ir.model.fields,help:sale_baseline.field_res_company__day_limit_invoice_block
+#: model:ir.model.fields,help:sale_baseline.field_res_config_settings__day_limit_invoice_block
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_res_config_settings
+msgid "Day limit invoice"
+msgstr "Límite de días"
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_credit_limit_history__display_name
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__display_name
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__sale_confirm_quantity
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__sale_confirm_quantity
+msgid "Do not confirm without quantity"
+msgstr ""
+
+#. module: sale_baseline
+#: model:res.groups,name:sale_baseline.group_line_price_edit
+msgid "Edit Lines Price"
+msgstr ""
+
+#. module: sale_baseline
+#: model:res.groups,name:sale_baseline.group_edit_salesperson
+msgid "Edit vendor in sales and invoice"
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/models/sale_order.py:0
+#, python-format
+msgid ""
+"El cliente tiene las siguientes facturas vencidas: \n"
+"%s"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report_wizard__end_date
+msgid "End Date"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.actions.server,name:sale_baseline.action_generate_profitability_report
+msgid "Generate Profitability Report"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.profitability_report_wizard_view_form
+msgid "Generate Report"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_res_company__restriction_line_price
+#: model:ir.model.fields,help:sale_baseline.field_res_config_settings__restriction_line_price
+msgid ""
+"Gives access to groups to be able to edit the price of the lines of an "
+"order. "
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_credit_limit_history__id
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__id
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__invoice_name
+#: model_terms:ir.ui.view,arch_db:sale_baseline.profitability_report_view_search
+msgid "Invoice Name"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_product_category__is_kit
+msgid "Is Kit"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__is_kit
+msgid "Is Kit?"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.res_config_settings_view_form_sale
+msgid ""
+"It does not allow to confirm the sales order if there are no quantities "
+"available"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_res_company__sale_confirm_quantity
+#: model:ir.model.fields,help:sale_baseline.field_res_config_settings__sale_confirm_quantity
+msgid ""
+"It does not allow to confirm the sales order if there are no quantities "
+"available."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/models/sale_order.py:0
+#, python-format
+msgid ""
+"Las cuentas: \n"
+" %s \n"
+" no están publicadas."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_credit_limit_history__write_uid
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__write_uid
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_credit_limit_history__write_date
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__write_date
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/models/sale_order.py:0
+#, python-format
+msgid "Los anticipos acumulados no superan el total del pedido."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__margin
+msgid "Margin"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__months_without_buying
+msgid "Months"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__months_without_buying
+msgid "Months without buyings"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields.selection,name:sale_baseline.selection__profitability_report__bom_type__normal
+msgid "NORMAL"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_credit_limit_history__name
+msgid "Name"
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/models/sale_order_report.py:0
+#, python-format
+msgid "No data found. Try different criteria."
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/models/profitability_report.py:0
+#, python-format
+msgid "No data, try again"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields.selection,name:sale_baseline.selection__profitability_report__picking_type__out
+msgid "OUT"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_res_company__allow_confirm_sale_for_administrators
+#: model:ir.model.fields,help:sale_baseline.field_res_config_settings__allow_confirm_sale_for_administrators
+msgid ""
+"Only users belonging to the Sale / Administrator group are allowed to "
+"confirm orders."
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.res_config_settings_sale_profiling
+msgid ""
+"Only users belonging to the Sale/Administrator group are allowed to confirm "
+"orders."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields.selection,name:sale_baseline.selection__profitability_report__bom_type__phantom
+msgid "PHANTOM"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.module.category,name:sale_baseline.sale_baseline_category
+msgid "Pagos"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_credit_limit_history__partner_id
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__partner_id
+#: model_terms:ir.ui.view,arch_db:sale_baseline.profitability_report_view_search
+msgid "Partner"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__percentage
+msgid "Percentage"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__picking
+#: model_terms:ir.ui.view,arch_db:sale_baseline.profitability_report_view_search
+msgid "Picking"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__picking_type
+msgid "Picking Type"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_product_product_list_price_public_kanban
+msgid "Price LdP:"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__show_price_variant_ldp
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__show_price_variant_ldp
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_res_config_setting_stock
+msgid "Price list to show in variants"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__product_id
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report_wizard__product_id
+msgid "Product"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_product_category
+msgid "Product Category"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.ui.menu,name:sale_baseline.menu_product_profitability_report
+msgid "Product Profitability Report"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_product_product
+msgid "Product Variant"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.res_config_settings_sale_profiling
+msgid "Profiling"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.actions.act_window,name:sale_baseline.action_profitability_report_wizard
+#: model_terms:ir.ui.view,arch_db:sale_baseline.profitability_report_wizard_view_form
+msgid "Profitability Report"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_profitability_report_wizard
+msgid "Profitability Report Wizard"
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/models/profitability_report.py:0
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_profitability_report_tree
+#, python-format
+msgid "Profitability by Product"
+msgstr ""
+
+#. module: sale_baseline
+#: model:res.groups,name:sale_baseline.group_confirm_partner_locked_no_buy
+msgid "Publish sales to blocked partners for not buying"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__quantity_delivered
+msgid "Quantity Delivered"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__quantity_invoiced
+msgid "Quantity Invoiced"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__quantity_ordered
+msgid "Quantity Ordered"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__quota_limit_initial
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__quota_limit_initial
+msgid "Quota Limit Initial"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields.selection,name:sale_baseline.selection__profitability_report__picking_type__ret
+msgid "RET"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__refund_name
+#: model_terms:ir.ui.view,arch_db:sale_baseline.profitability_report_view_search
+msgid "Refund Name"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__refund_for_higher_value
+msgid "Refund for Higher Value"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_account_bank_statement_line__refund_for_higher_value
+#: model:ir.model.fields,field_description:sale_baseline.field_account_move__refund_for_higher_value
+#: model:ir.model.fields,field_description:sale_baseline.field_account_payment__refund_for_higher_value
+msgid "Refund for higher value"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__restriction_line_price
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__restriction_line_price
+msgid "Restrict product line price edition."
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_res_config_settings_edit_line
+msgid "Restriction to edit price on order line."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__order_id
+#: model_terms:ir.ui.view,arch_db:sale_baseline.profitability_report_view_search
+msgid "Sale Order"
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/models/sale_order_report.py:0
+#, python-format
+msgid "Sale Order Report"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__sale_price
+msgid "Sale Price"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__sale_price_total
+msgid "Sale Price Total"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_product_product__ldp_price
+msgid "Sale price ldP"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.ui.menu,name:sale_baseline.menu_sale_administrative
+msgid "Sales Administratives"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_product_product__ldp_price
+msgid "Sales price according to price list selected in company configuration."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_account_bank_statement_line__is_edit_salesperson
+#: model:ir.model.fields,field_description:sale_baseline.field_account_move__is_edit_salesperson
+#: model:ir.model.fields,field_description:sale_baseline.field_account_payment__is_edit_salesperson
+#: model:ir.model.fields,field_description:sale_baseline.field_sale_order__is_edit_salesperson
+msgid "Salesperson editable"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__salesperson_not_editable
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__salesperson_not_editable
+msgid "Salesperson field not editable"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.profitability_report_view_search
+msgid "Search"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.profitability_report_wizard_view_form
+msgid "Select Date"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.profitability_report_wizard_view_form
+msgid "Select Features"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.profitability_report_wizard_view_form
+msgid "Select date from..."
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.profitability_report_wizard_view_form
+msgid "Select date to..."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_res_company__show_price_variant_ldp
+#: model:ir.model.fields,help:sale_baseline.field_res_config_settings__show_price_variant_ldp
+msgid "Select the price list you want to display in product variant views"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_account_move_line__shipping_cost
+#: model:ir.model.fields,field_description:sale_baseline.field_sale_order_line__shipping_cost
+msgid "Shipping Cost"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_sale_order__show_confirm_button
+msgid "Show confirm button"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report_wizard__start_date
+msgid "Start Date"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields.selection,name:sale_baseline.selection__profitability_report__bom_type__subcontract
+msgid "Subcontract"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__tags_to_add_ids
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__tags_to_add_ids
+msgid "Tag"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__team_id
+msgid "Team"
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/wizard/profitability_report_wizard.py:0
+#: code:addons/sale_baseline/wizard/sale_order_report_wizard.py:0
+#, python-format
+msgid "The end date cannot be less than the start date."
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/models/sale_order.py:0
+#, python-format
+msgid ""
+"The order cannot be confirmed.\n"
+" Only %s of %s of the product %s is available."
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/models/sale_order_report.py:0
+#, python-format
+msgid "The start date must be before the end date."
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.product_category_form_view_inherit
+msgid ""
+"This field is used to check if it is a kit type for the profitability report"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__total_cost
+msgid "Total"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__total_weight
+msgid "Total Weight"
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/models/sale_order.py:0
+#, python-format
+msgid "Una cuenta anticipo mínimo debe estar relacionada con el pedido."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_credit_limit_history__user_id
+msgid "User who updated"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_res_config_settings
+msgid ""
+"Validate if the partner has not paid invoices and the amount exceeds the "
+"credit limit"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_res_company__block_credit_limit
+#: model:ir.model.fields,help:sale_baseline.field_res_config_settings__block_credit_limit
+msgid ""
+"Validate if the partner has not paid invoices and the amount exceeds the "
+"credit limit."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_res_company__block_expired_invoice
+#: model:ir.model.fields,help:sale_baseline.field_res_config_settings__block_expired_invoice
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_res_config_settings
+msgid ""
+"Validate if the partner has overdue invoices and block the current invoice."
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.product_category_form_view_inherit
+msgid "Validation"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_profitability_report__weight
+msgid "Weight"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_res_company__months_without_buying
+#: model:ir.model.fields,help:sale_baseline.field_res_config_settings__months_without_buying
+msgid "months required to add tag."
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_profitability_report
+msgid "profitability.report"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_profitability_report_tree
+msgid "sale_price"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_profitability_report_tree
+msgid "sale_price_total"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_profitability_report_tree
+msgid "total_cost"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_profitability_report_tree
+msgid "unit_cost"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_res_partner_account_form
+msgid "<span class=\"me-1\">Updated on</span>"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_res_partner_account_form
+msgid "<span class=\"mx-1\">by</span>"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__credit_application
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__credit_application
+msgid "Credit Application"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__credit_application_file
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__credit_application_file
+msgid "Credit Application Document"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__credit_application_filename
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__credit_application_filename
+msgid "Credit Application File Name"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__credit_application_update_date
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__credit_application_update_date
+msgid "Credit Application Last Update"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__credit_application_update_user_id
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__credit_application_update_user_id
+msgid "Credit Application Updated By"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__risk_bureau
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__risk_bureau
+msgid "Credit Bureaus"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__risk_bureau_file
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__risk_bureau_file
+msgid "Credit Bureaus Document"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__risk_bureau_filename
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__risk_bureau_filename
+msgid "Credit Bureaus File Name"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__risk_bureau_update_date
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__risk_bureau_update_date
+msgid "Credit Bureaus Last Update"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__risk_bureau_update_user_id
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__risk_bureau_update_user_id
+msgid "Credit Bureaus Updated By"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__credit_documents_readonly
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__credit_documents_readonly
+msgid "Credit Documents Readonly"
+msgstr ""
+
+#. module: sale_baseline
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_res_partner_account_form
+msgid "Credit documents"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__data_authorization
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__data_authorization
+msgid "Data Processing Authorization"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__data_authorization_file
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__data_authorization_file
+msgid "Data Processing Authorization Document"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__data_authorization_filename
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__data_authorization_filename
+msgid "Data Processing Authorization File Name"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__data_authorization_update_date
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__data_authorization_update_date
+msgid "Data Processing Authorization Last Update"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__data_authorization_update_user_id
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__data_authorization_update_user_id
+msgid "Data Processing Authorization Updated By"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__insured
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__insured
+msgid "Insured"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__insured_file
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__insured_file
+msgid "Insured Document"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__insured_filename
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__insured_filename
+msgid "Insured File Name"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__insured_update_date
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__insured_update_date
+msgid "Insured Last Update"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__insured_update_user_id
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__insured_update_user_id
+msgid "Insured Updated By"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__promissory_note_file
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__promissory_note_file
+msgid "Promissory Note Document"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__promissory_note_filename
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__promissory_note_filename
+msgid "Promissory Note File Name"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__promissory_note_update_date
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__promissory_note_update_date
+msgid "Promissory Note Last Update"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__promissory_note_update_user_id
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__promissory_note_update_user_id
+msgid "Promissory Note Updated By"
+msgstr ""
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__promissory_note
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__promissory_note
+msgid "Promissory Note and Letter of Instructions"
+msgstr ""
+
+#. module: sale_baseline
+#. odoo-python
+#: code:addons/sale_baseline/models/res_partner.py:0
+msgid ""
+"You are not allowed to modify the credit documents of contacts. Ask a user "
+"with the credit limit or overdue invoices control permission."
+msgstr ""

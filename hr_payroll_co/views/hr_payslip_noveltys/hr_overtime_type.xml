@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_overtime_type_form" model="ir.ui.view">
+            <field name="name">hr.overtime.type.form</field>
+            <field name="model">hr.overtime.type</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="model_basic_payslip_novelty_type_form" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[@name='title']" position='inside'>
+                    <h1>Categoría de Horas Extras</h1>
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='name']" position='after'>
+                    <field name="rate" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_overtime_type_tree" model="ir.ui.view">
+            <field name="name">hr.overtime.type.tree</field>
+            <field name="model">hr.overtime.type</field>
+            <field name="type">list</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="code" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_overtime_type_action" model="ir.actions.act_window">
+            <field name="name">Categoría de Horas Extras</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.overtime.type</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_overtime_type_menu_act" name="Categoría de Horas Extras" parent="setup_novelty_menu_categ" action="hr_overtime_type_action" sequence="3" />
+
+    </data>
+</odoo>

@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_maintenance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Language-Team: Spanish (Latin America)\n"
+"Language: es_419\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: product_maintenance
+#: model:ir.model.fields,field_description:product_maintenance.field_product_maintenance__analytic_distribution
+#: model:ir.model.fields,field_description:product_maintenance.field_product_template_maintenance_product__analytic_distribution
+#: model:ir.model.fields,field_description:product_maintenance.field_repair_order__analytic_distribution
+#: model:ir.model.fields,field_description:product_maintenance.field_stock_move__analytic_distribution
+msgid "Analytic Distribution"
+msgstr "Distribución Analítica"
+
+#. module: product_maintenance
+#: model:ir.model.fields,field_description:product_maintenance.field_stock_warehouse__enabled_for_repair
+msgid "Enabled for Repairs"
+msgstr "Habilitado para Reparaciones"
+
+#. module: product_maintenance
+#: model:ir.model.fields,help:product_maintenance.field_stock_warehouse__enabled_for_repair
+msgid "If unchecked, this warehouse will not appear as an Operation Type option on repair orders, nor be used as the default repair warehouse."
+msgstr "Si está desmarcado, este almacén no aparecerá como opción de Tipo de operación en las órdenes de reparación, ni será usado como almacén de reparación por defecto."

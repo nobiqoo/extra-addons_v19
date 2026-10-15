@@ -1,0 +1,934 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_expense_baseline
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-18 14:26+0000\n"
+"PO-Revision-Date: 2024-12-18 14:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_expense_baseline
+#: model:mail.template,body_html:hr_expense_baseline.mail_template_advance_notification
+msgid ""
+"<div>\n"
+"                    <p>\n"
+"                        Dear, <t t-out=\"object.employee_id.coach_id.name\"></t>\n"
+",\n"
+"                    <br>\n"
+"                    <br>\n"
+"                    <strong>This is a notification Advance</strong>\n"
+"                    <br>\n"
+"                    <br>\n"
+"                    <strong>Advance:</strong>\n"
+"                    <t t-out=\"object.name\"></t>\n"
+"                    <br>\n"
+"                    <strong>Requested by:</strong>\n"
+"                    <t t-out=\"object.employee_id.name\"></t>\n"
+"                    <br>\n"
+"                    <strong>Amount:</strong>\n"
+"                    <t t-out=\"object.amount\"></t>\n"
+"                    <br>\n"
+"                    <strong>Reason:</strong>\n"
+"                    <t t-out=\"object.description\"></t>\n"
+"                    </p>\n"
+"                        Regards,\n"
+"                    <br>\n"
+"                    <br>\n"
+"                    <t t-out=\"object.company_id.name\"></t>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    <p>\n"
+"                        Estimado, <t t-out=\"object.employee_id.coach_id.name\"></t>\n"
+",\n"
+"                    <br>\n"
+"                    <br>\n"
+"                    <strong>Notificación de Anticipo</strong>\n"
+"                    <br>\n"
+"                    <br>\n"
+"                    <strong>Anticipo:</strong>\n"
+"                    <t t-out=\"object.name\"></t>\n"
+"                    <br>\n"
+"                    <strong>Solicitado por:</strong>\n"
+"                    <t t-out=\"object.employee_id.name\"></t>\n"
+"                    <br>\n"
+"                    <strong>Valor:</strong>\n"
+"                    <t t-out=\"object.amount\"></t>\n"
+"                    <br>\n"
+"                    <strong>Descripción:</strong>\n"
+"                    <t t-out=\"object.description\"></t>\n"
+"                    </p>\n"
+"                        Saludos,\n"
+"                    <br>\n"
+"                    <br>\n"
+"                    <t t-out=\"object.company_id.name\"></t>\n"
+"                </div>\n"
+"            "
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_advance_view_form
+msgid "<span>Name</span>"
+msgstr "<span>Nombre</span>"
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.petty_cash_open_view_form
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__access_warning
+msgid "Access warning"
+msgstr "Permisos de Acceso"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__account_payable
+msgid "Account Payable"
+msgstr "Cuenta por Pagar"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_account_journal__account_payable_cash
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.account_journal_voucher_inherit_form
+msgid "Account Payable Cash"
+msgstr "Cuenta por pagar Caja menor"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__account_receivable
+msgid "Account Receivable"
+msgstr "Cuenta por Cobrar"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_account_journal__account_refund_expensive
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.account_journal_voucher_inherit_form
+msgid "Account Refund Expensive"
+msgstr "Cuenta reembolso de gastos"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_account_journal__account_refund_petty_cash
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.account_journal_voucher_inherit_form
+msgid "Account Refund Petty Cash"
+msgstr "Cuenta rembolso de caja menor"
+
+#. module: hr_expense_baseline
+#: model:ir.model,name:hr_expense_baseline.model_account_voucher
+msgid "Accounting Voucher"
+msgstr "Comprobantes contables"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__message_needaction
+msgid "Action Needed"
+msgstr "Se requiere una acción"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de actividad de excepción"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de tipo de actvidad"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense__advance_id
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_sheet__expense_advance_id
+#: model:ir.model.fields.selection,name:hr_expense_baseline.selection__hr_expense__type__advance
+msgid "Advance"
+msgstr "Anticipo"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_res_config_settings__advance_account_employee
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_res_company__advance_account_employee
+msgid "Advance Account for Employee"
+msgstr "Cuenta de Anticipo Empleados"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_employee__approvers_ids
+msgid "Advance Approvers"
+msgstr "Aprobador(es)"
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_inherit_view_form
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_sheet_inherit_view_form
+msgid "Advance Id"
+msgstr "Anticipo"
+
+#. module: hr_expense_baseline
+#: model:mail.template,name:hr_expense_baseline.mail_template_advance_notification
+msgid "Advance Notification Email"
+msgstr "Email de Notificación de Anticipo"
+
+#. module: hr_expense_baseline
+#: model:mail.template,subject:hr_expense_baseline.mail_template_advance_notification
+msgid "Advance Notification from {{object.employee_id.name}} "
+msgstr "Notificación de Anticipo de {{object.employee_id.name}} "
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/hr_expense_advance.py:0
+#: code:addons/hr_expense_baseline/models/hr_expense_advance.py:0
+#, python-format
+msgid "Advance: %s"
+msgstr "Anticipo: %s"
+
+#. module: hr_expense_baseline
+#: model:ir.actions.act_window,name:hr_expense_baseline.action_hr_expense_advance
+#: model:ir.ui.menu,name:hr_expense_baseline.menu_hr_expense_advance
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_advance_view_search
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_advance_view_tree
+msgid "Advances"
+msgstr "Anticipos"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__amount
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_petty_cash__amount
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.petty_cash_open_view_form
+msgid "Amount"
+msgstr "Valor"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__approval_date
+msgid "Approval Date"
+msgstr "Fecha de aprobación"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields.selection,name:hr_expense_baseline.selection__hr_expense_advance__state__approved
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_advance_view_form
+msgid "Approved"
+msgstr "Aprobado"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de archivos adjuntos"
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_advance_setting_form
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.petty_cash_open_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/hr_expense_sheet.py:0
+#, python-format
+msgid "Cannot Find the Journal."
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_advance_view_form
+msgid "Change to Draft"
+msgstr "Cambiar a Borrador"
+
+#. module: hr_expense_baseline
+#: model:ir.actions.server,name:hr_expense_baseline.ir_cron_check_expired_advances_ir_actions_server
+msgid "Check and Update Expired Advances"
+msgstr "Verificar y Actualizar Anticipos Vencidos"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields.selection,name:hr_expense_baseline.selection__petty_cash__operation_type__close
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__director_id
+msgid "Coach"
+msgstr "Director"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: hr_expense_baseline
+#: model:ir.model,name:hr_expense_baseline.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/hr_expense_advance.py:0
+#, python-format
+msgid "Configure the Advance Account for Employees in the settings"
+msgstr ""
+"Configure la cuenta anticipo de empleados en contabilidad > configuración > "
+"ajustes"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/hr_expense_sheet.py:0
+#, python-format
+msgid "Configure the Refund expense account in journal settings."
+msgstr "Configurar la cuenta de gastos de reembolso en los ajustes del diario"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/hr_expense.py:0
+#, python-format
+msgid "Configure the Refund expense account in settings/account"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model,name:hr_expense_baseline.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__create_uid
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance_setting__create_uid
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_petty_cash__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__create_date
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance_setting__create_date
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_petty_cash__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__currency_id
+msgid "Currency"
+msgstr "Divisa"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,help:hr_expense_baseline.field_hr_expense_advance__access_url
+msgid "Customer Portal URL"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__date_accounting
+msgid "Date Accounting"
+msgstr "Fecha Contable"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance_setting__days_for_due
+msgid "Days for Due Date"
+msgstr "Dias para Fecha de Vencimiento"
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_advance_view_form
+msgid "Decline"
+msgstr "Rechazar"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields.selection,name:hr_expense_baseline.selection__petty_cash__operation_type__decrease
+msgid "Decrease"
+msgstr "Decrementar"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__description
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_advance_view_form
+msgid "Description"
+msgstr "Descripción"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__display_name
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance_setting__display_name
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_petty_cash__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields.selection,name:hr_expense_baseline.selection__hr_expense_advance__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__due_date
+msgid "Due Date"
+msgstr "Fecha de Vencimiento"
+
+#. module: hr_expense_baseline
+#: model:ir.model,name:hr_expense_baseline.model_hr_employee
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__employee_id
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_advance_view_form
+msgid "Enter your description"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model,name:hr_expense_baseline.model_hr_expense
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_account_bank_statement_line__expense_id
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_account_move__expense_id
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_account_payment__expense_id
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_account_voucher_line__expense_id
+msgid "Expense"
+msgstr "Gasto"
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.view_res_config_settings_inherit_advance
+msgid "Expense Accounts"
+msgstr "Cuentas de Gasto"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense__journal_id
+msgid "Expense Journal"
+msgstr "Diario de gastos"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields.selection,name:hr_expense_baseline.selection__hr_expense__type__expense_petty_cash
+msgid "Expense Petty Cash"
+msgstr "Gastos Caja Menor"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields.selection,name:hr_expense_baseline.selection__hr_expense__type__expense_refund
+msgid "Expense Refund"
+msgstr "Reembolso de gasto"
+
+#. module: hr_expense_baseline
+#: model:ir.model,name:hr_expense_baseline.model_hr_expense_sheet
+msgid "Expense Report"
+msgstr "Reporte de gastos"
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.account_journal_voucher_inherit_form
+msgid "Expense and Petty Cash"
+msgstr "Gastos y Caja Menor"
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.account_journal_voucher_inherit_form
+msgid "Expensive"
+msgstr "Gastos"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields.selection,name:hr_expense_baseline.selection__hr_expense_advance__state__expired
+msgid "Expired"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,help:hr_expense_baseline.field_hr_expense_advance__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_account_journal__fund
+msgid "Fund"
+msgstr "Fondo"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields.selection,name:hr_expense_baseline.selection__hr_expense_advance__state__generate_advance
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_advance_view_form
+msgid "Generate Advance"
+msgstr "Generar Anticipo"
+
+#. module: hr_expense_baseline
+#: model:ir.model,name:hr_expense_baseline.model_hr_expense_advance
+msgid "HR Expense Advance"
+msgstr "Anticipo"
+
+#. module: hr_expense_baseline
+#: model:ir.model,name:hr_expense_baseline.model_hr_expense_advance_setting
+msgid "HR Expense Advance Setting"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__id
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance_setting__id
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_petty_cash__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,help:hr_expense_baseline.field_hr_expense_advance__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,help:hr_expense_baseline.field_hr_expense_advance__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,help:hr_expense_baseline.field_hr_expense_advance__message_has_error
+#: model:ir.model.fields,help:hr_expense_baseline.field_hr_expense_advance__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields.selection,name:hr_expense_baseline.selection__petty_cash__operation_type__increase
+msgid "Increase"
+msgstr "Incrementar"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/wizard/petty_cash_open_wizard.py:0
+#, python-format
+msgid "Insufficient funds to decrease."
+msgstr "Fondos insuficientes para decrementar"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_account_journal__is_assigned
+msgid "Is Assigned"
+msgstr "Es Asignado"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model,name:hr_expense_baseline.model_account_journal
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__journal_id
+msgid "Journal"
+msgstr "Diario"
+
+#. module: hr_expense_baseline
+#: model:ir.model,name:hr_expense_baseline.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__write_uid
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance_setting__write_uid
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_petty_cash__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__write_date
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance_setting__write_date
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_petty_cash__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__local_amount
+msgid "Local Amount"
+msgstr "Moneda Local"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/hr_expense_advance.py:0
+#, python-format
+msgid "New"
+msgstr "Nuevo"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/wizard/petty_cash_open_wizard.py:0
+#, python-format
+msgid "No petty cash journal defined for this partner."
+msgstr "No existe un diario de caja menor definido para este usuario"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,help:hr_expense_baseline.field_hr_expense_advance_setting__days_for_due
+msgid "Number of days for the due date after the request date."
+msgstr ""
+"Número de días para la fecha de vencimiento después de la fecha de solicitud"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,help:hr_expense_baseline.field_hr_expense_advance__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,help:hr_expense_baseline.field_hr_expense_advance__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields.selection,name:hr_expense_baseline.selection__petty_cash__operation_type__open
+msgid "Open"
+msgstr "Abrir"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_petty_cash__operation_type
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.petty_cash_open_view_form
+msgid "Operation Type"
+msgstr "Tipo de Operación"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense__partner_id
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_sheet__partner_id
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_petty_cash__partner_id
+msgid "Partner"
+msgstr "Asociado"
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.petty_cash_open_view_form
+msgid "Partner id"
+msgstr "Asociado"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields.selection,name:hr_expense_baseline.selection__hr_expense_advance__state__pending_approval
+msgid "Pending Approval"
+msgstr "Pendiente de Aprobación"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields.selection,name:hr_expense_baseline.selection__hr_expense_advance__state__pending_legalization
+msgid "Pending Legalization"
+msgstr "Pendiente por Legalizar"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_account_journal__petty_cash
+#: model:ir.ui.menu,name:hr_expense_baseline.menu_hr_expense_petty_cash
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.account_journal_voucher_inherit_form
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.res_partner_inherit_form
+msgid "Petty Cash"
+msgstr "Caja Menor"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense__petty_cash_fund
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_sheet__expense_petty_cash_fund
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_inherit_view_form
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_sheet_inherit_view_form
+msgid "Petty Cash Fund"
+msgstr "Fondo Caja Menor"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_res_partner__petty_cash_journal
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_res_users__petty_cash_journal
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.res_partner_inherit_form
+msgid "Petty Cash Journal"
+msgstr "Diario Caja Menor"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_res_partner__petty_cash_manager
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_res_users__petty_cash_manager
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.res_partner_inherit_form
+msgid "Petty Cash Manager"
+msgstr "Responsable de Caja Menor"
+
+#. module: hr_expense_baseline
+#: model:ir.actions.act_window,name:hr_expense_baseline.action_petty_cash_open
+#: model:ir.ui.menu,name:hr_expense_baseline.model_petty_cash_menu
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.petty_cash_open_view_form
+msgid "Petty Cash Open"
+msgstr "Abrir Caja Menor"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_res_partner__petty_cash_opened
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_res_users__petty_cash_opened
+msgid "Petty Cash Opened"
+msgstr "Caja menor abierta"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense__petty_cash_responsible_id
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_sheet__expense_petty_cash_responsible_id
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_inherit_view_form
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_sheet_inherit_view_form
+msgid "Petty Cash Responsible"
+msgstr "Responsable Caja Menor"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/hr_expense_advance.py:0
+#, python-format
+msgid "Please configure the Days for Due Date from Settings."
+msgstr "Por favor configurar los días de vencimiento desde configuación"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__access_url
+msgid "Portal Access URL"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_res_config_settings__refund_expense_account
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_res_company__refund_expense_account
+msgid "Refund Expense Account"
+msgstr "Cuenta Rembolo de Gastos"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense__related_employee_id
+msgid "Related Employee"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__request_date
+msgid "Request Date"
+msgstr "Fecha de Solicitud"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__access_token
+msgid "Security Token"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,help:hr_expense_baseline.field_hr_expense_advance__director_id
+msgid ""
+"Select the \"Employee\" who is the coach of this employee.\n"
+"The \"Coach\" has no specific rights or responsibilities by default."
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_advance_view_form
+msgid "Send"
+msgstr "Enviar"
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_advance_setting_form
+msgid "Set Days"
+msgstr "Establecer"
+
+#. module: hr_expense_baseline
+#: model:ir.actions.act_window,name:hr_expense_baseline.action_hr_expense_advance_days
+#: model:ir.ui.menu,name:hr_expense_baseline.menu_hr_expense_advance_days_config
+msgid "Set Days for Due Date"
+msgstr "Días para vencimiento "
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__state
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_advance_view_tree
+msgid "State"
+msgstr "Estado"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,help:hr_expense_baseline.field_hr_expense_advance__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/wizard/petty_cash_open_wizard.py:0
+#, python-format
+msgid "The amount must be positive."
+msgstr "El valor debe ser positivo"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/hr_expense_advance.py:0
+#, python-format
+msgid "The description is required for draft state."
+msgstr "El campo descripción es requerido en borrador"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/account_journal_dashboard.py:0
+#, python-format
+msgid "The fund cannot be negative."
+msgstr "El fondo no puede ser negativo"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/hr_expense_advance.py:0
+#, python-format
+msgid "The journal does not have a default account"
+msgstr "El diario no tiene una cuenta por defecto"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/hr_expense.py:0
+#, python-format
+msgid ""
+"The total amount of the expense is greater than the fund of the petty cash "
+"responsible."
+msgstr ""
+"El importe total del gasto es mayor que el fondo del responsable de caja "
+"menor"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/wizard/petty_cash_open_wizard.py:0
+#, python-format
+msgid "This partner already has a petty cash open."
+msgstr "El asociado ya cuenta con una caja menor abierta"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/wizard/petty_cash_open_wizard.py:0
+#, python-format
+msgid "This partner does not have a petty cash open."
+msgstr "El asociado no cuenta con una caja menor abierta."
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.account_journal_voucher_inherit_form
+msgid "To activate select cash or bank type"
+msgstr "Para activar, seleccione tipo efectivo o banco"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense__type
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_sheet__expense_type
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_inherit_view_form
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_sheet_inherit_view_form
+msgid "Type"
+msgstr "Tipo"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,help:hr_expense_baseline.field_hr_expense_advance__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,help:hr_expense_baseline.field_hr_employee__approvers_ids
+msgid "Users who can approve the advances for this employee."
+msgstr "Usuarios que pueden aprobar los anticipos para este empleado"
+
+#. module: hr_expense_baseline
+#: model:ir.model,name:hr_expense_baseline.model_account_voucher_line
+msgid "Voucher Lines"
+msgstr "Líneas de comprobante"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__voucher_out
+msgid "Voucher Out"
+msgstr "comprobante de Egreso"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:hr_expense_baseline.field_hr_expense_advance__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,help:hr_expense_baseline.field_hr_expense_advance__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/hr_expense_advance.py:0
+#, python-format
+msgid "You are not allowed to approve this advance."
+msgstr "No tiene permisos para aprobar este anticipo"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/hr_expense_sheet.py:0
+#, python-format
+msgid "You are not allowed to approve this expense sheet."
+msgstr ""
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/hr_expense_advance.py:0
+#, python-format
+msgid "You are not allowed to decline this advance."
+msgstr "No tiene permisos para rechazar este ancticipo"
+
+#. module: hr_expense_baseline
+#. odoo-python
+#: code:addons/hr_expense_baseline/models/hr_expense.py:0
+#, python-format
+msgid "You must select an Advance for Expense of type 'Advance'."
+msgstr "Debes seleccionar un anticipo para gastos de tipo 'Anticipo'"
+
+#. module: hr_expense_baseline
+#: model_terms:ir.ui.view,arch_db:hr_expense_baseline.hr_expense_advance_view_form
+msgid "account"
+msgstr "Contabilidad"
+
+#. module: hr_expense_baseline
+#: model:ir.model,name:hr_expense_baseline.model_petty_cash
+msgid "petty.cash"
+msgstr "Caja Menor"
+
+#. module: hr_expense_baseline
+#: model:ir.model.fields,field_description:account_toolcraft.field_res_company__expenses_journal_id
+msgid "Expenses journal"
+msgstr "Diario cruce de gastos"

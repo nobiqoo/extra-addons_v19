@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UniversalResponse version="1.1" xmlns="http://www.cargowise.com/Schemas/Universal/2011/11">
+	<Status>PRS</Status>
+	<Data>
+		<UniversalEvent xmlns="http://www.cargowise.com/Schemas/Universal/2011/11" version="1.1">
+			<Event>
+				<DataContext>
+
+					<Company>
+						<Code>CO</Code>
+						<Country>
+							<Code>CO</Code>
+							<Name>Colombia</Name>
+						</Country>
+						<Name>Agencias Universales S.A (AGUNSA)</Name>
+					</Company>
+					<DataProvider>C07TRNBOG</DataProvider>
+					<EnterpriseID>C07</EnterpriseID>
+					<ServerID>TRN</ServerID>
+				</DataContext>
+
+				<EventType>DIF</EventType>
+
+				<ContextCollection>
+					<Context>
+						<Type>DataProvider</Type>
+						<Value>ODOO</Value>
+					</Context>
+					<Context>
+						<Type>FailureReason</Type>
+						<Value>Warning - No Module found a Business Entity to link this Universal
+							Event to.</Value>
+					</Context>
+					<Context>
+						<Type>ProcessingStatusCode</Type>
+						<Value>DCD</Value>
+					</Context>
+				</ContextCollection>
+			</Event>
+		</UniversalEvent>
+	</Data>
+	<ProcessingLog>Error - Unable to find a matched invoice #AR INV 00001010 for creditor '' with
+		invoice date [] in the
+		system.
+		Warning - No Module found a Business Entity to link this Universal Event to.
+		Message Discarded.</ProcessingLog>
+</UniversalResponse>

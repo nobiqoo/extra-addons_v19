@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Grupo que habilita la visibilidad del campo Exhibición en el
+         cotizador del portal (safra.field.group_id). -->
+    <record id="group_safra_exhibition" model="res.groups">
+        <field name="name">Cotizador Safra: Ver Exhibición</field>
+    </record>
+</odoo>

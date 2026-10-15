@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="point_of_sale.template" xml:space="preserve">
+    
+    <!-- ReceiptHeader ya no tiene <br/> en Odoo 19.0; herencia eliminada -->
+    <!--
+    <t t-name="ReceiptHeader" t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension">
+        <xpath expr="//br[2]" position="replace"/>
+    </t>
+    -->
+    
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+        <xpath expr="//OrderDisplay" position="before">
+            <div class="pos-receipt-center-align">
+                <div t-if="order.invoice and order.invoice.number">
+                    --------------------------------<br/>
+                    <b><t t-if="order.invoice.einvoice">Electronic Sales Invoice: </t>
+                    <t t-else="">Sales Invoice: </t>
+                    <t t-esc="order.invoice.number"/></b><br/>
+                    --------------------------------
+                </div>
+                <t t-set="inv" t-value="order.invoice and order.invoice or {}"/>
+                <div t-if="inv and inv.einvoice">
+                    <!-- <b>Resolution:</b><br/> -->
+                    RESOLUCION DIAN N° <span t-esc="inv.resolution_number"/><br/>
+                    RANGO DEL <span t-esc="[inv.resolution_prefix, inv.resolution_from].join('-')"/>
+                    AL <span t-esc="[inv.resolution_prefix, inv.resolution_to].join('-')"/><br/>
+                    DESDE <span t-esc="inv.resolution_date_from"/> HASTA <span t-esc="inv.resolution_date_to"/>
+                    <br/>
+                    --------------------------------
+                </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[hasclass('before-footer')]" position="inside">
+            <t t-if="order.partner_id">
+                <div class="pos-receipt-center-align">--------------------------------</div>
+                <div>Customer: <span t-esc="order.partner_id.name or ''" class="pos-receipt-right-align"/></div>
+                <div>NIT/C.C: <span t-esc="order.partner_id.vat or ''" class="pos-receipt-right-align"/></div>
+                <div>Phone: <span t-esc="order.partner_id.mobile or order.partner_id.phone or ''" class="pos-receipt-right-align"/></div>
+                <div>Email: <span t-esc="order.partner_id.email or ''" class="pos-receipt-right-align"/></div>
+                <div>Address: <span t-esc="[order.partner_id.street or ''].join(', ')" class="pos-receipt-right-align"/></div>
+                <div>City: <span t-esc="[
+                    order.partner_id.city or '',
+                    order.partner_id.state_id?.name or '',
+                    order.partner_id.country_id?.name or ''
+                    ].join(', ')" class="pos-receipt-right-align"/></div>
+            </t>
+            <t t-set="inv" t-value="order.invoice and order.invoice or {}"/>
+            <div class="pos-receipt-einvoice pos-receipt-center-align" t-if="inv and inv.einvoice">
+                <br/>
+                <div>*******************************************</div>
+                <div class="pos-receipt-word-breack">
+                    <b>CUFE: </b>
+                    <span t-esc="inv.fe_uuid"/><br/>
+                    <img id="feqrcode" t-att-src="inv.fe_qr_data" class="pos-receipt-feqrcode"/>
+                    <br/>
+                    <t t-if="inv.fe_notes_mk">
+                        <b>Notes:</b><br/>
+                        <t t-out="inv.fe_notes_mk"/>
+                    </t>
+                </div>
+                <div>*******************************************</div>
+            </div>
+        </xpath>
+    </t>
+</template>

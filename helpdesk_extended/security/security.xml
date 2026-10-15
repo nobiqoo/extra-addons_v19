@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_helpdesk_sales_sm" model="res.groups">
+        <field name="name">Vendedores Helpdesk</field>
+        <field name="category_id" ref="helpdesk_extended.module_category_helpdesk_sales"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,33 @@
+<odoo>
+  <record id="view_supply_selector_confirm_wizard_form"
+          model="ir.ui.view">
+    <field name="name">supply.selector.confirm.wizard.form</field>
+    <field name="model">supply.selector.confirm.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Confirmación">
+        <group>
+          <field name="question" nolabel="1"/>
+        </group>
+        <footer>
+          <button string="Confirmar"
+                  type="object"
+                  name="action_confirm"
+                  class="btn-primary"/>
+          <button string="Cancelar"
+                  special="cancel"
+                  class="btn-secondary"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_supply_selector_confirm_wizard"
+          model="ir.actions.act_window">
+    <field name="name">Confirmación</field>
+    <field name="res_model">supply.selector.confirm.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <!-- importante para que se abra desde el wizard principal -->
+    <field name="context">{'active_id': active_id}</field>
+  </record>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Oculta el checkbox "Is Library Element?" del formulario de producto
+         (Elementos de tarifa): el Colombo Americano no usa biblioteca -->
+    <record id="product_product_view_form_colombo" model="ir.ui.view">
+        <field name="name">product.product.view.form.colombo</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="wk_school_management.product_product_view_form_normal_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='libray_element']/.." position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

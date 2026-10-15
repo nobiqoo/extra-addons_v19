@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="profitability_report_wizard_view_form" model="ir.ui.view">
+        <field name="name">profitability.report.wizard.form</field>
+        <field name="model">profitability.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reporte de Rentabilidad">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>Reporte de Rentabilidad por Producto</h1>
+                    </div>
+                    <group >
+                        <group name="select_date" string="Seleccionar Fecha">
+                            <field name="start_date" options="{ 'no_create': True }" placeholder="Seleccionar fecha desde..."/>
+                            <field name="end_date" options="{ 'no_create': True }" placeholder="Seleccionar fecha hasta..."/>
+                            <field name="services_included" widget="boolean_toggle"/>
+                        </group>
+                        <group name="select_features" string="Seleccionar Características">
+                            <field name="partner_id" options="{ 'no_create': True }"/>
+                            <field name="category_id" options="{ 'no_create': True }"/>
+                            <field name="product_id" options="{ 'no_create': True }"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Generar Reporte" type="object" name="button_generate_report" icon="fa-refresh" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel" icon="fa-times"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_profitability_report_wizard" model="ir.actions.act_window">
+        <field name="name">Reporte de Rentabilidad</field>
+        <field name="res_model">profitability.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="profitability_report_wizard_view_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_sale_administrative" name="Ventas Administrativas" parent="sale.menu_sale_report" sequence="100"/>
+    <menuitem id="menu_product_profitability_report" name="Reporte de Rentabilidad por Producto" action="action_profitability_report_wizard" parent="menu_sale_administrative" sequence="10"/>
+</odoo>

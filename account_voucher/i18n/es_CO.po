@@ -1,0 +1,1802 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_voucher
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-01 19:34+0000\n"
+"PO-Revision-Date: 2025-02-01 19:34+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_voucher
+#: model:ir.actions.report,print_report_name:account_voucher.report_generic_accounting_receipt
+msgid "'Comprobante Contable ' + object.name"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.actions.report,print_report_name:account_voucher.report_account_voucher_supplier
+msgid "'Comprobante de egreso ' + object.name"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.actions.report,print_report_name:account_voucher.report_account_voucher_customer
+msgid "'Recibo de caja ' + object.name"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid ""
+"<b>\n"
+"                                                    REFERENCIA DE PAGO:\n"
+"                                                </b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid ""
+"<b>\n"
+"                                                    TRM:\n"
+"                                                </b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid ""
+"<b>\n"
+"                                                A NOMBRE:\n"
+"                                            </b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid ""
+"<b>\n"
+"                                                FECHA:\n"
+"                                            </b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid ""
+"<b>\n"
+"                                                MONEDA: \n"
+"                                            </b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid ""
+"<b>\n"
+"                                                NIT:\n"
+"                                            </b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid ""
+"<b>\n"
+"                                                NÚMERO DE COMPROBANTE:\n"
+"                                            </b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid ""
+"<b>\n"
+"                                                SALDO PAGADO:\n"
+"                                            </b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid ""
+"<b>\n"
+"                                                SALDO PENDIENTE:\n"
+"                                            </b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid ""
+"<b>\n"
+"                                                TIPO DE DOCUMENTO:\n"
+"                                            </b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid ""
+"<b>\n"
+"                                                TOTAL:\n"
+"                                            </b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "<b>AJUSTES Y RETENCIONES</b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "<b>COMPROBANTE DE EGRESO</b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "<b>CONDICIONES TRIBUTARIAS:</b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "<b>INFORMACIÓN DEL PAGO</b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "<b>NIT:</b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "<b>RECIBO DE CAJA</b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "<b>Total</b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid ""
+"<br/>\n"
+"                                            <b>CIUDAD:</b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid ""
+"<br/>\n"
+"                                            <b>DIRECCIÓN:</b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid ""
+"<br/>\n"
+"                                            <br/>\n"
+"                                            <b>NOMBRE DEL PROVEEDOR:</b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid ""
+"<br/>\n"
+"                                        <b>\n"
+"                                            Dirección:\n"
+"                                        </b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid ""
+"<br/>\n"
+"                                        <b>\n"
+"                                            NIT:\n"
+"                                        </b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid ""
+"<br/>\n"
+"                                        <b>Dirección:</b>"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid ""
+"<br/>\n"
+"                                        <b>NIT:</b>"
+msgstr ""
+
+#. module: account_voucher
+#: model:mail.template,body_html:account_voucher.voucher_supplier_email_template
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Estimado <t t-out=\"object.partner_id.name or ''\" contenteditable=\"false\" data-oe-t-inline=\"true\">Brandon Freeman</t>\n"
+"                        <t t-if=\"object.partner_id.parent_id\" data-oe-t-group=\"0\" data-oe-t-group-active=\"true\" data-oe-t-inline=\"true\">\n"
+"                            (<t t-out=\"object.partner_id.parent_id.name or ''\" contenteditable=\"false\" data-oe-t-inline=\"true\">Azure Interior</t>)\n"
+"                        </t>\n"
+"                        <br/><br/>\n"
+"                        Adjuntamos el comprobante de egreso <strong t-out=\"object.name or ''\" contenteditable=\"false\">AV01234</strong>\n"
+"                        por el valor de <strong t-out=\"format_amount(object.amount, object.currency_id) or ''\" contenteditable=\"false\">$ 10.00</strong>\n"
+"                        de <t t-out=\"object.company_id.name or ''\" contenteditable=\"false\" data-oe-t-inline=\"true\">Tu Empresa</t>. \n"
+"                        <br/><br/>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+
+#. module: account_voucher
+#: model:mail.template,body_html:account_voucher.voucher_customer_email_template
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Estimado <t t-out=\"object.partner_id.name or ''\" contenteditable=\"false\" data-oe-t-inline=\"true\">Brandon Freeman</t>\n"
+"                        <t t-if=\"object.partner_id.parent_id\" data-oe-t-group=\"0\" data-oe-t-group-active=\"true\" data-oe-t-inline=\"true\">\n"
+"                            (<t t-out=\"object.partner_id.parent_id.name or ''\" contenteditable=\"false\" data-oe-t-inline=\"true\">Azure Interior</t>)\n"
+"                        </t>\n"
+"                        <br/><br/>\n"
+"                        Adjuntamos el recibo de caja <strong t-out=\"object.name or ''\" contenteditable=\"false\">AV01234</strong>\n"
+"                        por el valor de <strong t-out=\"format_amount(object.amount, object.currency_id) or ''\" contenteditable=\"false\">$ 10.00</strong>\n"
+"                        de <t t-out=\"object.company_id.name or ''\" contenteditable=\"false\" data-oe-t-inline=\"true\">Tu Empresa</t>. \n"
+"                        <br/><br/>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_kanban
+msgid "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
+msgstr "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Fecha\" title=\"Fecha\"/>"
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_voucher.py:0
+msgid "ADVERTENCIA"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "APROBADO POR"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "ASIENTO CONTABLE"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__access_warning
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__access_warning
+msgid "Access warning"
+msgstr "Advertencia de acceso"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__account_id
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_advance__account_advance_id
+msgid "Account Advance"
+msgstr "Anticipo"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_res_config_settings_account_journal
+msgid "Account Journal related to payment advance model."
+msgstr "Cuenta diario relacionada a modelo Pagos con Anticipos"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Account Payable"
+msgstr "Cuentas por Pagar"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Account Receivable"
+msgstr "Cuentas por Cobrar"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_sale_order__account_voucher_ids
+msgid "Account Voucher Advance"
+msgstr "Cuenta pago por anticipos"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_res_partner__account_advance_id
+#: model:ir.model.fields,field_description:account_voucher.field_res_users__account_advance_id
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_res_partner_account_advance_inherit
+msgid "Account advance"
+msgstr "Cuenta Anticipo"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_res_company__voucher_account_id
+#: model:ir.model.fields,help:account_voucher.field_res_config_settings__voucher_account_id
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_res_config_settings_account_journal
+msgid "Account for the difference in payments."
+msgstr "Cuenta de la diferencia en los pagos."
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_res_company__journal_id
+#: model:ir.model.fields,help:account_voucher.field_res_config_settings__journal_id
+msgid "Account journal to relate advances"
+msgstr "Diario para relacionar anticipos"
+
+#. module: account_voucher
+#: model:ir.model,name:account_voucher.model_account_advance
+msgid "Accounting Advance"
+msgstr "Anticipos"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Accounting Date"
+msgstr "Fecha Contable"
+
+#. module: account_voucher
+#: model:ir.model,name:account_voucher.model_account_voucher
+msgid "Accounting Voucher"
+msgstr "Comprobantes contables"
+
+#. module: account_voucher
+#: model:ir.model,name:account_voucher.model_account_voucher_wizard
+msgid "Accounting Voucher Wizard"
+msgstr "Asistente Comprobantes contables"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__message_needaction
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_res_company__active_payment_advance
+#: model:ir.model.fields,help:account_voucher.field_res_config_settings__active_payment_advance
+msgid "Activate functionality and  restrictions for advance payments."
+msgstr "Activar funcionalidad y restrincciones pago por Anticipos"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_res_config_settings_account_journal
+msgid "Activate functionality and restrictions for advance payments."
+msgstr "Activar funcionalidad y restricciones para pagos por adelantado."
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__voucher_active_id
+msgid "Active"
+msgstr "Activo"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__line_active_ids
+msgid "Active Lines"
+msgstr "Lineas del Activo"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_res_company__active_payment_advance
+#: model:ir.model.fields,field_description:account_voucher.field_res_config_settings__active_payment_advance
+msgid "Active payment advance"
+msgstr "Activar Pago por Anticipo"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__activity_ids
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__activity_exception_decoration
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de Actividad de Excepción"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__activity_state
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__activity_type_icon
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Ícono de tipo de actvidad"
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_voucher__voucher_type__advance
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Advance"
+msgstr "Anticipo"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_res_company__voucher_account_id
+#: model:ir.model.fields,field_description:account_voucher.field_res_config_settings__voucher_account_id
+msgid "Advance account"
+msgstr "Cuenta de anticipo"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_res_company__advance_req_in_immediate_pay
+#: model:ir.model.fields,field_description:account_voucher.field_res_config_settings__advance_req_in_immediate_pay
+msgid "Advance required in immediate payment"
+msgstr "Anticipo requerido en pago inmediato"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_purchase_order__voucher_advance_ids
+msgid "Advances"
+msgstr "Anticipos"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__amount
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__amount
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_wizard__amount
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_tree
+msgid "Amount"
+msgstr "Valor"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__amount_active
+msgid "Amount Active"
+msgstr "Monto del Activo"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__amount_passive
+msgid "Amount Passive"
+msgstr "Monto del Pasivo"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__amount_reconcile
+msgid "Amount Reconcile"
+msgstr "Monto de Conciliación"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__amount_voucher
+msgid "Amount Voucher"
+msgstr "Monto del Pago"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__analytic_distribution
+msgid "Analytic Distribution"
+msgstr "Analítica"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__analytic_precision
+msgid "Analytic Precision"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.inherit_sale_order_account_advance
+msgid "Anticipos"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__account_move_id
+msgid "Asiento Contable"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__message_attachment_count
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__message_attachment_count
+msgid "Attachment Count"
+msgstr "Nº de archivos adjuntos"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_sale_order__advance_payment_manually
+msgid "Autorizar si el pedido está bloqueado por no tener anticipos."
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_sale_order__advance_payment_manually
+msgid "Autorizar sin anticipo"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "BENEFICIARIO-NIT"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__balance_due
+msgid "Balance Due"
+msgstr "Balance de Vencimiento"
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_advance__state__draft
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_loans__state__draft
+msgid "Borrador"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "COMENTARIO"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "COMPROBANTE No:"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "COMPROBANTE:"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "CUENTA"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_wizard_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_loans__state__cancel
+msgid "Cancelado"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_loan_form
+msgid "Cancelar"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_voucher__state__cancel
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_voucher.py:0
+msgid "Cannot confirm a voucher with differences."
+msgstr "No se puede confirmar un pago con diferencias."
+
+#. module: account_voucher
+#: model:ir.actions.report,name:account_voucher.report_account_voucher_customer
+msgid "Cash receipt"
+msgstr "Recibo de caja"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_sale_order__check_immediate_payment
+msgid "Check Immediate Payment"
+msgstr "Validar pago inmediato"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_advance__partner_id
+msgid "Client"
+msgstr "Cliente"
+
+#. module: account_voucher
+#: model:ir.model,name:account_voucher.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__company_id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__company_id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__company_id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_wizard__company_id
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Company"
+msgstr "Compañia"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__company_currency_id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_wizard__company_currency_id
+msgid "Company Currency"
+msgstr "Moneda de la Compañía"
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_voucher.py:0
+msgid "Compose Email"
+msgstr "Escribir correo"
+
+#. module: account_voucher
+#: model:mail.template,subject:account_voucher.voucher_supplier_email_template
+msgid "Comprobante de egreso {{ object.display_name }}"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Compute"
+msgstr "Calcular"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__writeoff_amount
+msgid ""
+"Computed as the difference between the amount stated in the voucher and the "
+"sum of allocation on the voucher lines."
+msgstr ""
+"Calculado la diferencia entre la cantidad indicada en el comprobante y la "
+"suma de la asignación en las líneas del comprobante."
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__with_interest
+msgid "Con Intereses"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_journal__conditions_tax
+msgid "Condiciones tributarias"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model,name:account_voucher.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__confirm_action_post
+msgid "Confirm action post"
+msgstr "Confirmar publicación"
+
+#. module: account_voucher
+#: model:res.groups,name:account_voucher.group_account_advance_confirm
+msgid "Confirmación Anticipos"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_loans__state__confirm
+msgid "Confirmada"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_loan_form
+msgid "Confirmar"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model,name:account_voucher.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__writeoff_comment
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__comment
+msgid "Counterpart Comment"
+msgstr "Comentario de la contrapartida"
+
+#. module: account_voucher
+#: model:res.groups,name:account_voucher.group_account_advance_create
+msgid "Creación Anticipos"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_wizard_form
+msgid "Create Voucher"
+msgstr "Crear Pago"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_advance__create_uid
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__create_uid
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__create_uid
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_advance__create_uid
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__create_uid
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_wizard__create_uid
+#: model:ir.model.fields,field_description:account_voucher.field_voucher_mail_error__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_advance__create_date
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__create_date
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__create_date
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_advance__create_date
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__create_date
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_wizard__create_date
+#: model:ir.model.fields,field_description:account_voucher.field_voucher_mail_error__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_voucher_line__line_type__credit
+msgid "Credit"
+msgstr "Crédito"
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_voucher__voucher_type__cross
+msgid "Cross"
+msgstr "Cruce"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Cruce"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "Crédito"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "Crédito NIIF"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "Cuenta"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "Cuenta Analítica"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_res_company__advance_account_loan_id
+#: model:ir.model.fields,field_description:account_voucher.field_res_config_settings__advance_account_loan_id
+msgid "Cuenta De Préstamo Empleados"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_advance__account_voucher_id
+#: model:ir.model.fields,field_description:account_voucher.field_sale_order__account_advance_id
+msgid "Cuenta anticipo"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_advance__currency_id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__currency_id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__currency_id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_wizard__currency_id
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_voucher__partner_type__customer
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_loans__access_url
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__access_url
+msgid "Customer Portal URL"
+msgstr "URL del portal del cliente"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Customer Vouchers"
+msgstr "Pagos de Cliente"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Customer/Supplier"
+msgstr "Cliente/Proveedor"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__date
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__date_original
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_wizard__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_move.py:0
+msgid "Debe elegir un diario para el cruce de cuentas desde ajustes generales"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_voucher_line__line_type__debit
+msgid "Debit"
+msgstr "Débito"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__line_type
+msgid "Debit / Credit"
+msgstr "Débito / Crédito"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_advance__name
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__name
+msgid "Description"
+msgstr "Descripción"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_loan_form
+msgid "Desembolsa"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_loans__state__disbursed
+msgid "Desembolsado"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__account_id
+msgid "Destination Account"
+msgstr "Cuenta de destino"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_voucher_mail_error__error_txt
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "Detalle"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__journal_id
+msgid "Diario"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__writeoff_amount
+msgid "Difference Amount"
+msgstr "Cantidad de diferencia"
+
+#. module: account_voucher
+#: model:ir.actions.report,name:account_voucher.report_account_voucher_supplier
+msgid "Disbursement voucher"
+msgstr "Comprobante de egreso"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_advance__display_name
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__display_name
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__display_name
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_advance__display_name
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__display_name
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_wizard__display_name
+#: model:ir.model.fields,field_description:account_voucher.field_voucher_mail_error__display_name
+msgid "Display Name"
+msgstr "Nombre Público"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__distribution_analytic_account_ids
+msgid "Distribution Analytic Account"
+msgstr "Cuenta de Distribución Analítica"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_voucher_mail_error__voucher_id
+msgid "Doc. pago"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_voucher__state__draft
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__date_due
+msgid "Due Date"
+msgstr "Fecha de Vencimiento"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "Débito"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "Débito NIIF"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "ELABORADO POR"
+msgstr ""
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_voucher.py:0
+msgid "ENVÍO EXITOSO"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "ETIQUETAS ANALÍTICAS"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__partner_id
+msgid "Empleado"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "Empresa/Cliente"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_sale_order__active_payment_advance
+msgid "Enable payment with advances"
+msgstr "Habilitar pagos con Anticipos"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_tree
+msgid "Enviar correos"
+msgstr ""
+
+#. module: account_voucher
+#: model:res.groups,name:account_voucher.voucher_mass_mail_group
+msgid "Envío masivo de comprobantes de pago por correo"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__state
+msgid "Estado"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_journal__voucher_debit_account_id
+msgid "Expense Receipts Account"
+msgstr "Cuenta de recibos de gastos"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_journal__voucher_credit_account_id
+msgid "Expense Vouchers Account"
+msgstr "Cuenta de comprobantes de gastos"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "FECHA"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "FECHA:"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__loan_date
+msgid "Fecha del Préstamo"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__message_follower_ids
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__message_partner_ids
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Contactos)"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_loans__activity_type_icon
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono de Font Awesome ej. fa-tasks"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__reconcile
+msgid "Full Reconcile"
+msgstr "Reconciliación total"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Future Activities"
+msgstr "Actividades futuras"
+
+#. module: account_voucher
+#: model:ir.actions.report,name:account_voucher.report_generic_accounting_receipt
+msgid "Generic accounting receipt"
+msgstr "Comprobante contable genérico"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_sale_order__group_advance_validate_manually
+msgid "Group Advance Validate Manually"
+msgstr "Grupo para validar anticipos manualmente"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__has_message
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__has_message
+msgid "Has Message"
+msgstr "Tiene Mensaje"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_advance__id
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_advance__id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_wizard__id
+#: model:ir.model.fields,field_description:account_voucher.field_voucher_mail_error__id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "IMPORTE ORIGINAL"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__activity_exception_icon
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_loans__activity_exception_icon
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad de excepción."
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_loans__message_needaction
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado hay nuevos mensajes que requieren su atención."
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_loans__message_has_error
+#: model:ir.model.fields,help:account_voucher.field_account_loans__message_has_sms_error
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__message_has_error
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_payment_term__immediate_payment
+msgid "Immediate Payment ?"
+msgstr "Pago inmediato?"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__value_interest
+msgid "Interes Mensual"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_journal_form
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__message_is_follower
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: account_voucher
+#: model:ir.model,name:account_voucher.model_account_journal
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__journal_id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_wizard__journal_id
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_voucher
+#: model:ir.model,name:account_voucher.model_account_move
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__move_id
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_voucher
+#: model:ir.model,name:account_voucher.model_account_move_line
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__move_line_id
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_res_company__journal_id
+#: model:ir.model.fields,field_description:account_voucher.field_res_config_settings__journal_id
+msgid "Journal account to relate advance"
+msgstr "Cuenta diario a relacionar en Anticipos"
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_voucher__writeoff_option__without_writeoff
+msgid "Keep Open"
+msgstr "Mantener abierto"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_advance__write_uid
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__write_uid
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__write_uid
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_advance__write_uid
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__write_uid
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_wizard__write_uid
+#: model:ir.model.fields,field_description:account_voucher.field_voucher_mail_error__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_advance__write_date
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__write_date
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__write_date
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_advance__write_date
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__write_date
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_wizard__write_date
+#: model:ir.model.fields,field_description:account_voucher.field_voucher_mail_error__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Late Activities"
+msgstr "Actividades tardías"
+
+#. module: account_voucher
+#: model:ir.model,name:account_voucher.model_voucher_mail_error
+msgid "Log de errores en correos de pagos"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.actions.act_window,name:account_voucher.voucher_mail_error_action
+#: model:ir.actions.act_window,name:account_voucher.voucher_mail_error_action2
+msgid "Log de errores por envio de correo"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_wizard__active_bool
+msgid "Many"
+msgstr "Muchos"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__message_has_error
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de Envío de Mensaje"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__message_ids
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__currency_id
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "Moneda"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__installment_amount
+msgid "Monto de la Cuota"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__loan_amount
+msgid "Monto del Préstamo"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__my_activity_date_deadline
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha límite de actividad"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__name
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_advance__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_voucher.py:0
+msgid "New"
+msgstr "Nuevo"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__activity_calendar_event_id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__activity_date_deadline
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Siguiente plazo de actividad"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__activity_summary
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__activity_type_id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_voucher.py:0
+msgid ""
+"No hay cuentas de Recibos de gastos y/o comprobantes de gastos registrados "
+"en el diario %s."
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_voucher_mail_error__name
+msgid "Nombre"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__message_needaction_counter
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__message_has_error_counter
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__message_has_error_counter
+msgid "Number of errors"
+msgstr "Numero de errores"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_loans__message_needaction_counter
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_loans__message_has_error_counter
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_voucher.py:0
+msgid "Ocurrió un error en %s documentos"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__amount_unreconciled
+msgid "Open Balance"
+msgstr "Saldo abierto"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_advance__order_id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__order_id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_advance__order_id
+msgid "Order"
+msgstr "Orden"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__amount_original
+msgid "Original Amount"
+msgstr "Cantidad original"
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_voucher.py:0
+msgid "PELIGRO"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_loans__state__paid
+msgid "Pagada"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Pago"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.module.category,name:account_voucher.account_voucher_category
+msgid "Pagos"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__partner_id
+msgid "Partner"
+msgstr "Cliente"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__partner_id
+msgid "Partner Lines"
+msgstr "Tercero"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__partner_type
+msgid "Partner Type"
+msgstr "Tipo de Empresa"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_loan_form
+msgid "Pasar a Pagado"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_loan_form
+msgid "Pasar a borrador"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__voucher_passive_id
+msgid "Passive"
+msgstr "Pasivo"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__line_passive_ids
+msgid "Passive Lines"
+msgstr "Lineas de Pasivo"
+
+#. module: account_voucher
+#: model:res.groups,name:account_voucher.group_payment_hidden
+msgid "Payment Hidden."
+msgstr "Ocultar Pagos"
+
+#. module: account_voucher
+#: model:ir.model,name:account_voucher.model_account_payment_term
+msgid "Payment Terms"
+msgstr "Términos de pago"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__repayment_term
+msgid "Plazo de Pago (meses)"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__access_url
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__access_url
+msgid "Portal Access URL"
+msgstr "URL de acceso al portal"
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_voucher__state__posted
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Posted"
+msgstr "Publicado"
+
+#. module: account_voucher
+#: model:ir.actions.act_window,name:account_voucher.action_account_loan
+#: model:ir.model,name:account_voucher.model_account_loans
+#: model:ir.ui.menu,name:account_voucher.menu_account_loan
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_loan_form
+msgid "Préstamos A Empleados"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__purchase_order_id
+msgid "Purchase Order"
+msgstr "Orden de compra"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__rating_ids
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: account_voucher
+#: model:mail.template,subject:account_voucher.voucher_customer_email_template
+msgid "Recibo de caja {{ object.display_name }}"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__voucher_reconcile_id
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Reconcile"
+msgstr "Conciliar"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Reconcile Information"
+msgstr "Información de Conciliación"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__line_reconcile_ids
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Reconcile Lines"
+msgstr "Lineas de Conciliar"
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_voucher__writeoff_option__with_writeoff
+msgid "Reconcile Voucher Balance"
+msgstr "Conciliar Saldo del Pago"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_wizard_form
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__voucher_reference
+#: model:ir.model.fields,help:account_voucher.field_account_voucher_wizard__voucher_reference
+msgid ""
+"Reference of the document used to issue this voucher. Eg. check number, file"
+" name, etc."
+msgstr ""
+"Referencia del documento utilizado para emitir este bono. P.ej. número de "
+"verificación, nombre de archivo, etc."
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.generic_accounting_receipt_document
+msgid "Referencia"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__name
+msgid "Referencia del Préstamo"
+msgstr ""
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_move.py:0
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_wizard_form
+msgid "Register Voucher"
+msgstr "Registrar Pago"
+
+#. module: account_voucher
+#: model_terms:ir.actions.act_window,help:account_voucher.action_account_voucher_customer
+#: model_terms:ir.actions.act_window,help:account_voucher.action_account_voucher_supplier
+msgid "Register a voucher"
+msgstr "Registrar un pago"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Remove worthlesste"
+msgstr "Remover sin valor"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_res_company__advance_req_in_immediate_pay
+#: model:ir.model.fields,help:account_voucher.field_res_config_settings__advance_req_in_immediate_pay
+msgid ""
+"Request an advance to confirm a sales order with immediate payment term."
+msgstr ""
+"Solicita un anticipo para confirmar un pedido de venta con término de pago "
+"inmediato."
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Reset To Draft"
+msgstr "Restablecer a Borrador"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__activity_user_id
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_advance__state__revision
+msgid "Revisión"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "SALDO DE FACTURA"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__message_has_sms_error
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega de SMS"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: account_voucher
+#: model:ir.model,name:account_voucher.model_sale_order
+msgid "Sales Order"
+msgstr "Orden de venta"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Salesman"
+msgstr "Vendedor"
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_voucher.py:0
+msgid "Se enviaron %s correos"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__access_token
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__access_token
+msgid "Security Token"
+msgstr "Token de seguridad"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Send by email"
+msgstr "Enviar por correo"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_res_config_settings_account_journal
+msgid "Set 'In Payment' state when voucher is confirm."
+msgstr ""
+"Establecer estado 'En proceso de pago' en una factura cuando se realiza un "
+"pago."
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Show all records which has next action date is before today"
+msgstr ""
+"Mostrar todos los registros que tienen la próxima fecha de acción antes de "
+"hoy"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_advance__state
+msgid "State"
+msgstr "Estado"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__state
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_loans__activity_state
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Vencida: la fecha tope ya ha pasado\n"
+"Hoy: La fecha tope es hoy\n"
+"Planificada: futuras actividades."
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_voucher__partner_type__supplier
+msgid "Supplier"
+msgstr "Proveedor"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Supplier Vouchers"
+msgstr "Pago de Proveedores"
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_voucher.py:0
+msgid "The voucher already has an accounting entry."
+msgstr "El pago ya tiene un asiento contable."
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__currency_id
+#: model:ir.model.fields,help:account_voucher.field_account_voucher_wizard__currency_id
+msgid "The voucher's currency."
+msgstr "Moneda del pago."
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/sale_order.py:0
+msgid "This Advance is already related in another order"
+msgstr "Este anticipo ya está relacionado en otro pedido"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__writeoff_option
+msgid ""
+"This field helps you to choose what you want to do with the eventual "
+"difference between the paid amount and the sum of allocated amounts. You can"
+" either choose to keep open this difference on the partner's account, or "
+"reconcile it with the voucher(s)"
+msgstr ""
+"Este campo le ayuda a elegir qué desea hacer con la eventual diferencia "
+"entre el monto pagado y la suma de los importes asignados. Puede optar por "
+"mantener abierta esta diferencia en la cuenta del socio o conciliara con los"
+" pagos"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_voucher_line__date_due
+msgid ""
+"This field is used for payable and receivable journal entries. You can put "
+"the limit date for the payment of this line."
+msgstr ""
+"Este campo se utiliza en asientos pendientes de pago y de cobro. Puede "
+"establecer la fecha límite para el pago de esta entrada."
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Today Activities"
+msgstr "Actividades de Hoy"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Total Allocation"
+msgstr "Asignación total"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_loans__activity_exception_decoration
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad de excepción registrada."
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_line__amount_untax
+msgid "Untax Amount"
+msgstr "Importe base"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__user_id
+msgid "User"
+msgstr "Usuario"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "VALOR"
+msgstr ""
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_customer_document
+#: model_terms:ir.ui.view,arch_db:account_voucher.account_voucher_supplier_document
+msgid "VALOR PAGADO"
+msgstr ""
+
+#. module: account_voucher
+#: model:res.groups,name:account_voucher.group_account_advance_validate_manually
+msgid "Validación de Anticipos manualmente"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_advance__state__validated
+msgid "Validado"
+msgstr ""
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_voucher.py:0
+msgid "Ver errores"
+msgstr ""
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_bank_statement_line__voucher_id
+#: model:ir.model.fields,field_description:account_voucher.field_account_move__voucher_id
+#: model:ir.model.fields.selection,name:account_voucher.selection__account_voucher__voucher_type__voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Voucher"
+msgstr "Pago"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.purchase_order_view_form_inherit
+msgid "Voucher Advances"
+msgstr "Anticipos"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__voucher_date
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Voucher Date"
+msgstr "Fecha del Pago"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__writeoff_option
+msgid "Voucher Difference"
+msgstr "Diferencia de Pago"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Voucher Information"
+msgstr "Información del Pago"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_move_line__voucher_line_id
+msgid "Voucher Line"
+msgstr "Linea del Pago"
+
+#. module: account_voucher
+#: model:ir.model,name:account_voucher.model_account_voucher_line
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_line_form
+msgid "Voucher Lines"
+msgstr "Líneas de comprobante"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__voucher_reference
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher_wizard__voucher_reference
+msgid "Voucher Reference"
+msgstr "Referencia del Pago"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__voucher_type
+msgid "Voucher Type"
+msgstr "Tipo de Pago"
+
+#. module: account_voucher
+#: model:ir.model,name:account_voucher.model_account_voucher_advance
+msgid "Voucher advance"
+msgstr "Pago por anticipo"
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_res_company__voucher_in_payment_state
+#: model:ir.model.fields,field_description:account_voucher.field_res_config_settings__voucher_in_payment_state
+msgid "Voucher in payment state"
+msgstr "Facturas en proceso de pago"
+
+#. module: account_voucher
+#: model:mail.template,name:account_voucher.voucher_customer_email_template
+msgid "Voucher: Cash receipt"
+msgstr "Comprobantes: Recibo de caja"
+
+#. module: account_voucher
+#: model:mail.template,name:account_voucher.voucher_supplier_email_template
+msgid "Voucher: Disbursement voucher"
+msgstr "Comprobantes: Comprobante de egreso"
+
+#. module: account_voucher
+#: model:ir.actions.act_window,name:account_voucher.action_account_voucher_customer
+#: model:ir.actions.act_window,name:account_voucher.action_account_voucher_supplier
+#: model:ir.ui.menu,name:account_voucher.menu_account_voucher_customer
+#: model:ir.ui.menu,name:account_voucher.menu_account_voucher_supplier
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_graph
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_search
+msgid "Vouchers"
+msgstr "Pagos"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_pivot
+msgid "Vouchers Analysis"
+msgstr "Análisis de Pagos"
+
+#. module: account_voucher
+#: model_terms:ir.actions.act_window,help:account_voucher.action_account_voucher_customer
+#: model_terms:ir.actions.act_window,help:account_voucher.action_account_voucher_supplier
+msgid ""
+"Vouchers are used to register liquidity movements. You can process those "
+"vochers by your own means or by using installed facilities."
+msgstr ""
+"Los pagos se utilizan para registrar movimientos de liquidez. Puede procesar"
+" esos pagos por sus propios medios o utilizando las instalaciones "
+"instaladas."
+
+#. module: account_voucher
+#: model:ir.model.fields,field_description:account_voucher.field_account_loans__website_message_ids
+#: model:ir.model.fields,field_description:account_voucher.field_account_voucher__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: account_voucher
+#: model:ir.model.fields,help:account_voucher.field_account_loans__website_message_ids
+#: model:ir.model.fields,help:account_voucher.field_account_voucher__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: account_voucher
+#: model_terms:ir.ui.view,arch_db:account_voucher.view_account_voucher_form
+msgid "Worthlesste"
+msgstr "Sin valor"
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_voucher.py:0
+msgid "Write-Off"
+msgstr "Conciliación"
+
+#. module: account_voucher
+#. odoo-python
+#: code:addons/account_voucher/models/account_voucher.py:0
+msgid ""
+"{ok} correos correctos.\n"
+"{error} correos errados.\n"
+"Documentos errados: {doc_error}"
+msgstr ""

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Variables económicas para valoración de horas extras biométricas.
+    HD = Valor Hora Diurna (base para HED/HEN/HEDF)
+    HN = Valor Hora Nocturna
+    RN = Recargo Nocturno (diferencial nocturno)
+
+    NOTA: Los valores de las líneas deben ser configurados por el administrador
+    de nómina para cada mes/año. Estos registros son solo la definición de la variable.
+    Use noupdate="1" para no sobreescribir cambios manuales en producción.
+-->
+<odoo noupdate="1">
+
+    <record id="economic_variable_HD" model="economic.variable">
+        <field name="name">VALOR HORA DIURNA ORDINARIA</field>
+        <field name="code">HD</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="economic_variable_HN" model="economic.variable">
+        <field name="name">VALOR HORA NOCTURNA ORDINARIA</field>
+        <field name="code">HN</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="economic_variable_RN" model="economic.variable">
+        <field name="name">RECARGO NOCTURNO</field>
+        <field name="code">RN</field>
+        <field name="active">True</field>
+    </record>
+
+</odoo>

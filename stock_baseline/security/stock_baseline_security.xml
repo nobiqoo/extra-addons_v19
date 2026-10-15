@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="group_hide_standard_price" model="res.groups">
+            <field name="name">Administrador Costo Producto</field>
+        </record>
+
+        <record id="group_user_hide_standard_price" model="res.groups">
+            <field name="name">Usuario Costo Product</field>
+        </record>
+    </data>
+</odoo>

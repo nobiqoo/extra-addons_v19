@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="True">
+
+        <record model="ir.sequence" id="sequence_voucher">
+            <field name="name">Accounting Voucher</field>
+            <field name="code">account.voucher</field>
+            <field name="padding" eval="5" />
+            <field name="prefix">AV</field>
+        </record>
+
+        <record model="ir.sequence" id="sequence_voucher_customer">
+            <field name="name">Accounting Voucher Customer</field>
+            <field name="code">account.voucher.customer</field>
+            <field name="padding" eval="5" />
+            <field name="prefix">RC</field>
+        </record>
+
+        <record model="ir.sequence" id="sequence_voucher_supplier">
+            <field name="name">Accounting Voucher Supplier</field>
+            <field name="code">account.voucher.supplier</field>
+            <field name="padding" eval="5" />
+            <field name="prefix">CE</field>
+        </record>
+
+    </data>
+</odoo>

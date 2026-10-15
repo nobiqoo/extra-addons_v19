@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <template id="product_maintenance_schedule_report">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <style>
+                        body {
+                            margin: 0;
+                        }
+                        .header-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            border: 1px solid black;
+                            margin: 0;
+                            padding: 0;
+                        }
+                        .header-table td {
+                            border: 1px solid black;
+                            padding: 0; /* Quitar padding */
+                            margin: 0; /* Quitar márgenes */
+                            box-sizing: border-box;
+                        }
+                        .logo {
+                            width: 10%;
+                            text-align: center;
+                        }
+                        .header-center {
+                            text-align: center;
+                            vertical-align: middle;
+                        }
+                        .header-right {
+                            text-align: left;
+                        }
+                        .header-right td {
+                            border-left: 1px solid black;
+                        }
+
+                        .table-date {
+                            border-collapse: collapse;
+                            width: 80%;
+                            font-family: Arial, sans-serif;
+                        }
+
+                        .table-date th, td {
+                            border: 1px solid black;
+                            padding: 10px;
+                        }
+
+                        .table-date td.label {
+                            text-align: center;
+                            background-color: #f0f0f0;
+                            font-weight: bold;
+                            border-right: 1px solid black;
+                            width: 60%;
+                        }
+
+                        .table-date td {
+                            width: 50px;
+                        }
+                    </style>
+                    <div>
+                        <table class="header-table">
+                            <tr>
+                                <td class="logo">
+                                    <img alt="Logo" t-att-src="'/logo?company=%d' % (doc.company_id)" t-att-alt="'%s' % (doc.company_id.name)" width="80" height="80"/>
+                                </td>
+                                <td class="header-center">
+                                    CRONOGRAMA DE MANTENIMIENTO PARA DEPARTAMENTO DE SERVICIO TÉCNICO
+                                </td>
+                                <td class="header-right">
+                                    <table class="header-table">
+                                        <tr>
+                                            <td>VERSIÓN</td>
+                                            <td>02</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CÓDIGO</td>
+                                            <td>FM-ST-37</td>
+                                        </tr>
+                                        <tr>
+                                            <td>FECHA</td>
+                                            <td>19/01/23</td>
+                                        </tr>
+                                        <tr>
+                                            <td>PÁGINA</td>
+                                            <td>1 de 2</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <table class="table-date" style="margin: 0 auto;">
+                                    <tr>
+                                        <td class="label">FECHA DE INICIO DE <br/>GARANTÍA</td>
+                                        <td style="vertical-align: middle;"><strong>D</strong></td>
+                                        <td style="vertical-align: middle;"><t t-esc="doc.get_from_day()"/></td>
+                                        <td style="vertical-align: middle;"><strong>M</strong></td>
+                                        <td style="vertical-align: middle;"><t t-esc="doc.get_from_month()"/></td>
+                                        <td style="vertical-align: middle;"><strong>A</strong></td>
+                                        <td style="vertical-align: middle;"><t t-esc="doc.get_from_year()"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="col-6">
+                                <table class="table-date">
+                                    <tr>
+                                        <td class="label">FECHA FINAL DE <br/>GARANTÍA</td>
+                                        <td style="vertical-align: middle;"><strong>D</strong></td>
+                                        <td style="vertical-align: middle;"><t t-esc="doc.get_to_day()"/></td>
+                                        <td style="vertical-align: middle;"><strong>M</strong></td>
+                                        <td style="vertical-align: middle;"><t t-esc="doc.get_to_month()"/></td>
+                                        <td style="vertical-align: middle;"><strong>A</strong></td>
+                                        <td style="vertical-align: middle;"><t t-esc="doc.get_to_year()"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <p style="margin-left: 70px;"><strong>FECHA DE PROGRAMACIÓN DE MANTENIMIENTOS PREVENTIVOS</strong></p>
+                            </div>
+                            <div class="col-6">
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <table class="table table-bordered" style="border: 1px solid black;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">MARCA</th>
+                                            <th scope="col">MODELO</th>
+                                            <th scope="col">SERIE</th>
+                                            <t t-foreach="doc.get_lines_by_months().items()" t-as="line">
+                                                <th scope="col" colspan="4"><t t-esc="line[0]"/></th>
+                                            </t>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><t t-esc="doc.get_name_brand()"/></td>
+                                            <td><t t-esc="doc.get_model_name()"/></td>
+                                            <td><t t-esc="doc.get_serial_name()"/></td>
+                                            <t t-foreach="doc.get_lines_by_months().items()" t-as="line">
+                                                <t t-set="counter" t-value="0"/>
+                                                <t t-foreach="line[1]" t-as="value">
+                                                    <t t-set="counter" t-value="counter + 1"/>
+                                                    <td><t t-esc="value"/></td>
+                                                </t>
+                                                <t t-if="counter &lt; 4">
+                                                    <t t-set="difference" t-value="4 - counter"/>
+                                                    <t t-foreach="range(0, difference)" t-as="i">
+                                                        <td/>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <p class="text-secondary" style="text-align: center;">NOTA: Recuerda que el mantenimiento preventivo esta sujeto a programación del cliente y disponibilidad del ingeniero.</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

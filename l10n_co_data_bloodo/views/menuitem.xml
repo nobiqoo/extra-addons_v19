@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="dian_data_menu_categ"
+            name="Datos DIAN Colombia"
+            groups="l10n_co_data_bloodo.group_account_e_invoice"
+            parent="account.menu_finance_configuration"
+            sequence="20"/>
+
+        <menuitem id="dian_discrepancy_response_menu"
+            name="Conceptos de corrección"
+            parent="dian_data_menu_categ"
+            action="l10n_co_data_bloodo.dian_discrepancy_response_action"
+            sequence="10"/>
+        
+        <menuitem id="dian_tax_type_menu"
+            name="Tipo de Impuesto"
+            parent="dian_data_menu_categ"
+            action="l10n_co_data_bloodo.action_dian_tax_type"
+            sequence="20"/>
+        
+        <menuitem id="dian_type_code_menu"
+            name="Responsanilidades fiscales"
+            parent="dian_data_menu_categ"
+            action="l10n_co_data_bloodo.action_dian_type_code"
+            sequence="30"/>
+        
+        <menuitem id="dian_payment_options_menu"
+            name="Opciones de pago"
+            parent="dian_data_menu_categ"
+            action="l10n_co_data_bloodo.action_dian_payment_option"
+            sequence="40"/>
+
+        <menuitem id="dian_uom_code_menu"
+            name="Códigos UdM"
+            parent="dian_data_menu_categ"
+            action="l10n_co_data_bloodo.action_dian_uom_code"
+            sequence="50"/>
+        
+        <menuitem id="dian_product_unspsc_code_menu"
+            name="Códigos UNSPSC"
+            parent="dian_data_menu_categ"
+            action="l10n_co_data_bloodo.action_product_unspsc_code"
+            sequence="60"/>
+        
+        <menuitem id="dian_event_menu"
+            name="Eventos"
+            parent="dian_data_menu_categ"
+            action="l10n_co_data_bloodo.action_dian_event"
+            sequence="70"/>
+        
+        <menuitem id="dian_claim_concept_menu"
+            name="Conceptos de rechazo"
+            parent="dian_data_menu_categ"
+            action="l10n_co_data_bloodo.action_dian_claim_concept"
+            sequence="80"/>
+
+    </data>
+</odoo>

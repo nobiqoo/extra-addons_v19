@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="paperformat_generic_accounting_receipt" model="report.paperformat">
+            <field name="name">Comprobante contable genérico</field>
+            <field name="default" eval="True"/>
+            <field name="format">Letter</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">45</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_account_voucher" model="report.paperformat">
+            <field name="name">A4 Pagos</field>
+            <field name="default" eval="True"/>
+            <field name="format">Letter</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">45</field>
+            <field name="margin_bottom">32</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="report_account_voucher_customer" model="ir.actions.report">
+            <field name="name">Cash receipt</field>
+            <field name="model">account.voucher</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="paperformat_id" ref="account_voucher.paperformat_account_voucher"/>
+            <field name="report_name">account_voucher.account_voucher_customer</field>
+            <field name="report_file">account_voucher.account_voucher_customer</field>
+            <field name="print_report_name">'Recibo de caja ' + object.name</field>
+            <field name="binding_model_id" ref="account_voucher.model_account_voucher"/>
+            <field name="binding_type">report</field>
+            <field name="domain" eval="[('partner_type', '=', 'customer')]"/>
+        </record>
+
+        <record id="report_account_voucher_supplier" model="ir.actions.report">
+            <field name="name">Disbursement voucher</field>
+            <field name="model">account.voucher</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="paperformat_id" ref="account_voucher.paperformat_account_voucher"/>
+            <field name="report_name">account_voucher.account_voucher_supplier</field>
+            <field name="report_file">account_voucher.account_voucher_supplier</field>
+            <field name="print_report_name">'Comprobante de egreso ' + object.name</field>
+            <field name="binding_model_id" ref="account_voucher.model_account_voucher"/>
+            <field name="binding_type">report</field>
+            <field name="domain" eval="[('partner_type', '=', 'supplier')]"/>
+        </record>
+
+        <record id="report_generic_accounting_receipt" model="ir.actions.report">
+            <field name="name">Generic accounting receipt</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="paperformat_id" ref="account_voucher.paperformat_generic_accounting_receipt"/>
+            <field name="report_name">account_voucher.generic_accounting_receipt</field>
+            <field name="report_file">account_voucher.generic_accounting_receipt</field>
+            <field name="print_report_name">'Comprobante Contable ' + object.name</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="domain" eval="[('move_type', 'in', ('entry', 'in_invoice', 'in_refund', 'in_receipt'))]"/>
+        </record>
+
+    </data>
+</odoo>

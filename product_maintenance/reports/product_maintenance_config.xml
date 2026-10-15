@@ -1,0 +1,80 @@
+<odoo>
+    <data>
+        <record id="paperformat_schedule_maintenance" model="report.paperformat">
+            <field name="name">Cronograma Mantenimiento</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="page_height" eval="False"/>
+            <field name="page_width" eval="False"/>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <record id="paperformat_repair_order_template" model="report.paperformat">
+            <field name="name">Orden de Trabajo</field>
+            <field name="format">Letter</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">45</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_product_maintenance_life_report" model="report.paperformat">
+            <field name="name">Hoja de Vida</field>
+            <field name="format">Letter</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_product_maintenance_schedule_report" model="ir.actions.report">
+            <field name="name">Cronograma Mantenimiento</field>
+            <field name="model">product.maintenance</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">product_maintenance.product_maintenance_schedule_report</field>
+            <field name="report_file">product_maintenance.product_maintenance_schedule_report</field>
+            <field name="paperformat_id" ref="paperformat_schedule_maintenance" />
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="product_maintenance.model_product_maintenance" />
+        </record>
+
+        <record id="action_repair_order_templates" model="ir.actions.report">
+            <field name="name">Orden de Trabajo</field>
+            <field name="model">repair.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">product_maintenance.repair_order_report_template</field>
+            <field name="report_file">product_maintenance.repair_order_report_template</field>
+            <field name="paperformat_id" ref="paperformat_repair_order_template" />
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="product_maintenance.model_repair_order" />
+        </record>
+
+        <record id="action_product_maintenance_life_report" model="ir.actions.report">
+            <field name="name">Hoja de Vida</field>
+            <field name="model">product.maintenance</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">product_maintenance.product_maintenance_life_report</field>
+            <field name="report_file">product_maintenance.product_maintenance_life_report</field>
+            <field name="paperformat_id" ref="paperformat_product_maintenance_life_report" />
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="product_maintenance.model_product_maintenance" />
+        </record>
+    </data>
+</odoo>

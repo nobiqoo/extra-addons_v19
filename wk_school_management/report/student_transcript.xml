@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <record id="student_transcript_print" model="ir.actions.report">
+        <field name="name">Transcript</field>
+        <field name="model">student.student</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wk_school_management.report_student_transcript</field>
+        <field name="report_file">wk_school_management.report_student_transcript</field>
+        <field name="print_report_name">'%s - Transcript' % (object.name).replace('/', '')</field>
+    </record>
+
+    <template id='report_student_transcript'>
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <t t-foreach="docs" t-as="student">
+                            <div class="oe_structure"/>
+                            <div class="detail_header mb-3 p-4">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                                            <span class="fw-bolder" style="color: #525050;">Name:  </span><t t-out="student.name"/>
+                                        </div>
+                                        <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                                            <span class="fw-bolder" style="color: #525050;">Email:  </span><t t-out="student.email"/>
+                                        </div>
+                                        <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                                            <span class="fw-bolder" style="color: #525050;">Address:  </span><t t-out="student.get_student_address()"/>
+                                        </div>
+                                        <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                                            <span class="fw-bolder" style="color: #525050;">Date Of Birth:  </span><t t-out="student.dob"/>
+                                        </div>
+                                        <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                                            <span class="fw-bolder" style="color: #525050;">Mobile:  </span><t t-out="student.mobile"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                                            <span class="fw-bolder" style="color: #525050;">Name:  </span><t t-out="student.company_id.name"/>
+                                        </div>
+                                        <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                                            <span class="fw-bolder" style="color: #525050;">Email:  </span><t t-out="student.company_id.email"/>
+                                        </div>
+                                        <div class="my-1" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                                            <span class="fw-bolder" style="color: #525050;">Session:  </span><t t-out="session_id.name"/>
+                                        </div>
+                                        <div class="my-2" style="font-family: 'Helvetica', 'Arial', sans-serif;">
+                                            <span class="fw-bolder" style="color: #525050;">Session Status:  </span>
+                                            <t t-if="session_id.state == 'new'">
+                                                <span class="badge rounded-pill p-1 fs-5" style="color:#2563EA !important;background-color:#cfdbf7 !important;font-size:14px;font-family: 'Inter', sans-serif;">New</span>
+                                            </t>
+                                            <t t-elif="session_id.state == 'progress'">
+                                                <span class="badge rounded-pill p-1 fs-5" style="color:#B35309 !important;background-color:#ffe9c4 !important;font-size:14px;font-family: 'Inter', sans-serif;">Progress</span>
+                                            </t>
+                                            <t t-elif="session_id.state == 'complete'">
+                                                <span class="badge rounded-pill p-1 fs-5" style="color:#047857 !important;background-color:#caf7ea !important;font-size:14px;font-family: 'Inter', sans-serif;">Complete</span>
+                                            </t>
+                                        </div>
+                                        <div class="my-1" style="color: #525050;font-family: 'Helvetica', 'Arial', sans-serif;">
+                                            <span class="fw-bolder ">Issue Date:  </span><t t-out="date"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <t t-foreach="student.get_student_transcript_data(session_id.id, student.id)" t-as="records">
+                                <div class="col-12 my-3 p-3">
+                                    <t t-set="transcript" t-value="records[0]"/>
+                                    <div class="row fs-5 mb-3" style="font-family: 'Helvetica', 'Arial', sans-serif; color: #525050;">
+                                        <div class="col-6">
+                                            <strong>Academic Year:</strong> <t t-out="transcript['academic_year']"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Grade:</strong> <t t-out="transcript['grade']"/>
+                                        </div>
+                                    </div>
+
+                                    <table class="table table-borderless" style="font-size: 14px; border: none; margin-top: 10px;">
+                                        <thead style="background-color: #e1e1e1;">
+                                            <tr>
+                                                <th style="font-weight: bold;padding: 8px;text-align: center;vertical-align: middle;font-size:16px;">Term</th>
+                                                <th style="font-weight: bold;padding: 8px;text-align: center;vertical-align: middle;font-size:16px;">Subject Code</th>
+                                                <th style="font-weight: bold;padding: 8px;text-align: center;vertical-align: middle;font-size:16px;">Subject</th>
+                                                <th style="font-weight: bold;padding: 8px;text-align: center;vertical-align: middle;font-size:16px;">Credit</th>
+                                                <th style="font-weight: bold;padding: 8px;text-align: center;vertical-align: middle;font-size:16px;">Grade</th>
+                                                <th style="font-weight: bold;padding: 8px;text-align: center;vertical-align: middle;font-size:16px;">SGPA</th>
+                                                <th style="font-weight: bold;padding: 8px;text-align: center;vertical-align: middle;font-size:16px;">CGPA</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="transcript['terms']" t-as="term">
+                                                <t t-set="row_count" t-value="term['subjects'] and len(term['subjects']) or 1"/>
+                                                <t t-foreach="term['subjects']" t-as="subject" t-index="subject_index">
+                                                    <tr>
+                                                        <t t-if="subject_index == 0">
+                                                            <td t-attf-rowspan="{{ row_count }}" style="text-align: center;">
+                                                                <t t-esc="term['name']"/>
+                                                            </td>
+                                                        </t>
+                                                        <td style="text-align: center;"><t t-esc="subject['subject_code']"/></td>
+                                                        <td style="text-align: center;"><t t-esc="subject['subject_name']"/></td>
+                                                        <td style="text-align: center;"><t t-esc="subject['credit_value']"/></td>
+                                                        <td style="text-align: center;"><t t-esc="subject['grade'] or '-'"/></td>
+                                                        <t t-if="subject_index == 0">
+                                                            <td t-attf-rowspan="{{ row_count }}" style="text-align: center;">
+                                                                <t t-esc="term['sgpa'] or '-'"/>
+                                                            </td>
+                                                            <td t-attf-rowspan="{{ row_count }}" style="text-align: center;">
+                                                                <t t-esc="term['cgpa'] or '-'"/>
+                                                            </td>
+                                                        </t>
+                                                    </tr>
+                                                </t>
+                                                <tr>
+                                                    <td colspan="7" style="border-top: 1px solid #bfbfbf;"></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="page-break-after: always;"></div>
+                            </t>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

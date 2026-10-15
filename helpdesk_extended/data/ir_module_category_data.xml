@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.module.category" id="module_category_helpdesk_sales">
+            <field name="name">Vendedores Helpdesk</field>
+            <field name="description">Vendedor Helpdesk</field>
+            <field name="sequence">15</field>
+        </record>
+
+    </data>
+</odoo>

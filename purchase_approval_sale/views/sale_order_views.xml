@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_form_delegation_approval" model="ir.ui.view">
+        <field name="name">sale.order.form.delegation.approval</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="attributes">
+                <attribute name="statusbar_visible">draft,sent,in_approval,sale</attribute>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Aprobaciones">
+                    <field name="approval_ids" nolabel="1">
+                        <list string="Aprobaciones" editable="bottom" create="0" delete="0">
+                            <field name="sequence" readonly="1"/>
+                            <field name="approver_id" readonly="1"/>
+                            <field name="alternate_approver_id" readonly="1"/>
+                            <field name="status" readonly="1"/>
+                            <field name="approved_date" readonly="1"/>
+                            <field name="refused_date" readonly="1"/>
+
+                            <button name="action_approve" type="object" string="Aprobar"
+                                    class="btn btn-primary"
+                                    invisible="not can_current_user_approve"/>
+
+                            <button name="action_refuse" type="object" string="Rechazar"
+                                    class="btn btn-secondary"
+                                    invisible="not can_current_user_approve"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

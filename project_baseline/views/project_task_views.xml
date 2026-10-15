@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="project_task_view_form" model="ir.ui.view">
+            <field name="name">project.task.inherit.view.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_dependent_tasks']" position="after">
+                    <button name="action_view_income" type="object" class="oe_stat_button" icon="fa-area-chart" groups="sales_team.group_sale_salesman,purchase.group_purchase_user" invisible="not project_task_income_expense">
+                        <field widget="statinfo" name="bl_income_count" string="Income"/>
+                    </button>
+                    <button name="action_view_expense" type="object" class="oe_stat_button" icon="fa-cubes" groups="sales_team.group_sale_salesman,purchase.group_purchase_user" invisible="not project_task_income_expense">
+                        <field widget="statinfo" name="bl_expense_count" string="Expense"/>
+                    </button>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@name='extra_info']" position="after">
+                    <page name="financial" string="Financial info" groups="sales_team.group_sale_salesman,purchase.group_purchase_user" invisible="not project_task_income_expense">
+                        <group name="financial_summary" string="Financial Summary">
+                            <group name="plan" string="Planned">
+                                <field name="project_task_income_expense" invisible="1"/>
+                                <field name="bl_company_currency_id" invisible="1"/>
+                                <field name="bl_plan_income" />
+                                <field name="bl_plan_expense" />
+                                <field name="bl_plan_margin" widget="percentage"/>
+                            </group>
+                            <group name="real" string="Real">
+                                <field name="bl_real_income" />
+                                <field name="bl_real_expense" />
+                                <field name="bl_real_margin" widget="percentage"/>
+                            </group>
+                        </group>
+                        <separator name="income" string="Income"/>
+                        <field name="bl_income_ids" readonly="0" context="{'default_partner_id': partner_id}">
+                            <list class="o_sale_order" sample="1" decoration-info="state in ['draft', 'sent']" decoration-muted="state == 'cancel'">
+                                <field name="name" optional="show"/>
+                                <field name="create_date" optional="show"/>
+                                <field name="partner_id" optional="show"/>
+                                <field name="user_id" optional="hide" widget="many2one_avatar_user"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="amount_untaxed" optional="hide" sum="Total Untaxed amount" widget="monetary"/>
+                                <field name="amount_tax" optional="hide" sum="Tax Total" widget="monetary"/>
+                                <field name="amount_total" optional="show" sum="Total amount" widget="monetary"/>
+                                <field name="state"  optional="show" decoration-success="state == 'sale' or state == 'done'" decoration-info="state == 'draft' or state == 'sent'" widget="badge"/>
+                                <field name="invoice_status" optional="show"/>
+                            </list>
+                        </field>
+                        <separator name="expense" string="Expense"/>
+                        <field name="bl_expense_ids" readonly="0" context="{'default_partner_id': partner_id}">
+                            <list class="o_purchase_order" sample="1" decoration-info="state in ['draft', 'sent']" decoration-muted="state == 'cancel'">
+                                <field name="priority" optional="show" widget="priority" nolabel="1"/>
+                                <field name="partner_ref" optional="hide"/>
+                                <field name="name" string="Reference" readonly="1" decoration-bf="1"/>
+                                <field name="date_approve" optional="hide" invisible="context.get('quotation_only', False)" />
+                                <field name="partner_id" optional="show"/>
+                                <field name="date_planned" optional="hide" invisible="context.get('quotation_only', False)" />
+                                <field name="user_id" optional="show" widget="many2one_avatar_user"/>
+                                <field name="date_order" optional="show" invisible="state in ('purchase', 'done', 'cancel') and not context.get('quotation_only', False)" widget="remaining_days"/>
+                                <field name="origin" optional="hide"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="amount_untaxed" optional="hide" sum="Total Untaxed amount" string="Untaxed" widget="monetary" />
+                                <field name="amount_total" optional="show" sum="Total amount" widget="monetary" decoration-bf="state in ['purchase', 'done']"/>
+                                <field name="state" optional="show" widget="badge" decoration-success="state == 'purchase' or state == 'done'" decoration-warning="state == 'to approve'" decoration-info="state == 'draft' or state == 'sent'"/>
+                                <field name="invoice_status" optional="show"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

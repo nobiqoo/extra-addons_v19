@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="weekly_schedule_tree" model="ir.ui.view">
+            <field name="name">wk.weekly.schedule.form</field>
+            <field name="model">wk.weekly.schedule</field>
+            <field name="arch" type="xml">
+                <list editable="bottom" string="Weekly Schedule">
+                    <field name="sequence" widget="handle"/>
+                    <field name="weekday" readonly="state == 'done'"/>
+                    <field name="timeslot_id" readonly="state == 'done'"/>
+                    <field name="location_id" readonly="state == 'done'"/>
+                    <field name="state" widget="badge" decoration-success="state =='done'"/>
+                </list>
+            </field>
+        </record>
+        
+        <record id="weekly_schedule_action" model="ir.actions.act_window">
+            <field name="name">Weekly Schedule</field>
+            <field name="res_model">wk.weekly.schedule</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="weekly_schedule_tree"/>
+        </record>
+    </data>    
+</odoo>    

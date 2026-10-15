@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="consignment_data_form_view" model="ir.ui.view">
+            <field name="name">consignment.data.form.view</field>
+            <field name="model">consignment.data</field>
+            <field name="arch" type="xml">
+                <form>
+                    <!-- <sheet> -->
+                        <group name="a">
+                            <field name="move_line_id" invisible="1"/>
+                            <field name="transport_rec"/>
+                        </group>
+                        <group name="b">
+                            <group name="ba">
+                                <separator string="01"/>
+                                <field name="rndc_id"/>
+                                <separator string="02"/>
+                                <field name="consignment_id"/>
+                            </group>
+                            <group name="bb">
+                                <separator string="03"/>
+                                <field name="freight"/>
+                                <field name="quantity"/>
+                                <field name="udm"/>
+                                <separator string="04"/>
+                                <field name="order_ref"/>
+                            </group>
+                        </group>
+                    <!-- </sheet> -->
+                </form>
+            </field>
+        </record>
+
+        <record id="consignment_data_tree_view" model="ir.ui.view">
+            <field name="name">consignment.data.tree.view</field>
+            <field name="model">consignment.data</field>
+            <field name="arch" type="xml">
+                <list editable="bottom">
+                    <field name="transport_rec"/>
+                    <field name="rndc_id"/>
+                    <field name="consignment_id"/>
+                    <field name="freight" sum="Total flete"/>
+                    <field name="quantity"/>
+                    <field name="udm"/>
+                    <field name="order_ref"/>
+                    <field name="move_line_id" invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+    </data>
+</odoo>

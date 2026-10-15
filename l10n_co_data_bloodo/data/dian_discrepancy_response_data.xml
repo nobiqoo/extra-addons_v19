@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="discrepancy_response_credit_01" model="dian.discrepancy.response">
+            <field name="name">Devolución parcial de los bienes y/o no aceptación parcial del servicio</field>
+            <field name="dian_code">1</field>
+            <field name="type">credit</field>
+        </record>
+        <record id="discrepancy_response_credit_02" model="dian.discrepancy.response">
+            <field name="name">Anulación de factura electrónica</field>
+            <field name="dian_code">2</field>
+            <field name="type">credit</field>
+            <field name="is_ei">True</field>
+        </record>
+        <record id="discrepancy_response_credit_ds_02" model="dian.discrepancy.response">
+            <field name="name">Anulación del documento soporte en adquisiciones efectuadas a sujetos no obligados a expedir factura de venta o documento equivalente</field>
+            <field name="dian_code">2</field>
+            <field name="type">credit</field>
+            <field name="is_sd">True</field>
+        </record>
+        <record id="discrepancy_response_credit_03" model="dian.discrepancy.response">
+            <field name="name">Rebaja o descuento parcial o total</field>
+            <field name="dian_code">3</field>
+            <field name="type">credit</field>
+        </record>
+        <record id="discrepancy_response_credit_04" model="dian.discrepancy.response">
+            <field name="name">Ajuste de precio</field>
+            <field name="dian_code">4</field>
+            <field name="type">credit</field>
+        </record>
+        <record id="discrepancy_response_credit_05" model="dian.discrepancy.response">
+            <field name="name">Otros</field>
+            <field name="dian_code">5</field>
+            <field name="type">credit</field>
+        </record>
+        <record id="discrepancy_response_debit_01" model="dian.discrepancy.response">
+            <field name="name">Intereses</field>
+            <field name="dian_code">1</field>
+            <field name="type">debit</field>
+        </record>
+        <record id="discrepancy_response_debit_02" model="dian.discrepancy.response">
+            <field name="name">Gastos por cobrar</field>
+            <field name="dian_code">2</field>
+            <field name="type">debit</field>
+        </record>
+        <record id="discrepancy_response_debit_03" model="dian.discrepancy.response">
+            <field name="name">Cambio del valor</field>
+            <field name="dian_code">3</field>
+            <field name="type">debit</field>
+        </record>
+        <record id="discrepancy_response_debit_04" model="dian.discrepancy.response">
+            <field name="name">Otros</field>
+            <field name="dian_code">4</field>
+            <field name="type">debit</field>
+        </record>
+    </data>
+</odoo>

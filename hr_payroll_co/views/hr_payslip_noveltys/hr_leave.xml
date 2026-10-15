@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_leave_form" model="ir.ui.view">
+            <field name="name">hr.leave.form</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="model_basic_payslip_novelty_form" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/field[@name='approve_date']"
+                    position='after'>
+                    <field name="category_type" invisible="1" />
+                    <field name="days_vac_money"
+                        invisible="category_type != 'VAC_MONEY'" readonly="state != 'draft'" />
+                </xpath>
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/field[@name='approve_date']"
+                    position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/span[@name='label_dates']"
+                    position='inside'>
+                    <b>Duración</b>
+                </xpath>
+                <xpath expr="//sheet/group[@name='group_basic_data']/group/div[@name='div_dates']"
+                    position='after'>
+                    <field name="number_order_eps"
+                        readonly="state != 'draft'" invisible="category_type not in ('SICKNESS', 'AT_EP')" />
+                    <field name="sequence_start"
+                        readonly="state != 'draft'" />
+                    <field name="segment_by_holdidays"
+                        readonly="state != 'draft'"
+                        invisible="category_type != 'VAC'" />
+                    <field name="apply_manual_ibc"
+                        readonly="state != 'draft'" />
+                    <field name="manual_ibc"
+                        readonly="state != 'draft'"
+                        invisible="not apply_manual_ibc" />
+                    <field name="amount_adjusted_to_smmlv" readonly="1"
+                        invisible="1" />
+                </xpath>
+                <xpath expr="//sheet/group[@name='group_basic_data']/group/field[@name='amount']"
+                    position='attributes'>
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/field[@name='company_id']"
+                    position='after'>
+                    <field name="leave_type_id" readonly="state != 'draft'" />
+                    <field name="holidays_leave_type_id"
+                        readonly="state != 'draft'"
+                        invisible="segment_by_holdidays != True"
+                        required="segment_by_holdidays == True" />
+                    <label for="extension_id"
+                        invisible="category_type not in ('SICKNESS', 'AT_EP')" />
+                    <div name="div_extension" class="o_row"
+                        invisible="category_type not in ('SICKNESS', 'AT_EP')">
+                        <field name="is_extension" nolabel="1"
+                            readonly="state != 'draft'" />
+                        <field name="extension_id" nolabel="1"
+                            readonly="state != 'draft'" invisible="not is_extension"
+                            options="{'no_create': True}"
+                            domain="[('contract_id','=',contract_id), ('state', 'in', ('validated', 'paid')), ('leave_type_id', '=', leave_type_id)]" />
+                    </div>
+                    <field name="code_cie10_id" readonly="state != 'draft'" />
+                    <field name="diagnosis_description" readonly="state != 'draft'" />
+                </xpath>
+                <xpath expr="//sheet/group[@name='group_basic_data']" position='after'>
+                    <notebook>
+                        <page name='page_leave_line' string="Lineas de Ausencia">
+                            <field name="leave_line_ids">
+                                <list>
+                                    <field name="sequence" />
+                                    <field name="date" />
+                                    <field name="period_id" />
+                                    <field name="amount" />
+                                    <field name="state" />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_leave_tree" model="ir.ui.view">
+            <field name="name">hr.leave.tree</field>
+            <field name="model">hr.leave</field>
+            <field name="type">list</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="contract_id" />
+                    <field name="employee_id" />
+                    <field name="leave_type_id" />
+                    <field name="state" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_leave_search" model="ir.ui.view">
+            <field name="name">hr.leave.search</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="model_basic_payslip_novelty_search" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="leave_type_id" />
+
+                    <separator />
+                    <filter name="extension_filter" string="Es prórroga"
+                        domain="[('is_extension','=', True)]" />
+                    <filter name="extension_filter" string="No es prórroga"
+                        domain="[('is_extension','=', False)]" />
+
+                    <separator />
+                    <filter name="leave_type_group" string="Categoría de Ausencia"
+                        context="{'group_by': 'leave_type_id'}" />
+                    <filter name="extension_group" string="Prórroga"
+                        context="{'group_by': 'is_extension'}" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_leave_action" model="ir.actions.act_window">
+            <field name="name">Ausencias</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.leave</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_leave_menu_act" name="Ausencias" parent="novelty_menu_categ"
+            action="hr_leave_action" sequence="1" />
+
+    </data>
+
+    <data noupdate="1">
+        <record id="seq_hr_leave" model="ir.sequence">
+            <field name="name">Número Ausencia</field>
+            <field name="code">seq.hr.leave</field>
+            <field name="prefix">AUS-</field>
+            <field name="padding">10</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,424 @@
+{
+    "version": 12,
+    "sheets": [
+        {
+            "id": "sheet1",
+            "name": "Dashboard",
+            "colNumber": 14,
+            "rowNumber": 50,
+            "rows": {
+                "0": { "size": 30 },
+                "1": { "size": 40 },
+                "13": { "size": 25 }
+            },
+            "cols": {
+                "0": { "size": 180 },
+                "1": { "size": 70 },
+                "2": { "size": 70 },
+                "3": { "size": 70 },
+                "4": { "size": 95 },
+                "5": { "size": 70 },
+                "6": { "size": 80 },
+                "7": { "size": 70 },
+                "8": { "size": 90 },
+                "9": { "size": 110 },
+                "10": { "size": 70 },
+                "11": { "size": 70 },
+                "12": { "size": 70 }
+            },
+            "merges": [],
+            "cells": {
+                "A2": { "style": 1, "content": "=_t(\"Dashboard de Almacenamiento\")" },
+                "A10": { "style": 2, "content": "=_t(\"Top 10 Tablas de PostgreSQL por Tamaño\")" },
+                "A11": { "style": 3, "content": "=_t(\"Tabla\")", "border": 1 },
+                "B11": { "style": 3, "content": "=_t(\"Total (MB)\")", "border": 1 },
+                "C11": { "style": 3, "content": "=_t(\"Registros\")", "border": 1 },
+
+                "A12": { "content": "=ODOO.PIVOT.HEADER(2, \"#table_name\", 1)" },
+                "B12": { "content": "=ODOO.PIVOT(2, \"total_size\", \"#table_name\", 1)", "format": 1 },
+                "C12": { "content": "=ODOO.PIVOT(2, \"row_count\", \"#table_name\", 1)", "format": 2 },
+                "A13": { "content": "=ODOO.PIVOT.HEADER(2, \"#table_name\", 2)" },
+                "B13": { "content": "=ODOO.PIVOT(2, \"total_size\", \"#table_name\", 2)", "format": 1 },
+                "C13": { "content": "=ODOO.PIVOT(2, \"row_count\", \"#table_name\", 2)", "format": 2 },
+                "A14": { "content": "=ODOO.PIVOT.HEADER(2, \"#table_name\", 3)" },
+                "B14": { "content": "=ODOO.PIVOT(2, \"total_size\", \"#table_name\", 3)", "format": 1 },
+                "C14": { "content": "=ODOO.PIVOT(2, \"row_count\", \"#table_name\", 3)", "format": 2 },
+                "A15": { "content": "=ODOO.PIVOT.HEADER(2, \"#table_name\", 4)" },
+                "B15": { "content": "=ODOO.PIVOT(2, \"total_size\", \"#table_name\", 4)", "format": 1 },
+                "C15": { "content": "=ODOO.PIVOT(2, \"row_count\", \"#table_name\", 4)", "format": 2 },
+                "A16": { "content": "=ODOO.PIVOT.HEADER(2, \"#table_name\", 5)" },
+                "B16": { "content": "=ODOO.PIVOT(2, \"total_size\", \"#table_name\", 5)", "format": 1 },
+                "C16": { "content": "=ODOO.PIVOT(2, \"row_count\", \"#table_name\", 5)", "format": 2 },
+                "A17": { "content": "=ODOO.PIVOT.HEADER(2, \"#table_name\", 6)" },
+                "B17": { "content": "=ODOO.PIVOT(2, \"total_size\", \"#table_name\", 6)", "format": 1 },
+                "C17": { "content": "=ODOO.PIVOT(2, \"row_count\", \"#table_name\", 6)", "format": 2 },
+                "A18": { "content": "=ODOO.PIVOT.HEADER(2, \"#table_name\", 7)" },
+                "B18": { "content": "=ODOO.PIVOT(2, \"total_size\", \"#table_name\", 7)", "format": 1 },
+                "C18": { "content": "=ODOO.PIVOT(2, \"row_count\", \"#table_name\", 7)", "format": 2 },
+                "A19": { "content": "=ODOO.PIVOT.HEADER(2, \"#table_name\", 8)" },
+                "B19": { "content": "=ODOO.PIVOT(2, \"total_size\", \"#table_name\", 8)", "format": 1 },
+                "C19": { "content": "=ODOO.PIVOT(2, \"row_count\", \"#table_name\", 8)", "format": 2 },
+                "A20": { "content": "=ODOO.PIVOT.HEADER(2, \"#table_name\", 9)" },
+                "B20": { "content": "=ODOO.PIVOT(2, \"total_size\", \"#table_name\", 9)", "format": 1 },
+                "C20": { "content": "=ODOO.PIVOT(2, \"row_count\", \"#table_name\", 9)", "format": 2 },
+                "A21": { "content": "=ODOO.PIVOT.HEADER(2, \"#table_name\", 10)" },
+                "B21": { "content": "=ODOO.PIVOT(2, \"total_size\", \"#table_name\", 10)", "format": 1 },
+                "C21": { "content": "=ODOO.PIVOT(2, \"row_count\", \"#table_name\", 10)", "format": 2 },
+
+                "F10": { "style": 2, "content": "=_t(\"Proyección de Almacenamiento\")" },
+
+                "A24": { "style": 2, "content": "=_t(\"Desglose de Adjuntos por Modelo y Tipo (MB)\")" },
+                "A25": { "style": 3, "content": "=_t(\"Modelo\")", "border": 1 },
+                "B25": { "style": 3, "content": "=_t(\"Video\")", "border": 1 },
+                "C25": { "style": 3, "content": "=_t(\"PDF\")", "border": 1 },
+                "D25": { "style": 3, "content": "=_t(\"Imagen\")", "border": 1 },
+                "E25": { "style": 3, "content": "=_t(\"Comprimido\")", "border": 1 },
+                "F25": { "style": 3, "content": "=_t(\"XML\")", "border": 1 },
+                "G25": { "style": 3, "content": "=_t(\"Documentos\")", "border": 1 },
+                "H25": { "style": 3, "content": "=_t(\"Otros\")", "border": 1 },
+                "I25": { "style": 3, "content": "=_t(\"Total\")", "border": 1 },
+
+                "A26": { "content": "=ODOO.PIVOT.HEADER(3, \"#res_model\", 1)" },
+                "B26": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 1, \"file_type\", \"Video (.mp4, .avi, ...)\")", "format": 1 },
+                "C26": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 1, \"file_type\", \"PDF (.pdf)\")", "format": 1 },
+                "D26": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 1, \"file_type\", \"Imagen (.png, .jpg, ...)\")", "format": 1 },
+                "E26": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 1, \"file_type\", \"Comprimido (.zip, .rar, ...)\")", "format": 1 },
+                "F26": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 1, \"file_type\", \"XML (.xml)\")", "format": 1 },
+                "G26": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 1, \"file_type\", \"Documentos (.xlsx, .docx, ...)\")", "format": 1 },
+                "H26": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 1, \"file_type\", \"Otros\")", "format": 1 },
+                "I26": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 1)", "format": 1 },
+
+                "A27": { "content": "=ODOO.PIVOT.HEADER(3, \"#res_model\", 2)" },
+                "B27": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 2, \"file_type\", \"Video (.mp4, .avi, ...)\")", "format": 1 },
+                "C27": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 2, \"file_type\", \"PDF (.pdf)\")", "format": 1 },
+                "D27": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 2, \"file_type\", \"Imagen (.png, .jpg, ...)\")", "format": 1 },
+                "E27": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 2, \"file_type\", \"Comprimido (.zip, .rar, ...)\")", "format": 1 },
+                "F27": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 2, \"file_type\", \"XML (.xml)\")", "format": 1 },
+                "G27": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 2, \"file_type\", \"Documentos (.xlsx, .docx, ...)\")", "format": 1 },
+                "H27": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 2, \"file_type\", \"Otros\")", "format": 1 },
+                "I27": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 2)", "format": 1 },
+
+                "A28": { "content": "=ODOO.PIVOT.HEADER(3, \"#res_model\", 3)" },
+                "B28": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 3, \"file_type\", \"Video (.mp4, .avi, ...)\")", "format": 1 },
+                "C28": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 3, \"file_type\", \"PDF (.pdf)\")", "format": 1 },
+                "D28": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 3, \"file_type\", \"Imagen (.png, .jpg, ...)\")", "format": 1 },
+                "E28": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 3, \"file_type\", \"Comprimido (.zip, .rar, ...)\")", "format": 1 },
+                "F28": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 3, \"file_type\", \"XML (.xml)\")", "format": 1 },
+                "G28": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 3, \"file_type\", \"Documentos (.xlsx, .docx, ...)\")", "format": 1 },
+                "H28": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 3, \"file_type\", \"Otros\")", "format": 1 },
+                "I28": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 3)", "format": 1 },
+
+                "A29": { "content": "=ODOO.PIVOT.HEADER(3, \"#res_model\", 4)" },
+                "B29": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 4, \"file_type\", \"Video (.mp4, .avi, ...)\")", "format": 1 },
+                "C29": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 4, \"file_type\", \"PDF (.pdf)\")", "format": 1 },
+                "D29": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 4, \"file_type\", \"Imagen (.png, .jpg, ...)\")", "format": 1 },
+                "E29": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 4, \"file_type\", \"Comprimido (.zip, .rar, ...)\")", "format": 1 },
+                "F29": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 4, \"file_type\", \"XML (.xml)\")", "format": 1 },
+                "G29": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 4, \"file_type\", \"Documentos (.xlsx, .docx, ...)\")", "format": 1 },
+                "H29": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 4, \"file_type\", \"Otros\")", "format": 1 },
+                "I29": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 4)", "format": 1 },
+
+                "A30": { "content": "=ODOO.PIVOT.HEADER(3, \"#res_model\", 5)" },
+                "B30": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 5, \"file_type\", \"Video (.mp4, .avi, ...)\")", "format": 1 },
+                "C30": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 5, \"file_type\", \"PDF (.pdf)\")", "format": 1 },
+                "D30": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 5, \"file_type\", \"Imagen (.png, .jpg, ...)\")", "format": 1 },
+                "E30": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 5, \"file_type\", \"Comprimido (.zip, .rar, ...)\")", "format": 1 },
+                "F30": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 5, \"file_type\", \"XML (.xml)\")", "format": 1 },
+                "G30": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 5, \"file_type\", \"Documentos (.xlsx, .docx, ...)\")", "format": 1 },
+                "H30": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 5, \"file_type\", \"Otros\")", "format": 1 },
+                "I30": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 5)", "format": 1 },
+
+                "A31": { "content": "=ODOO.PIVOT.HEADER(3, \"#res_model\", 6)" },
+                "B31": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 6, \"file_type\", \"Video (.mp4, .avi, ...)\")", "format": 1 },
+                "C31": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 6, \"file_type\", \"PDF (.pdf)\")", "format": 1 },
+                "D31": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 6, \"file_type\", \"Imagen (.png, .jpg, ...)\")", "format": 1 },
+                "E31": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 6, \"file_type\", \"Comprimido (.zip, .rar, ...)\")", "format": 1 },
+                "F31": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 6, \"file_type\", \"XML (.xml)\")", "format": 1 },
+                "G31": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 6, \"file_type\", \"Documentos (.xlsx, .docx, ...)\")", "format": 1 },
+                "H31": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 6, \"file_type\", \"Otros\")", "format": 1 },
+                "I31": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 6)", "format": 1 },
+
+                "A32": { "content": "=ODOO.PIVOT.HEADER(3, \"#res_model\", 7)" },
+                "B32": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 7, \"file_type\", \"Video (.mp4, .avi, ...)\")", "format": 1 },
+                "C32": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 7, \"file_type\", \"PDF (.pdf)\")", "format": 1 },
+                "D32": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 7, \"file_type\", \"Imagen (.png, .jpg, ...)\")", "format": 1 },
+                "E32": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 7, \"file_type\", \"Comprimido (.zip, .rar, ...)\")", "format": 1 },
+                "F32": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 7, \"file_type\", \"XML (.xml)\")", "format": 1 },
+                "G32": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 7, \"file_type\", \"Documentos (.xlsx, .docx, ...)\")", "format": 1 },
+                "H32": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 7, \"file_type\", \"Otros\")", "format": 1 },
+                "I32": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 7)", "format": 1 },
+
+                "A33": { "content": "=ODOO.PIVOT.HEADER(3, \"#res_model\", 8)" },
+                "B33": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 8, \"file_type\", \"Video (.mp4, .avi, ...)\")", "format": 1 },
+                "C33": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 8, \"file_type\", \"PDF (.pdf)\")", "format": 1 },
+                "D33": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 8, \"file_type\", \"Imagen (.png, .jpg, ...)\")", "format": 1 },
+                "E33": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 8, \"file_type\", \"Comprimido (.zip, .rar, ...)\")", "format": 1 },
+                "F33": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 8, \"file_type\", \"XML (.xml)\")", "format": 1 },
+                "G33": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 8, \"file_type\", \"Documentos (.xlsx, .docx, ...)\")", "format": 1 },
+                "H33": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 8, \"file_type\", \"Otros\")", "format": 1 },
+                "I33": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 8)", "format": 1 },
+
+                "A34": { "content": "=ODOO.PIVOT.HEADER(3, \"#res_model\", 9)" },
+                "B34": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 9, \"file_type\", \"Video (.mp4, .avi, ...)\")", "format": 1 },
+                "C34": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 9, \"file_type\", \"PDF (.pdf)\")", "format": 1 },
+                "D34": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 9, \"file_type\", \"Imagen (.png, .jpg, ...)\")", "format": 1 },
+                "E34": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 9, \"file_type\", \"Comprimido (.zip, .rar, ...)\")", "format": 1 },
+                "F34": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 9, \"file_type\", \"XML (.xml)\")", "format": 1 },
+                "G34": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 9, \"file_type\", \"Documentos (.xlsx, .docx, ...)\")", "format": 1 },
+                "H34": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 9, \"file_type\", \"Otros\")", "format": 1 },
+                "I34": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 9)", "format": 1 },
+
+                "A35": { "content": "=ODOO.PIVOT.HEADER(3, \"#res_model\", 10)" },
+                "B35": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 10, \"file_type\", \"Video (.mp4, .avi, ...)\")", "format": 1 },
+                "C35": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 10, \"file_type\", \"PDF (.pdf)\")", "format": 1 },
+                "D35": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 10, \"file_type\", \"Imagen (.png, .jpg, ...)\")", "format": 1 },
+                "E35": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 10, \"file_type\", \"Comprimido (.zip, .rar, ...)\")", "format": 1 },
+                "F35": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 10, \"file_type\", \"XML (.xml)\")", "format": 1 },
+                "G35": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 10, \"file_type\", \"Documentos (.xlsx, .docx, ...)\")", "format": 1 },
+                "H35": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 10, \"file_type\", \"Otros\")", "format": 1 },
+                "I35": { "content": "=ODOO.PIVOT(3, \"total_size\", \"#res_model\", 10)", "format": 1 }
+            },
+            "conditionalFormats": [],
+            "figures": [
+                {
+                    "id": "scorecard_total",
+                    "x": 3,
+                    "y": 69,
+                    "width": 250,
+                    "height": 110,
+                    "tag": "chart",
+                    "data": {
+                        "title": "Espacio Total (GB)",
+                        "type": "scorecard",
+                        "background": "#17a2b8",
+                        "keyValue": "Data!B2"
+                    }
+                },
+                {
+                    "id": "scorecard_database",
+                    "x": 265,
+                    "y": 71,
+                    "width": 250,
+                    "height": 110,
+                    "tag": "chart",
+                    "data": {
+                        "title": "Base de Datos (MB)",
+                        "type": "scorecard",
+                        "background": "#007bff",
+                        "keyValue": "Data!B3"
+                    }
+                },
+                {
+                    "id": "scorecard_filestore",
+                    "x": 530,
+                    "y": 71,
+                    "width": 250,
+                    "height": 110,
+                    "tag": "chart",
+                    "data": {
+                        "title": "Filestore (MB)",
+                        "type": "scorecard",
+                        "background": "#28a745",
+                        "keyValue": "Data!B4"
+                    }
+                },
+                {
+                    "id": "scorecard_attachments_db",
+                    "x": 795,
+                    "y": 71,
+                    "width": 250,
+                    "height": 110,
+                    "tag": "chart",
+                    "data": {
+                        "title": "Adjuntos en BD (MB)",
+                        "type": "scorecard",
+                        "background": "#ffc107",
+                        "keyValue": "Data!B5"
+                    }
+                },
+                {
+                    "id": "scorecard_growth_rate",
+                    "x": 513,
+                    "y": 280,
+                    "width": 276,
+                    "height": 110,
+                    "tag": "chart",
+                    "data": {
+                        "title": "Tasa de Crecimiento Diario (MB)",
+                        "type": "scorecard",
+                        "background": "#17a2b8",
+                        "keyValue": "Data!B6"
+                    }
+                },
+                {
+                    "id": "scorecard_projection_full",
+                    "x": 513,
+                    "y": 409,
+                    "width": 276,
+                    "height": 110,
+                    "tag": "chart",
+                    "data": {
+                        "title": "Fecha Proyectada de Llenado",
+                        "type": "scorecard",
+                        "background": "#dc3545",
+                        "keyValue": "Data!B7"
+                    }
+                },
+                {
+                    "id": "figure_trend",
+                    "x": 0,
+                    "y": 882,
+                    "width": 1100,
+                    "height": 320,
+                    "tag": "chart",
+                    "data": {
+                        "title": "Tendencia de Almacenamiento (MB) - BD, Filestore, Total",
+                        "background": "#FFFFFF",
+                        "legendPosition": "top",
+                        "metaData": {
+                            "groupBy": ["analysis_date:day"],
+                            "measure": "total_size",
+                            "order": "ASC",
+                            "resModel": "storage.analysis.trend"
+                        },
+                        "searchParams": {
+                            "comparison": null,
+                            "context": {},
+                            "domain": [],
+                            "groupBy": ["analysis_date"],
+                            "orderBy": []
+                        },
+                        "type": "odoo_line"
+                    }
+                }
+            ],
+            "areGridLinesVisible": true,
+            "isVisible": true
+        },
+        {
+            "id": "sheet2",
+            "name": "Data",
+            "colNumber": 5,
+            "rowNumber": 12,
+            "cells": {
+                "A1": { "content": "=_t(\"Métrica\")" },
+                "B1": { "content": "=_t(\"Valor\")" },
+                "A2": { "content": "=_t(\"Espacio Total\")" },
+                "B2": { "content": "=ODOO.PIVOT(1, \"total_size_gb\", \"#id\", 1)", "format": 1 },
+                "A3": { "content": "=_t(\"Base de Datos (MB)\")" },
+                "B3": { "content": "=ODOO.PIVOT(1, \"database_size\", \"#id\", 1)", "format": 1 },
+                "A4": { "content": "=_t(\"Filestore (MB)\")" },
+                "B4": { "content": "=ODOO.PIVOT(1, \"filestore_size\", \"#id\", 1)", "format": 1 },
+                "A5": { "content": "=_t(\"Adjuntos en BD (MB)\")" },
+                "B5": { "content": "=ODOO.PIVOT(1, \"attachments_db_size\", \"#id\", 1)", "format": 1 },
+                "A6": { "content": "=_t(\"Crecimiento Diario (MB)\")" },
+                "B6": { "content": "=ODOO.PIVOT(4, \"daily_growth_rate\")", "format": 1 },
+                "A7": { "content": "=_t(\"Fecha Proyectada Llenado\")" },
+                "B7": { "content": "=ODOO.PIVOT(4, \"projected_full_date\")" }
+            },
+            "isVisible": false
+        }
+    ],
+    "entities": {},
+    "styles": {
+        "1": { "textColor": "#01666b", "bold": true, "fontSize": 18 },
+        "2": { "textColor": "#01666b", "bold": true, "fontSize": 14 },
+        "3": { "fillColor": "#01666b", "textColor": "#FFFFFF", "bold": true }
+    },
+    "formats": {
+        "1": "#,##0.00",
+        "2": "#,##0"
+    },
+    "borders": {
+        "1": {
+            "bottom": ["thin", "#000"]
+        }
+    },
+    "revisionId": "START_REVISION",
+    "chartOdooMenusReferences": {},
+    "odooVersion": 4,
+    "lists": {},
+    "listNextId": 1,
+    "pivots": {
+        "1": {
+            "colGroupBys": [],
+            "context": {},
+            "domain": [["is_latest", "=", true]],
+            "id": "1",
+            "measures": [
+                { "field": "total_size" },
+                { "field": "total_size_gb" },
+                { "field": "database_size" },
+                { "field": "filestore_size" },
+                { "field": "attachments_db_size" }
+            ],
+            "model": "storage.analysis",
+            "rowGroupBys": [],
+            "name": "General Storage KPIs",
+            "sortedColumn": {
+                "groupId": [[], []],
+                "measure": "total_size",
+                "order": "desc"
+            }
+        },
+        "2": {
+            "colGroupBys": [],
+            "context": {},
+            "domain": [["analysis_id.is_latest", "=", true]],
+            "id": "2",
+            "measures": [
+                { "field": "total_size" },
+                { "field": "row_count" }
+            ],
+            "model": "storage.analysis.table",
+            "rowGroupBys": ["table_name"],
+            "name": "Database Tables size",
+            "sortedColumn": {
+                "groupId": [[], []],
+                "measure": "total_size",
+                "order": "desc"
+            }
+        },
+        "3": {
+            "colGroupBys": ["file_type"],
+            "context": {},
+            "domain": [["analysis_id.is_latest", "=", true]],
+            "id": "3",
+            "measures": [
+                { "field": "total_size" },
+                { "field": "attachment_count" }
+            ],
+            "model": "storage.analysis.model.filetype",
+            "rowGroupBys": ["res_model"],
+            "name": "Attachments by Model and Filetype",
+            "sortedColumn": {
+                "groupId": [[], []],
+                "measure": "total_size",
+                "order": "desc"
+            }
+        },
+        "4": {
+            "colGroupBys": [],
+            "context": {},
+            "domain": [["is_latest", "=", true]],
+            "id": "4",
+            "measures": [
+                { "field": "daily_growth_rate" },
+                { "field": "projected_full_date" },
+                { "field": "total_size" },
+                { "field": "database_size" },
+                { "field": "filestore_size" }
+            ],
+            "model": "storage.analysis.trend",
+            "rowGroupBys": [],
+            "name": "Storage Trends and Projections",
+            "sortedColumn": {
+                "groupId": [[], []],
+                "measure": "total_size",
+                "order": "desc"
+            }
+        }
+    },
+    "pivotNextId": 5,
+    "globalFilters": []
+}

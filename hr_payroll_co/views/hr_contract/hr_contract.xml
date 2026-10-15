@@ -1,0 +1,397 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="hr_contract_form" model="ir.ui.view">
+            <field name="name">hr.contract.form</field>
+            <field name="model">hr.contract</field>
+            <field name="arch" type="xml">
+                <form string="Current Contract">
+                    <field name="company_id" invisible="1" />
+                    <field name="analytic_distribution_contract" invisible="1" />
+                    <header>
+                        <button name="liquidate_contract" string="Liquidar contrato" type="object"
+                            invisible="state != 'open'" />
+                        <field name="state" widget="statusbar" options="{'clickable': '1'}" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_novelties" type="object"
+                                class="oe_stat_button" icon="fa-list-alt">
+                                <field name="novelty_count" widget="statinfo" string="Novedades" />
+                            </button>
+                            <button name="action_view_leaves" type="object"
+                                class="oe_stat_button" icon="fa-calendar-times-o">
+                                <field name="leave_count" widget="statinfo" string="Ausencias" />
+                            </button>
+                            <button name="action_view_overtimes" type="object"
+                                class="oe_stat_button" icon="fa-clock-o">
+                                <field name="overtime_count" widget="statinfo" string="Horas Extras" />
+                            </button>
+                        </div>
+                        <div class="oe_title pr-0" name="title">
+                            <h1 class="d-flex flex-row justify-content-between">
+                                <field name="name" class="text-truncate"
+                                    placeholder="Contract Reference"
+                                    readonly="1" force_save="1" />
+                            </h1>
+                        </div>
+                        <group name="top_info">
+                            <group name="top_info_left">
+                                <field name="employee_id" />
+                                <field name="job_id" />
+                                <field name="contract_city_id" />
+                                <field name="work_city_id" />
+                            </group>
+                            <group name="contract_work_info">
+                                <field name="contract_type_id" />
+                                <field name="term" />
+                                <field name="contract_group_id" />
+                                <field name="risk_id" />
+                                <field name="risk_percentage" />
+                                <field name="high_risk" />
+                                <field name="is_conventional" />
+                                <field name="room_prima_amount" invisible="is_conventional == False" />
+                                <field name="is_transitional_regime" />
+                            </group>
+                            <group name="social_security_info">
+                                <field name="eps_id" readonly="1" force_save="1" />
+                                <field name="afp_pension_id" readonly="1" force_save="1" />
+                                <field name="afp_severance_id" readonly="1" force_save="1" />
+                                <field name="arl_id" />
+                                <field name="ccf_id" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Detalles del Contrato" name="information">
+                                <group name="main_info">
+                                    <group name="salary_and_advantages"
+                                        string="Salario y Beneficios">
+                                        <label for="wage" />
+                                        <div class="o_row" name="wage">
+                                            <field name="wage" nolabel="1" readonly="1"
+                                                force_save="1" />
+                                            <span>/ month</span>
+                                        </div>
+                                        <field name="bonus" />
+                                        <field name="fiscal_type_id" />
+                                        <field name="fiscal_subtype_id" />
+                                        <field name="skip_commute_allowance" />
+                                        <field name="remote_work_allowance" />
+                                        <field name="apply_day31_benefit" />
+                                        <field name="minimum_wage" />
+                                        <field name="limit_deductions" />
+                                        <field name="workcenter" />
+                                    </group>
+                                    <group string="Duración" name="duration_information">
+                                        <field name="resource_calendar_id" />
+                                        <field name="date_start" />
+                                        <field name="date_end" />
+                                        <label for="trial_date_start" />
+                                        <div class="o_row" name="trial_duration">
+                                            <field name="trial_date_start" nolabel="1" readonly="1"
+                                                force_save="1" />
+                                            <span>-</span>
+                                            <field name="trial_date_end" nolabel="1" readonly="1"
+                                                force_save="1" />
+                                        </div>
+                                        <field name="contract_days" />
+                                        <field name="schedule_pay" />
+                                        <field name="apprentice_to_worker_date" />
+                                    </group>
+                                    <group string="Liquidación" name="settlement_information">
+                                        <field name="settlement_date" />
+                                        <field name="settlement_period_id" />
+                                        <field name="settlement_type" />
+                                    </group>
+                                    <group string="Deducciones" name="deductions_information">
+                                        <field name="deduction_dependents" />
+                                        <field name="deduction_by_estate" />
+                                        <field name="deduction_by_healthcare" />
+                                        <field name="deduction_by_icetex" />
+                                    </group>
+                                    <group string="Contabilidad" name="accountancy_information">
+                                        <field name="journal_id" />
+                                        <field name="analytic_distribution_ids"
+                                            invisible="not analytic_distribution_contract == False">
+                                            <list editable="bottom">
+                                                <field name="analytic_account_id" />
+                                                <field name="rate" />
+                                            </list>
+                                        </field>
+                                        <field name="analytic_distribution"
+                                            widget="analytic_distribution"
+                                            invisible="analytic_distribution_contract == False" />
+                                    </group>
+                                    <group string="Contabilidad" name="accountancy_information">
+                                        <field name="cecos_analytic_id" />
+                                    </group>
+                                </group>
+                                <group name="notes_group" string="Notas">
+                                    <field name="notes" nolabel="1" />
+                                </group>
+                            </page>
+                            <page string="Control de Cambios" name="history_updates">
+                                <div
+                                    class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small"
+                                    style="font-size: larger;">Histórico de Salario</div>
+                                <field name="wage_history_ids" nolabel="1">
+                                    <list editable="bottom">
+                                        <field name="wage" />
+                                        <field name="date" />
+                                        <field name="user_id" />
+                                        <field name="appy_retroactive" />
+                                        <field name="date_retroactive_from"
+                                            readonly="appy_retroactive != True"
+                                            required="appy_retroactive == True" />
+                                        <field name="retroactive_novelty_id" readonly="1" />
+                                    </list>
+                                </field>
+
+                                <div
+                                    class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small"
+                                    style="font-size: larger;">Histórico de EPS</div>
+                                <field name="eps_history_ids" nolabel="1">
+                                    <list editable="bottom">
+                                        <field name="eps_id" />
+                                        <field name="date" />
+                                        <field name="user_id" />
+                                    </list>
+                                </field>
+
+                                <div
+                                    class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small"
+                                    style="font-size: larger;">Histórico de Fondo de Pensiones</div>
+                                <field name="pension_history_ids" nolabel="1">
+                                    <list editable="bottom">
+                                        <field name="afp_pension_id" />
+                                        <field name="date" />
+                                        <field name="user_id" />
+                                    </list>
+                                </field>
+
+                                <div
+                                    class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small"
+                                    style="font-size: larger;">Histórico de Fondo de Cesantías</div>
+                                <field name="severance_history_ids" nolabel="1">
+                                    <list editable="bottom">
+                                        <field name="afp_severance_id" />
+                                        <field name="date" />
+                                        <field name="user_id" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Dotaciones" name="equipments">
+                                <field name="equipment_ids" nolabel="1">
+                                    <list editable="bottom">
+                                        <field name="name" />
+                                        <field name="product_id" />
+                                        <field name="amount_info" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Historial de Nóminas" name="payslips">
+                                <field name="paysplip_ids" nolabel="1" readonly="1">
+                                    <list>
+                                        <field name="name" />
+                                        <field name="period_id" />
+                                        <field name="accounting_date" />
+                                        <field name="liquidation_date" />
+                                        <field name="state" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Libro de vacaciones" name="holiday_book">
+                                <button name="update_days_left" string="Actualizar días restantes y libro por periodo"
+                                    type="object" />
+                                <button name="download_holiday_book_report" string="Descargar libro de vacaciones"
+                                    type="object" icon="fa-download" class="btn-primary ms-2" />
+                                <group>
+                                    <group>
+                                        <field name="days_left" />
+                                    </group>
+                                    <group>
+                                        <field name="date_ref_holiday_book" />
+                                    </group>
+                                </group>
+                                <field name="holiday_book_ids">
+                                    <list>
+                                        <field name="days_enjoyed" />
+                                        <field name="days_paid" />
+                                        <field name="days_suspension" />
+                                        <field name="leave_id" />
+                                        <field name="payslip_id" />
+                                        <field name="initial_balance" />
+                                    </list>
+                                </field>
+
+                                <h4>Libro de vacaciones por periodo</h4>
+                                <field name="holiday_book_period_ids">
+                                    <list>
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                        <field name="days_worked"/>
+                                        <field name="days_suspension"/>
+                                        <field name="days_accrued"/>
+                                        <field name="days_payroll"/>
+                                        <field name="days_enjoyed"/>
+                                        <field name="days_validated"/>
+                                        <field name="days_paid"/>
+                                        <field name="days_pending"/>
+                                        <field name="date_start_vacation"/>
+                                        <field name="date_end_vacation"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Prórrogas" name="extensions">
+                                <button name="extend_contract" type="object" string="Prorrogar"
+                                    class="oe_stat_button" icon="fa-expand" />
+                                <field name="contract_extension_ids" nolabel="1">
+                                    <list editable="bottom">
+                                        <field name="sequence" />
+                                        <field name="date_from" />
+                                        <field name="date_to" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Rete-Fuente Procedimiento 2" name="withholding_p2_info">
+                                <group>
+                                    <group>
+                                        <field name="apply_procedure_2" />
+                                    </group>
+                                    <group>
+                                        <field name="withholding_percent" />
+                                    </group>
+                                </group>
+                                <field name="withholding_log_ids" nolabel="1">
+                                    <list editable="bottom">
+                                        <field name="name" />
+                                        <field name="value" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Novedades" name="contract_novelties">
+                                <field name="contract_novelty_ids" nolabel="1">
+                                    <list editable="bottom" decoration-success="state == 'validated'">
+                                        <field name="novelty_type_id" readonly="state == 'validated'"
+                                            options="{'no_create': True}" />
+                                        <field name="amount" />
+                                        <field name="date_start" readonly="state == 'validated'" />
+                                        <field name="date_end" />
+                                        <field name="state" readonly="1" />
+                                        <field name="novelty_count" />
+                                        <button name="action_validate" type="object" string="Validar"
+                                            icon="fa-check" invisible="state != 'draft'"
+                                            groups="hr_payroll_co.group_contract_novelty_validate" />
+                                        <button name="action_draft" type="object" string="A borrador"
+                                            icon="fa-undo" invisible="state != 'validated'"
+                                            groups="hr_payroll_co.group_contract_novelty_validate" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Procesos Disciplinarios" name="disciplinary">
+                                <field name="disciplinary_ids">
+                                    <list editable="bottom">
+                                        <field name="date"/>
+                                        <field name="type_id"/>
+                                        <field name="filename" column_invisible="1"/>
+                                        <field name="file" filename="filename" widget="binary" readonly="0"/>
+                                        <field name="observation"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter reload_on_post="True"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_contract_tree" model="ir.ui.view">
+            <field name="name">hr.contract.tree</field>
+            <field name="model">hr.contract</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="employee_id" />
+                    <field name="date_start" />
+                    <field name="settlement_date" optional="show" />
+                    <field name="settlement_period_id" optional="show" />
+                    <field name="days_left" optional="show" />
+                    <field name="wage" />
+                    <field name="risk_id" />
+                    <field name="eps_id" />
+                    <field name="afp_pension_id" />
+                    <field name="afp_severance_id" />
+                    <field name="arl_id" />
+                    <field name="ccf_id" />
+                    <field name="job_id" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_contract_search" model="ir.ui.view">
+            <field name="name">hr.contract.search</field>
+            <field name="model">hr.contract</field>
+            <field name="arch" type="xml">
+                <search string="Search contract">
+                    <field name="name" />
+                    <field name="employee_id" />
+                    <field name="eps_id" />
+                    <field name="afp_pension_id" />
+                    <field name="afp_severance_id" />
+                    <field name="arl_id" />
+                    <field name="ccf_id" />
+                    <field name="job_id" />
+
+                    <separator />
+                    <filter name="state_draft_filter" string="Borrador"
+                        domain="[('state', '=', 'draft')]" />
+                    <filter name="state_open_filter" string="En progreso"
+                        domain="[('state', '=', 'open')]" />
+                    <filter name="state_close_filter" string="Terminado"
+                        domain="[('state', '=', 'close')]" />
+                    <filter name="state_cancel_filter" string="Cancelado"
+                        domain="[('state', '=', 'cancel')]" />
+
+                    <separator />
+                    <filter name="state_group" string="Estado"
+                        context="{'group_by': 'state'}" />
+                    <filter name="employee_group" string="Empleado"
+                        context="{'group_by': 'employee_id'}" />
+                    <filter name="contract_type_group" string="Tipo de contrato"
+                        context="{'group_by': 'contract_type_id'}" />
+                    <filter name="contract_group_group" string="Grupo de contrato"
+                        context="{'group_by': 'contract_group_id'}" />
+                    <filter name="job_group" string="Titulo del cargo"
+                        context="{'group_by': 'job_id'}" />
+                </search>
+            </field>
+        </record>
+
+        <record id="hr_contract_action" model="ir.actions.act_window">
+            <field name="name">Contratos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.contract</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem
+            id="menu_hr_employee_co_payroll"
+            name="Empleados"
+            action=""
+            parent="hr_payroll_co.hr_payroll_co_menu_root"
+            groups="hr.group_hr_user"
+            sequence="3"/>
+
+        <menuitem
+            id="menu_hr_employee_payroll_list"
+            name="Empleados"
+            action="hr.open_view_employee_list_my"
+            parent="menu_hr_employee_co_payroll"
+            groups="hr.group_hr_user"
+            sequence="1"/>
+
+        <menuitem id="hr_contract_menu_act" name="Contratos" parent="menu_hr_employee_co_payroll"
+            action="hr_contract_action" sequence="10" />
+    </data>
+</odoo>

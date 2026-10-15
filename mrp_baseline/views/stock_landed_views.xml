@@ -1,0 +1,11 @@
+<odoo>
+    <record id="stock_landed_cost_action" model="ir.actions.act_window">
+        <field name="name">Manufacturing Costs</field>
+        <field name="res_model">stock.landed.cost</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('target_model','=','manufacturing')]</field>
+        <field name="context">{'default_target_model': 'manufacturing'}</field>
+    </record>
+
+    <menuitem id="stock_landed_cost_menu" action="stock_landed_cost_action" groups="group_mrp_cost" parent="mrp.menu_mrp_manufacturing" sequence="30" />
+</odoo>

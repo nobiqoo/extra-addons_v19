@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_helpdesk_ticket_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <!-- The header and footer is custom, so the template will be custom too -->
+                <t t-call="custom_helpdesk_tecbaco.external_layout_helpdesk_custom">
+                <t t-set="company" t-value="doc.company_id"/>
+                    <div class="page">
+
+                        <div style="width:100%; text-align:right; margin-bottom:10px;">
+                            <span
+                                style="
+                                    display:inline-block;
+                                    border:1px solid #000;
+                                    padding:4px 8px;
+                                    font-weight:bold;
+                                ">
+                                Ticket N°: <span t-esc="doc.custom_sequence" />
+                            </span>
+                        </div>
+                        <table class="table table-sm table-bordered" style="width:100%;">
+                            <tr>
+                                <td style="font-weight:bold;padding:8px;">Fecha de creación</td>
+                                <td style="padding:8px;">
+                                    <span
+                                        t-esc="context_timestamp(doc.create_date).strftime('%d/%m/%Y %I:%M %p')" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold; padding:8px;">Cliente</td>
+                                <td>
+                                    <span t-esc="doc.partner_id.name" />
+                                </td>
+                                <tr>
+                                    <td style="font-weight:bold; padding:8px;">Teléfono del cliente</td>
+                                    <td>
+                                        <span t-esc="doc.partner_phone" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:bold; padding:8px;">Firma</td>
+                                    <td></td>
+                                </tr>
+                            </tr>
+                        </table>
+                        <table class="table table-sm table-bordered" style="width:100%;">
+                            <tr>
+                                <td colspan="2" style="text-align:center; font-weight:bold;">DETALLES
+                                    DEL SERVICIO</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold; padding:8px;">Zona de servicio</td>
+                                <td style="padding:8px;">
+                                    <span t-esc="doc.zone_id.name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold; padding:8px;">Servicio</td>
+                                <td style="padding:8px;">
+                                    <span t-esc="doc.service_type_id.name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold; padding:8px;">Nivel 1</td>
+                                <td style="padding:8px;">
+                                    <span t-esc="doc.category_id.name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold; padding:8px;">Nivel 2</td>
+                                <td style="padding:8px;">
+                                    <span t-esc="doc.sub_category_id.name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold; padding:8px;">Tipo de soporte</td>
+                                <td style="padding:8px;">
+                                    <span t-esc="doc.support_type_id.name" />
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table table-sm table-bordered" style="width:100%;">
+                            <tr>
+                                <td colspan="2" style="text-align:center; font-weight:bold;">
+                                    DESCRIPCIÓN
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align:justify; padding:8px;">
+                                    <span t-esc="doc.description" />
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table table-sm table-bordered" style="width:100%;">
+                            <tr>
+                                <td colspan="2" style="text-align:center; font-weight:bold;">
+                                    COMENTARIOS</td>
+                            </tr>
+                            <t t-set="filtered_messages"
+                                t-value="doc.message_ids
+                            .filtered(
+                                lambda m: (m.message_type == 'comment' and not m.tracking_value_ids)
+                                or m.tracking_value_ids
+                            )
+                            .sorted(key=lambda m: m.date, reverse=True)
+                        " />
+
+                            <t t-foreach="filtered_messages" t-as="message">
+                                <div style="page-break-inside:avoid;">
+                                <tr>
+                                    <td colspan="2" style="padding: 8px;">
+                                        <div style="margin-bottom: 5px;">
+                                            <strong>
+                                                <span t-field="message.author_id" />
+                                            </strong>
+                                            - <span t-field="message.date"
+                                                t-options='{"widget": "datetime"}' />
+                                        </div>
+                                        <t t-if="not message.tracking_value_ids">
+                                            <div t-field="message.body" />
+                                        </t>
+
+                                        <t t-if="message.tracking_value_ids">
+                                            <div
+                                                style="
+                                        padding: 8px;
+                                        border-radius: 4px;
+                                        margin-top: 5px;
+                                    ">
+                                                <strong>Cambios:</strong>
+
+                                                <ul style="margin: 5px 0; padding-left: 20px;">
+                                                    <t t-foreach="message.tracking_value_ids"
+                                                        t-as="track">
+                                                        <li>
+                                                            <strong>
+                                                                <span
+                                                                    t-field="track.field_id.field_description" />
+                                                            </strong>
+                                                            :
+
+                                                    <t
+                                                                t-if="track.old_value_char">
+                                                                <span t-esc="track.old_value_char" />
+                                                            </t>
+                                                    <t
+                                                                t-elif="track.old_value_integer">
+                                                                <span
+                                                                    t-esc="track.old_value_integer" />
+                                                            </t>
+                                                    <t
+                                                                t-elif="track.old_value_float">
+                                                                <span t-esc="track.old_value_float" />
+                                                            </t>
+                                                    <t
+                                                                t-elif="track.old_value_datetime">
+                                                                <span
+                                                                    t-field="track.old_value_datetime"
+                                                                    t-options='{"widget": "datetime"}' />
+                                                            </t>
+                                                    <t
+                                                                t-elif="track.old_value_text">
+                                                                <span t-esc="track.old_value_text" />
+                                                            </t>
+                                                    <t
+                                                                t-else="">
+                                                                <em>(vacío)</em>
+                                                            </t>
+                                                            → <t t-if="track.new_value_char">
+                                                                <span t-esc="track.new_value_char" />
+                                                            </t>
+                                                    <t
+                                                                t-elif="track.new_value_integer">
+                                                                <span
+                                                                    t-esc="track.new_value_integer" />
+                                                            </t>
+                                                    <t
+                                                                t-elif="track.new_value_float">
+                                                                <span t-esc="track.new_value_float" />
+                                                            </t>
+                                                    <t
+                                                                t-elif="track.new_value_datetime">
+                                                                <span
+                                                                    t-field="track.new_value_datetime"
+                                                                    t-options='{"widget": "datetime"}' />
+                                                            </t>
+                                                    <t
+                                                                t-elif="track.new_value_text">
+                                                                <span t-esc="track.new_value_text" />
+                                                            </t>
+                                                    <t
+                                                                t-else="">
+                                                                <em>(vacío)</em>
+                                                            </t>
+                                                        </li>
+                                                    </t>
+                                                </ul>
+                                            </div>
+
+                                            <div
+                                                t-if="message.body and message.body != '&lt;p&gt;&lt;br&gt;&lt;/p&gt;'"
+                                                t-field="message.body"
+                                                style="margin-top: 5px;"
+                                            />
+                                        </t>
+
+                                    </td>
+                                </tr>
+                            </div>
+                            </t>
+
+                        </table>
+
+                    </div>
+            </t></t>
+        </t>
+
+
+    </template>
+
+    <!-- Report action -->
+    <record id="action_report_helpdesk_ticket_tecbaco" model="ir.actions.report">
+        <field name="name">Reporte de ticket</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_helpdesk_tecbaco.report_helpdesk_ticket_document</field>
+        <field name="report_file">custom_helpdesk_tecbaco.report_helpdesk_ticket_document</field>
+        <field name="binding_model_id" ref="helpdesk.model_helpdesk_ticket" />
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Ticket - %s' % (object.name)</field>
+        <field name="paperformat_id" ref="paperformat_helpdesk_ticket_report"/>
+    </record>
+
+</odoo>

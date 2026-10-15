@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_account_operation_site_list" model="ir.ui.view">
+        <field name="name">account.operation.site.list</field>
+        <field name="model">account.operation.site</field>
+        <field name="arch" type="xml">
+            <list string="Sedes de Operación" editable="bottom">
+                <field name="name"/>
+                <field name="city_id" options="{'no_create': True, 'no_open': True}"/>
+                <field name="sale_reteica_tax_id" options="{'no_create': True}"/>
+                <field name="purchase_reteica_tax_id" options="{'no_create': True}"/>
+                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                <field name="active" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_account_operation_site_form" model="ir.ui.view">
+        <field name="name">account.operation.site.form</field>
+        <field name="model">account.operation.site</field>
+        <field name="arch" type="xml">
+            <form string="Sede de Operación">
+                <sheet>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Ej.: Sede Cali Norte"/></h1>
+                    </div>
+                    <group>
+                        <group name="location" string="Ubicación">
+                            <field name="city_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="company_id" groups="base.group_multi_company"
+                                   options="{'no_create': True}"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group name="taxes" string="ReteICA">
+                            <field name="sale_reteica_tax_id" options="{'no_create': True}"/>
+                            <field name="purchase_reteica_tax_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <p class="text-muted">
+                        El impuesto configurado aquí se agrega automáticamente a las líneas
+                        de los documentos emitidos desde esta sede, sin reemplazar el IVA ni
+                        los demás impuestos del producto.
+                    </p>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_account_operation_site_search" model="ir.ui.view">
+        <field name="name">account.operation.site.search</field>
+        <field name="model">account.operation.site</field>
+        <field name="arch" type="xml">
+            <search string="Sedes de Operación">
+                <field name="name"/>
+                <field name="city_id"/>
+                <filter name="inactive" string="Archivadas" domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="group_by_city" string="Ciudad" domain="[]" context="{'group_by': 'city_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_account_operation_site" model="ir.actions.act_window">
+        <field name="name">Sedes de Operación</field>
+        <field name="res_model">account.operation.site</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cree la primera sede de operación
+            </p><p>
+                Cada sede asocia un municipio con la tarifa de ReteICA que le corresponde.
+                Al seleccionar la sede en una factura, el impuesto se aplica solo.
+            </p>
+        </field>
+    </record>
+
+    <!-- El maestro lo administra el equipo contable. -->
+    <menuitem id="menu_account_operation_site"
+        name="Sedes de Operación"
+        parent="account.account_account_menu"
+        action="action_account_operation_site"
+        groups="account.group_account_manager"
+        sequence="25"/>
+
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_account_move_einvoicing_document_tariff_code" inherit_id="l10n_co_bloodo.report_account_move_einvoicing_document">
+        <xpath expr="//th[@name='th_code']" position="after">
+            <th name="th_tariff_code" t-if="doc.fe_type == '02'" width="8%" class="text-center"><span>TARIFF</span></th>
+        </xpath>
+        <xpath expr="//td[@name='account_invoice_line_code']" position="after">
+            <td name="account_invoice_line_tariff_code" t-if="doc.fe_type == '02'"><span t-field="line.product_id.tariff_code" t-options="{'widget': 'text'}"/></td>
+        </xpath>
+    </template>
+
+</odoo>

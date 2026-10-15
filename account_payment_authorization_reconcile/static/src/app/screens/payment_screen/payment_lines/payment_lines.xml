@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="point_of_sale.PaymentScreenPaymentLines" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('payment-infos')]" position="after">
+            <div t-if="!line.payment_method_id.is_cash_count" class="px-3 pb-2">
+                <input type="text"
+                       class="form-control"
+                       placeholder="Authorization Number"
+                       t-att-value="line.authorization_number"
+                       t-on-change="(ev) => line.setAuthorizationNumber(ev.target.value)" />
+            </div>
+        </xpath>
+    </t>
+</templates>

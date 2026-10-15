@@ -1,0 +1,55 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* negative_inventory
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-30 21:54+0000\n"
+"PO-Revision-Date: 2024-08-30 21:54+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: negative_inventory
+#: model_terms:ir.ui.view,arch_db:negative_inventory.res_config_settings_view_form
+msgid "Allow Negative Inventory"
+msgstr "Permite Inventarios Negativos"
+
+#. module: negative_inventory
+#: model:ir.model.fields,help:negative_inventory.field_res_company__negative_inventory
+#: model:ir.model.fields,help:negative_inventory.field_res_config_settings__negative_inventory
+msgid "Allow negative inventory."
+msgstr "Permite Inventarios Negativos"
+
+#. module: negative_inventory
+#: model:ir.model,name:negative_inventory.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: negative_inventory
+#: model:ir.model,name:negative_inventory.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: negative_inventory
+#: model:ir.model.fields,field_description:negative_inventory.field_res_company__negative_inventory
+#: model:ir.model.fields,field_description:negative_inventory.field_res_config_settings__negative_inventory
+msgid "Negative Inventory"
+msgstr "Inventario Negativo"
+
+#. module: negative_inventory
+#. odoo-python
+#: code:addons/negative_inventory/models/stock_quant.py:0
+#, python-format
+msgid "No negative moves allowed. Location: %s, Product: %s"
+msgstr "Movimientos negativos no permitidos. Ubicación: %s, Producto: %s"
+
+#. module: negative_inventory
+#: model:ir.model,name:negative_inventory.model_stock_quant
+msgid "Quants"
+msgstr "Cants"

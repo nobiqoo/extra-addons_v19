@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tarea 11151: resultado de la validacion de duplicidad exacta y
+         habilitacion del campo Alumno, que en el modulo base es de solo
+         lectura.
+
+         Validacion de duplicados (subtarea 2): se agrega un primer paso
+         ("duplicates") con la busqueda amplia por nombre/fecha de
+         nacimiento/identificacion/nivel academico. Todo el contenido que el
+         asistente ya tenia (el grupo enroll_action/student_id, la nota roja
+         y el footer) pasa a mostrarse solo en el paso "confirm"; el paso
+         "duplicates" solo aparece cuando default_get() encontro alguna
+         coincidencia que supera el umbral (ver
+         wk_school_colombo/models/application_form.py::_wk_find_possible_duplicates). -->
+    <record id="enroll_wizard_view_form_colombo" model="ir.ui.view">
+        <field name="name">wk.enroll.wizard.form.colombo</field>
+        <field name="model">wk.enroll.wizard</field>
+        <field name="inherit_id" ref="wk_school_management.enroll_wizard_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="before">
+                <field name="wk_duplicate_state" invisible="1"/>
+                <field name="wk_matched_partner_id" invisible="1"/>
+                <div class="alert alert-info" role="alert"
+                     invisible="step != 'confirm' or wk_duplicate_state not in ('student', 'partner')">
+                    <field name="wk_duplicate_message" nolabel="1" readonly="1"/>
+                </div>
+                <div class="alert alert-danger" role="alert"
+                     invisible="step != 'confirm' or wk_duplicate_state != 'archived'">
+                    <field name="wk_duplicate_message" nolabel="1" readonly="1"/>
+                </div>
+
+                <div invisible="step != 'duplicates'">
+                    <p>
+                        Se encontraron posibles coincidencias con estudiantes o
+                        contactos ya registrados. Revise la información antes
+                        de continuar: seleccione un registro existente, o
+                        confirme que se trata de una persona diferente.
+                    </p>
+                    <field name="duplicate_line_ids" nolabel="1" colspan="2" readonly="1">
+                        <list create="false" delete="false" edit="false">
+                            <field name="name" string="Nombre completo"/>
+                            <field name="dob" string="Fecha de nacimiento"/>
+                            <field name="l10n_latam_identification_type_id" string="Tipo de identificación"/>
+                            <field name="vat" string="Número de identificación"/>
+                            <field name="grade_id" string="Nivel académico"/>
+                            <field name="email"/>
+                            <field name="mobile"/>
+                            <field name="status" string="Estado"/>
+                            <field name="matched_criteria" string="Coincide en"/>
+                            <button name="action_use_line" type="object"
+                                    string="Usar este registro" class="btn-link"/>
+                        </list>
+                    </field>
+                    <button name="action_confirm_new" type="object"
+                            string="Ninguna coincidencia, crear nuevo"
+                            class="btn-secondary mt-2"
+                            groups="wk_school_management.wk_school_management_officer_group"/>
+                </div>
+            </xpath>
+
+            <!-- El resto del asistente (selección de acción, alumno y el
+                 botón de inscribir) solo se muestra en el paso "confirm". -->
+            <xpath expr="//group" position="attributes">
+                <attribute name="invisible">step != 'confirm'</attribute>
+            </xpath>
+            <xpath expr="//div[@style]" position="attributes">
+                <attribute name="invisible">step != 'confirm' or enroll_action != 'new'</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='student_id']" position="attributes">
+                <attribute name="readonly">0</attribute>
+                <attribute name="required">enroll_action == 'exist'</attribute>
+                <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+            </xpath>
+            <!-- El botón "Enroll" solo aplica al paso "confirm"; tampoco se
+                 muestra con un registro archivado coincidente (regla ya
+                 existente, no se toca). El botón "Cancel" del footer se deja
+                 visible en ambos pasos para poder cerrar el asistente. -->
+            <xpath expr="//footer/button[@name='enroll_now']" position="attributes">
+                <attribute name="invisible">step != 'confirm' or (wk_duplicate_state == 'archived' and enroll_action == 'new')</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

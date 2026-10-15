@@ -1,0 +1,188 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_currency_conversion
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-20 17:33+0000\n"
+"PO-Revision-Date: 2026-08-20 12:42-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.9\n"
+
+#. module: account_move_currency_conversion
+#: model_terms:ir.ui.view,arch_db:account_move_currency_conversion.view_partner_form_conditioned_rate
+msgid "Conditioned Exchange Rate (TRM)"
+msgstr "Tipo de cambio condicionado (TRM)"
+
+#. module: account_move_currency_conversion
+#: model:ir.model.fields,field_description:account_move_currency_conversion.field_res_partner__conditioned_rate_type
+#: model:ir.model.fields,field_description:account_move_currency_conversion.field_res_users__conditioned_rate_type
+msgid "Conditioned Exchange Rate Type"
+msgstr "Tipo de cambio condicionado TRM"
+
+#. module: account_move_currency_conversion
+#: model:ir.model.fields,field_description:account_move_currency_conversion.field_res_partner__conditioned_rate_value
+#: model:ir.model.fields,field_description:account_move_currency_conversion.field_res_users__conditioned_rate_value
+msgid "Conditioned Exchange Rate Value"
+msgstr "Valor de TRM"
+
+#. module: account_move_currency_conversion
+#: model:ir.model,name:account_move_currency_conversion.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: account_move_currency_conversion
+#: model:ir.model,name:account_move_currency_conversion.model_res_currency
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: account_move_currency_conversion
+#. odoo-python
+#: code:addons/account_move_currency_conversion/models/account_move.py:0
+msgid "Currency conversion applied"
+msgstr "Conversión de moneda aplicada"
+
+#. module: account_move_currency_conversion
+#: model:ir.model.fields,field_description:account_move_currency_conversion.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_move_currency_conversion.field_res_currency__display_name
+#: model:ir.model.fields,field_description:account_move_currency_conversion.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Nombre en pantalla"
+
+#. module: account_move_currency_conversion
+#: model:ir.model.fields.selection,name:account_move_currency_conversion.selection__res_partner__conditioned_rate_type__fixed
+msgid "Fixed Amount"
+msgstr "Monto fijo"
+
+#. module: account_move_currency_conversion
+#: model:ir.model.fields,help:account_move_currency_conversion.field_res_partner__conditioned_rate_value
+#: model:ir.model.fields,help:account_move_currency_conversion.field_res_users__conditioned_rate_value
+msgid ""
+"Fixed amount or percentage added on top of the standard exchange rate "
+"(TRM), depending on the selected Conditioned Exchange Rate Type."
+msgstr ""
+"Importe fijo o porcentaje que se añade al tipo de cambio estándar (TRM), en "
+"función del «tipo de cambio condicionado» seleccionado."
+
+#. module: account_move_currency_conversion
+#: model:ir.model.fields,field_description:account_move_currency_conversion.field_account_move__id
+#: model:ir.model.fields,field_description:account_move_currency_conversion.field_res_currency__id
+#: model:ir.model.fields,field_description:account_move_currency_conversion.field_res_partner__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_move_currency_conversion
+#: model:ir.model.fields,help:account_move_currency_conversion.field_res_partner__conditioned_rate_type
+#: model:ir.model.fields,help:account_move_currency_conversion.field_res_users__conditioned_rate_type
+msgid ""
+"If set, the standard exchange rate (TRM) used to convert this partner's "
+"sale and purchase invoice lines to another currency is adjusted before "
+"being applied: either by adding a fixed amount to it, or by increasing it "
+"by a percentage. The same adjustment is used regardless of the currency "
+"being converted."
+msgstr ""
+"Si se activa esta opción, el tipo de cambio estándar (TRM) utilizado para "
+"convertir las líneas de las facturas de compra y venta de este interlocutor "
+"a otra moneda se ajusta antes de aplicarse: bien añadiéndole un importe "
+"fijo, bien incrementándolo en un porcentaje. Se aplica el mismo ajuste "
+"independientemente de la moneda que se esté convirtiendo."
+
+#. module: account_move_currency_conversion
+#: model:ir.model,name:account_move_currency_conversion.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_move_currency_conversion
+#: model:ir.model.fields,field_description:account_move_currency_conversion.field_account_bank_statement_line__line_amounts_currency_id
+#: model:ir.model.fields,field_description:account_move_currency_conversion.field_account_move__line_amounts_currency_id
+msgid "Line Amounts Currency"
+msgstr "Montos de línea Moneda"
+
+#. module: account_move_currency_conversion
+#: model:ir.model.fields.selection,name:account_move_currency_conversion.selection__res_partner__conditioned_rate_type__percentage
+msgid "Percentage"
+msgstr "Porcentaje"
+
+#. module: account_move_currency_conversion
+#: model:ir.model.fields,help:account_move_currency_conversion.field_account_bank_statement_line__line_amounts_currency_id
+#: model:ir.model.fields,help:account_move_currency_conversion.field_account_move__line_amounts_currency_id
+msgid ""
+"Technical field remembering the currency the invoice line amounts are "
+"currently expressed in, so that the next time the invoice currency is "
+"changed the lines can be converted from the right rate."
+msgstr ""
+"Campo técnico que recuerda la moneda en la que se expresan actualmente los "
+"importes de las líneas de la factura, de modo que, la próxima vez que se "
+"modifique la moneda de la factura, las líneas se puedan convertir aplicando "
+"el tipo de cambio adecuado."
+
+#. module: account_move_currency_conversion
+#. odoo-python
+#: code:addons/account_move_currency_conversion/models/account_move.py:0
+msgid ""
+"The line amounts were converted from %(old_currency)s to %(new_currency)s "
+"using an exchange rate (TRM) of %(adjusted_trm)s %(company_currency)s per %"
+"(foreign_currency)s (%(adjustment_description)s)."
+msgstr ""
+"Los importes de las líneas se convirtieron de %(old_currency)s a %"
+"(new_currency)s utilizando un tipo de cambio (TRM) de %(adjusted_trm)s %"
+"(company_currency)s por %(foreign_currency)s (%(adjustment_description)s)."
+
+#. module: account_move_currency_conversion
+#. odoo-python
+#: code:addons/account_move_currency_conversion/models/account_move.py:0
+msgid ""
+"The line amounts were converted from %(old_currency)s to %(new_currency)s "
+"using an exchange rate of %(rate)s."
+msgstr ""
+"Los importes de las líneas se han convertido de %(old_currency)s a %"
+"(new_currency)s utilizando un tipo de cambio de %(rate)s."
+
+#. module: account_move_currency_conversion
+#. odoo-python
+#: code:addons/account_move_currency_conversion/models/account_move.py:0
+msgid ""
+"The line amounts were converted from %(old_currency)s to %(new_currency)s "
+"using the standard exchange rate (TRM) of %(base_trm)s %(company_currency)s "
+"per %(foreign_currency)s (%(partner)s has no conditioned exchange rate "
+"configured, or its adjustment value is zero)."
+msgstr ""
+"Los importes de las líneas se han convertido de %(old_currency)s a %"
+"(new_currency)s utilizando el tipo de cambio estándar (TRM) de %(base_trm)s "
+"%(company_currency)s por %(foreign_currency)s (%(partner)s no tiene "
+"configurado ningún tipo de cambio condicionado, o su valor de ajuste es "
+"cero)."
+
+#. module: account_move_currency_conversion
+#. odoo-python
+#: code:addons/account_move_currency_conversion/models/account_move.py:0
+msgid ""
+"standard rate %(base_trm)s + a %(value)s%% conditioned adjustment "
+"configured on %(partner)s"
+msgstr ""
+"tarifa estándar %(base_trm)s + un ajuste condicionado %(value)s%% "
+"configurado en %(partner)s"
+
+#. module: account_move_currency_conversion
+#. odoo-python
+#: code:addons/account_move_currency_conversion/models/account_move.py:0
+msgid ""
+"standard rate %(base_trm)s + the fixed conditioned adjustment of %(value)s "
+"configured on %(partner)s"
+msgstr ""
+"tarifa estándar %(base_trm)s + el ajuste fijo condicionado de %(value)s "
+"configurado en %(partner)s"
+
+#. module: account_move_currency_conversion
+#. odoo-python
+#: code:addons/account_move_currency_conversion/models/account_move.py:0
+msgid "this document's contact"
+msgstr "contacto de este documento"

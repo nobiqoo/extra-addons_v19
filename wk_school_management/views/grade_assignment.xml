@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="assignment_type_form" model="ir.ui.view">
+            <field name="name">wk.assignment.type.form</field>
+            <field name="model">wk.assignment.type</field>
+            <field name="arch" type="xml">
+                <form string="Assignment Type">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="name" string="Name"/>
+                                <field name="name" placeholder="Homework"/>
+                            </h1>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="assignment_type_tree" model="ir.ui.view">
+            <field name="name">wk.assignment.type.list</field>
+            <field name="model">wk.assignment.type</field>
+            <field name="arch" type="xml">
+                <list string="Assignment Type">
+                   <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                </list>
+            </field>
+        </record>
+        
+        <record id="assignment_type_action" model="ir.actions.act_window">
+            <field name="name">Assignment Type</field>
+            <field name="res_model">wk.assignment.type</field>
+            <field name="view_mode">form,list</field>
+            <field name="path">school-assignment-type</field>
+            <field name="view_id" ref="assignment_type_tree"/>
+        </record>
+
+<!-- GRADE ASSIGNMENT VIEWS -->
+
+        <record id="grade_assignment_form" model="ir.ui.view">
+            <field name="name">wk.grade.assignment.form</field>
+            <field name="model">wk.grade.assignment</field>
+            <field name="arch" type="xml">
+                <form string="Assignment">
+                    <header invisible="id == False">
+                        <button name="approve_assignment" string="Approve" invisible="state != 'draft' or (id == False)" type="object" class="oe_highlight" confirm="Are you sure you want to approve this assignment ?"/>
+                        <field name='state' widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="get_assigned_assignments" icon="fa-pencil-square-o" type="object" 
+                                class="oe_stat_button">
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_value">
+                                            <field name="class_assignment_count"/>
+                                        </span>
+                                        <span class="o_stat_text">
+                                            Class Assignments
+                                        </span>
+                                    </div>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="name" string="Name"/>
+                                <field name="name" placeholder="Maths grade-8 assignment" readonly="state != 'draft'"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="grade_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state != 'draft'"/>
+                                <field name="type_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state != 'draft'"/>
+                                <field name="teacher_id" groups="wk_school_management.wk_school_management_officer_group" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state != 'draft'"/>
+                                
+                            </group>
+                            <group>
+                                <field name="subject_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state != 'draft'"/>
+                                <field name="company_id" readonly="is_single_company" groups="base.group_multi_company"/>
+                                <field name="grade_id_domain" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Assignment Description">
+                                <group string="Guidelines &amp; Description">
+                                    <field colspan="2" name="description" nolabel="1" placeholder="Type something...." readonly="state != 'draft'"/>
+                                </group>
+                            </page>
+                            <page string="Assignment Attachements">
+                                <field name="attachment_ids" mode="kanban" readonly="state != 'draft'"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="grade_assignment_tree" model="ir.ui.view">
+            <field name="name">wk.grade.assignment.list</field>
+            <field name="model">wk.grade.assignment</field>
+            <field name="arch" type="xml">
+                <list string="Grade Assignment">
+                    <field name="name"/>
+                    <field name="grade_id"/>
+                    <field name="subject_id"/>
+                    <field name="teacher_id"/>
+                    <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                    <field name="company_id"
+                        groups="base.group_multi_company"
+                        optional="show"
+                        readonly="1"/>
+                    <field name="create_uid" optional="hide"/>
+                    <field name="create_date"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="grade_assignment_search" model="ir.ui.view">
+           <field name="name">wk.grade.assignment.search</field>
+           <field name="model">wk.grade.assignment</field>
+           <field name="arch" type="xml">
+               <search string="Grade Assignments">
+                    <field name="name" filter_domain="['|','|','|', ('name', 'ilike', self), ('grade_id', 'ilike', self),('teacher_id', 'ilike', self),('subject_id', 'ilike', self)]"/>
+                    <searchpanel>
+                        <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
+                        <field name="subject_id" icon="fa-external-link" enable_counters="1"/>
+                        <field name="grade_id" icon="fa-id-card-o" enable_counters="1"/>
+                    </searchpanel>
+                    <group>
+                        <filter name="group_grade_id" string="Grade" domain="[]" context="{'group_by':'grade_id'}"/>
+                        <filter name="group_subject_id" string="Subject" domain="[]" context="{'group_by':'subject_id'}"/>
+                        <filter name="group_teacher_id" string="Teacher" domain="[]" context="{'group_by':'teacher_id'}"/>
+                        <filter name="group_type_id_id" string="Assignment Type" domain="[]" context="{'group_by':'type_id'}"/>
+                    </group>
+               </search>
+           </field>
+        </record>
+        
+        <record id="grade_assignment_action" model="ir.actions.act_window">
+            <field name="name">Grade Assignment</field>
+            <field name="res_model">wk.grade.assignment</field>
+            <field name="view_mode">form,list</field>
+            <field name="path">teacher-grade-assignment</field>
+            <field name="view_id" ref="grade_assignment_tree"/>
+        </record>
+
+    </data>    
+</odoo>    

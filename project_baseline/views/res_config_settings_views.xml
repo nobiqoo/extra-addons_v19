@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">view.res.config.settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="80" />
+            <field name="inherit_id" ref="project.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//setting[@id='project_stages']" position="after">
+                    <setting id="project_task_income_expense" help="Allows to manage income and expenses from project tasks.">
+                        <field name="project_task_income_expense"/>
+                    </setting>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,51 @@
+<odoo>
+
+    <record id="portfolio_detail_wizard_view_form" model="ir.ui.view">
+      <field name="name">portfolio.detail.view.form</field>
+      <field name="model">portfolio.detail.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Create portfolio detail">
+          <sheet>
+            <group>
+                <field name="find_by" widget="radio"/>
+                <field name="date_from" invisible="find_by != 'date'"/>
+                <field name="date_to" invisible="find_by != 'date'"/>
+                <field name="report_type"/>
+                <field name="partner_ids" invisible="find_by != 'date'"/>
+                <field name="move_ids" invisible="find_by == 'date'" 
+                    domain="[('move_type','=','out_invoice'),('state','=','posted'),('payment_state','in',('paid','partial'))]"/>
+            </group>
+          </sheet>
+          <footer>
+              <button string="Generate report" name="create_report" type="object" class="oe_highlight"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="portfolio_detail_print_xlsx_form" model="ir.ui.view">
+      <field name="name">portfolio.detail.print.xlsx.form</field>
+      <field name="model">portfolio.detail.print.xlsx</field>
+      <field name="arch" type="xml">
+        <form string="Download File">
+            <group>
+                <field name="file_name" readonly="1" invisible="1"/>
+                <field name="file_binary" filename="file_name" readonly="1"/>
+            </group>
+            <footer>
+                <button string="Cancel" class="btn-secondary" special="cancel"/>
+            </footer>
+          </form>
+      </field>
+    </record>
+
+    <record id="portfolio_detail_wizard_action" model="ir.actions.act_window">
+      <field name="name">Portfolio detail wizard</field>
+      <field name="res_model">portfolio.detail.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+    <menuitem id="portfolio_detail_wizard_menu" action="portfolio_detail_wizard_action" parent="account.menu_finance_reports" sequence="8"/>
+
+</odoo>

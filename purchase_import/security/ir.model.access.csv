@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_import,access.purchase.import,model_purchase_import,purchase.group_purchase_user,1,1,1,0
+access_purchase_import_line,access.purchase.import.line,model_purchase_import_line,purchase.group_purchase_user,1,1,1,1
+access_product_template_tariff,access.product.template.tariff,model_product_template_tariff,purchase.group_purchase_user,1,1,1,1
+access_purchase_import_report,access.purchase.import.report,model_purchase_import_report,base.group_user,1,1,1,0
+access_purchase_import_simple_report,access.purchase.import.simple.report,model_purchase_import_simple_report,base.group_user,1,1,1,0
+access_stock_landed_line_move,access.stock.landed.line.move,model_stock_landed_line_move,purchase.group_purchase_user,1,1,1,1
+access_import_dim_wizard,access.import.dim.wizard,model_import_dim_wizard,purchase.group_purchase_user,1,1,1,1

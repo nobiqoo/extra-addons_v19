@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Reasociación campo-sistema según la revisión Sprint 1 de la matriz
+         unificada (matriz_unificada_variables Final 1.xlsx, hoja "Matriz
+         Unificada", ago-2026). Solo asociaciones "seguras": activar/crear el
+         campo en los sistemas que la matriz marca y cuya cadena de
+         dependencias ya funciona, más las desactivaciones pedidas de forma
+         explícita en la revisión (Ancho/Alto fuera de Lienzo, Papel
+         Colgadura, Película y Abrazadera; remap Perfil vs Perfil Frente).
+
+         Quedan EXCLUIDOS a propósito (requieren rediseño de comportamiento,
+         no asociación): familia motor (has_motor, interruptor_rf,
+         requires_charger fuera de 15/54), posición de mando (cubierta por
+         variantes mando_panel/vertical/cortina), consolidación de cenefa
+         (cenefa_panel vs cenefa_type y sus dependientes), unificación
+         interruptor_panel->interruptor_rf y uso_riel->profundidad_onda, y
+         custom_design (instrucción del cliente de no asociar por ahora).
+
+         Cargado después de safra_matriz_order. Sobre bases ya instaladas
+         requiere liberar noupdate (migrations/19.0.0.0.5/pre-migrate.py). -->
+    <data>
+
+        <!-- ancho_telo -->
+        <record id="sf_11_ancho_telo" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_11"/>
+            <field name="field_id" ref="website_quotes_safra.field_ancho_telo"/>
+            <field name="sequence">1250</field>
+        </record>
+        <record id="sf_54_ancho_telo" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_54"/>
+            <field name="field_id" ref="website_quotes_safra.field_ancho_telo"/>
+            <field name="sequence">1250</field>
+        </record>
+        <!-- atravesar_tela -->
+        <record id="sf_49_atravesar_tela" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_57_atravesar_tela" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- cenefa_longitud -->
+        <record id="sf_01_cenefa_longitud" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_01"/>
+            <field name="field_id" ref="website_quotes_safra.field_cenefa_longitud"/>
+            <field name="sequence">1110</field>
+            <field name="depends_field_id" ref="website_quotes_safra.field_cenefa_lateral"/>
+            <field name="depends_value">izquierdo,derecho,ambos</field>
+        </record>
+        <!-- color_id_2 -->
+        <record id="sf_40_color_id_2" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_42_color_id_2" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_63_color_id_2" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- color_id_3 -->
+        <record id="sf_40_color_id_3" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_42_color_id_3" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_63_color_id_3" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- color_id_4 -->
+        <record id="sf_40_color_id_4" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_42_color_id_4" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_63_color_id_4" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- color_id_5 -->
+        <record id="sf_40_color_id_5" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_42_color_id_5" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_63_color_id_5" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- control_channel -->
+        <record id="sf_15_control_channel" model="safra.system.field">
+            <field name="active" eval="True"/>
+            <field name="label_override">Canal del Control</field>
+            <field name="depends_field_id" ref="website_quotes_safra.field_motor"/>
+        </record>
+        <record id="sf_54_control_channel" model="safra.system.field">
+            <field name="active" eval="True"/>
+            <field name="label_override">Canal del Control</field>
+            <field name="depends_field_id" ref="website_quotes_safra.field_motor"/>
+        </record>
+        <!-- corte_cenefa -->
+        <record id="sf_54_corte_cenefa" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_54"/>
+            <field name="field_id" ref="website_quotes_safra.field_corte_cenefa"/>
+            <field name="sequence">1200</field>
+        </record>
+        <!-- dimensiones -->
+        <record id="sf_56_dimensiones" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- enclosed -->
+        <record id="sf_15_enclosed" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_34_enclosed" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_58_enclosed" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_65_enclosed" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- escuadras -->
+        <record id="sf_04_escuadras" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_15_escuadras" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_32_escuadras" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_34_escuadras" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_61_escuadras" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- extra_chain -->
+        <record id="sf_08_extra_chain" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_10_extra_chain" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_49_extra_chain" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_57_extra_chain" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_58_extra_chain" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- fabric_id_2 -->
+        <record id="sf_40_fabric_id_2" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_42_fabric_id_2" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_63_fabric_id_2" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- fabric_id_3 -->
+        <record id="sf_40_fabric_id_3" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_42_fabric_id_3" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_63_fabric_id_3" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- fabric_id_4 -->
+        <record id="sf_40_fabric_id_4" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_42_fabric_id_4" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_63_fabric_id_4" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- fabric_id_5 -->
+        <record id="sf_40_fabric_id_5" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_42_fabric_id_5" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_63_fabric_id_5" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- height2 -->
+        <record id="sf_55_height2" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- num_segmento -->
+        <record id="sf_49_num_segmento" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_49"/>
+            <field name="field_id" ref="website_quotes_safra.field_num_segmento"/>
+            <field name="sequence">1210</field>
+            <field name="depends_field_id" ref="website_quotes_safra.field_tipoplano_cortina"/>
+            <field name="depends_value">LID,LI,LD,U</field>
+        </record>
+        <record id="sf_55_num_segmento" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_55"/>
+            <field name="field_id" ref="website_quotes_safra.field_num_segmento"/>
+            <field name="sequence">1210</field>
+        </record>
+        <record id="sf_57_num_segmento" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_57"/>
+            <field name="field_id" ref="website_quotes_safra.field_num_segmento"/>
+            <field name="sequence">1210</field>
+            <field name="depends_field_id" ref="website_quotes_safra.field_tipoplano_cortina"/>
+            <field name="depends_value">LID,LI,LD,U</field>
+        </record>
+        <!-- perfil -->
+        <record id="sf_02_perfil" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_04_perfil" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- perfil_sheer -->
+        <record id="sf_32_perfil_sheer" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_32"/>
+            <field name="field_id" ref="website_quotes_safra.field_perfil_sheer"/>
+            <field name="sequence">230</field>
+            <field name="label_override">Perfil Persiana Frente</field>
+        </record>
+        <!-- quantity_lamas -->
+        <record id="sf_11_quantity_lamas" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_11"/>
+            <field name="field_id" ref="website_quotes_safra.field_quantity_lamas"/>
+            <field name="sequence">160</field>
+        </record>
+        <record id="sf_15_quantity_lamas" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_15"/>
+            <field name="field_id" ref="website_quotes_safra.field_quantity_lamas"/>
+            <field name="sequence">160</field>
+        </record>
+        <record id="sf_40_quantity_lamas" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_40"/>
+            <field name="field_id" ref="website_quotes_safra.field_quantity_lamas"/>
+            <field name="sequence">160</field>
+        </record>
+        <record id="sf_42_quantity_lamas" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_42"/>
+            <field name="field_id" ref="website_quotes_safra.field_quantity_lamas"/>
+            <field name="sequence">160</field>
+        </record>
+        <record id="sf_54_quantity_lamas" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_54"/>
+            <field name="field_id" ref="website_quotes_safra.field_quantity_lamas"/>
+            <field name="sequence">160</field>
+        </record>
+        <record id="sf_63_quantity_lamas" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_63"/>
+            <field name="field_id" ref="website_quotes_safra.field_quantity_lamas"/>
+            <field name="sequence">160</field>
+        </record>
+        <!-- same_header -->
+        <record id="sf_02_same_header" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- sequence_name -->
+        <record id="sf_02_sequence_name" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- sesgo -->
+        <record id="sf_11_sesgo" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_16_sesgo" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- tela_al_reves -->
+        <record id="sf_40_tela_al_reves" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_54_tela_al_reves" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_55_tela_al_reves" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <!-- tipo_plano -->
+        <record id="sf_55_tipo_plano" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_55"/>
+            <field name="field_id" ref="website_quotes_safra.field_tipo_plano"/>
+            <field name="sequence">1200</field>
+        </record>
+        <!-- unificacion_mando -->
+        <record id="sf_32_unificacion_mando" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_32"/>
+            <field name="field_id" ref="website_quotes_safra.field_unificacion_mando"/>
+            <field name="sequence">1000</field>
+        </record>
+        <record id="sf_61_unificacion_mando" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_61"/>
+            <field name="field_id" ref="website_quotes_safra.field_unificacion_mando"/>
+            <field name="sequence">1000</field>
+        </record>
+
+        <!-- Desactivaciones explícitas de la revisión (F8/F9 y remap de perfiles) -->
+        <record id="sf_43_height" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_56_height" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_64_height" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_15_perfil" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_32_perfil" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_02_perfil_sheer" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_04_perfil_sheer" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_43_width" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_56_width" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_60_width" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_64_width" model="safra.system.field"><field name="active" eval="False"/></record>
+
+    </data>
+</odoo>

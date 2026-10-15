@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="wk_school_management.BarcodeInput">
+        <p style="color: green;"><b>NOTE :</b> PLEASE SCAN THE STUDENT'S LIBRARY CARD FIRST.</p>
+        <div class="input-group">
+            <input id="manual_barcode" t-model="state.barcode" type="text" name="barcode"
+                    class="form-control" t-ref="manualBarcode"
+                    placeholder="Enter a barcode..." t-on-keydown="_onKeydown"/>
+            <button class="input-group-text" t-att-disabled="!state.barcode"
+                    t-on-click.prevent="(ev) => {this.props.onSubmit(state.barcode);
+                                    state.barcode = '';
+                                    }">
+                Apply
+            </button>
+
+        </div>
+    </t>
+
+    <t t-name="wk_school_management.ManualBarcodeScanner">
+        <Dialog title.translate="Book Issue / Return" fullscreen="true" footer="false" contentClass="'o-barcode-modal'">
+            <BarcodeVideoScanner t-if="state.barcodeScannerSupported"
+                                 t-props="props" onError.bind="onError" onResult.bind="onResult"/>
+            <div t-else="" t-ref="videoPreview"
+                 class="h-100 d-flex flex-column justify-content-center align-items-center gap-1">
+                <i class="fa fa-2x fa-camera text-muted"></i>
+                <strong>Unable to access camera</strong>
+                <span class="text-muted" t-out="state.errorMessage"/>
+            </div>
+        </Dialog>
+    </t>
+
+    <t t-name="wk_school_management.ManualBarcodeScanner22" t-inherit="wk_school_management.ManualBarcodeScanner" t-inherit-mode="primary">
+        <Dialog position="attributes">
+            <attribute name="footer">true</attribute>
+        </Dialog>
+        <Dialog position="inside">
+           
+            <t t-set-slot="footer" >
+                <BarcodeInput  t-props="{ onSubmit: this.onResult }"/>
+                <div class="w-100 main_bar" t-att-style="this.state.barcodeScannerSupported ? 'max-height: 13rem;' : ''">
+                <div class="mt-2 text-center alert alert-warning"  role="alert" t-if="this.specification.error"  style="width:100%;font-size: 15px;">
+                    <t t-out="this.specification.error"/>
+                </div>
+                
+                <div class="row ms-0 mt-2 p-3 border" t-if="this.specification.student_record"  style="width:100%;">
+                    <div class="col-lg-6">
+                        <div><b>Name : </b><t t-out="this.specification.student_record.name"/></div>
+                        <div><b>Grade : </b><t t-out="this.specification.student_record.grade_id"/></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div><b>Issued Book : </b><t t-out="this.specification.student_record.issued_book"/></div>
+                        <div><b>Max Book(ALLOWED) : </b><t t-out="this.specification.student_record.max_book"/></div>
+                    </div>
+                </div>
+
+
+                <div class="mt-2" t-if="this.specification.issued_books.length > 0" style="width:100%;">
+                    <div class="fs-3 fw-bold text-black">New Book To Be Issued</div>
+                    <div class="row mt-2" style="max-height: 12rem;overflow: auto;">
+                        <t t-foreach="this.specification.issued_books" t-as='book' t-key="book.id">
+                            <div class="col-lg-3" >
+                                <div class="card" style='max-height:90% !important;'>
+                                    <div class="text-center mt-2" style="position: relative;">
+                                        <i class="fa fa-close" t-att-data-book-id="book.id"
+           style="position: absolute; top: -6px; right: 2px; background: #fff; border-radius: 50%; padding: 6px; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); font-size: 16px; color: #000;"
+            t-on-click="removeButton" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'"></i>
+
+                                    <img t-if="book.image" t-att-src="book.image"
+                                    style="height:54pt;width:56%; border-radius:5px;border-radius: 30%  "
+                                    alt="Book Image"/>
+                                    <img t-else="" src="/wk_school_management/static/src/img/books.png"
+                                    style="height:54pt;width:56%; border-radius:5px;border-radius: 30%  "
+                                    alt="Book Image"/>
+                                    </div>
+                                    <div class="card-body" style="font-size: smaller;">
+                                        <div><b>Name : </b><t t-out="book.name"/></div>
+                                        <div><b>ISBN : </b><t t-out="book.barcode"/></div>
+                                        <div><b>Author : </b><t t-out="book.author"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+
+                    </div>
+            </div>
+            <br/>
+            <div class="mt-2" t-if="this.specification.return_books.length > 0" style="width:100%;">
+                    <div class="fs-3 fw-bold text-black">Issued Book To Be Returned</div>
+                    <div class="row mt-2" style="max-height: 12rem;overflow: auto;">
+                        <t t-foreach="this.specification.return_books" t-as='book' t-key="book.id">
+                            <div class="col-lg-3" >
+                                <div class="card">
+                                    <div class="text-center mt-2" style="position: relative;">
+                                        <i class="fa fa-close" t-att-data-book-id="book.id"
+           style="position: absolute; top: -6px; right: 2px; background: #fff; border-radius: 50%; padding: 6px; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); font-size: 16px; color: #000;"
+            t-on-click="removeRequest" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'"></i>
+
+                                    <img t-if="book.image" t-att-src="book.image"
+                                    style="height:54pt;width:56%; border-radius:5px;border-radius: 30%  "
+                                    alt="Book Image"/>
+                                    <img t-else="" src="/wk_school_management/static/src/img/books.png"
+                                    style="height:54pt;width:56%; border-radius:5px;border-radius: 30%  "
+                                    alt="Book Image"/>
+                                    </div>
+                                    <div class="card-body" style="font-size: smaller;">
+                                        <div><b>Ref : </b><t t-out="book.reference"/></div>
+                                        <div><b>Name : </b><t t-out="book.name"/></div>
+                                        <div><b>Issue Date : </b><t t-out="book.issue_date"/></div>
+                                        <div><b>Fine : </b><t t-out="book.fine"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+
+                    </div>
+            </div>
+        </div>
+            <div t-if="this.specification.return_books.length > 0 or this.specification.issued_books.length > 0">
+                <button type="button" t-on-click="() => this.submitData()" class="btn btn-success">Confirm</button>
+                <button type="button" t-on-click="() => this.props.close()" class="btn btn-secondary ms-2">Close</button>
+            </div>
+            </t>
+
+        </Dialog>
+    </t>
+
+</templates>

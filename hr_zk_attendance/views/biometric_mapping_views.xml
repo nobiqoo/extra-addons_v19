@@ -1,0 +1,31 @@
+<odoo>
+    <record id="action_biometric_user_mapping_view" model="ir.actions.act_window">
+        <field name="name">Análisis de Mapeo Biométrico</field>
+        <field name="res_model">biometric.user.mapping</field>
+        <field name="view_mode">list</field>
+        <field name="target">new</field>
+        <field name="context">{'group_by': 'status'}</field>
+    </record>
+
+    <record id="view_biometric_user_mapping_tree" model="ir.ui.view">
+        <field name="name">biometric.user.mapping.tree</field>
+        <field name="model">biometric.user.mapping</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" create="false" delete="false"
+                  decoration-danger="status == 'unmapped'"
+                  decoration-success="status == 'mapped'">
+                <field name="device_user_id" string="ID Biométrico" readonly="1"/>
+                <field name="device_user_name" readonly="1"/>
+                <field name="employee_id"/>
+                <field name="status" readonly="1"/>
+                <field name="device_id" invisible="1"/>
+                <!-- Botón para eliminar usuario -->
+                <button name="action_delete_user_from_device"
+                        string="Eliminar"
+                        type="object"
+                        icon="fa-trash"
+                        class="btn-danger"/>
+            </list>
+        </field>
+    </record>
+</odoo>

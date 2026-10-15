@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="dian_data_menu_categ"
+            name="Datos DIAN Colombia"
+            parent="hr.menu_human_resources_configuration"
+            sequence="200"/>
+        
+        <menuitem id="dian_concept_type_menu"
+            parent="dian_data_menu_categ"
+            action="dian_concept_type_action"
+            sequence="10"/>
+
+    </data>
+</odoo>

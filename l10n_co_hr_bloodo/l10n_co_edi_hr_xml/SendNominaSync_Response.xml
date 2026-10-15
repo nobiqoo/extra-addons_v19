@@ -1,0 +1,33 @@
+<!-- Response SendNominaSync -->
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope"
+    xmlns:a="http://www.w3.org/2005/08/addressing"
+    xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    <s:Header>
+        <a:Action s:mustUnderstand="1">http://wcf.dian.colombia/IWcfDianCustomerServices/SendNominaSyncResponse</a:Action>
+        <o:Security s:mustUnderstand="1"
+            xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+            <u:Timestamp u:Id="_0">
+                <u:Created>2021-01-02T07:27:17.048Z</u:Created>
+                <u:Expires>2021-01-02T07:32:17.048Z</u:Expires>
+            </u:Timestamp>
+        </o:Security>
+    </s:Header>
+    <s:Body>
+        <SendNominaSyncResponse xmlns="http://wcf.dian.colombia">
+            <SendNominaSyncResult xmlns:b="http://schemas.datacontract.org/2004/07/DianResponse"
+                xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <b:ErrorMessage xmlns:c="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+                <b:IsValid>true</b:IsValid>
+                <b:StatusCode>00</b:StatusCode>
+                <b:StatusDescription> Procesado Correctamente </b:StatusDescription>
+                <b:StatusMessage> Documento Nomina 689, ha sido autorizada.</b:StatusMessage>
+                <b:XmlBase64Bytes>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiIHN0YW5kYWxvbmU9Im5vIj8+……………. 
+                                  +DQogICAgPC9jYWM6TGluZVJlc3BvbnNlPg0KICA8L2NhYzpEb2N1bWVudFJlc3BvbnNlPg0KPC9Bc
+                                  HBsaWNhdGlvblJlc3BvbnNlPg==</b:XmlBase64Bytes>
+                <b:XmlBytes i:nil="true"/>
+                <b:XmlDocumentKey>660ebb7fdd77b6d67a00448e7afde2959992c53ad1bf14b9a394272c56ee8cc64b75dc08940625e39390a0af3d8d7cb9</b:XmlDocumentKey>
+                <b:XmlFileName>Nomina (1)-firmado-SHA256</b:XmlFileName>
+            </SendNominaSyncResult>
+        </SendNominaSyncResponse>
+    </s:Body>
+</s:Envelope>

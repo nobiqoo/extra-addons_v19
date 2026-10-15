@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vista Pivote -->
+    <record id="crm_lead_report_view_pivot_architect" model="ir.ui.view">
+        <field name="name">crm.lead.report.pivot.architect</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_opportunity_report_view_pivot"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='stage_id']" position="after">
+                <field name="architect_id" type="row"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista Gráfica -->
+    <record id="crm_lead_report_view_graph_architect" model="ir.ui.view">
+        <field name="name">crm.lead.report.graph.architect</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_opportunity_report_view_graph"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='stage_id']" position="after">
+                <field name="architect_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="crm_lead_report_view_search_architect" model="ir.ui.view">
+        <field name="name">crm.lead.report.search.architect</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_opportunity_report_view_search"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="architect_id" string="Arquitecto"/>
+            </xpath>
+
+            <xpath expr="//filter[@name='filter_won_status_lost']" position="after">
+                <filter string="Con Arquitecto" name="report_with_architect" domain="[('architect_id', '!=', False)]"/>
+                <filter string="Sin Arquitecto" name="report_no_architect" domain="[('architect_id', '=', False)]"/>
+            </xpath>
+
+            <xpath expr="//filter[@name='salesperson']" position="after">
+                <filter string="Arquitecto" name="report_group_by_architect" context="{'group_by': 'architect_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

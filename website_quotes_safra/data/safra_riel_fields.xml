@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="field_ancho_telo" model="safra.field"><field name="code">ancho_telo</field><field name="name">Ancho del Telo</field><field name="section_id" ref="section_otras"/><field name="field_type">char</field><field name="col_size">4</field><field name="sequence">700</field></record>
+        <record id="field_alto_cortina" model="safra.field"><field name="code">alto_cortina</field><field name="name">Alto Cortina (mts)</field><field name="section_id" ref="section_dimensiones"/><field name="field_type">float</field><field name="col_size">4</field><field name="sequence">700</field></record>
+        <record id="field_mando_cortina" model="safra.field"><field name="code">mando_cortina</field><field name="name">Mando</field><field name="section_id" ref="section_accesorios"/><field name="field_type">selection</field><field name="col_size">4</field><field name="sequence">700</field></record>
+        <record id="opt_mando_cortina_0" model="safra.field.option"><field name="field_id" ref="field_mando_cortina"/><field name="value">1</field><field name="name">Derecho</field><field name="sequence">10</field></record>
+        <record id="opt_mando_cortina_1" model="safra.field.option"><field name="field_id" ref="field_mando_cortina"/><field name="value">2</field><field name="name">Izquierdo</field><field name="sequence">20</field></record>
+        <record id="opt_mando_cortina_2" model="safra.field.option"><field name="field_id" ref="field_mando_cortina"/><field name="value">4</field><field name="name">Bastón</field><field name="sequence">30</field></record>
+        <record id="opt_mando_cortina_3" model="safra.field.option"><field name="field_id" ref="field_mando_cortina"/><field name="value">5</field><field name="name">Doble Bastón</field><field name="sequence">40</field></record>
+        <record id="field_profundidad_onda" model="safra.field"><field name="code">profundidad_onda</field><field name="name">¿Se usará para?</field><field name="section_id" ref="section_otras"/><field name="field_type">selection</field><field name="col_size">4</field><field name="sequence">700</field></record>
+        <record id="opt_profundidad_onda_0" model="safra.field.option"><field name="field_id" ref="field_profundidad_onda"/><field name="value">0</field><field name="name">Pliegue Francés</field><field name="sequence">10</field></record>
+        <record id="opt_profundidad_onda_1" model="safra.field.option"><field name="field_id" ref="field_profundidad_onda"/><field name="value">2.3</field><field name="name">Onda Moderna Profundidad 2.3</field><field name="sequence">20</field></record>
+        <record id="opt_profundidad_onda_2" model="safra.field.option"><field name="field_id" ref="field_profundidad_onda"/><field name="value">2.8</field><field name="name">Onda Moderna Profundidad 2.8</field><field name="sequence">30</field></record>
+        <record id="field_uso_riel" model="safra.field"><field name="code">uso_riel</field><field name="name">¿Se usará para?</field><field name="section_id" ref="section_otras"/><field name="field_type">selection</field><field name="col_size">4</field><field name="sequence">700</field></record>
+        <record id="opt_uso_riel_0" model="safra.field.option"><field name="field_id" ref="field_uso_riel"/><field name="value">41</field><field name="name">HANAS</field><field name="sequence">10</field></record>
+        <record id="opt_uso_riel_1" model="safra.field.option"><field name="field_id" ref="field_uso_riel"/><field name="value">40</field><field name="name">VERTICALES</field><field name="sequence">20</field></record>
+        <record id="opt_uso_riel_2" model="safra.field.option"><field name="field_id" ref="field_uso_riel"/><field name="value">42</field><field name="name">VINTAGE</field><field name="sequence">30</field></record>
+    </data>
+</odoo>

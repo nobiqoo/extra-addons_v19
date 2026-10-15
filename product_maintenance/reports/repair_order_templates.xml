@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <template id="repair_order_report_template">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <style>
+                        .title {
+                            text-align: center;
+                            font-size: 16px;
+                            font-weight: bold;
+                            margin: 20px 0;
+                        }
+                        .info-table, .details-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-bottom: 20px;
+                        }
+                        .info-table th, .info-table td,
+                        .details-table th, .details-table td {
+                            border: 1px solid #000;
+                            padding: 5px;
+                            text-align: left;
+                        }
+                        .info-table th {
+                            background-color: #f0f0f0;
+                            font-weight: bold;
+                        }
+                        .details-table th {
+                            background-color: #d9d9d9;
+                            font-weight: bold;
+                        }
+                        .signature-section {
+                            margin-top: 30px;
+                            text-align: center;
+                        }
+                        .signature-table {
+                            width: 100%;
+                            margin-top: 10px;
+                        }
+                        .signature-box {
+                            text-align: left;
+                            padding: 20px;
+                        }
+                        .signature-box div {
+                            margin-bottom: 10px;
+                        }
+                    </style>
+                    <div>
+                        <!-- Header -->
+                        <div class="header">
+                            <div class="row">
+                                <div class="col-6">
+                                    <img t-if="doc.company_id.logo_web" class="logo-empresa" t-att-src="image_data_uri(doc.company_id.logo_web)" alt="Logo"/>
+                                </div>
+                                <div class="col-6" style="text-align: right !important;">
+                                    <span class="text-right" t-field="doc.company_id.name"/>
+                                    <br/>
+                                    Dirección: <span t-field="doc.company_id.street"/>
+                                    <br/>
+                                    Ciudad: 
+                                    <span t-out="doc.company_id.partner_id.city_id.name or doc.company_id.city"/>
+,                                    <span t-field="doc.company_id.country_id"/>
+                                    <span>NIT: </span>
+                                    <span t-field="doc.company_id.vat"/>
+                                    <br/>
+                                    <span>EMAIL: </span>
+                                    <span t-field="doc.company_id.email"/>
+                                    <br/>
+                                    <span>TEL: <span t-field="doc.company_id.phone"/>
+                                    </span>
+                                    <br/>
+                                    <b t-if="'ei_fiscal_respo' in doc.company_id._fields" t-out="doc.company_id.ei_fiscal_respo"/>
+                                </div>
+                            </div>
+
+                            <!-- Title -->
+                            <div style="text-align: center; font-size: 16px; font-weight: bold;">
+                                <span t-esc="doc._get_name_repair()"/><br/>
+                            </div>
+                        </div>
+                        
+                        <!-- Client Info -->
+                        <table class="info-table" style="font-size: 11px;">
+                            <tr>
+                                <th>CLIENTE:</th>
+                                <td><span t-field="doc.partner_id.name"/></td>
+                                <th>Orden:</th>
+                                <td>No. <span t-field="doc.name"/></td>
+                            </tr>
+                            <tr>
+                                <th>NIT:</th>
+                                <td><span t-field="doc.partner_id.vat"/></td>
+                                <th>FECHA PLANIFICADA</th>
+                                <td><span t-field="doc.schedule_date"/></td>
+                            </tr>
+                            <tr>
+                                <th>DIRECCIÓN:</th>
+                                <td><span t-field="doc.partner_id.street"/>, <span t-field="doc.partner_id.state_id.name"/> - <span t-field="doc.partner_id.state_id.country_id.name"/></td>
+                                <th/>
+                                <td/>
+                            </tr>
+                            <tr>
+                                <th>TEL/CEL:</th>
+                                <td><span t-field="doc.partner_id.phone"/></td>
+                                <th/>
+                                <td/>
+                            </tr>
+                            <tr>
+                                <th>E-MAIL:</th>
+                                <td><span t-field="doc.partner_id.email"/></td>
+                                <th/>
+                                <td/>
+                            </tr>
+                        </table>
+
+                        <!-- Equipment Data -->
+                        <table class="details-table">
+                            <thead style="font-size: 13px;">
+                                <tr>
+                                    <th colspan="5" style="text-align: center;">Datos del Equipo</th>
+                                </tr>
+                                <tr>
+                                    <th>Equipo</th>
+                                    <th>Modelo</th>
+                                    <th>Marca</th>
+                                    <th>Serial</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="font-size: 10px;">
+                                    <td><span t-field="doc.maintenance_product_id.name"/></td>
+                                    <td><span t-field="doc.maintenance_product_id.model"/></td>
+                                    <td><span t-field="doc.maintenance_product_id.brand_id"/></td>
+                                    <td><span t-field="doc.maintenance_product_id.lot_id.name"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Service Info -->
+                        <table class="details-table">
+                            <thead style="font-size: 13px;">
+                                <tr>
+                                    <th style="text-align: center;">Motivos del servicio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-size: 8px;"><span t-field="doc.service_reasons"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <table class="details-table">
+                            <thead style="font-size: 13px;">
+                                <tr>
+                                    <th style="text-align: center;">Recomendaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: justify; font-size: 8px;"><span t-esc="doc._get_internal_notes()"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Work Done -->
+                        <table class="details-table">
+                            <thead style="font-size: 13px;">
+                                <tr>
+                                    <th colspan="5" style="text-align: center;">Trabajos Realizados</th>
+                                </tr>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Fecha</th>
+                                    <th>Ejecutor</th>
+                                    <th>Duración (h)</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size: 10px;">
+                                <t t-foreach="doc.work_detail_ids" t-as="work">
+                                    <tr>
+                                        <td>
+                                            <span t-esc="work.name"/>
+                                        </td>
+                                        <td style="text-align: justify;">
+                                            <span t-esc="work.get_description()"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="work.date"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="doc.excuter_user_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="work.duration"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td colspan="4" style="text-align: right;">Tiempo Ejecutado:</td>
+                                    <td><span t-esc="doc._get_total_time()"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Products Done -->
+                        <table class="details-table">
+                            <thead style="font-size: 13px;">
+                                <tr>
+                                    <th colspan="5" style="text-align: center;">Repuestos</th>
+                                </tr>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size: 10px;">
+                                <t t-foreach="doc.maintenance_product_ids" t-as="product">
+                                    <tr>
+                                        <td>
+                                            <span t-esc="product.product_id.display_name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="product.product_uom_qty"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <!-- Signature Section -->
+                        <div class="signature-section">
+                            <table class="signature-table">
+                                <tr>
+                                    <td class="signature-box">
+                                        <p style="text-align: left;">Ingeniero de sorporte: <br/>
+                                        CC/NIT:<br/>
+                                        Firma:</p>
+                                        <div>__________________________</div>
+                                    </td>
+                                    <td class="signature-box">
+                                        <p style="text-align: left;">Encargado cliente: <br/>
+                                        CC/NIT:<br/>
+                                        Firma:</p>
+                                        <div>__________________________</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="footer" style="margin-top: 20px; font-size: 10px; text-align: justify;">
+                            PROGRAMAR CON 8 DÍAS DE ANTERIORIDAD EL SERVICIO DE MTO PREVENTIVO, EL CUAL INCLUYE DOS VISITAS AL AÑO DE ACUERDO A LA GARANTÍA, EQUIPOS DE MESA Y PIEZAS DE MANO DEBEN SER TRAÍDAS DIRECTAMENTE A NUESTRO LABORATORIO. REPRESENTACIONES EURODENT NO SE RESPONSABILIZA PASADOS 30 DÍAS LUEGO DE LA REVISIÓN O DIAGNÓSTICO.
+                            <div t-if="report_type == 'pdf'" class="text-muted" style="text-align: center; font-size: 15px;">
+                                Página: <span class="page"/> / <span class="topage"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

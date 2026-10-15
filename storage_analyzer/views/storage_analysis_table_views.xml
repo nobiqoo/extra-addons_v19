@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- ============================================ -->
+    <!-- VISTA LISTA: Detalle por Tabla -->
+    <!-- ============================================ -->
+    <record id="view_storage_analysis_table_tree" model="ir.ui.view">
+        <field name="name">storage.analysis.table.tree</field>
+        <field name="model">storage.analysis.table</field>
+        <field name="arch" type="xml">
+            <list string="Detalle por Tabla" decoration-danger="size_percentage &gt; 20" decoration-warning="size_percentage &gt; 10">
+                <field name="analysis_id"/>
+                <field name="analysis_date"/>
+                <field name="table_name"/>
+                <field name="model_name"/>
+                <field name="model_description"/>
+                <field name="category"/>
+                <field name="row_count" sum="Total"/>
+                <field name="row_count_formatted"/>
+                <field name="table_size" sum="Total" optional="show"/>
+                <field name="index_size" sum="Total" optional="show"/>
+                <field name="toast_size" sum="Total" optional="hide"/>
+                <field name="total_size" sum="Total"/>
+                <field name="size_percentage" widget="percentage"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================================ -->
+    <!-- VISTA BÚSQUEDA: Detalle por Tabla -->
+    <!-- ============================================ -->
+    <record id="view_storage_analysis_table_search" model="ir.ui.view">
+        <field name="name">storage.analysis.table.search</field>
+        <field name="model">storage.analysis.table</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Tablas">
+                <field name="table_name"/>
+                <field name="model_name"/>
+                <field name="model_description"/>
+                <filter name="is_latest" string="Últimos Análisis" domain="[('is_latest', '=', True)]"/>
+                <filter name="system" string="Sistema" domain="[('category', '=', 'system')]"/>
+                <filter name="data" string="Datos de Negocio" domain="[('category', '=', 'data')]"/>
+                <filter name="mail" string="Mensajería" domain="[('category', '=', 'mail')]"/>
+                <filter name="attachment" string="Adjuntos" domain="[('category', '=', 'attachment')]"/>
+                <filter name="logs" string="Auditoría" domain="[('category', '=', 'log')]"/>
+                <filter name="large" string="Grandes (&gt; 10 MB)" domain="[('total_size', '>', 10)]"/>
+                <filter name="very_large" string="Muy Grandes (&gt; 100 MB)" domain="[('total_size', '>', 100)]"/>
+                <group>
+                    <filter name="group_by_analysis" string="Análisis" context="{'group_by': 'analysis_id'}"/>
+                    <filter name="group_by_category" string="Categoría" context="{'group_by': 'category'}"/>
+                    <filter name="group_by_model" string="Modelo" context="{'group_by': 'model_name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ============================================ -->
+    <!-- ACCIÓN: Detalle por Tabla -->
+    <!-- ============================================ -->
+    <record id="action_storage_analysis_table" model="ir.actions.act_window">
+        <field name="name">Detalle por Tabla</field>
+        <field name="res_model">storage.analysis.table</field>
+        <field name="view_mode">list,form,pivot,graph</field>
+        <field name="search_view_id" ref="view_storage_analysis_table_search"/>
+        <field name="context">{'search_default_is_latest': 1}</field>
+    </record>
+</odoo>

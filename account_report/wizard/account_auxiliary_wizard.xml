@@ -1,0 +1,62 @@
+<odoo>
+    <record model="ir.ui.view" id="view_account_auxiliary_form">
+        <field name="name">view.account.auxiliary.form</field>
+        <field name="model">account.auxiliary.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Balance">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="report_type" />
+                            <label for="date_from" string="Date" />
+                            <div class="o_row">
+                                <div class="o_row">
+                                    <field name="date_from" required="True" />
+                                </div>
+                                <field name="date_to" required="True" />
+                            </div>
+                            <field name="date_process"/>
+                            <field name ="group_by_partner" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="line_state" />
+                            <field name="currency_by" groups="base.group_multi_currency" />
+                            <field name="no_zero"/>
+                            <field name="account_by"/>
+                            <field name="partner_by" />
+                            <field name="group_by" invisible="0"/>
+                            <field name="account_analytic"/>
+                        </group>
+                    </group>
+                    <group string="Filters">
+                        <group string="Accounts">
+                            <field name="journal_ids" widget="many2many_tags" />
+                            <field name="accounts_ids" widget="many2many_tags" />
+                            <field name="account_analytic_ids" widget="many2many_tags" invisible="account_analytic == False"/>
+                        </group>
+                        <group string="Partners">
+                            <field name="partners_ids" widget="many2many_tags" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="View" class="btn-primary" name="button_preview_html" type="object"/>
+                    or
+                    <button string="PDF" class="btn-primary" name="button_export_pdf" type="object" />
+                    or
+                    <button string="EXCEL" class="btn-primary" name="action_confirm" type="object" />
+                    or
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_auxiliary" model="ir.actions.act_window">
+        <field name="name">Auxiliary</field>
+        <field name="res_model">account.auxiliary.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

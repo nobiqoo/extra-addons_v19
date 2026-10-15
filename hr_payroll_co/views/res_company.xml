@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="res_company_form" model="ir.ui.view">
+            <field name="name">res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="page_rh" string="Recursos Humanos">
+                        <group name="group_general">
+                            <separator string="Configuración de certificado laboral" colspan="4"/>
+                            <field name="arl_id" />
+                            <field name="work_certificate_sign" widget="image" class="float-start oe_avatar"/>
+                            <field name="work_certificate_sign_text"/>
+                            <separator string="Configuración de desprendible de nómina" colspan="4"/>
+                            <field name="use_liquidation_custom_footer"/>
+                            <field name="liquidation_payslip_text" invisible="not use_liquidation_custom_footer"/>
+                            <field name="liquidation_payslip_sign" widget="image" class="float-start oe_avatar" invisible="not use_liquidation_custom_footer"/>
+                            <field name="liquidation_payslip_sign_text" invisible="not use_liquidation_custom_footer"/>
+                            <field name="show_prepared_by"/>
+                            <field name="prepared_by_name" invisible="not show_prepared_by" placeholder="Si se deja vacío se imprime ________"/>
+                        </group>
+                        <group name="group_settlement_constancy" string="Constancia de Liquidación">
+                            <field name="use_custom_settlement_constancy"/>
+                            <field name="settlement_constancy_text" invisible="not use_custom_settlement_constancy" placeholder="Escriba aquí el texto de las constancias que aparecerá en el PDF de liquidación..."/>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,133 @@
+<odoo>
+    <data>
+
+        <record id="income_and_withholding_certificate_form" model="ir.ui.view">
+            <field name="name">income.and.withholding.certificate.form</field>
+            <field name="model">income.and.withholding.certificate</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="send_mail" string="Enviar certificado" type="object"
+                            class="oe_highlight" />
+                    </header>
+                    <sheet>
+                        <group name="header_group">
+                            <group>
+                                <h1>
+                                    <span style="float: left; width: 33.33%; text-align: center;">
+                                        Certificado</span>
+                                    <field name="form_number"
+                                        style="float: left; width: 33.33%; text-align: center;" />
+                                    <field name="year"
+                                        style="float: left; width: 33.33%; text-align: center;" />
+                                </h1>
+                            </group>
+                        </group>
+
+                        <group name='main_group'>
+                            <group name="retainer_group" string="Retenedor">
+                                <field name="nit" />
+                                <field name="verification_code" />
+                                <field name="retainer_first_last_name" />
+                                <field name="retainer_second_last_name" />
+                                <field name="retainer_first_name" />
+                                <field name="retainer_second_name" />
+                                <field name="social_reason" />
+                            </group>
+
+                            <group name="employee_group" string="Empleado">
+                                <field name="employee_document_type" />
+                                <field name="employee_vat" />
+                                <field name="employee_first_last_name" />
+                                <field name="employee_second_last_name" />
+                                <field name="employee_first_name" />
+                                <field name="employee_second_name" />
+                            </group>
+
+                            <group string="Lugar y fechas">
+                                <field name="date_from_year" />
+                                <field name="date_from_month" />
+                                <field name="date_from_day" />
+                                <field name="date_to_year" />
+                                <field name="date_to_month" />
+                                <field name="date_to_day" />
+                                <field name="date_year" />
+                                <field name="date_month" />
+                                <field name="date_day" />
+                                <field name="holding_place" />
+                                <field name="departament_code" />
+                                <field name="city_code" />
+                            </group>
+
+                            <group string="Conceptos de los ingresos">
+                                <field name="salary_payments" />
+                                <field name="bonus_payments" />
+                                <field name="food_payments" />
+                                <field name="fee_payments" />
+                                <field name="service_payments" />
+                                <field name="commission_payments" />
+                                <field name="social_benefit_payments" />
+                                <field name="travel_payments" />
+                                <field name="proxy_payments" />
+                                <field name="cooperative_work_payments" />
+                                <field name="other_payments" />
+                                <field name="severance_payments" />
+                                <field name="severance_cst_payments" />
+                                <field name="severance_fund_payments" />
+                                <field name="pension_payments" />
+                                <field name="financial_support_payments" />
+                                <field name="total_payments" />
+                            </group>
+
+                            <group string="Conceptos de los aportes">
+                                <field name="health_contributions" />
+                                <field name="pension_contributions" />
+                                <field name="voluntary_contributions_rais" />
+                                <field name="afp_contribution" />
+                                <field name="afc_contributions" />
+                                <field name="avc_contributions" />
+                                <field name="average_salary" />
+                            </group>
+
+                            <group string="Detalle de retención">
+                                <field name="withholding_tax" />
+                                <field name="retainer" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="income_and_withholding_certificate_tree" model="ir.ui.view">
+            <field name="name">income.and.withholding.certificate.tree</field>
+            <field name="model">income.and.withholding.certificate</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="form_number" />
+                    <field name="employee_vat" />
+                    <field name="employee_first_name" />
+                    <field name="employee_second_name" />
+                    <field name="employee_first_last_name" />
+                    <field name="employee_second_last_name" />
+                    <field name="year" />
+                    <field name="template_id" />
+                </list>
+            </field>
+        </record>
+
+        <record id="income_and_withholding_certificate_action" model="ir.actions.act_window">
+            <field name="name">Certificados de ingreso y retención</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">income.and.withholding.certificate</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem
+            id="income_and_withholding_certificate_menu_act"
+            name="Certificados de ingreso y retención"
+            action="income_and_withholding_certificate_action"
+            parent="income_and_withholding_certificate_menu_categ"
+            sequence="1" />
+    </data>
+</odoo>

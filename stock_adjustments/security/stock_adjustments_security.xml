@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="group_inventory_adjustments" model="res.groups">
+            <field name="name">Inventory Adjustments</field>
+            <field name="category_id" ref="base.module_category_inventory_inventory" />
+        </record>
+
+        <record id="group_physical_inventory_apply" model="res.groups">
+            <field name="name">Access to Apply Physical Inventory</field>
+            <field name="category_id" ref="base.module_category_hidden" />
+        </record>
+    </data>
+</odoo>

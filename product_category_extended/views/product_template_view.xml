@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_template_add_references_form_view" model="ir.ui.view">
+        <field name="name">product.template.add.references</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='uom_po_id']" position="after">
+                <field name="skip_automatic_reference" invisible="is_product_variant == True"/>
+                <field name="secuence_reference" invisible="is_product_variant == True" readonly="1"/>
+                <field name="is_product_variant" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_product_add_references_form_view" model="ir.ui.view">
+        <field name="name">product.product.add.references</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="sigo_reference"/>
+                <field name="fracaweb_reference"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+    <record id="product_template_add_refresh_variants_form_view" model="ir.ui.view">
+        <field name="name">product.template.add.references</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='variants']" position="inside">
+                <button name="update_variants_default_code" type="object" class="btn-secondary" string="Update variants code"/>
+            </xpath>
+            <xpath expr="//list[@editable='bottom']" position="attributes">
+                <attribute name='default_order'>attribute_id</attribute>
+            </xpath>
+            <xpath expr="//form[@name='Product Template']/sheet[@name='product_form']/notebook[1]" position="inside">
+                <page string="Materials">
+                    <field name="material_ids">
+                        <list editable="bottom">
+                            <field name="product_tmpl_id" />
+                            <field name="uom_id" readonly="1"/>
+                            <field name="uom_qty"/>
+                        </list>
+                    </field>
+                    <button name="create_mrp_bom_lists" type="object" class="btn-secondary" string="Create material list"/>
+                </page>
+            </xpath>
+            <xpath expr="//list/field[@name='value_ids']" position="attributes">
+                <attribute name='required'>1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

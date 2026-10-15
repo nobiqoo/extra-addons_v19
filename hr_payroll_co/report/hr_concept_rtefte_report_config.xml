@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_concept_rtefte_paperformat" model="report.paperformat">
+            <field name="name">Formato Certificado de Retención</field>
+            <field name="default" eval="True" />
+            <field name="format">Letter</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">10</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <record id="hr_concept_rtefte_action_report" model="ir.actions.report">
+            <field name="name">Certificado de Retención en la Fuente</field>
+            <field name="model">hr.concept.rtefte</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hr_payroll_co.hr_concept_rtefte_template_report</field>
+            <field name="report_file">hr_payroll_co.hr_concept_rtefte_template_report</field>
+            <field name="print_report_name">'Certificado de Retención en la Fuente - %s' % object.display_name</field>
+            <field name="paperformat_id" ref="hr_concept_rtefte_paperformat" />
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_concept_rtefte" />
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo> 

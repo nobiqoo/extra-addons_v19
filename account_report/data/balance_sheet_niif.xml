@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="balance_sheet_niif" model="account.report">
+        <field name="name">Balance de situación NIIF</field>
+        <field name="filter_date_range" eval="False"/>
+        <field name="filter_analytic_groupby" eval="True"/>
+        <field name="filter_unfold_all" eval="True"/>
+        <field name="filter_journals" eval="True"/>
+        <field name="filter_multi_company">selector</field>
+        <field name="default_opening_date_filter">today</field>
+        <field name="column_ids">
+            <record id="balance_sheet_balance_niif" model="account.report.column">
+                <field name="name">Balance</field>
+                <field name="expression_label">balance</field>
+            </record>
+            <record id="balance_sheet_balance_niif_2" model="account.report.column">
+                <field name="name">Balance NIIF</field>
+                <field name="expression_label">ifrs_balance</field>
+            </record>
+        </field>
+        <field name="line_ids">
+            <record id="account_financial_report_total_assets0_niif" model="account.report.line">
+                <field name="name">ACTIVOS</field>
+                <field name="code">TA_BALANCE</field>
+                <field name="children_ids">
+                    <record id="account_financial_report_current_assets_view0_niif" model="account.report.line">
+                        <field name="name">Activos circulantes</field>
+                        <field name="code">CA_BALANCE</field>
+                        <field name="children_ids">
+                            <record id="account_financial_report_bank_view0_niif" model="account.report.line">
+                                <field name="name">Cuentas bancarias y en efectivo</field>
+                                <field name="code">BA_BALANCE</field>
+                                <field name="groupby">account_id</field>
+                                <field name="foldable" eval="True"/>
+                                <field name="expression_ids">
+                                    <record id="account_financial_report_bank_view0_niif_1" model="account.report.expression">
+                                        <field name="label">balance</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="[('account_id.account_type', '=', 'asset_cash')]"/>
+                                        <field name="date_scope">strict_range</field>
+                                        <field name="subformula">sum</field>
+                                        <field name="green_on_positive" eval="False"/>
+                                    </record>
+                                    <record id="account_financial_report_bank_view0_niif_2" model="account.report.expression">
+                                        <field name="label">ifrs_balance</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="[('account_id.account_type', '=', 'asset_cash')]"/>
+                                        <field name="date_scope">strict_range</field>
+                                        <field name="subformula">sum_ifrs_balance</field>
+                                        <field name="green_on_positive" eval="False"/>
+                                    </record>
+                                </field>
+                            </record>
+                            <record id="account_financial_report_receivable0_niif" model="account.report.line">
+                                <field name="name">Pendientes de cobro</field>
+                                <field name="code">REC_BALANCE</field>
+                                <field name="groupby">account_id</field>
+                                <field name="foldable" eval="True"/>
+                                <field name="expression_ids">
+                                    <record id="account_financial_report_receivable0_niif_1" model="account.report.expression">
+                                        <field name="label">balance</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="[('account_id.account_type', '=', 'asset_receivable'), ('account_id.non_trade', '=', False)]"/>
+                                        <field name="date_scope">strict_range</field>
+                                        <field name="subformula">sum</field>
+                                        <field name="green_on_positive" eval="False"/>
+                                    </record>
+                                    <record id="account_financial_report_receivable0_niif_2" model="account.report.expression">
+                                        <field name="label">ifrs_balance</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="[('account_id.account_type', '=', 'asset_receivable'), ('account_id.non_trade', '=', False)]"/>
+                                        <field name="date_scope">strict_range</field>
+                                        <field name="subformula">sum_ifrs_balance</field>
+                                        <field name="green_on_positive" eval="False"/>
+                                    </record>
+                                </field>
+                            </record>
+                            <record id="account_financial_report_current_assets0_niif" model="account.report.line">
+                                <field name="name">Activos circulantes</field>
+                                <field name="code">CAS_BALANCE</field>
+                                <field name="groupby">account_id</field>
+                                <field name="foldable" eval="True"/>
+                                <field name="expression_ids">
+                                    <record id="account_financial_report_current_assets0_niif_1" model="account.report.expression">
+                                        <field name="label">balance</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="['|', ('account_id.account_type', '=', 'asset_current'), '&amp;', ('account_id.account_type', '=', 'asset_receivable'), ('account_id.non_trade', '=', True)]"/>
+                                        <field name="date_scope">strict_range</field>
+                                        <field name="subformula">sum</field>
+                                        <field name="green_on_positive" eval="False"/>
+                                    </record>
+                                    <record id="account_financial_report_current_assets0_niif_2" model="account.report.expression">
+                                        <field name="label">ifrs_balance</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="['|', ('account_id.account_type', '=', 'asset_current'), '&amp;', ('account_id.account_type', '=', 'asset_receivable'), ('account_id.non_trade', '=', True)]"/>
+                                        <field name="date_scope">strict_range</field>
+                                        <field name="subformula">sum_ifrs_balance</field>
+                                        <field name="green_on_positive" eval="False"/>
+                                    </record>
+                                </field>
+                            </record>
+                            <record id="account_financial_report_prepayements0_niif" model="account.report.line">
+                                <field name="name">Pre-pagos</field>
+                                <field name="code">PRE_BALANCE</field>
+                                <field name="groupby">account_id</field>
+                                <field name="foldable" eval="True"/>
+                                <field name="expression_ids">
+                                    <record id="account_financial_report_prepayements0_niif_1" model="account.report.expression">
+                                        <field name="label">balance</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="[('account_id.account_type', '=', 'asset_prepayments')]"/>
+                                        <field name="date_scope">strict_range</field>
+                                        <field name="subformula">sum</field>
+                                        <field name="green_on_positive" eval="False"/>
+                                    </record>
+                                    <record id="account_financial_report_prepayements0_niif_2" model="account.report.expression">
+                                        <field name="label">ifrs_balance</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="[('account_id.account_type', '=', 'asset_prepayments')]"/>
+                                        <field name="date_scope">strict_range</field>
+                                        <field name="subformula">sum_ifrs_balance</field>
+                                        <field name="green_on_positive" eval="False"/>
+                                    </record>
+                                </field>
+                            </record>
+                        </field>
+                        <field name="expression_ids">
+                            <record id="account_financial_report_current_assets_view0_niif_1" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">BA_BALANCE.balance + REC_BALANCE.balance + CAS_BALANCE.balance + PRE_BALANCE.balance</field>
+                                <field name="date_scope">strict_range</field>
+                            </record>
+                            <record id="account_financial_report_current_assets_view0_niif_2" model="account.report.expression">
+                                <field name="label">ifrs_balance</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">BA_BALANCE.ifrs_balance + REC_BALANCE.ifrs_balance + CAS_BALANCE.ifrs_balance + PRE_BALANCE.ifrs_balance</field>
+                                <field name="date_scope">strict_range</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="account_financial_report_fixed_assets_view0_niif" model="account.report.line">
+                        <field name="name">Activos fijos extra</field>
+                        <field name="code">FA_BALANCE</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="account_financial_report_fixed_assets_view0_niif_1" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'asset_fixed')]"/>
+                                <field name="date_scope">strict_range</field>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                            <record id="account_financial_report_fixed_assets_view0_niif_2" model="account.report.expression">
+                                <field name="label">ifrs_balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'asset_fixed')]"/>
+                                <field name="date_scope">strict_range</field>
+                                <field name="subformula">sum_ifrs_balance</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="account_financial_report_non_current_assets_view0_niif" model="account.report.line">
+                        <field name="name">Activos no-circulantes extras</field>
+                        <field name="code">PNCA_BALANCE</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="account_financial_report_non_current_assets_view0_niif_1" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'asset_non_current')]"/>
+                                <field name="date_scope">strict_range</field>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                            <record id="account_financial_report_non_current_assets_view0_niif_2" model="account.report.expression">
+                                <field name="label">ifrs_balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'asset_non_current')]"/>
+                                <field name="date_scope">strict_range</field>
+                                <field name="subformula">sum_ifrs_balance</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <field name="expression_ids">
+                    <record id="account_financial_report_total_assets0_niif_1" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">CA_BALANCE.balance + FA_BALANCE.balance + PNCA_BALANCE.balance</field>
+                        <field name="date_scope">strict_range</field>
+                    </record>
+                    <record id="account_financial_report_total_assets0_niif_2" model="account.report.expression">
+                        <field name="label">ifrs_balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">CA_BALANCE.ifrs_balance + FA_BALANCE.ifrs_balance + PNCA_BALANCE.ifrs_balance</field>
+                        <field name="date_scope">strict_range</field>
+                    </record>
+                </field>
+            </record>
+            <record id="account_financial_report_liabilities_view0_niif" model="account.report.line">
+                <field name="name">PASIVOS</field>
+                <field name="code">L_BALANCE</field>
+                <field name="expression_ids">
+                    <record id="account_financial_report_liabilities_view0_balance_niif" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">CL_BALANCE.balance + NL_BALANCE.balance</field>
+                        <field name="green_on_positive" eval="False"/>
+                    </record>
+                    <record id="account_financial_report_liabilities_view0_balance_niif_2" model="account.report.expression">
+                        <field name="label">ifrs_balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">CL_BALANCE.ifrs_balance + NL_BALANCE.ifrs_balance</field>
+                        <field name="green_on_positive" eval="False"/>
+                    </record>
+                </field>
+                <field name="children_ids">
+                    <record id="account_financial_report_current_liabilities0_niif" model="account.report.line">
+                        <field name="name">Pasivo circulantes</field>
+                        <field name="code">CL_BALANCE</field>
+                        <field name="expression_ids">
+                            <record id="account_financial_report_current_liabilities0_balance_niif" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">CL1_BALANCE.balance + CL2_BALANCE.balance</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                            <record id="account_financial_report_current_liabilities0_balance_niif_2" model="account.report.expression">
+                                <field name="label">ifrs_balance</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">CL1_BALANCE.ifrs_balance + CL2_BALANCE.ifrs_balance</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                        <field name="children_ids">
+                            <record id="account_financial_report_current_liabilities1_niif" model="account.report.line">
+                                <field name="name">Pasivo circulantes</field>
+                                <field name="code">CL1_BALANCE</field>
+                                <field name="groupby">account_id</field>
+                                <field name="foldable" eval="True"/>
+                                <field name="expression_ids">
+                                    <record id="account_financial_report_current_liabilities1_balance_niif" model="account.report.expression">
+                                        <field name="label">balance</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="['|', ('account_id.account_type', 'in', ('liability_current', 'liability_credit_card')), '&amp;', ('account_id.account_type', '=', 'liability_payable'), ('account_id.non_trade', '=', True)]"/>
+                                        <field name="subformula">-sum</field>
+                                        <field name="green_on_positive" eval="False"/>
+                                    </record>
+                                    <record id="account_financial_report_current_liabilities1_balance_niif_2" model="account.report.expression">
+                                        <field name="label">ifrs_balance</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="['|', ('account_id.account_type', 'in', ('liability_current', 'liability_credit_card')), '&amp;', ('account_id.account_type', '=', 'liability_payable'), ('account_id.non_trade', '=', True)]"/>
+                                        <field name="subformula">-sum_ifrs_balance</field>
+                                        <field name="green_on_positive" eval="False"/>
+                                    </record>
+                                </field>
+                            </record>
+                            <record id="account_financial_report_current_liabilities_payable_niif" model="account.report.line">
+                                <field name="name">Por pagar</field>
+                                <field name="code">CL2_BALANCE</field>
+                                <field name="groupby">account_id</field>
+                                <field name="foldable" eval="True"/>
+                                <field name="expression_ids">
+                                    <record id="account_financial_report_current_liabilities_payable_balance_niif" model="account.report.expression">
+                                        <field name="label">balance</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="[('account_id.account_type', '=', 'liability_payable'), ('account_id.non_trade', '=', False)]"/>
+                                        <field name="subformula">-sum</field>
+                                        <field name="green_on_positive" eval="False"/>
+                                    </record>
+                                    <record id="account_financial_report_current_liabilities_payable_balance_niif_2" model="account.report.expression">
+                                        <field name="label">ifrs_balance</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="[('account_id.account_type', '=', 'liability_payable'), ('account_id.non_trade', '=', False)]"/>
+                                        <field name="subformula">-sum_ifrs_balance</field>
+                                        <field name="green_on_positive" eval="False"/>
+                                    </record>
+                                </field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="account_financial_report_non_current_liabilities0_niif" model="account.report.line">
+                        <field name="name">Pasivos no-ciculantes extras</field>
+                        <field name="code">NL_BALANCE</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="account_financial_report_non_current_liabilities0_balance_niif" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'liability_non_current')]"/>
+                                <field name="subformula">-sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                            <record id="account_financial_report_non_current_liabilities0_balance_niif_2" model="account.report.expression">
+                                <field name="label">ifrs_balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'liability_non_current')]"/>
+                                <field name="subformula">-sum_ifrs_balance</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+            </record>
+            <record id="account_financial_report_equity0_niif" model="account.report.line">
+                <field name="name">CAPITAL</field>
+                <field name="code">EQ_BALANCE</field>
+                <field name="children_ids">
+                    <record id="account_financial_unaffected_earnings0_niif" model="account.report.line">
+                        <field name="name">Ganancias sin asignar</field>
+                        <field name="code">UNAFFECTED_EARNINGS_BALANCE</field>
+                        <field name="children_ids">
+                            <record id="account_financial_current_year_earnings0_niif" model="account.report.line">
+                                <field name="name">Ganancias no asignadas del año en curso</field>
+                                <field name="code">CURR_YEAR_EARNINGS_BALANCE</field>
+                                <field name="children_ids">
+                                    <record id="account_financial_current_year_earnings_line_1_niif" model="account.report.line">
+                                        <field name="name">Ganancias del año actual</field>
+                                        <field name="code">CURR_YEAR_EARNINGS_PNL_BALANCE</field>
+                                        <field name="expression_ids">
+                                            <record id="account_financial_current_year_earnings_line_1_balance_niif" model="account.report.expression">
+                                                <field name="label">balance</field>
+                                                <field name="engine">aggregation</field>
+                                                <field name="formula">NEP_NIIF.balance</field>
+                                                <field name="date_scope">from_fiscalyear</field>
+                                                <field name="subformula">cross_report(account_report.profit_and_loss_niif)</field>
+                                            </record>
+                                            <record id="account_financial_current_year_earnings_line_1_balance_niif_2" model="account.report.expression">
+                                                <field name="label">ifrs_balance</field>
+                                                <field name="engine">aggregation</field>
+                                                <field name="formula">NEP_NIIF.ifrs_balance</field>
+                                                <field name="date_scope">from_fiscalyear</field>
+                                                <field name="subformula">cross_report(account_report.profit_and_loss_niif)</field>
+                                            </record>
+                                        </field>
+                                    </record>
+                                    <record id="account_financial_current_year_earnings_line_2_niif" model="account.report.line">
+                                        <field name="name">Ganancias asignadas el presente año</field>
+                                        <field name="code">CURR_YEAR_EARNINGS_ALLOC_BALANCE</field>
+                                        <field name="expression_ids">
+                                            <record id="account_financial_current_year_earnings_line_2_balance_niif" model="account.report.expression">
+                                                <field name="label">balance</field>
+                                                <field name="engine">domain</field>
+                                                <field name="formula" eval="[('account_id.account_type', '=', 'equity_unaffected')]"/>
+                                                <field name="date_scope">from_fiscalyear</field>
+                                                <field name="subformula">-sum_ifrs_balance</field>
+                                            </record>
+                                            <record id="account_financial_current_year_earnings_line_2_balance_niif_2" model="account.report.expression">
+                                                <field name="label">ifrs_balance</field>
+                                                <field name="engine">domain</field>
+                                                <field name="formula" eval="[('account_id.account_type', '=', 'equity_unaffected')]"/>
+                                                <field name="date_scope">from_fiscalyear</field>
+                                                <field name="subformula">-sum_ifrs_balance</field>
+                                            </record>
+                                        </field>
+                                    </record>
+                                </field>
+                                <field name="expression_ids">
+                                    <record id="account_financial_current_year_earnings0_niif_1" model="account.report.expression">
+                                        <field name="label">balance</field>
+                                        <field name="engine">aggregation</field>
+                                        <field name="formula">CURR_YEAR_EARNINGS_PNL_BALANCE.balance + CURR_YEAR_EARNINGS_ALLOC_BALANCE.balance</field>
+                                        <field name="date_scope">from_fiscalyear</field>
+                                    </record>
+                                    <record id="account_financial_current_year_earnings0_niif_2" model="account.report.expression">
+                                        <field name="label">ifrs_balance</field>
+                                        <field name="engine">aggregation</field>
+                                        <field name="formula">CURR_YEAR_EARNINGS_PNL_BALANCE.ifrs_balance + CURR_YEAR_EARNINGS_ALLOC_BALANCE.ifrs_balance</field>
+                                        <field name="date_scope">from_fiscalyear</field>
+                                    </record>
+                                </field>
+                            </record>
+                            <record id="account_financial_previous_year_earnings0_niif" model="account.report.line">
+                                <field name="name">Ganancias no asignados de años anteriores</field>
+                                <field name="code">PREV_YEAR_EARNINGS_BALANCE</field>
+                                <field name="expression_ids">
+                                    <record id="account_financial_previous_year_earnings0_allocated_earnings_niif" model="account.report.expression">
+                                        <field name="label">allocated_earnings</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="[('account_id.account_type', '=', 'equity_unaffected')]"/>
+                                        <field name="subformula">-sum</field>
+                                        <field name="date_scope">from_beginning</field>
+                                    </record>
+                                    <record id="account_financial_previous_year_earnings0_balance_domain_niif" model="account.report.expression">
+                                        <field name="label">balance_domain</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="[('account_id.account_type', 'in', ('income', 'income_other', 'expense_direct_cost', 'expense', 'expense_depreciation'))]"/>
+                                        <field name="subformula">-sum</field>
+                                        <field name="date_scope">from_beginning</field>
+                                    </record>
+                                    <record id="account_financial_previous_year_earnings0_balance_niif" model="account.report.expression">
+                                        <field name="label">balance</field>
+                                        <field name="engine">aggregation</field>
+                                        <field name="formula">PREV_YEAR_EARNINGS_BALANCE.balance_domain + PREV_YEAR_EARNINGS_BALANCE.allocated_earnings - CURR_YEAR_EARNINGS_BALANCE.balance</field>
+                                    </record>
+                                    <record id="account_financial_previous_year_earnings0_allocated_earnings_niif_2" model="account.report.expression">
+                                        <field name="label">allocated_earnings_niif</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="[('account_id.account_type', '=', 'equity_unaffected')]"/>
+                                        <field name="subformula">-sum_ifrs_balance</field>
+                                        <field name="date_scope">from_beginning</field>
+                                    </record>
+                                    <record id="account_financial_previous_year_earnings0_balance_domain_niif_2" model="account.report.expression">
+                                        <field name="label">balance_domain_niif</field>
+                                        <field name="engine">domain</field>
+                                        <field name="formula" eval="[('account_id.account_type', 'in', ('income', 'income_other', 'expense_direct_cost', 'expense', 'expense_depreciation'))]"/>
+                                        <field name="subformula">-sum_ifrs_balance</field>
+                                        <field name="date_scope">from_beginning</field>
+                                    </record>
+                                    <record id="account_financial_previous_year_earnings0_balance_niif_2" model="account.report.expression">
+                                        <field name="label">ifrs_balance</field>
+                                        <field name="engine">aggregation</field>
+                                        <field name="formula">PREV_YEAR_EARNINGS_BALANCE.balance_domain_niif + PREV_YEAR_EARNINGS_BALANCE.allocated_earnings_niif - CURR_YEAR_EARNINGS_BALANCE.ifrs_balance</field>
+                                    </record>
+                                </field>
+                            </record>
+                        </field>
+                        <field name="expression_ids">
+                            <record id="account_financial_unaffected_earnings0_niif_1" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">CURR_YEAR_EARNINGS_BALANCE.balance + PREV_YEAR_EARNINGS_BALANCE.balance</field>
+                                <field name="date_scope">strict_range</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                            <record id="account_financial_unaffected_earnings0_niif_2" model="account.report.expression">
+                                <field name="label">ifrs_balance</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">CURR_YEAR_EARNINGS_BALANCE.ifrs_balance + PREV_YEAR_EARNINGS_BALANCE.ifrs_balance</field>
+                                <field name="date_scope">strict_range</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="account_financial_retained_earnings0_niif" model="account.report.line">
+                        <field name="name">Ganancias acumuladas</field>
+                        <field name="code">RETAINED_EARNINGS_BALANCE</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="account_financial_retained_earnings0_niif_01" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'equity')]"/>
+                                <field name="date_scope">strict_range</field>
+                                <field name="subformula">-sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                            <record id="account_financial_retained_earnings0_niif_02" model="account.report.expression">
+                                <field name="label">ifrs_balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'equity')]"/>
+                                <field name="date_scope">strict_range</field>
+                                <field name="subformula">-sum_ifrs_balance</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <field name="expression_ids">
+                    <record id="account_financial_report_equity0_niif_1" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">UNAFFECTED_EARNINGS_BALANCE.balance + RETAINED_EARNINGS_BALANCE.balance</field>
+                        <field name="date_scope">strict_range</field>
+                        <field name="green_on_positive" eval="False"/>
+                    </record>
+                    <record id="account_financial_report_equity0_niif_2" model="account.report.expression">
+                        <field name="label">ifrs_balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">UNAFFECTED_EARNINGS_BALANCE.ifrs_balance + RETAINED_EARNINGS_BALANCE.ifrs_balance</field>
+                        <field name="date_scope">strict_range</field>
+                        <field name="green_on_positive" eval="False"/>
+                    </record>
+                </field>
+            </record>
+            <record id="account_financial_report_liabilities_and_equity_view0_niif" model="account.report.line">
+                <field name="name">PASIVOS + CAPITAL</field>
+                <field name="code">LE_BALANCE</field>
+                <field name="expression_ids">
+                    <record id="account_financial_report_liabilities_and_equity_view0_balance_niif" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">L_BALANCE.balance + EQ_BALANCE.balance</field>
+                        <field name="green_on_positive" eval="False"/>
+                    </record>
+                    <record id="account_financial_report_liabilities_and_equity_view0_balance_niif_2" model="account.report.expression">
+                        <field name="label">ifrs_balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">L_BALANCE.ifrs_balance + EQ_BALANCE.balance</field>
+                        <field name="green_on_positive" eval="False"/>
+                    </record>
+                </field>
+            </record>
+
+            <record id="account_financial_report_off_sheet_niif" model="account.report.line">
+                <field name="name">OFF BALANCE SHEET ACCOUNTS</field>
+                <field name="code">OS_BALANCE</field>
+                <field name="groupby">account_id</field>
+                <field name="foldable" eval="True"/>
+                <field name="hide_if_zero" eval="1"/>
+                <field name="domain_formula">-sum([('account_id.account_type', '=', 'off_balance')])</field>
+            </record>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sistema ENROLLABLE PREMIUM (06) replicando el portal del cliente.
+         Reusa el catálogo global de campos/opciones (idéntico a ENROLLABLE) y
+         las mismas telas/imágenes (grupo 06). Solo configura mapeos, orden,
+         ficha y un par de campos propios (Tipo de Plano, Nº segmento, Cabezal). -->
+    <data noupdate="0">
+
+        <!-- Ficha técnica PREMIUM -->
+        <record id="system_06" model="safra.system">
+            <field name="tech_width_min">0.3</field>
+            <field name="tech_width_max">4.5</field>
+            <field name="tech_height_min">0.3</field>
+            <field name="tech_height_max">7</field>
+            <field name="tech_mechanism">Tubo: R8 - Mecanismo: R8SHEER - Cabezal: R8</field>
+            <field name="img_group">06</field>
+        </record>
+
+        <!-- Exhibición: solo usuarios internos; no se muestra en el portal del asesor -->
+        <record id="sf_06_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+
+        <!-- Tipo de cabezal: en PREMIUM la opción es "Cabezal Redondo" -->
+        <record id="opt_cabezal_tipo_0" model="safra.field.option">
+            <field name="field_id" ref="field_cabezal_tipo"/>
+            <field name="value">1</field><field name="name">Cabezal Redondo</field><field name="sequence">10</field>
+        </record>
+        <delete model="safra.field.option" id="opt_cabezal_tipo_1"/>
+
+        <!-- Campos propios de PREMIUM -->
+        <record id="field_tipo_plano" model="safra.field">
+            <field name="code">tipo_plano</field>
+            <field name="name">Tipo de Plano</field>
+            <field name="section_id" ref="section_otras"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">600</field>
+        </record>
+        <record id="opt_tipo_plano_0" model="safra.field.option">
+            <field name="field_id" ref="field_tipo_plano"/>
+            <field name="value">A</field><field name="name">Plano tipo A</field><field name="sequence">10</field>
+        </record>
+        <record id="opt_tipo_plano_1" model="safra.field.option">
+            <field name="field_id" ref="field_tipo_plano"/>
+            <field name="value">B</field><field name="name">Plano tipo B</field><field name="sequence">20</field>
+        </record>
+        <record id="opt_tipo_plano_2" model="safra.field.option">
+            <field name="field_id" ref="field_tipo_plano"/>
+            <field name="value">C</field><field name="name">Plano tipo C</field><field name="sequence">30</field>
+        </record>
+        <record id="opt_tipo_plano_3" model="safra.field.option">
+            <field name="field_id" ref="field_tipo_plano"/>
+            <field name="value">D</field><field name="name">Plano tipo D</field><field name="sequence">40</field>
+        </record>
+        <record id="opt_tipo_plano_4" model="safra.field.option">
+            <field name="field_id" ref="field_tipo_plano"/>
+            <field name="value">E</field><field name="name">Plano tipo E</field><field name="sequence">50</field>
+        </record>
+        <record id="opt_tipo_plano_5" model="safra.field.option">
+            <field name="field_id" ref="field_tipo_plano"/>
+            <field name="value">F</field><field name="name">Plano tipo F</field><field name="sequence">60</field>
+        </record>
+        <record id="opt_tipo_plano_6" model="safra.field.option">
+            <field name="field_id" ref="field_tipo_plano"/>
+            <field name="value">G</field><field name="name">Plano tipo G</field><field name="sequence">70</field>
+        </record>
+        <record id="opt_tipo_plano_7" model="safra.field.option">
+            <field name="field_id" ref="field_tipo_plano"/>
+            <field name="value">H</field><field name="name">Plano tipo H</field><field name="sequence">80</field>
+        </record>
+        <record id="field_num_segmento" model="safra.field">
+            <field name="code">num_segmento</field>
+            <!-- Reunión 28-sep (fila 112): el campo se llama «Segmento». -->
+            <field name="name">Segmento</field>
+            <field name="section_id" ref="section_otras"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">610</field>
+            <field name="depends_field_id" ref="field_tipo_plano"/>
+            <field name="depends_value">A,B,C,D,E,F,G,H</field>
+        </record>
+
+        <!-- Mapeos de campos del sistema PREMIUM -->
+        <record id="sf_06_width" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_width"/>
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_06_height" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_height"/>
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_06_quantity" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_quantity"/>
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_06_fabric_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_fabric_id"/>
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_06_color_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_color_id"/>
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_06_coordinado" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_coordinado"/>
+            <field name="sequence">150</field>
+        </record>
+        <record id="sf_06_same_header" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_same_header"/>
+            <field name="sequence">160</field>
+        </record>
+        <record id="sf_06_sequence_name" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_sequence_name"/>
+            <field name="sequence">170</field>
+        </record>
+        <record id="sf_06_perfil" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_perfil"/>
+            <field name="sequence">1000</field>
+        </record>
+        <record id="sf_06_cabezal_tipo" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_cabezal_tipo"/>
+            <field name="sequence">1005</field>
+        </record>
+        <record id="sf_06_mando_position" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_mando_position"/>
+            <field name="sequence">1010</field>
+        </record>
+        <record id="sf_06_orientation" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_orientation"/>
+            <field name="sequence">1020</field>
+        </record>
+        <record id="sf_06_has_motor" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_has_motor"/>
+            <field name="sequence">1030</field>
+        </record>
+        <record id="sf_06_motor" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_motor"/>
+            <field name="sequence">1031</field>
+        </record>
+        <record id="sf_06_control" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_control"/>
+            <field name="sequence">1032</field>
+        </record>
+        <record id="sf_06_control_channel" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="sequence">1033</field>
+        </record>
+        <record id="sf_06_motor_support_type" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_motor_support_type"/>
+            <field name="sequence">1034</field>
+        </record>
+        <record id="sf_06_interruptor_rf" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_interruptor_rf"/>
+            <field name="sequence">1035</field>
+        </record>
+        <record id="sf_06_requires_charger" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_requires_charger"/>
+            <field name="sequence">1036</field>
+        </record>
+        <record id="sf_06_aligned" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_aligned"/>
+            <field name="sequence">1040</field>
+        </record>
+        <record id="sf_06_unificacion_mando" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_unificacion_mando"/>
+            <field name="sequence">1045</field>
+        </record>
+        <record id="sf_06_cabezal_forrado" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_cabezal_forrado"/>
+            <field name="sequence">1050</field>
+        </record>
+        <record id="sf_06_cabezal_tela" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_cabezal_tela"/>
+            <field name="sequence">1051</field>
+        </record>
+        <record id="sf_06_extra_chain" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_extra_chain"/>
+            <field name="sequence">1070</field>
+        </record>
+        <record id="sf_06_tipo_plano" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_tipo_plano"/>
+            <field name="sequence">1075</field>
+        </record>
+        <record id="sf_06_num_segmento" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_num_segmento"/>
+            <field name="sequence">1076</field>
+        </record>
+        <record id="sf_06_design_print" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_design_print"/>
+            <field name="sequence">1080</field>
+        </record>
+        <record id="sf_06_print_m2" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_print_m2"/>
+            <field name="sequence">1081</field>
+        </record>
+        <record id="sf_06_custom_design" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_custom_design"/>
+            <field name="sequence">1082</field>
+        </record>
+        <record id="sf_06_escuadras" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_escuadras"/>
+            <field name="sequence">1090</field>
+        </record>
+        <record id="sf_06_design_exterior" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_design_exterior"/>
+            <field name="sequence">1100</field>
+        </record>
+        <record id="sf_06_location" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_location"/>
+            <field name="sequence">1110</field>
+        </record>
+        <record id="sf_06_atravesar_tela" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_atravesar_tela"/>
+            <field name="sequence">1120</field>
+        </record>
+        <record id="sf_06_enclosed" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_enclosed"/>
+            <field name="sequence">1130</field>
+        </record>
+        <record id="sf_06_bolsillo_size" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_bolsillo_size"/>
+            <field name="sequence">1140</field>
+        </record>
+        <record id="sf_06_cover_light_profile" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_cover_light_profile"/>
+            <field name="sequence">1150</field>
+        </record>
+        <record id="sf_06_coverlight_felpa" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_coverlight_felpa"/>
+            <field name="sequence">1151</field>
+        </record>
+        <record id="sf_06_coverlight_45" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_coverlight_45"/>
+            <field name="sequence">1152</field>
+        </record>
+        <record id="sf_06_tela_al_reves" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_06"/>
+            <field name="field_id" ref="field_tela_al_reves"/>
+            <field name="sequence">1160</field>
+        </record>
+    </data>
+</odoo>

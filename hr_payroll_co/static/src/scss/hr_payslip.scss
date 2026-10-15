@@ -1,0 +1,132 @@
+.detalle-nomina .alert-success,
+.detalle-nomina .alert-danger,
+.alert-warning,
+.alert-primary {
+  background-color: $gray-100;
+  border-color: $gray-100;
+}
+
+.detalle-nomina .tiulo-detalle-nomina {
+  font-size: 20px;
+}
+
+.detalle-nomina .titulo-devengos,
+.detalle-nomina .titulo-neto {
+  color: $blue-800;
+  padding: 0 15px 0 10px;
+}
+
+.detalle-nomina .titulo-deducciones {
+  color: $red-600;
+  padding: 0 15px 0 10px;
+}
+
+.detalle-nomina .titulo-provisiones {
+  color: $yellow-600;
+  padding: 0 15px 0 5px;
+}
+
+.detalle-nomina .panel-body {
+  border: none;
+}
+
+.detalle-nomina .panel-body > span {
+  background-color: $gray-100;
+  padding: 5px;
+  min-height: 53px;
+  border: 2px solid $white;
+  display: flex;
+}
+
+.detalle-nomina .panel-body > span {
+  display: flex;
+  text-align: center;
+}
+
+.detalle-nomina .panel-body > span > span {
+  margin: auto;
+}
+
+.detalle-nomina .devengos-contenedor .panel-body > span:first-child,
+.detalle-nomina .neto-contenedor .panel-body > span:first-child {
+  border: none;
+  border-left: 3px solid $blue-800;
+  border-right: 2px solid $white;
+}
+
+.detalle-nomina .deducciones-contenedor .panel-body > span:first-child {
+  border: none;
+  border-left: 3px solid $red-600;
+  border-right: 2px solid $white;
+}
+
+.detalle-nomina .provisiones-contenedor .panel-body > span:first-child {
+  border: none;
+  border-left: 3px solid $yellow-600;
+  border-right: 2px solid $white;
+}
+
+.devengos-contenedor, .neto-contenedor, .provisiones-contenedor, .deducciones-contenedor {
+  .o_kanban_record {
+      width: 100% !important;
+  }
+}
+
+.contenedor-nomina-vista-formulario .o_notebook_headers .nav-tabs {
+  border-bottom: 3px solid $gray-100; 
+}
+
+.contenedor-nomina-vista-formulario .nav-tabs .nav-link.active,
+.contenedor-nomina-vista-formulario .nav-tabs .nav-link:hover,
+.contenedor-nomina-vista-formulario .nav-tabs .nav-link:focus {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.contenedor-nomina-vista-formulario .nav-link.active {
+  border-bottom: 3px solid $blue-800;
+  border-radius: 0px;
+  margin-bottom: -2px;
+}
+
+.contenedor-nomina-vista-formulario thead {
+  border: none;
+  background-color: none;
+}
+
+.contenedor-nomina-vista-formulario
+  .o_list_view
+  .table-responsive
+  .o_list_table
+  thead
+  tr:nth-child(1)
+  th {
+  text-align: center;
+  background-color: $gray-200;
+  border: none;
+}
+
+.contenedor-nomina-vista-formulario
+  .o_list_view
+  .o_list_table
+  tbody
+  > tr
+  > td:not(.o_list_record_selector):not(.o_handle_cell):not(.o_list_button) {
+  border: none;
+  text-align: center;
+  padding: 10px;
+  background-color: $gray-100;
+  border: 2px solid $white;
+}
+
+.datos-empleado-vista-nomina .o_cell {
+  padding: 8px !important;
+  border: none;
+  vertical-align: middle !important;
+}
+
+.datos-empleado-vista-nomina .o_wrap_input {
+  border-left: 5px solid $orange-700 !important;
+  background-color: $gray-300;
+}

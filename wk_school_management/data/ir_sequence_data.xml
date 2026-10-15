@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <record id="seq_enrollment_form" model="ir.sequence">
+        <field name="name">Enrollment Number</field>
+        <field name="code">enrollment.form</field>
+        <field name="prefix">SE</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="True"/>
+    </record>
+    
+    <record id="ir_sequence_fee_slip" model="ir.sequence">
+        <field name="name">Fee Slip Number</field>
+        <field name="code">wk.fee.slip.sequence</field>
+        <field name="prefix">FS</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="True"/>
+    </record>
+
+    <record id="ir_sequence_application_form" model="ir.sequence">
+        <field name="name">Application Form</field>
+        <field name="code">application.form.sequence</field>
+        <field name="prefix">AF/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="True"/>
+    </record>
+
+    <record id="ir_sequence_scholarship" model="ir.sequence">
+        <field name="name">Student Scholarship</field>
+        <field name="code">wk.student.scholarship.sequence</field>
+        <field name="prefix">SCH</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="True"/>
+    </record>
+
+    <record id="ir_sequence_trip" model="ir.sequence">
+        <field name="name">Transport Trip</field>
+        <field name="code">transport.trip.sequence</field>
+        <field name="prefix">TRIP</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="True"/>
+    </record>
+
+    <record id="ir_sequence_student_form" model="ir.sequence">
+        <field name="name">Student Form</field>
+        <field name="code">student.student.sequence</field>
+        <field name="prefix">ST%(year)s</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="True"/>
+    </record>
+
+</odoo>

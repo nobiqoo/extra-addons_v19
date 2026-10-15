@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_stock_felupe_form" model="ir.ui.view">
+        <field name="name">sale.order.form.stock.felupe</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="picking_preparation_state"/>
+                <field name="sale_margin_edit" invisible="1"/>
+                <field name="sale_margin" readonly="not sale_margin_edit"/>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page name="stock_felupe_carrier_guide" string="Numero de Guia">
+                    <field name="outgoing_picking_ids" readonly="1">
+                        <list>
+                            <field name="name"/>
+                            <field name="carrier_guide"/>
+                            <field name="delivery_carrier_id"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+
+            <xpath expr="//header" position="inside">
+                <button
+                    name="action_open_margin_warning"
+                    type="object"
+                    string="Advertencia de Margen"
+                    class="oe_highlight"
+                    invisible="state != 'draft'"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_stock_felupe_list" model="ir.ui.view">
+        <field name="name">sale.order.list.stock.felupe</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="picking_preparation_state" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

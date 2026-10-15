@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="account_payment_order_txt" model="ir.ui.view">
+            <field name="name">account.payment.order.inherit.view.form</field>
+            <field name="model">account.payment.order</field>
+            <field name="inherit_id" ref="account_payment_order.account_payment_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="generate_txt" type="object" class="oe_stat_button" icon="fa-file-text-o" string="TxT">
+                        <!-- states="generated,uploaded" confirm="(Un)archiving a project automatically (un)archives its tasks and issues. Do you want to proceed?" 
+                                    <field name="state" widget="boolean_button" options='{"terminology": "archive"}'/> -->
+                    </button>
+                </xpath>
+
+                <xpath expr="//field[@name='description']" position="after">
+                    <field name="txt_filename" invisible="1"/>
+                    <field name="txt_file" filename="txt_filename" widget="binary" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

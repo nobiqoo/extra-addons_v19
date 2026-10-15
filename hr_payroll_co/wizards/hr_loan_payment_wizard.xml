@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_loan_payment_wizard_form" model="ir.ui.view">
+            <field name="name">hr.loan.payment.wizard.form</field>
+            <field name="model">hr.loan.payment.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Abono Préstamo">
+                    <sheet>
+                        <group>
+                            <field name="by_payroll"/>
+                            <field name="total_payment"/>
+                            <field name="discount_amount" required="1"/>
+                            <field name="quotas" invisible="total_payment == True" required="1"/>
+                        </group>
+                        <footer>
+                            <button name="apply_discount" type="object" string="Aplicar Pago" class="btn-primary"/>
+                            <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_hr_loan_payment_wizard" model="ir.actions.act_window">
+            <field name="name">Abono de Préstamo</field>
+            <field name="res_model">hr.loan.payment.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

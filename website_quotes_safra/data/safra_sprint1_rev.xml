@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Revisión presencial del Sprint 1 (17-sep, sesiones mañana y tarde):
+         reordenamientos y renombres acordados en vivo. Los cambios de
+         comportamiento van en código (JS/controller/validaciones). -->
+    <data noupdate="0">
+
+        <!-- Tipo de apertura: pasa a la sección TELA y es obligatorio (las
+             fórmulas de lamas/pantógrafos lo necesitan siempre). -->
+        <record id="field_apertura" model="safra.field">
+            <field name="section_id" ref="section_tela"/>
+            <field name="required" eval="True"/>
+        </record>
+
+        <!-- «Interruptor» confunde (parece un interruptor de luz): pasa a
+             «Módulo de Control RF», nombre sugerido en la sesión. -->
+        <record id="field_interruptor_rf" model="safra.field">
+            <field name="name">Módulo de Control RF</field>
+        </record>
+
+        <!-- Paneles: cantidad de lamas, traslape y apertura ANTES de las
+             telas (alimentan la tabla de configuraciones); coordinado justo
+             después del color de la tela 1. -->
+        <record id="sf_11_quantity_lamas" model="safra.system.field"><field name="sequence">140</field></record>
+        <!-- El traslape venía condicionado a «¿Riel Dividido? = Sí» (matriz);
+             al quedar antes de las telas debe verse SIEMPRE (alimenta la
+             fórmula, que usa 8 cm si no se toca). -->
+        <record id="sf_11_tamano_traslape" model="safra.system.field"><field name="sequence">143</field><field name="clear_depends" eval="True"/></record>
+        <record id="sf_11_apertura" model="safra.system.field"><field name="sequence">146</field></record>
+        <record id="sf_11_coordinado" model="safra.system.field"><field name="sequence">172</field></record>
+
+        <record id="sf_54_quantity_lamas" model="safra.system.field"><field name="sequence">140</field></record>
+        <record id="sf_54_tamano_traslape" model="safra.system.field"><field name="sequence">143</field><field name="clear_depends" eval="True"/></record>
+
+        <!-- Con el campo siempre visible, 8 cm queda preseleccionado (el
+             valor que la fórmula asume por defecto). -->
+        <record id="field_tamano_traslape" model="safra.field">
+            <field name="default_value">0.08</field>
+        </record>
+        <record id="sf_54_apertura" model="safra.system.field"><field name="sequence">146</field></record>
+        <record id="sf_54_coordinado" model="safra.system.field"><field name="sequence">172</field></record>
+
+        <record id="sf_39_quantity_lamas" model="safra.system.field"><field name="sequence">140</field></record>
+        <record id="sf_39_coordinado" model="safra.system.field"><field name="sequence">205</field></record>
+
+        <!-- Fórmula del máximo (video 03:23-03:30): en los tres sistemas
+             con fórmula el campo se muestra como «Máximo total lamas»
+             (calculado automático, doble función: informa y restringe). -->
+        <record id="sf_40_quantity_lamas" model="safra.system.field"><field name="label_override">Máximo total lamas</field></record>
+        <record id="sf_42_quantity_lamas" model="safra.system.field"><field name="label_override">Máximo total lamas</field></record>
+        <record id="sf_63_quantity_lamas" model="safra.system.field"><field name="label_override">Máximo total lamas</field></record>
+
+        <!-- Verticales/Vintage: coordinado tras el color de la tela 1 (antes
+             de las lamas por tela en 164 y de la tela 2 en 170). -->
+        <record id="sf_40_coordinado" model="safra.system.field"><field name="sequence">162</field></record>
+        <record id="sf_42_coordinado" model="safra.system.field"><field name="sequence">162</field></record>
+        <record id="sf_63_coordinado" model="safra.system.field"><field name="sequence">162</field></record>
+
+
+        <!-- Revisión 17-sep: sesgo POR TELA en los sistemas de lamas
+             (misma lógica del coordinado por tela; opciones = productos de
+             la categoría Sesgo). Solo aplica si la tela es sesgable — el
+             modal lo muestra según la tela elegida. -->
+        <record id="field_sesgo_tela_2" model="safra.field">
+            <field name="code">sesgo_tela_2</field>
+            <field name="name">Sesgo Tela 2</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">ref_categoria</field>
+            <field name="ref_category_id" ref="popt_refcat_sesgo"/>
+            <field name="col_size">4</field>
+            <field name="sequence">125</field>
+            <field name="depends_field_id" ref="field_fabric_id_2"/>
+        </record>
+        <record id="field_sesgo_tela_3" model="safra.field">
+            <field name="code">sesgo_tela_3</field>
+            <field name="name">Sesgo Tela 3</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">ref_categoria</field>
+            <field name="ref_category_id" ref="popt_refcat_sesgo"/>
+            <field name="col_size">4</field>
+            <field name="sequence">145</field>
+            <field name="depends_field_id" ref="field_fabric_id_3"/>
+        </record>
+        <record id="field_sesgo_tela_4" model="safra.field">
+            <field name="code">sesgo_tela_4</field>
+            <field name="name">Sesgo Tela 4</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">ref_categoria</field>
+            <field name="ref_category_id" ref="popt_refcat_sesgo"/>
+            <field name="col_size">4</field>
+            <field name="sequence">165</field>
+            <field name="depends_field_id" ref="field_fabric_id_4"/>
+        </record>
+        <record id="field_sesgo_tela_5" model="safra.field">
+            <field name="code">sesgo_tela_5</field>
+            <field name="name">Sesgo Tela 5</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">ref_categoria</field>
+            <field name="ref_category_id" ref="popt_refcat_sesgo"/>
+            <field name="col_size">4</field>
+            <field name="sequence">185</field>
+            <field name="depends_field_id" ref="field_fabric_id_5"/>
+        </record>
+        <record id="sf_11_sesgo_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_11"/>
+            <field name="field_id" ref="field_sesgo_tela_2"/>
+            <field name="sequence">196</field>
+        </record>
+        <record id="sf_11_sesgo_tela_3" model="safra.system.field">
+            <field name="system_id" ref="system_11"/>
+            <field name="field_id" ref="field_sesgo_tela_3"/>
+            <field name="sequence">216</field>
+        </record>
+        <record id="sf_11_sesgo_tela_4" model="safra.system.field">
+            <field name="system_id" ref="system_11"/>
+            <field name="field_id" ref="field_sesgo_tela_4"/>
+            <field name="sequence">236</field>
+        </record>
+        <record id="sf_11_sesgo_tela_5" model="safra.system.field">
+            <field name="system_id" ref="system_11"/>
+            <field name="field_id" ref="field_sesgo_tela_5"/>
+            <field name="sequence">256</field>
+        </record>
+        <record id="sf_54_sesgo_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_54"/>
+            <field name="field_id" ref="field_sesgo_tela_2"/>
+            <field name="sequence">196</field>
+        </record>
+        <!-- Reunión 24-sep (comentario I23): el Sesgo de la TELA PRINCIPAL
+             también va en los sistemas de lamas/paneles, dentro del bloque
+             de la tela (tras Lamas/Telos Tela 1), igual que el del modal.
+             Solo se muestra con tela Sesgable (fabric_flag del campo).
+             El campo pasa a la sección TELA (el orden del portal es por
+             sección y luego secuencia — en OTRAS quedaba al fondo). -->
+        <record id="field_sesgo" model="safra.field">
+            <field name="section_id" ref="section_tela"/>
+        </record>
+        <record id="sf_40_sesgo" model="safra.system.field">
+            <field name="system_id" ref="system_40"/>
+            <field name="field_id" ref="field_sesgo"/>
+            <field name="sequence">166</field>
+        </record>
+        <record id="sf_42_sesgo" model="safra.system.field">
+            <field name="system_id" ref="system_42"/>
+            <field name="field_id" ref="field_sesgo"/>
+            <field name="sequence">166</field>
+        </record>
+        <record id="sf_63_sesgo" model="safra.system.field">
+            <field name="system_id" ref="system_63"/>
+            <field name="field_id" ref="field_sesgo"/>
+            <field name="sequence">166</field>
+        </record>
+        <record id="sf_54_sesgo" model="safra.system.field">
+            <field name="system_id" ref="system_54"/>
+            <field name="field_id" ref="field_sesgo"/>
+            <field name="sequence">166</field>
+        </record>
+        <!-- Panel Japonés ya lo tenía pero al fondo (1330): sube al bloque
+             de la tela, después de Lamas/Telos Tela 1 (174). -->
+        <record id="sf_11_sesgo" model="safra.system.field">
+            <field name="sequence">176</field>
+        </record>
+
+        <!-- Pendientes 24-sep (11.4): en los 2 en 1 también aparece
+             «Agregar tela» — telas 3 a 5 opcionales vía modal (la
+             Referencia 2 sigue siendo campo propio y obligatorio). -->
+        <record id="sf_32_fabric_3" model="safra.system.field">
+            <field name="system_id" ref="system_32"/>
+            <field name="field_id" ref="field_fabric_id_3"/>
+            <field name="sequence">200</field>
+        </record>
+        <record id="sf_32_color_3" model="safra.system.field">
+            <field name="system_id" ref="system_32"/>
+            <field name="field_id" ref="field_color_id_3"/>
+            <field name="sequence">201</field>
+        </record>
+        <record id="sf_32_fabric_4" model="safra.system.field">
+            <field name="system_id" ref="system_32"/>
+            <field name="field_id" ref="field_fabric_id_4"/>
+            <field name="sequence">202</field>
+        </record>
+        <record id="sf_32_color_4" model="safra.system.field">
+            <field name="system_id" ref="system_32"/>
+            <field name="field_id" ref="field_color_id_4"/>
+            <field name="sequence">203</field>
+        </record>
+        <record id="sf_61_fabric_3" model="safra.system.field">
+            <field name="system_id" ref="system_61"/>
+            <field name="field_id" ref="field_fabric_id_3"/>
+            <field name="sequence">200</field>
+        </record>
+        <record id="sf_61_color_3" model="safra.system.field">
+            <field name="system_id" ref="system_61"/>
+            <field name="field_id" ref="field_color_id_3"/>
+            <field name="sequence">201</field>
+        </record>
+        <record id="sf_61_fabric_4" model="safra.system.field">
+            <field name="system_id" ref="system_61"/>
+            <field name="field_id" ref="field_fabric_id_4"/>
+            <field name="sequence">202</field>
+        </record>
+        <record id="sf_61_color_4" model="safra.system.field">
+            <field name="system_id" ref="system_61"/>
+            <field name="field_id" ref="field_color_id_4"/>
+            <field name="sequence">203</field>
+        </record>
+
+        <record id="sf_40_sesgo_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_40"/>
+            <field name="field_id" ref="field_sesgo_tela_2"/>
+            <field name="sequence">186</field>
+        </record>
+        <record id="sf_40_sesgo_tela_3" model="safra.system.field">
+            <field name="system_id" ref="system_40"/>
+            <field name="field_id" ref="field_sesgo_tela_3"/>
+            <field name="sequence">206</field>
+        </record>
+        <record id="sf_40_sesgo_tela_4" model="safra.system.field">
+            <field name="system_id" ref="system_40"/>
+            <field name="field_id" ref="field_sesgo_tela_4"/>
+            <field name="sequence">226</field>
+        </record>
+        <record id="sf_40_sesgo_tela_5" model="safra.system.field">
+            <field name="system_id" ref="system_40"/>
+            <field name="field_id" ref="field_sesgo_tela_5"/>
+            <field name="sequence">246</field>
+        </record>
+        <record id="sf_42_sesgo_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_42"/>
+            <field name="field_id" ref="field_sesgo_tela_2"/>
+            <field name="sequence">186</field>
+        </record>
+        <record id="sf_42_sesgo_tela_3" model="safra.system.field">
+            <field name="system_id" ref="system_42"/>
+            <field name="field_id" ref="field_sesgo_tela_3"/>
+            <field name="sequence">206</field>
+        </record>
+        <record id="sf_42_sesgo_tela_4" model="safra.system.field">
+            <field name="system_id" ref="system_42"/>
+            <field name="field_id" ref="field_sesgo_tela_4"/>
+            <field name="sequence">226</field>
+        </record>
+        <record id="sf_42_sesgo_tela_5" model="safra.system.field">
+            <field name="system_id" ref="system_42"/>
+            <field name="field_id" ref="field_sesgo_tela_5"/>
+            <field name="sequence">246</field>
+        </record>
+        <record id="sf_63_sesgo_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_63"/>
+            <field name="field_id" ref="field_sesgo_tela_2"/>
+            <field name="sequence">186</field>
+        </record>
+        <record id="sf_63_sesgo_tela_3" model="safra.system.field">
+            <field name="system_id" ref="system_63"/>
+            <field name="field_id" ref="field_sesgo_tela_3"/>
+            <field name="sequence">206</field>
+        </record>
+        <record id="sf_63_sesgo_tela_4" model="safra.system.field">
+            <field name="system_id" ref="system_63"/>
+            <field name="field_id" ref="field_sesgo_tela_4"/>
+            <field name="sequence">226</field>
+        </record>
+        <record id="sf_63_sesgo_tela_5" model="safra.system.field">
+            <field name="system_id" ref="system_63"/>
+            <field name="field_id" ref="field_sesgo_tela_5"/>
+            <field name="sequence">246</field>
+        </record>
+
+        <!-- Revisión 17-sep: Cuadro Lienzo — el diseño personalizado vuelve
+             al sistema (estaba desactivado) y se crea el campo Bastidor
+             (dispara la maquila del marco; el flujo de compra/fabricación
+             es del sprint de fabricación). La tela base (blackout blanco)
+             debe estar marcada Estampable en la referencia. -->
+        <record id="sf_56_design_print" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="sf_56_custom_design" model="safra.system.field">
+            <field name="active" eval="True"/>
+        </record>
+        <record id="field_bastidor" model="safra.field">
+            <field name="code">bastidor</field>
+            <field name="name">¿Con Bastidor?</field>
+            <field name="section_id" ref="section_otras"/>
+            <field name="field_type">boolean</field>
+            <field name="col_size">3</field>
+            <field name="sequence">720</field>
+            <field name="help_text">El bastidor (marco del cuadro) se fabrica con un tercero</field>
+        </record>
+        <record id="sf_56_bastidor" model="safra.system.field">
+            <field name="system_id" ref="system_56"/>
+            <field name="field_id" ref="field_bastidor"/>
+            <field name="sequence">1030</field>
+        </record>
+    </data>
+
+    <data noupdate="0">
+        <!-- Pendientes 24-sep (8.2): el Tipo de Apertura se elige por
+             BOTONES de imagen, sin lista desplegable (las opciones sin
+             imagen se muestran como botón de texto). -->
+        <record id="field_apertura" model="safra.field">
+            <field name="display_mode">buttons</field>
+        </record>
+        <!-- Pendientes 24-sep (12.1): aceptación del corte atravesado. -->
+        <record id="field_acepta_atravesado" model="safra.field">
+            <field name="code">acepta_atravesado</field>
+            <field name="name">Acepta corte atravesado</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">boolean</field>
+            <field name="col_size">4</field>
+            <field name="sequence">221</field>
+        </record>
+        <function model="safra.field" name="_seed_acepta_atravesado"/>
+        <!-- 29-sep: el modo «Lista + foto grande» se retiró. -->
+        <function model="safra.field" name="_migrate_display_modes"/>
+        <!-- 29-sep (16.2): Comentarios libres al final de la sección MOTOR
+             (pedido tras lo del canal compartido). -->
+        <record id="field_motor_comentarios" model="safra.field">
+            <field name="code">motor_comentarios</field>
+            <field name="name">Comentarios</field>
+            <field name="section_id" ref="section_motor"/>
+            <field name="field_type">char</field>
+            <field name="col_size">8</field>
+            <field name="sequence">900</field>
+            <field name="placeholder">Notas sobre el motor, control o canales (opcional)</field>
+        </record>
+        <function model="safra.field" name="_seed_motor_comentarios"/>
+        <!-- Bloque 3 (3.2/3.3): segmentos e imagen (croquis del portal
+             actual) en las opciones de Tipo de Plano; Número de segmento
+             pasa a desplegable 1..3. -->
+        <function model="safra.field" name="_seed_plano_segmentos"/>
+        <!-- Reunión 28-sep (fila 50): perfiles con lista con foto pequeña. -->
+        <function model="safra.field" name="_seed_perfil_display"/>
+        <function model="safra.fabric.color" name="_fix_codigo_relleno"/>
+        <!-- Pendientes 24-sep (7.1): el catálogo de combinaciones se
+             siembra UNA vez desde la fórmula del documento; luego lo
+             administra el funcional (o el Excel). -->
+        <!-- Pendientes 24-sep (10.3): fusiona «Tela con franjas» en
+             Familia Sheer en cada actualización (idempotente). -->
+        <function model="safra.fabric" name="_merge_franjas_into_sheer"/>
+        <function model="safra.validation.rule" name="_seed_condition_codes"/>
+        <function model="safra.validation.rule" name="_reseed_2en1_family_rules"/>
+        <function model="safra.validation.rule" name="_fix_panel_apertura_error"/>
+        <!-- Pruebas 09-oct: sin rollo se avisa, no se bloquea (fase de fabricación). -->
+        <function model="safra.validation.rule" name="_fix_rollo_disponible_warning"/>
+        <function model="safra.lamas.rule" name="_seed_formula_codes"/>
+    </data>
+
+    <!-- Reglas nuevas del motor (mensaje/severidad editables en
+         Configuración > Validaciones; noupdate respeta los ajustes). -->
+    <data noupdate="1">
+        <record id="val_ancho_rollo" model="safra.validation.rule">
+            <field name="code">V_ANCHO_ROLLO</field>
+            <field name="name">Ancho dentro del rollo (tela no atravesable)</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_2en1_familia" model="safra.validation.rule">
+            <field name="code">V_2EN1_FAMILIA</field>
+            <field name="name">2 en 1 con una tela de familia Sheer</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_sheer2en1_ref" model="safra.validation.rule">
+            <field name="code">V_SHEER2EN1_REF</field>
+            <field name="name">Sheer 2 en 1 con la misma referencia</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_alineado_min" model="safra.validation.rule">
+            <field name="code">V_ALINEADO_MIN</field>
+            <field name="name">Alineado con mínimo dos líneas iguales</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_alineado_altura" model="safra.validation.rule">
+            <field name="code">V_ALINEADO_ALTURA</field>
+            <field name="name">Alineado con la misma altura</field>
+            <field name="severity">warning</field>
+        </record>
+        <!-- La altura en tela con franjas es BLOQUEANTE (la distancia entre
+             franjas varía por lote/proveedor): código propio para que su
+             severidad se configure aparte de la advertencia genérica. -->
+        <record id="val_alineado_franjas" model="safra.validation.rule">
+            <field name="code">V_ALINEADO_FRANJAS</field>
+            <field name="name">Alineado con franjas: misma altura obligatoria</field>
+            <field name="severity">error</field>
+        </record>
+        <!-- Pendientes 24-sep (7.2/8.1): la apertura fuera de las
+             combinaciones posibles no se puede fabricar. -->
+        <record id="val_panel_apertura" model="safra.validation.rule">
+            <field name="code">V_PANEL_APERTURA</field>
+            <field name="name">Apertura dentro de las combinaciones posibles</field>
+            <field name="severity">error</field>
+        </record>
+        <!-- Pendientes 24-sep (4.1/4.2): secuencias obligatorias con
+             «Mismo cabezal». -->
+        <!-- Pendientes 24-sep (16.2): canal compartido entre persianas. -->
+        <!-- Pendientes 24-sep (7.1) / revisión 09-oct: UNA fórmula de
+             combinaciones por sistema, escrita como la del Máximo de lamas
+             (la apertura es una variable), y las excepciones de Riel
+             Velcrado en tabla (noupdate: las ediciones se respetan). -->
+        <record id="panel_combo_rule" model="safra.panel.combo.rule">
+            <field name="system_ids" eval="[(6, 0, [ref('system_11'), ref('system_54'), ref('system_15')])]"/>
+        </record>
+        <record id="panel_velcrado_der" model="safra.panel.combo.velcrado">
+            <field name="rule_id" ref="panel_combo_rule"/>
+            <field name="apertura">derecha</field>
+            <field name="telos">7</field>
+            <field name="riel">6</field>
+        </record>
+        <record id="panel_velcrado_izq" model="safra.panel.combo.velcrado">
+            <field name="rule_id" ref="panel_combo_rule"/>
+            <field name="apertura">izquierda</field>
+            <field name="telos">7</field>
+            <field name="riel">6</field>
+        </record>
+        <record id="panel_velcrado_ext" model="safra.panel.combo.velcrado">
+            <field name="rule_id" ref="panel_combo_rule"/>
+            <field name="apertura">extremos</field>
+            <field name="telos">12</field>
+            <field name="riel">6</field>
+        </record>
+
+        <record id="val_canal_sin_control" model="safra.validation.rule">
+            <field name="code">V_CANAL_SIN_CONTROL</field>
+            <field name="name">Sin control: requiere otra persiana con control</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_canal_fuera_rango" model="safra.validation.rule">
+            <field name="code">V_CANAL_FUERA_RANGO</field>
+            <field name="name">Canal dentro del control compartido</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_canal_tomado" model="safra.validation.rule">
+            <field name="code">V_CANAL_TOMADO</field>
+            <field name="name">Canal no repetido entre persianas</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_corte_atravesado" model="safra.validation.rule">
+            <field name="code">V_CORTE_ATRAVESADO</field>
+            <field name="name">Aceptación del corte atravesado</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_secuencia_nombre" model="safra.validation.rule">
+            <field name="code">V_SECUENCIA_NOMBRE</field>
+            <field name="name">Nombre de secuencia obligatorio con Mismo cabezal</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_secuencia_pendiente" model="safra.validation.rule">
+            <field name="code">V_SECUENCIA_PENDIENTE</field>
+            <field name="name">Secuencia configurada antes de guardar</field>
+            <field name="severity">error</field>
+        </record>
+        <!-- Bloque 3 (3.4): con Tipo de Plano, el pedido debe traer todos
+             los segmentos del plano, uno por persiana y sin repetir. -->
+        <record id="val_plano_segmentos" model="safra.validation.rule">
+            <field name="code">V_PLANO_SEGMENTOS</field>
+            <field name="name">Segmentos completos del Tipo de Plano</field>
+            <field name="severity">error</field>
+        </record>
+        <!-- Reunión 28-sep: reglas de la tarea Sprint 1.1. -->
+        <record id="val_secuencia_min" model="safra.validation.rule">
+            <field name="code">V_SECUENCIA_MIN</field>
+            <field name="name">Secuencia de al menos dos persianas</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_secuencia_alto" model="safra.validation.rule">
+            <field name="code">V_SECUENCIA_ALTO</field>
+            <field name="name">Mismo alto por referencia dentro de la secuencia</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_alineado_localizacion" model="safra.validation.rule">
+            <field name="code">V_ALINEADO_LOCALIZACION</field>
+            <field name="name">Alineado: dos persianas en la misma localización</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_revalidacion" model="safra.validation.rule">
+            <field name="code">V_REVALIDACION</field>
+            <field name="name">Revalidación de la cotización al confirmarla</field>
+            <field name="severity">error</field>
+        </record>
+        <!-- Pendiente 12.3 (rollos = lotes): validación por rollo. -->
+        <record id="val_rollo_disponible" model="safra.validation.rule">
+            <field name="code">V_ROLLO_DISPONIBLE</field>
+            <field name="name">Rollo (lote) con metros suficientes para la persiana</field>
+            <field name="severity">warning</field>
+        </record>
+        <record id="val_rollo_alineado" model="safra.validation.rule">
+            <field name="code">V_ROLLO_ALINEADO</field>
+            <field name="name">Persianas alineadas de un mismo rollo</field>
+            <field name="severity">warning</field>
+        </record>
+        <!-- Pendiente 4: revisión periódica de cotizaciones sin confirmar.
+             Nace INACTIVA para no anular de golpe las cotizaciones de
+             prueba; se activa en Ajustes > Técnico > Acciones planificadas. -->
+        <record id="cron_anular_cotizaciones_invalidas" model="ir.cron">
+            <field name="name">Cotizador Safra: anular cotizaciones sin confirmar que ya no cumplen</field>
+            <field name="model_id" ref="model_safra_quote"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_anular_invalidas()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="False"/>
+        </record>
+    </data>
+
+    <!-- Revisión 09-oct: si los tipos de reparto (una fórmula por apertura)
+         tenían fórmulas editadas, se pasan a la fórmula única. Va al final
+         para que la regla ya exista. -->
+    <data noupdate="0">
+        <function model="safra.panel.combo.rule" name="_migrar_desde_tipos"/>
+    </data>
+</odoo>

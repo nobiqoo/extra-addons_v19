@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_edi_document_log,access_edi_document_log,model_edi_document_log,base.group_user,1,1,1,1
+invoice_import_wizard_all,invoice_import_wizard_all,model_invoice_import_wizard,base.group_user,1,1,1,1
+history_dian_event_all,history_dian_event_all,model_history_dian_event,base.group_user,1,1,1,1
+consignment_data_all,consignment_data_all,model_consignment_data,base.group_user,1,1,1,1
+xml_by_document_key_all,xml_by_document_key_all,model_xml_by_document_key,base.group_user,1,1,1,1
+dian_event_send_wizard_all,dian_event_send_wizard_all,model_dian_event_send_wizard,base.group_user,1,1,1,1
+dian_event_send_error_all,dian_event_send_error_all,model_dian_event_send_error,base.group_user,1,1,1,1
+send_dian_result_all,send_dian_result_all,model_l10n_co_bloodo_send_dian_result,base.group_user,1,1,1,1
+send_dian_result_line_all,send_dian_result_line_all,model_l10n_co_bloodo_send_dian_result_line,base.group_user,1,1,1,1

@@ -1,0 +1,94 @@
+<odoo>
+
+	<record id="withholding_certificate_report_view_form" model="ir.ui.view">
+		<field name="name">withholding.certificate.report.view.form</field>
+		<field name="model">withholding.certificate.report</field>
+		<field name="arch" type="xml">
+			<form class="o_sale_order" create="false">
+				<header>
+					<button string="Print pdf report" name="print_pdf_report" type="object"
+						class="oe_highlight" />
+					<button string="Send email" name="send_email" type="object" class="oe_highlight" />
+				</header>
+				<sheet>
+					<group>
+						<div class="oe_title">
+							<h1>
+								<field name="name" readonly="1" />
+							</h1>
+						</div>
+					</group>
+					<group>
+						<field name="partner_id" readonly="1" />
+						<field name="certificate_id" readonly="1" />
+						<field name="certificate_period_id" readonly="1" />
+						<field name="periodicity" readonly="1" />
+						<field name="company_id" readonly="1" />
+					</group>
+					<notebook>
+						<page string="Tax lines">
+							<field name="line_ids" widget="section_and_note_one2many" mode="list"
+								readonly="1">
+								<list editable="bottom">
+									<field name="city_id" optional="hide" />
+									<field name="tax_id" optional="hide" />
+									<field name="period" />
+									<field name="tax_account" />
+									<field name="base_amount" />
+									<field name="amount_withheld" />
+									<field name="percentage" />
+									<field name="movements_qty" />
+								</list>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<chatter />
+				<footer>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="withholding_certificate_report_view_tree" model="ir.ui.view">
+		<field name="name">withholding.certificate.report.view.tree</field>
+		<field name="model">withholding.certificate.report</field>
+		<field name="arch" type="xml">
+			<list create="false">
+				<field name="name" readonly="1" />
+				<field name="partner_id" />
+				<field name="certificate_id" />
+				<field name="certificate_period_id" />
+				<field name="periodicity" />
+				<field name="company_id" />
+			</list>
+		</field>
+	</record>
+
+	<record id="withholding_certificate_report_action" model="ir.actions.act_window">
+		<field name="type">ir.actions.act_window</field>
+		<field name="name">Withholding certificate reports</field>
+		<field name="res_model">withholding.certificate.report</field>
+		<field name="view_mode">list,form</field>
+		<field name="context">{}</field>
+	</record>
+
+	<record id="send_certificate_reports_action" model="ir.actions.act_window">
+		<field name="name">Send emails</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">certificate.report.send.mail</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="certificate_report_send_mail_view_form" />
+		<field name="context">{}</field>
+		<field name="target">new</field>
+		<field name="help">This wizard will send the mails of every chosen reports.</field>
+		<field name="binding_model_id" ref="model_withholding_certificate_report" />
+		<field name="binding_view_types">list</field>
+	</record>
+
+	<menuitem id="withholding_certificate_report_menu"
+		action="withholding_certificate_report_action"
+		parent="account.menu_finance_entries"
+		sequence="13" />
+
+</odoo>

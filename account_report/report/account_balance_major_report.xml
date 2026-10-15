@@ -1,0 +1,9 @@
+<odoo>
+    <record id="report_account_balance_major" model="ir.actions.report">
+        <field name="name">Libro Mayor y Balance</field>
+        <field name="model">account.balance.major.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">account_report.account_balance_major</field>
+        <field name="report_file">account_report.account_balance_major</field>
+    </record>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="aml_consignment_data_form_view" model="ir.ui.view">
+            <field name="name">aml.consignment.data.form.view</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <notebook>
+                            <page string="Remesas">
+                                <field name="consignment_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button special="save" string="Guardar" class="btn-primary"/>
+                        <button special="cancel" string="Cancelar" class="btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="aml_consignemt_data_action" model="ir.actions.act_window">
+            <field name="name">Registro Remesas</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

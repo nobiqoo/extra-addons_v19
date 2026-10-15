@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+
+    <data>
+        <record id="wk_academic_year_form" model="ir.ui.view">
+            <field name="name">wk.academic.year.form</field>
+            <field name="model">wk.academic.year</field>
+            <field name="arch" type="xml">
+                <form string="Academic Year">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="%(wk_school_management.get_enrollments_action)d" icon="fa-clock-o" type="action" class="oe_stat_button">
+                                <div class="o_stat_info">
+                                    <field name="enrollment_ids" widget="statinfo" string="Enrollments"/>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="name" string="Title"/>
+                                <field name="name" placeholder="Ex. Year 2026-2027"/>
+                            </h1>
+                        </div>
+                        <group name="year_details1">
+                            <group name="year_details2">         
+                               <label for="start_date" string="Duration" />
+                                <div>
+                                    <field name="start_date" class="oe_inline" style="width:25% !important;"/> - <field name="end_date" class="oe_inline" nolabel="1" style="width:25% !important;"/>
+                                </div>    
+                                <field name='session_id' options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/> 
+                            </group>
+
+                            <group name="year_details3">         
+                                <field name="divide_weightage"/>  
+                                <field name="session_status" widget="badge" decoration-success="session_status =='complete'" decoration-warning="session_status =='progress'" decoration-primary="session_status =='new'"/>     
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="terms" string="Terms">
+                                <field name="term_ids" readonly="session_status != 'new'">
+                                    <list editable='bottom'>
+                                       <field name="name"/>
+                                       <field name="start_date"/>
+                                       <field name="end_date"/>
+                                       <field name="weightage" readonly='parent.divide_weightage == True'/>
+                                       <field name="academic_year_id" optional='hide'/>
+                                    </list>
+                                </field>
+                            </page>  
+                            <page name="description" string="Internal Notes">
+                                <group string=" Description">
+                                    <field colspan="2" name="description" nolabel="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_academic_year_tree" model="ir.ui.view">
+            <field name="name">wk.academic.year.list</field>
+            <field name="model">wk.academic.year</field>
+            <field name="arch" type="xml">
+                <list string="Academic Years">
+                    <field name="name"/>
+                    <field name="session_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="create_date"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_session_academic_year_tree" model="ir.ui.view">
+            <field name="name">wk.academic.year.list</field>
+            <field name="model">wk.academic.year</field>
+            <field name="arch" type="xml">
+                <list string="Academic Years">
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="create_date"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="wk_academic_year_search" model="ir.ui.view">
+           <field name="name">wk.academic.year.search</field>
+           <field name="model">wk.academic.year</field>
+           <field name="arch" type="xml">
+               <search string="Grade">
+                    <field name="name" filter_domain="['|', ('name', 'ilike', self), ('term_ids', 'ilike', self)]"/>
+                    <group>
+                        <filter name="group_session" string="Session" domain="[]" context="{'group_by':'session_id'}"/>
+                    </group>
+               </search>
+           </field>
+        </record>
+        
+        <record id="wk_academic_year_action" model="ir.actions.act_window">
+            <field name="name">Academic Year</field>
+            <field name="res_model">wk.academic.year</field>
+            <field name="view_mode">form,list</field>
+            <field name="path">school-academic-year</field>
+            <field name="view_id" ref="wk_academic_year_tree"/>
+        </record>
+    </data>    
+</odoo>    

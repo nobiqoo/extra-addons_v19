@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_novelty_type_form" model="ir.ui.view">
+            <field name="name">hr.novelty.type.form</field>
+            <field name="model">hr.novelty.type</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="model_basic_payslip_novelty_type_form" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[@name='title']" position='inside'>
+                    <h1>Categoría de Novedades</h1>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@name='page_setup']" position='inside'>
+                    <group>
+                        <group>
+                            <field name="modality" />
+                            <field name="apply_in_pila" invisible="modality != 'AVP'"/>
+                            <field name="single_biweekly_payment" />
+                            <field name="use_by_default_retroactive"/>
+                            <field name="include_like_vst_pila"/>
+                        </group>
+                        <group>
+                            <field name="dep_days_worked" />
+                            <field name="biweekly_type"
+                                invisible="not single_biweekly_payment" />
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_novelty_type_tree" model="ir.ui.view">
+            <field name="name">hr.novelty.type.tree</field>
+            <field name="model">hr.novelty.type</field>
+            <field name="type">list</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="code" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_novelty_type_action" model="ir.actions.act_window">
+            <field name="name">Categoría de Novedades</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.novelty.type</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_novelty_type_menu_act" name="Categoría de Novedades" parent="setup_novelty_menu_categ" action="hr_novelty_type_action" sequence="1" />
+
+    </data>
+</odoo>

@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="hr_payslip_line_log_form" model="ir.ui.view">
+            <field name="name">hr.payslip.line.log.form</field>
+            <field name="model">hr.payslip.line.log</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="employee_id" readonly="1"/>
+                            <field name="contract_id" readonly="1"/>
+                            <field name="payslip_id" readonly="1"/>
+                            <field name="concept_id" readonly="1"/>
+                            <field name="period_id" readonly="1"/>
+                            <field name="payslip_processing_id" readonly="1"/>
+                            <field name="no_pay_leave_days" readonly="1"/>
+                            <field name="paternal_license_days" readonly="1"/>
+                            <field name="contract_duration" readonly="1"/>
+                            <field name="worked_days" readonly="1"/>
+                            <field name="holidays_days_left" optional="show"/>
+                        </group>
+                        <group>
+                            <field name="total_salary" readonly="1"/>
+                            <field name="total_earnings" readonly="1"/>
+                            <field name="total_comp_earnings" readonly="1"/>
+                            <field name="total_o_salarial_earnings" readonly="1"/>
+                            <field name="total_o_rights" readonly="1"/>
+                            <field name="total_o_earnings" readonly="1"/>
+                            <field name="rate" readonly="1"/>
+                            <field name="ibd" readonly="1"/>
+                            <field name="total_variable" readonly="1"/>
+                            <field name="total_subsidy" readonly="1"/>
+                            <field name="total_base" readonly="1"/>
+                            <field name="total" readonly="1"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_payslip_line_log_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.line.log.tree</field>
+            <field name="model">hr.payslip.line.log</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="contract_id"/>
+                    <field name="employee_id"/>
+                    <field name="payslip_id"/>
+                    <field name="concept_id"/>
+                    <field name="period_id"/>
+                    <field name="payslip_processing_id"/>
+                    <field name="no_pay_leave_days" optional="show"/>
+                    <field name="paternal_license_days" optional="show"/>
+                    <field name="contract_duration" optional="show"/>
+                    <field name="worked_days" optional="show"/>
+                    <field name="holidays_days_left" optional="show"/>
+                    <field name="total_salary" optional="show"/>
+                    <field name="total_earnings" optional="show"/>
+                    <field name="total_comp_earnings" optional="show"/>
+                    <field name="total_o_salarial_earnings" optional="show"/>
+                    <field name="total_o_rights" optional="show"/>
+                    <field name="total_o_earnings" optional="show"/>
+                    <field name="ibd" optional="show"/>
+                    <field name="rate" optional="show"/>
+                    <field name="total_variable" optional="show"/>
+                    <field name="total_subsidy" optional="show"/>
+                    <field name="total_base" optional="show"/>
+                    <field name="total" optional="show"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_payslip_line_log_search" model="ir.ui.view">
+            <field name="name">hr.payslip.line.log.search</field>
+            <field name="model">hr.payslip.line.log</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="employee_id"/>
+                    <field name="contract_id"/>
+                    <field name="payslip_id"/>
+                    <field name="concept_id"/>
+                    <field name="period_id"/>
+                    <field name="payslip_processing_id"/>
+                    <filter string="Empleado" name="group_by_employee_id" context="{'group_by':'employee_id'}"/>
+                    <filter string="Contrato" name="group_by_contract_id" context="{'group_by':'contract_id'}"/>
+                    <filter string="Nómina" name="group_by_payslip_id" context="{'group_by':'payslip_id'}"/>
+                    <filter string="Concepto" name="group_by_concept_id" context="{'group_by':'concept_id'}"/>
+                    <filter string="Periodo" name="group_by_period_id" context="{'group_by':'period_id'}"/>
+                    <filter string="Concepto" name="group_by_payslip_processing_id" context="{'group_by':'payslip_processing_id'}"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_payslip_line_log" model="ir.actions.act_window">
+            <field name="name">Auditoria de Nómina</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payslip.line.log</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem
+            id="menu_payslip_line_log"
+            name="Auditoria de Nómina"
+            parent="hr_payroll_co.reports_menu_categ"
+            action="action_payslip_line_log"
+            sequence="4" />
+    </data>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="excel_data_search_table" name="Export table for excel">
+        <table>
+            <t t-set="count" t-value="0"/>
+            <t t-foreach="lines" t-as="line">
+                <tr t-if="count == 0">
+                    <t t-foreach="line.keys()" t-as="key">
+                        <th t-esc="key"/>
+                    </t>
+                </tr>
+                <tr>
+                    <t t-foreach="line.values()" t-as="val">
+                        <t t-if="val == None">
+                            <td></td>
+                        </t>
+                        <t t-else="">
+                            <td t-esc="isinstance(val, float) and str(val).replace('.',',') or val"/>
+                        </t>
+                    </t>
+                </tr>
+                <t t-set="count" t-value="count + 1"/>
+            </t>
+        </table>
+    </template>
+
+</odoo>

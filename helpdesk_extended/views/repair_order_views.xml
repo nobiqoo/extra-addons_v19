@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="view_repair_order_form" model="ir.ui.view">
+            <field name="name">view.repair.order.form</field>
+            <field name="model">repair.order</field>
+            <field name="inherit_id" ref="repair.view_repair_order_form"/>
+            <field name="arch" type="xml">
+                <field name="tag_ids" position="after">
+                    <field name="invoice_number"/>
+                    <field name="is_repair"/>
+                    <field name="is_warranty"/>
+                </field>
+                <xpath expr="//notebook" position="inside">
+                    <page name="technician_info" string="Technician notes" invisible="is_repair == False">
+                        <group>
+                            <group>
+                                <field name="payment_support" widget="binary" filename="payment_support_fname"/>
+                                <field name="payment_support_fname" invisible="1"/>
+                            </group>
+                        </group>
+                        <field name="technician_notes" placeholder="Add technician notes" nolabel="1" class="oe-bordered-editor"/>
+                    </page>
+                </xpath>
+                <field name="state" position="before">
+                    <button name="state_to_denied" string="Deny" invisible="state not in ['draft','confirmed','ready','under_repair','2binvoiced','done']" type="object"/>
+                    <button name="action_send_mail_denied" string="Send denial letter" invisible="state != 'denied'" type="object"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

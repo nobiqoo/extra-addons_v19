@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="quality_check_view_form_inherit" model="ir.ui.view">
+        <field name="name">quality.check.view.form.inherit</field>
+        <field name="model">quality.check</field>
+        <field name="inherit_id" ref="quality_control.quality_check_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='do_pass']" position="attributes">
+                <attribute name="invisible">approver_ids or quality_state == 'fail'</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='do_pass']" position="before">
+                <button name="action_approve" class="btn-primary" type="object" string="Approve"
+                    invisible="quality_state in ['pass','cancelled']" />
+                <button name="action_refuse" class="btn-primary" type="object" string="Refuse"
+                    invisible="quality_state != 'none'" />
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_cancel" class="btn-primary" type="object" string="Cancelar"
+                    invisible="quality_state == 'cancelled'" groups="quality.group_quality_manager" />
+            </xpath>
+            <xpath expr="//page[@name='notes']" position="before">
+                <page string="Approvals">
+                    <field name="approver_ids">
+                        <list create="false" delete="false" no_open="1">
+                            <field name="sequence" readonly="1" />
+                            <field name="user_id" readonly="1" />
+                            <field name="approval_role_id" readonly="1" />
+                            <field name="required" readonly="1" />
+                            <field name="status" decoration-success="status == 'approved'"
+                                decoration-warning="status == 'pending'"
+                                decoration-danger="status == 'refused'"
+                                readonly="1" />
+                            <field name="approval_date" readonly="1" />
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="survey_invite_product_maintenance_view_form" model="ir.ui.view">
+        <field name="name">survey.invite.product.maintenance.view.form</field>
+        <field name="model">survey.invite</field>
+        <field name="inherit_id" ref="survey.survey_invite_view_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_ids" position="after">
+                <field name="readonly_partners" invisible="1"/>
+                <field name="check_survey_mode" invisible="1"/>
+            </field>
+            <field name="partner_ids" position="attributes">
+                <attribute name="readonly">readonly_partners == True</attribute>
+            </field>
+            <field name="emails" position="attributes">
+                <attribute name="invisible">survey_users_login_required or not send_email or readonly_partners == True</attribute>
+            </field>
+            <field name="survey_start_url" position="attributes">
+                <attribute name="invisible">survey_access_mode != 'public' or check_survey_mode</attribute>
+            </field>
+            <field name="send_email" position="attributes">
+                <attribute name="invisible">survey_access_mode != 'public' or check_survey_mode</attribute>
+            </field>
+            <label for="survey_start_url" position="attributes">
+                <attribute name="invisible">survey_access_mode != 'public' or check_survey_mode</attribute>
+            </label>
+        </field>
+    </record>
+</odoo>

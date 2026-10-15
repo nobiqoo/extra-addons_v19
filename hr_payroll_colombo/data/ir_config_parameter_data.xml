@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Las provisiones de profesor aplican por defecto a los subtipos que
+             liquidan sobre 330 días. Se marcan solo al instalar: si el cliente
+             los desmarca en Ajustes, actualizar el módulo no los vuelve a
+             marcar. -->
+        <function model="ir.config_parameter" name="set_param"
+            eval="['hr_payroll_colombo.teacher_provisions_type_10', 'True']" />
+        <function model="ir.config_parameter" name="set_param"
+            eval="['hr_payroll_colombo.teacher_provisions_mixed', 'True']" />
+
+        <!-- Las prestaciones sobre 330 días aplican por defecto a Tipo 10 y
+             Mixto. -->
+        <function model="ir.config_parameter" name="set_param"
+            eval="['hr_payroll_colombo.benefits_330_type_10', 'True']" />
+        <function model="ir.config_parameter" name="set_param"
+            eval="['hr_payroll_colombo.benefits_330_mixed', 'True']" />
+
+    </data>
+</odoo>

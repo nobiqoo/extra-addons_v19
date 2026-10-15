@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tarea 11156: interruptor por actividad para permitir la evaluacion
+         sin entrega digital previa. Se deja editable tambien con la actividad
+         aprobada, a diferencia del resto de campos del formulario, para poder
+         activarlo o desactivarlo en actividades ya existentes. -->
+    <record id="grade_assignment_form_colombo" model="ir.ui.view">
+        <field name="name">wk.grade.assignment.form.colombo</field>
+        <field name="model">wk.grade.assignment</field>
+        <field name="inherit_id" ref="wk_school_management.grade_assignment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='subject_id']" position="after">
+                <field name="allow_eval_without_submission"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

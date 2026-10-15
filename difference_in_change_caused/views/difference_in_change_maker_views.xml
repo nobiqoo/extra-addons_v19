@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="difference_in_change_maker_form_view" model="ir.ui.view">
+        <field name="name">difference.in.change.maker.form.view</field>
+        <field name="model">difference.in.change.maker</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="extract_invoices_with_balance"
+                        string="Compute invoices"
+                        type="object"
+                        class="btn-primary"
+                        invisible="state != 'draft'" />
+                    <button
+                        name="create_difference_in_change"
+                        string="Create difference in change"
+                        type="object"
+                        class="btn-primary"
+                        invisible="state != 'computed'" />
+                    <button
+                        name="back_to_draft"
+                        string="Back to draft"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="state in ('draft','done','reverted')" />
+                    <button
+                        name="revert_movements"
+                        string="Revert movements"
+                        type="object"
+                        class="btn btn-primary"
+                        invisible="state != 'done'" />
+                    <button
+                        name="cancel"
+                        string="Cancel"
+                        type="object"
+                        class="btn btn-danger"
+                        invisible="state != 'done'" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,computed,done" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_moves" type="object" class="oe_stat_button"
+                            icon="fa-pencil-square-o" invisible="moves_count == 0">
+                            <field name="moves_count" widget="statinfo" string="Moves" />
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id" readonly="state != 'draft'" />
+                            <field name="cut_date" readonly="state != 'draft'" />
+                            <field name="date_in_moves" readonly="state not in ('draft','computed')"
+                                required="True" />
+                        </group>
+                        <group>
+                            <field name="currency_id" invisible="1" readonly="state != 'draft'" />
+                            <field name="foreign_currency_id" domain="[('id', '!=', currency_id)]"
+                                readonly="state != 'draft'" />
+                            <field name="trm_amount" readonly="state != 'draft'" />
+                            <field name="document_type" readonly="state != 'draft'" required="True" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="accounts_ids"
+                            widget="many2many_tags"
+                            readonly="state != 'draft'"
+                            required="state == 'draft' and document_type == 'movement'"
+                            invisible="document_type != 'movement'" />
+                        <field name="other_accounts_ids"
+                            widget="many2many_tags"
+                            readonly="state != 'draft'"
+                            required="state == 'draft' and document_type == 'account'"
+                            invisible="document_type != 'account'" />
+                    </group>
+                    <notebook>
+                        <page string="Move lines to process">
+                            <field name="move_lines_ids" readonly="state != 'computed'">
+                                <list default_order="date asc"
+                                    decoration-success="amount_to_exchange &gt; 0"
+                                    decoration-danger="amount_to_exchange &lt; 0">
+                                    <field name="date" />
+                                    <field name="move_name" />
+                                    <field name="account_id" />
+                                    <field name="partner_id" />
+                                    <field name="name" />
+                                    <field name="amount_currency" optional="show" />
+                                    <field name="currency_id" optional="show" />
+                                    <field name="debit" sum="Total Debit" optional="show"  />
+                                    <field name="credit" sum="Total Credit" optional="show" />
+                                    <field name="account_type" optional="show" />
+                                    <field name="reconciled" optional="show" />
+                                    <field name="amount_residual" optional="show" />
+                                    <field name="amount_residual_currency" optional="show" />
+                                    <field name="current_exchange_rate" optional="show" />
+                                    <field name="amount_to_exchange" optional="show" sum="Total" />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="difference_in_change_revert_wizard_form_view" model="ir.ui.view">
+        <field name="name">difference.in.change.revert.wizard.form.view</field>
+        <field name="model">difference.in.change.revert.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="exchange_id" readonly="1" invisible="1" />
+                            <field name="revert_date" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="revert_movements" string="Revert movements" type="object"
+                        class="oe_highlight" />
+                    <button special="cancel" string="Cancel" class="btn-secondary" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="difference_in_change_maker_tree_view" model="ir.ui.view">
+        <field name="name">difference.in.change.maker.tree.view</field>
+        <field name="model">difference.in.change.maker</field>
+        <field name="arch" type="xml">
+            <list default_order="id desc">
+                <field name="name" />
+                <field name="company_id" />
+                <field name="cut_date" />
+                <field name="foreign_currency_id" />
+                <field name="trm_amount" />
+            </list>
+        </field>
+    </record>
+
+    <record id="difference_in_change_maker_action" model="ir.actions.act_window">
+        <field name="name">Difference in change</field>
+        <field name="res_model">difference.in.change.maker</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="difference_in_change_menu"
+        name="Difference in change"
+        parent="account.menu_finance_entries"
+        sequence="13" />
+
+    <menuitem action="difference_in_change_maker_action"
+        id="difference_in_change_maker_menu"
+        name="Making a difference in change"
+        parent="difference_in_change_caused.difference_in_change_menu"
+        sequence="1" />
+
+    <record id="account_move_add_exchange_state_view" model="ir.ui.view">
+        <field name="name">account_move.add.exchange.state.view</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="exchange_state" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_move_modify_currency_form_view" model="ir.ui.view">
+        <field name="name">account.move.modify.currency.form.view</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='journal_div']/div[@name='currency_div']/div[2]/field[@name='currency_id']" position="attributes">
+                <attribute name="invisible"></attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_move_current_exchange_rate_form_view" model="ir.ui.view">
+        <field name="name">account.move.current.exchange.rate.form.view</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account_baseline.view_account_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='current_exchange_rate']" position="attributes">
+                <attribute name="invisible">move_type not in ('out_invoice','in_invoice','out_refund','in_refund','entry')</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

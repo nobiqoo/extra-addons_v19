@@ -1,0 +1,1299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="l10n_co_tr_300_iva" model="account.report">
+            <field name="name">300 Declaración del Impuesto sobre las Ventas - IVA</field>
+            <field name="root_report_id" ref="account.generic_tax_report"/>
+            <field name="country_id" ref="base.co"/>
+            <field name="availability_condition">country</field>
+            <field name="filter_multi_company">tax_units</field>
+            <field name="filter_hierarchy">by_default</field>
+            <field name="default_opening_date_filter">previous_month</field>
+            <field name="only_tax_exigible" eval="True"/>
+            <field name="filter_date_range" eval="True"/>
+            <field name="filter_show_draft" eval="True"/>
+            <field name="filter_unreconciled" eval="True"/>
+            <field name="filter_unfold_all" eval="True"/>
+            <field name="filter_period_comparison" eval="True"/>
+            <field name="filter_growth_comparison" eval="True"/>
+            <field name="filter_journals" eval="False"/>
+            <field name="filter_analytic" eval="True"/>
+            <field name="filter_partner" eval="False"/>
+            <field name="filter_analytic_groupby" eval="False"/>
+            <field name="filter_account_type">disabled</field>
+            <field name="prefix_groups_threshold">4000</field>
+            <field name="column_ids">
+                <record id="l10n_co_tr_300_iva_column_0" model="account.report.column">
+                    <field name="name">Balance</field>
+                    <field name="expression_label">balance</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="blank_if_zero" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_id65" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">INGRESOS</field>
+            <field name="sequence">0</field>
+            <field name="hierarchy_level">1</field>
+            <field name="foldable" eval="False"/>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_27" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[27] Por operaciones gravadas al 5%</field>
+            <field name="code">CO300_27</field>
+            <field name="sequence">1</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_27_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">27</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_28" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[28] Por operaciones gravadas a la tarifa general</field>
+            <field name="code">CO300_28</field>
+            <field name="sequence">2</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_28_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">28</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_29" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[29] A.I.U por operaciones gravadas (Base Gravable especial)</field>
+            <field name="code">CO300_29</field>
+            <field name="sequence">3</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_29_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">29</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_30" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[30] Por exportación de bienes</field>
+            <field name="code">CO300_30</field>
+            <field name="sequence">4</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_30_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">30</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_31" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[31] Por exportación de servicios</field>
+            <field name="code">CO300_31</field>
+            <field name="sequence">5</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_31_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">31</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_32" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[32] Por ventas a sociedades de comercialización internacional</field>
+            <field name="code">CO300_32</field>
+            <field name="sequence">6</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_32_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">32</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_33" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[33] Por ventas a zonas francas</field>
+            <field name="code">CO300_33</field>
+            <field name="sequence">7</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_33_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">33</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_34" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[34] Por juegos de suerte y azar</field>
+            <field name="code">CO300_34</field>
+            <field name="sequence">8</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_34_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">34</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_35" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[35] Por operaciones exentas  (Arts. 477, 478 y 481 E.T.)</field>
+            <field name="code">CO300_35</field>
+            <field name="sequence">9</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_35_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">35</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_36" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[36]Por venta de cerveza de producción nacional o importada</field>
+            <field name="code">CO300_36</field>
+            <field name="sequence">10</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_36_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">36</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_37" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[37] Por venta de gaseosas y similares</field>
+            <field name="code">CO300_37</field>
+            <field name="sequence">11</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_37_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">37</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_38" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[38] Por venta de licores, aperitivos, vinos y similares</field>
+            <field name="code">CO300_38</field>
+            <field name="sequence">12</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_38_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">38</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_39" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[39] Por operaciones excluidas</field>
+            <field name="code">CO300_39</field>
+            <field name="sequence">13</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_39_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">39</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_40" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[40] Por operaciones no gravadas</field>
+            <field name="code">CO300_40</field>
+            <field name="sequence">14</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_40_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">40</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_41" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[41] Total Ingresos brutos</field>
+            <field name="code">CO300_41</field>
+            <field name="sequence">15</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="foldable" eval="False"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_41_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CO300_27.balance+CO300_28.balance+CO300_29.balance+CO300_30.balance+CO300_31.balance+CO300_32.balance+CO300_33.balance+CO300_34.balance+CO300_35.balance+CO300_36.balance+CO300_37.balance+CO300_38.balance+CO300_39.balance+CO300_40.balance</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_42" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[42] Devoluciones en ventas anuladas, rescindidas o resueltas</field>
+            <field name="code">CO300_42</field>
+            <field name="sequence">16</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_42_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">42</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_43" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[43] Total Ingresos netos recibidos durante el periodo</field>
+            <field name="code">CO300_43</field>
+            <field name="sequence">17</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id65"/>
+            <field name="foldable" eval="False"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_43_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CO300_41.balance-CO300_42.balance</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_id66" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">COMPRAS</field>
+            <field name="sequence">18</field>
+            <field name="hierarchy_level">1</field>
+            <field name="foldable" eval="False"/>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_id78" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">Importaciones</field>
+            <field name="sequence">19</field>
+            <field name="hierarchy_level">2</field>
+            <field name="foldable" eval="False"/>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_44" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[44] De bienes gravados a la tarifa del 5%</field>
+            <field name="code">CO300_44</field>
+            <field name="sequence">20</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id78"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_44_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">44</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_45" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[45] De bienes gravados a la tarifa general</field>
+            <field name="code">CO300_45</field>
+            <field name="sequence">21</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id78"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_45_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">45</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_46" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[46] De bienes y servicios gravados provenientes de Zonas Francas</field>
+            <field name="code">CO300_46</field>
+            <field name="sequence">22</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id78"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_46_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">46</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_47" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[47] De bienes no gravados</field>
+            <field name="code">CO300_47</field>
+            <field name="sequence">23</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id78"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_47_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">47</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_48" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[48] De bienes excluidos, exentos y no gravados provenientes de Zonas Francas</field>
+            <field name="code">CO300_48</field>
+            <field name="sequence">24</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id78"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_48_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">48</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_49" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[49] De servicios</field>
+            <field name="code">CO300_49</field>
+            <field name="sequence">25</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id78"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_49_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">49</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_id79" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">Nacionales</field>
+            <field name="sequence">26</field>
+            <field name="hierarchy_level">2</field>
+            <field name="foldable" eval="False"/>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_50" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[50] De bienes gravados a la tarifa del 5%</field>
+            <field name="code">CO300_50</field>
+            <field name="sequence">27</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id79"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_50_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">50</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_51" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[51] De bienes gravados a la tarifa general</field>
+            <field name="code">CO300_51</field>
+            <field name="sequence">28</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id79"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_51_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">51</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_52" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[52] De servicios gravados a la tarifa del 5%</field>
+            <field name="code">CO300_52</field>
+            <field name="sequence">29</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id79"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_52_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">52</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_53" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[53] De servicios gravados a la tarifa general</field>
+            <field name="code">CO300_53</field>
+            <field name="sequence">30</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id79"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_53_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">53</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_54" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[54] De bienes y servicios excluidos, exentos y no gravados</field>
+            <field name="code">CO300_54</field>
+            <field name="sequence">31</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id79"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_54_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">54</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_55" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[55] Total Compras e importaciones brutas</field>
+            <field name="code">CO300_55</field>
+            <field name="sequence">32</field>
+            <field name="hierarchy_level">2</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id66"/>
+            <field name="foldable" eval="False"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_55_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CO300_44.balance+CO300_45.balance+CO300_46.balance+CO300_47.balance+CO300_48.balance+CO300_49.balance+CO300_50.balance+CO300_51.balance+CO300_52.balance+CO300_54.balance</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_56" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[56] Devoluciones en compras anuladas, rescindidas o resueltas en este periodo</field>
+            <field name="code">CO300_56</field>
+            <field name="sequence">33</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id66"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_56_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">56</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_57" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[57] Total compras netas realizadas durante el período</field>
+            <field name="code">CO300_57</field>
+            <field name="sequence">34</field>
+            <field name="hierarchy_level">2</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id66"/>
+            <field name="foldable" eval="False"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_57_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CO300_55.balance-CO300_56.balance</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_id67" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">LIQUIDACION PRIVADA</field>
+            <field name="sequence">35</field>
+            <field name="hierarchy_level">1</field>
+            <field name="foldable" eval="False"/>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_id68" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">Impuesto generado</field>
+            <field name="sequence">36</field>
+            <field name="hierarchy_level">1</field>
+            <field name="foldable" eval="False"/>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_58" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[58] A la tarifa del 5%</field>
+            <field name="code">CO300_58</field>
+            <field name="sequence">37</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id68"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_58_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">58</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_59" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[59] A la tarifa general</field>
+            <field name="code">CO300_59</field>
+            <field name="sequence">38</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id68"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_59_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">59</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_60" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[60] Sobre AIU en operaciones gravadas (Base gravable especial)</field>
+            <field name="code">CO300_60</field>
+            <field name="sequence">39</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id68"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_60_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">60</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_61" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[61] En juegos de suerte y azar</field>
+            <field name="code">CO300_61</field>
+            <field name="sequence">40</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id68"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_61_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">61</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_62" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[62] En venta cerveza de producción nacional o importada</field>
+            <field name="code">CO300_62</field>
+            <field name="sequence">42</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id68"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_62_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">62</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_63" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[63] En venta de gaseosas y similares</field>
+            <field name="code">CO300_63</field>
+            <field name="sequence">43</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id68"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_63_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">63</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_64" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[64] En venta de licores, aperitivos, vinos y similares 5%</field>
+            <field name="code">CO300_64</field>
+            <field name="sequence">44</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id68"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_64_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">64</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_65" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[65] En retiro de inventario para activos fijos, consumo, muestras gratis o donaciones</field>
+            <field name="code">CO300_65</field>
+            <field name="sequence">45</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id68"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_65_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">65</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_66" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[66] IVA recuperado en devoluciones en compras anuladas, rescindidas o resueltas</field>
+            <field name="code">CO300_66</field>
+            <field name="sequence">46</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id68"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_66_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">66</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_67" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[67] Total impuesto generado por operaciones gravadas</field>
+            <field name="code">CO300_67</field>
+            <field name="sequence">47</field>
+            <field name="hierarchy_level">2</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id68"/>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_67_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CO300_58.balance+CO300_59.balance+CO300_60.balance+CO300_61.balance+CO300_62.balance+CO300_63.balance+CO300_64.balance+CO300_65.balance+CO300_66.balance</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_id83" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">Impuesto descontable</field>
+            <field name="sequence">48</field>
+            <field name="hierarchy_level">2</field>
+            <field name="foldable" eval="False"/>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_68" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[68] Por importaciones gravadas a la tarifa del 5%</field>
+            <field name="code">CO300_68</field>
+            <field name="sequence">49</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id83"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_68_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">68</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_69" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[69] Por importaciones gravadas a la tarifa general</field>
+            <field name="code">CO300_69</field>
+            <field name="sequence">50</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id83"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_69_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">69</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_70" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[70]  De bienes y servicios gravados provenientes de Zonas Francas</field>
+            <field name="code">CO300_70</field>
+            <field name="sequence">51</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id83"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_70_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">70</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_71" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[71] Por compras de bienes gravados a la tarifa del 5%</field>
+            <field name="code">CO300_71</field>
+            <field name="sequence">52</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id83"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_71_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">71</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_72" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[72] Por compras de bienes gravados a la tarifa general</field>
+            <field name="code">CO300_72</field>
+            <field name="sequence">53</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id83"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_72_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">72</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_73" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[73]Por licores, aperitivos, vinos y similares</field>
+            <field name="code">CO300_73</field>
+            <field name="sequence">54</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id83"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_73_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">73</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_74" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[74] Por servicios gravados a la tarifa del 5%</field>
+            <field name="code">CO300_74</field>
+            <field name="sequence">55</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id83"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_74_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">74</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_75" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[75] Por servicios gravados a la tarifa general</field>
+            <field name="code">CO300_75</field>
+            <field name="sequence">56</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id83"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_75_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">75</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_76" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[76] Descuento IVA exploración hidrocarburos Art. 485-2 E.T.</field>
+            <field name="code">CO300_76</field>
+            <field name="sequence">57</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id83"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_76_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">76</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_77" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[77] Total impuesto pagado o facturado (Sume 68 a 76)</field>
+            <field name="code">CO300_77</field>
+            <field name="sequence">58</field>
+            <field name="hierarchy_level">2</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id83"/>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_77_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CO300_68.balance+CO300_69.balance+CO300_70.balance+CO300_71.balance+CO300_72.balance+CO300_73.balance+CO300_74.balance+CO300_75.balance+CO300_76.balance</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_78" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[78] IVA retenido por servicios prestados en Colombia por no domiciliados o no residentes</field>
+            <field name="code">CO300_78</field>
+            <field name="sequence">59</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id83"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_78_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">78</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_79" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[79] IVA resultante por devoluciones en ventas anuladas, rescindidas o resueltas</field>
+            <field name="code">CO300_79</field>
+            <field name="sequence">60</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id83"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_79_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">79</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="False"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_80" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[80] Ajuste impuestos descontables (pérdidas, hurto o castigo de inventarios)</field>
+            <field name="code">CO300_80</field>
+            <field name="sequence">61</field>
+            <field name="hierarchy_level">4</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id83"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_80_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">80</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_81" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[81] Total Impuestos descontables (sume 77 a 80)</field>
+            <field name="code">CO300_81</field>
+            <field name="sequence">62</field>
+            <field name="hierarchy_level">2</field>
+            <field name="parent_id" ref="l10n_co_tr_300_iva_line_id83"/>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_81_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CO300_77.balance+CO300_78.balance+CO300_79.balance+CO300_80.balance</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_82" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[82] Total saldo a pagar por el periodo fiscal</field>
+            <field name="code">CO300_82</field>
+            <field name="sequence">63</field>
+            <field name="hierarchy_level">1</field>
+            <field name="foldable" eval="False"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_82_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CO300_67.balance-CO300_81.balance</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_85" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[85] Retenciones por IVA que le practicaron</field>
+            <field name="code">CO300_85</field>
+            <field name="sequence">64</field>
+            <field name="hierarchy_level">1</field>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_85_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">85</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="False"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_300_iva_line_86" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_300_iva"/>
+            <field name="name">[86] Saldo a pagar por impuesto</field>
+            <field name="code">CO300_86</field>
+            <field name="sequence">65</field>
+            <field name="hierarchy_level">1</field>
+            <field name="foldable" eval="False"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_300_iva_line_86_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CO300_82.balance-CO300_85.balance</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="False"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+    </data>
+</odoo>

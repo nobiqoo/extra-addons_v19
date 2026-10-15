@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="dian_event_030" model="dian.event">
+            <field name="name">Acuse de recibo de Factura Electrónica de Venta</field>
+            <field name="dian_code">030</field>
+        </record>
+        <record id="dian_event_031" model="dian.event">
+            <field name="name">Reclamo de la Factura Electrónica de Venta</field>
+            <field name="dian_code">031</field>
+        </record>
+        <record id="dian_event_032" model="dian.event">
+            <field name="name">Recibo del bien y/o prestación del servicio</field>
+            <field name="dian_code">032</field>
+        </record>
+        <record id="dian_event_033" model="dian.event">
+            <field name="name">Aceptación expresa</field>
+            <field name="dian_code">033</field>
+        </record>
+        <record id="dian_event_034" model="dian.event">
+            <field name="name">Aceptación Tácita</field>
+            <field name="dian_code">034</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <record id="student_student_library_card" model="ir.actions.report">
+        <field name="name">Library Card</field>
+        <field name="model">student.student</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wk_school_management.print_library_card_general_layout</field>
+        <field name="report_file">wk_school_management.print_library_card_general_layout</field>
+        <field name="print_report_name">'%s - Library Card' % (object.name).replace('/', '')</field>
+        <field name="binding_model_id" ref="model_student_student"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="print_library_card_general_layout">
+        <t t-set="layout" t-value="request.env['ir.config_parameter'].sudo().get_param('wk_school_management.card_layout')"/>
+        <t t-call="wk_school_management.print_library_card_horizontal"/>
+    </template>
+
+    <template id="print_library_card_vertical">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="student">
+                    <div class="col-md-12 text-center">
+                        <div style=" border-collapse:separate; ">
+                            <div style="display: inline-block; width: 55pt; vertical-align: top; text-align: center;">
+                                <p t-if="student.company_id.logo">
+                                    <img t-att-src="image_data_uri(student.company_id.logo)" style="height:28pt; max-width:50pt;" alt="Company Logo"/>
+                                </p>
+                            </div>
+                            <div style="display: inline-block;">
+                                <div t-if="student.company_id.name">
+                                    <h6 style="font-size:10pt; margin:0;" t-out="student.company_id.name"/>
+                                </div>
+                                <div t-if="student.company_id.street" style="margin:0;">
+                                    <p t-out="student.company_id.street" style="font-size:7pt;margin-bottom:0;"/>
+                                </div>
+                                <div t-if="student.company_id.phone" >
+                                    <p t-out="student.company_id.phone" style="font-size:8pt; margin-bottom:0;"/>
+                                </div>
+                            </div>
+                            <div class="my-2 fs-3">Library Card</div>
+                            <div class="m-1" style="height:80%;margin-top:0% !important">
+                                <div>
+                                    <div t-if="student.student_image"  align="center" valign="center">
+                                        <img t-att-src="image_data_uri(student.student_image)" style="height:70pt;width:30%; border-radius:7%;" alt="student Image"/><br/>
+                                    </div>
+                                    <div t-else="">
+                                        <img src="/wk_school_management/static/src/img/user.png" style="height:85pt;width:60%; border-radius:8px;" alt="student Image"/><br/>
+                                    </div>
+                                    <div align="center" valign="center">
+                                        <strong><span t-out="student.name">Marc Demo</span></strong>
+                                    </div>
+                                    <div t-if="student.current_grade_id" style="font-size: 12px; color: #333;">
+                                        <strong >Grade: </strong >
+                                        <t t-out="student.current_grade_id.name">12</t>
+                                    </div>
+                                     <div t-if="student.current_enrollment_id.session_id" style="font-size: 12px; color: #333;">
+                                        <strong >Session: </strong >
+                                        <t t-out="student.current_enrollment_id.sudo().session_id.name"/>
+                                    </div>
+                                    <div t-if="student.mobile" style="font-size: 12px; color: #333;">
+                                        <strong >Mobile: </strong >
+                                        <t t-out="student.mobile"/>
+                                    </div>
+                                    <div t-if="student.current_enrollment_id.session_id" style="font-size: 12px; color: #333;">
+                                        <strong >EXP Date: </strong >
+                                        <t t-out="student.current_enrollment_id.sudo().session_id.end_date"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="print_library_card_horizontal">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <div class="oe_structure"></div>
+                <t t-foreach="docs" t-as="student">
+                    <div style="page-break-inside: avoid; width: 243pt; height: 153pt; border: 1pt solid black; border-radius:8pt; margin:5pt; padding: 2pt;">
+                        <div style="display: inline-block; width: 75pt; vertical-align: top; text-align: center;">
+                            <p t-if="student.company_id.logo">
+                                <img t-att-src="image_data_uri(student.company_id.logo)" style="height:28pt; max-width:100pt;" alt="Company Logo"/>
+                            </p>
+                        </div>
+                        <div style="display: inline-block; padding-left: 40px;">
+                            <div t-if="student.company_id.name">
+                                <h6 style="font-size:10pt; margin:0;" t-out="student.company_id.name"/>
+                            </div>
+                            <div t-if="student.company_id.street" style="margin:0;">
+                                <p t-out="student.company_id.street" style="font-size:7pt;margin-bottom:0;"/>
+                            </div>
+                            <div t-if="student.company_id.phone" >
+                                <p t-out="student.company_id.phone" style="font-size:8pt; margin-bottom:0;"/>
+                            </div>
+                        </div>
+
+                        <div style="display: inline-block; width: 105pt; vertical-align: top; overflow: hidden;">
+                            <t t-if="student.student_image">
+                                <img t-att-src="image_data_uri(student.student_image)" 
+                                    style="height: 55pt; width: 95%; margin-bottom:10px; vertical-align: top;" 
+                                    alt="Student Image"/>
+                            </t>
+                            <t t-if="student.barcode">
+                                <div style="position: relative; height: 35pt; width: 100%; overflow: hidden; margin-top: -3pt;">
+                                    <span t-field="student.barcode"
+                                        t-options="{
+                                            'widget': 'barcode',
+                                            'width': 1000,
+                                            'height': 55,
+                                            'img_style': 'position: absolute; top: -8pt; left: -30pt; width: 154%; height: 45pt;'
+                                        }" data-oe-demo="12345678901">
+                                    </span>
+                                </div>
+                            </t>
+                        </div>
+
+                        <div style="display: inline-block; width:130pt;">
+                            <div style="font-size: 13px; color: #333;">
+                                <strong >Name: </strong >
+                                <t t-out="student.name">Marc Demo</t>
+                            </div>
+                            <div t-if="student.current_enrollment_id.session_id" style="font-size: 12px; color: #333;">
+                                 <strong >Session: </strong >
+                                 <t t-out="student.current_enrollment_id.sudo().session_id.name"/>
+                             </div>
+                            <div t-if="student.current_grade_id" style="font-size: 13px; color: #333;">
+                                <strong >Grade: </strong >
+                                <t t-out="student.current_grade_id.name">12</t>
+                            </div>
+                            <div t-if="student.current_enrollment_id.session_id" style="font-size: 12px; color: #333;">
+                                <strong >EXP Date: </strong >
+                                <t t-out="student.current_enrollment_id.sudo().session_id.end_date"/>
+                            </div>
+                            <t t-set="max_book" t-value="request.env['res.config.settings'].sudo().get_values().get('max_book_allowed')"/>
+                            <p style="font-size: 10px; color: #333;"><b>Note : </b>Max. of <t t-out="max_book"/> books can be borrowed at the same time using this library card.</p>
+                        </div> 
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

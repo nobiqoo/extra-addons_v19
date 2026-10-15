@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_payslip_concept_report_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.concept.report.tree</field>
+            <field name="model">hr.payslip.concept.report</field>
+            <field name="arch" type="xml">
+                <list create="0" edit="0" delete="0">
+                    <field name="employee" />
+                    <field name="employee_id" optional="show"/>
+                    <field name="vat" />
+                    <field name="contract" />
+                    <field name="contract_id" optional="show"/>
+                    <field name="contract_group" />
+                    <field name="contract_date_start" />
+                    <field name="contract_settlement_date" />
+                    <field name="contract_schedule_pay" />
+                    <field name="contract_wage" />
+                    <field name="payslip_type" />
+                    <field name="payslip_period" />
+                    <field name="payslip_liquidation_date" />
+                    <field name="payslip_accounting_date" />
+                    <field name="payslip_line" />
+                    <field name="payslip_category" />
+                    <field name="payslip_line_qty" />
+                    <field name="payslip_line_value" />
+                    <field name="payslip_line_total" />
+                    <field name="payslip_state" />
+                    <field name="novelty" />
+                    <field name="novelty_type" />
+                    <field name="leave" />
+                    <field name="code_cie10"/>
+                    <field name="description_cie10"/>
+                    <field name="leave_type" />
+                    <field name="leave_date_start" />
+                    <field name="leave_date_end" />
+                    <field name="overtime" />
+                    <field name="overtime_type" />
+                    <field name="bank_id"/>
+                    <field name="bank_account"/>
+                    <field name="l10n_latam_identification_type_id"/>
+                    <field name="concept_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_payslip_concept_report_searh" model="ir.ui.view">
+            <field name="name">hr.payslip.concept.report.search</field>
+            <field name="model">hr.payslip.concept.report</field>
+            <field name="arch" type="xml">
+                <search string="Search Description">
+                    <field name="employee" />
+                    <field name="vat" />
+                    <field name="contract_group" />
+                    <field name="payslip_type" />
+                    <field name="payslip_period" />
+                    <field name="payslip_category" />
+                    <field name="payslip_line" />
+                    <field name="novelty" />
+                    <field name="leave" />
+                    <field name="overtime" />
+
+                    <separator />
+                    <filter name="earnings" string="DEVENGADO"
+                        domain="[('payslip_category', '=', 'earnings')]" />
+                    <filter name="o_salarial_earnings" string="OTROS DEVENGOS SALARIALES"
+                        domain="[('payslip_category', '=', 'o_salarial_earnings')]" />
+                    <filter name="comp_earnings" string="INGRESOS COMPLEMENTARIOS"
+                        domain="[('payslip_category', '=', 'comp_earnings')]" />
+                    <filter name="o_rights" string="OTROS DERECHOS"
+                        domain="[('payslip_category', '=', 'o_rights')]" />
+                    <filter name="o_earnings" string="OTROS DEVENGOS"
+                        domain="[('payslip_category', '=', 'o_earnings')]" />
+                    <filter name="non_taxed_earnings" string="INGRESOS NO GRAVADOS"
+                        domain="[('payslip_category', '=', 'non_taxed_earnings')]" />
+                    <filter name="deductions" string="DEDUCCIONES"
+                        domain="[('payslip_category', '=', 'deductions')]" />
+                    <filter name="contributions" string="APORTES"
+                        domain="[('payslip_category', '=', 'contributions')]" />
+                    <filter name="provisions" string="PROVISIONES"
+                        domain="[('payslip_category', '=', 'provisions')]" />
+                    <filter name="subtotals" string="SUBTOTALES"
+                        domain="[('payslip_category', '=', 'subtotals')]" />
+                    <filter name="no_category" string="SIN CATEGORÍA"
+                        domain="[('payslip_category', '=', 'no_category')]" />
+
+                    <separator />
+                    <filter name="is_novelty" string="Novedades"
+                        domain="[('novelty', '!=', False)]" />
+                    <filter name="is_leave" string="Ausencias"
+                        domain="[('leave', '!=', False)]" />
+                    <filter name="is_overtime" string="Horas extra"
+                        domain="[('overtime', '!=', False)]" />
+
+                    <separator />
+                    <filter name="payslip_line_group" string="Concepto"
+                        context="{'group_by': 'payslip_line'}" />
+                    <filter name="payslip_category_group" string="Categoría de concepto"
+                        context="{'group_by': 'payslip_category'}" />
+                    <filter name="payslip_period_group" string="Periodo de nómina"
+                        context="{'group_by': 'payslip_period'}" />
+                    <filter name="payslip_state_group" string="Estado de nómina"
+                        context="{'group_by': 'payslip_state'}" />
+
+                </search>
+            </field>
+        </record>
+
+        <record id="hr_payslip_concept_report_graph" model="ir.ui.view">
+            <field name="name">hr.payslip.concept.report.graph</field>
+            <field name="model">hr.payslip.concept.report</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="payslip_category" />
+                    <field name="payslip_line_total" type="measure" />
+                </graph>
+            </field>
+        </record>
+    </data>
+</odoo>

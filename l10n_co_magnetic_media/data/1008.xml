@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- 1001 -->
+        <record id="form_1008" model="mag.media">
+            <field name="code">1008</field>
+            <field name="name">1008 - Saldos de cuentas por cobrar</field>
+            <field name="smaller_amount">500000</field>
+            <field name="query">
+WITH principal AS (
+SELECT
+    mm.smaller_amount as Mini,
+    mml.code as A,
+    it.dian_code as B,
+    rp.vat as C,
+    rp.l10n_co_verification_code as D,
+    rp.lastname1 as E,
+    rp.lastname2 as F,
+    rp.name1 as G,
+    rp.name2 as H,
+    rp.name as I,
+    rp.street as J,
+    rcs.dian_code as K,
+    SUBSTRING(rcsc.dian_code, 3) as L,
+    rc.medios_code as M,
+    (CASE WHEN mmlc.sequence = 'N' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'N' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'N' AND mmlc.type = 'sf' THEN SUM(aml.debit-aml.credit)
+        WHEN mmlc.sequence = 'N' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+    ) as N
+FROM mag_media mm
+INNER JOIN mag_media_lines mml ON mml.magnetic_id = mm.id
+INNER JOIN mag_media_lines_concepts mmlc ON mmlc.line_id = mml.id
+INNER JOIN (
+    select aammlcr.account_account_id as account_id, aammlcr.mag_media_lines_concepts_id as concept_id
+    from account_account_mag_media_lines_concepts_rel aammlcr
+    union all
+    select aaat.account_account_id as account_id, mmlcaat.concept_ids as concept_id
+    from mag_media_lines_concepts_account_account_tag mmlcaat
+    inner join account_account_tag aat on aat.id = mmlcaat.tag_ids
+    inner join account_account_account_tag aaat on aaat.account_account_tag_id = aat.id
+) AS aa ON aa.concept_id = mmlc.id
+INNER JOIN account_move_line aml ON aml.account_id = aa.account_id
+LEFT JOIN res_partner rp ON rp.id = aml.partner_id
+LEFT JOIN l10n_latam_identification_type it ON it.id = rp.l10n_latam_identification_type_id
+LEFT JOIN res_country_state rcs ON rcs.id = rp.state_id
+LEFT JOIN res_city rcsc ON rcsc.id = rp.city_id
+LEFT JOIN res_country rc ON rc.id = rp.country_id
+WHERE mm.id = {id}
+--    AND aml.date BETWEEN '{date_from}' AND '{date_to}'
+    AND aml.date &lt;= '{date_to}'
+    AND aml.parent_state = 'posted'
+    AND aml.company_id = {company_id}
+GROUP BY
+    mml.code,
+    it.dian_code,
+    rp.vat,
+    rp.l10n_co_verification_code,
+    rp.name1,
+    rp.name2,
+    rp.lastname1,
+    rp.lastname2,
+    rp.name,
+    rp.street,
+    rcs.dian_code,
+    rcsc.dian_code,
+    rc.medios_code,
+    mmlc.sequence,
+    mmlc.type,
+    mm.smaller_amount
+)
+SELECT
+    A as "Concepto",
+    B as "Tipo documento",
+    C as "Número identificación del deudor",
+    D as "DV",
+    E as "Primer apellido del deudor",
+    F as "Segundo apellido del deudor",
+    G as "Primer nombre del deudor",
+    H as "Segundo nombre del deudor",
+    I as "Razón social del deudor",
+    J as "Direccion del deudor",
+    K as "Código departamento",
+    L as "Código municipio",
+    M as "País de residencia o domicilio",
+    ROUND(N, 0) as "Saldo cuentas por cobrar al 31-12"
+FROM (
+    SELECT A, B, C, D, E, F, G, H, I, J, K, L, M, SUM(N) AS N
+    FROM principal
+    GROUP BY A, B, C, D, E, F, G, H, I, J, K, L, M, Mini
+    HAVING SUM(N) &gt;= Mini::float
+
+    UNION
+
+    SELECT
+        A,
+        '43' as B,
+        '222222222' as C,
+        '7' as D,
+        '' as E,
+        '' as F,
+        '' as G,
+        '' as H,
+        'CUANTIAS MENORES' as I,
+        NULL as J,
+        NULL as K,
+        NULL as L,
+        NULL as M,
+        SUM(N) as N
+    FROM (
+        SELECT A, B, C, D, E, F, G, H, I, J, K, L, M, SUM(N) AS N, Mini
+        FROM principal
+        GROUP BY A, B, C, D, E, F, G, H, I, J, K, L, M, Mini
+        HAVING SUM(N) &lt; Mini::float
+    ) AS cm
+    GROUP BY A, Mini
+) AS datos
+ORDER BY A, B, C
+            </field>
+        </record>
+    </data>
+</odoo>

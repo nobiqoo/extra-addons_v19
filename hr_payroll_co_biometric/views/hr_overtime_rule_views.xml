@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+         Vistas: hr.overtime.rule (Reglas de Categorización de Horas Extras)
+         ════════════════════════════════════════════════════════════════════ -->
+
+    <!-- ─── Vista lista ──────────────────────────────────────────────────── -->
+    <record id="view_hr_overtime_rule_tree" model="ir.ui.view">
+        <field name="name">hr.overtime.rule.tree</field>
+        <field name="model">hr.overtime.rule</field>
+        <field name="arch" type="xml">
+            <list string="Reglas de Horas Extras" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="apply_on"/>
+                <field name="novelty_type"/>
+                <field name="is_overtime"/>
+                <field name="hour_from" widget="float_time"/>
+                <field name="hour_to" widget="float_time"/>
+                <field name="overtime_type_id"/>
+                <field name="overtime_type_code" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                <field name="active" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ─── Vista formulario ─────────────────────────────────────────────── -->
+    <record id="view_hr_overtime_rule_form" model="ir.ui.view">
+        <field name="name">hr.overtime.rule.form</field>
+        <field name="model">hr.overtime.rule</field>
+        <field name="arch" type="xml">
+            <form string="Regla de Hora Extra">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Ej: Hora Extra Diurna Normal"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Categoría de Nómina">
+                            <field name="overtime_type_id"/>
+                            <field name="overtime_type_code" readonly="1"/>
+                            <field name="novelty_type"/>
+                            <field name="apply_on"/>
+                            <field name="is_overtime"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Rango Horario">
+                            <field name="hour_from" widget="float_time"/>
+                            <field name="hour_to" widget="float_time"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Ayuda">
+                        <div class="alert alert-info" role="status" style="margin:8px 0">
+                            <strong>Cómo configurar rangos horarios:</strong>
+                            <ul style="margin:4px 0 0 16px">
+                                <li>
+                                    <b>Hora Extra Diurna (HED):</b>
+                                    Aplica en: Día Normal · Solo Horas Extras · Desde: 06:00 · Hasta: 19:00
+                                </li>
+                                <li>
+                                    <b>Hora Extra Nocturna (HEN):</b>
+                                    Aplica en: Día Normal · Solo Horas Extras · Desde: 19:00 · Hasta: 06:00
+                                    <em>(rango cruza medianoche)</em>
+                                </li>
+                                <li>
+                                    <b>H.E. Festivo/Dominical (HEDF):</b>
+                                    Aplica en: Festivo / Dominical · Solo Horas Extras · Desde: 00:00 · Hasta: 24:00
+                                </li>
+                                <li>
+                                    <b>Recargo Nocturno:</b>
+                                    Aplica en: Día Normal · Solo Horas Extras: <em>desactivado</em> · Desde: 19:00 · Hasta: 06:00
+                                </li>
+                            </ul>
+                            <br/>
+                            <strong>Nota:</strong> Si "Hasta" es menor que "Desde", el rango cruza medianoche
+                            (p. ej. 19:00 → 06:00 cubre de 7 p. m. a 6 a. m.).
+                        </div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ─── Acción ────────────────────────────────────────────────────────── -->
+    <record id="action_hr_overtime_rule" model="ir.actions.act_window">
+        <field name="name">Reglas de Horas Extras</field>
+        <field name="res_model">hr.overtime.rule</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure las reglas de categorización de horas extras
+            </p>
+            <p>
+                Defina rangos horarios y tipos de día para que el sistema asigne
+                automáticamente la categoría correcta de hora extra (HED, HEN, HEDF)
+                al procesar la asistencia biométrica.
+            </p>
+        </field>
+    </record>
+
+</odoo>

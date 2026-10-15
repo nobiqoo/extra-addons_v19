@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="external_layout_helpdesk_custom">
+        <t t-name="custom_helpdesk_tecbaco.external_layout_helpdesk_custom">
+            <t t-set="o" t-value="o if o else doc" />
+
+            <div class="header">
+                <div style="border:1px solid #dee2e6; padding:10px 12px;">
+                    <table style="width:100%; margin:0; table-layout:fixed;">
+                        <tr>
+                            <td
+                                style="width:25%; vertical-align:middle; overflow:hidden; padding:5px;border-right:none;">
+                                <img t-if="o.team_id and o.team_id.logo_report"
+                                    t-att-src="image_data_uri(o.team_id.logo_report)"
+                                    style="max-height:70px; max-width:100%; height:auto; width:auto; display:block;" />
+                            </td>
+                            <td
+                                style="width:75%; text-align:center; vertical-align:middle; padding:5px;border-left:none;">
+                                <div style="font-size:12pt;">
+                                    <strong t-esc="o.company_id.name" />
+                                </div>
+                                <div style="font-size:11pt;">
+                                    <strong>FORMATO PARA SOLICITUD DE SOPORTE TÉCNICO</strong>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="article o_report_layout_standard">
+                <t t-out="0" />
+            </div>
+
+            <div class="footer">
+                <div style="border-top:1px solid #ddd; padding-top:6px;">
+                    <t t-if="o.team_id and o.team_id.footer_report">
+                        <div t-field="o.team_id.footer_report" />
+                    </t>
+
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

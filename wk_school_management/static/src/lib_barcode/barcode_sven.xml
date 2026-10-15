@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+     <t t-name="wk_school_management.BarcodeScan">
+         <div class="o_home_menu_background h-100 w-100 pt-sm-3 d-flex align-items-center" style="background-image : url('/wk_school_management/static/img/background-light.svg')">
+            <div class="o_stock_barcode_main_menu container d-flex align-items-center h-100 w-50 h-sm-auto bg-view shadow">
+                <main class="flex-grow-1">
+                    <div class="flex">
+                        <a href="#" class="o_event_previous_menu float-start"><i class="oi oi-chevron-left fa-lg mt-3" t-on-click.prevent="() => this.onClickBackToDashboard()"></i></a>
+                    </div>
+                <div class="my-5 text-center" t-on-click="openManualBarcodeDialog">
+                    <div class="o_barcode_tap_to_scan m-auto mw-50 cursor-pointer">
+                        <img src="/wk_school_management/static/src/img/barcode.png" alt="Barcode" class="my-1 img-fluid" style="height:5rem;"/>
+                        <div class="o_stock_barcode_laser"/>
+                    </div>
+                    <div class="o_stock_mobile_barcode text-primary fw-bold">
+                        Scan or tap
+                    </div>
+                </div>
+                <ul>
+                    <li>Scan the code to <b>Issue</b> a book.</li>
+                    <li>Scan the code to <b>Return</b> a book.</li>
+                </ul>
+            </main>
+            </div>
+         </div>
+     </t>
+ </templates>

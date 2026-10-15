@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- LISTA / TREE -->
+    <record id="view_biometric_raw_punch_tree" model="ir.ui.view">
+        <field name="name">biometric.raw.punch.tree</field>
+        <field name="model">biometric.raw.punch</field>
+        <field name="arch" type="xml">
+            <list string="Marcaciones en Crudo">
+                <header>
+                    <button name="action_process_imported_punches"
+                            string="Procesar seleccionadas"
+                            type="object"
+                            class="btn-primary"
+                            display="always"
+                            groups="hr_zk_attendance.group_biometric_raw_punch_importer"
+                            confirm="Se crearán las marcaciones faltantes en el análisis de asistencia. ¿Desea continuar?"/>
+                </header>
+                <field name="employee_id"/>
+                <field name="user_id"/>
+                <field name="biometric_id"/>
+                <field name="punch_time"/>
+                <field name="punch_time_display" string="Hora Local (Fija)"/>
+                <field name="device_id"/>
+                <field name="zk_attendance_id" optional="show"/>
+
+                <field name="source"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- BÚSQUEDA Y FILTROS -->
+    <record id="view_biometric_raw_punch_search" model="ir.ui.view">
+        <field name="name">biometric.raw.punch.search</field>
+        <field name="model">biometric.raw.punch</field>
+        <field name="arch" type="xml">
+            <search string="Buscar marcaciones en crudo">
+                <field name="employee_id"/>
+                <field name="user_id"/>
+                <field name="biometric_id"/>
+                <field name="punch_time"/>
+                <field name="device_id"/>
+                <field name="source"/>
+                <field name="active"/>
+                <separator/>
+                <filter string="Sin empleado" name="without_employee"
+                        domain="[('employee_id', '=', False)]"/>
+                <filter string="Con empleado" name="with_employee"
+                        domain="[('employee_id', '!=', False)]"/>
+                <filter string="ZKTeco" name="source_zk"
+                        domain="[('source', '=', 'zk')]"/>
+                <filter string="API" name="source_api"
+                        domain="[('source', '=', 'api')]"/>
+                <filter string="Manual" name="source_manual"
+                        domain="[('source', '=', 'manual')]"/>
+                <filter string="Hora de marcación" name="filter_punch_time"
+                        date="punch_time"/>
+                <separator/>
+                <filter string="Activas" name="active_punches"
+                        domain="[('active', '=', True)]"/>
+                <filter string="Archivadas" name="inactive_punches"
+                        domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Empleado" name="group_employee"
+                        context="{'group_by': 'employee_id'}"/>
+                <filter string="Usuario" name="group_user"
+                        context="{'group_by': 'user_id'}"/>
+                <filter string="Biometric ID" name="group_biometric_id"
+                        context="{'group_by': 'biometric_id'}"/>
+                <filter string="Día" name="group_punch_day"
+                        context="{'group_by': 'punch_time:day'}"/>
+                <filter string="Dispositivo" name="group_device"
+                        context="{'group_by': 'device_id'}"/>
+                <filter string="Origen" name="group_source"
+                        context="{'group_by': 'source'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- FORMULARIO -->
+    <record id="view_biometric_raw_punch_form" model="ir.ui.view">
+        <field name="name">biometric.raw.punch.form</field>
+        <field name="model">biometric.raw.punch</field>
+        <field name="arch" type="xml">
+            <form string="Marcación en Crudo">
+                <header>
+                    <button name="action_process_imported_punches"
+                            string="Procesar marcación"
+                            type="object"
+                            class="oe_highlight"
+                            groups="hr_zk_attendance.group_biometric_raw_punch_importer"
+                            confirm="Se creará la marcación faltante en el análisis de asistencia. ¿Desea continuar?"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="user_id"/>
+                        <field name="biometric_id"/>
+                        <field name="punch_time"/>
+                        <field name="punch_time_display" string="Hora Local (Fija)"/>
+                        <field name="device_id"/>
+                        <field name="zk_attendance_id"/>
+
+                        <field name="source"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="res_config_settings_view_form_purchase_purchase" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase" />
+            <field name="arch" type="xml">
+                <xpath expr="//block[@name='purchase_setting_container']" position="after">
+                    <h2>Imports</h2>
+                    <div class="row mt16 o_settings_container" name="import_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="div_purchase_import">
+                            <div class="o_setting_left_pane">
+                                <field name="purchase_import_tax" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="purchase_import_tax" string="Create Invoice Tax?" />
+                                <div class="text-muted">
+                                    Create Invoice Tax?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="purchase_import_type" string="Invoice Value Type" />
+                                <div class="text-muted">
+                                    The value of invoices in imports.
+                                </div>
+                                <field name="purchase_import_type" class="o_light_label mt16"
+                                    widget="radio" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="purchase_import_tariff" string="How Calculate Tariff" />
+                                <div class="text-muted">
+                                    The Tariff will calculate by tax or Invoice.
+                                </div>
+                                <field name="purchase_import_tariff" class="o_light_label mt16"
+                                    widget="radio" />
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

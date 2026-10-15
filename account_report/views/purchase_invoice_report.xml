@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="purchase_invoice_report_tree" model="ir.ui.view">
+            <field name="name">purchase.invoice.report.tree</field>
+            <field name="model">purchase.invoice.report</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="partner_identification"/>
+                    <field name="partner_name"/>
+                    <field name="invoice"/>
+                    <field name="invoice_origin"/>
+                    <field name="invoice_date"/>
+                    <field name="invoice_expiration_date"/>
+                    <field name="product_category"/>
+                    <field name="product_reference"/>
+                    <field name="product_lang"/>
+                    <field name="product_weight"/>
+                    <field name="product_quantity"/>
+                    <field name="total_weight"/>
+                    <field name="product_uom_lang"/>
+                    <field name="price_unit"/>
+                    <field name="price_subtotal"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="purchase_invoice_report_search" model="ir.ui.view">
+            <field name="name">purchase.invoice.report.search</field>
+            <field name="model">purchase.invoice.report</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="partner_identification"/>
+                    <field name="partner_name"/>
+                    <field name="invoice"/>
+                    <field name="invoice_origin"/>
+                    <field name="product_category"/>
+                    <field name="product_reference"/>
+                    <field name="product_lang"/>
+                    <field name="product_uom_lang"/>
+                    <field name="price_unit"/>
+                    <filter string="Fecha de la factura" name="filter_by_date" domain="[]" context="{'group_by':'invoice_date'}"/>
+                    <filter string="Fecha de vencimiento de la factura" name="filter_by_expiration_date" domain="[]" context="{'group_by':'invoice_expiration_date'}"/>
+                    <filter string="Fecha de la Factura" name="filter_invoice_date" date="invoice_date"/>
+                    <filter string="Fecha de Vencimiento de la Factura" name="filter_invoice_due_date" date="invoice_expiration_date"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="purchase_invoice_report_action" model="ir.actions.act_window">
+            <field name="name">Analysis of purchase invoices</field>
+            <field name="res_model">purchase.invoice.report</field>
+            <field name="view_mode">list</field>
+        </record>
+
+        <menuitem id="account_operation_reports_menu" name="Operation Reports" parent="account.menu_finance_reports" sequence="30" />
+
+        <menuitem id="purchase_invoice_report_menu" name="Analysis of purchase invoices" action="purchase_invoice_report_action" parent="account_operation_reports_menu" sequence="1"/>
+
+    </data>
+</odoo>

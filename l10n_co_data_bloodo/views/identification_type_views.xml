@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="view_l10n_latam_identification_type_tree" model="ir.ui.view">
+            <field name="name">l10n_latam.identification.type.inherit.view.tree</field>
+            <field name="model">l10n_latam.identification.type</field>
+            <field name="inherit_id" ref="l10n_latam_base.view_l10n_latam_identification_type_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='country_id']" position="after">
+                    <field name="dian_code"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

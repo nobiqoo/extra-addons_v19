@@ -1,0 +1,11 @@
+<odoo>
+    <record id="group_purchase_import" model="res.groups">
+        <field name="name">Purchase Import</field>
+        <field name="user_ids" eval="[Command.link(ref('base.user_root')), Command.link(ref('base.user_admin'))]" />
+    </record>
+
+    <record id="purchase_import_validators" model="res.groups">
+        <field name="name">Purchase import validators</field>
+        <field name="user_ids" eval="[Command.link(ref('base.user_root')), Command.link(ref('base.user_admin'))]" />
+    </record>
+</odoo>

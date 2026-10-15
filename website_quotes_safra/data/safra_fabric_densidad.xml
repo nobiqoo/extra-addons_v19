@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Peso (g/m2) y grosor (mm) de tela por referencia, tomados de la hoja
+         DENSIDAD del Excel de la matriz (mediana de los articulos que
+         empiezan por el nombre de la referencia). Solo las referencias con
+         match; el resto se parametriza a mano en Referencias / Telas.
+         noupdate: el funcional ajusta pesos/grosores en el sistema y las
+         actualizaciones del módulo deben respetarlos. -->
+    <data noupdate="1">
+
+        <!-- BLACKOUT EBANO (4 articulos en hoja DENSIDAD) -->
+        <record id="fab_054302" model="safra.fabric">
+            <field name="peso_gm2">208.0</field>
+            <field name="grosor_mm">0.6</field>
+        </record>
+        <!-- Blackout Fiorella (4 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504200" model="safra.fabric">
+            <field name="peso_gm2">360.0</field>
+            <field name="grosor_mm">0.55</field>
+        </record>
+        <!-- Blackout Jianna (4 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504203" model="safra.fabric">
+            <field name="peso_gm2">425.0</field>
+            <field name="grosor_mm">0.68</field>
+        </record>
+        <!-- Blackout Melisa (3 articulos en hoja DENSIDAD) -->
+        <record id="fab_054296" model="safra.fabric">
+            <field name="peso_gm2">370.0</field>
+            <field name="grosor_mm">0.6</field>
+        </record>
+        <!-- Blackout Palomino (4 articulos en hoja DENSIDAD) -->
+        <record id="fab_054317" model="safra.fabric">
+            <field name="peso_gm2">270.0</field>
+            <field name="grosor_mm">0.66</field>
+        </record>
+        <!-- Blackout Tiffany (3 articulos en hoja DENSIDAD) -->
+        <record id="fab_054299" model="safra.fabric">
+            <field name="peso_gm2">165.0</field>
+            <field name="grosor_mm">0.57</field>
+        </record>
+        <!-- Blackout Ventura (4 articulos en hoja DENSIDAD) -->
+        <record id="fab_054319" model="safra.fabric">
+            <field name="peso_gm2">300.0</field>
+            <field name="grosor_mm">1.03</field>
+        </record>
+        <!-- Blackout Zen (4 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504236" model="safra.fabric">
+            <field name="peso_gm2">370.0</field>
+            <field name="grosor_mm">0.68</field>
+        </record>
+        <!-- EBANO (4 articulos en hoja DENSIDAD) -->
+        <record id="fab_054301" model="safra.fabric">
+            <field name="peso_gm2">185.0</field>
+            <field name="grosor_mm">0.4</field>
+        </record>
+        <!-- Manantial (4 articulos en hoja DENSIDAD) -->
+        <record id="fab_054297" model="safra.fabric">
+            <field name="peso_gm2">200.0</field>
+            <field name="grosor_mm">0.43</field>
+        </record>
+        <!-- Melisa (4 articulos en hoja DENSIDAD) -->
+        <record id="fab_054295" model="safra.fabric">
+            <field name="peso_gm2">220.0</field>
+            <field name="grosor_mm">0.48</field>
+        </record>
+        <!-- Musa (3 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504222" model="safra.fabric">
+            <field name="peso_gm2">200.0</field>
+            <field name="grosor_mm">0.86</field>
+        </record>
+        <!-- Nina (3 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504223" model="safra.fabric">
+            <field name="peso_gm2">200.0</field>
+            <field name="grosor_mm">0.86</field>
+        </record>
+        <!-- Screen 350 (9 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504047" model="safra.fabric">
+            <field name="peso_gm2">410.0</field>
+            <field name="grosor_mm">0.6</field>
+        </record>
+        <!-- Screen 351 (5 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504191" model="safra.fabric">
+            <field name="peso_gm2">440.0</field>
+            <field name="grosor_mm">0.7</field>
+        </record>
+        <!-- Screen 550 (10 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504048" model="safra.fabric">
+            <field name="peso_gm2">520.0</field>
+            <field name="grosor_mm">0.74</field>
+        </record>
+        <!-- Screen 720 (4 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504049" model="safra.fabric">
+            <field name="peso_gm2">420.0</field>
+            <field name="grosor_mm">0.75</field>
+        </record>
+        <!-- Screen Asiático (6 articulos en hoja DENSIDAD) -->
+        <record id="fab_054303" model="safra.fabric">
+            <field name="peso_gm2">350.0</field>
+            <field name="grosor_mm">0.5</field>
+        </record>
+        <!-- Screen Diseño (7 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504050" model="safra.fabric">
+            <field name="peso_gm2">452.0</field>
+            <field name="grosor_mm">1.03</field>
+        </record>
+        <!-- Screen Escandinavo (3 articulos en hoja DENSIDAD) -->
+        <record id="fab_054238" model="safra.fabric">
+            <field name="peso_gm2">422.0</field>
+            <field name="grosor_mm">0.71</field>
+        </record>
+        <!-- Screen Jacquard Flower (3 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504208" model="safra.fabric">
+            <field name="peso_gm2">467.0</field>
+            <field name="grosor_mm">0.8</field>
+        </record>
+        <!-- SCREEN JACQUARD MADONA (4 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504190" model="safra.fabric">
+            <field name="peso_gm2">480.0</field>
+            <field name="grosor_mm">0.95</field>
+        </record>
+        <!-- Screen Lienzo (2 articulos en hoja DENSIDAD) -->
+        <record id="fab_054263" model="safra.fabric">
+            <field name="peso_gm2">365.0</field>
+            <field name="grosor_mm">0.58</field>
+        </record>
+        <!-- Screen Noa (6 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504051" model="safra.fabric">
+            <field name="peso_gm2">250.0</field>
+            <field name="grosor_mm">0.9</field>
+        </record>
+        <!-- Screen Rice II (3 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504242" model="safra.fabric">
+            <field name="peso_gm2">409.0</field>
+            <field name="grosor_mm">0.65</field>
+        </record>
+        <!-- Screen Snow (3 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504196" model="safra.fabric">
+            <field name="peso_gm2">420.0</field>
+            <field name="grosor_mm">0.7</field>
+        </record>
+        <!-- Sheer Poliester (9 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504057" model="safra.fabric">
+            <field name="peso_gm2">277.0</field>
+            <field name="grosor_mm">0.5</field>
+        </record>
+        <!-- Sheer Poliester Blackout (5 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504063" model="safra.fabric">
+            <field name="peso_gm2">277.0</field>
+            <field name="grosor_mm">0.5</field>
+        </record>
+        <!-- Sheer Screen (82 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504058" model="safra.fabric">
+            <field name="peso_gm2">278.0</field>
+            <field name="grosor_mm">0.6</field>
+        </record>
+        <!-- Sheer Screen Combi (4 articulos en hoja DENSIDAD) -->
+        <record id="fab_054262" model="safra.fabric">
+            <field name="peso_gm2">310.0</field>
+            <field name="grosor_mm">0.66</field>
+        </record>
+        <!-- Sheer Screen Elite (9 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504209" model="safra.fabric">
+            <field name="peso_gm2">265.0</field>
+            <field name="grosor_mm">0.6</field>
+        </record>
+        <!-- Sheer Screen Elite II (4 articulos en hoja DENSIDAD) -->
+        <record id="fab_054247" model="safra.fabric">
+            <field name="peso_gm2">265.0</field>
+            <field name="grosor_mm">0.6</field>
+        </record>
+        <!-- Sheer Screen Elite III (1 articulos en hoja DENSIDAD) -->
+        <record id="fab_054288" model="safra.fabric">
+            <field name="peso_gm2">265.0</field>
+            <field name="grosor_mm">0.6</field>
+        </record>
+        <!-- Sheer Screen Emely (9 articulos en hoja DENSIDAD) -->
+        <record id="fab_054304" model="safra.fabric">
+            <field name="peso_gm2">275.0</field>
+            <field name="grosor_mm">0.55</field>
+        </record>
+        <!-- Sheer Screen Extra Wide (5 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504065" model="safra.fabric">
+            <field name="peso_gm2">325.0</field>
+            <field name="grosor_mm">0.75</field>
+        </record>
+        <!-- Sheer Screen Fina (14 articulos en hoja DENSIDAD) -->
+        <record id="fab_054261" model="safra.fabric">
+            <field name="peso_gm2">310.0</field>
+            <field name="grosor_mm">0.6</field>
+        </record>
+        <!-- Sheer Screen Japonica (5 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504240" model="safra.fabric">
+            <field name="peso_gm2">267.0</field>
+            <field name="grosor_mm">0.6</field>
+        </record>
+        <!-- Sheer Screen Parma (12 articulos en hoja DENSIDAD) -->
+        <record id="fab_054305" model="safra.fabric">
+            <field name="peso_gm2">250.0</field>
+            <field name="grosor_mm">0.55</field>
+        </record>
+        <!-- Sheer Screen Silver (6 articulos en hoja DENSIDAD) -->
+        <record id="fab_054260" model="safra.fabric">
+            <field name="peso_gm2">278.0</field>
+            <field name="grosor_mm">0.6</field>
+        </record>
+        <!-- VELO (11 articulos en hoja DENSIDAD) -->
+        <record id="fab_0504177" model="safra.fabric">
+            <field name="peso_gm2">243.0</field>
+            <field name="grosor_mm">0.43</field>
+        </record>
+        <!-- Velo Baru (2 articulos en hoja DENSIDAD) -->
+        <record id="fab_054315" model="safra.fabric">
+            <field name="peso_gm2">95.0</field>
+            <field name="grosor_mm">0.35</field>
+        </record>
+        <!-- Velo Hilos de Fantasia (9 articulos en hoja DENSIDAD) -->
+        <record id="fab_054251" model="safra.fabric">
+            <field name="peso_gm2">252.0</field>
+            <field name="grosor_mm">0.44</field>
+        </record>
+
+    </data>
+</odoo>

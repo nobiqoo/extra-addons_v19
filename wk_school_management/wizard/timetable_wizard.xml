@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>; ) --> 
+<!-- See LICENSE file for full copyright and licensing details. --> 
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id='timetable_wizard_view_form' model='ir.ui.view'>
+            <field name='name'>Enroll</field>
+            <field name='model'>wk.confirm.timetable</field>
+            <field name='arch' type='xml'>
+                <form> 
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name='grade_id'/>
+                            <field name="section_id" invisible="not section_visibility"/>
+                            <field name='start_date'/>
+                        </group>
+                        <group>
+                            <field name='subject_id'/>
+                            <field name='end_date'/>
+                        </group>
+                    </group>
+                    <field name='weekly_schedule_ids'/>
+                    <footer>
+                        <button name="schedule_now" type="object" string="Schedule" class="btn-success"/>
+                        <button string="Cancel" class="btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="timetable_wizard_action" model="ir.actions.act_window">
+            <field name="res_model">wk.confirm.timetable</field>
+            <field name="name">Confirm Slots</field>
+            <field name="target">new</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wk_school_management.timetable_wizard_view_form"/>
+        </record>
+
+        <record id="view_timetable_postpone_wizard_form" model="ir.ui.view">
+            <field name="name">wk.timetable.postpone.wizard.form</field>
+            <field name="model">wk.timetable.postpone.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Postpone Class">
+                    <group>
+                        <field name="class_date"/>
+                        <field name="timeslot_id"/>
+                        <field name="location_id"/>
+                        <field name="reason"/>
+                    </group>
+                    <footer>
+                        <button name="action_postpone" string="Postpone" type="object" class="btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

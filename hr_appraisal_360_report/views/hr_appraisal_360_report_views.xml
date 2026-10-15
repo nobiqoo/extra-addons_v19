@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_hr_appraisal_360_report_form" model="ir.ui.view">
+        <field name="name">hr.appraisal.360.report.form</field>
+        <field name="model">hr.appraisal.360.report</field>
+        <field name="arch" type="xml">
+            <form string="Informe de retroalimentaciones 360">
+                <header>
+                    <button name="action_generate_report" type="object" string="Generar" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_generate_report" type="object" string="Regenerar" class="btn-primary" invisible="state == 'draft'"/>
+                    <button name="action_export_excel" type="object" string="Exportar a Excel" class="btn-secondary" invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,generated,exported"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="report_date" readonly="1"/>
+                        <field name="total_lines" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="all_employee" readonly="1"/>
+                        <field name="employee_id" readonly="1"/>
+                        <field name="survey_id" readonly="1"/>
+                        <field name="date_from" readonly="1"/>
+                        <field name="date_to" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Respuestas">
+                            <field name="report_lines">
+                                <list>
+                                    <field name="evaluated_employee"/>
+                                    <field name="evaluator"/>
+                                    <field name="question"/>
+                                    <field name="answer"/>
+                                    <field name="feedback_survey"/>
+                                    <field name="appraisal_date"/>
+                                    <field name="survey_response_state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_appraisal_360_report_list" model="ir.ui.view">
+        <field name="name">hr.appraisal.360.report.list</field>
+        <field name="model">hr.appraisal.360.report</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="report_date"/>
+                <field name="all_employee"/>
+                <field name="employee_id"/>
+                <field name="survey_id"/>
+                <field name="total_lines"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_appraisal_360_report_search" model="ir.ui.view">
+        <field name="name">hr.appraisal.360.report.search</field>
+        <field name="model">hr.appraisal.360.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="survey_id"/>
+                <filter string="Generados" name="generated" domain="[('state','=','generated')]"/>
+                <filter string="Exportados" name="exported" domain="[('state','=','exported')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Persona evaluada" name="group_employee" context="{'group_by':'employee_id'}"/>
+                    <filter string="Encuesta" name="group_survey" context="{'group_by':'survey_id'}"/>
+                    <filter string="Estado" name="group_state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_appraisal_360_report_wizard_form" model="ir.ui.view">
+        <field name="name">appraisal.360.report.wizard.form</field>
+        <field name="model">appraisal.360.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generar informe de retroalimentaciones 360">
+                <sheet>
+                    <group>
+                        <field name="all_employee"/>
+                        <field name="employee_id" invisible="all_employee"/>
+                        <field name="survey_id"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <footer>
+                        <button name="action_generate_report" type="object" string="Generar informe" class="btn-primary"/>
+                        <button name="action_export_excel" type="object" string="Exportar Excel" class="btn-secondary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_appraisal_360_report_wizard" model="ir.actions.act_window">
+        <field name="name">Generar informe de retroalimentaciones 360</field>
+        <field name="res_model">appraisal.360.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_appraisal_360_report_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_hr_appraisal_360_report_list" model="ir.actions.act_window">
+        <field name="name">Informes de retroalimentaciones 360</field>
+        <field name="res_model">hr.appraisal.360.report</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_hr_appraisal_360_report_search"/>
+    </record>
+
+    <menuitem id="menu_hr_appraisal_360_root" name="Informes 360" parent="hr_appraisal.menu_hr_appraisal_root" sequence="95" groups="hr_appraisal.group_hr_appraisal_user"/>
+    <menuitem id="menu_hr_appraisal_360_generate" name="Generar informe" parent="menu_hr_appraisal_360_root" action="action_appraisal_360_report_wizard" sequence="10" groups="hr_appraisal.group_hr_appraisal_user"/>
+    <menuitem id="menu_hr_appraisal_360_reports" name="Informes generados" parent="menu_hr_appraisal_360_root" action="action_hr_appraisal_360_report_list" sequence="20" groups="hr_appraisal.group_hr_appraisal_user"/>
+</odoo>

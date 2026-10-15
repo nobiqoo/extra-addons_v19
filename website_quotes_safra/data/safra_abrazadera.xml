@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ABRAZADERA CORTINA (64) -->
+    <data noupdate="0">
+        <record id="system_64" model="safra.system"><field name="tech_width_min">0</field><field name="tech_width_max">1.2</field><field name="tech_height_min">0</field><field name="tech_height_max">0.09</field><field name="tech_mechanism"></field></record>
+        <record id="sf_64_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_64_width" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_64"/>
+            <field name="field_id" ref="field_width"/>
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_64_height" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_64"/>
+            <field name="field_id" ref="field_height"/>
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_64_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_64_fabric_id" model="safra.system.field">
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_64_color_id" model="safra.system.field">
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_64_location" model="safra.system.field">
+            <field name="sequence">1000</field>
+        </record>
+        <record id="sf_64_abrazadera" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_64"/>
+            <field name="field_id" ref="field_abrazadera"/>
+            <field name="sequence">1010</field>
+        </record>
+    </data>
+</odoo>

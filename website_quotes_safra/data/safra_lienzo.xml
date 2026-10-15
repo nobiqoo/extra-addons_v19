@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- LIENZO (56) -->
+    <data noupdate="0">
+        <record id="system_56" model="safra.system"><field name="tech_width_min">0.5</field><field name="tech_width_max">1</field><field name="tech_height_min">0.5</field><field name="tech_height_max">1.5</field><field name="tech_mechanism"></field></record>
+        <record id="sf_56_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_56_dimensiones" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_56_custom_design" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_56_design_print" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_56_width" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_56"/>
+            <field name="field_id" ref="field_width"/>
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_56_height" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_56"/>
+            <field name="field_id" ref="field_height"/>
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_56_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_56_fabric_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_56"/>
+            <field name="field_id" ref="field_fabric_id"/>
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_56_color_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_56"/>
+            <field name="field_id" ref="field_color_id"/>
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_56_location" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_56"/>
+            <field name="field_id" ref="field_location"/>
+            <field name="sequence">1000</field>
+        </record>
+    </data>
+</odoo>

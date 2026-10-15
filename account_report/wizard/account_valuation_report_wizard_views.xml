@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="account_valuation_report_wizard_view_form">
+        <field name="name">account.valuation.report.wizard.view.form</field>
+        <field name="model">account.valuation.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Informe Valorización">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date_from"/>
+                            <field 
+                                name="product_ids"
+                                widget="many2many_tags"
+                                options="{'no_create_edit': True, 'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Generar" class="btn-primary" name="create_report" type="object"/>
+                    o
+                    <button string="Cancelar" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_valuation_report" model="ir.actions.act_window">
+        <field name="name">Informe Valorización</field>
+        <field name="res_model">account.valuation.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    
+    <menuitem 
+        id="menu_valuation_report"
+        parent="account_reports.account_reports_audit_reports_menu"
+        sequence="50" 
+        name="Informe Valorización"
+        action="action_valuation_report" />
+</odoo>

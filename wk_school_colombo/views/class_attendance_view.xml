@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Requerimiento "Registro de ausencias" (2.11): Horas de ausencia y
+         Observaciones, visibles desde "Marcar Asistencia" junto al estado y
+         las etiquetas (p. ej. "Llegada tarde"). -->
+    <record id="wk_class_attendance_wizard_view_form_colombo" model="ir.ui.view">
+        <field name="name">wk.class.attendance.wizard.form.colombo</field>
+        <field name="model">wk.class.attendance.wizard</field>
+        <field name="inherit_id" ref="wk_school_management.wk_class_attendance_wizard_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='class_attendance_ids']/list/field[@name='attendance_tag_ids']" position="after">
+                <field name="absence_hours"/>
+                <field name="observations"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="wk_student_class_attendance_view_form_colombo" model="ir.ui.view">
+        <field name="name">wk.student.class.attendance.form.colombo</field>
+        <field name="model">wk.student.class.attendance</field>
+        <field name="inherit_id" ref="wk_school_management.wk_student_class_attendance_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='attendance_tag_ids']" position="after">
+                <field name="absence_hours"/>
+                <field name="observations"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="wk_student_class_attendance_view_list_colombo" model="ir.ui.view">
+        <field name="name">wk.student.class.attendance.list.colombo</field>
+        <field name="model">wk.student.class.attendance</field>
+        <field name="inherit_id" ref="wk_school_management.wk_student_class_attendance_view_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='attendance_tag_ids']" position="after">
+                <field name="absence_hours" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_template_advance_notification" model="mail.template">
+            <field name="name">Advance Notification Email</field>
+            <field name="model_id" ref="model_hr_expense_advance"/>
+            <field name="email_from">{{user.email_formatted}}</field>
+            <field name="subject">Advance Notification from {{object.employee_id.name}} </field>
+            <field name="email_to">{{object.employee_id.coach_id.work_email}}</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>
+                        Dear, <t t-out="object.employee_id.coach_id.name" />
+,
+                    <br />
+                    <br />
+                    <strong>This is a notification Advance</strong>
+                    <br />
+                    <br />
+                    <strong>Advance:</strong>
+                    <t t-out="object.name" />
+                    <br />
+                    <strong>Requested by:</strong>
+                    <t t-out="object.employee_id.name" />
+                    <br />
+                    <strong>Amount:</strong>
+                    <t t-out="object.amount" />
+                    <br />
+                    <strong>Reason:</strong>
+                    <t t-out="object.description" />
+                    </p>
+                        Regards,
+                    <br />
+                    <br />
+                    <t t-out="object.company_id.name" />
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

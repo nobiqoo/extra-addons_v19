@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_payslip_line_rtefte_form" model="ir.ui.view">
+            <field name="name">hr.payslip.line.rtefte.form</field>
+            <field name="model">hr.payslip.line</field>
+            <field name="inherit_id" ref="hr_payroll_co.hr_payslip_line_form" />
+            <field name="arch" type="xml">
+                <field name="concept_id" position="after">
+                    <field name="concept_code" invisible="1" />
+                </field>
+
+                <xpath expr="//field[@name='log_ids']" position="attributes">
+                    <attribute name="invisible">concept_code == 'RTEFTE'</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='log_ids']" position="after">
+                    <field name="log_ids"
+                        invisible="concept_code != 'RTEFTE'"
+                        string="Logs de Retención">
+                        <list editable="bottom">
+                            <!-- Información General -->
+                            <field name="date_from" optional="show" />
+                            <field name="date_to" optional="show" />
+                            <field name="total_salary" string="Salario" optional="show" />
+
+                            <!-- Ingresos -->
+                            <field name="total_earnings" string="Devengado" optional="show" />
+                            <field name="total_comp_earnings" string="Ingresos Complementarios"
+                                optional="show" />
+                            <field name="total_o_salarial_earnings"
+                                string="Otros Devengos Salariales" optional="show" />
+                            <field name="total_o_rights" string="Otros Derechos" optional="show" />
+                            <field name="total_o_earnings" string="Otros Devengos" optional="show" />
+
+                            <!-- Deducciones -->
+                            <field name="rtefte_ded_pens" string="Deducción Pensión" optional="show" />
+                            <field name="rtefte_ded_eps" string="Deducción EPS" optional="show" />
+                            <field name="rtefte_fond_sol" string="Fondo Solidaridad" optional="show" />
+                            <field name="rtefte_fond_sub" string="Fondo Subsistencia"
+                                optional="show" />
+
+                            <!-- Aportes Voluntarios -->
+                            <field name="rtefte_avp" string="Aportes AVP" optional="show" />
+                            <field name="rtefte_afc" string="Aportes AFC" optional="show" />
+
+                            <!-- Rentas Exentas -->
+                            <field name="rtefte_annual_top25" string="Tope Anual 25%"
+                                optional="show" />
+                            <field name="rtefte_top25_monthly" string="Renta Exenta 25% Mensual"
+                                optional="show" />
+                            <field name="rtefte_top25_total" string="Total Renta Exenta 25%"
+                                optional="show" />
+                            <field name="rtefte_annual_top40" string="Tope Anual 40%"
+                                optional="show" />
+                            <field name="rtefte_top40_monthly" string="Renta Exenta 40% Mensual"
+                                optional="show" />
+                            <field name="rtefte_top40_total" string="Total Renta Exenta 40%"
+                                optional="show" />
+                            <field name="rtefte_exempt_rent" string="Total Renta Exenta"
+                                optional="show" />
+
+                            <!-- Base y Retención -->
+                            <field name="total_base" string="Base Retención" optional="show" />
+                            <field name="rate" string="Porcentaje" optional="show" />
+                            <field name="total" string="Valor Retención" optional="show" />
+                        </list>
+                    </field>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

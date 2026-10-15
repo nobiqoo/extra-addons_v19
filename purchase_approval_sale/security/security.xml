@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rule_sale_order_approval_manager_all" model="ir.rule">
+        <field name="name">Sale Order Approval - Manager All</field>
+        <field name="model_id" ref="model_sale_order_approval"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+    <record id="rule_sale_order_approval_internal_relevant" model="ir.rule">
+        <field name="name">Sale Order Approval - Internal Relevant</field>
+        <field name="model_id" ref="model_sale_order_approval"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="domain_force">
+            ['|','|',
+                ('approver_id','=',user.id),
+                ('alternate_approver_id','=',user.id),
+                ('order_id.user_id','=',user.id)
+            ]
+        </field>
+    </record>
+</odoo>

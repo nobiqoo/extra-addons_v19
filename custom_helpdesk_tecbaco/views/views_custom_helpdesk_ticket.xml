@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="custom_helpdesk_ticket_view_form">
+            <field name="name">Custom helpdesk ticket view form</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group" position="after">
+                    <group string="Detalles del servicio">
+                        <group>
+                            <field name="zone_id" />
+                        </group>
+                        <group>
+                             <field name="service_type_id" domain="[('id', 'in', allowed_service_type_ids)]"/>
+                        
+                        <field name="category_id" readonly="is_service" force_save="1" domain="[('id', 'in', allowed_category_ids)]"/>
+                            <field name="sub_category_id" readonly="is_service" domain="[('id', 'in', allowed_subcategory_ids)]" force_save="1"/>
+                            <field name="support_type_id"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="custom_sequence"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id ="helpdesk_tickets_view_tree_custom_tecbaco" model="ir.ui.view">
+            <field name="name">Custom helpdesk ticket view tree</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="custom_sequence"/>
+                    </xpath>
+                    </field>
+        </record>
+
+
+    </data>
+</odoo>

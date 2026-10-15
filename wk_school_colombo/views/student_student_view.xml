@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="student_student_form_colombo" model="ir.ui.view">
+        <field name="name">student.student.form.colombo</field>
+        <field name="model">student.student</field>
+        <field name="inherit_id" ref="wk_school_management.student_student_form"/>
+        <field name="arch" type="xml">
+            <!-- Requerimiento "Estados académicos del estudiante" (2.2, 2.7):
+                 el estado se ve en el encabezado, y el botón "Aplazar" abre
+                 el asistente de confirmación (wizard/student_postpone_wizard_view.xml).
+                 Visible solo para Officer/Admin (2.7/2.16); oculto cuando ya
+                 está Aplazado -no tiene sentido aplazar dos veces-. -->
+            <xpath expr="//header" position="inside">
+                <button name="%(student_postpone_wizard_action)d" type="action"
+                        string="Aplazar" class="btn-secondary"
+                        groups="wk_school_management.wk_school_management_officer_group"
+                        invisible="academic_status == 'postponed'"/>
+                <field name="academic_status" widget="badge"
+                       decoration-info="academic_status == 'new'"
+                       decoration-success="academic_status == 'activated'"
+                       decoration-warning="academic_status == 'released'"
+                       decoration-danger="academic_status == 'postponed'"/>
+            </xpath>
+
+            <!-- Botones "Activate Transport" y "Update Route" -->
+            <xpath expr="//header/button[@name='action_activate_transport'][1]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='action_activate_transport'][2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!-- Botón "Deactivate Transport" -->
+            <xpath expr="//header/button[@name='action_deactivate_transport']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!-- Grupo "Transportation Details" -->
+            <xpath expr="//group[@name='transportation_details']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!-- Tarea 11292: la pestaña "Library Fine" no aplica al Centro
+                 Colombo Americano. El campo library_fine_ids se conserva en el
+                 modelo porque las multas de biblioteca se siguen liquidando en
+                 el recibo de tarifas. La pestaña no tiene atributo name y el
+                 heredado no admite @string como selector, así que se ubica a
+                 través del campo que contiene. -->
+            <xpath expr="//field[@name='library_fine_ids']/parent::page" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Requerimiento de campos académicos: Sede (company_id)
+                 visible para todos los perfiles. -->
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                <attribute name="groups"></attribute>
+            </xpath>
+
+            <!-- Edad calculada, junto a la fecha de nacimiento. -->
+            <xpath expr="//field[@name='dob']" position="after">
+                <field name="age" readonly="1"/>
+            </xpath>
+
+            <!-- Restricción del estudiante: el check va en el encabezado
+                 general; el motivo se consulta desde "Disciplina" (más
+                 abajo), según el criterio de aceptación del requerimiento.
+                 Ambos visibles solo para Officer/Admin. -->
+            <xpath expr="//field[@name='parent_portal_active']" position="after">
+                <field name="is_restricted"
+                       groups="wk_school_management.wk_school_management_officer_group"/>
+                <!-- Placeholder de visibilidad individual de calificaciones,
+                     sin lógica asociada (ver models/student_student.py). -->
+                <field name="hide_grades_for_student"/>
+            </xpath>
+
+            <!-- Barrio y ciudad estructurada, junto a la dirección. Ambos
+                 obligatorios solo a nivel de vista (no en el modelo): ver la
+                 nota en models/student_student.py sobre por qué el asistente
+                 de inscripción necesita que no lo sean a nivel de base de
+                 datos. -->
+            <xpath expr="//field[@name='street']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('o_address_format')]/field[@name='country_id']" position="after">
+                <field name="barrio" required="1"/>
+                <field name="city_id" options="{'no_open': True, 'no_quick_create': True}"/>
+            </xpath>
+
+            <!-- "ZIP" está traducido en Odoo como "Cremallera" (mala
+                 traducción del catálogo base, ZIP-fastener en vez de código
+                 postal); estos campos van dentro de o_address_format, que no
+                 muestra @string sino @placeholder, así que se corrige ahí.
+                 Se acota al bloque de dirección: los mismos nombres de campo
+                 se repiten en la plantilla kanban de parent_ids (acudientes),
+                 más abajo en esta misma vista. -->
+            <xpath expr="//div[hasclass('o_address_format')]/field[@name='zip']" position="attributes">
+                <attribute name="placeholder">Código postal</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('o_address_format')]/field[@name='state_id']" position="attributes">
+                <attribute name="placeholder">Departamento / Estado</attribute>
+            </xpath>
+
+            <!-- Campos generales del estudiante (requerimiento de campos
+                 académicos), antes del bloque de padres/acudiente. -->
+            <xpath expr="//group[@name='parent_details']" position="before">
+                <group name="colombo_general_info">
+                    <group>
+                        <field name="program_type_id"/>
+                        <field name="tipo_persona" widget="radio"/>
+                        <field name="estado_civil"/>
+                        <field name="nivel_formacion"/>
+                        <field name="ocupacion_actual"/>
+                        <field name="idioma_nativo"/>
+                        <field name="idioma_nativo_otro" invisible="idioma_nativo != 'otro'"/>
+                    </group>
+                    <group>
+                        <field name="issuance_city_id"/>
+                        <field name="origin_city_id"/>
+                        <field name="landline_phone"/>
+                        <field name="additional_phone"/>
+                        <field name="additional_mobile"/>
+                        <field name="email_dian" widget="email"/>
+                        <field name="contact_preference"/>
+                    </group>
+                </group>
+            </xpath>
+
+            <!-- La pestaña "Parent Details" pasa a llamarse "Información del
+                 acudiente" (nombre exacto pedido por el criterio de
+                 aceptación) y agrega la lista de acudientes registrados, sin
+                 quitar la información heredada por el portal (parent_ids).
+                 El grupo "Información del padre/madre" (parent_details) se
+                 MUEVE aquí dentro -no se copia-: el requerimiento 2.6 pide
+                 explícitamente que esa información deje de estar en el
+                 cuerpo principal del formulario y pase a esta pestaña. -->
+            <xpath expr="//field[@name='parent_ids']/parent::page" position="attributes">
+                <attribute name="string">Información del acudiente</attribute>
+            </xpath>
+            <xpath expr="//field[@name='parent_ids']/parent::page" position="inside">
+                <xpath expr="//group[@name='parent_details']" position="move"/>
+                <group string="Acudientes registrados">
+                    <field name="guardian_ids" nolabel="1" colspan="2">
+                        <list editable="bottom">
+                            <field name="name"/>
+                            <field name="landline_phone"/>
+                            <field name="mobile"/>
+                            <field name="relationship"/>
+                            <field name="relationship_other" invisible="relationship != 'otro'"/>
+                            <field name="email"/>
+                        </list>
+                    </field>
+                </group>
+            </xpath>
+
+            <!-- Nuevas pestañas de solo lectura: histórico de Disciplina
+                 (con el motivo de restricción dentro) e histórico de
+                 Observaciones, agregando lo relacionado con el estudiante a
+                 través de todas sus inscripciones. Nombre exacto "Disciplina"
+                 pedido por el criterio de aceptación (sin "(histórico)"). -->
+            <xpath expr="//field[@name='parent_ids']/parent::page" position="after">
+                <page name="colombo_discipline" string="Disciplina">
+                    <group groups="wk_school_management.wk_school_management_officer_group">
+                        <label for="restriction_reason" string="Motivo / observación de la restricción"/>
+                        <field name="restriction_reason" nolabel="1" colspan="2"
+                               placeholder="Ingrese aquí el motivo u observación de la restricción del estudiante..."/>
+                    </group>
+                    <separator string="Histórico de disciplina"/>
+                    <field name="discipline_ids" readonly="1">
+                        <list string="Disciplina">
+                            <field name="name"/>
+                            <field name="discipline_type"/>
+                            <field name="incident_date"/>
+                            <field name="enrollment_id"/>
+                        </list>
+                    </field>
+                </page>
+                <page name="colombo_observations" string="Observaciones">
+                    <field name="observation_ids" readonly="1">
+                        <list string="Observaciones">
+                            <field name="create_date" string="Fecha y hora de registro"/>
+                            <field name="observation_type"/>
+                            <field name="origin"/>
+                            <field name="reference_display"/>
+                            <field name="move_id"/>
+                            <field name="user_id"/>
+                            <field name="comment"/>
+                        </list>
+                    </field>
+                </page>
+                <!-- Requerimiento "Estados académicos del estudiante" (2.9,
+                     2.15): trazabilidad de todos los cambios de estado,
+                     automáticos y manuales. Solo lectura -se escribe
+                     únicamente desde el recálculo automático o el asistente
+                     de Aplazar, nunca a mano-. -->
+                <page name="colombo_academic_status_log" string="Histórico de estados">
+                    <field name="status_log_ids" readonly="1">
+                        <list string="Histórico de estados">
+                            <field name="create_date" string="Fecha y hora"/>
+                            <field name="state_from"/>
+                            <field name="state_to"/>
+                            <field name="related_class_id"/>
+                            <field name="change_type"/>
+                            <field name="user_id"/>
+                            <field name="reason"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Requerimiento "Estados académicos del estudiante" (2.2): visible en
+         la lista, búsqueda, filtros y agrupación. -->
+    <record id="student_student_tree_colombo" model="ir.ui.view">
+        <field name="name">student.student.list.colombo</field>
+        <field name="model">student.student</field>
+        <field name="inherit_id" ref="wk_school_management.student_student_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='current_grade_id']" position="after">
+                <field name="academic_status" widget="badge"
+                       decoration-info="academic_status == 'new'"
+                       decoration-success="academic_status == 'activated'"
+                       decoration-warning="academic_status == 'released'"
+                       decoration-danger="academic_status == 'postponed'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="student_student_search_colombo" model="ir.ui.view">
+        <field name="name">student.student.search.colombo</field>
+        <field name="model">student.student</field>
+        <field name="inherit_id" ref="wk_school_management.student_student_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="academic_status"/>
+            </xpath>
+            <xpath expr="//filter[@name='archived']" position="after">
+                <separator/>
+                <filter name="academic_status_new" string="Nuevo" domain="[('academic_status','=','new')]"/>
+                <filter name="academic_status_activated" string="Activado" domain="[('academic_status','=','activated')]"/>
+                <filter name="academic_status_released" string="Liberado" domain="[('academic_status','=','released')]"/>
+                <filter name="academic_status_postponed" string="Aplazado" domain="[('academic_status','=','postponed')]"/>
+            </xpath>
+            <xpath expr="//filter[@name='group_by_current_grade_id']" position="after">
+                <filter name="group_by_academic_status" string="Estado académico" domain="[]" context="{'group_by':'academic_status'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

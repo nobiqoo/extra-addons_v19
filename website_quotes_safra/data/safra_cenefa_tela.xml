@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sistema CENEFA TELA (grupo de asociación 31 en SAP): venta individual
+         de la cenefa en tela, gemelo del sistema CENEFA PVC (65). Fuentes:
+         columna "Cenefa Tela" de la Matriz Unificada (26 variables), hoja
+         Grupos_Asociacion del archivo de Restricciones (31 = CENEFA TELA) y
+         maestro SAP (P200001030 "Persiana Cenefa En Tela" / E200001030
+         "Exhibicion Cenefa En Tela").
+
+         Notas:
+         - Tipo de Cenefa reusa el campo global cenefa_panel restringido a las
+           4 formas de la matriz (I__;__;__I;I__I = valores 5/2/4/6).
+         - Perfil Cenefa (Estándar/Perfilum) muestra sus opciones globales; su
+           dependencia global (cenefa_type=tela) se reemplaza por la forma
+           elegida en este sistema.
+         - Sin Localización: el grupo 31 está exento (archivo Restricciones),
+           igual que en el motor de validaciones.
+         - Telas: sin asociación propia todavía; el portal muestra el catálogo
+           completo hasta que el cliente defina las telas de cenefa.
+         - Ficha técnica espejo de CENEFA PVC; ajustar cuando el cliente
+           entregue los rangos reales.
+         - "Tela de Cenefa" (F93) no se mapea: en la venta individual la tela
+           ES la Referencia principal. -->
+    <data>
+
+        <record id="system_31" model="safra.system">
+            <field name="code">31</field>
+            <field name="name">CENEFA TELA</field>
+            <field name="tech_width_min">0.3</field>
+            <field name="tech_width_max">5.5</field>
+            <field name="tech_height_min">0</field>
+            <field name="tech_height_max">0.1</field>
+        </record>
+
+        <!-- Zona superior (filas &lt; 45 del Excel) -->
+        <record id="sf_31_exhibition" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_31"/>
+            <field name="field_id" ref="website_quotes_safra.field_exhibition"/>
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_31_width" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_31"/>
+            <field name="field_id" ref="website_quotes_safra.field_width"/>
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_31_height" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_31"/>
+            <field name="field_id" ref="website_quotes_safra.field_height"/>
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_31_quantity" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_31"/>
+            <field name="field_id" ref="website_quotes_safra.field_quantity"/>
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_31_fabric_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_31"/>
+            <field name="field_id" ref="website_quotes_safra.field_fabric_id"/>
+            <field name="sequence">150</field>
+        </record>
+        <record id="sf_31_color_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_31"/>
+            <field name="field_id" ref="website_quotes_safra.field_color_id"/>
+            <field name="sequence">160</field>
+        </record>
+        <record id="sf_31_tela_al_reves" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_31"/>
+            <field name="field_id" ref="website_quotes_safra.field_tela_al_reves"/>
+            <field name="sequence">200</field>
+        </record>
+
+        <!-- Bloque cenefa (filas 86-94 del Excel, zona accesorios) -->
+        <record id="sf_31_cenefa_panel" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_31"/>
+            <field name="field_id" ref="website_quotes_safra.field_cenefa_panel"/>
+            <field name="sequence">1080</field>
+        </record>
+        <record id="sfo_31_cenefa_panel_2" model="safra.system.field.option">
+            <field name="system_field_id" ref="website_quotes_safra.sf_31_cenefa_panel"/>
+            <field name="value">2</field>
+            <field name="name">Cenefa Tela ____</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="sfo_31_cenefa_panel_5" model="safra.system.field.option">
+            <field name="system_field_id" ref="website_quotes_safra.sf_31_cenefa_panel"/>
+            <field name="value">5</field>
+            <field name="name">Cenefa Tela |__</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="sfo_31_cenefa_panel_4" model="safra.system.field.option">
+            <field name="system_field_id" ref="website_quotes_safra.sf_31_cenefa_panel"/>
+            <field name="value">4</field>
+            <field name="name">Cenefa Tela __|</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="sfo_31_cenefa_panel_6" model="safra.system.field.option">
+            <field name="system_field_id" ref="website_quotes_safra.sf_31_cenefa_panel"/>
+            <field name="value">6</field>
+            <field name="name">Cenefa Tela |__|</field>
+            <field name="sequence">40</field>
+        </record>
+
+        <record id="sf_31_perfil_cenefa" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_31"/>
+            <field name="field_id" ref="website_quotes_safra.field_perfil_cenefa"/>
+            <field name="sequence">1090</field>
+            <field name="depends_field_id" ref="website_quotes_safra.field_cenefa_panel"/>
+            <field name="depends_value">2,4,5,6</field>
+        </record>
+        <record id="sf_31_cenefa_dividida" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_31"/>
+            <field name="field_id" ref="website_quotes_safra.field_cenefa_dividida"/>
+            <field name="sequence">1100</field>
+        </record>
+        <record id="sf_31_corte_cenefa" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_31"/>
+            <field name="field_id" ref="website_quotes_safra.field_corte_cenefa"/>
+            <field name="sequence">1200</field>
+        </record>
+
+    </data>
+</odoo>

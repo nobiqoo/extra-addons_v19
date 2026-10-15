@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="product_view_form_inherit" model="ir.ui.view">
+		<field name="name">product.view.form.inherit</field>
+		<field name="model">product.product</field>
+		<field name="inherit_id" ref="product.product_normal_form_view" />
+		<field name="arch" type="xml">
+			<xpath expr="//group[@name='group_general']/field[@name='product_tooltip']" position="after">
+				<field name="invima" />
+				<field name="invima_expiration_date" />
+				<field name="witness" invisible="1" />
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

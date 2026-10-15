@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="purchase_import_simple_report_view_tree" model="ir.ui.view">
+            <field name="name">purchase.import.simple.report.view.tree</field>
+            <field name="model">purchase.import.simple.report</field>
+            <field name="arch" type="xml">
+                <list string="Purchase Order Simple Report" create="false" import="false" delete="false" sample="1">
+                    <field name="order_name" string="Purchase Order Name" />
+                    <field name="import_name" string="Import Name" />
+                    <field name="product_category" string="Product Category" />
+                    <field name="order_subtotal" string="Order Subtotal" />
+                    <field name="date_origin" string="Date Origin" />
+                    <field name="date_port" string="Date Port" />
+                    <field name="date_destination" string="Date Destination" />
+                </list>
+            </field>
+        </record>
+
+        <record id="purchase_import_simple_report_view_search" model="ir.ui.view">
+            <field name="name">purchase.import.simple.report.view.search</field>
+            <field name="model">purchase.import.simple.report</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="order_name" string="Order Name" filter_domain="[('order_name', 'ilike', self)]" />
+                    <field name="product_category" string="Product Category" filter_domain="[('product_category', 'ilike', self)]" />
+                    <field name="import_name" string="Import Name" filter_domain="[('import_name', 'ilike', self)]" />
+                    <separator/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_purchase_import_simple_report" model="ir.actions.act_window">
+            <field name="name">Purchase Order Simple Report</field>
+            <field name="res_model">purchase.import.simple.report</field>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="purchase_import_simple_report_view_tree" />
+        </record>
+
+        <menuitem id="menu_purchase_import_simple_report" name="Purchase Order Simple Report " action="action_purchase_import_simple_report" parent="purchase_import.menu_purchase_import_report_header" sequence="10"/>
+
+    </data>
+
+
+</odoo>

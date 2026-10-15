@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_tree_custom_po" model="ir.ui.view">
+        <field name="name">sale.order.tree.custom.po</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="tracking_number" string="Número de Guía" optional="show" />
+                <field name="purchase_order_names" string="OC Relacionadas" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_form_custom_delivery" model="ir.ui.view">
+        <field name="name">sale.order.form.custom.delivery</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="tracking_number" placeholder="Ej: 1234567890" readonly="state not in ['draft', 'sent']" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

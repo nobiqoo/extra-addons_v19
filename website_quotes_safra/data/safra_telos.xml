@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- TELOS (16) - producto simple -->
+    <data noupdate="0">
+        <record id="system_16" model="safra.system"><field name="tech_width_min">0.2</field><field name="tech_width_max">1.05</field><field name="tech_height_min">1</field><field name="tech_height_max">3.5</field><field name="tech_mechanism"></field></record>
+        <record id="sf_16_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_16_custom_design" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_16_sesgo" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_16_width" model="safra.system.field">
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_16_height" model="safra.system.field">
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_16_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_16_fabric_id" model="safra.system.field">
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_16_color_id" model="safra.system.field">
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_16_coordinado" model="safra.system.field">
+            <field name="sequence">150</field>
+        </record>
+        <record id="sf_16_perfil" model="safra.system.field">
+            <field name="sequence">1000</field>
+            <field name="label_override">Tipo de Perfil</field>
+        </record>
+        <record id="sf_16_design_print" model="safra.system.field">
+            <field name="sequence">1010</field>
+        </record>
+        <record id="sf_16_print_m2" model="safra.system.field">
+            <field name="sequence">1011</field>
+        </record>
+        <record id="sf_16_design_exterior" model="safra.system.field">
+            <field name="sequence">1020</field>
+        </record>
+        <record id="sf_16_tela_al_reves" model="safra.system.field">
+            <field name="sequence">1030</field>
+        </record>
+        <record id="sf_16_location" model="safra.system.field">
+            <field name="sequence">1040</field>
+        </record>
+    </data>
+</odoo>

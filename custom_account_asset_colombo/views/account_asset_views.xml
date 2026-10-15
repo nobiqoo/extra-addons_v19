@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record id="view_account_asset_form_colombo" model="ir.ui.view">
+            <field name="name">account.asset.form.colombo</field>
+            <field name="model">account.asset</field>
+            <field name="inherit_id" ref="account_asset_ifrs.view_account_asset_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='other_information']//field[@name='brand']" position="after">
+                    <field name="iva_value" widget="monetary"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_asset_tree_colombo" model="ir.ui.view">
+            <field name="name">account.asset.list.colombo</field>
+            <field name="model">account.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="iva_value" widget="monetary" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

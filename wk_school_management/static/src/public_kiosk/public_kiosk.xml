@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates xml:space="preserve">
+
+    <t t-name="wk_school_management.BarcodeScanner" t-inherit="barcodes.BarcodeScanner" t-inherit-mode="primary">
+        <xpath expr="//div[hasclass('o_barcode_mobile_container')]" position="replace">
+            <div class="student_attendance_kiosk d-flex justify-content-around" t-att-class="{'position-relative' : !isDisplayStandalone}">
+                <button t-if="isBarcodeScannerSupported" t-on-click="openMobileScanner" class="o_mobile_barcode btn btn-light btn-lg rounded-3" t-att-class="{'position-absolute' : !isDisplayStandalone}" style="padding:60px;">
+                    <i class="fa fa-4x fa-barcode mb-3"/>
+                    <span class="d-block fs-4">Scan your badge</span>
+                </button>
+                <a t-if="!isDisplayStandalone" class="o_school_attendance_install_btn btn btn-secondary d-flex align-items-center justify-content-center fw-bolder position-relative" t-att-href="installURL" target="_blank">Install</a>
+            </div>
+        </xpath>
+    </t>
+
+    <t t-name="wk_school_management.public_kiosk_app">
+        <MainComponentsContainer/>
+        <div class="o_kiosk_app_wrapper d-flex flex-column h-100">
+            <div class="row align-items-center p-2 m-0 pt-md-5 pt-5">
+                <div class="col-md-8 col-12">
+                    <div class="py-1 d-flex flex-column-reverse flex-sm-row align-items-center justify-content-md-end justify-content-center mt-2 mt-sm-0" style="color:#3a3a3a;">
+                        <span class="me-0 me-sm-2 display-6" t-esc="state.time"/>
+                        <div class="d-flex flex-sm-column gap-1 gap-sm-0 small">
+                            <span t-esc="state.dayOfWeek"/>
+                            <span t-esc="state.date"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 d-flex justify-content-md-end justify-content-center mt-2 mt-md-0">
+                    <img t-att-src="companyImageUrl"
+                        alt="Company Logo"
+                        class="o_hr_attendance_kiosk_company_image"
+                        style="height: 50px; object-fit: contain;" />
+                </div>
+            </div>
+
+            <div class="o_hr_kiosk_mode_main d-flex flex-column flex-sm-row gap-2 m-auto">
+                <StudentKioskBarcodeScanner
+                token="this.props.token"
+                barcodeSource="this.props.barcodeSource"
+                onBarcodeScanned="(ev) => this.onBarcodeScanned(ev)"/>
+            </div>            
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,10 @@
+<odoo>
+    <record id="report_account_analytic_xlsx" model="ir.actions.report">
+        <field name="name">Account analytic report XLSX</field>
+        <field name="model">report.account_logistic_odone.report_account_analytic</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">account_logistic_odone.report_account_analytic</field>
+        <field name="report_file">account_analytic_wizard</field>
+        <field name="attachment_use" eval="False" />
+    </record>
+</odoo>

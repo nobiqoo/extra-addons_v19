@@ -1,0 +1,110 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_purchase_baseline
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-26 16:05+0000\n"
+"PO-Revision-Date: 2024-11-26 16:05+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_purchase_baseline
+#: model:ir.model.fields,field_description:sale_purchase_baseline.field_res_company__activate_filter_purchase
+#: model:ir.model.fields,field_description:sale_purchase_baseline.field_res_config_settings__activate_filter_purchase
+msgid "Activate Filter Purchase"
+msgstr ""
+
+#. module: sale_purchase_baseline
+#: model:ir.model.fields,field_description:sale_purchase_baseline.field_res_company__activate_filter_sale
+#: model:ir.model.fields,field_description:sale_purchase_baseline.field_res_config_settings__activate_filter_sale
+msgid "Activate Filter Sale"
+msgstr ""
+
+#. module: sale_purchase_baseline
+#: model_terms:ir.ui.view,arch_db:sale_purchase_baseline.view_res_config_settings_inherit
+#: model_terms:ir.ui.view,arch_db:sale_purchase_baseline.view_res_config_settings_inherit_purchase
+msgid ""
+"Allows to activate the search filter for products associated to the price "
+"list"
+msgstr ""
+
+#. module: sale_purchase_baseline
+#: model:ir.model.fields,field_description:sale_purchase_baseline.field_res_company__block_contact_without_account_position
+#: model:ir.model.fields,field_description:sale_purchase_baseline.field_res_config_settings__block_contact_without_account_position
+msgid "Block by contact without account position"
+msgstr ""
+
+#. module: sale_purchase_baseline
+#. odoo-python
+#: code:addons/sale_purchase_baseline/models/purchase_order.py:0
+#, python-format
+msgid ""
+"Blocking error, in order to confirm the purchase please make sure that the customer has a fiscal position,\n"
+"please contact Accounting to release the contact."
+msgstr ""
+
+#. module: sale_purchase_baseline
+#. odoo-python
+#: code:addons/sale_purchase_baseline/models/sale_order.py:0
+#, python-format
+msgid ""
+"Blocking error, in order to confirm the quotation please make sure that the customer has a fiscal position,\n"
+"please contact Accounting to release the contact."
+msgstr ""
+
+#. module: sale_purchase_baseline
+#: model:ir.model,name:sale_purchase_baseline.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: sale_purchase_baseline
+#: model:ir.model,name:sale_purchase_baseline.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: sale_purchase_baseline
+#: model_terms:ir.ui.view,arch_db:sale_purchase_baseline.view_res_config_settings_inherit_account
+msgid "Fiscal Position"
+msgstr ""
+
+#. module: sale_purchase_baseline
+#: model:ir.model,name:sale_purchase_baseline.model_purchase_order
+msgid "Purchase Order"
+msgstr ""
+
+#. module: sale_purchase_baseline
+#: model:ir.model,name:sale_purchase_baseline.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr ""
+
+#. module: sale_purchase_baseline
+#: model:ir.model,name:sale_purchase_baseline.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: sale_purchase_baseline
+#: model:ir.model,name:sale_purchase_baseline.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: sale_purchase_baseline
+#: model_terms:ir.ui.view,arch_db:sale_purchase_baseline.view_res_config_settings_inherit_account
+msgid ""
+"Validate if the contact has not been assigned an account position and block "
+"the current sale order"
+msgstr ""
+
+#. module: sale_purchase_baseline
+#: model:ir.model.fields,help:sale_purchase_baseline.field_res_company__block_contact_without_account_position
+#: model:ir.model.fields,help:sale_purchase_baseline.field_res_config_settings__block_contact_without_account_position
+msgid ""
+"Validate if the contact has not been assigned an account position and block "
+"the current sale order."
+msgstr ""

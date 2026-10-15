@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <record id="type_general_exam" model="medical.exam.type">
+            <field name="name">Examen general</field>
+        </record>
+        <record id="type_psychological_exam" model="medical.exam.type">
+            <field name="name">Examen psicológico</field>
+        </record>
+        <record id="type_physical_exam" model="medical.exam.type">
+            <field name="name">Examen Físico</field>
+        </record>
+    </data>
+</odoo>

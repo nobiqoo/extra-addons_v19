@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sequence_view_edi_resolution" model="ir.ui.view">
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view"/>
+            <field name="arch" type="xml">
+                <field name="implementation" position="after">
+                    <field name="fiscal_position_local" invisible="1"/>
+                    <field name="edi_resolution_control" invisible="not fiscal_position_local"/>
+                </field>
+                <field name="implementation" position="attributes">
+                    <attribute name="readonly">edi_resolution_control</attribute>
+                </field>
+                <field name="suffix" position="attributes">
+                    <attribute name="readonly">edi_resolution_control</attribute>
+                </field>
+                <field name="use_date_range" position="attributes">
+                    <attribute name="readonly">edi_resolution_control</attribute>
+                </field>
+                <field name="padding" position="attributes">
+                    <attribute name="readonly">edi_resolution_control</attribute>
+                </field>
+                <field name="number_increment" position="attributes">
+                    <attribute name="readonly">edi_resolution_control</attribute>
+                </field>
+                <field name="date_from" position="before">
+                    <field name="active_resolution" readonly="1" column_invisible="not parent.fiscal_position_local"/>
+                    <field name="prefix" readonly="1" column_invisible="not parent.fiscal_position_local"/>
+                    <field name="edi_resolution" required="parent.edi_resolution_control" column_invisible="not parent.fiscal_position_local"/>
+                    <field name="number_from" required="parent.edi_resolution_control" column_invisible="not parent.fiscal_position_local"/>
+                    <field name="number_to" required="parent.edi_resolution_control" column_invisible="not parent.fiscal_position_local"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

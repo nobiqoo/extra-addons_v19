@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+
+<odoo>
+    <data>
+
+        <record id="view_transport_trip_pickup" model="ir.ui.view">
+            <field name="name">transport.trip.pickup.form</field>
+            <field name="model">transport.trip</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <form string="Pickup Students">
+                    <div class="alert alert-warning" role="alert" invisible="not has_difference">
+                        <span>The pickup attendance and dropoff attendance do not match. Kindly add a remark clarifying the reason for this difference before marking the trip as completed.</span>
+                    </div>
+                    <sheet>
+                        <group>
+                            <group colspan="2">
+                                <field name="total_students" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="total_pickup_present" string="Pickup(Present)" readonly="1"/>
+                                <field name="total_pickup_absent" string="Pickup(Absent)" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="total_dropoff_present" string="Dropoff(Present)" readonly="1"/>
+                                <field name="total_dropoff_absent" string="Dropoff(Absent)" readonly="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="remarks" required="has_difference" placeholder="Add remarks about the Trip."/>
+                        </group>
+                        <field name="trip_line_ids" context="{'default_trip_id': id}" >
+                            <list editable="bottom" create="False" delete="False">
+                                <field name="student_id" readonly="1"/>
+                                <field name="location_id" readonly="1"/>
+                                <field name="pickup_time"/>
+                                <field name="picked_up"/>
+                                <field name="dropoff_time"/>
+                                <field name="dropped_off"/>
+                            </list>
+                        </field>
+                        <footer>
+                            <button name="action_complete_trip" type="object" string="Complete Trip" class="oe_highlight" confirm="Are you sure you want to complete Trip?"/>
+                            <button special="cancel" string="Cancel" class="btn-secondary"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_transport_trip_form" model="ir.ui.view">
+            <field name="name">transport.trip.form</field>
+            <field name="model">transport.trip</field>
+            <field name="arch" type="xml">
+                <form string="Transport Trip">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="new,progress,completed"/>
+                        <button name="action_start_trip" type="object" string="Start Trip" class="oe_highlight" invisible="state != 'new'"/>
+                        <button name="action_trip_done" type="object" string="Mark Done" class="oe_highlight" invisible="state != 'progress'"/>
+                        <button name="action_trip_new" type="object" string="Set to New" class="oe_highlight" invisible="state != 'cancelled'"/>
+                        <button name="action_cancel_trip" type="object" string="Cancel" class="btn-secondary" invisible="state == 'cancelled'"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <span class="o_form_label">Trip Name</span>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="route_id" readonly="state != 'new'"/>
+                                <field name="trip_date" widget="date" readonly="state != 'new'"/>
+                                <field name="other_responsible_ids" invisible="1"/>
+                                <field name="responsible_id" readonly="state != 'new'" domain="[('id','in',other_responsible_ids)]"/>
+                                <field name="company_id" string="School" readonly="is_single_company" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <group colspan="2">
+                                    <field name="vehicle_id" readonly="state != 'new'" domain="[('company_id','=',company_id)]"/>
+                                </group>
+                                <group>
+                                    <field name="driver_id" string="Driver" readonly="state != 'new'"/>
+                                    <field name="driver_phone" string="Driver Phone" />
+                                </group>
+                                <group colspan="2">
+                                    <field name="total_students" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="total_pickup_present" string="Pickup(Present)" readonly="1"/>
+                                    <field name="total_pickup_absent" string="Pickup(Absent)" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="total_dropoff_present" string="Dropoff(Present)" readonly="1"/>
+                                    <field name="total_dropoff_absent" string="Dropoff(Absent)" readonly="1"/>
+                                </group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Overall Trip Details">
+                                <field name="trip_line_ids" context="{'default_trip_id': id}" readonly="state != 'progress'" force_save="1">
+                                    <list editable="bottom" create="False" delete="False">
+                                        <field name="student_id" readonly="1" force_save="1"/>
+                                        <field name="location_id" readonly="1" force_save="1" optional="False"/>
+                                        <field name="pickup_time"/>
+                                        <field name="picked_up"/>
+                                        <field name="dropoff_time"/>
+                                        <field name="dropped_off"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="remarks" string="Remarks">
+                                <field name="remarks" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_transport_trip_tree" model="ir.ui.view">
+            <field name="name">transport.trip.tree</field>
+            <field name="model">transport.trip</field>
+            <field name="arch" type="xml">
+                <list string="Transport Trips" create="false" edit="true" default_order="id desc">
+                    <field name="name"/>
+                    <field name="route_id"/>
+                    <field name="trip_date"/>
+                    <field name="total_students"/>
+                    <field name="total_pickup_present" string="Pickup(Present)"/>
+                    <field name="total_pickup_absent" string="Pickup(Absent)"/>
+                    <field name="total_dropoff_present" string="Dropoff(Present)"/>
+                    <field name="total_dropoff_absent" string="Dropoff(Absent)"/>
+                    <field name="state" widget="badge" decoration-info="state == 'new'" decoration-warning="state == 'picked'" decoration-success="state == 'completed'" decoration-danger="state == 'cancelled'" />
+                </list>
+            </field>
+        </record>
+
+        <record id="view_transport_trip_calendar" model="ir.ui.view">
+            <field name="name">transport.trip.calendar</field>
+            <field name="model">transport.trip</field>
+            <field name="arch" type="xml">
+                <calendar string="Transport Trips" date_start="trip_date" color="route_id" mode="month">
+                    <field name="name"/>
+                    <field name="route_id"/>
+                    <field name="trip_date"/>
+                    <field name="state"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="view_transport_trip_pivot" model="ir.ui.view">
+            <field name="name">transport.trip.pivot</field>
+            <field name="model">transport.trip</field>
+            <field name="arch" type="xml">
+                <pivot string="Transport Trips">
+                    <field name="trip_date" type="col"/>
+                    <field name="id" type="row"/>
+                    <field name="total_students" type="measure"/>
+                    <field name="total_pickup_present" type="measure"/>
+                    <field name="total_dropoff_present" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_transport_trip_graph" model="ir.ui.view">
+            <field name="name">transport.trip.graph</field>
+            <field name="model">transport.trip</field>
+            <field name="arch" type="xml">
+                <graph string="Transport Trips" type="bar" stacked="1">
+                    <field name="id" type="row"/>
+                    <field name="total_pickup_present" type="col"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_transport_trip_search" model="ir.ui.view">
+            <field name="name">transport.trip.search</field>
+            <field name="model">transport.trip</field>
+            <field name="arch" type="xml">
+                <search string="Transport Trips">
+                    <field name="name" string="Trip Name"/>
+                    <field name="route_id"/>
+                    <field name="company_id" string="School"/>
+                    <field name="trip_date" string="Trip Date"/>
+                    <filter name="state_new" string="New" domain="[('state', '=', 'new')]"/>
+                    <filter name="state_progress" string="In-progress" domain="[('state', '=', 'progress')]"/>
+                    <filter name="state_completed" string="Completed" domain="[('state', '=', 'completed')]"/>
+                    <group>
+                        <filter string="Route" name="group_by_route" domain="[]" context="{'group_by': 'route_id'}"/>
+                        <filter string="Trip Date" name="group_by_trip_date" domain="[]" context="{'group_by': 'trip_date'}"/>
+                        <filter string="State" name="group_by_state" domain="[]" context="{'group_by': 'state'}"/>
+                        <filter string="School" name="group_by_company" domain="[]" context="{'group_by': 'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_transport_trip" model="ir.actions.act_window">
+            <field name="name">Transport Trips</field>
+            <field name="res_model">transport.trip</field>
+            <field name="path">transport-trip</field>
+            <field name="view_mode">calendar,list,pivot,graph,form</field>
+            <field name="view_ids"
+                eval="[(5, 0, 0),
+                    (0, 0, {'sequence': 1, 'view_mode': 'calendar','view_id': ref('wk_school_management.view_transport_trip_calendar')}),
+                    (0, 0, {'sequence': 2, 'view_mode': 'list','view_id': ref('wk_school_management.view_transport_trip_tree')}),
+                    (0, 0, {'sequence': 3, 'view_mode': 'form', 'view_id': ref('wk_school_management.view_transport_trip_form')}),
+                    (0, 0, {'sequence': 4, 'view_mode': 'graph','view_id': ref('wk_school_management.view_transport_trip_graph')}),
+                    (0, 0, {'sequence': 5, 'view_mode': 'pivot','view_id': ref('wk_school_management.view_transport_trip_pivot')}),
+                ]"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create and manage transport trips for your routes.
+                </p>
+            </field>
+        </record>
+        
+        <record id="view_transport_trip_line_form" model="ir.ui.view">
+            <field name="name">transport.trip.line.form</field>
+            <field name="model">transport.trip.line</field>
+            <field name="arch" type="xml">
+                <form string="Trip Line" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="student_id" readonly="1" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="trip_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="pickup_time"/>
+                                <field name="picked_up"/>
+                            </group>
+                            <group>
+                                <field name="dropoff_time"/>
+                                <field name="dropped_off"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

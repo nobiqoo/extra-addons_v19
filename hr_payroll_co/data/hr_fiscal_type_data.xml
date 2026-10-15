@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="1">
+        <record id="hr_fiscal_type_co_01" model="hr.fiscal.type">
+            <field name="name">Dependiente</field>
+            <field name="code">01</field>
+        </record>
+        <record id="hr_fiscal_type_co_02" model="hr.fiscal.type">
+            <field name="name">Servicio Domestico</field>
+            <field name="code">02</field>
+        </record>
+        <record id="hr_fiscal_type_co_03" model="hr.fiscal.type">
+            <field name="name">Independiente</field>
+            <field name="code">03</field>
+        </record>
+        <record id="hr_fiscal_type_co_04" model="hr.fiscal.type">
+            <field name="name">Madre comunitaria</field>
+            <field name="code">04</field>
+        </record>
+        <record id="hr_fiscal_type_co_12" model="hr.fiscal.type">
+            <field name="name">Aprendices del SENA en etapa lectiva</field>
+            <field name="code">12</field>
+        </record>
+        <record id="hr_fiscal_type_co_15" model="hr.fiscal.type">
+            <field name="name">Desempleado con subsidio de Caja de Compensación Familiar</field>
+            <field name="code">15</field>
+        </record>
+        <record id="hr_fiscal_type_co_16" model="hr.fiscal.type">
+            <field name="name">Independiente agremiado ó asociado</field>
+            <field name="code">16</field>
+        </record>
+        <record id="hr_fiscal_type_co_18" model="hr.fiscal.type">
+            <field name="name">Funcionarios públicos sin tope máximo en el IBC</field>
+            <field name="code">18</field>
+        </record>
+        <record id="hr_fiscal_type_co_19" model="hr.fiscal.type">
+            <field name="name">Aprendices del SENA en etapa productiva</field>
+            <field name="code">19</field>
+        </record>
+        <record id="hr_fiscal_type_co_20" model="hr.fiscal.type">
+            <field name="name">Estudiantes</field>
+            <field name="code">20</field>
+            <field name="note">(Régimen especial-Ley 789/2002)</field>
+        </record>
+        <record id="hr_fiscal_type_co_21" model="hr.fiscal.type">
+            <field name="name">Estudiantes de postgrado en salud</field>
+            <field name="code">21</field>
+            <field name="note">(Decreto 190 de 1996)</field>
+        </record>
+        <record id="hr_fiscal_type_co_22" model="hr.fiscal.type">
+            <field name="name">Profesor de establecimiento particular</field>
+            <field name="code">22</field>
+        </record>
+        <record id="hr_fiscal_type_co_23" model="hr.fiscal.type">
+            <field name="name">Estudiantes Decreto 055</field>
+            <field name="note">(Decreto 055 de 2015)</field>
+            <field name="code">23</field>
+        </record>
+        <record id="hr_fiscal_type_co_30" model="hr.fiscal.type">
+            <field name="name">Dependiente Entidades o Universidades Públicas con régimen especial en Salud.</field>
+            <field name="code">30</field>
+        </record>
+        <record id="hr_fiscal_type_co_31" model="hr.fiscal.type">
+            <field name="name">Cooperados o Precooperativas de trabajo asociado</field>
+            <field name="code">31</field>
+        </record>
+        <record id="hr_fiscal_type_co_32" model="hr.fiscal.type">
+            <field name="name">Cotizante no sometido a la legislación colombiana</field>
+            <field name="code">32</field>
+            <field name="note">miembro de la carrera diplomática o consular de un país extranjero o funcionario de organismo multilateral</field>
+        </record>
+        <record id="hr_fiscal_type_co_33" model="hr.fiscal.type">
+            <field name="name">Beneficiario del Fondo de Solidaridad Pensional</field>
+            <field name="code">33</field>
+        </record>
+        <record id="hr_fiscal_type_co_34" model="hr.fiscal.type">
+            <field name="name">Concejal amparado por póliza de salud</field>
+            <field name="code">34</field>
+        </record>
+        <record id="hr_fiscal_type_co_40" model="hr.fiscal.type">
+            <field name="name">Beneficiario UPC Adicional</field>
+            <field name="code">40</field>
+        </record>
+        <record id="hr_fiscal_type_co_41" model="hr.fiscal.type">
+            <field name="name">Cotizante sin ingresos con pago por tercero</field>
+            <field name="code">41</field>
+        </record>
+        <record id="hr_fiscal_type_co_42" model="hr.fiscal.type">
+            <field name="name">Cotizante pago solo Salud</field>
+            <field name="code">42</field>
+            <field name="note">Articulo 2 Ley 1250 de 2006</field>
+        </record>
+        <record id="hr_fiscal_type_co_43" model="hr.fiscal.type">
+            <field name="name">Cotizante independiente no obligado a cotizar a personas con pago por tercero</field>
+            <field name="code">43</field>
+        </record>
+        <record id="hr_fiscal_type_co_44" model="hr.fiscal.type">
+            <field name="name">Cotizante dependiente de Empleo de Emergencia con duracion mayor o igual a un mes</field>
+            <field name="code">44</field>
+        </record>
+        <record id="hr_fiscal_type_co_45" model="hr.fiscal.type">
+            <field name="name">Cotizante dependiente de Empleo de Emergencia con duracion menor a un mes</field>
+            <field name="code">45</field>
+        </record>
+        <record id="hr_fiscal_type_co_47" model="hr.fiscal.type">
+            <field name="name">Trabajador dependiente de entidad beneficiaria del Sistema General de Participaciones - Aportes Patronales</field>
+            <field name="code">47</field>
+        </record>
+        <record id="hr_fiscal_type_co_51" model="hr.fiscal.type">
+            <field name="name">Trabajador de tiempo parcial afiliado al Regimen subsidiado en salud</field>
+            <field name="code">51</field>
+            <field name="note">Decreto 2615 de 2013</field>
+        </record>
+        <record id="hr_fiscal_type_co_52" model="hr.fiscal.type">
+            <field name="name">Beneficiario del mecanismo de proteccion al cesante</field>
+            <field name="code">52</field>
+        </record>
+    </data>
+</odoo>

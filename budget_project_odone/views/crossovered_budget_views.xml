@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="crossovered_budget_view_form_inherit_elite" model="ir.ui.view">
+        <field name="name">crossovered.budget.view.form.inherit.elite</field>
+        <field name="model">crossovered.budget</field>
+        <field name="inherit_id" ref="account_budget_odone.crossovered_budget_view_form_odone" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='crossovered_budget_line']" position="attributes">
+                <attribute name="context">{'default_date_from': date_from, 'default_date_to':
+                    date_to, 'default_analytic_account_id':
+                    context.get('default_analytic_account_id')}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

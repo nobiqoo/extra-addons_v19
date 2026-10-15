@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="cancel_reason_form_view" model="ir.ui.view">
+            <field name="name">cancel.reset.reason.form</field>
+            <field name="model">cancel.reset.reason</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name='reason' placeholder="Type your reason here...."/>
+                    <footer>
+                        <button name='reason_application_cancel_reset' string='Modify' type='object' class="oe_highlight"/>
+                        <button special='cancel' string='Discard'/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_cancel_reset" model="ir.actions.act_window">
+            <field name="res_model">cancel.reset.reason</field>
+            <field name="name">Reason</field>
+            <field name="target">new</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wk_school_management.cancel_reason_form_view"/>
+        </record>
+
+        <record id="cancel_enrollment_reason_view" model="ir.ui.view">
+            <field name="name">cancel.reset.reason.form</field>
+            <field name="model">cancel.reset.reason</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name='reason' placeholder="Type your reason here...."/>
+                    <footer>
+                        <button name='reason_enrollment_cancel_reset' string='Cancel' type='object' class="oe_highlight"/>
+                        <button special='cancel' string='Discard'/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id='scholarship_display_view_form' model='ir.ui.view'>
+            <field name='name'>Scholarships</field>
+            <field name='model'>wk.scholarship.update.wizard</field>
+            <field name='arch' type='xml'>
+                <form>
+                    <field name='scholarship_ids'>
+                        <list string="scholarship" create="0">
+                            <field name="name"/>
+                            <field name="student_id"/>
+                            <field name="create_date"/>
+                            <field name="grade_id"/>
+                            <field name="scholarship_amount"/>
+                            <field name="paid_date" optional="hide"/>
+                            <field name="write_uid"/>
+                            <field name="write_date" optional="hide"/>
+                            <field name="company_id" optional="hide"/>
+                            <field name="create_uid" optional="hide"/>
+                            <field name="invoice_status" widget="badge"/>
+                            <field name="state" widget="badge" decoration-primary="state =='new'" 
+                                decoration-danger="state =='cancel'" decoration-success="state =='paid'"
+                                decoration-warning="state =='progress'" decoration-info="state=='approve'"/>
+                        </list>
+                    </field>
+                    <footer>
+                        <button name='mark_paid' string="Mark as Paid" class="btn-primary" type='object'/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        <span><i class="fa fa-exclamation-triangle"/>Records only with <i style="color:red;">paid invoices </i>  will get paid.</span>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_message_wizard_view_form" model="ir.ui.view">
+            <field name="name">wk.message.wizard.form</field>
+            <field name="model">wk.message.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <div class="alert alert-info" role="alert">
+                                <strong>
+                                    <field name='message' readonly="1"/>
+                                </strong>
+                            </div>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name='revoke_student_portal_access' string='Revoke' type='object' class="oe_highlight"/>
+                        <button special='cancel' string='Cancel'/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_message_wizard_view_form_success" model="ir.ui.view">
+            <field name="name">wk.message.wizard.form</field>
+            <field name="model">wk.message.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <div class="alert alert-success" role="alert">
+                                <strong>
+                                    <field name='message' readonly="1"/>
+                                </strong>
+                            </div>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button special='cancel' string='Okay'/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_message_wizard_view_form_second_view" model="ir.ui.view">
+            <field name="name">wk.message.wizard.second.form</field>
+            <field name="model">wk.message.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="note" readonly="True" force_save="True"/>
+                    </sheet>
+                    <footer>
+                        <button name='fine_collected' string='Collect Fine' type='object' class="oe_highlight" invisible="not context.get('fine', False)"/>
+                        <button special='cancel' string='Cancel'/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

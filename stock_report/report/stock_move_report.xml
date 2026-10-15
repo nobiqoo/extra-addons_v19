@@ -1,0 +1,32 @@
+<odoo>
+    <record id="report_stock_move_xlsx" model="ir.actions.report">
+        <field name="name">Stock move report XLSX</field>
+        <field name="model">report.stock_report.report_stock_move</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">stock_report.report_stock_move</field>
+        <field name="report_file">stock_move_wizard</field>
+        <field name="attachment_use" eval="False" />
+    </record>
+
+    <record id="action_report_stock_move_pdf" model="ir.actions.report">
+        <field name="name">Stock move report PDF</field>
+        <field name="model">stock.move.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">stock_report.report_template_stock_move</field>
+        <field name="report_file">stock_report.report_template_stock_move</field>
+        <!-- <field name="print_report_name">'%s' % object.name</field> -->
+        <field name="binding_model_id" ref="model_stock_move_wizard" />
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_stock_move_html" model="ir.actions.report">
+        <field name="name">Stock move report HTML</field>
+        <field name="model">stock.move.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">stock_report.report_template_stock_move</field>
+        <!-- <field name="report_file">stock_report.report_template_stock_move</field>
+        <field name="print_report_name">'%s' % object.name</field>
+        <field name="binding_model_id" ref="model_stock_move_wizard" />
+        <field name="binding_type">report</field> -->
+    </record>
+</odoo>

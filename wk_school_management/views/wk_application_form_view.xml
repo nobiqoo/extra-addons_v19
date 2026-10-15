@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="wk_application_form_form" model="ir.ui.view">
+            <field name="name">wk.application.form</field>
+            <field name="model">wk.application.form</field>
+            <field name="arch" type="xml">
+                <form string="Application Form">
+                    <header invisible = "id == False">
+                        <button name="confirm_application" string="Confirm" type="object" class="oe_highlight" invisible="(state != 'new') or (id == False)" confirm="Are you sure you want to mark this application as confirm?"/>
+                        <button name="enroll_application" string="Enroll Now" type="object" class="oe_highlight bg-success" invisible="(state != 'confirm') or (id == False) "/>
+                        <button name="%(wk_school_management.action_cancel_reset)d" string="Cancel" type="action" invisible="(state != 'new') or (id == False)" confirm="Are you sure you want to cancel this application?" context="{'default_name':'cancel'}"/>
+                        
+                        <field name="state" widget="statusbar" statusbar_visible="new,confirm,enroll"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="get_student_id" icon="fa-address-book" type="object" 
+                                class="oe_stat_button"
+                                string="Student" invisible="student_id == False"/>
+                        </div>
+                        <field name="student_image" widget="image" class="oe_avatar" readonly="state != 'new'"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name.." readonly='1' />
+                            </h1>
+                        </div>
+                        <group name="student_header">
+                            <group>
+                                <field name="student_name" readonly="state != 'new'"/>
+                                <field name="email" readonly="state != 'new'" widget="email"/>
+                                <field name="parent_email" readonly="state != 'new'" widget="email"/>
+                                <field name="gender" readonly="state != 'new'"/>
+                                <field name="phone" readonly="state != 'new'"/>
+                                <field name="blood_group" readonly="state != 'new'"/>
+                                <field name="medical_disability" readonly="state != 'new'"/>
+                                <field name="known_medical_disability" invisible="medical_disability != 'yes'" readonly="state != 'new'"/>
+                            </group>
+                            <group name="order_details">
+                                <field name="application_date" readonly="state != 'new'"/>
+                                <field name="dob" readonly="state != 'new'"/>
+                                <field name="company_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="is_single_company" groups="base.group_multi_company"/>
+                                <field name="grade_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state != 'new'"/>
+                                <label for="street" string="Address"/>
+                                <div class="o_address_format">
+                                    <field name="street" placeholder="Street..." class="o_address_street" readonly="state != 'new'"/>
+                                    <field name="street2" placeholder="Street 2..." class="o_address_street" readonly="state != 'new'"/>
+                                    <field name="city" placeholder="City" class="o_address_city" readonly="state != 'new'"/>
+                                    <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}" context="{'default_country_id': country_id}" readonly="state != 'new'"/>
+                                    <field name="zip" placeholder="ZIP" class="o_address_zip" readonly="state != 'new'"/>
+                                    <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}' readonly="state != 'new'"/>
+                                </div>
+                                <field name="student_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="parent_section" string="Parents Details">
+                                <group>
+                                    <group name="father_details" string="Father's Information">
+                                        <field name="father_name" readonly="state != 'new'" string="Name"/>
+                                        <field name="fathers_contact" readonly="state != 'new'" string="Mobile"/>
+                                        <field name="fathers_occupation" readonly="state != 'new'" string="Occupation"/>
+                                    </group>
+                                    <group name="mother_details" string="Mother's Information">
+                                        <field name="mother_name" readonly="state != 'new'" string="Name"/>
+                                        <field name="mothers_contact" readonly="state != 'new'" string="Mobile"/>
+                                        <field name="mothers_occupation" readonly="state != 'new'" string="Occupation"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="queries" string="Admission Query">
+                                <field name="queries" colspan="2" nolabel="1" placeholder="This is for admission query"/>
+                            </page>
+                            <page name="student_documents" string="Documents">
+                                <field name="attachment_ids" widget="many2many_binary" readonly="state in ['enroll', 'cancel']"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_application_form_tree" model="ir.ui.view">
+            <field name="name">wk.application.form</field>
+            <field name="model">wk.application.form</field>
+            <field name="arch" type="xml">
+                <list string="Applications" default_order='create_date desc'>
+                    <field name="name"/>
+                    <field name="student_name"/>
+                    <field name="gender"/>
+                    <field name="activity_ids" widget="list_activity"/>
+                    <field name="email" optional="hide"/>
+                    <field name="phone" optional="hide"/>
+                    <field name="application_date" />
+                    <field name="create_date"/>
+                    <field name="write_date"/>
+                    <field name="state" decoration-success="state=='enroll'" decoration-danger="state=='cancel'" decoration-warning="state=='confirm'" decoration-info="state=='new'" widget='badge'/>
+                    <field name="create_uid" optional="hide"/>
+                    <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                    <field name="company_id"
+                        groups="base.group_multi_company"
+                        optional="show"
+                        readonly="1"/>
+                    <field name="write_uid"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Filters -->
+
+        <record id="application_form_search" model="ir.ui.view">
+           <field name="name">wk.application.form.search</field>
+           <field name="model">wk.application.form</field>
+           <field name="arch" type="xml">
+               <search>
+                    <field name="name" string="Application" filter_domain="['|','|','|','|','|', ('email', 'ilike', self), ('name', 'ilike', self),('student_name', 'ilike', self),
+                                ('mother_name', 'ilike', self),('father_name', 'ilike', self),('company_id', 'ilike', self)]"/>
+                    <field name="grade_id"/>
+                    <filter name="todays_applications" string="Today" domain="[('application_date','=',context_today())]" />
+                    <filter string="Current Month" name="current_month_app" domain="[('application_date','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('application_date','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+                    <filter string="Recieved on" name="start_date_filter" date="application_date"/>
+                    <separator/>
+                    <filter name="to_do" string="To Do" domain="['|',('state','=','new'),('state','=','confirm')]"/>
+                    <filter name="new" string="New" domain="[('state','=','new')]"/>
+                    <filter name="confirm" string="Confirmed" domain="[('state','=','confirm')]"/>
+                    <filter name="enroll" string="Enrolled" domain="[('state','=','enroll')]" />
+                    <filter name="cancel" string="Cancel" domain="[('state','=','cancel')]"/>
+                    <group>
+                        <filter name="group_by_gender" string="Gender" domain="[]" context="{'group_by':'gender'}"/>
+                        <filter name="group_by_state"  string="Status" domain="[]" context="{'group_by':'state'}" />
+                        <filter name="group_by_school"  string="School" domain="[]" context="{'group_by':'company_id'}" />
+                        <filter name="group_by_class"  string="Grade" domain="[]" context="{'group_by':'grade_id'}" />
+                    </group>
+               </search>
+           </field>
+        </record>
+
+        <record id="wk_application_graph_view" model="ir.ui.view">
+            <field name="name">wk.application.form.view.graph</field>
+            <field name="model">wk.application.form</field>
+            <field name="arch" type="xml">
+                <graph string="New Applications Over Time" type="bar" sample="1">
+                    <field name="grade_id"/>
+                    <field name="application_date" interval="month"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="application_form_action" model="ir.actions.act_window">
+            <field name="name">Application Form</field>
+            <field name="res_model">wk.application.form</field>
+            <field name="view_mode">form,list,graph</field>
+            <field name="path">school-application</field>
+            <field name="view_id" ref="wk_application_form_tree"/>
+            <field name="search_view_id" ref="application_form_search"/>
+        </record>
+    </data>    
+</odoo>

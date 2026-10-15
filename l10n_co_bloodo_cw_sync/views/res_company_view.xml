@@ -1,0 +1,41 @@
+<odoo>
+    <record id="pse_view_res_company_form" model="ir.ui.view">
+        <field name="name">pse.view.res.company.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_info']" position="after">
+                <page string="Pagos PSE">
+                    <group>
+                        <group>
+                            <!-- <field name="pse_file_instructive" /> -->
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_company_inherit_view_form" model="ir.ui.view">
+        <field name="name">res.company.inherit.view.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id"
+            ref="account_baseline.res_company_add_close_date_validation_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='accounting']//group[1]" position="after">
+                <group name="logos" string="Logos">
+                    <group>
+                        <field name="logo_1" class="oe_avatar" widget="image" />
+                        <field name="logo_2" class="oe_avatar" widget="image" />
+                        <field name="logo_3" class="oe_avatar" widget="image" />
+                    </group>
+                    <group>
+                        <field name="logo_4" class="oe_avatar" widget="image" />
+                        <field name="logo_5" class="oe_avatar" widget="image" />
+                        <field name="logo_6" class="oe_avatar" widget="image" />
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

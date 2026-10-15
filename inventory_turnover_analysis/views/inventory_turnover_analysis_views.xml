@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="model_inventory_turnover_analysis" model="ir.model">
+        <field name="name">inventory.turnover.analysis</field>
+        <field name="model">inventory.turnover.analysis</field>
+    </record>
+
+
+    <record id="view_inventory_turnover_analysis_tree" model="ir.ui.view">
+        <field name="name">inventory.turnover.analysis.tree</field>
+        <field name="model">inventory.turnover.analysis</field>
+        <field name="arch" type="xml">
+            <list string="Inventory turnover analysis" create="false" import="false" delete="false" sample="1">
+                <field name="product_id" />
+                <field name="warehouse_id" />
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="qty_on_hand" />
+                <field name="qty_sold" />
+                <field name="last_receipt_date"/>
+                <field name="last_receipt_ref" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="action_inventory_turnover_analysis" model="ir.actions.server">
+        <field name="name">Inventory turnover analysis</field>
+        <field name="model_id" ref="model_inventory_turnover_analysis"/>
+        <field name="state">code</field>
+        <field name="code">action = model.generate_report()</field>
+        <field name="binding_model_id" ref="model_inventory_turnover_analysis"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list</field>
+    </record>
+
+</odoo>

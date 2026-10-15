@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_template_repair_denial_letter" model="mail.template">
+            <field name="name">Repair Order: Send by email denial letter</field>
+            <field name="model_id" ref="repair.model_repair_order"/>
+            <field name="subject">{{ object.partner_id.name }} Repair Orders (Ref {{ object.name or 'n/a' }}) Denied</field>
+            <field name="email_from">{{ (object.create_uid.email_formatted or user.email_formatted) }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px;font-size: 13px;">
+        Hello <t t-out="object.partner_id.name or ''">Brandon Freeman</t>,<br/><br/>
+        Your repair order <strong t-out="object.name or ''">RO/00004</strong> has been denied.
+        <br/>
+        Attached you will find the denial letter for this order.
+        <br/>
+        <br/>
+        You can reply to this email if you have any questions.
+        <br/><br/>
+        Thank you,
+        <t t-if="user.signature">
+            <br />
+            <t t-out="user.signature or ''">--<br/>Mitchell Admin</t>
+        </t>
+    </p>
+</div></field>
+            <field name="report_template" ref="helpdesk_extended.action_report_repair_order_denial_letter"/>
+            <field name="report_name">Denial letter {{ (object.name or '').replace('/','_') }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

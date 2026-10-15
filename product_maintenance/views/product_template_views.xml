@@ -1,0 +1,57 @@
+<odoo>
+    <record id="view_product_template_product_maintenance" model="ir.ui.view">
+        <field name="name">view.product.template.product.maintenance</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field name="is_maintenance_product"/>
+                <field name="partner_id" invisible="is_maintenance_product == False" required="is_maintenance_product == True"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_search_product_template_product_maintenance" model="ir.ui.view">
+        <field name="name">view.search.product.template.product.maintenance</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <filter name="goods" position="after">
+                <filter string="Productos de Mantenimiento" name="products_maintenance" domain="[('is_maintenance_product', '=', True)]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="product_template_form_inherit_spare_part" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.spare.part</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <group name="group_general" position="inside">
+                <field name="is_spare_part"/>
+            </group>
+        </field>
+    </record>
+
+    <record id="product_product_form_inherit_spare_part" model="ir.ui.view">
+        <field name="name">product.product.form.inherit.spare.part</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <group name="group_general" position="inside">
+                <field name="is_spare_part"/>
+            </group>
+        </field>
+    </record>
+
+    <record id="view_product_template_general_info_tags" model="ir.ui.view">
+        <field name="name">view.product.template.general.info.tags</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']//group[@name='group_general']" position="inside">
+                <xpath expr="//field[@name='product_tag_ids']" position="move"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

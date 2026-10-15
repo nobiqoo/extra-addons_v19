@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Menú de auditoría cross-estudiante. La carga habitual de una
+         observación ocurre desde la pestaña correspondiente de la
+         Inscripción, la Clase Ofertada o el Estudiante (ver
+         wk_school_colombo/views/*_view.xml); esta vista es solo para
+         consultar/gestionar el histórico completo. -->
+
+    <record id="wk_school_colombo_observation_form" model="ir.ui.view">
+        <field name="name">wk.school.colombo.observation.form</field>
+        <field name="model">wk.school.colombo.observation</field>
+        <field name="arch" type="xml">
+            <form string="Observación">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="enrollment_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                            <field name="student_id" readonly="1"/>
+                            <field name="school_class_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                            <field name="move_id" invisible="origin != 'billing'"/>
+                        </group>
+                        <group>
+                            <field name="origin"/>
+                            <field name="observation_type"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="create_date" string="Fecha y hora de registro" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Observación">
+                        <field name="comment" nolabel="1"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="wk_school_colombo_observation_tree" model="ir.ui.view">
+        <field name="name">wk.school.colombo.observation.list</field>
+        <field name="model">wk.school.colombo.observation</field>
+        <field name="arch" type="xml">
+            <list string="Observaciones" default_order="create_date desc">
+                <field name="create_date" string="Fecha y hora de registro"/>
+                <field name="student_id"/>
+                <field name="enrollment_id"/>
+                <field name="observation_type"/>
+                <field name="origin"/>
+                <field name="reference_display"/>
+                <field name="move_id" optional="show"/>
+                <field name="user_id"/>
+                <field name="comment"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="wk_school_colombo_observation_search" model="ir.ui.view">
+        <field name="name">wk.school.colombo.observation.search</field>
+        <field name="model">wk.school.colombo.observation</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="student_id"/>
+                <field name="enrollment_id"/>
+                <field name="school_class_id"/>
+                <field name="move_id"/>
+                <group>
+                    <filter name="group_by_student" string="Estudiante" domain="[]" context="{'group_by': 'student_id'}"/>
+                    <filter name="group_by_origin" string="Origen" domain="[]" context="{'group_by': 'origin'}"/>
+                    <filter name="group_by_type" string="Tipo" domain="[]" context="{'group_by': 'observation_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="wk_school_colombo_observation_action" model="ir.actions.act_window">
+        <field name="name">Observaciones</field>
+        <field name="res_model">wk.school.colombo.observation</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="wk_school_colombo_observation_tree"/>
+        <field name="search_view_id" ref="wk_school_colombo_observation_search"/>
+    </record>
+
+</odoo>

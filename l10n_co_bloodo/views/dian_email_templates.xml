@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="1">
+        <record id="dian_email_template" model="mail.template">
+            <field name="name">Factura Electrónica - Enviar por Email</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="email_from">{{object.company_id.edi_email}}</field>
+            <field name="reply_to">{{object.company_id.edi_email}}</field>
+            <field name="subject">{{object.company_id.partner_id.vat}};{{object.company_id.name}};{{object.fe_invoice_name}};{{(not object.type_note and object.fe_type) or (object.type_note == 'credit' and '91') or (object.type_note == 'debit' and '92') }};{{object.company_id.name}};</field>
+            <field name="email_to">{{object.partner_id.edi_email or object.partner_id.email}}</field>
+            <field name="email_cc">{{object.company_id.edi_email}}{{object.partner_id.edi_email_cc and ',%s' % object.partner_id.edi_email_cc}}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">{{object.partner_id.lang}}</field>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                <p>
+                    Señor(es),
+                    <br>
+                    <t t-out="object.partner_id.name"/>
+                </p>
+                <p>
+                    Le informamos que ha recibido una factura/nota electrónica de <t t-out="object.company_id.name"/>:
+                </p>
+                <p>
+                    Número de factura: <strong t-out="object.fe_invoice_name"/><br>
+                    A nombre de: <strong t-out="object.partner_id.name"/><br>
+                    Valor Total: <strong t-out="format_amount(object.amount_total, object.currency_id) or ''"/> <strong t-out="object.currency_id.name"/>
+                </p>
+                <p>
+                    Si tiene inquietud respecto a la información contenida en la factura/nota electrónica, 
+                    responda este correo electrónico.
+                </p>
+                <p>
+                    Si pasados tres (3) días hábiles siguientes a la recepción de la factura/nota electrónica, no se ha recibido un correo indicando rechazo de la factura/nota electrónica, el sistema la dará por aceptada.
+                    <br>
+                    <br>
+                    Escriba a <t t-out="object.company_id.edi_email"/> si desea modificar sus datos para el envío de la factura/nota electrónica.
+                </p>
+                <br>
+                <p>Cordialmente,</p>
+                <t t-out="object.invoice_user_id.signature"/>
+                <!-- <p><strong><t t-out="object.company_id.name"/></strong></p> -->
+            </div>
+            ]]></field>
+        </record>
+
+        <!-- <template id="mail_notification_paynow_bloodo" inherit_id="mail.mail_notification_paynow" name="bloodo: Sign and Pay mail notification template">
+            <xpath expr="//table/tr/td/table/tbody" position="inside">
+                <t t-if="record._name == 'account.move' and record.is_einvoicing_journal">
+                    EI PROVIDER
+                    <tr>
+                        <td style="padding: 0; font-size:11px;">
+                            <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 32px 0px 4px 0px;"/>
+                            <table style="font-size: 11px; width: 100%;">
+                                <tr>
+                                    <td>Electronic invoicing system powered by <a target="_blank" href="https://www.odone.com.co" style="color: #0e2ebc;"><b>OdoOne SAS</b></a></td>
+                                    <td><img src="/l10n_co_bloodo/static/img/ei_logo.jpeg" style="padding: 0px; margin: 0px; height: 48px;" t-att-alt="'%s' % company.name"/></td>
+                                </tr>
+                            </table>
+                            <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 4px 0px 4px 0px;"/>
+                        </td>
+                    </tr>
+                </t>
+            </xpath>
+        </template> -->
+
+    </data>
+</odoo>

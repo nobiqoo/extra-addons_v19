@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<templates xml:space="preserve">
+	<t t-name="gradesheet_template">
+        <div class="container mt-2 gradesheet">
+           
+            <h1 class="text-center" style="color:#545050;">OFFICIAL SCHOOL GRADESHEET</h1>   
+
+            <div class="first_header mt-3 mb-3  p-4" style="background-color: white;">
+                <div class="row g-3">
+                    <div class="col-12 col-md-2">
+                        <label class="form-label fw-bolder" style="font-family: 'Helvetica', 'Arial', sans-serif;">Session</label>
+                        <select class="form-select" id="session_selection" t-on-change="onchange_session_grade_data">
+                            <option value="-1" selected="true">Session </option>
+                            <t t-foreach="state.sessions" t-as="session" t-key="session.id">
+                                <option t-att-value="session.id">
+                                    <t t-out="session.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-2">
+                        <label class="form-label fw-bolder" style="font-family: 'Helvetica', 'Arial', sans-serif;">Grade</label>
+                        <select class="form-select" id="grades_selection" t-on-change="onchange_session_grade_data">
+                            <option value="-1" selected="true">Grade </option>
+                            <t t-foreach="state.grades" t-as="grade" t-key="grade.id">
+                                <option t-att-value="grade.id">
+                                    <t t-out="grade.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+
+                    <t t-if="state.showSectionDropdown">
+                        <div class="col-12 col-md-2">
+                            <label class="form-label fw-bolder" style="font-family: 'Helvetica', 'Arial', sans-serif;">Section</label>
+                            <select class="form-select" id="section_selection" t-on-change="onchange_session_grade_data">
+                                <option value="-1" selected="true">Section </option>
+                                <t t-foreach="state.sections" t-as="section" t-key="section.id">
+                                    <option t-att-value="section.id">
+                                        <t t-out="section.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                    </t>
+
+                    <div class="col-12 col-md-2">
+                        <label class="form-label fw-bolder" style="font-family: 'Helvetica', 'Arial', sans-serif;">Class</label>
+                        <select class="form-select" id="class_selection">
+                            <option value="-1" selected="true">Populate Classes </option>
+                            <t t-foreach="state.populate_class" t-as="cls" t-key="cls[0]">
+                                <option t-att-value="cls[0]">
+                                    <t t-out="cls[1]"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-2 d-flex align-items-end">
+                        <button class="btn btn-info w-100" t-on-click="_fetch_gradesheet_record">
+                            Fetch GradeSheet
+                        </button>
+                    </div>
+                </div>
+            </div> 
+
+            <div class="table_header d-none p-4 mb-5" style="background-color: white;border: 2px solid #b8b7b7;">
+                <div class="error_message">
+                    <h1><t t-out="state.error_message"/></h1>
+                </div>
+                <div class="table_data row">
+                    <table class="table table-bordered mt-2 mb-5">
+                        <thead style="display: table-row-group">
+                            <tr>
+                                <th name="th_student" class="text-center">Students</th>
+                                <t t-foreach='state.assignments' t-as='assignment' t-key="assignment">
+                                    <th class="text-center">
+                                        <t t-esc="assignment[0]"/><br/>
+                                        (<t t-esc="assignment[1]"/>%)
+                                    </th>
+                                </t>
+                                <th name="th_average" class="text-center">Class Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.students" t-as='student' t-key="student">
+                                <tr class="text-center">
+                                    <td><t t-out="student[1]"/></td>
+                                    <t t-foreach='state.assignments' t-as='assignment' t-key="assignment">
+                                        <t t-foreach="state.student_score" t-as='score' t-key="score">
+                                            <td t-if="score[0] == student[1] and score[1][0] == assignment[0]"><t t-out="score[1][1]"/>%</td>
+                                        </t>
+                                    </t>
+                                    <t t-foreach="state.average_score" t-as='average' t-key="average">
+                                        <td t-if="average[0] == student[1]"><t t-out="average[1]"/>%</td>
+                                    </t>
+                                </tr>
+                            </t>
+                            <tr class="text-center fw-bolder">
+                                <th>Class Grade</th>
+                                <t t-foreach='state.assignments' t-as='assignment' t-key="assignment">
+                                    <t t-foreach="state.col_average" t-as='col_average' t-key="col_average">
+                                        <td t-if="col_average[0] == assignment[0]"><t t-out="col_average[1]"/>%</td>
+                                    </t>
+                                </t>
+                                <td><t t-out="state.last_col"/>%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> 
+            </div>  
+        </div>
+
+        </t>
+</templates>

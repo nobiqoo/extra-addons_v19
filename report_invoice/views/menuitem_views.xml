@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_sale_report_partners" name="Partners Report" parent="sale.menu_sale_report" sequence="15"/>
+
+    <menuitem id="menu_report_facturados"
+              name="Informe de Facturados"
+              parent="report_invoice.menu_sale_report_partners"
+              action="action_report_invoice"
+              sequence="50"/>
+
+</odoo>

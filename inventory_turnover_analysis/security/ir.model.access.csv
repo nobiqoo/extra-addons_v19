@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_inventory_turnover_analysis,access.inventory.turnover.analysis,model_inventory_turnover_analysis,base.group_user,1,1,1,1
+access_inventory_turnover_analysis_wizard,access.inventory.turnover.analysis.wizard,model_inventory_turnover_analysis_wizard,base.group_user,1,1,1,1

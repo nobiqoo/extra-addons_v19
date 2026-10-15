@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- 1001 -->
+        <record id="form_1001" model="mag.media">
+            <field name="code">1001</field>
+            <field name="name">1001 - Pagos o abonos en cuenta y retenciones practicadas</field>
+            <field name="smaller_amount">100000</field>
+            <field name="query">
+WITH principal AS (
+SELECT
+	mm.smaller_amount as Mini,
+    mml.code as A,
+    CASE
+        WHEN it.dian_code = '50' THEN '42'
+        ELSE it.dian_code
+    END as B,
+    rp.vat as C,
+    rp.lastname1 as D,
+    rp.lastname2 as E,
+    rp.name1 as F,
+    rp.name2 as G,
+    CASE
+        WHEN rp.lastname1 IS NOT NULL OR rp.lastname2 IS NOT NULL OR rp.name1 IS NOT NULL OR rp.name2 IS NOT NULL THEN
+            NULL
+        ELSE rp.name
+    END as H,
+    rp.street as I,
+    rcs.dian_code as J,
+    SUBSTRING(rcsc.dian_code, 3) as K,
+    rc.medios_code as L,
+    (CASE WHEN mmlc.sequence = 'M' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'M' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'M' AND mmlc.type = 'sf' THEN SUM(aml.debit-aml.credit)
+        WHEN mmlc.sequence = 'M' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+    ) as M,
+    (CASE WHEN mmlc.sequence = 'N' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'N' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'N' AND mmlc.type = 'sf' THEN SUM(aml.debit-aml.credit)
+        WHEN mmlc.sequence = 'N' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+    ) as N,
+    (CASE WHEN mmlc.sequence = 'O' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'O' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'O' AND mmlc.type = 'sf' THEN SUM(aml.debit-aml.credit)
+        WHEN mmlc.sequence = 'O' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+    ) as O,
+    (CASE WHEN mmlc.sequence = 'P' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'P' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'P' AND mmlc.type = 'sf' THEN SUM(aml.debit-aml.credit)
+        WHEN mmlc.sequence = 'P' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+    ) as P,
+    (CASE WHEN mmlc.sequence = 'Q' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'Q' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'Q' AND mmlc.type = 'sf' THEN SUM(aml.debit-aml.credit)
+        WHEN mmlc.sequence = 'Q' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+    ) as Q,
+    (CASE WHEN mmlc.sequence = 'R' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'R' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'R' AND mmlc.type = 'sf' THEN SUM(aml.debit-aml.credit)
+        WHEN mmlc.sequence = 'R' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+    ) as R,
+    (CASE WHEN mmlc.sequence = 'S' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'S' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'S' AND mmlc.type = 'sf' THEN SUM(aml.debit-aml.credit)
+        WHEN mmlc.sequence = 'S' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+    ) as S,
+    (CASE WHEN mmlc.sequence = 'T' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'T' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'T' AND mmlc.type = 'sf' THEN SUM(aml.debit-aml.credit)
+        WHEN mmlc.sequence = 'T' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+    ) as T
+FROM mag_media mm
+INNER JOIN mag_media_lines mml ON mml.magnetic_id = mm.id
+INNER JOIN mag_media_lines_concepts mmlc ON mmlc.line_id = mml.id
+INNER JOIN (
+    select aammlcr.account_account_id as account_id, aammlcr.mag_media_lines_concepts_id as concept_id
+    from account_account_mag_media_lines_concepts_rel aammlcr
+    union all
+    select aaat.account_account_id as account_id, mmlcaat.concept_ids as concept_id
+    from mag_media_lines_concepts_account_account_tag mmlcaat
+    inner join account_account_tag aat on aat.id = mmlcaat.tag_ids
+    inner join account_account_account_tag aaat on aaat.account_account_tag_id = aat.id
+) AS aa ON aa.concept_id = mmlc.id
+INNER JOIN account_move_line aml ON aml.account_id = aa.account_id
+AND (
+            NOT EXISTS (SELECT 1 FROM mag_media_lines_concepts_journal_rel mmlcjr WHERE mmlcjr.concept_id = mmlc.id)
+            OR aml.journal_id IN (SELECT journal_id FROM mag_media_lines_concepts_journal_rel WHERE concept_id = mmlc.id)
+        )
+LEFT JOIN res_partner rp ON rp.id = aml.partner_id
+LEFT JOIN l10n_latam_identification_type it ON it.id = rp.l10n_latam_identification_type_id
+LEFT JOIN res_country_state rcs ON rcs.id = rp.state_id
+LEFT JOIN res_city rcsc ON rcsc.id = rp.city_id
+LEFT JOIN res_country rc ON rc.id = rp.country_id
+WHERE mm.id = {id}
+    AND aml.date BETWEEN '{date_from}' AND '{date_to}'
+    AND aml.parent_state = 'posted'
+    AND aml.company_id = {company_id}
+GROUP BY
+    mml.code,
+    it.dian_code,
+    rp.vat,
+    rp.name1,
+    rp.name2,
+    rp.lastname1,
+    rp.lastname2,
+    rp.name,
+    rp.street,
+    rcs.dian_code,
+    rcsc.dian_code,
+    rc.medios_code,
+    mmlc.sequence,
+    mmlc.type,
+    mm.smaller_amount
+),
+totales_asociado AS (
+    SELECT
+        C as vat_asociado,
+        H as nombre_asociado,
+        SUM(COALESCE(M, 0) + COALESCE(N, 0) + COALESCE(O, 0) + COALESCE(P, 0) +
+            COALESCE(Q, 0) + COALESCE(R, 0) + COALESCE(S, 0) + COALESCE(T, 0)) as total_asociado
+    FROM principal
+    GROUP BY C, H
+)
+SELECT
+    A as "Concepto",
+    B as "Tipo documento",
+    C as "Número de identificación de informado",
+    D as "Primer apellido del informado",
+    E as "Segundo apellido del informado",
+    F as "Primer nombre del informado",
+    G as "Segundo nombre del informado",
+    H as "Nombre informado",
+    I as "Dirección",
+    J as "Código departamento",
+    K as "Código municipio",
+    L as "Código país",
+    ROUND(ABS(M)/10)*10 as "Pago o abono en cuenta deducible",
+    ROUND(ABS(N)/10)*10 as "Pago o abono en cuenta no deducible",
+    ROUND(ABS(O)/10)*10 as "Iva mayor valor del costo o gasto deducible",
+    ROUND(ABS(P)/10)*10 as "Iva mayor valor del costo o gasto no deducible",
+    ROUND(ABS(Q)/10)*10 as "Retención en la fuente practicada en renta",
+    ROUND(ABS(R)/10)*10 as "Retención en la fuente asumida en renta",
+    ROUND(ABS(S)/10)*10 as "Retención en la fuente practicada IVA régimen común",
+    ROUND(ABS(T)/10)*10 as "Retención en la fuente practicada IVA no domiciliados"
+    FROM (
+    SELECT A, B, C, D, E, F, G, H, I, J, K, L, SUM(M) AS M, SUM(N) AS N, SUM(O) AS O, SUM(P) AS P, SUM(Q) AS Q, SUM(R) AS R, SUM(S) AS S, SUM(T) AS T
+    FROM principal
+    GROUP BY A, B, C, D, E, F, G, H, I, J, K, L, Mini
+    HAVING ABS(SUM(M)) &gt;= Mini::float
+        OR ABS(SUM(N)) &gt;= Mini::float
+        OR ABS(SUM(O)) &gt;= Mini::float
+        OR ABS(SUM(P)) &gt;= Mini::float
+        OR ABS(SUM(Q)) &gt;= Mini::float
+        OR ABS(SUM(R)) &gt;= Mini::float
+        OR ABS(SUM(S)) &gt;= Mini::float
+        OR ABS(SUM(T)) &gt;= Mini::float
+
+    UNION
+
+    SELECT
+        A,
+        '43' as B,
+        '222222222' as C,
+        '' as D,
+        '' as E,
+        '' as F,
+        '' as G,
+        'CUANTIAS MENORES' as H,
+        NULL as I,
+        NULL as J,
+        NULL as K,
+        NULL as L,
+        ROUND(ABS(SUM(p.M))/10)*10 as M,
+        ROUND(ABS(SUM(p.N))/10)*10 as N,
+        ROUND(ABS(SUM(p.O))/10)*10 as O,
+        ROUND(ABS(SUM(p.P))/10)*10 as P,
+        ROUND(ABS(SUM(p.Q))/10)*10 as Q,
+        ROUND(ABS(SUM(p.R))/10)*10 as R,
+        ROUND(ABS(SUM(p.S))/10)*10 as S,
+        ROUND(ABS(SUM(p.T))/10)*10 as T
+    FROM principal p
+    INNER JOIN totales_asociado ta ON p.C = ta.vat_asociado
+    WHERE ta.total_asociado &lt; (SELECT smaller_amount FROM mag_media WHERE id = {id})
+    GROUP BY p.A
+    HAVING COALESCE(SUM(p.M), 0) != 0
+        OR COALESCE(SUM(p.N), 0) != 0
+        OR COALESCE(SUM(p.O), 0) != 0
+        OR COALESCE(SUM(p.P), 0) != 0
+        OR COALESCE(SUM(p.Q), 0) != 0
+        OR COALESCE(SUM(p.R), 0) != 0
+        OR COALESCE(SUM(p.S), 0) != 0
+        OR COALESCE(SUM(p.T), 0) != 0
+    ) AS datos
+            </field>
+        </record>
+    </data>
+</odoo>

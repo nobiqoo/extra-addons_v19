@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_picking_form_custom_delivery" model="ir.ui.view">
+        <field name="name">stock.picking.form.custom.delivery</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="tracking_number"
+                    string="Número de Guía"
+                    readonly="1"
+                    invisible="picking_type_code != 'outgoing' or not tracking_number or tracking_number == ''"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_picking_tree_custom_delivery" model="ir.ui.view">
+        <field name="name">stock.picking.tree.custom.delivery</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="tracking_number" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

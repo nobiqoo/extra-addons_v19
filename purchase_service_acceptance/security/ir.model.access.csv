@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_service_acceptance_user,access.purchase.service.acceptance.user,model_purchase_service_acceptance,purchase.group_purchase_user,1,1,1,0
+access_purchase_service_acceptance_manager,access.purchase.service.acceptance.manager,model_purchase_service_acceptance,purchase.group_purchase_manager,1,1,1,1
+access_purchase_service_acceptance_line_user,access.purchase.service.acceptance.line.user,model_purchase_service_acceptance_line,purchase.group_purchase_user,1,1,1,0
+access_purchase_service_acceptance_line_manager,access.purchase.service.acceptance.line.manager,model_purchase_service_acceptance_line,purchase.group_purchase_manager,1,1,1,1

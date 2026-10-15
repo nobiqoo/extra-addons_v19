@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_approval_order_form_view" model="ir.ui.view">
+        <field name="name">purchase.approval.order.form.view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="user_status" invisible="True"/>
+                <field name="user_status_budget" invisible="True"/>
+                <field name="approval_status" invisible="True"/>
+                <field name="approval_config_id"
+                       required="True"
+                       options="{'no_create': true, 'no_open': true}"
+                       readonly="state in ['closed','cancel', 'purchase']"/>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Aprobadores" invisible="state in ['draft','cancel']">
+                    <group>
+                        <field name="approval_minimum"/>
+                    </group>
+                    <field name="approval_ids" readonly="1">
+                        <list create="false">
+                            <field name="sequence"/>
+                            <field name="company_id" invisible="True"/>
+                            <field name="user_ids" widget="many2many_tags"/>
+                            <field name="required" invisible="True"/>
+                            <field name="approval_type"/>
+                            <field name="amount_from"/>
+                            <field name="status"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+
+            <xpath expr="//button[@id='draft_confirm']" position="attributes">
+                <attribute name="invisible">state != 'approved'</attribute>
+            </xpath>
+
+            <xpath expr="//button[@id='draft_confirm']" position="after">
+                <button name="button_request_approval" 
+                        type="object"
+                        context="{'validate_analytic': True}" string="Solicitar Aprobación"
+                        invisible="state not in ['draft', 'sent']"
+                        id="draft_request_approval"/>
+                <button name="action_approve" 
+                        type="object"
+                        context="{'validate_analytic': True}" string="Aprobar"
+                        invisible="approval_status != 'pending' or user_status != 'pending'"
+                        id="approve_request_approval"/>
+                <button name="action_refuse" 
+                        type="object"
+                        context="{'validate_analytic': True}" string="Rechazar"
+                        invisible="approval_status != 'pending' or user_status != 'pending'"
+                        id="refuse_request_approval"/>
+                <button name="action_approve_budget" 
+                        type="object"
+                        context="{'validate_analytic': True}" string="Aprobar Presupuesto"
+                        invisible="state != 'approval_without_budget' and user_status_budget != 'pending'"
+                        id="approve_request_approval"/>
+                <button name="action_refuse_budget" 
+                        type="object"
+                        context="{'validate_analytic': True}" string="Rechazar Presupuesto"
+                        invisible="state != 'approval_without_budget' and user_status_budget != 'pending'"
+                        id="refuse_request_approval"/>
+            </xpath>
+
+            <xpath expr="//button[@name='button_draft']" position="replace">
+                <button name="action_request_draft"
+                    string="Cambiar a Borrador"
+                    type="object"
+                    invisible="state != 'cancel'"
+                    />
+            </xpath>
+
+            <xpath expr="//button[@name='button_cancel']" position="replace">
+                <button name="button_cancel"
+                        invisible="state not in ['draft', 'refused', 'to approve', 'sent', 'purchase', 'in approval', 'approved', 'approval_without_budget']"
+                        string="Cancelar" type="object" data-hotkey="x"/>
+            </xpath>
+
+            <xpath expr="//button[@name='print_quotation']" position="replace">
+                <button name="print_quotation"
+                        string="IMPRIMIR SDC" type="object"
+                        invisible="state not in ['draft', 'in approval']"
+                        class="oe_highlight" groups="base.group_user" data-hotkey="k"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_pending_orders_to_approval" model="ir.actions.server">
+        <field name="name">Mis Aprobaciones</field>
+        <field name="model_id" ref="model_purchase_order"/>
+        <field name="state">code</field>
+        <field name="code">action = env.get('purchase.order').validate_pending_orders_to_approval()</field>
+    </record>
+
+    <menuitem
+        id="purchase_menu_my_approvals_by_approver_to_approval"
+        parent="purchase.menu_procurement_management"
+        name="Mis Aprobaciones"
+        action="action_pending_orders_to_approval"
+        sequence="50"/>
+</odoo>

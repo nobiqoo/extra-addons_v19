@@ -1,0 +1,156 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_reception_act
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: \n"
+
+#. module: stock_reception_act
+#: model:ir.model.fields,field_description:stock_reception_act.field_product_template__risk_class
+#: model:ir.model.fields,field_description:stock_reception_act.field_stock_move__risk_class
+msgid "Risk Class"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields.selection,name:stock_reception_act.selection__product_template__risk_class__i
+#: model:ir.model.fields.selection,name:stock_reception_act.selection__stock_move__risk_class__i
+msgid "Class I"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields.selection,name:stock_reception_act.selection__product_template__risk_class__iia
+#: model:ir.model.fields.selection,name:stock_reception_act.selection__stock_move__risk_class__iia
+msgid "Class IIa"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields.selection,name:stock_reception_act.selection__product_template__risk_class__iib
+#: model:ir.model.fields.selection,name:stock_reception_act.selection__stock_move__risk_class__iib
+msgid "Class IIb"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields.selection,name:stock_reception_act.selection__product_template__risk_class__iii
+#: model:ir.model.fields.selection,name:stock_reception_act.selection__stock_move__risk_class__iii
+msgid "Class III"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields,field_description:stock_reception_act.field_product_template__commercial_presentation
+#: model:ir.model.fields,field_description:stock_reception_act.field_stock_move__commercial_presentation
+msgid "Commercial Presentation"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields,field_description:stock_reception_act.field_product_template__sanitary_registration
+#: model:ir.model.fields,field_description:stock_reception_act.field_stock_move__sanitary_registration
+msgid "Sanitary Registration"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields,help:stock_reception_act.field_product_template__sanitary_registration
+msgid "Sanitary registration or marketing authorization number issued by INVIMA."
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields,field_description:stock_reception_act.field_product_template__shelf_life
+#: model:ir.model.fields,field_description:stock_reception_act.field_stock_move__shelf_life
+msgid "Shelf Life"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields,field_description:stock_reception_act.field_stock_move__brand_id
+msgid "Brand"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields,field_description:stock_reception_act.field_res_company__reception_act_code
+#: model:ir.model.fields,field_description:stock_reception_act.field_res_config_settings__reception_act_code
+msgid "Reception Act Format Code"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields,field_description:stock_reception_act.field_res_company__reception_act_version
+#: model:ir.model.fields,field_description:stock_reception_act.field_res_config_settings__reception_act_version
+msgid "Reception Act Format Version"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields,field_description:stock_reception_act.field_res_company__reception_act_date
+#: model:ir.model.fields,field_description:stock_reception_act.field_res_config_settings__reception_act_date
+msgid "Reception Act Format Effective Date"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields,field_description:stock_reception_act.field_stock_picking__reception_area
+msgid "Reception Area"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields,field_description:stock_reception_act.field_stock_picking__reception_site
+msgid "Site"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields,field_description:stock_reception_act.field_stock_picking__reception_product_type
+msgid "Product Type"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields.selection,name:stock_reception_act.selection__stock_picking__reception_product_type__medical_device
+msgid "Medical Devices"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields.selection,name:stock_reception_act.selection__stock_picking__reception_product_type__supply
+msgid "Supplies"
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.model.fields,field_description:stock_reception_act.field_stock_picking__reception_responsible_id
+msgid "Reception Responsible"
+msgstr ""
+
+#. module: stock_reception_act
+#: code:addons/stock_reception_act/models/stock_picking.py:0
+msgid "DEVOLUTION ACT"
+msgstr ""
+
+#. module: stock_reception_act
+#: code:addons/stock_reception_act/models/stock_picking.py:0
+msgid "RECEPTION ACT"
+msgstr ""
+
+#. module: stock_reception_act
+#: code:addons/stock_reception_act/models/stock_picking.py:0
+msgid "INVENTORY ACT"
+msgstr ""
+
+#. module: stock_reception_act
+#: model_terms:ir.ui.view,arch_db:stock_reception_act.product_template_form_reception_act
+msgid "Regulatory Information"
+msgstr ""
+
+#. module: stock_reception_act
+#: model_terms:ir.ui.view,arch_db:stock_reception_act.view_picking_form_reception_act
+msgid "Reception Act"
+msgstr ""
+
+#. module: stock_reception_act
+#: model_terms:ir.ui.view,arch_db:stock_reception_act.res_config_settings_view_form_reception_act
+msgid "Reception Act Format"
+msgstr ""
+
+#. module: stock_reception_act
+#: model_terms:ir.ui.view,arch_db:stock_reception_act.res_config_settings_view_form_reception_act
+msgid "Document control information printed on the Reception Act report."
+msgstr ""
+
+#. module: stock_reception_act
+#: model:ir.actions.report,name:stock_reception_act.action_report_reception_act
+msgid "Reception Act"
+msgstr ""

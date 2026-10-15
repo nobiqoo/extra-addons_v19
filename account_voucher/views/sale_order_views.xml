@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="inherit_sale_order_account_advance" model="ir.ui.view">
+            <field name="name">sale.order.account.advance</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="group_advance_validate_manually" invisible="1"/>
+                    <field name="advance_payment_manually" readonly="state not in ['draft', 'sent']" invisible="group_advance_validate_manually == False"/>
+                    <field name="check_immediate_payment" invisible="True"/>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[@name='other_information']" position="after">
+                    <page string="Anticipos" name="account_advance" invisible="advance_payment_manually != False or check_immediate_payment != True">
+                        <group>
+                            <field name="account_advance_id" invisible="True" domain="[('voucher_type','=','advance'),('partner_id','=',partner_id)]"/>
+                            <field name="account_voucher_ids" domain="[('voucher_type','=','advance'),('state','=','posted'),('partner_id','=',partner_id)]" options="{'no_create': True, 'no_create_edit': True}" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

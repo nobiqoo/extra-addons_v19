@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         Template QWeb — Página de Documentación
+    ══════════════════════════════════════════════════════════════════ -->
+    <template id="documentation_page" name="Documentación Biométrico">
+        <html>
+        <head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>Documentación — hr_payroll_co_biometric</title>
+            <style>
+                body {
+                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                    background: #f4f5f7;
+                    margin: 0;
+                    padding: 0;
+                }
+                .top-bar {
+                    background: #1F4E79;
+                    color: #fff;
+                    padding: 10px 24px;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                }
+                .top-bar img { width: 36px; height: 36px; object-fit: contain; }
+                .top-bar h1 { margin: 0; font-size: 18px; font-weight: 600; flex: 1; }
+                .top-bar a {
+                    color: #fff;
+                    text-decoration: none;
+                    font-size: 13px;
+                    border: 1px solid rgba(255,255,255,0.5);
+                    padding: 4px 10px;
+                    border-radius: 4px;
+                }
+                .top-bar a:hover { background: rgba(255,255,255,0.15); }
+                .container {
+                    max-width: 1100px;
+                    margin: 32px auto;
+                    padding: 0 24px;
+                }
+                .content-box {
+                    background: #fff;
+                    border: 1px solid #dee2e6;
+                    border-radius: 6px;
+                    padding: 40px;
+                    line-height: 1.75;
+                    color: #212529;
+                }
+                .content-box h1 { color: #1F4E79; border-bottom: 2px solid #1F4E79; padding-bottom: 8px; }
+                .content-box h2 { color: #2c5f8a; margin-top: 32px; }
+                .content-box h3 { color: #3a7db5; }
+                .content-box code {
+                    background: #f0f4f8;
+                    padding: 2px 5px;
+                    border-radius: 3px;
+                    font-size: 0.88em;
+                }
+                .content-box pre {
+                    background: #f0f4f8;
+                    border: 1px solid #d0dce8;
+                    border-radius: 4px;
+                    padding: 16px;
+                    overflow-x: auto;
+                }
+                .content-box table {
+                    border-collapse: collapse;
+                    width: 100%;
+                    margin: 12px 0;
+                }
+                .content-box th, .content-box td {
+                    border: 1px solid #dee2e6;
+                    padding: 8px 12px;
+                    text-align: left;
+                }
+                .content-box th { background: #e9f0f7; }
+                .content-box ul, .content-box ol { padding-left: 24px; }
+                .footer {
+                    text-align: center;
+                    color: #6c757d;
+                    font-size: 12px;
+                    margin: 24px 0;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="top-bar">
+                <img src="/hr_payroll_co_biometric/static/description/icon.png"
+                     onerror="this.style.display='none'"/>
+                <h1>Gestión de Turnos — hr_payroll_co_biometric</h1>
+                <a href="/hr_payroll_co_biometric/documentation">↻ Recargar</a>
+                <a t-att-href="back_url" style="margin-left:8px;">← Volver al módulo</a>
+            </div>
+            <div class="container">
+                <div class="content-box">
+                    <t t-out="content"/>
+                </div>
+                <div class="footer">
+                    Desarrollado por <strong>OdOne S.A.S</strong> —
+                    Contenido generado automáticamente desde <code>README.md</code>
+                </div>
+            </div>
+        </body>
+        </html>
+    </template>
+
+    <!-- ── Acción para abrir la documentación ────────────────────────── -->
+    <record id="action_biometric_documentation" model="ir.actions.act_url">
+        <field name="name">Documentación del Módulo</field>
+        <field name="url">/hr_payroll_co_biometric/documentation</field>
+        <field name="target">self</field>
+    </record>
+
+</odoo>

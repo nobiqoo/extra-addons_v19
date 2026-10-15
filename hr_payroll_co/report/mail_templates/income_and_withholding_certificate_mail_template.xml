@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="income_and_withholding_certificate_mail_template" model="mail.template">
+            <field name="name">Certificado de ingresos y retenciones</field>
+            <field name="model_id" ref="hr_payroll_co.model_income_and_withholding_certificate" />
+            <field name="subject">Certificado de ingresos y retenciones {{object.form_number}}</field>
+            <field name="partner_to">{{object.partner_id.id}}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 15px;"> Estimado/a <strong
+                            t-out="object.partner_id.name" />. <br />
+                        <br /> Adjunto se envía su
+                        certificado de ingresos y retenciones para el año <strong
+                            t-out="object.year" />. <br />
+                        <br /> Atentamente <strong
+                            t-out="object.company_id.name" />. </p>
+                </div>
+            </field>
+            <field name="report_template_ids"
+                eval="[(4, ref('hr_payroll_co.income_and_withholding_certificate_action_report'))]" />
+            <!-- <field name="report_name">Certificado de ingresos y retenciones {{object.form_number}}</field> -->
+            <field name="auto_delete" eval="True" />
+        </record>
+
+    </data>
+</odoo>

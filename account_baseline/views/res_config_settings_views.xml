@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_res_config_settings" model="ir.ui.view">
+        <field name="name">view.res.config.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="80" />
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <setting id="fiscalyear" position="inside">
+                <div class="col-12 col-lg-12 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="fiscalyear_lock_except" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="fiscalyear_lock_except" />
+                        <div class="text-muted">
+                            Allows block dates when there are draft seats.
+                        </div>
+                    </div>
+                </div>
+            </setting>
+            <setting id="use_invoice_terms" position="after">
+                <div class="col-xs-12 col-md-6 o_setting_box" id="manage_partner_invoice_lines">
+                    <div class="o_setting_left_pane">
+                        <field name="manage_partner_in_invoice_lines_out" widget="upgrade_boolean" />
+                    </div>
+                    <div class="o_setting_right_pane" name="show_sale_receipts_right_pane">
+                        <label for="manage_partner_in_invoice_lines_out" />
+                        <div class="text-muted">
+                            Allows to change the partner from the sales invoice lines and
+                            these will be assigned to the account income and
+                            the partner in the header will be assigned to the
+                            account receivable.
+                        </div>
+                    </div>
+                </div>
+            </setting>
+            <setting id="autopost_bills" position="after">
+                <div class="col-xs-12 col-md-6 o_setting_box" id="manage_partner_invoice_lines">
+                    <div class="o_setting_left_pane">
+                        <field name="manage_partner_in_invoice_lines_in" widget="upgrade_boolean" />
+                    </div>
+                    <div class="o_setting_right_pane" name="show_sale_receipts_right_pane">
+                        <label for="manage_partner_in_invoice_lines_in" />
+                        <div class="text-muted">
+                            Allows to change the partner from the supplier invoice lines and
+                            these will be assigned to the account expense and
+                            the partner in the header will be assigned to the
+                            account payable.
+                        </div>
+                    </div>
+                </div>
+            </setting>
+            <xpath expr="//div[./field[@name='account_journal_early_pay_discount_loss_account_id']]" position="after">
+                <div class="row mt8">
+                    <label for="account_journal_tax_with_discount_id" class="col-lg-5 o_light_label" />
+                    <field name="account_journal_tax_with_discount_id" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

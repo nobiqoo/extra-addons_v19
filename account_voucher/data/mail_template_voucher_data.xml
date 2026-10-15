@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="voucher_customer_email_template" model="mail.template">
+            <field name="name">Voucher: Cash receipt</field>
+            <field name="model_id" ref="account_voucher.model_account_voucher"/>
+            <field name="subject">Recibo de caja {{ object.display_name }}</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="email_to">{{ object.sudo().partner_id.email or '' }}</field>
+            <field name="partner_to">{{ object.partner_id.id if object.sudo().partner_id.email else '' }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Estimado <t t-out="object.partner_id.name or ''" contenteditable="false" data-oe-t-inline="true">Brandon Freeman</t>
+                        <t t-if="object.partner_id.parent_id" data-oe-t-group="0" data-oe-t-group-active="true" data-oe-t-inline="true">
+                            (<t t-out="object.partner_id.parent_id.name or ''" contenteditable="false" data-oe-t-inline="true">Azure Interior</t>)
+                        </t>
+                        <br/><br/>
+                        Adjuntamos el recibo de caja <strong t-out="object.name or ''" contenteditable="false">AV01234</strong>
+                        por el valor de <strong t-out="format_amount(object.amount, object.currency_id) or ''" contenteditable="false">$ 10.00</strong>
+                        de <t t-out="object.company_id.name or ''" contenteditable="false" data-oe-t-inline="true">Tu Empresa</t>. 
+                        <br/><br/>
+                    </p>
+                </div>
+            </field>
+            <field name="lang">{{ object.partner_id.lang or object.user_id.lang or user.lang }}</field>
+            <field name="auto_delete" eval="False"/>
+            <!-- <field name="report_template" ref="account_voucher.report_account_voucher_customer"/> -->
+            <!-- <field name="report_name">{{'Recibo de caja ' + object.name}}</field> -->
+        </record>
+
+        <record id="voucher_supplier_email_template" model="mail.template">
+            <field name="name">Voucher: Disbursement voucher</field>
+            <field name="model_id" ref="account_voucher.model_account_voucher"/>
+            <field name="subject">Comprobante de egreso {{ object.display_name }}</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="email_to">{{ object.sudo().partner_id.email or '' }}</field>
+            <field name="partner_to">{{ object.partner_id.id if object.sudo().partner_id.email else '' }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Estimado <t t-out="object.partner_id.name or ''" contenteditable="false" data-oe-t-inline="true">Brandon Freeman</t>
+                        <t t-if="object.partner_id.parent_id" data-oe-t-group="0" data-oe-t-group-active="true" data-oe-t-inline="true">
+                            (<t t-out="object.partner_id.parent_id.name or ''" contenteditable="false" data-oe-t-inline="true">Azure Interior</t>)
+                        </t>
+                        <br/><br/>
+                        Adjuntamos el comprobante de egreso <strong t-out="object.name or ''" contenteditable="false">AV01234</strong>
+                        por el valor de <strong t-out="format_amount(object.amount, object.currency_id) or ''" contenteditable="false">$ 10.00</strong>
+                        de <t t-out="object.company_id.name or ''" contenteditable="false" data-oe-t-inline="true">Tu Empresa</t>. 
+                        <br/><br/>
+                    </p>
+                </div>
+            </field>
+            <field name="lang">{{ object.partner_id.lang or object.user_id.lang or user.lang }}</field>
+            <field name="auto_delete" eval="False"/>
+            <!-- <field name="report_template" ref="account_voucher.report_account_voucher_supplier"/> -->
+            <!-- <field name="report_name">{{'Comprobante de egreso ' + object.name}}</field> -->
+        </record>
+
+    </data>
+</odoo>

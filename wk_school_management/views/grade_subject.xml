@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="wk_grade_subjects_form" model="ir.ui.view">
+            <field name="name">wk.grade.subjects.form</field>
+            <field name="model">wk.grade.subjects</field>
+            <field name="arch" type="xml">
+                <form string="Grade Subject">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="optional_choice" widget="checkbox"/>
+                                <field name="company_id" readonly="is_single_company" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="grade_id"/>
+                                <field name="section_id" invisible="not section_visibility" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                <field name="credit_value"/>
+                                <field name="subject_code"/>
+                                <field name="scale_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string='Lesson Plan'>
+                                <field name='lesson_plan_ids' widget="one2many" readonly="1">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="responsible_id"/>
+                                        <field name="subject_id" optional="hide"/>
+                                        <field name="grade_id" optional="hide"/>
+                                        <field name="description" optional="hide"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string='Teachers'>
+                                <field name='teacher_ids' readonly="1" force_save="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_grade_subjects_tree" model="ir.ui.view">
+            <field name="name">wk.grade.subjects.list</field>
+            <field name="model">wk.grade.subjects</field>
+            <field name="arch" type="xml">
+                <list string="Subject">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="grade_id"/>
+                    <field name="section_id" optional="hide"/>
+                    <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                    <field name="company_id"
+                        groups="base.group_multi_company"
+                        optional="show"
+                        readonly="1"/>
+                    <field name="create_uid" optional="hide"/>
+                    <field name="create_date" optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="wk_grade_subjects_search" model="ir.ui.view">
+           <field name="name">wk.grade.subjects.search</field>
+           <field name="model">wk.grade.subjects</field>
+           <field name="arch" type="xml">
+               <search string="Grade Subjects">
+                    <field name="name" filter_domain="['|', ('name', 'ilike', self), ('grade_id', 'ilike', self)]"/>
+                    <filter name="optional_choice" string="Optional Subjects" domain="[('optional_choice','=',True)]"/>
+                    <filter name="compulsory_choice" string="Compulsory Subjects" domain="[('optional_choice','=',False)]"/>
+                    <group>
+                        <filter name="group_grade_id" string="Grade" domain="[]" context="{'group_by':'grade_id'}"/>
+                        <filter name="group_by_school"  string="School" domain="[]" context="{'group_by':'company_id'}"/>
+                    </group>
+               </search>
+           </field>
+        </record>
+        
+        <record id="wk_grade_subjects_action" model="ir.actions.act_window">
+            <field name="name">Grade Subject</field>
+            <field name="res_model">wk.grade.subjects</field>
+            <field name="view_mode">form,list</field>
+            <field name="path">school-grade-subjects</field>
+            <field name="view_id" ref="wk_grade_subjects_tree"/>
+        </record>
+
+    </data>    
+</odoo>    

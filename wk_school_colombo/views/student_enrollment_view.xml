@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tarea 11293: la lista de precios con la que se valora cada concepto de
+         cobro se muestra junto al concepto, antes de la tarifa. Se propone la
+         del contacto del estudiante y queda editable para la inscripción. -->
+    <record id="student_enrollment_form_colombo" model="ir.ui.view">
+        <field name="name">student.enrollment.form.colombo</field>
+        <field name="model">student.enrollment</field>
+        <field name="inherit_id" ref="wk_school_management.student_enrollment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='fee_summary_ids']/list/field[@name='fee']" position="before">
+                <field name="pricelist_id"
+                       options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+            </xpath>
+
+            <!-- Requerimiento "Resultado académico, Promoción y Finalización"
+                 (2.8): el "Estado" operativo de la inscripción y el "Estado
+                 del programa académico" dejan de mostrarse -se confunden con
+                 el Resultado académico-. No se eliminan: los botones siguen
+                 dependiendo del VALOR de state (no de que el widget esté
+                 dibujado) y los filtros/agrupación del buscador se
+                 conservan (herramientas operativas internas). -->
+            <xpath expr="//header/field[@name='state']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='session_status']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Requerimiento 2.28: "Promocionar ahora" solo para
+                 Officer/Admin -hoy no tiene ninguna restricción-. -->
+            <xpath expr="//button[@name='promote_enrollment']" position="attributes">
+                <attribute name="groups">wk_school_management.wk_school_management_officer_group</attribute>
+            </xpath>
+
+            <!-- Requerimiento 2.4-2.6: Resultado académico, visible donde
+                 antes se mostraba el Estado del programa académico. -->
+            <xpath expr="//field[@name='fee_status']" position="after">
+                <field name="academic_result" widget="badge"
+                       decoration-success="academic_result == 'approved'"
+                       decoration-danger="academic_result == 'failed'"
+                       decoration-warning="academic_result == 'pending'"/>
+            </xpath>
+
+            <!-- Requerimiento de campos académicos: Libro y examen de
+                 clasificación de la inscripción. -->
+            <xpath expr="//group[@name='enrollment_order_details']/field[@name='grade_id']" position="after">
+                <field name="book_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                <field name="has_classification_exam"/>
+                <field name="classification_exam_result" invisible="not has_classification_exam"/>
+            </xpath>
+
+            <!-- Pestaña Observaciones: histórico único y editable de la
+                 inscripción, sin importar el origen de cada nota
+                 (inscripción, clase, facturación, administrativo o el
+                 comentario de la solicitud) -todas quedan ligadas a esta
+                 misma inscripción, ver models/observation.py-. enrollment_id
+                 se completa solo al agregar una línea (es el padre del
+                 one2many); solo hace falta proponer el origen. -->
+            <xpath expr="//field[@name='discipline_ids']/parent::page" position="after">
+                <page name="colombo_observations" string="Observaciones">
+                    <field name="observation_ids" context="{'default_origin': 'enrollment'}">
+                        <list editable="bottom" string="Observaciones">
+                            <field name="origin"/>
+                            <field name="observation_type"/>
+                            <field name="reference_display" readonly="1"/>
+                            <field name="move_id" invisible="origin != 'billing'"/>
+                            <field name="comment"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="create_date" string="Fecha y hora de registro" readonly="1" optional="show"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="student_enrollment_form_tree_colombo" model="ir.ui.view">
+        <field name="name">student.enrollment.list.colombo</field>
+        <field name="model">student.enrollment</field>
+        <field name="inherit_id" ref="wk_school_management.student_enrollment_form_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='session_status']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='grade_id']" position="after">
+                <field name="academic_result" widget="badge"
+                       decoration-success="academic_result == 'approved'"
+                       decoration-danger="academic_result == 'failed'"
+                       decoration-warning="academic_result == 'pending'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="student_enrollment_search_colombo" model="ir.ui.view">
+        <field name="name">student.enrollment.search.colombo</field>
+        <field name="model">student.enrollment</field>
+        <field name="inherit_id" ref="wk_school_management.student_enrollment_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="academic_result"/>
+            </xpath>
+            <xpath expr="//filter[@name='cancel']" position="after">
+                <separator/>
+                <filter name="academic_result_approved" string="Aprobado" domain="[('academic_result','=','approved')]"/>
+                <filter name="academic_result_failed" string="No aprobado" domain="[('academic_result','=','failed')]"/>
+                <filter name="academic_result_pending" string="Pendiente" domain="[('academic_result','=','pending')]"/>
+            </xpath>
+            <xpath expr="//filter[@name='group_by_state']" position="after">
+                <filter name="group_by_academic_result" string="Resultado académico" domain="[]" context="{'group_by':'academic_result'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

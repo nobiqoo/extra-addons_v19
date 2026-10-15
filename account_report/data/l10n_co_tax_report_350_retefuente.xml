@@ -1,0 +1,1281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="l10n_co_tr_350_retefuente" model="account.report">
+            <field name="name">350 Formulario Retencion en la fuente</field>
+            <field name="root_report_id" ref="account.generic_tax_report"/>
+            <field name="country_id" ref="base.co"/>
+            <field name="availability_condition">country</field>
+            <field name="filter_multi_company">tax_units</field>
+            <field name="filter_hierarchy">never</field>
+            <field name="default_opening_date_filter">previous_month</field>
+            <field name="only_tax_exigible" eval="True"/>
+            <field name="filter_date_range" eval="True"/>
+            <field name="filter_show_draft" eval="True"/>
+            <field name="filter_unreconciled" eval="False"/>
+            <field name="filter_unfold_all" eval="True"/>
+            <field name="filter_period_comparison" eval="True"/>
+            <field name="filter_growth_comparison" eval="True"/>
+            <field name="filter_journals" eval="False"/>
+            <field name="filter_analytic" eval="True"/>
+            <field name="filter_partner" eval="False"/>
+            <field name="filter_analytic_groupby" eval="False"/>
+            <field name="filter_account_type">disabled</field>
+            <field name="prefix_groups_threshold">4000</field>
+            <field name="column_ids">
+                <record id="l10n_co_tr_350_retefuente_column_0" model="account.report.column">
+                    <field name="name">Base</field>
+                    <field name="expression_label">balance</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="blank_if_zero" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_column_1" model="account.report.column">
+                    <field name="name">Retencion</field>
+                    <field name="expression_label">impuesto</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="blank_if_zero" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_id186" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">A TITULO DE IMPUESTO SOBRE LA RENTA Y COMPLEMENTARIO</field>
+            <field name="sequence">0</field>
+            <field name="hierarchy_level">1</field>
+            <field name="foldable" eval="False"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_id217" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">BASE SUJETA A RETENCION</field>
+            <field name="sequence">1</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id186"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r27" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R27] Rentas de trabajo</field>
+            <field name="code">CO350A_R27</field>
+            <field name="sequence">2</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r28" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R28] Renta de Pensiones</field>
+            <field name="code">CO350A_R28</field>
+            <field name="sequence">3</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r29" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R29] Honorarios</field>
+            <field name="code">CO350A_R29</field>
+            <field name="sequence">4</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r30" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R30] Comisiones</field>
+            <field name="code">CO350A_R30</field>
+            <field name="sequence">5</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r31" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R31] Servicios</field>
+            <field name="code">CO350A_R31</field>
+            <field name="sequence">6</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r32" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R32] Rendimientos Financieros e intereses</field>
+            <field name="code">CO350A_R32</field>
+            <field name="sequence">7</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r33" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R33] Arrendamientos-Muebles e Inmuebles</field>
+            <field name="code">CO350A_R33</field>
+            <field name="sequence">8</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r34" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R34] Regalias y explotacion de la propiedad intelectual</field>
+            <field name="code">CO350A_R34</field>
+            <field name="sequence">9</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r35" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R35] Dividendos y participaciones</field>
+            <field name="code">CO350A_R35</field>
+            <field name="sequence">10</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r36" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R36] Compras</field>
+            <field name="code">CO350A_R36</field>
+            <field name="sequence">11</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r37" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R37] Transacciones con tarjeta debito y credito</field>
+            <field name="code">CO350A_R37</field>
+            <field name="sequence">12</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r38" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R38] Contratos de construccion</field>
+            <field name="code">CO350A_R38</field>
+            <field name="sequence">13</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_rp40" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[RP40] Hidrocarburos, carbón y demás productos mineros</field>
+            <field name="code">CO350A_RP40</field>
+            <field name="sequence">14</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="False"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r39" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R39] Enajenacion de activos fijos</field>
+            <field name="code">CO350A_R39</field>
+            <field name="sequence">15</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r40" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R40] Loterias, rifas, apuestas y similares</field>
+            <field name="code">CO350A_R40</field>
+            <field name="sequence">16</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r41" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R41] Otros pagos sujetos a retencion</field>
+            <field name="code">CO350A_R41</field>
+            <field name="sequence">17</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id217"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_id218" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">RETENCIONES A TITULO DE RENTA</field>
+            <field name="sequence">18</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id186"/>
+            <field name="foldable" eval="False"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r52" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R27] [R52] Rentas de trabajo</field>
+            <field name="code">CO350A_R52</field>
+            <field name="sequence">19</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r52_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R27</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="False"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r52_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R52</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r53" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R28] [R53] Rentas de pensiones</field>
+            <field name="code">CO350A_R53</field>
+            <field name="sequence">20</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r53_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R28</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r53_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R53</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r54" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R29] [R54] Honorarios</field>
+            <field name="code">CO350A_R54</field>
+            <field name="sequence">21</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r54_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R29</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r54_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R54</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r55" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R30] [R55] Comisiones</field>
+            <field name="code">CO350A_R55</field>
+            <field name="sequence">22</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r55_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R30</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r55_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R55</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r56" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R31] [R56] Servicios</field>
+            <field name="code">CO350A_R56</field>
+            <field name="sequence">23</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r56_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R31</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r56_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R56</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r57" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R32] [R57] Rendimientos Financieros e intereses</field>
+            <field name="code">CO350A_R57</field>
+            <field name="sequence">24</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r57_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R32</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r57_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R57</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r58" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R33] [R58] Arrendamientos (Muebles e Inmuebles)</field>
+            <field name="code">CO350A_R58</field>
+            <field name="sequence">25</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r58_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R33</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r58_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R58</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r59" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R34] [R59] Regalias y explotacion de la propiedad intelectual</field>
+            <field name="code">CO350A_R59</field>
+            <field name="sequence">26</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r59_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R34</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r59_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R59</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r60" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R35] [R60] Dividendos y participaciones</field>
+            <field name="code">CO350A_R60</field>
+            <field name="sequence">27</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r60_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R35</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r60_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R60</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r61" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R36] [R61] Compras</field>
+            <field name="code">CO350A_R61</field>
+            <field name="sequence">28</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r61_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R36</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r61_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R61</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r62" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R37] [R62] Transacciones con tarjeta debito y credito</field>
+            <field name="code">CO350A_R62</field>
+            <field name="sequence">29</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r62_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R37</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r62_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R62</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r63" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R38] [R63] Contratos de construccion</field>
+            <field name="code">CO350A_R63</field>
+            <field name="sequence">30</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r63_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R38</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r63_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R63</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r64" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R39] [R64] Enajenacion de activos fijos</field>
+            <field name="code">CO350A_R64</field>
+            <field name="sequence">31</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r64_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R39</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r64_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R64</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r65" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R40] [R65] Loterias, rifas, apuestas y similares</field>
+            <field name="code">CO350A_R65</field>
+            <field name="sequence">32</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r65_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R40</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r65_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R65</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r66" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R41] [R66] Otros pagos sujetos a retencion</field>
+            <field name="code">CO350A_R66</field>
+            <field name="sequence">33</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id218"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r66_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R41</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r66_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R66</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_id187" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">AUTORETENCIONES</field>
+            <field name="sequence">34</field>
+            <field name="hierarchy_level">1</field>
+            <field name="foldable" eval="False"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r42" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R42] Contribuyentes exonerados de aportes</field>
+            <field name="code">CO350A_R42</field>
+            <field name="sequence">35</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r67" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R42] [R67] Contribuyentes exonerados de aportes</field>
+            <field name="code">CO350A_R67</field>
+            <field name="sequence">36</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r67_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R42</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r67_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R67</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r43" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R43] Ventas</field>
+            <field name="code">CO350A_R43</field>
+            <field name="sequence">37</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r68" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R43] [R68] Ventas</field>
+            <field name="code">CO350A_R68</field>
+            <field name="sequence">38</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r68_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R43</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r68_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R68</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r44" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R44] Honorarios</field>
+            <field name="code">CO350A_R44</field>
+            <field name="sequence">39</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r69" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R44] [R69] Honorarios</field>
+            <field name="code">CO350A_R69</field>
+            <field name="sequence">40</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r69_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R44</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r69_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R69</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r45" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R45] Comisiones</field>
+            <field name="code">CO350A_R45</field>
+            <field name="sequence">41</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r70" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R45] [R70] Comisiones</field>
+            <field name="code">CO350A_R70</field>
+            <field name="sequence">42</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r70_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R45</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r70_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R70</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r46" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R46] Servicios</field>
+            <field name="code">CO350A_R46</field>
+            <field name="sequence">43</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r71" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R46] [R71] Servicios</field>
+            <field name="code">CO350A_R71</field>
+            <field name="sequence">44</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r71_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R46</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r71_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R71</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r47" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R47] Rendimientos Financieros</field>
+            <field name="code">CO350A_R47</field>
+            <field name="sequence">45</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r72" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R47] [R72] Rendimientos Financieros</field>
+            <field name="code">CO350A_R72</field>
+            <field name="sequence">46</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r72_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R47</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r72_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R72</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r48" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R48] Pagos mensuales provisionales</field>
+            <field name="code">CO350A_R48</field>
+            <field name="sequence">47</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r73" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R48] [R73] Pagos mensuales provisionales</field>
+            <field name="code">CO350A_R73</field>
+            <field name="sequence">48</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r73_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R48</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r73_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R73</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r49" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R49] Otros conceptos</field>
+            <field name="code">CO350A_R49</field>
+            <field name="sequence">49</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r74" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R49] [R74] Otros conceptos</field>
+            <field name="code">CO350A_R74</field>
+            <field name="sequence">50</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id187"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r74_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R49</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r74_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R74</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r50" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R50] Pagos o abonos en cuenta al exterior a paises sin convenio</field>
+            <field name="code">CO350A_R50</field>
+            <field name="sequence">52</field>
+            <field name="hierarchy_level">2</field>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r75" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R50] [R75] Pagos o abonos en cuenta al exterior a paises sin convenio</field>
+            <field name="code">CO350A_R75</field>
+            <field name="sequence">53</field>
+            <field name="hierarchy_level">5</field>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r75_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R50</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r75_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R75</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r51" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R51] Pagos o abonos en cuenta al exterior a paises con convenio vigente</field>
+            <field name="code">CO350A_R51</field>
+            <field name="sequence">54</field>
+            <field name="hierarchy_level">1</field>
+            <field name="foldable" eval="True"/>
+            <field name="hide_if_zero" eval="True"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r76" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R51] [R76] Pagos o abonos en cuenta al exterior a paises con convenio vigente</field>
+            <field name="code">CO350A_R76</field>
+            <field name="sequence">55</field>
+            <field name="hierarchy_level">5</field>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r76_expr_0" model="account.report.expression">
+                    <field name="label">balance</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R51</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+                <record id="l10n_co_tr_350_retefuente_line_r76_expr_1" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R76</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r77" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R77] Menos retenciones practicadas en exceso o por operaciones anuladas</field>
+            <field name="code">CO350A_R77</field>
+            <field name="sequence">56</field>
+            <field name="hierarchy_level">3</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id186"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r77_expr_0" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R77</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r78" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">Total Retenciones renta y complementario</field>
+            <field name="code">CO350A_R78</field>
+            <field name="sequence">57</field>
+            <field name="hierarchy_level">2</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id186"/>
+            <field name="foldable" eval="False"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r78_expr_0" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CO350A_R52.impuesto+CO350A_R53.impuesto+CO350A_R54.impuesto+CO350A_R55.impuesto+CO350A_R56.impuesto+CO350A_R57.impuesto+CO350A_R58.impuesto+CO350A_R59.impuesto+CO350A_R60.impuesto+CO350A_R61.impuesto+CO350A_R62.impuesto+CO350A_R63.impuesto+CO350A_R64.impuesto+CO350A_R65.impuesto+CO350A_R66.impuesto+CO350A_R67.impuesto+CO350A_R68.impuesto+CO350A_R69.impuesto+CO350A_R70.impuesto+CO350A_R71.impuesto+CO350A_R72.impuesto+CO350A_R73.impuesto+CO350A_R74.impuesto+CO350A_R75.impuesto+CO350A_R76.impuesto+CO350A_R77.impuesto</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_id189" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">RETENCIONES PRACTICADAS POR OTROS IMPUESTOS</field>
+            <field name="sequence">58</field>
+            <field name="hierarchy_level">1</field>
+            <field name="foldable" eval="False"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_id199" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">A TITULO DE IVA</field>
+            <field name="sequence">59</field>
+            <field name="hierarchy_level">2</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id189"/>
+            <field name="foldable" eval="False"/>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r79" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R79] A responsables del impuesto sobre las ventas</field>
+            <field name="code">CO350A_R79</field>
+            <field name="sequence">60</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id199"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r79_expr_0" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R79</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r80" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R80] Practicadas por servicios a no residentes o no domiciliados</field>
+            <field name="code">CO350A_R80</field>
+            <field name="sequence">61</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id199"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r80_expr_0" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R80</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r81" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">[R81] Menos retenciones practicadas en exceso</field>
+            <field name="code">CO350A_R81</field>
+            <field name="sequence">62</field>
+            <field name="hierarchy_level">5</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id199"/>
+            <field name="groupby">account_id</field>
+            <field name="foldable" eval="True"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r81_expr_0" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R81</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r82" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">Total retenciones IVA</field>
+            <field name="code">CO350A_R82</field>
+            <field name="sequence">63</field>
+            <field name="hierarchy_level">2</field>
+            <field name="parent_id" ref="l10n_co_tr_350_retefuente_line_id199"/>
+            <field name="foldable" eval="False"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r82_expr_0" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CO350A_R79.impuesto+CO350A_R80.impuesto+CO350A_R81.impuesto</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r83" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">Retenciones Impuesto timbre nacional</field>
+            <field name="code">CO350A_R83</field>
+            <field name="sequence">64</field>
+            <field name="hierarchy_level">2</field>
+            <field name="foldable" eval="False"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r83_expr_0" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R83</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r84" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">Retenciones contribucion laudos arbitrales</field>
+            <field name="code">CO350A_R84</field>
+            <field name="sequence">65</field>
+            <field name="hierarchy_level">2</field>
+            <field name="foldable" eval="False"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r84_expr_0" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">tax_tags</field>
+                    <field name="formula">R84</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+        <record id="l10n_co_tr_350_retefuente_line_r85" model="account.report.line">
+            <field name="report_id" ref="l10n_co_tr_350_retefuente"/>
+            <field name="name">TOTAL RETENCIONES</field>
+            <field name="code">CO350A_R85</field>
+            <field name="sequence">66</field>
+            <field name="hierarchy_level">1</field>
+            <field name="foldable" eval="False"/>
+            <field name="expression_ids">
+                <record id="l10n_co_tr_350_retefuente_line_r85_expr_0" model="account.report.expression">
+                    <field name="label">impuesto</field>
+                    <field name="engine">aggregation</field>
+                    <field name="formula">CO350A_R78.impuesto+CO350A_R82.impuesto+CO350A_R83.impuesto+CO350A_R84.impuesto</field>
+                    <field name="date_scope">strict_range</field>
+                    <field name="green_on_positive" eval="True"/>
+                    <field name="auditable" eval="True"/>
+                </record>
+            </field>
+        </record>
+
+    </data>
+</odoo>

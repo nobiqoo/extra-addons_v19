@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_move_form_authorization_number" model="ir.ui.view">
+        <field name="name">account.move.form.authorization.number</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref'][@invisible=&quot;move_type != 'entry'&quot;]" position="after">
+                <field name="authorization_number" invisible="not authorization_number"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,25 @@
+<odoo>
+    <record id="mrp_production_form_view_mrp" model="ir.ui.view">
+        <field name="name">mrp.production.view.form.inherit</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='miscellaneous']" position="before">
+                <page string="BoM Costs" groups="mrp_baseline.group_mrp_cost">
+                    <field name="cost_ids" readonly="state in ('done', 'cancel')">
+                        <list String="Costs" editable="bottom">
+                            <field name="production_id" invisible="True" />
+                            <field name="product_id" required="True" />
+                            <field name="account_id" required="True" />
+                            <field name="split_method" required="True" />
+                            <field name="price_unit" required="True" />
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='miscellaneous']/group[1]/group[2]" position="inside">
+                <field name="cost_id" invisible="cost_id == False" groups="mrp_baseline.group_mrp_cost" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

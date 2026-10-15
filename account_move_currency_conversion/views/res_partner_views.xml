@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_conditioned_rate" model="ir.ui.view">
+        <field name="name">res.partner.form.conditioned.rate</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='accounting']/group[1]" position="inside">
+                <group string="Conditioned Exchange Rate (TRM)">
+                    <field name="conditioned_rate_type" />
+                    <field name="conditioned_rate_value" invisible="not conditioned_rate_type" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

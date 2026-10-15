@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Requerimiento "Resultado académico, Promoción y Finalización"
+         (2.9-2.16): el Nuevo nivel se vuelve opcional (ver
+         wizard/student_promote_wizard.py), se muestra el Resultado
+         académico, y se agrega el paso "confirm_finalize" como pantalla de
+         confirmación de la Finalización. -->
+    <record id="student_promote_view_form_colombo" model="ir.ui.view">
+        <field name="name">wk.student.promote.form.colombo</field>
+        <field name="model">wk.student.promote</field>
+        <field name="inherit_id" ref="wk_school_management.student_promote_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[1]" position="attributes">
+                <attribute name="invisible">step != 'form'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='student_id']" position="after">
+                <field name="academic_result" widget="badge"
+                       decoration-success="academic_result == 'approved'"
+                       decoration-danger="academic_result == 'failed'"
+                       decoration-warning="academic_result == 'pending'"/>
+                <field name="origin_enrollment_id" invisible="1"/>
+                <field name="step" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//group[1]" position="after">
+                <p invisible="step != 'confirm_finalize'">
+                    No se ha seleccionado un nuevo nivel. ¿Desea finalizar el
+                    proceso académico del estudiante?
+                </p>
+            </xpath>
+
+            <xpath expr="//footer/button[@name='promote_student']" position="attributes">
+                <attribute name="invisible">step != 'form'</attribute>
+                <attribute name="string">Promover / Finalizar proceso</attribute>
+                <attribute name="groups">wk_school_management.wk_school_management_officer_group</attribute>
+            </xpath>
+            <xpath expr="//footer/button[@name='promote_student']" position="after">
+                <button name="action_confirm_finalize" type="object"
+                        string="Confirmar" class="btn-primary"
+                        invisible="step != 'confirm_finalize'"
+                        groups="wk_school_management.wk_school_management_officer_group"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

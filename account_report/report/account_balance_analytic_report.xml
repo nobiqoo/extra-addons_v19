@@ -1,0 +1,9 @@
+<odoo>
+    <record id="report_account_balance_analytic" model="ir.actions.report">
+        <field name="name">Balance Centros de Costos</field>
+        <field name="model">account.balance.analytic.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">account_report.account_balance_analytic</field>
+        <field name="report_file">account_report.account_balance_analytic</field>
+    </record>
+</odoo>

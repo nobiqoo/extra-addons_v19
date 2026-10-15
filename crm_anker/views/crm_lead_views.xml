@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_lead_view_form" model="ir.ui.view">
+        <field name="name">crm.lead.view.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='lead']//group[@name='Misc']" position="inside">
+                <field name="date_open" readonly="1"/>
+            </xpath>
+            <field name="team_id" position="after">
+                <field
+                    name="gestion_partner_id"
+                    options="{'no_open': True, 'no_create': True}" />
+                <field
+                    name="comertial_partner_id"
+                    options="{'no_open': True, 'no_create': True}" />
+                <field
+                    name="date_limit" />
+            </field>
+            <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='extra']/group[1]/group[@name='categorization']/field[@name='company_id']" position="after">
+                <separator string="Procedencia del cliente"/>
+            </xpath>
+            <field name="source_id" position="after">
+                <field name="recommended" />
+            </field>
+            <field name="referred" position="after">
+                <field
+                    name="database_id"
+                    options="{'no_open': True, 'no_create': True}" />
+                <field name="nvocc" />
+            </field>
+
+            <xpath expr="//form[1]/sheet[1]/group[1]/group[@name='opportunity_partner']/div[2]" position="after">
+                <field
+                    name="gestion_partner_id"
+                    options="{'no_open': True, 'no_create': True}" />
+                <field
+                    name="comertial_partner_id"
+                    options="{'no_open': True, 'no_create': True}" />
+                <field
+                    name="date_limit" />
+            </xpath>
+            <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='lead']/group[1]/group[3]/field[@name='campaign_id']" position="before">
+                <separator string="Procedencia del cliente"/>
+            </xpath>
+            <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='lead']/group[1]/group[3]/field[@name='source_id']" position="after">
+                <field name="recommended"/>
+            </xpath>
+            <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='lead']/group[1]/group[3]/field[@name='referred']" position="after">
+                <field
+                    name="database_id"
+                    options="{'no_open': True, 'no_create': True}" />
+                <field name="nvocc" />
+            </xpath>
+
+            <xpath expr="//form[1]/sheet[1]/group[1]/group[not(@name)][1]/field[@name='tag_ids']" position="after">
+                <field
+                    name="service_modality_ids"
+                    widget="many2many_tags"
+                    options="{'no_open': True, 'no_create': True}" />
+                <field
+                    name="partner_state"
+                    options="{'no_open': True, 'no_create': True}" />
+                <field
+                    name="partner_tags_ids"
+                    widget="many2many_tags"
+                    options="{'no_open': True, 'no_create': True}" />
+                <field
+                    name="industry_type_id"
+                    options="{'no_open': True, 'no_create': True}" />
+                <field
+                    name="service_type_ids"
+                    widget="many2many_tags"
+                    options="{'no_open': True, 'no_create': True}" />
+                <field
+                    name="partner_type_id"
+                    options="{'no_open': True, 'no_create': True}" />
+            </xpath>
+
+            <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                <page string="Trafico de interes" invisible="type == 'lead'">
+                    <field name="trafic_line_ids">
+                        <list editable="bottom">
+                            <field
+                                name="origin_country_id"
+                                options="{'no_open': True, 'no_create': True}" />
+                            <field
+                                name="origin_city_id"
+                                domain="[('country_id', '=', origin_country_id)]"
+                                options="{'no_open': True, 'no_create': True}" />
+                            <field
+                                name="dest_country_id"
+                                options="{'no_open': True, 'no_create': True}" />
+                            <field
+                                name="dest_city_id"
+                                domain="[('country_id', '=', dest_country_id)]"
+                                options="{'no_open': True, 'no_create': True}" />
+                            <field
+                                name="transport_id"
+                                options="{'no_open': True, 'no_create': True}" />
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

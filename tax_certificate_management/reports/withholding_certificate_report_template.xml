@@ -1,0 +1,169 @@
+<odoo>
+    <template id="withholding_certificate_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <style>
+                        .tabla-company td {
+                            vertical-align: middle;
+                            padding: 0 6px;
+                        }
+                        .logo-company {
+                            display: block;
+                            height: 130px;
+                            line-height: 130px;
+                            margin: 0;
+                            text-align: center;
+                        }
+                        .logo-company img {
+                            max-width: 100%;
+                            max-height: 100%;
+                            width: auto;
+                            height: auto;
+                            vertical-align: middle;
+                        }
+                        .datos-company {
+                            margin: 0;
+                            font-size: 18px;
+                            line-height: 24px;
+                        }
+                    </style>
+                    <table class="tabla-company" style="width:100%; margin-bottom:10mm;">
+                      <tr>
+                        <td style="width:25%;">
+                          <p class="logo-company">
+                            <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" alt="Logo"/>
+                          </p>
+                        </td>
+                        <td style="width:75%;">
+                          <p class="datos-company">
+                            <strong><span t-field="doc.company_id.display_name"/></strong><br/>
+                            NIT: <span t-field="doc.company_id.partner_id.vat"/><br/>
+                            <span t-field="doc.company_id.partner_id.city_id.name"/><br/>
+                            <span t-field="doc.company_id.partner_id.country_id.name"/><br/>
+                            <span t-field="doc.company_id.phone"/><br/>
+                            <span t-field="doc.company_id.website"/>
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <div class="page">
+                        <div class="text-center">
+                          <h2><span t-field="doc.certificate_id.title"/></h2>
+                        </div>
+
+                      <table class="table table-sm table-bordered">
+                        <thead class="text-center">
+                          <tr>
+                            <th colspan="3">GENERAL INFORMATION</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="text-center">
+                            <t t-if="doc.certificate_id.keep_header_cities or not doc.certificate_id.ica">
+                              <th>City practiced</th>
+                              <th>City recorded</th>
+                              <th>Date</th>
+                            </t>
+                            <t t-if="not doc.certificate_id.keep_header_cities and doc.certificate_id.ica">
+                              <th colspan="3">Date</th>
+                            </t>
+                          </tr>
+                          <tr>
+                            <t t-if="doc.certificate_id.keep_header_cities or not doc.certificate_id.ica">
+                              <td><span t-field="doc.certificate_id.city_generated_id.display_name"/></td>
+                              <td><span t-field="doc.certificate_id.city_paid_id.display_name"/></td>
+                              <td><span t-field="doc.certificate_period_id.date_from"/> to <span t-field="doc.certificate_period_id.date_to"/></td>
+                            </t>
+                            <t t-if="not doc.certificate_id.keep_header_cities and doc.certificate_id.ica">
+                              <td class="text-center" colspan="3"><span t-field="doc.certificate_period_id.date_from"/> to <span t-field="doc.certificate_period_id.date_to"/></td>
+                            </t>
+                          </tr>
+                          <tr class="text-center">
+                            <th>Name</th>
+                            <th>NIT</th>
+                            <th>Direction</th>
+                          </tr>
+                          <tr>
+                            <td><span t-field="doc.partner_id.display_name"/></td>
+                            <td><span t-field="doc.partner_id.vat"/></td>
+                            <td><span t-field="doc.partner_id.street"/></td>
+                          </tr>
+                        </tbody>
+                      </table><br/>
+
+                      <table class="table table-bordered">
+                        <thead class="text-center">
+                          <tr>
+                            <th>Rango</th>
+                            <th>Concept</th>
+                            <th>Description</th>
+                            <t t-if="doc.certificate_id.ica">
+                                <th>City</th>
+                            </t>
+                            <th>Base</th>
+                            <th>%</th>
+                            <th>Detained</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <t t-set="base_amount" t-value="0" />
+                          <t t-set="detained_amount" t-value="0" />
+                          <t t-foreach="doc.line_ids" t-as="line">
+                            <tr>
+                              <td><span t-field="line.period"/></td>
+                              <td><span t-field="line.tax_account.name"/></td>
+                              <td><span t-field="line.tax_id.name"/></td>
+                              <t t-if="doc.certificate_id.ica">
+                                <td><span t-field="line.city_id.name"/></td>
+                              </t>
+                              <td class="text-end"><span t-field="line.base_amount" t-options="{'widget': 'monetary', 'display_currency': doc.company_id.currency_id}"/></td>
+                              <td class="text-end"><span t-field="line.percentage"/></td>
+                              <td class="text-end"><span t-field="line.amount_withheld" t-options="{'widget': 'monetary', 'display_currency': doc.company_id.currency_id}"/></td>
+                            </tr>
+                            <t t-set="base_amount" t-value="base_amount + line.base_amount" />
+                            <t t-set="detained_amount" t-value="detained_amount + line.amount_withheld" />
+                          </t>
+                        </tbody>
+                      </table>
+
+                      <t t-set="total_text" t-value="doc.company_id.currency_id.amount_to_text(detained_amount)"/>
+                      <t t-set="total_text" t-value="total_text.replace('Peso', 'Pesos')"/>
+
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-sm">
+                            <b>Total deductible taxes:</b> <t t-esc="detained_amount" t-options="{'widget': 'monetary', 'display_currency': doc.company_id.currency_id}" />
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm">
+                            <b>Amount in letters:</b> <t t-esc="total_text"/>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm">
+                            <b>Observations:</b>
+                            <t t-if='doc.certificate_id.notes'>
+                              <span><t t-esc="doc.certificate_id.notes"/></span>
+                            </t>
+                            <t t-if='not doc.certificate_id.notes'>
+                              <span>------------------</span>
+                            </t>
+                          </div><br/><br/><br/>
+                        </div>
+                        <div class="row text-center">
+                          <div class="col-sm">
+                            <b>Sing</b><br/><br/>
+                            ___________________________________________________
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

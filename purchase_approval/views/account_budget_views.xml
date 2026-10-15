@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_crossovered_budget_view_form" model="ir.ui.view">
+        <field name="name">purchase.crossovered.budget.view.form</field>
+        <field name="model">crossovered.budget</field>
+        <field name="inherit_id" ref="account_budget.crossovered_budget_view_form"/>
+        <field name="arch" type="xml">
+            <field name="practical_amount" position="after">
+                <field name="commited_amount"/>
+            </field>
+            <button name="action_open_budget_entries" position="after">
+                <button type="object" name="action_open_purchase_order_lines" string="Ordenes..."
+                    icon="fa-arrow-circle-o-right"/>
+            </button>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="wk_school_class_form" model="ir.ui.view">
+            <field name="name">wk.school.class.form</field>
+            <field name="model">wk.school.class</field>
+            <field name="arch" type="xml">
+                <form string="Populate Class">
+                    <header>
+                        <button name="schedule_class" string="Schedule Now" groups="wk_school_management.wk_school_management_officer_group" invisible="state != 'confirm' or (id == False)" type="object" class="oe_highlight"/>
+                        <button name="assign_assignment" string="Assign Assignment" invisible="state != 'confirm' or (id == False)" type="object" class="oe_highlight"/>
+                        <button name="confirm_class" string="Confirm" type="object" class="oe_highlight" invisible="state != 'new' or (id == False)"  confirm="Are you sure you want to confirm this class ?" groups="wk_school_management.wk_school_management_officer_group"/>
+                        <button name="complete_class" string="Mark Done" type="object" class="oe_highlight" invisible="state != 'confirm' or (id == False)"  confirm="Are you sure you want to complete this class ?"/>
+                        <button name="reset_class" string="Reset" type="object" invisible="state != 'confirm' or (id == False)"  confirm="Are you sure you want to reset the class ?" groups="wk_school_management.wk_school_management_officer_group"/>
+                        <div style='color:#560fc7;font-weight:500;font-size:16px;' invisible='state != "new"' groups="wk_school_management.wk_school_management_staff_group,!wk_school_management.wk_school_management_officer_group">
+                            <span>The populate class is yet to be confirmed!</span>
+                        </div>
+                        <field name="state" widget="statusbar" statusbar_visible="new,confirm"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="get_scheduled_classes" icon="fa-calendar" type="object" 
+                                class="oe_stat_button">
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_value">
+                                            <field name="timetable_count"/>
+                                        </span>
+                                        <span class="o_stat_text">
+                                            Classes
+                                        </span>
+                                    </div>
+                            </button>
+                            
+                            <button name="get_assigned_assignments" icon="fa-tasks" type="object" 
+                                class="oe_stat_button">
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_value">
+                                            <field name="assignment_count"/>
+                                        </span>
+                                        <span class="o_stat_text">
+                                            Assignments
+                                        </span>
+                                    </div>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="title" string="Title"/>
+                                <field name="title" placeholder="Ex. A" readonly="state != 'new'"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="grade_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state != 'new'"/>
+                                <field name="section_id" invisible="not section_visibility" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state != 'new'"/>
+                                <field name="subject_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state != 'new'"/>
+                                <field name="teacher_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state != 'new'"/>
+                                <field name="teacher_ids" widget="many2many_tags" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state != 'new'"/>
+                                <field name="capacity"/>
+                            </group>
+                            <group>
+                                <field name="session_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state != 'new'"/>
+                                <field name="academic_year_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state != 'new'"/>
+                                <field name="term_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="state != 'new'"/>
+                                <label for="start_date" string="Timeline"/>
+                                <div class="o_row">
+                                    <field name="start_date" widget="daterange" options="{'end_date_field': 'end_date'}" readonly="state != 'new'"/>
+                                    <field name="end_date" invisible="1"/>
+                                </div>
+                                <field name="company_id" readonly="is_single_company" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" groups="base.group_multi_company"/>
+                                <field name="total_enrolled"/>
+                            </group>
+                        </group>
+
+                        <div class="o_row">
+                            <field name="divide_assignment_weightage" colspan="12"/>
+                            <label for="divide_assignment_weightage" string="Want to divide assignment weightage equally?"/>
+                        </div>
+
+                        <notebook>
+                            <page name="students" string="Enrolled Students">
+                                <field name="student_ids" mode='kanban'/>
+                                <field name="student_ids_domain" invisible='1'/>
+                            </page> 
+                            <page string="Weekly Schedule">
+                                <group string="Schedule Timetable">
+                                    <field colspan="2" name="weekly_schedule_ids" nolabel="1">
+                                        <list editable="bottom" string="Weekly Schedule">
+                                            <field name="sequence" widget="handle"/>
+                                            <field name="weekday" readonly="state == 'done'"/>
+                                            <field name="timeslot_id" readonly="state == 'done'"/>
+                                            <field name="location_id" readonly="state == 'done'"/>
+                                            <field name="state" widget="badge" decoration-success="state =='done'"/>
+                                        </list>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Assignment Type">
+                                <field colspan="2" name="class_assignment_type_ids" nolabel="1" readonly="state != 'new'">
+                                    <list editable="bottom">
+                                        <field name='assignment_type_id'/>
+                                        <field name='weightage' readonly='parent.divide_assignment_weightage == True'/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_school_class_tree" model="ir.ui.view">
+            <field name="name">wk.school.class.list</field>
+            <field name="model">wk.school.class</field>
+            <field name="arch" type="xml">
+                <list string="Classes">
+                    <field name="name"/>
+                    <field name="grade_id" optional='show'/>
+                    <field name="section_id" optional='hide'/>
+                    <field name="session_id" optional='hide'/>
+                    <field name="subject_id" optional='show'/>
+                    <field name="start_date"/>
+                    <field name="end_date" />
+                    <field name="teacher_id"/>
+                    <field name="capacity"/>
+                    <field name="total_enrolled"/>
+                    <field name='state' string='Status' decoration-success="state =='complete'" decoration-warning="state =='confirm'" decoration-primary="state =='new'" widget='badge'/>
+                    <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                    <field name="company_id"
+                        groups="base.group_multi_company"
+                        optional="show"
+                        readonly="1"/>
+                    <field name="create_date" optional='hide'/>
+                    <field name="create_uid" optional='hide'/>
+                    <field name="write_date" optional='hide'/>
+                    <field name="write_uid" optional='hide'/>
+                </list>
+            </field>
+        </record>
+
+        <record id="wk_school_class_kanban" model="ir.ui.view">
+            <field name="name">wk.school.class.kanban</field>
+            <field name="model">wk.school.class</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="grade_id"/>
+                    <field name="academic_year_id"/>
+                    <field name="teacher_id"/>
+                    <field name="state"/>
+                    <templates>
+                        <t t-name="card" class="flex-row">
+                            <main class="ps-2 ps-md-0">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                        <span style="float:right;">
+                                            <field name="state" widget="label_selection" options="{'classes': {'new': 'info', 'confirm': 'success'}}"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="fw-bold"><i class="fa fa-fw me-2 fa-user-circle text-primary" title="Teacher"/>Teacher: </span> 
+                                    <field name="teacher_id"/>
+                                </div>
+                                <div>
+                                    <span class="fw-bold"><i class="fa fa-fw me-2 fa-clock-o text-primary" title="Duration"/>Duration: </span> 
+                                    <field name="start_date" class="oe_inline"/> - <field name="end_date" class="oe_inline" nolabel="1"/>
+                                </div>
+                                <div>
+                                    <span class="fw-bold"><i class="fa fa-fw me-2 fa-calendar-check-o text-primary" title="Academic Year"/>Academic Year: </span> 
+                                    <field name="academic_year_id"/>
+                                </div>
+                                <footer class="justify-content-end">
+                                    <div>
+                                        <span class="badge bg-success me-2" title="Student Capacity"><i class="fa fa-user-plus"/> <field name="capacity"/></span>
+                                        <span class="badge bg-info me-2" title="Enrolled Students"><i class="fa fa-users"/> <field name="total_enrolled"/></span>
+                                    </div>
+                                </footer>
+                            </main>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Filters -->
+
+        <record id="wk_school_class_search" model="ir.ui.view">
+           <field name="name">wk.school.class.search</field>
+           <field name="model">wk.school.class</field>
+           <field name="arch" type="xml">
+               <search>
+                    <field name="name" string="Class" filter_domain="['|','|','|', ('title', 'ilike', self), ('name', 'ilike', self),('subject_id', 'ilike', self),('grade_id','ilike','self')]"/>
+                    <field name="subject_id"/>
+                    <field name="teacher_id"/>
+                    <searchpanel>
+                        <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
+                        <field name="subject_id" icon="fa-external-link" enable_counters="1"/>
+                        <field name="grade_id" icon="fa-id-card-o" enable_counters="1"/>
+                    </searchpanel>
+                    <field name="teacher_ids"/>
+                    <filter string="Start From" name="start_date" date="start_date"/>
+                    <filter string="End Till" name="end_date" date="end_date"/>
+                    <separator/>
+                    <filter name="new" string="New" domain="[('state','=','new')]"/>
+                    <filter name="confirm" string="Confirmed" domain="[('state','=','confirm')]" />
+                    <filter name="complete" string="Completed" domain="[('state','=','complete')]" />
+                    <group>
+                        <filter name="group_by_subject"  string="Subject" domain="[]" context="{'group_by':'subject_id'}" />
+                        <filter name="group_by_grade"  string="Grade" domain="[]" context="{'group_by':'grade_id'}" />
+                        <filter name="group_by_session"  string="Session" domain="[]" context="{'group_by':'session_id'}" />
+                        <filter name="group_by_teacher"  string="Teacher" domain="[]" context="{'group_by':'teacher_id'}" />
+                    </group>
+               </search>
+           </field>
+        </record>
+
+        <record id="wk_school_class_graph_view" model="ir.ui.view">
+            <field name="name">wk.school.class.view.graph</field>
+            <field name="model">wk.school.class</field>
+            <field name="arch" type="xml">
+                <graph string="Classes" type="bar" sample="1">
+                    <field name="capacity" type="measure"/>
+                    <field name="grade_id"/>
+                    <field name="subject_id"/>
+                    <field name="total_enrolled" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="wk_school_class_calendar_view" model="ir.ui.view">
+            <field name="name">wk.school.class.view.calendar</field>
+            <field name="model">wk.school.class</field>
+            <field name="arch" type="xml">
+                <calendar string="Classes" create="0" delete="0" mode="month" date_start="start_date" date_stop="end_date" event_open_popup='True' color="state" >
+                    <field name="name"/>
+                    <field name="state" color="kanban_color" />
+                </calendar>
+            </field>
+        </record>
+        
+        <record id="wk_school_class_action" model="ir.actions.act_window">
+            <field name="name">Populate Class</field>
+            <field name="res_model">wk.school.class</field>
+            <field name="view_mode">form,list,kanban,graph,calendar</field>
+            <field name="view_id" ref="wk_school_class_kanban"/>
+            <field name="path">school-populate-class</field>
+        </record>
+    </data>    
+</odoo>    

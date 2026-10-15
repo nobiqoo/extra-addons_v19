@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="cron_dian_event_process" model="ir.cron">
+            <field name="name">DIAN Event Process</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <!-- <field name="numbercall">-1</field> -->
+            <!-- <field name="doall" eval="False"/> -->
+            <field name="code">model.cron_event_process(50)</field>
+        </record>
+
+        <record id="ir_cron_eids_senden" model="ir.cron">
+            <field name="name">DIAN Send Docs</field>
+            <field name="model_id" ref="model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">
+model._eids_dokumenten_senden(num_fe=5, num_ds=5)
+            </field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <!-- <field name="numbercall">-1</field> -->
+            <!-- <field eval="False" name="doall" /> -->
+        </record>
+
+        <record id="cron_dian_partner_data_recovery" model="ir.cron">
+            <field name="name">Bloodo partner data recovery</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="state">code</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1000</field>
+            <field name="interval_type">months</field>
+            <!-- <field name="numbercall">-1</field> -->
+            <!-- <field name="doall" eval="False"/> -->
+            <field name="active" eval="False"/>
+            <field name="code">
+fields = [
+  'name1',
+  'name2',
+  'lastname1',
+  'lastname2',
+  'edi_email',
+]
+city_obj = env['res.city']
+tax_ex_obj = env['dian.tax.type']
+resp_obj = env['dian.type_code']
+env.cr.execute('''SELECT * FROM temp_partner_migration WHERE updated = false;''')
+temps = env.cr.dictfetchall()
+
+out = []
+for temp in temps[:100]:
+  to_write = {}
+  partner = model.sudo().browse(temp['partner_id'])
+  for field in fields:
+    if temp[field]:
+      to_write[field] = temp[field]
+    
+  if partner.country_id and partner.country_id.code == 'CO':
+    to_write['vat'] = temp['vat']
+
+  city_id = city_obj.search([('dian_code','=', temp['city_code']),('dian_code','!=', False)])
+  if city_id:
+    city = city_id.filtered(lambda x: 'l10n_co_data_bloodo' in x.get_external_id().get(x.id, ''))
+    # raise UserError([str(city.get_external_id()), city])
+    to_write['city_id'] = city and city.id or False
+  
+  tax_ex_id = tax_ex_obj.search([('dian_code','=',temp['tax_fiscal_code']),('dian_code','!=',False)], limit=1)  
+  if tax_ex_id:
+    to_write['dian_tax_scheme_id'] = tax_ex_id.id
+  
+  resp_codes = temp['resp_fiscal_code'] and temp['resp_fiscal_code'].split(';')
+  resp_ids = resp_obj.search([('dian_code','in',resp_codes),('is_required_dian','=',True)])
+  if resp_ids:
+    to_write['dian_obligation_type_ids'] = [(6,0,resp_ids.ids)]
+  partner.write(to_write)
+  env.cr.execute('''UPDATE temp_partner_migration SET updated = true WHERE partner_id = {}'''.format(partner.id))
+  
+#   exit = [
+#     str(temp),
+#     str(to_write),
+#     str([partner.vat, partner.municipality_id.name]),
+#   ]
+#   out.append('\n'.join(exit))
+# raise UserError('\n\n'.join(out))
+# raise UserError(len(temps))
+
+            </field>
+        </record>
+
+        <record id="cron_dian_invoice_data_recovery" model="ir.cron">
+            <field name="name">Bloodo invoice data recovery</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1000</field>
+            <field name="interval_type">months</field>
+            <!-- <field name="numbercall">-1</field> -->
+            <!-- <field name="doall" eval="False"/> -->
+            <field name="active" eval="False"/>
+            <field name="code">
+pay_opt_obj = env['dian.payment.option']
+cconcept_obj = env['dian.discrepancy.response']
+# resp_obj = env['dian.type_code']
+env.cr.execute('''SELECT * FROM temp_invoice_migration WHERE updated = false;''')
+temps = env.cr.dictfetchall()
+
+out = []
+for temp in temps[:10]:
+  to_write = {}
+  move = model.sudo().browse(temp['move_id'])
+  move_type = move.move_type
+  
+  pay_opt_id = pay_opt_obj.search([('dian_code','=', temp['payment_mean_code']),('dian_code','!=', False)], limit=1)
+  if pay_opt_id:
+    to_write['fe_payment_option_id'] = pay_opt_id.id
+  
+  if temp['cconcept_code']:
+    cc_domain = [('dian_code','=',temp['cconcept_code']),('dian_code','!=',False)]
+    if move_type == 'out_invoice':
+      cc_domain.append(('type','=','debit'))
+    elif move_type == 'in_refund':
+      cc_domain += [('type','=','credit'),('is_ei','=',False)]
+    else:
+      cc_domain += [('type','=','credit'),('is_sd','=',False)]
+    cconcept_id = cconcept_obj.search(cc_domain, limit=1)  
+    if cconcept_id:
+      to_write['fe_correction_id'] = cconcept_id.id
+    
+  url = 'https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey={}'.format(temp['cufe'])
+  to_write['fe_url'] = url
+  
+  type_doc = temp['type_doc']
+  if move_type == 'in_invoice' and not type_doc:
+    to_write['name_ei_ref'] = temp['sp_number']
+    to_write['uuid_ei_ref'] = temp['cufe']
+    to_write['is_supplier_ei'] = True
+  else:
+    to_write['fe_cufe_cude_ref'] = temp['cufe']
+    to_write['fe_response'] = 'Procesado en Jorels'
+    to_write['fe_state'] = 'Otro'
+    to_write['mail_sent'] = True
+  
+  if move_type in ('out_invoice', 'out_refund'):
+    if type_doc in ('01', '02', '03', '04'):
+      to_write['fe_type'] = type_doc
+    elif type_doc == '91':
+      to_write['type_note'] = 'credit'
+    elif type_doc == '92':
+      to_write['type_note'] = 'debit'
+    
+    
+  move.write(to_write)
+  env.cr.execute('''UPDATE temp_invoice_migration SET updated = true WHERE move_id = {}'''.format(move.id))
+    
+  # exit = [
+  #   str(to_write),
+  # ]
+  # out.append('\n'.join(exit))
+# raise UserError('\n\n'.join(out))
+# raise UserError(len(temps))
+            </field>
+        </record>
+
+        <record id="cron_clean_old_dian_logs" model="ir.cron">
+            <field name="name">EDI: Clean old dian logs</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <!-- <field name="numbercall">-1</field> -->
+            <!-- <field name="doall" eval="False"/> -->
+            <field name="active" eval="True"/>
+            <field name="code">
+limit_log = 100
+limit_ev = 100
+limit_evrp = 100
+
+log_obj = log_ids = env['edi.document.log']
+event_obj = ev_rp_ids = env['history.dian.event']
+ofset_ev = datetime.date.today() - datetime.timedelta(days=30)
+ofset_ok = datetime.date.today() - datetime.timedelta(days=30)
+ofset_rndc = datetime.date.today() - datetime.timedelta(days=2)
+
+inv_id = model.search([('fe_state','=','00')])
+
+log_ev_ids = log_obj.search([('type_request','=','GetStatusEvent'), ('create_date','&lt;=',ofset_ev)], order='id')
+log_ok_ids = log_obj.search([('type_request','in',('SendBillSync', 'GetStatus', 'SendEventUpdateStatus')), ('create_date','&lt;=',ofset_ok)], order='id')
+log_rndc_ids = log_obj.search([('type_request','in',('SendRNDC','SendTestRNDC')), ('create_date','&lt;=',ofset_rndc)], order='id')
+event_ids = event_obj.search([('dian_code','in',('02', '04', False)), ('ev_active','=',False)], order='id')
+event_rp = event_obj.read_group([], fields=['move_id', 'dian_code'], groupby=['move_id', 'dian_code'], lazy=False)
+
+ev_out = []
+for group in event_rp: 
+  if group['__count'] &gt; 1:
+    dian_code = group.get('dian_code', False)
+    move_id = group.get('move_id', [])[0]
+    ev_ids = event_obj.search([('dian_code','=',dian_code),('move_id','=',move_id)], order='id desc')
+    ev_to_keep = ev_ids[0]
+    ev_to_rm = ev_ids[1:]
+    ev_rp_ids |= ev_to_rm
+    ev_out.append(f"Factura {move_id} - dian_code {dian_code} → mantengo {ev_to_keep.id}, elimino {[r.id for r in ev_to_rm]}")
+
+log_ids |= log_ev_ids 
+log_ids |= log_ok_ids 
+log_ids |= log_rndc_ids 
+
+if 100 == 10:
+  raise UserError('\n'.join([
+    'GetStatusEvent: %s' % len(log_ev_ids),
+    'SendBillSync: %s' % len(log_ok_ids),
+    'SendRNDC: %s' % len(log_rndc_ids),
+    'Events: %s' % len(event_ids),
+    'Events rp: %s' % len(ev_rp_ids),
+    'Date Event: %s' % str(ofset_ev), 
+    'Date OK:    %s' % str(ofset_ok), 
+    'Date RNDC:  %s' % str(ofset_rndc)] + [str([str(x.id), x.type_request, str(x.create_date)]) for x in log_ids[:10]] + ev_out))
+
+log_ids[:limit_log].unlink()
+event_ids[:limit_ev].unlink()
+ev_rp_ids[:limit_evrp].unlink()
+            </field>
+        </record>
+
+        <record id="cron_dian_process_pending_event" model="ir.cron">
+            <field name="name">DIAN: Procesar Eventos Pendientes</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <!-- <field name="numbercall">-1</field> -->
+            <!-- <field name="doall" eval="False"/> -->
+            <field name="active" eval="True"/>
+            <field name="code">
+moves = model.search([('ie_event_display','in',('pending','pending030','pending032','pending033'))], order='id desc', limit=200)
+if moves:
+    out = moves._dian_event_process_pending()
+    log('Cron DIAN Procesar eventos pendientes: %s' % out, level='info')
+            </field>
+        </record>
+
+        <record id="cron_clean_attach_fe_cuantias_menores" model="ir.cron">
+            <field name="name">EDI: Clean attach FE Cuantias Menores</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <!-- <field name="numbercall">-1</field> -->
+            <!-- <field name="doall" eval="False"/> -->
+            <field name="active" eval="False"/>
+            <field name="code">
+
+limit_inv = 0
+
+fields_att = (
+    'fe_zip_file', 
+    'fe_pdf_file', 
+    'fe_ad_file',
+    'fe_xml_file',
+    'invoice_pdf_report_file',
+    'fe_ar_file',
+    'fe_qr_image'
+)
+
+partner_obj = partner_ids = env['res.partner']
+inv_obj = inv_ids = env['account.move']
+attach_obj = attach_ids = env['ir.attachment']
+
+ofset_ev = datetime.date.today() - datetime.timedelta(days=0)
+ofset_ok = datetime.date.today() - datetime.timedelta(days=0)
+ofset_rndc = datetime.date.today() - datetime.timedelta(days=0)
+
+partner_ids = partner_obj.search([('name', 'ilike', 'consumidor final')])
+inv_ids = model.search([
+    ('fe_state','=','00'),
+    ('partner_id', 'in', partner_ids.ids),], order='id').ids
+
+attach_group = attach_obj.read_group([
+    ('res_model','=','account.move'), 
+    ('res_id','in',inv_ids), 
+    ('res_field','in',fields_att
+    )],
+    fields=['file_size:sum'],
+    groupby=['res_field'])
+old_limit = limit_inv
+while not attach_ids:
+    attach_ids = attach_obj.sudo().search([('res_model','=','account.move'), ('res_id','in',inv_ids[:limit_inv]), ('res_field','in', fields_att)], order='res_id')
+    limit_inv += old_limit
+_logger.info('EDI: Clean attach. Ids FE a eliminar adjuntos: %s' % inv_ids[:limit_inv])
+msg = '\n'.join([
+    'EDI: Clean attach',
+    'Adjuntos totales CM: %s, Tamaño: %.2f GB' % (
+        sum(x.get('res_field_count') for x in attach_group),
+        sum(x.get('file_size')/(1024*1024*1024) for x in attach_group)),
+    'Se eliminaran %s Adjuntos, Tamaño: %.2f MB' % (len(attach_ids), sum(attach_ids.mapped('file_size'))/(1024*1024))
+    ] 
+    + [str([x.get('res_field'), x.get('res_field_count'), '%.2f GB' % (x.get('file_size')/(1024*1024*1024))]) for x in attach_group]
+)
+if 10 == 100:
+    raise UserError(msg)
+
+attach_ids.unlink()
+_logger.info(msg)
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Parámetros de Panel Track editables por el cliente (sin modo
+         desarrollador): sección propia en Ajustes + acceso directo desde
+         Cotizador Safra > Configuración. -->
+    <record id="res_config_settings_view_form_safra" model="ir.ui.view">
+        <field name="name">res.config.settings.form.safra</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Cotizador Safra" name="website_quotes_safra">
+                    <block title="Panel Track — fórmula de combinaciones" name="safra_panel_block">
+                        <setting string="Ancho de cada telo (m)"
+                                 help="Límites del ancho de un telo; definen qué configuraciones de la tabla son fabricables.">
+                            <div class="content-group">
+                                <div class="row mt8">
+                                    <label for="safra_panel_telo_min" class="col-4 o_light_label" string="Mínimo"/>
+                                    <field name="safra_panel_telo_min" class="col-4"/>
+                                </div>
+                                <div class="row">
+                                    <label for="safra_panel_telo_max" class="col-4 o_light_label" string="Máximo"/>
+                                    <field name="safra_panel_telo_max" class="col-4"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="Ancho máximo de la persiana (m)"
+                                 help="Ancho total máximo fabricable de un Panel Track.">
+                            <field name="safra_panel_ancho_max"/>
+                        </setting>
+                        <setting string="Rieles disponibles"
+                                 help="Cantidades de canales de riel que existen, separadas por coma (ej: 4,5,6). La fórmula solo ofrece rieles con ajuste exacto.">
+                            <field name="safra_panel_rieles"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_safra_panel_settings" model="ir.actions.act_window">
+        <field name="name">Parámetros Panel Track</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'module': 'website_quotes_safra'}</field>
+    </record>
+    <!-- 29-sep: agrupado bajo «Combinaciones de telos» y con nombre más
+         claro (pedido de la reunión del 24). -->
+    <menuitem id="menu_safra_panel_settings" name="Parámetros (rieles y anchos de telo)"
+              parent="menu_safra_combos" action="action_safra_panel_settings" sequence="40"/>
+</odoo>

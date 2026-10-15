@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_expense_advance_setting_form" model="ir.ui.view">
+        <field name="name">hr.expense.advance.days.form</field>
+        <field name="model">hr.expense.advance.setting</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="days_for_due" />
+                </group>
+                <footer>
+                    <button string="Set Days" type="object" class="btn-primary"
+                        name="set_days_for_due" />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_expense_advance_days" model="ir.actions.act_window">
+        <field name="name">Set Days for Due Date</field>
+        <field name="res_model">hr.expense.advance.setting</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="hr_expense_advance_setting_form" />
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_hr_expense_advance_days_config" name="Set Days for Due Date"
+        parent="hr_expense.menu_hr_expense_configuration"
+        action="action_hr_expense_advance_days" sequence="30" />
+</odoo>

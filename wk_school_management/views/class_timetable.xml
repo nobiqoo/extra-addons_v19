@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="wk_class_timetable_form" model="ir.ui.view">
+            <field name="name">wk.class.timetable.form</field>
+            <field name="model">wk.class.timetable</field>
+            <field name="arch" type="xml">
+                <form string="Class Timetable" create="0">
+                    <header>
+                        <button name="start_class" string="Start" type="object" class="oe_highlight bg-success" invisible="state != 'draft' or (id == False)"/>
+                        <button name="postpone_class" string="Reschedule Class" type="object" class="oe_highlight" invisible="state != 'draft' or (id == False)"/>
+                        <button string="Record Discipline" name="record_student_discipline" type="object" invisible="state == 'complete' or (id == False)" class="oe_highlight bg-danger"/>
+                        <button string="Mark Attendance" name="mark_class_attendance" type="object" invisible="state != 'running' or (id == False)" class="oe_highlight"/>
+                        <button name="mark_completed" string="Finish" class="oe_highlight" type="object" invisible="state != 'running' or (id == False)" confirm="Are you sure you want to finish up this class?"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="get_class_attendance" type="object" 
+                                class="oe_stat_button" invisible="state != 'running' or (id == False)">
+                                    <i class="o_button_icon fa fa-fw fa-pencil-square-o" title="Attendance"></i>
+                                    <div class="o_stat_info">
+                                        <span class="o_stat_text">
+                                            Attendance
+                                        </span>
+                                    </div>
+                            </button>
+                        </div>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="grade_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="1"/>
+                                <field name="section_id" invisible="not section_visibility" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="1"/>
+                                <field name="subject_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="1"/>
+                                <field name="class_date" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="1"/>
+                                <label for="start_time" string="Duration"/>
+                                <div>
+                                    <field name="start_time" class="oe_inline" readonly="1"/> - <field name="end_time" class="oe_inline" nolabel="1" readonly="1"/>
+                                </div>
+                                <field name="location_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="1"/>
+                            </group>
+
+                            <group>
+                                <field name="session_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="1"/>
+                                <field name="term_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="1"/>
+                                <field name="populate_class_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="1"/>
+                                <field name="teacher_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Lesson Plans">
+                                <field name="lesson_plan_ids">
+                                    <list string="Lesson Plan" create="0">
+                                        <field name="name"/>
+                                        <field name="grade_id"/>
+                                        <field name="section_id" optional="hide"/>
+                                        <field name="subject_id"/>
+                                        <field name="responsible_id"/>
+                                        <field name="state" widget="badge" decoration-success="state =='approve'" decoration-danger="state =='cancel'" decoration-primary="state =='draft'"/>
+                                        <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                                        <field name="company_id"
+                                            groups="base.group_multi_company"
+                                            optional="show"
+                                            readonly="1"/>
+                                        <field name="create_date"/>
+                                        <field name="write_date"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Active Assignments">
+                                <field name="class_assignments_ids">
+                                    <list string="Class Assignment">
+                                        <field name="name"/>
+                                        <field name="end_date"/>
+                                        <field name="total_marks"/>
+                                        <field name="type_id"/>
+                                        <field name='state' widget='badge' decoration-success="state =='complete'" decoration-warning="state =='progress'" decoration-primary="state =='new'"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Students">
+                                <field name="student_ids" mode="kanban"/>
+                            </page>
+                            <page string="Other Info">
+                                <group>
+                                    <group string='Basic Details'>
+                                        <field name="timeslot_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="1"/>
+                                        <field name="day" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="1"/>
+                                        <field name="company_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" readonly="is_single_company" groups="base.group_multi_company"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_class_timetable_tree" model="ir.ui.view">
+            <field name="name">wk.class.timetable.list</field>
+            <field name="model">wk.class.timetable</field>
+            <field name="arch" type="xml">
+                <list string="Timetable" create="0">
+                    <field name="name"/>
+                    <field name="grade_id" optional="hide"/>
+                    <field name="section_id" optional="hide" />
+                    <field name="subject_id" optional="hide"/>
+                    <field name="teacher_id"/>
+                    <field name="start_time" optional="hide"/>
+                    <field name="end_time" optional="hide"/>
+                    <field name="day"/>
+                    <field name="location_id"/>
+                    <field name="state" widget="badge" decoration-success='state == "complete"' decoration-warning='state == "running"' decoration-primary='state == "draft"'/>
+                    <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                    <field name="company_id"
+                        groups="base.group_multi_company"
+                        optional="show"
+                        readonly="1"/>
+                    <field name="class_date" optional="hide"/>
+                    <field name="timeslot_id" optional="hide"/>
+                    <field name="session_id" optional="hide"/>
+                    <field name="term_id" optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Filters -->
+
+        <record id="wk_class_timetable_search" model="ir.ui.view">
+           <field name="name">wk.class.timetable.search</field>
+           <field name="model">wk.class.timetable</field>
+           <field name="arch" type="xml">
+               <search>
+                    <field name="name"/>
+                    <field name="grade_id"/>
+                    <field name="subject_id"/>
+                    <field name="teacher_id" />
+                    <filter name="today_classes" string="Today" domain="[('class_date','=',context_today())]" />
+                    <filter string="Current Month" name="current_month" domain="[('class_date','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('class_date','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+                    <filter string="Class Date" name="start_date_class" date="class_date"/>
+                    <separator/>
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                    <filter name="running" string="Running" domain="[('state','=','running')]"/>
+                    <filter name="complete" string="Completed" domain="[('state','=','complete')]" />
+                    <filter name="inactive" string="Archived" domain="[('active','=',False)]"/>
+                    <group>
+                        <filter name="group_by_subject"  string="Subject" domain="[]" context="{'group_by':'subject_id'}" />
+                        <filter name="group_by_grade"  string="Grade" domain="[]" context="{'group_by':'grade_id'}" />
+                        <filter name="group_by_session"  string="Session" domain="[]" context="{'group_by':'session_id'}" />
+                        <filter name="group_by_teacher"  string="Teacher" domain="[]" context="{'group_by':'teacher_id'}" />
+                        <filter name="group_by_populate_class"  string="Class" domain="[]" context="{'group_by':'populate_class_id'}" />
+                    </group>
+               </search>
+           </field>
+        </record>
+
+        <record id="wk_class_timetable_calendar_view" model="ir.ui.view">
+            <field name="name">wk.class.timetable.calendar</field>
+            <field name="model">wk.class.timetable</field>
+            <field name="arch" type="xml">
+                <calendar string="Timetable" create="0" delete="0" quick_create="0" mode="week" 
+                  date_start="start_time" date_stop="end_time"
+                    event_open_popup="true" color="populate_class_id">
+                    <field name="location_id"/>
+                    <field name="grade_id"/>
+                    <field name="subject_id"/>
+                    <field name="teacher_id" color="kanban_color"/>
+                    <field name="lesson_plan_ids"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="wk_class_timetable_action" model="ir.actions.act_window">
+            <field name="name">Class Timetable</field>
+            <field name="res_model">wk.class.timetable</field>
+            <field name="view_mode">calendar,form,list</field>
+            <field name="view_id" ref="wk_class_timetable_calendar_view"/>
+            <field name="path">student-class-timetable</field>
+        </record>
+    </data>
+</odoo>

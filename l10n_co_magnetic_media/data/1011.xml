@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- 1001 -->
+        <record id="form_1011" model="mag.media">
+            <field name="code">1011</field>
+            <field name="name">1011 - Información de las declaraciones tributarias</field>
+            <field name="smaller_amount">0</field>
+            <field name="query">
+SELECT 
+    code as "Concepto", 
+    SUM(B) AS "Saldos al -31-18" 
+FROM (
+    SELECT
+        mml.code,
+        (CASE WHEN mmlc.sequence = 'B' AND mmlc.type = 'd' THEN SUM(aml.debit)
+            WHEN mmlc.sequence = 'B' AND mmlc.type = 'c' THEN SUM(aml.credit)
+            WHEN mmlc.sequence = 'B' AND mmlc.type = 'sf' THEN SUM(aml.debit-aml.credit)
+            WHEN mmlc.sequence = 'B' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+        ) as B
+    FROM mag_media mm
+    INNER JOIN mag_media_lines mml ON mml.magnetic_id = mm.id
+    INNER JOIN mag_media_lines_concepts mmlc ON mmlc.line_id = mml.id
+    INNER JOIN (
+        select aammlcr.account_account_id as account_id, aammlcr.mag_media_lines_concepts_id as concept_id
+        FROM account_account_mag_media_lines_concepts_rel aammlcr
+        UNION ALL
+        select aaat.account_account_id as account_id, mmlcaat.concept_ids as concept_id
+        from mag_media_lines_concepts_account_account_tag mmlcaat
+        INNER JOIN account_account_tag aat on aat.id = mmlcaat.tag_ids
+        INNER JOIN account_account_account_tag aaat on aaat.account_account_tag_id = aat.id
+    ) AS aa ON aa.concept_id = mmlc.id
+    INNER JOIN account_move_line aml ON aml.account_id = aa.account_id
+    WHERE mm.id = {id}
+        AND aml.date BETWEEN '{date_from}' AND '{date_to}'
+        AND aml.parent_state = 'posted'
+        AND aml.company_id = {company_id}
+    GROUP BY 
+        mml.code,
+        mmlc.sequence,
+        mmlc.type,
+        mm.smaller_amount
+--    HAVING (CASE WHEN mmlc.sequence = 'B' AND mmlc.type = 'd' THEN SUM(aml.debit)
+--        WHEN mmlc.sequence = 'B' AND mmlc.type = 'c' THEN SUM(aml.credit)
+--        WHEN mmlc.sequence = 'B' AND mmlc.type = 'sf' THEN SUM(aml.debit-aml.credit)
+--        WHEN mmlc.sequence = 'B' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END)::float >= mm.smaller_amount::float
+) as datos
+GROUP BY code
+            </field>
+        </record>
+    </data>
+</odoo>

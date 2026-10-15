@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_partner_report_account"
+            name="Informes Extra"
+            parent="account.account_account_menu"
+            sequence="25"
+        />
+
+    <menuitem id="menu_report_margen_product"
+              name="Margen de productos"
+              parent="report_margen_product.menu_partner_report_account"
+              action="action_report_margen"
+              sequence="15"/>
+
+</odoo>

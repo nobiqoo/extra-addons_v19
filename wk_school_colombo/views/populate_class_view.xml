@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wk_school_class_form_colombo" model="ir.ui.view">
+        <field name="name">wk.school.class.form.colombo</field>
+        <field name="model">wk.school.class</field>
+        <field name="inherit_id" ref="wk_school_management.wk_school_class_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Requerimiento "Estructura de calificación avanzada" (2.6):
+                 botón visible mientras la clase esté en "Nuevo" (antes de
+                 Confirmar, igual que el resto de la configuración de
+                 ponderaciones). -->
+            <xpath expr="//button[@name='confirm_class']" position="before">
+                <button name="action_apply_grading_structure" type="object"
+                        string="Aplicar estructura de calificación"
+                        class="oe_highlight"
+                        invisible="state != 'new' or not grading_scale_id"
+                        groups="wk_school_management.wk_school_management_officer_group"/>
+            </xpath>
+
+            <xpath expr="//field[@name='subject_id']" position="after">
+                <field name="grading_scale_id"/>
+            </xpath>
+
+            <!-- Único acceso directo al Consolidado de notas de esta clase
+                 (el menú "Maestros > Consolidado de notas" no distingue
+                 clases que comparten Módulo/Nivel/Docente en su lista). -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_consolidated" type="object"
+                        class="oe_stat_button" icon="fa-table"
+                        invisible="not grading_scale_id">
+                    <div class="o_stat_text">Consolidado</div>
+                </button>
+            </xpath>
+
+            <!-- Campo "Profesores de Secundaria": se vuelve a mostrar y se
+                 relabela "Assistant Teacher / Docente asistente", que es
+                 justamente el campo oculto que pide habilitar el
+                 requerimiento de campos académicos. Revierte el ocultamiento
+                 de la tarea 11174; el campo nunca dejó de existir en el
+                 modelo ni en las reglas de registro que lo usan. -->
+            <xpath expr="//field[@name='teacher_ids']" position="attributes">
+                <attribute name="string">Assistant Teacher / Docente asistente</attribute>
+            </xpath>
+
+            <!-- Requerimiento de campos académicos: Sede (company_id) visible
+                 para todos los perfiles, no solo multi-compañía. -->
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                <attribute name="groups"></attribute>
+            </xpath>
+
+            <!-- "Fecha de inicio" / "Fecha de finalización": la etiqueta base
+                 "Timeline" agrupa ambas fechas en un único selector de rango,
+                 y end_date queda oculto dentro de ese control (lo actualiza
+                 el widget daterange, no se pierde el dato). Se relabela para
+                 que ambos nombres pedidos por el requerimiento queden
+                 visibles, sin tocar el widget. -->
+            <xpath expr="//label[@for='start_date']" position="attributes">
+                <attribute name="string">Fecha de inicio / Fecha de finalización</attribute>
+            </xpath>
+            <xpath expr="//field[@name='start_date'][@widget='daterange']" position="attributes">
+                <attribute name="string">Fecha de inicio</attribute>
+            </xpath>
+
+            <!-- Requerimiento de campos académicos: Clase activa/inactiva
+                 (independiente del estado state) y Libro asignado a la
+                 clase. También en el formulario, no solo en la lista: Horario
+                 y Salón, calculados a partir de las líneas de la pestaña
+                 "Horario semanal". -->
+            <xpath expr="//field[@name='capacity']" position="after">
+                <field name="book_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                <field name="class_modality"/>
+            </xpath>
+            <xpath expr="//field[@name='total_enrolled']" position="after">
+                <field name="weekly_schedule_summary" readonly="1"/>
+                <field name="location_summary" readonly="1"/>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]" position="before">
+                <div class="d-flex justify-content-end align-items-center gap-2">
+                    <label for="is_active_class" string="Clase activa"/>
+                    <field name="is_active_class" widget="boolean_toggle" nolabel="1"/>
+                </div>
+            </xpath>
+
+            <!-- Tarea 11293: define si la clase se gestiona con actividades de
+                 evaluación o solo con sesiones y asistencia (seminarios,
+                 inducciones, charlas). Solo se puede definir al crear: en un
+                 registro guardado "id" es verdadero y el campo queda en solo
+                 lectura, igual que los demás datos de configuración. -->
+            <xpath expr="//field[@name='divide_assignment_weightage']/.." position="before">
+                <div class="o_row">
+                    <field name="has_evaluation_activities" readonly="id"/>
+                    <label for="has_evaluation_activities"/>
+                </div>
+            </xpath>
+            <!-- Sin actividades de evaluación no hay ponderaciones que
+                 configurar: se ocultan el interruptor de reparto equitativo y
+                 la pestaña de tipos de actividad. Requerimiento 2.6: con una
+                 Escala avanzada aplicada, el reparto equitativo tampoco
+                 aplica -las ponderaciones provienen siempre de la Escala-, y
+                 las filas de "Tipos de actividad" quedan de solo lectura
+                 (se editan únicamente volviendo a presionar "Aplicar
+                 estructura de calificación", nunca a mano). -->
+            <xpath expr="//field[@name='divide_assignment_weightage']/.." position="attributes">
+                <attribute name="invisible">not has_evaluation_activities or grading_scale_id</attribute>
+            </xpath>
+            <xpath expr="//field[@name='class_assignment_type_ids']/.." position="attributes">
+                <attribute name="invisible">not has_evaluation_activities</attribute>
+            </xpath>
+            <xpath expr="//field[@name='class_assignment_type_ids']" position="attributes">
+                <attribute name="readonly">state != 'new' or grading_scale_id</attribute>
+            </xpath>
+            <xpath expr="//field[@name='class_assignment_type_ids']/list/field[@name='weightage']" position="attributes">
+                <attribute name="string">Peso Midterm (%)</attribute>
+            </xpath>
+            <xpath expr="//field[@name='class_assignment_type_ids']/list/field[@name='weightage']" position="after">
+                <field name="weight_final" string="Peso Final (%)"
+                       column_invisible="not parent.grading_scale_id or parent.grading_cuts_count == '1'"/>
+            </xpath>
+            <xpath expr="//field[@name='class_assignment_type_ids']" position="before">
+                <field name="grading_cuts_count" invisible="1"/>
+            </xpath>
+
+            <!-- Placeholder de visibilidad grupal de calificaciones, sin
+                 lógica asociada (ver models/populate_class.py). -->
+            <xpath expr="//field[@name='divide_assignment_weightage']/.." position="after">
+                <div class="o_row">
+                    <field name="hide_grades_for_class"/>
+                    <label for="hide_grades_for_class"/>
+                </div>
+            </xpath>
+
+            <!-- Pestaña Observaciones: notas "realizadas durante la clase".
+                 El docente elige a qué inscripción (estudiante matriculado)
+                 corresponde, acotado al nivel de esta clase; el origen se
+                 autocompleta. Toda observación queda ligada a una
+                 inscripción -no a un estudiante suelto-, ver
+                 models/observation.py. -->
+            <xpath expr="//page[@name='students']" position="after">
+                <page name="colombo_observations" string="Observaciones">
+                    <field name="observation_ids" context="{'default_origin': 'class', 'default_observation_type': 'class'}">
+                        <list editable="bottom" string="Observaciones">
+                            <field name="enrollment_id" domain="[('grade_id', '=', parent.grade_id)]"/>
+                            <field name="observation_type"/>
+                            <field name="reference_display" readonly="1"/>
+                            <field name="comment"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="create_date" string="Fecha y hora de registro" readonly="1" optional="show"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="wk_school_class_search_colombo" model="ir.ui.view">
+        <field name="name">wk.school.class.search.colombo</field>
+        <field name="model">wk.school.class</field>
+        <field name="inherit_id" ref="wk_school_management.wk_school_class_search"/>
+        <field name="arch" type="xml">
+            <!-- El campo vuelve a ofrecerse como criterio en el buscador,
+                 igual que en el formulario (ver arriba). -->
+            <xpath expr="//field[@name='teacher_ids']" position="attributes">
+                <attribute name="string">Assistant Teacher / Docente asistente</attribute>
+            </xpath>
+
+            <!-- Requerimiento "Gestión de la vista lista de Clases
+                 ofertadas" (2.4): Horario/Salón también buscables por texto
+                 libre (no se agregan como agrupación: un mismo registro
+                 puede tener varias franjas/salones en su horario semanal). -->
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="filter_domain">['|','|','|','|','|',
+                    ('title', 'ilike', self), ('name', 'ilike', self),
+                    ('subject_id', 'ilike', self), ('grade_id', 'ilike', self),
+                    ('weekly_schedule_summary', 'ilike', self),
+                    ('location_summary', 'ilike', self)]</attribute>
+            </xpath>
+
+            <!-- Filtros rápidos: Activas / Inactivas (requerimiento 2.3). -->
+            <xpath expr="//filter[@name='complete']" position="after">
+                <separator/>
+                <filter name="colombo_active" string="Activas" domain="[('is_active_class','=',True)]"/>
+                <filter name="colombo_inactive" string="Inactivas" domain="[('is_active_class','=',False)]"/>
+            </xpath>
+
+            <!-- Agrupaciones adicionales (requerimiento 2.4): Modalidad,
+                 Clase activa/inactiva, Sede y Periodo académico. -->
+            <xpath expr="//filter[@name='group_by_teacher']" position="after">
+                <filter name="group_by_modality" string="Modalidad" domain="[]" context="{'group_by':'class_modality'}"/>
+                <filter name="group_by_active" string="Clase activa" domain="[]" context="{'group_by':'is_active_class'}"/>
+                <filter name="group_by_company" string="Sede" domain="[]" context="{'group_by':'company_id'}"/>
+                <filter name="group_by_academic_year" string="Periodo académico" domain="[]" context="{'group_by':'academic_year_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="wk_school_class_tree_colombo" model="ir.ui.view">
+        <field name="name">wk.school.class.list.colombo</field>
+        <field name="model">wk.school.class</field>
+        <field name="inherit_id" ref="wk_school_management.wk_school_class_tree"/>
+        <field name="arch" type="xml">
+            <!-- Requerimiento (bullet del Alcance General): acciones masivas
+                 sobre varias Clases ofertadas. El <header> de una <list> en
+                 Odoo debe ir como primer hijo; estos botones solo aparecen en
+                 la barra de acciones cuando hay filas seleccionadas. -->
+            <xpath expr="//list/field[@name='name']" position="before">
+                <header>
+                    <button name="action_bulk_activate" type="object"
+                            string="Activar seleccionadas"
+                            groups="wk_school_management.wk_school_management_officer_group"/>
+                    <button name="action_bulk_deactivate" type="object"
+                            string="Inactivar seleccionadas"
+                            groups="wk_school_management.wk_school_management_officer_group"/>
+                </header>
+            </xpath>
+
+            <!-- La traducción base de estas dos columnas es "Empezar desde" /
+                 "Terminar hasta"; se corrige al texto exacto que pide el
+                 requerimiento. -->
+            <xpath expr="//field[@name='start_date']" position="attributes">
+                <attribute name="string">Fecha de inicio</attribute>
+            </xpath>
+            <xpath expr="//field[@name='end_date']" position="attributes">
+                <attribute name="string">Fecha de finalización</attribute>
+            </xpath>
+
+            <!-- Requerimiento de campos académicos: columnas mínimas de la
+                 lista de Clases Ofertadas (Sede ya existe vía company_id). -->
+            <xpath expr="//field[@name='end_date']" position="after">
+                <field name="weekly_schedule_summary"/>
+                <field name="location_summary"/>
+                <field name="teacher_ids" widget="many2many_tags" optional="show"/>
+                <field name="book_id" optional="show"/>
+                <field name="class_modality" optional="show"/>
+                <!-- Requerimiento "Gestión de la vista lista de Clases
+                     ofertadas" (2.3): se puede activar/inactivar la clase con
+                     un clic directamente desde la lista, sin abrir el
+                     formulario. -->
+                <field name="is_active_class" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

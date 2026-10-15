@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_sale_delegation_authority_setting_manager,sale.delegation.authority.setting manager,model_sale_delegation_authority_setting,sales_team.group_sale_manager,1,1,1,1
+access_sale_delegation_authority_line_manager,sale.delegation.authority.line manager,model_sale_delegation_authority_line,sales_team.group_sale_manager,1,1,1,1
+access_sale_order_approval_internal,sale.order.approval internal,model_sale_order_approval,base.group_user,1,1,0,0
+access_sale_order_approval_salesman,sale.order.approval salesman,model_sale_order_approval,sales_team.group_sale_salesman,1,1,1,0
+access_sale_order_approval_salesman_all,sale.order.approval salesman all,model_sale_order_approval,sales_team.group_sale_salesman_all_leads,1,1,1,0
+access_sale_order_approval_manager,sale.order.approval manager,model_sale_order_approval,sales_team.group_sale_manager,1,1,1,1

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="group_dian_to_draft_invoice" model="res.groups">
+            <field name="name">Restablecer a borrador facturas electrónicas</field>
+            <!-- <field name="category_id" ref="base.module_category_hidden" /> -->
+            <field name="comment">Permite restablecer a borrador las facturas electrónicas que ya fueron procesadas correctamente en la DIAN.</field>
+        </record>
+    
+    </data>
+</odoo>

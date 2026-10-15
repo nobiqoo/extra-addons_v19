@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- PDF estándar de factura -->
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//th[@name='th_quantity']" position="after">
+            <th name="th_lot" class="text-end">
+                <span>No. Serie</span>
+            </th>
+        </xpath>
+        <xpath expr="//t[@name='account_invoice_line_accountable']/td[span[@t-field='line.quantity']]"
+               position="after">
+            <td name="td_lot" class="text-end">
+                <span t-field="line.lot_ids" t-field-options='{"widget": "many2many_tags"}'/>
+            </td>
+        </xpath>
+    </template>
+
+    <!-- PDF de factura electrónica (l10n_co_bloodo) -->
+    <template id="electronic_invoicing_lot"
+        inherit_id="l10n_co_bloodo.report_account_move_einvoicing_document">
+        <xpath expr="//th[@name='th_quantity']" position="after">
+            <th width="10%" name="th_lot" class="text-center"><span>NO. SERIE</span></th>
+        </xpath>
+        <xpath expr="//t[@name='account_invoice_line_accountable']/td[span[@t-field='line.quantity']]"
+               position="after">
+            <td class="text-right">
+                <span t-field="line.lot_ids" t-field-options='{"widget": "many2many_tags"}'/>
+            </td>
+        </xpath>
+    </template>
+
+</odoo>

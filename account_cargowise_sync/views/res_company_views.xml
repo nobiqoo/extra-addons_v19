@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="view_company_form" model="ir.ui.view">
+            <field name="name">res.company.cw.inherit.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="cw" string="CargoWise">
+                        <button name="test_conection_cw" type="object" string="Prueba de conexión"/>
+                        <group string="CargoWise" name="cw">
+                            <group name="api" string="API">
+                                <field name="api_cw_server"/>
+                                <field name="api_cw_url"/>
+                                <field name="api_cw_user"/>
+                                <field name="api_cw_pass"/>
+                            </group>
+                            <group name="xml_cw" string="XML">
+                                <field name="api_cw_enterprise_id"/>
+                                <field name="api_cw_event_type"/>
+                                <field name="api_cw_event_reference"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

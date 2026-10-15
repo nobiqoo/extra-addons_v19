@@ -1,0 +1,77 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* approval_baseline
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-24 20:26+0000\n"
+"PO-Revision-Date: 2024-05-24 20:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: approval_baseline
+#: model:ir.model,name:approval_baseline.model_approval_request
+msgid "Approval Request"
+msgstr "Solicitud de aprobación"
+
+#. module: approval_baseline
+#: model:ir.model.fields.selection,name:approval_baseline.selection__approval_request__request_status__approved
+msgid "Approved"
+msgstr "Aprobado"
+
+#. module: approval_baseline
+#: model:ir.model,name:approval_baseline.model_approval_approver
+msgid "Approver"
+msgstr "Autorizador"
+
+#. module: approval_baseline
+#: model:ir.model.fields.selection,name:approval_baseline.selection__approval_request__request_status__cancel
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: approval_baseline
+#: model:ir.model.fields.selection,name:approval_baseline.selection__approval_approver__status__created_po
+#: model:ir.model.fields.selection,name:approval_baseline.selection__approval_request__user_status__created_po
+msgid "Created PO"
+msgstr "OC. Creada"
+
+#. module: approval_baseline
+#: model:ir.model.fields.selection,name:approval_baseline.selection__approval_request__request_status__created_po
+msgid "PO. Created"
+msgstr "OC. Creada"
+
+#. module: approval_baseline
+#: model:ir.model.fields.selection,name:approval_baseline.selection__approval_request__request_status__refused
+msgid "Refused"
+msgstr "Rechazado"
+
+#. module: approval_baseline
+#: model:ir.model.fields,field_description:approval_baseline.field_approval_request__request_status
+msgid "Request Status"
+msgstr "Estado de la solicitud"
+
+#. module: approval_baseline
+#: model:ir.model.fields,field_description:approval_baseline.field_approval_approver__status
+msgid "Status"
+msgstr "Estado"
+
+#. module: approval_baseline
+#: model:ir.model.fields.selection,name:approval_baseline.selection__approval_request__request_status__pending
+msgid "Submitted"
+msgstr "Enviado"
+
+#. module: approval_baseline
+#: model:ir.model.fields.selection,name:approval_baseline.selection__approval_request__request_status__new
+msgid "To Submit"
+msgstr "A enviar"
+
+#. module: approval_baseline
+#: model:ir.model.fields,field_description:approval_baseline.field_approval_request__user_status
+msgid "User Status"
+msgstr "Estatus del usuario"

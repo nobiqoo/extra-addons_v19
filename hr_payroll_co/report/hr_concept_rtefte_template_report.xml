@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="hr_concept_rtefte_template_report">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <style>
+                            .page {
+                            padding: 5px;
+                            font-family: 'Helvetica', sans-serif;
+                            font-size: 12px;
+                            }
+                            table {
+                            width: 100%;
+                            margin-bottom: 0.4rem;
+                            border-collapse: collapse;
+                            }
+                            td, th {
+                            padding: 4px 8px;
+                            }
+                            .header-cell {
+                            background-color: #1B3C70;
+                            color: white;
+                            font-weight: 500;
+                            border: none;
+                            }
+                            .section-header {
+                            background-color: #1B3C70;
+                            color: white;
+                            padding: 4px 8px;
+                            margin-bottom: 0;
+                            font-size: 13px;
+                            font-weight: 500;
+                            border-radius: 4px 4px 0 0;
+                            }
+                            .data-table {
+                            border: 1px solid #e0e0e0;
+                            border-radius: 0 0 4px 4px;
+                            margin-top: 0;
+                            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+                            }
+                            .data-table td {
+                            border: none;
+                            border-bottom: 1px solid #f0f0f0;
+                            }
+                            .data-table tr:last-child td {
+                            border-bottom: none;
+                            }
+                            .total-row {
+                            background-color: #f8f9fa;
+                            font-weight: bold;
+                            }
+                            .company-logo {
+                            max-width: 120px;
+                            max-height: 50px;
+                            }
+                            .company-info {
+                            font-size: 11px;
+                            line-height: 1.2;
+                            }
+                            .money-field {
+                            text-align: right;
+                            font-family: 'Courier New', monospace;
+                            font-size: 12px;
+                            }
+                            .info-header {
+                            background-color: #f8f9fa;
+                            border: 1px solid #e0e0e0;
+                            border-radius: 4px;
+                            padding: 6px;
+                            margin-bottom: 8px;
+                            }
+                            .final-section {
+                            margin-top: 8px;
+                            background-color: #f8f9fa;
+                            border-radius: 4px;
+                            padding: 6px;
+                            }
+                            .section-group {
+                            margin-bottom: 8px;
+                            }
+                            .mt-1 {
+                            margin-top: 0.2rem !important;
+                            }
+                            .mb-3 {
+                            margin-bottom: 0.5rem !important;
+                            }
+                        </style>
+
+                        <!-- Encabezado -->
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <img t-if="doc.company_id.logo"
+                                    t-att-src="image_data_uri(doc.company_id.logo)"
+                                    class="company-logo" />
+                                <div class="company-info mt-1">
+                                    <strong t-field="doc.company_id.name" />
+                                    <br />
+                                    <span>NIT: </span>
+                                    <span t-field="doc.company_id.vat" />
+                                    <br />
+                                    <span t-field="doc.company_id.street" />
+                                    <br />
+                                    <span t-field="doc.company_id.phone" />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="info-header">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <strong>Comprobante:</strong>
+                                        </div>
+                                        <div class="col-8">
+                                            <span t-field="doc.display_name" />
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-4">
+                                            <strong>Período:</strong>
+                                        </div>
+                                        <div class="col-8">
+                                            <span t-field="doc.period_id" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Información del Empleado -->
+                        <div class="info-header mb-3">
+                            <div class="row">
+                                <div class="col-3">
+                                    <strong>Empleado:</strong>
+                                </div>
+                                <div class="col-3">
+                                    <span t-field="doc.employee_id" />
+                                </div>
+                                <div class="col-3">
+                                    <strong>Documento:</strong>
+                                </div>
+                                <div class="col-3">
+                                    <span t-field="doc.employee_id.identification_id" />
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-3">
+                                    <strong>Contrato:</strong>
+                                </div>
+                                <div class="col-3">
+                                    <span t-field="doc.contract_id" />
+                                </div>
+                                <div class="col-3">
+                                    <strong>Fecha Inicio:</strong>
+                                </div>
+                                <div class="col-3">
+                                    <span t-field="doc.contract_date_start" />
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-3">
+                                    <strong>Salario:</strong>
+                                </div>
+                                <div class="col-3">
+                                    <span t-esc="'{:,.0f}'.format(doc.wage)" />
+                                </div>
+                                <div class="col-3">
+                                    <strong>Procedimiento:</strong>
+                                </div>
+                                <div class="col-3">
+                                    <t t-if="doc.apply_procedure_2">2</t>
+                                    <t t-else="">1</t>
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-3">
+                                    <strong>Duración Contrato:</strong>
+                                </div>
+                                <div class="col-3">
+                                    <span t-field="doc.contract_duration" />
+                                </div>
+                                <div class="col-3">
+                                    <strong>Fecha Liquidación:</strong>
+                                </div>
+                                <div class="col-3">
+                                    <span t-field="doc.contract_settlement_date" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ingresos -->
+                        <div class="section-group">
+                            <h6 class="section-header">Ingresos</h6>
+                            <table class="data-table">
+                                <tr>
+                                    <td>Devengos</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.earnings)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Otros Devengos</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.o_earnings)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Otros Devengos Salariales</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.o_salarial_earnings)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ingresos Complementarios</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.comp_earnings)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Otros Derechos</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.o_rights)" />
+                                    </td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td>Total Ingresos</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.total_income)" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Ingresos No Constitutivos -->
+                        <div class="section-group">
+                            <h6 class="section-header">Ingresos No Constitutivos</h6>
+                            <table class="data-table">
+                                <tr>
+                                    <td>Pensión</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.ded_pens)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>EPS</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.ded_eps)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Fondo Solidaridad</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.fond_sol)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Fondo Subsistencia</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.fond_sub)" />
+                                    </td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td>Total No Constitutivos</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.total_nci)" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Deducciones -->
+                        <div class="section-group">
+                            <h6 class="section-header">Deducciones</h6>
+                            <table class="data-table">
+                                <tr>
+                                    <td>Dependientes</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.deduction_dependents)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Intereses Vivienda</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.deduction_estate)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Medicina Prepagada</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.deduction_healthcare)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Intereses ICETEX</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.deduction_icetex)" />
+                                    </td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td>Total Deducciones</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.deduction_total)" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Rentas Exentas -->
+                        <div class="section-group">
+                            <h6 class="section-header">Rentas Exentas</h6>
+                            <table class="data-table">
+                                <tr>
+                                    <td>Límite Anual Top 25%</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.annual_top25)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Top 25% Mensual</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.top25_monthly)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Límite Anual Top 40%</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.annual_top40)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Top 40% Mensual</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.top40_monthly)" />
+                                    </td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td>Renta Exenta</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.exempt_rent)" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Aportes Voluntarios -->
+                        <div class="section-group">
+                            <h6 class="section-header">Aportes Voluntarios</h6>
+                            <table class="data-table">
+                                <tr>
+                                    <td>Aporte Voluntario Pensiones</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.avp)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>AFC</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.afc)" />
+                                    </td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td>Total Aportes Voluntarios</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.voluntary_contributions)" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Cálculo de Retención (Sección Final) -->
+                        <div class="final-section">
+                            <h6 class="section-header">Cálculo de Retención</h6>
+                            <table class="data-table">
+                                <tr>
+                                    <td width="25%">Ingreso Neto</td>
+                                    <td width="25%" class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.neto_income)" />
+                                    </td>
+                                    <td width="25%">UVT</td>
+                                    <td width="25%" class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.uvt)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Base RTEFTE</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.brtf)" />
+                                    </td>
+                                    <td>Tasa</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:.2f}'.format(doc.rate)" />% </td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td colspan="3" class="text-right">Total Retención</td>
+                                    <td class="money-field">
+                                        <span t-esc="'{:,.0f}'.format(doc.rtefte)" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo> 

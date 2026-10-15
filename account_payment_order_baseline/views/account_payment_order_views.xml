@@ -1,0 +1,97 @@
+<odoo>
+
+    <record id="account_payment_order_exchange_rate_view_form" model="ir.ui.view">
+        <field name="name">view_account_payment_order_exchange_rate</field>
+        <field name="model">account.payment.order</field>
+        <field name="inherit_id" ref="account_payment_order.account_payment_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_uploaded']" position="after">
+                <field name="current_exchange_rate" invisible="foreign_currency != True" readonly="state not in ['draft','open']"/>
+                <field name="foreign_currency" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='journal_id']" position="after">
+                <field name="order_date" required="state == 'draft'" readonly="state != 'draft'"/>
+            </xpath>
+            <xpath expr="//field[@name='payment_type']" position="after">
+                <field name="total_currency_amount" readonly="1"/>
+                <field name="payment_type_order" />
+                <field name="total_company_currency_exchange_rate" readonly="1"/>
+            </xpath>
+            <xpath expr="//button[@name='draft2open']" position="attributes">
+                <attribute name="groups">account_payment_order_baseline.group_confirm_payments_payment_order</attribute>
+            </xpath>
+            <xpath expr="//button[@name='open2generated']" position="attributes">
+                <attribute name="groups">account_payment_order_baseline.group_generate_payment_file_payment_order</attribute>
+            </xpath>
+            <xpath expr="//button[@name='generated2uploaded']" position="attributes">
+                <attribute name="groups">account_payment_order_baseline.group_file_uploaded_successfully_payment_order</attribute>
+            </xpath>
+            <xpath expr="//button[@name='generated2uploaded']" position="after">
+                <button
+                    name="action_send_to_suppliers"
+                    type="object"
+                    string="Enviar a proveedores"
+                    class="oe_highlight"
+                    invisible="state != 'uploaded'"
+                />
+            </xpath>
+            <xpath expr="//header/button[@name='%(account_payment_order.account_payment_line_create_action)d']" position="after">
+                <button
+                    name="action_open_remove_partners_wizard"
+                    type="object"
+                    string="Retirar proveedores"
+                    invisible="state != 'draft'"
+                />
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="attributes">
+                <attribute name="groups">account_payment_order_baseline.group_action_cancel_payment_order</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_uploaded_cancel']" position="attributes">
+                <attribute name="groups">account_payment_order_baseline.group_action_cancel_payment_order</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_payment_line_form_extended_form" model="ir.ui.view">
+        <field name="name">account_payment_line_form_extended_form</field>
+        <field name="model">account.payment.line</field>
+        <field name="inherit_id" ref="account_payment_order.account_payment_line_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='communication']" position="after">
+                <field name="exchange_rate"/>
+                <!-- <field name="analytic_account_id"/> -->
+                <field name="diff_exchange_rate"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_payment_order_tree_amounts_extended_form" model="ir.ui.view">
+        <field name="name">account_payment_order_tree_amounts_extended_form</field>
+        <field name="model">account.payment.order</field>
+        <field name="inherit_id" ref="account_payment_order.account_payment_order_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='total_company_currency']" position="after">
+                <field name="total_currency_amount"/>
+                <field name="total_company_currency_exchange_rate"/>
+            </xpath>
+            <xpath expr="//field[@name='total_company_currency']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_payment_line_tree" model="ir.ui.view">
+        <field name="name">account.payment.line.tree</field>
+        <field name="model">account.payment.line</field>
+        <field name="inherit_id" ref="account_payment_order.account_payment_line_tree"/>
+        <field name="arch" type="xml">
+            <button name="action_open_business_doc" position="before">
+                <button
+                    name="download_report_simple"
+                    type="object"
+                    class="fa fa-print"
+                />
+            </button>
+        </field>
+    </record>
+</odoo>

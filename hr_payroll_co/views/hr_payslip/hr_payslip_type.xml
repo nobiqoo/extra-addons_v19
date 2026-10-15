@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_payslip_type_form" model="ir.ui.view">
+            <field name="name">hr.payslip.type.form</field>
+            <field name="model">hr.payslip.type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div name="title">
+                            <h1>
+                                <field name="name" placeholder="Nombre" />
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="category" />
+                        </group>
+                        <notebook>
+                            <page name="page_concepts" string="Conceptos de Nómina">
+                                <field name="concepts_ids">
+                                    <list>
+                                        <field name="name" />
+                                        <field name="code" />
+                                        <field name="category" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="page_novelty_types" string="Categoría de Novedades">
+                                <field name="novelty_types_ids">
+                                    <list>
+                                        <field name="name" />
+                                        <field name="code" />
+                                        <field name="category" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="page_leave_types" string="Categoría de Ausencias">
+                                <field name="leave_types_ids">
+                                    <list>
+                                        <field name="name" />
+                                        <field name="code" />
+                                        <field name="category" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="page_overtime_types" string="Categoría de Horas Extras">
+                                <field name="overtime_types_ids">
+                                    <list>
+                                        <field name="name" />
+                                        <field name="code" />
+                                        <field name="category" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_payslip_type_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.type.tree</field>
+            <field name="model">hr.payslip.type</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_payslip_type_action" model="ir.actions.act_window">
+            <field name="name">Categorías de Nóminas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payslip.type</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_payslip_type_menu_act" name="Categorías de Nóminas" parent="setup_payslip_menu_categ" action="hr_payslip_type_action" sequence="1" />
+
+    </data>
+</odoo>

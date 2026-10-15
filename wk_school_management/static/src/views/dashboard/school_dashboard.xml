@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<templates xml:space="preserve">
+	<t t-name="SchoolDashboard">
+        <div t-attf-class="row {{ state.is_admin ? 'd-none': state.profile ? 'd-none':'' }}">
+            <div class="col-12 d-flex justify-content-center align-items-center" style="height: 60vh;">
+                <div class="d-flex flex-column align-items-center justify-content-center" style="min-width: 350px; min-height: 200px;">
+                    <div class="d-flex flex-column align-items-center">
+                        <span class="text-primary fs-4 fw-bold mb-2">
+                            Welcome to Your School Dashboard!
+                        </span>
+                        <span class="text-muted fs-6">
+                            Please wait while we personalize your experience...
+                        </span>
+                    </div>
+                    <span class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+        <div t-attf-class="wk_school_dashboard {{state.is_admin ? '' : !state.profile ? 'd-none':'' }}" style="overflow:scroll;height:100%;">
+            <div style="border-bottom: 1px solid #E1E7EF">
+                <div class="dashboard_header my-3">
+                    Dashboard
+                </div>
+            </div>
+            <div class="main_container">
+                <t t-if="state.is_admin">
+                    <div class="row header_cards">
+                        <div class="col-md-3 col-12 mb-sm-1">
+                            <div class="text-center align-items-center p-3 pb-4 wk_stat_card" t-on-click="applicationOnClick" style="cursor: pointer;">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-between">
+                                            <img src="/wk_school_management/static/src/img/ds_application.png" title="Total Applications" />
+                                            <span class="wk_count" id="total_application_count">
+                                                <t t-esc="state.total_application_count"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <span class="ds_label">Total Applications</span>
+                                        <span class="ds_description mt-1">New and existing applications</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-12 mb-sm-1">
+                            <div class="text-center align-items-center p-3 pb-4 wk_stat_card" t-on-click="enrollmentOnClick" style="cursor: pointer;">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-between">
+                                            <img src="/wk_school_management/static/src/img/ds_enrollment.png" title="Total Enrollments" />
+                                            <span class="wk_count" id="total_enrollment_count">
+                                                <t t-esc="state.total_enrollment_count"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <span class="ds_label">Total Enrollments</span>
+                                    <span class="ds_description mt-1">New and existing enrollments</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-12 mb-sm-1">
+                            <div class="text-center align-items-center p-3 pb-4 wk_stat_card" t-on-click="studentOnClick" style="cursor: pointer;">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-between">
+                                            <img src="/wk_school_management/static/src/img/ds_student.png" title="Total Students" />
+                                            <span class="wk_count" id="total_student_count">
+                                                <t t-esc="state.total_student_count"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <span class="ds_label">Total Students</span>
+                                        <span class="ds_description mt-1">Total enrolled students</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-12 mb-sm-1">
+                            <div class="text-center align-items-center p-3 pb-4 wk_stat_card" t-on-click="facultyOnClick" style="cursor: pointer;">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-between">
+                                            <img src="/wk_school_management/static/src/img/ds_faculty.png" title="Total Faculty" />
+                                            <span class="wk_count" id="total_faculty_count">
+                                            <t t-esc="state.total_faculty_count"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <span class="ds_label">Total Faculty</span>
+                                    <span class="ds_description mt-1">Total teachers onboard</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+
+                <t t-if="!state.is_admin">
+                    <div class="row header_cards mb-3">
+                        <div class="col-md-3 col-12 mb-sm-1">
+                            <div class="text-center align-items-center p-3 pb-4 wk_stat_card" t-on-click="classesOnClick" style="cursor: pointer;">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-between">
+                                            <img src="/wk_school_management/static/description/total-scheduled-classes.png" title="Total Scheduled Classes" />
+                                            <span class="wk_count" id="total_classes_count">
+                                                <t t-esc="state.total_classes_count"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <span class="ds_label">Total Scheduled Classes</span>
+                                        <span class="ds_description mt-1">New and completed classes</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-12 mb-sm-1">
+                            <div class="text-center align-items-center p-3 pb-4 wk_stat_card" t-on-click="classAssignmentsOnClick" style="cursor: pointer;">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-between">
+                                            <img src="/wk_school_management/static/description/total-assigned-assignments.png" title="Total Assigned Assignments" />
+                                            <span class="wk_count" id="total_assigned_assignments">
+                                                <t t-esc="state.total_assigned_assignments"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <span class="ds_label">Total Assigned Assignments</span>
+                                    <span class="ds_description mt-1">New and assigned assignments</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-12 mb-sm-1">
+                            <div class="text-center align-items-center p-3 pb-4 wk_stat_card" t-on-click="studentAssignmentsOnClick" style="cursor: pointer;">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-between">
+                                            <img src="/wk_school_management/static/description/total-student-asignments.png" title="Total Student Assignments" />
+                                            <span class="wk_count" id="total_student_assignments">
+                                                <t t-esc="state.total_student_assignments"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <span class="ds_label">Total Student Assignments</span>
+                                        <span class="ds_description mt-1">Total allocated assignments</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-12 mb-sm-1">
+                            <div class="text-center align-items-center p-3 pb-4 wk_stat_card" t-on-click="serviceHoursOnClick" style="cursor: pointer;">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-between">
+                                            <img src="/wk_school_management/static/description/pending-service-hours.png" title="Service Hours" />
+                                            <span class="wk_count" id="total_service_hours">
+                                            <t t-esc="state.total_service_hours"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <span class="ds_label">Pending Service Hours</span>
+                                    <span class="ds_description mt-1">Service hours to be approved</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <div class="wk_stat_card">
+                                <div class="py-3 ps-3" style="border-bottom: 1px solid #CAD4E0">
+                                    <span class="header">My Profile</span>
+                                </div>
+                                <div class="d-flex flex-row p-4 gap-4" t-on-click="profileOnClick" style="cursor:pointer;">
+                                    <div>
+                                        <img t-att-src="state.profile" alt="Teacher's Image" style="height:150px;border-radius:15%;"/>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <div class="fs-5" style="font-weight:700;">
+                                            <t t-out="state.name"/>
+                                        </div>
+                                        <div>
+                                            <t t-out="state.job_title"/><br></br>
+                                            <i class="fa fa-fw me-2 fa-envelope text-primary" title="Email"/>
+                                            <t t-out="state.email"/><br></br>
+                                            <i class="fa fa-fw me-2 fa-phone text-primary" title="Phone"/>
+                                            <t t-out="state.phone"/><br></br>
+                                        </div>
+                                        <div class="my-2" id="subjects_badge"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12 wk_label">
+                            <div class="wk_stat_card">
+                                <div class="py-3 ps-3" style="border-bottom: 1px solid #CAD4E0">
+                                    <span class="header">Students</span>
+                                </div>
+                                <div class="py-2" style="height:210px">
+                                    <canvas id="faculty_student_pie_chart"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+
+                <div class="row wk_pie_stat my-3 attendance_cards">
+                    <div class="col-md-6 col-12">
+                        <div class="wk_stat_card">
+                            <div class="py-3 ps-3" style="border-bottom: 1px solid #CAD4E0">
+                                <span class="header">Faculty</span>
+                            </div>
+                            <div class="my-3 pb-3">
+                                <canvas id="faculty_pie_chart"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                        <div class="wk_stat_card">
+                            <div class="py-3 ps-3" style="border-bottom: 1px solid #CAD4E0">
+                                <span class="header">Students</span>
+                            </div>
+                            <div class="my-3 pb-3">
+                                <canvas id="student_pie_chart"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="all_stats my-4">
+                    <div class="mb-3" id="filter">
+                        <div class="d-flex justify-content-between">
+                            <div style="color:#000000;font-family: 'Lato', sans-serif;;font-size: 22px;font-weight: 600;line-height: 26.63px;">
+                                All Statistics 
+                            </div>
+                            <div>
+                                <a href="#" id="dropdownMenuLink" style="color:#334155;">
+                                    <span style="color:#000000;font-family: 'Lato', sans-serif;;font-size: 14px;font-weight: 400;line-height: 16.94px;">SORT BY: </span>
+                                </a>
+                                <button type="button" class="btn" style="border:none;">
+                                    <div class="input-group" style="border:none;">
+                                        <select class="custom-select form-select" id="date_selection" autocomplete="off" style="border:none;" t-on-change="load_datewise_data">
+                                            <option selected="true" value="week">Current Week</option>
+                                            <option value="month">Current Month</option>
+                                            <option value="year">Current Year</option>
+                                        </select>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex">
+                        <div class="col-md-4 col-12 mb-sm-1 wk_label" id="application_card">
+                            <div class="wk_stat_card">
+                                <div class="py-3 ps-3" style="border-bottom: 1px solid #CAD4E0">
+                                    <span class="header">Applications</span>
+                                </div>
+                                <div class="mt-2 p-3" style="height:230px">
+                                    <canvas id="application_pie_chart"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-12 mb-sm-1 wk_label" id="enrollment_card">
+                            <div class="wk_stat_card">
+                                <div class="py-3 ps-3" style="border-bottom: 1px solid #CAD4E0">
+                                    <span class="header">Enrollments</span>
+                                </div>
+                                <div class="mt-2 p-3" style="height:230px">
+                                    <canvas id="enrolment_pie_chart"/>
+                                </div>
+                            </div>
+                        </div>
+                        <t t-if="!state.is_admin">
+                            <div class="col-md-6 col-12 mb-sm-1 wk_label" id="notice_card">
+                                <div class="wk_stat_card">
+                                    <div class="py-3 ps-3" style="border-bottom: 1px solid #CAD4E0">
+                                        <span class="header">Notice Board</span>
+                                    </div>
+                                    <div class="notice_board_table m-4" id="notice_board_table" style="overflow:auto;"/>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="col-md-4 col-12 mb-sm-1 wk_label" id="notice_card">
+                                <div class="wk_stat_card">
+                                    <div class="py-3 ps-3" style="border-bottom: 1px solid #CAD4E0">
+                                        <span class="header">Notice Board</span>
+                                    </div>
+                                    <div class="notice_board_table m-4" id="notice_board_table" style="overflow:auto;"/>
+                                </div>
+                            </div>
+                        </t>
+                        <div t-if="!state.is_admin" class="col-md-6 col-12 mb-sm-1 wk_label" id="lesson_plan">
+                            <div class="wk_stat_card">
+                                <div class="py-3 ps-3" style="border-bottom: 1px solid #CAD4E0">
+                                    <span class="header">Lesson Plans</span>
+                                </div>
+                                <div class="lesson_plan_table m-4" id="lesson_plan_table" style="overflow:auto;"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row schedule_stat">
+                        <div class="col-12 mb-sm-1 my-4">
+                            <div class="wk_stat_card">
+                                <div style="border-bottom: 1px solid #CAD4E0">
+                                    <div class="py-3 ps-3 d-flex justify-content-between">
+                                        <div>
+                                            <span class="header">Schedule</span>
+                                            <div t-if="timetable_ids and len(timetable_ids) > 5">
+                                                Recent 5 scheduled classes
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="#" id="dropdownMenuLink">
+                                                <span style="color:#000000;font-family: 'Lato', sans-serif;;font-size: 14px;font-weight: 500;line-height: 19.3px;">Status: </span>
+                                            </a>
+                                            <button type="button" class="btn" style="border:none;">
+                                                <div class="input-group" style="border:none;">
+                                                    <select class="custom-select form-select" id="s_classes" autocomplete="off" style="border:none;" t-on-change="load_scheduled_classes">
+                                                        <option selected="true" value="all">All</option>
+                                                        <option value="draft">To do</option>
+                                                        <option value="running">Running</option>
+                                                        <option value="complete">Completed</option>
+                                                    </select>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="scheduled_classes_table m-4" id="scheduled_classes_table" style="overflow:auto;"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row wk_assignment_stat">
+                        <div class="col-md-6 col-12 mb-sm-1 my-4">
+                            <div class="assignment_card wk_stat_card">
+                                <div style="border-bottom: 1px solid #CAD4E0">
+                                    <div class="py-3 ps-3 d-flex justify-content-between">
+                                        <div>
+                                            <span class="header">Class Assignment</span>
+                                            <div t-if="assignment_ids and len(assignment_ids) > 5">
+                                                Recent 5 class assignments
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="#" id="dropdownMenuLink">
+                                                <span style="color:#000000;font-family: 'Lato', sans-serif;;font-size: 14px;font-weight: 400;line-height: 19.3px;">Status: </span>
+                                            </a>
+                                            <button type="button" class="btn" style="border:none;">
+                                                <div class="input-group" style="border:none;">
+                                                    <select class="custom-select form-select" id="c_assignment" autocomplete="off" style="border:none;" t-on-change="load_class_assignment">
+                                                        <option selected="true" value="all">All</option>
+                                                        <option value="new">New</option>
+                                                        <option value="progress">In progress</option>
+                                                        <option value="complete">Completed</option>
+                                                    </select>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="class_assignment_table m-4" id="class_assignment_table" style="overflow:auto;"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-12 mb-sm-1 my-4">
+                            <div class="assignment_card wk_stat_card">
+                                <div style="border-bottom: 1px solid #CAD4E0">
+                                    <div class="py-3 ps-3 d-flex justify-content-between">
+                                        <div>
+                                            <span class="header">Student Assignment</span>
+                                            <div t-if="assignment_ids and len(assignment_ids) > 5">
+                                                Recent 5 student assignments
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="#" id="dropdownMenuLink">
+                                                <span style="color:#000000;font-family: 'Lato', sans-serif;;font-size: 14px;font-weight: 400;line-height: 19.3px;">Status: </span>
+                                            </a>
+                                            <button type="button" class="btn" style="border:none;">
+                                                <div class="input-group" style="border:none;">
+                                                    <select class="custom-select form-select" id="s_assignment" autocomplete="off" style="border:none;" t-on-change="load_student_assignment">
+                                                        <option selected="true" value="all">All</option>
+                                                        <option value="new">New</option>
+                                                        <option value="submit">Submitted</option>
+                                                        <option value="evaluate">Evaluated</option>
+                                                    </select>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="student_assignment_table m-4" id="student_assignment_table" style="overflow:auto;"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="economic_variable_form" model="ir.ui.view">
+            <field name="name">economic.variable.form</field>
+            <field name="model">economic.variable</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nombre" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="code" />
+                                <field name="active" widget="boolean_toggle" />
+                            </group>
+                            <group>
+                                <field name="company_id" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="page_variable_lines" string="Líneas de variable económica">
+                                <field name="variable_line_ids" context="{'list_view_ref':'economic_variable_line_tree', 'form_view_ref':'economic_variable_line_form'}" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="economic_variable_tree" model="ir.ui.view">
+            <field name="name">economic.variable.tree</field>
+            <field name="model">economic.variable</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="code" />
+                </list>
+            </field>
+        </record>
+
+        <record id="economic_variable_action" model="ir.actions.act_window">
+            <field name="name">Variable económica</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">economic.variable</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="economic_variable_menu_act" name="Variables económicas" parent="hr.menu_human_resources_configuration" action="economic_variable_action" sequence="3" />
+
+    </data>
+</odoo>

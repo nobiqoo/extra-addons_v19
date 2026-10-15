@@ -1,0 +1,33 @@
+<odoo>
+  <!-- Acción: pestaña "Requisiciones" en Proyectos -->
+  <record id="action_project_open_requirements" model="ir.actions.act_window">
+    <field name="name">Requisiciones</field>
+    <field name="res_model">approval.request</field>
+    <field name="view_mode">list,form</field>
+    <field name="views"
+      eval="[
+    (ref('project_approvals_integration.approval_request_list_for_task'), 'list'),
+    (ref('approvals.approval_request_view_form'), 'form')
+  ]" />
+    <field name="context">{'search_default_project_id': active_id, 'default_project_id': active_id}</field>
+
+    <field name="binding_model_id" ref="project.model_project_project" />
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">kanban,list,form</field>
+  </record>
+
+  <record id="project_form_inherit_requirements_smartbtn" model="ir.ui.view">
+    <field name="name">project.project.form.inherit.requirements.smartbtn</field>
+    <field name="model">project.project</field>
+    <field name="inherit_id" ref="project.edit_project" />
+    <field name="arch" type="xml">
+      <xpath expr="//div[@name='button_box']" position="inside">
+        <button class="oe_stat_button" type="action"
+          name="%(project_approvals_integration.action_project_open_requirements)s"
+          icon="fa-check-square">
+          <span class="o_stat_text">Requisiciones</span>
+        </button>
+      </xpath>
+    </field>
+  </record>
+</odoo>

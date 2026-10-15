@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_safra_validation_rule_tree" model="ir.ui.view">
+        <field name="name">safra.validation.rule.tree</field>
+        <field name="model">safra.validation.rule</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" open_form_view="1">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="seccion" optional="show"/>
+                <field name="estado"/>
+                <field name="severity"/>
+                <field name="message"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_safra_validation_rule" model="ir.actions.act_window">
+        <field name="name">Validaciones</field>
+        <field name="res_model">safra.validation.rule</field>
+        <field name="view_mode">list</field>
+        <field name="context">{'active_test': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Configure las validaciones del cotizador</p>
+            <p>Severidad y mensaje de cada validación de negocio; desactive
+               las que no apliquen. Error bloquea el pedido, Advertencia solo
+               informa.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_safra_cfg_validation" name="Validaciones"
+              parent="menu_safra_config" action="action_safra_validation_rule" sequence="17"/>
+
+
+    <record id="view_safra_validation_rule_form" model="ir.ui.view">
+        <field name="name">safra.validation.rule.form</field>
+        <field name="model">safra.validation.rule</field>
+        <field name="arch" type="xml">
+            <form string="Validación">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="seccion"/>
+                            <field name="estado"/>
+                        </group>
+                        <group>
+                            <field name="severity"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Mensaje al cliente">
+                        <field name="message" nolabel="1" colspan="2"
+                               placeholder="Vacío = mensaje por defecto del motor. Admite comodines, ej: {ancho}"/>
+                    </group>
+                    <group string="Condición (código) — para crear validaciones nuevas sin desarrollo">
+                        <field name="condition_code" nolabel="1" colspan="2" widget="code"
+                               options="{'language': 'python'}"
+                               placeholder="Ej: sistema == '01' and ancho > 3 and not con_motor&#10;Variables: ancho, alto, cantidad, atributos (dict), tela, color, sistema, con_motor, alineado, exhibicion"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_employee_co_form" model="ir.ui.view">
+            <field name="name">hr.employee.co.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form" />
+            <field name="arch" type="xml">
+                <field name="work_email" position="after">
+                    <field name="payroll_mail_notifier" />
+                </field>
+                <field name="resource_calendar_id" position="replace" />
+                <xpath expr="//form/sheet/notebook/page[@name='personal_information']//field[@name='bank_account_ids']" position="before">
+                    <field name="partner_id" invisible="1" />
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[@name='personal_information']//field[@name='bank_account_ids']" position="attributes">
+                    <attribute name="doamin">[('partner_id', '=', partner_id), ('company_id', '=', company_id)]</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="partner_id" placeholder="Contacto" />
+                </xpath>
+                <xpath expr="//notebook/page[@name='hr_settings']/group/group/div/field[@name='user_id']" position="replace">
+                    <field name="user_id" string="Usuario Odoo" />
+                    <field name="active" nolabel="0" />
+                </xpath>
+                <!-- <xpath expr="//notebook/page[@name='personal_information']/group/group/field[@name='private_email']" position="before">
+                    <field name="address_home_id" invisible="1" />
+                    <field name="country_partner_id" />
+                    <field name="state_partner_id" />
+                    <field name="city_partner_id" />
+                    <span class="o_form_label o_td_label" name="address_name" string="Dirección" />
+                    <div class="o_row">
+                        <field name="street" class="o_address_street" nolabel="1" />
+                        <field name="street2" class="o_address_street" nolabel="1" placeholder="Complemento" />
+                    </div>
+                </xpath> -->
+                <xpath expr="//notebook/page[@name='work_information']" position="after">
+                    <page name="contracts" string="Contratos">
+                        <field name="contract_ids">
+                            <list>
+                                <field name="name" />
+                                <field name="date_start" />
+                                <field name="state" />
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook" position='inside'>
+                    <page name="page_emergency" string="Contactos de emergencia">
+                        <field name="emergency_contact_ids">
+                            <list>
+                                <field name="name" />
+                                <field name="phone" />
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+                <!-- En 19 el formulario de empleado ya no muestra coach_id -->
+                <field name="parent_id" position="after">
+                    <field name="use_partner_like_coach" invisible="1"/>
+                    <field name="coach_partner_id" string="Mentor" invisible="not use_partner_like_coach"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_hr_employee_form_inherited_medical" model="ir.ui.view">
+            <field name="name">hr.employee.form.medical</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Medical Examinations">
+                        <field name="medical_exam_ids">
+                            <!-- Vista en árbol de exámenes médicos -->
+                            <list string="Medical Examinations">
+                                <field name="name"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="expiration_days" readonly="1"/>
+                                <field name="document_name"/>
+                                <field name="document_url" widget="html" readonly="1"/>
+                                <field name="insurance_type"/>
+                                <field name="insurance_name"/>
+                            </list>
+                            <!-- Vista en formulario de exámenes médicos -->
+                            <form string="Medical Examination Details">
+                                <group>
+                                    <field name="name"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="expiration_days" readonly="1"/>
+                                    <field name="document" filename="document_name"/>
+                                    <field name="insurance_type"/>
+                                    <field name="insurance_name"/>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Family Information">
+                        <field name="family_information_ids" widget="one2many_list">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="document_type" optional="hidden"/>
+                                <field name="l10n_latam_identification_type_id" required="1"/>
+                                <field name="document_number"/>
+                                <field name="relationship"/>
+                                <field name="birth_date"/>
+                                <field name="dependency_status"/>
+                                <field name="is_in_certified"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Personal References">
+                        <field name="personal_reference_ids" widget="one2many_list" options="{'no_create': True}">
+                            <list string="Personal Reference" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="reference_type"/>
+                                    <field name="relationship"/>
+                                    <field name="phone"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</odoo>

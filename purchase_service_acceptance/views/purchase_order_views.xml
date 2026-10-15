@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="purchase_order_view_form_service_acceptance" model="ir.ui.view">
+        <field name="name">purchase.order.form.service.acceptance</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button type="object"
+                    name="action_view_service_acceptance"
+                    class="oe_stat_button"
+                    icon="fa-check-square-o"
+                    invisible="service_acceptance_count == 0">
+                    <field name="service_acceptance_count" widget="statinfo" string="Service Acceptance"/>
+                </button>
+            </xpath>
+            <xpath expr="//button[@name='button_approve']" position="after">
+                <button type="object"
+                    name="action_update_service_acceptances"
+                    string="Update Service Acceptances"
+                    invisible="state not in ('purchase', 'done') or service_acceptance_count == 0"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_ref']" position="after">
+                <field name="service_reception_status" widget="badge"
+                    invisible="not service_reception_status"
+                    decoration-muted="service_reception_status == 'not_started'"
+                    decoration-warning="service_reception_status == 'partial'"
+                    decoration-success="service_reception_status == 'full'"/>
+            </xpath>
+            <!-- For Service lines, qty_received is entirely driven by the
+                 Service Acceptance flow (action_validate()/action_reset_to_draft())
+                 — editing it by hand here would desync it from the accepted
+                 quantities tracked there. -->
+            <xpath expr="//field[@name='order_line']//list//field[@name='qty_received']" position="attributes">
+                <attribute name="readonly">qty_received_method != 'manual' or is_downpayment or product_type == 'service'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//list//field[@name='qty_received']" position="after">
+                <field name="qty_pending_reception" string="Pending Reception" optional="show"
+                    column_invisible="parent.state != 'purchase'"/>
+                <field name="qty_to_invoice" string="Pending Invoice" optional="show"
+                    column_invisible="parent.state != 'purchase'"/>
+                <field name="amount_committed" string="Committed (P&amp;L)" optional="hide"
+                    column_invisible="parent.state != 'purchase'"/>
+                <field name="amount_service_received" string="Received Not Billed (P&amp;L)" optional="hide"
+                    column_invisible="parent.state != 'purchase'"/>
+                <field name="amount_service_invoiced" string="Billed (P&amp;L)" optional="hide"
+                    column_invisible="parent.state != 'purchase'"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//form//field[@name='qty_received']" position="before">
+                <field name="product_type" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//form//field[@name='qty_received']" position="attributes">
+                <attribute name="readonly">qty_received_method != 'manual' or product_type == 'service'</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

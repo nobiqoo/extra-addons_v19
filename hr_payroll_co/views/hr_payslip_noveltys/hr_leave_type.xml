@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_leave_type_form" model="ir.ui.view">
+            <field name="name">hr.leave.type.form</field>
+            <field name="model">hr.leave.type</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="model_basic_payslip_novelty_type_form" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[@name='title']" position='inside'>
+                    <h1>Categoría de Ausencias</h1>
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='name']" position='after'>
+                    <field name="category_type" />
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@name='page_setup']/group[@name='group_setup']" position='after'>
+                    <group name="group_detail" string="Ausencia">
+                        <group>
+                            <field name="apply_day_31" invisible="category_type == 'VAC_MONEY'" />
+                        </group>
+                        <group>
+                            <field name="discount_rest_day" invisible="category_type != 'NO_PAY'" />
+                        </group>
+                        <group>
+                            <field name="is_holiday_leave" invisible="category_type != 'VAC'"/>
+                        </group>
+                    </group>
+                    <group name="payment_methos">
+                        <field name="holiday_payment_strategy" invisible="category_type != 'VAC'"/>
+                    </group>
+                    <group name="group_sickness" string="Porcentajes de Incapacidad" invisible="category_type != 'SICKNESS'">
+                        <group>
+                            <field name="no_smmlv_limit_b2" />
+                            <field name="no_smmlv_limit_b90" />
+                            <field name="no_smmlv_limit_b180" />
+                            <field name="no_smmlv_limit_a180" />
+                        </group>
+                        <group>
+                            <field name="b2" />
+                            <field name="b90" />
+                            <field name="b180" />
+                            <field name="a180" />
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_leave_type_tree" model="ir.ui.view">
+            <field name="name">hr.leave.type.tree</field>
+            <field name="model">hr.leave.type</field>
+            <field name="type">list</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="code" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_leave_type_action" model="ir.actions.act_window">
+            <field name="name">Categoría de Ausencias</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.leave.type</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_leave_type_menu_act" name="Categoría de Ausencias" parent="setup_novelty_menu_categ" action="hr_leave_type_action" sequence="2" />
+
+    </data>
+</odoo>

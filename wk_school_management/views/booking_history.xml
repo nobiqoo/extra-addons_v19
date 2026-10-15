@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="book_history_form" model="ir.ui.view">
+            <field name="name">wk.book.history.form</field>
+            <field name="model">wk.book.history</field>
+            <field name="arch" type="xml">
+                <form string="Book Requests" create="0">
+                    <header>
+                        <button name="issue_book" string="Issue" class="oe_highlight" invisible="state not in ('request_issue')" type="object" />
+                        <button name="action_issue_request" string="Request Book"  invisible ="state != 'draft'" class="oe_highlight" type="object"/>
+                        <button name='action_issued_request_return' string='Return Request' invisible ="1"  class="oe_highlight" type="object"/>
+                        <button name="request_cancel" string="Cancel" invisible="state not in ('draft','request_issue')" type="object"/>
+                        <!-- <button name="return_book" string="Return" class="oe_highlight" invisible="state not in ('issued','request_return')" type="object"/> -->
+                        <field name="state" widget="statusbar" statusbar_visible="draft,issued,return"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field string="Booking No" name="name" readonly="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="book_id" required='True' readonly="state != 'draft'"/>
+                                <field name="copy_book_sr_id" invisible="state in ['draft', 'request_issue']" readonly="state != 'draft'" domain="[('copy_book_id', '=', book_id),('state', '=', 'available')]"/>
+                                <field string="Issued To" name="assign_to" readonly="state != 'draft'"/>
+                                <field name="expected_return_date" readonly="state not in ['request_issue', 'draft']"/>
+                            </group>
+                            <group>
+                                <field name="issue_date" string="Issue Date" readonly="state not in ['request_issue', 'draft']"/>
+                                <field name="return_to_id" readonly="state != 'draft'" invisible="state != 'return'"/>
+                                <field string="Return Date" name="return_date" invisible="state != 'return'"/>
+                                <field name="fine" invisible="state != 'return'"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="book_history_list" model="ir.ui.view">
+            <field name="name">wk.book.history.list</field>
+            <field name="model">wk.book.history</field>
+            <field name="arch" type="xml">
+                <list string="Book Requests" decoration-danger="expected_return_date &lt; context_today().strftime('%Y-%m-%d')"  create="0" default_order="name desc">
+                    <field name="name" string="Reference"/>
+                    <field name="book_id"/>
+                    <field name="copy_book_sr_id"/>
+                    <field name="assign_to"/>
+                    <field name="issue_date" string="Issue Date"/>
+                    <field name="expected_return_date"/>
+                    <field name="return_to_id" optional="hide"/>
+                    <field name="create_date" optional="hide"/>
+                    <field name="return_date" optional="hide"/>
+                    <field name="state" widget="badge" decoration-primary="state=='draft'"  decoration-info="state=='request_issue'" decoration-warning="state == 'return'" decoration-danger="state == 'cancel'" decoration-success="state=='issued'"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="book_history_search" model="ir.ui.view">
+            <field name="name">wk.book.history.search</field>
+            <field name="model">wk.book.history</field>
+            <field name="arch" type="xml">
+                 <search string="Request">
+                    <field name="name" string="Book Request" filter_domain="['|', '|', '|', ('name', 'ilike', self), ('book_id.name', 'ilike', self),('copy_book_sr_id.isbn', 'ilike', self), ('assign_to.name', 'ilike', self)]"/>
+                    <field name="book_id" string="Book"/>
+                    <field name="copy_book_sr_id" string="Copy Number"/>
+                    <field name="assign_to" string="Assign To"/>
+                    <filter name="issued_request_return_filter" string="Pending" domain="[('state','=','request_issue')]"/>
+                    <filter name="issued_return_filter" string="Issued" domain="[('state','=','issued')]"/>
+                    <filter name="overdue_book" string="Overdue" domain="['&amp;',('expected_return_date','&lt;',datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('state', '!=', 'return')]"/>
+                    <group>
+                        <filter string="State" name="group_by_state" context="{'group_by':'state'}" />
+                        <filter string="Book" name="group_by_book" context="{'group_by':'book_id'}" />
+                        <filter string="Assign To" name="group_by_assign" context="{'group_by':'assign_to'}" />
+                   </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="wk_booking_history_action" model="ir.actions.act_window">
+            <field name="name">Book Requests</field>
+            <field name="res_model">wk.book.history</field>
+            <field name="view_mode">list,form</field>
+            <field name="path">book-requests</field>
+             <field name="context">{'search_default_issued_return_filter': 'issued'}</field>
+        </record>
+
+        <record id="wk_booking_history_overdue_action" model="ir.actions.act_window">
+            <field name="name">Book Requests</field>
+            <field name="res_model">wk.book.history</field>
+            <field name="view_mode">list,form</field>
+             <field name="domain">[('state', '=', 'issued'),('expected_return_date', '&lt;', context.get('today'))]</field>
+        </record>
+
+        <record id="booking_no_sequence" model="ir.sequence">
+            <field name="name">booking_no_sequence</field>
+            <field name="code">booking_no.sequence</field>
+            <field name="prefix">BN</field>
+            <field name="padding">5</field>
+        </record>
+
+    </data>    
+</odoo>    

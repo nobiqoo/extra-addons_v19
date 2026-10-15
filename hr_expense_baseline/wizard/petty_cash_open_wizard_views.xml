@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="petty_cash_open_view_form" model="ir.ui.view">
+        <field name="name">petty.cash.open.view.form</field>
+        <field name="model">petty.cash</field>
+        <field name="arch" type="xml">
+            <form string="Petty Cash Open">
+                <sheet>
+                    <group>
+                        <field name="operation_type" string="Operation Type" />
+                        <field name="partner_id" string="Partner id" />
+                        <field name="amount" string="Amount" invisible="operation_type == 'close'" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Accept" class="btn btn-primary" type="object"
+                        name="button_accept" />
+                    <button string="Cancel" class="btn btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_petty_cash_open" model="ir.actions.act_window">
+        <field name="name">Petty Cash Open</field>
+        <field name="res_model">petty.cash</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="petty_cash_open_view_form" />
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_hr_expense_petty_cash" name="Petty Cash" sequence="10"
+        parent="hr_expense.menu_hr_expense_root" />
+    <menuitem id="model_petty_cash_menu" name="Petty Cash Open" action="action_petty_cash_open"
+        parent="menu_hr_expense_petty_cash" sequence="1" />
+
+</odoo>

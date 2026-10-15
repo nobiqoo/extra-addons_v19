@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_details_wizard_view_form" model="ir.ui.view">
+        <field name="name">account.details.wizard.view.form</field>
+        <field name="model">account.details.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Invoice Details">
+                <sheet>
+                    <group>
+                        <field name="user_id" invisible="True" />
+                        <field name="moves_ids" invisible="True" />
+                        <field name="move_type" />
+                    </group>
+                    <group>
+                        <field name="date_start" />
+                        <field name="date_end" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="generate_report" string="Print" type="object" class="btn-primary" data-hotkey="q" />
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_details_wizard_action" model="ir.actions.act_window">
+        <field name="name">Invoice Details</field>
+        <field name="res_model">account.details.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="account_details_wizard_menu"
+        action="account_details_wizard_action"
+        parent="account.menu_finance_reports"
+        sequence="5" />
+</odoo>

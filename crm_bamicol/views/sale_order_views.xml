@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_view_form_architect" model="ir.ui.view">
+        <field name="name">sale.order.form.architect</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='other_information']//field[@name='user_id']" position="after">
+                <field name="architect_required" invisible="True"/>
+                <field name="architect_id" string="Arquitecto" placeholder="Seleccionar arquitecto..." options="{'no_create': True}" required="architect_required" />
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="sale_order_view_list_architect" model="ir.ui.view">
+        <field name="name">sale.order.list.architect</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//list//field[@name='user_id']" position="after">
+                <field name="architect_id" optional="show"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="sale_order_view_search_architect" model="ir.ui.view">
+        <field name="name">sale.order.search.architect</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_view_search_inherit_sale"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="architect_id" string="Arquitecto" filter_domain="[('architect_id', 'child_of', self)]" />
+            </xpath>
+
+            <xpath expr="//filter[@name='my_sale_orders_filter']" position="after">
+                <filter string="Sin Arquitecto" name="no_architect" domain="[('architect_id', '=', False)]" />
+                <filter string="Con Arquitecto" name="with_architect" domain="[('architect_id', '!=', False)]" />
+            </xpath>
+
+            <xpath expr="//filter[@name='salesperson']" position="after">
+                <filter string="Arquitecto" name="group_by_architect" context="{'group_by': 'architect_id'}" />
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

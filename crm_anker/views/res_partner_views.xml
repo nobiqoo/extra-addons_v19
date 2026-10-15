@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_view_form" model="ir.ui.view">
+        <field name="name">res.partner.view.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Trafico de interes" invisible="type == 'lead'">
+                    <field name="trafic_line_ids" readonly="1">
+                        <list>
+                            <field
+                                name="crm_id"
+                                string="Oportunidad"
+                                options="{'no_open': True, 'no_create': True}" />
+                            <field
+                                name="origin_country_id"
+                                options="{'no_open': True, 'no_create': True}" />
+                            <field
+                                name="origin_city_id"
+                                domain="[('country_id', '=', origin_country_id)]"
+                                options="{'no_open': True, 'no_create': True}" />
+                            <field
+                                name="dest_country_id"
+                                options="{'no_open': True, 'no_create': True}" />
+                            <field
+                                name="dest_city_id"
+                                domain="[('country_id', '=', dest_country_id)]"
+                                options="{'no_open': True, 'no_create': True}" />
+                            <field
+                                name="transport_id"
+                                options="{'no_open': True, 'no_create': True}" />
+                        </list>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

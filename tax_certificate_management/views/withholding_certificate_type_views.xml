@@ -1,0 +1,81 @@
+<odoo>
+
+	<record id="withholding_certificate_type_view_form" model="ir.ui.view">
+		<field name="name">withholding.certificate.type.view.form</field>
+		<field name="model">withholding.certificate.type</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name="name" />
+							<field name="company_id" required="1" />
+						</group>
+						<group>
+							<field name="type" />
+							<field name="ica" />
+							<field name="keep_header_cities" invisible="ica" />
+						</group>
+					</group>
+					<group>
+						<group>
+							<field name="city_generated_id" />
+						</group>
+						<group>
+							<field name="city_paid_id" />
+						</group>
+					</group>
+					<notebook>
+						<page string="Tax lines">
+							<field name="line_ids" widget="section_and_note_one2many" mode="list">
+								<list editable="bottom">
+									<field name="tax_account" />
+									<field name="city_id" />
+									<field name="tax" />
+									<field name="percentage" />
+								</list>
+							</field>
+						</page>
+						<page string="impression">
+							<group>
+								<field name="title" />
+								<field name="notes" />
+							</group>
+						</page>
+					</notebook>
+				</sheet>
+				<chatter />
+			</form>
+		</field>
+	</record>
+
+	<record id="withholding_certificate_type_view_tree" model="ir.ui.view">
+		<field name="name">withholding.certificate.type.view.tree</field>
+		<field name="model">withholding.certificate.type</field>
+		<field name="arch" type="xml">
+			<list>
+				<field name="name" />
+				<field name="type" />
+				<field name="city_generated_id" />
+				<field name="city_paid_id" />
+			</list>
+		</field>
+	</record>
+
+	<record id="withholding_certificate_type_action" model="ir.actions.act_window">
+		<field name="type">ir.actions.act_window</field>
+		<field name="name">Withholding certificate type</field>
+		<field name="res_model">withholding.certificate.type</field>
+		<field name="view_mode">list,form</field>
+		<field name="context">{}</field>
+	</record>
+
+	<menuitem id="tax_certificate_management_principal_menu" parent="account.menu_finance_entries"
+		sequence="14" name="Tax certificate configuration" />
+
+	<menuitem id="withholding_certificate_type_menu"
+		action="withholding_certificate_type_action"
+		parent="tax_certificate_management_principal_menu"
+		sequence="1" />
+
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="res_config_settings_view_form_teacher" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.hr.payroll.colombo</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id"
+                ref="hr_payroll_co.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//block[@name='payroll_policies']" position="after">
+                    <block title="Nómina de profesores" name="teacher_payroll_policies"
+                        invisible="chart_template != 'co'">
+                        <setting id="teacher_policy_group"
+                            string="Política de cálculo por tipo de contrato"
+                            help="Diferencia el cálculo de nómina, prestaciones, provisiones e IBC según la naturaleza del contrato.">
+                            <div class="d-flex mt-1">
+                                <field name="apply_contract_type_policy" class="ml14" />
+                                <label for="apply_contract_type_policy"
+                                    class="o_light_label" />
+                            </div>
+                            <div class="content-group mt-2"
+                                invisible="not apply_contract_type_policy">
+                                <div class="text-muted">Cesantías, intereses, prima y vacaciones sobre 330 días en:</div>
+                                <div class="d-flex">
+                                    <field name="benefits_330_type_10" class="ml14" />
+                                    <label for="benefits_330_type_10" string="Tipo 10" class="o_light_label" />
+                                </div>
+                                <div class="d-flex">
+                                    <field name="benefits_330_type_12" class="ml14" />
+                                    <label for="benefits_330_type_12" string="Tipo 12" class="o_light_label" />
+                                </div>
+                                <div class="d-flex">
+                                    <field name="benefits_330_mixed" class="ml14" />
+                                    <label for="benefits_330_mixed" string="Mixto" class="o_light_label" />
+                                </div>
+                            </div>
+                        </setting>
+                        <setting id="teacher_provisions_group"
+                            string="Provisiones profesores"
+                            help="Porcentajes de provisión propios de los contratos de profesor, independientes de los administrativos.">
+                            <div class="d-flex mt-1">
+                                <field name="teacher_provisions" class="ml14" />
+                                <label for="teacher_provisions" class="o_light_label" />
+                            </div>
+                            <div class="content-group mt-2" invisible="not teacher_provisions">
+                                <div class="text-muted">Aplica a:</div>
+                                <div class="d-flex">
+                                    <field name="teacher_provisions_type_10" class="ml14" />
+                                    <label for="teacher_provisions_type_10" string="Tipo 10" class="o_light_label" />
+                                </div>
+                                <div class="d-flex">
+                                    <field name="teacher_provisions_type_12" class="ml14" />
+                                    <label for="teacher_provisions_type_12" string="Tipo 12" class="o_light_label" />
+                                </div>
+                                <div class="d-flex">
+                                    <field name="teacher_provisions_mixed" class="ml14" />
+                                    <label for="teacher_provisions_mixed" string="Mixto" class="o_light_label" />
+                                </div>
+                                <div class="text-muted mt-2">Porcentajes:</div>
+                                <div class="row">
+                                    <label for="teacher_severance_percentage"
+                                        class="col-lg-6 o_light_label" />
+                                    <field name="teacher_severance_percentage" />
+                                </div>
+                                <div class="row">
+                                    <label for="teacher_interest_severance_percentage"
+                                        class="col-lg-6 o_light_label" />
+                                    <field name="teacher_interest_severance_percentage" />
+                                </div>
+                                <div class="row">
+                                    <label for="teacher_prima_percentage"
+                                        class="col-lg-6 o_light_label" />
+                                    <field name="teacher_prima_percentage" />
+                                </div>
+                                <div class="row">
+                                    <label for="teacher_holidays_percentage"
+                                        class="col-lg-6 o_light_label" />
+                                    <field name="teacher_holidays_percentage" />
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,105 @@
+<odoo>
+    <record id="view_res_config_settings" model="ir.ui.view">
+        <field name="name">view.res.config.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="80" />
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='invoicing_settings']" position="inside">
+                <setting id="salesperson_not_editable" help="Allows to restrict the edition of the salesperson field in sales and invoices.">
+                    <field name="salesperson_not_editable" />
+                </setting>
+                <setting id="tag_non_buyers" help="Allows you to add a tag and block to the customer who has not purchased in the last few months.">
+                    <field name="add_tag_to_non_buyers" />
+                    <div class="content-group" invisible="not add_tag_to_non_buyers">
+                        <div class="row mt16">
+                            <label for="months_without_buying" class="col-3 o_light_label" />
+                            <field name="months_without_buying" />
+                        </div>
+                        <div class="row">
+                            <label for="tags_to_add_ids" class="col-3 o_light_label" />
+                            <field name="tags_to_add_ids" />
+                        </div>
+                    </div>
+                </setting>
+            </xpath>
+            <xpath expr="//setting[@id='use_invoice_terms']" position="after">
+                <setting id="block_expired_invoice_div" help="Validate if the partner has overdue invoices and block the current invoice.">
+                        <field name="block_expired_invoice" widget="upgrade_boolean" />
+                        <div class="row">
+                            <label for="day_limit_invoice_block" class="col-lg-4 o_light_label"/>
+                            <field name="day_limit_invoice_block" string="Day limit invoice"/>
+                        </div>
+                </setting>
+                <setting id="block_credit_limit_div" help="Validate if the partner has not paid invoices and the amount exceeds the credit limit">
+                    <field name="block_credit_limit"/>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_config_settings_view_form_sale" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='quotation_order_setting_container']" position="inside">
+                <setting id="sale_confirm_quantity" help="It does not allow to confirm the sales order if there are no quantities available">
+                    <field name="sale_confirm_quantity" />
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_config_settings_sale_profiling" model="ir.ui.view">
+        <field name="name">res.config.settings.sale.profiling</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='catalog_setting_container']" position="after">
+                <block title="Profiling" name="sale_profiling_rules_group">
+                    <setting id="allow_confirm_sale_for_administrators" help="Only users belonging to the Sale/Administrator group are allowed to confirm orders.">
+                        <field name="allow_confirm_sale_for_administrators" />
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_config_settings_edit_line" model="ir.ui.view">
+        <field name="name">view.res.config.settings.edlit.line</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="80" />
+        <field name="inherit_id" ref="sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <block id="pricing_setting_container" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box" id="restriction_line_price">
+                    <div class="o_setting_left_pane">
+                        <field name="restriction_line_price" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="restriction_line_price" />
+                        <div class="text-muted" id="sale_coupon">
+                            Restriction to edit price on order line.
+                        </div>
+                    </div>
+                </div>
+            </block>
+        </field>
+    </record>
+
+    <record id="view_res_config_setting_stock" model="ir.ui.view">
+        <field name="name">view.res.config.setting.stock</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='product_setting_container']/setting[@id='product_attributes']/div" position="inside">
+                <div class="content-group row mt16" invisible="not group_product_variant">
+                    <label for="show_price_variant_ldp" string="Price list to show in variants" class="col-lg-3 o_light_label"/>
+                    <field name="show_price_variant_ldp" options="{'no_open': 1, 'no_create_edit': 1, 'no_create': 1}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

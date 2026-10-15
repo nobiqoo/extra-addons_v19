@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="view_sale_order_inherit_form">
+        <field name="name">view.sale.order.inherit.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tax_totals']" position="after">
+                <label for="purchase_margin" groups="base.group_user"/>
+                <div class="text-nowrap" groups="base.group_user">
+                    <field name="purchase_margin" class="oe_inline"/>
+                    <field name="amount_untaxed" invisible="1"/>
+                    <span class="oe_inline" invisible="amount_untaxed == 0">
+                        (<field name="purchase_margin_percent" nolabel="1" class="oe_inline" widget="percentage"/>)
+                    </span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+	<record id="view_sale_order_form_inherit_purchase_price_tree" model="ir.ui.view">
+		<field name="name">sale.order.form.inherit.purchase.price.tree</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='order_line']/list/field[@name='price_unit']" position="after">
+				<field name="purchase_price_by_supplier" optional="hide"/>
+				<field name="purchase_margin" optional="hide"/>
+				<field name="purchase_margin_percent" column_invisible="price_subtotal == 0" optional="hide" widget="percentage"/>
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

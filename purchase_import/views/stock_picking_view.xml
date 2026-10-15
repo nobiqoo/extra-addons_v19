@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- DIM como columna en la lista de operaciones del picking de recepción -->
+    <record id="view_picking_form_dim" model="ir.ui.view">
+        <field name="name">stock.picking.form.dim</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_ids']//field[@name='product_uom_qty']" position="before">
+                <field name="x_dim_number"
+                       string="DIM"
+                       optional="hide"
+                       column_invisible="parent.picking_type_code != 'incoming'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

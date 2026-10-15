@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Leaves -->
+        <record id="action_to_cancel_leaves" model="ir.actions.server">
+            <field name="name">Cancelar</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_leave"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_leave"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_cancel()
+            </field>
+        </record>
+
+        <record id="action_to_draft_leaves" model="ir.actions.server">
+            <field name="name">Pasar a Borrador</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_leave"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_leave"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_draft()
+            </field>
+        </record>
+
+        <record id="action_to_confirm_leaves" model="ir.actions.server">
+            <field name="name">Confirmar</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_leave"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_leave"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_confirm()
+            </field>
+        </record>
+
+        <record id="action_to_validated_leaves" model="ir.actions.server">
+            <field name="name">Validar</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_leave"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_leave"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_validated()
+            </field>
+        </record>
+
+        <!-- Novelties -->
+        <record id="action_to_cancel_noveltie" model="ir.actions.server">
+            <field name="name">Cancelar</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_novelty"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_novelty"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_cancel()
+            </field>
+        </record>
+
+        <record id="action_to_draft_noveltie" model="ir.actions.server">
+            <field name="name">Pasar a Borrador</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_novelty"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_novelty"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_draft()
+            </field>
+        </record>
+
+        <record id="action_to_confirm_noveltie" model="ir.actions.server">
+            <field name="name">Confirmar</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_novelty"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_novelty"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_confirm()
+            </field>
+        </record>
+
+        <record id="action_to_validated_noveltie" model="ir.actions.server">
+            <field name="name">Validar</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_novelty"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_novelty"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_validated()
+            </field>
+        </record>
+
+        <!-- Overtime -->
+        <record id="action_to_cancel_overtime" model="ir.actions.server">
+            <field name="name">Cancelar</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_overtime"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_overtime"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_cancel()
+            </field>
+        </record>
+
+        <record id="action_to_draft_overtime" model="ir.actions.server">
+            <field name="name">Pasar a Borrador</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_overtime"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_overtime"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_draft()
+            </field>
+        </record>
+
+        <record id="action_to_confirm_overtime" model="ir.actions.server">
+            <field name="name">Confirmar</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_overtime"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_overtime"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_confirm()
+            </field>
+        </record>
+
+        <record id="action_to_validated_overtime" model="ir.actions.server">
+            <field name="name">Validar</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_overtime"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_overtime"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_validated()
+            </field>
+        </record>
+        
+        <!-- Loan -->
+        <record id="action_to_cancel_loan" model="ir.actions.server">
+            <field name="name">Cancelar</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_loan"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_loan"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_cancel()
+            </field>
+        </record>
+
+        <record id="action_to_draft_loan" model="ir.actions.server">
+            <field name="name">Pasar a Borrador</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_loan"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_loan"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_draft()
+            </field>
+        </record>
+
+        <record id="action_to_confirm_loan" model="ir.actions.server">
+            <field name="name">Confirmar</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_loan"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_loan"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_confirm()
+            </field>
+        </record>
+
+        <record id="action_to_validated_loan" model="ir.actions.server">
+            <field name="name">Validar</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_loan"/>
+            <field name="binding_model_id" ref="hr_payroll_co.model_hr_loan"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.to_validated()
+            </field>
+        </record>
+    </data>
+</odoo>

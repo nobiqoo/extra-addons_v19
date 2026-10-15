@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_partner_report_accountant"
+            name="Informes Extra"
+            parent="account.account_account_menu"
+            sequence="26"
+        />
+
+    <menuitem id="menu_account_report"
+            parent="account.menu_finance_reports"
+            sequence="3"
+            name="Colombian reports"
+        />
+
+    <menuitem id="menu_oficial_accounts__reports"
+        parent="account.menu_finance_reports"
+        sequence="6"
+        name="Libros oficiales"
+    />
+
+    <menuitem id="menu_account_auxiliary_invoices"
+            parent="menu_account_report"
+            sequence="15"
+            action="action_account_auxiliary_invoices"
+        />
+
+    <menuitem id="menu_account_auxiliary"
+            parent="menu_account_report"
+            sequence="5"
+            action="action_account_auxiliary"
+        />
+
+    <menuitem id="menu_account_balance_inventory_wizard"
+            parent="account_report.menu_oficial_accounts__reports"
+            sequence="30"
+            action="account_report.action_account_balance_inventory_wizard"
+        />
+
+    <menuitem id="menu_account_balance_major_wizard"
+            parent="account_report.menu_oficial_accounts__reports"
+            sequence="20"
+            action="account_report.action_account_balance_major_wizard"
+        />
+
+    <menuitem id="menu_account_balance"
+            parent="menu_account_report"
+            sequence="10"
+            name="Trial Balance"
+            action="action_account_balance"
+        />
+
+    <menuitem id="menu_account_balance_analytic"
+            parent="menu_account_report"
+            sequence="12"
+            name="Balance Centros de Costos"
+            action="action_account_balance_analytic"
+        />
+
+    <menuitem id="menu_account_auxiliary_analytic"
+            parent="menu_account_report"
+            sequence="14"
+            name="Libro Auxiliar Analítico"
+            action="action_account_auxiliary_analytic"
+        />
+
+    <menuitem id="menu_account_journal_wizard"
+            parent="account_report.menu_oficial_accounts__reports"
+            sequence="10"
+            action="account_report.action_account_journal_wizard"
+        />
+
+    <menuitem id="menu_custom_account_journal_wizard"
+            parent="account_report.menu_oficial_accounts__reports"
+            sequence="10"
+            action="account_report.custom_action_account_journal_wizard"
+        />
+
+    <!-- <menuitem id="menu_action_report_payment_days"
+            name="Días de pago"
+            action="action_report_payment_days"
+            parent="account_report.menu_account_report"
+            sequence="20"
+        /> -->
+
+    <menuitem id="menu_partner_report_ar_in_sales"
+            name="Partner Reports"
+            parent="sale.sale_menu_root"
+            groups="sales_team.group_sale_salesman"
+            sequence="6"
+        />
+
+        <!-- <menuitem id="menu_action_account_report_ar_per_vendor_in_sales"
+            name="Aged Receivable"
+            action="action_account_report_ar_per_vendor"
+            parent="menu_partner_report_ar_in_sales"
+            groups="sales_team.group_sale_salesman"
+            sequence="10"
+        /> -->
+
+    <menuitem
+        id="menu_action_account_report_profit_and_loss"
+        name="Pérdidas y ganancias NIIF"
+        action="account_report.action_account_report_niif_pl"
+        parent="account.account_reports_legal_statements_menu"
+        groups="account.group_account_readonly"/>
+
+    <menuitem
+        id="menu_action_account_report_balance_sheet_niif"
+        name="Balance de situación NIIF"
+        action="account_report.action_account_report_bs_niif"
+        parent="account.account_reports_legal_statements_menu"
+        groups="account.group_account_readonly"/>
+
+</odoo>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- RIEL ARMADO CORTINA (58) -->
+    <data noupdate="0">
+        <record id="system_58" model="safra.system"><field name="tech_width_min">0.3</field><field name="tech_width_max">8</field><field name="tech_height_min">0</field><field name="tech_height_max">0</field><field name="tech_mechanism"></field></record>
+        <record id="sf_58_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_58_has_motor" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_58_motor_support_type" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_58_requires_charger" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_58_riel_dividido" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_58_mando_position" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_58_width" model="safra.system.field">
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_58_height" model="safra.system.field">
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_58_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_58_fabric_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_58"/>
+            <field name="field_id" ref="field_fabric_id"/>
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_58_color_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_58"/>
+            <field name="field_id" ref="field_color_id"/>
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_58_coordinado" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_58"/>
+            <field name="field_id" ref="field_coordinado"/>
+            <field name="sequence">150</field>
+        </record>
+        <record id="sf_58_profundidad_onda" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_58"/>
+            <field name="field_id" ref="field_profundidad_onda"/>
+            <field name="sequence">1000</field>
+        </record>
+        <record id="sf_58_motor" model="safra.system.field">
+            <field name="sequence">1005</field>
+            <field name="label_override">Motor</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;0&#x27;,&#x27;name&#x27;:&#x27;Sin motor&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;6&#x27;,&#x27;name&#x27;:&#x27;Motor Ultrasilencioso Cortina/Panel Wifi/Rf&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;7&#x27;,&#x27;name&#x27;:&#x27;Motor Ultrasilencioso Cortina/Panel Bateria/Rf&#x27;,&#x27;sequence&#x27;:30})]"/>
+            <field name="clear_depends" eval="True"/>
+        </record>
+        <record id="sf_58_control" model="safra.system.field">
+            <field name="sequence">1010</field>
+            <field name="label_override">Control</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;0&#x27;,&#x27;name&#x27;:&#x27;Sin Control&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;1&#x27;,&#x27;name&#x27;:&#x27;Inalámbrico Panel 2 Canales&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;5&#x27;,&#x27;name&#x27;:&#x27;Inalámbrico Panel 15 Canales&#x27;,&#x27;sequence&#x27;:30}),(0,0,{&#x27;value&#x27;:&#x27;4&#x27;,&#x27;name&#x27;:&#x27;Control Motor Wifi/RF&#x27;,&#x27;sequence&#x27;:40}),(0,0,{&#x27;value&#x27;:&#x27;7&#x27;,&#x27;name&#x27;:&#x27;Control Motor Batería&#x27;,&#x27;sequence&#x27;:50})]"/>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="sf_58_control_channel" model="safra.system.field">
+            <field name="sequence">1015</field>
+            <field name="label_override">Canal del Control</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;0&#x27;,&#x27;name&#x27;:&#x27;Sin canal&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;1&#x27;,&#x27;name&#x27;:&#x27;Canal 1&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;2&#x27;,&#x27;name&#x27;:&#x27;Canal 2&#x27;,&#x27;sequence&#x27;:30}),(0,0,{&#x27;value&#x27;:&#x27;3&#x27;,&#x27;name&#x27;:&#x27;Canal 3&#x27;,&#x27;sequence&#x27;:40}),(0,0,{&#x27;value&#x27;:&#x27;4&#x27;,&#x27;name&#x27;:&#x27;Canal 4&#x27;,&#x27;sequence&#x27;:50}),(0,0,{&#x27;value&#x27;:&#x27;5&#x27;,&#x27;name&#x27;:&#x27;Canal 5&#x27;,&#x27;sequence&#x27;:60}),(0,0,{&#x27;value&#x27;:&#x27;6&#x27;,&#x27;name&#x27;:&#x27;Canal 6&#x27;,&#x27;sequence&#x27;:70}),(0,0,{&#x27;value&#x27;:&#x27;7&#x27;,&#x27;name&#x27;:&#x27;Canal 7&#x27;,&#x27;sequence&#x27;:80}),(0,0,{&#x27;value&#x27;:&#x27;8&#x27;,&#x27;name&#x27;:&#x27;Canal 8&#x27;,&#x27;sequence&#x27;:90}),(0,0,{&#x27;value&#x27;:&#x27;9&#x27;,&#x27;name&#x27;:&#x27;Canal 9&#x27;,&#x27;sequence&#x27;:100}),(0,0,{&#x27;value&#x27;:&#x27;10&#x27;,&#x27;name&#x27;:&#x27;Canal 10&#x27;,&#x27;sequence&#x27;:110})]"/>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="sf_58_traslape_centro" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_58"/>
+            <field name="field_id" ref="field_traslape_centro"/>
+            <field name="sequence">1020</field>
+            <field name="label_override">¿Riel Dividido?</field>
+        </record>
+        <record id="sf_58_mando_cortina" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_58"/>
+            <field name="field_id" ref="field_mando_cortina"/>
+            <field name="sequence">1025</field>
+        </record>
+        <record id="sf_58_apertura" model="safra.system.field">
+            <field name="sequence">1030</field>
+            <field name="label_override">Apertura</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;1&#x27;,&#x27;name&#x27;:&#x27;Derecha&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;2&#x27;,&#x27;name&#x27;:&#x27;Izquierda&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;3&#x27;,&#x27;name&#x27;:&#x27;Extremos&#x27;,&#x27;sequence&#x27;:30}),(0,0,{&#x27;value&#x27;:&#x27;4&#x27;,&#x27;name&#x27;:&#x27;Centro&#x27;,&#x27;sequence&#x27;:40}),(0,0,{&#x27;value&#x27;:&#x27;5&#x27;,&#x27;name&#x27;:&#x27;Apertura Libre&#x27;,&#x27;sequence&#x27;:50})]"/>
+        </record>
+        <record id="sf_58_alto_cortina" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_58"/>
+            <field name="field_id" ref="field_alto_cortina"/>
+            <field name="sequence">1035</field>
+        </record>
+        <record id="sf_58_longitud_baston" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_58"/>
+            <field name="field_id" ref="field_longitud_baston"/>
+            <field name="sequence">1040</field>
+        </record>
+        <record id="sf_58_escuadras" model="safra.system.field">
+            <field name="sequence">1045</field>
+        </record>
+    </data>
+</odoo>

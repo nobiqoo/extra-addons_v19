@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- ============================================ -->
+    <!-- VISTA FORMULARIO: Tendencias -->
+    <!-- ============================================ -->
+    <record id="view_storage_analysis_trend_form" model="ir.ui.view">
+        <field name="name">storage.analysis.trend.form</field>
+        <field name="model">storage.analysis.trend</field>
+        <field name="arch" type="xml">
+            <form string="Tendencia de Crecimiento">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="ref_id" invisible="1"/>
+                            <field name="analysis_date"/>
+                            <field name="database_size"/>
+                            <field name="filestore_size"/>
+                            <field name="total_size"/>
+                            <field name="total_attachments"/>
+                        </group>
+                        <group>
+                            <field name="daily_growth_rate"/>
+                            <field name="growth_percentage" widget="percentage"/>
+                            <field name="projected_full_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ============================================ -->
+    <!-- VISTA LISTA: Tendencias -->
+    <!-- ============================================ -->
+    <record id="view_storage_analysis_trend_tree" model="ir.ui.view">
+        <field name="name">storage.analysis.trend.tree</field>
+        <field name="model">storage.analysis.trend</field>
+        <field name="arch" type="xml">
+            <list string="Tendencias de Crecimiento" decoration-success="growth_percentage &lt; 0.5" decoration-warning="growth_percentage &gt;= 0.5" decoration-danger="growth_percentage &gt;= 1">
+                <field name="ref_id" invisible="1"/>
+                <field name="analysis_date"/>
+                <field name="database_size" sum="Total"/>
+                <field name="filestore_size" sum="Total"/>
+                <field name="total_size" sum="Total"/>
+                <field name="total_attachments" sum="Total"/>
+                <field name="daily_growth_rate"/>
+                <field name="growth_percentage" widget="percentage"/>
+                <field name="projected_full_date"/>
+                <field name="is_latest" widget="boolean" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================================ -->
+    <!-- VISTA BÚSQUEDA: Tendencias -->
+    <!-- ============================================ -->
+    <record id="view_storage_analysis_trend_search" model="ir.ui.view">
+        <field name="name">storage.analysis.trend.search</field>
+        <field name="model">storage.analysis.trend</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Tendencias">
+                <field name="analysis_date"/>
+                <filter name="this_week" string="Esta Semana" domain="[('analysis_date', '>=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <filter name="this_month" string="Este Mes" domain="[('analysis_date', '>=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                <filter name="this_quarter" string="Este Trimestre" domain="[('analysis_date', '>=', (context_today() - datetime.timedelta(days=90)).strftime('%Y-%m-%d'))]"/>
+                <!-- <filter name="growing" string="Creciendo Rápido" domain="[('daily_growth_rate', '>', 10)]"/> -->
+                <!-- <filter name="critical" string="Fecha de Llenado Definida" domain="[('projected_full_date', '!=', False)]"/> -->
+                <group>
+                    <filter name="group_by_month" string="Mes" context="{'group_by': 'analysis_date:month'}"/>
+                    <filter name="group_by_week" string="Semana" context="{'group_by': 'analysis_date:week'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ============================================ -->
+    <!-- ACCIÓN: Tendencias -->
+    <!-- ============================================ -->
+    <record id="action_storage_analysis_trend" model="ir.actions.act_window">
+        <field name="name">Tendencias de Crecimiento</field>
+        <field name="res_model">storage.analysis.trend</field>
+        <field name="view_mode">list,form,pivot,graph</field>
+        <field name="search_view_id" ref="view_storage_analysis_trend_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay tendencias registradas aún
+            </p>
+            <p>
+                Las tendencias se generan automáticamente cuando se ejecutan análisis de almacenamiento.
+            </p>
+        </field>
+    </record>
+</odoo>

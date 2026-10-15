@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_account_voucher_line_form">
+            <field name="name">account.voucher.line.form</field>
+            <field name="model">account.voucher.line</field>
+            <field name="arch" type="xml">
+                <form string="Voucher Lines">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="partner_id" />
+                            </group>
+                            <group>
+                                <field name="move_line_id" />
+                                <field name="amount" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

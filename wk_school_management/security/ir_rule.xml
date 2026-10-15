@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data noupdate="0">
+        <!-- Module Category -->
+        <record id="wk_school_management_security_category" model="ir.module.category">
+            <field name="name">Education Management</field>
+        </record>
+
+        <!-- Privileges and Groups -->
+        <record id="privilege_group_wk_school_management" model="res.groups.privilege">
+            <field name="name">Education Management</field>
+            <field name="category_id" ref="wk_school_management.wk_school_management_security_category"/>
+        </record>
+
+        <record id="wk_school_management_staff_group" model="res.groups">
+            <field name="name">Staff</field>
+            <field name="privilege_id" ref="wk_school_management.privilege_group_wk_school_management"/>
+        </record>
+
+        <record id="group_librarian_group" model="res.groups">
+            <field name="name">Education Librarian Access</field>
+            <field name="user_ids" eval="[Command.link(ref('base.user_root')), Command.link(ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="group_school_leave_responsible" model="res.groups">
+            <field name="name">Education Leave Responsible</field>
+            <field name="privilege_id" ref="wk_school_management.privilege_group_wk_school_management"/>
+        </record>
+
+        <record id="wk_school_management_officer_group" model="res.groups">
+            <field name="name">Officer</field>
+            <field name="privilege_id" ref="wk_school_management.privilege_group_wk_school_management"/>
+			<field name="implied_ids" eval="[(4, ref('wk_school_management_staff_group'))]"/>
+        </record>
+
+        <record id="wk_school_management_admin_group" model="res.groups">
+            <field name="name">Admin</field>
+            <field name="privilege_id" ref="wk_school_management.privilege_group_wk_school_management"/>
+            <field name="implied_ids" eval="[(4, ref('wk_school_management_officer_group')), (4, ref('group_librarian_group'))]"/>
+		    <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="show_all_staff_only_rule" model="ir.rule">
+            <field name="name">Show all staff only</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="school_leave_type_rule" model="ir.rule">
+            <field name="name">Education Leave Type Rule</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_leave_type"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.group_school_leave_responsible'))]"/>
+        </record>
+
+        <record id="school_leave_rule" model="ir.rule">
+            <field name="name">Education Leave Rule</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_leave"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.group_school_leave_responsible'))]"/>
+        </record>
+
+        <record id="school_leave_line_rule" model="ir.rule">
+            <field name="name">Education Leave Line Rule</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_leave_line"/>
+            <field name="domain_force">['|', ('leave_id.company_id', '=', False), ('leave_id.company_id', 'in', company_ids)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.group_school_leave_responsible'))]"/>
+        </record>
+
+        <!-- Class Assignment RULE -->
+
+        <record id="show_class_assignment_to_teacher_rule" model="ir.rule">
+            <field name="name">Class Assignment teacher Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_class_assignment"/>
+            <field name="domain_force">['|',('teacher_id.id','=',user.employee_id.id),('class_id.teacher_ids','=',user.employee_id.id)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="show_class_assignment_to_officer_rule" model="ir.rule">
+            <field name="name">Class Assignment officer Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_class_assignment"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_officer_group'))]"/>
+        </record>
+
+        <!-- Student Assignment RULE -->
+
+        <record id="show_student_assignment_to_teacher_rule" model="ir.rule">
+            <field name="name">Student Assignment teacher Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_student_assignment"/>
+            <field name="domain_force">['|',('class_assignment_id.teacher_id.id','=',user.employee_id.id),('class_assignment_id.class_id.teacher_ids','=',user.employee_id.id)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="show_student_assignment_to_officer_rule" model="ir.rule">
+            <field name="name">Student Assignment officer Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_student_assignment"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_officer_group'))]"/>
+        </record>
+
+        <!-- Class Timetable -->
+
+        <record id="show_timetable_to_teacher_rule" model="ir.rule">
+            <field name="name">Timetable teacher Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_class_timetable"/>
+            <field name="domain_force">['|',('populate_class_id.teacher_id.id','=',user.employee_id.id),('populate_class_id.teacher_ids','=',user.employee_id.id)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="show_timetable_to_officer_rule" model="ir.rule">
+            <field name="name">Timetable Officer Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_class_timetable"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_officer_group'))]"/>
+        </record>
+
+        <!-- Student Student -->
+
+        <record id="show_student_to_teacher_rule" model="ir.rule">
+            <field name="name">Student teacher Rule</field>
+            <field name="model_id" ref="wk_school_management.model_student_student"/>
+            <field name="domain_force">[('enrollment_ids.student_subject_ids.subject_id.teacher_ids.id','=',user.employee_id.id)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="show_student__to_officer_rule" model="ir.rule">
+            <field name="name">Student officer Rule</field>
+            <field name="model_id" ref="wk_school_management.model_student_student"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <!-- Student Attendance rules -->
+
+        <record id="show_attendance_to_teacher_rule" model="ir.rule">
+            <field name="name">Attendance teacher Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_student_attendance"/>
+            <field name="domain_force">[('student_id.enrollment_ids.student_subject_ids.subject_id.teacher_ids.id','=',user.employee_id.id)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="show_attendance_to_officer_rule" model="ir.rule">
+            <field name="name">Attendance officer Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_student_attendance"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_officer_group'))]"/>
+        </record>
+
+        <!-- Grade Subject -->
+
+        <record id="show_subject_to_teacher_rule" model="ir.rule">
+            <field name="name">Subject teacher Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_grade_subjects"/>
+            <field name="domain_force">[('teacher_ids.id','=',user.employee_id.id)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="show_subject_to_officer_rule" model="ir.rule">
+            <field name="name">Subject officer Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_grade_subjects"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_officer_group'))]"/>
+        </record>
+
+        <!-- Lesson Plans -->
+
+        <record id="show_lesson_plans_to_teacher_rule" model="ir.rule">
+            <field name="name">Lesson Plans Staff Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_lesson_plan"/>
+            <field name="domain_force">[('subject_id.id','in',user.employee_id.subject_ids.ids),('plan_visibility','=','all')]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="show_lesson_plans_to_officer_rule" model="ir.rule">
+            <field name="name">Lesson Plans Visible to Officer Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_lesson_plan"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_officer_group'))]"/>
+        </record>
+
+        <!-- Populate Classes -->
+
+        <record id="show_populate_class_to_teacher_rule" model="ir.rule">
+            <field name="name">Populate Class Staff Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_school_class"/>
+            <field name="domain_force">['|',('teacher_id.id','=',user.employee_id.id),('teacher_ids','=',user.employee_id.id)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="show_populate_class_to_officer_rule" model="ir.rule">
+            <field name="name">Populate Class officer Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_school_class"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_officer_group'))]"/>
+        </record>
+
+        <!-- Service Hours -->
+        <record id="show_service_hour_to_teacher_rule" model="ir.rule">
+            <field name="name">Service Hour Staff Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_service_hours"/>
+            <field name="domain_force">['|',
+                ('supervisor_id.id','=',user.employee_id.id),
+                ('message_partner_ids', 'in', [user.partner_id.id])]
+            </field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="show_service_hour_to_officer_rule" model="ir.rule">
+            <field name="name">Service Hour officer Rule</field>
+            <field name="model_id" ref="wk_school_management.model_wk_service_hours"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_officer_group'))]"/>
+        </record>
+
+        <!-- Transport Route Rules -->
+
+        <record id="show_transport_route_to_teacher_rule" model="ir.rule">
+            <field name="name">Transport route Staff Rule</field>
+            <field name="model_id" ref="wk_school_management.model_transport_route"/>
+            <field name="domain_force">['|',
+                ('transport_manager_id','=',user.id),
+                ('other_responsible_ids', 'in', user.id)]
+            </field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="show_transport_route_to_officer_rule" model="ir.rule">
+            <field name="name">Service Hour officer Rule</field>
+            <field name="model_id" ref="wk_school_management.model_transport_route"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_officer_group'))]"/>
+        </record>
+
+        <!-- Transport Trip Rules -->
+
+        <record id="show_transport_trip_to_teacher_rule" model="ir.rule">
+            <field name="name">Transport Trip Staff Rule</field>
+            <field name="model_id" ref="wk_school_management.model_transport_trip"/>
+            <field name="domain_force">
+                ['|',
+                    ('route_id.transport_manager_id', '=', user.id),
+                    ('route_id.other_responsible_ids', 'in', user.id)
+                ]
+            </field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_staff_group')), (4, ref('wk_school_management.group_librarian_group'))]"/>
+        </record>
+
+        <record id="show_transport_trip_to_officer_rule" model="ir.rule">
+            <field name="name">Service Hour officer Rule</field>
+            <field name="model_id" ref="wk_school_management.model_transport_trip"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4, ref('wk_school_management.wk_school_management_officer_group'))]"/>
+        </record>
+
+
+        <!-- Company id rules -->
+       
+        <record id="application_form_rule" model="ir.rule">
+            <field name="name">Application form multi-company</field>
+            <field name="model_id" ref="model_wk_application_form"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+    
+        <record id="school_grade_rule" model="ir.rule">
+            <field name="name">School Grade multi-company</field>
+            <field name="model_id" ref="model_wk_school_grade"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+    
+        <record id="fee_structure_rule" model="ir.rule">
+            <field name="name">Fee structure multi-company</field>
+            <field name="model_id" ref="model_fee_structure"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+    
+        <record id="hr_employee_rule" model="ir.rule">
+            <field name="name">Hr Employee multi-company</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+    
+        <record id="student_enrollment_rule" model="ir.rule">
+            <field name="name">Student Enrollment multi-company</field>
+            <field name="model_id" ref="model_student_enrollment"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+    
+        <record id="student_student_rule" model="ir.rule">
+            <field name="name">Student student multi-company</field>
+            <field name="model_id" ref="model_student_student"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="populate_class_rule" model="ir.rule">
+            <field name="name">Populate Class multi-company</field>
+            <field name="model_id" ref="model_wk_school_class"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="student_class_attendance_rule" model="ir.rule">
+            <field name="name">Student Class Attendance multi-company</field>
+            <field name="model_id" ref="model_wk_student_class_attendance"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="grade_subjects_rule" model="ir.rule">
+            <field name="name">Grade Subject multi-company</field>
+            <field name="model_id" ref="model_wk_grade_subjects"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="class_timetable_rule" model="ir.rule">
+            <field name="name">Class Timetable multi-company</field>
+            <field name="model_id" ref="model_wk_class_timetable"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="student_assignment_rule" model="ir.rule">
+            <field name="name">Student Assignment multi-company</field>
+            <field name="model_id" ref="model_wk_student_assignment"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="service_hours_rule" model="ir.rule">
+            <field name="name">Service Hour multi-company</field>
+            <field name="model_id" ref="model_wk_service_hours"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="fee_slip_rule" model="ir.rule">
+            <field name="name">Fee Slip multi-company</field>
+            <field name="model_id" ref="model_wk_fee_slip"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="student_attendance_rule" model="ir.rule">
+            <field name="name">Student Attendance multi-company</field>
+            <field name="model_id" ref="model_wk_student_attendance"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="student_discipline_rule" model="ir.rule">
+            <field name="name">Student Discipline multi-company</field>
+            <field name="model_id" ref="model_wk_student_discipline"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="student_subject_rule" model="ir.rule">
+            <field name="name">Student Subject multi-company</field>
+            <field name="model_id" ref="model_wk_student_subjects"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="class_assignment_rule" model="ir.rule">
+            <field name="name">Class Assignment multi-company</field>
+            <field name="model_id" ref="model_wk_class_assignment"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="lesson_plan_rule" model="ir.rule">
+            <field name="name">Lesson Plan multi-company</field>
+            <field name="model_id" ref="model_wk_lesson_plan"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="grade_assignment_rule" model="ir.rule">
+            <field name="name">Grade Assignment multi-company</field>
+            <field name="model_id" ref="model_wk_grade_assignment"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="notice_board_rule" model="ir.rule">
+            <field name="name">Notice Board multi-company</field>
+            <field name="model_id" ref="model_wk_notice_board"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="class_location_rule" model="ir.rule">
+            <field name="name">Class Location multi-company</field>
+            <field name="model_id" ref="model_wk_class_location"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="student_scholarship_rule" model="ir.rule">
+            <field name="name">Student Scholarship multi-company</field>
+            <field name="model_id" ref="model_wk_student_scholarship"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <!-- PORTAL RULES -->
+
+        <record id="wk_student_assignment_rule_public" model="ir.rule">
+            <field name="name">Student and Guardian Assignment Access</field>
+            <field name="model_id" ref="wk_school_management.model_wk_student_assignment"/>
+            <field name="domain_force">
+                ['|',
+                ('student_id.user_id.id', '=', user.id),
+                ('student_id.parent_ids.user_ids', 'in', [user.id])]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+
+        <record id="wk_student_attendance_rule_public" model="ir.rule">
+            <field name="name">Student and Guardian Attendance Access</field>
+            <field name="model_id" ref="wk_school_management.model_wk_student_attendance"/>
+            <field name="domain_force">
+                ['|',
+                ('student_id.user_id.id', '=', user.id),
+                ('student_id.parent_ids.user_ids', 'in', [user.id])]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+
+        <record id="student_enrollment_rule_public" model="ir.rule">
+            <field name="name">Student and Guardian Enrollment Access</field>
+            <field name="model_id" ref="wk_school_management.model_student_enrollment"/>
+            <field name="domain_force">
+                ['|',
+                ('student_id.user_id.id', '=', user.id),
+                ('student_id.parent_ids.user_ids', 'in', [user.id])]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+
+        <record id="wk_fee_slip_rule_public" model="ir.rule">
+            <field name="name">Student and Guardian Fee Slip Access</field>
+            <field name="model_id" ref="wk_school_management.model_wk_fee_slip"/>
+            <field name="domain_force">
+                ['|',
+                ('student_id.user_id.id', '=', user.id),
+                ('student_id.parent_ids.user_ids', 'in', [user.id])]
+            </field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+	</data>
+</odoo>

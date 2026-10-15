@@ -1,0 +1,168 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_co_pos_bloodo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-05 03:21+0000\n"
+"PO-Revision-Date: 2025-06-05 03:21+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/receipt/order_receipt.xml:0
+msgid "AL"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/receipt/order_receipt.xml:0
+msgid "Address:"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/receipt/order_receipt.xml:0
+msgid "CUFE:"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/receipt/order_receipt.xml:0
+msgid "City:"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#: model:ir.model,name:l10n_co_pos_bloodo.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#: model:ir.model.fields,field_description:l10n_co_pos_bloodo.field_pos_config__default_check_invoice
+#: model:ir.model.fields,field_description:l10n_co_pos_bloodo.field_res_config_settings__pos_default_check_invoice
+#: model_terms:ir.ui.view,arch_db:l10n_co_pos_bloodo.res_config_settings_view_form
+msgid "Create default invoice"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/receipt/order_receipt.xml:0
+msgid "Customer:"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/receipt/order_receipt.xml:0
+msgid "DESDE"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#: model:ir.model.fields,field_description:l10n_co_pos_bloodo.field_pos_payment_method__fe_payment_option_id
+msgid "DIAN payment option"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/receipt/order_receipt.xml:0
+msgid "Electronic Sales Invoice:"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/payment_screen/payment_screen.xml:0
+#: model:ir.model.fields.selection,name:l10n_co_pos_bloodo.selection__pos_config__default_check_invoice__einvoice
+#: model_terms:ir.ui.view,arch_db:l10n_co_pos_bloodo.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_co_pos_bloodo.view_pos_pos_form_inh_bloodo
+msgid "Electronic invoice"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#: model:ir.model.fields,field_description:l10n_co_pos_bloodo.field_pos_config__einvoice_journal_id
+#: model:ir.model.fields,field_description:l10n_co_pos_bloodo.field_res_config_settings__pos_einvoice_journal_id
+msgid "Electronic invoice journal"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#: model:ir.model.fields,field_description:l10n_co_pos_bloodo.field_pos_config__einvoicing
+msgid "Electronic invoicing"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/receipt/order_receipt.xml:0
+msgid "Email:"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/receipt/order_receipt.xml:0
+msgid "HASTA"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_pos_bloodo.selection__pos_config__default_check_invoice__invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#: model:ir.model.fields,help:l10n_co_pos_bloodo.field_pos_config__einvoice_journal_id
+#: model:ir.model.fields,help:l10n_co_pos_bloodo.field_res_config_settings__pos_einvoice_journal_id
+msgid "Journal used for the creation of electronic invoices"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/receipt/order_receipt.xml:0
+msgid "NIT/C.C:"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/receipt/order_receipt.xml:0
+msgid "Notes:"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/receipt/order_receipt.xml:0
+msgid "Phone:"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#: model:ir.model,name:l10n_co_pos_bloodo.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#: model:ir.model,name:l10n_co_pos_bloodo.model_pos_order
+msgid "Point of Sale Orders"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#: model:ir.model,name:l10n_co_pos_bloodo.model_pos_payment_method
+msgid "Point of Sale Payment Methods"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/receipt/order_receipt.xml:0
+msgid "RANGO DEL"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#. odoo-javascript
+#: code:addons/l10n_co_pos_bloodo/static/src/screens/receipt/order_receipt.xml:0
+msgid "Sales Invoice:"
+msgstr ""
+
+#. module: l10n_co_pos_bloodo
+#: model:ir.model.fields,field_description:l10n_co_pos_bloodo.field_pos_order__to_einvoice
+msgid "To e-invoice"
+msgstr ""

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Requerimiento "Registro de ausencias" (2.11): novedad de
+             asistencia para una llegada tarde, usando el mecanismo de
+             etiquetas que ya trae el módulo base (wk.attendance.tag). Se
+             crea una sola vez (noupdate); si el usuario la renombra o la
+             borra, una actualización del módulo no la vuelve a imponer. -->
+        <record id="attendance_tag_late_arrival" model="wk.attendance.tag">
+            <field name="name">Llegada tarde</field>
+            <field name="sequence">1</field>
+        </record>
+
+    </data>
+</odoo>

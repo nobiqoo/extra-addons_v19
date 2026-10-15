@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="form_view_account_move_reversal_inherit" model="ir.ui.view">
+            <field name="name">form.view.account.move.reversal.inherit</field>
+            <field name="model">account.move.reversal</field>
+            <field name="inherit_id" ref="account.view_account_move_reversal"/>
+            <field name="arch" type="xml">
+                <field name="reason" position="after">
+                    <field name="is_edoc" invisible="1"/>
+                    <field name="fe_correction_id"
+                        invisible="not is_edoc or move_type != 'out_invoice'"
+                        domain="[('is_sd','=',False),('type','=','credit')]"
+                    />
+                    <field name="ds_correction_id"
+                        invisible="not is_edoc or move_type != 'in_invoice'"
+                        domain="[('is_ei','=',False),('type','=','credit')]"
+                    />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

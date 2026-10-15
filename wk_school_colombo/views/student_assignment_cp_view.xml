@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Requerimiento "Estructura de calificación avanzada" (2.4, 2.8.11):
+         pantalla de evaluación de Class Performance por estudiante. Muestra
+         únicamente los criterios activos de la Escala; el docente elige una
+         Valoración por criterio y el sistema calcula solo "Puntaje
+         obtenido" como su promedio (ver models/grade_assignment.py::
+         _wk_recompute_cp_grade) -nunca lo calcula ni lo registra el
+         docente-. Se abre desde el botón "Calificar Class Performance" del
+         asistente "Evaluar" y de la pestaña "Students" de la Actividad. -->
+    <record id="wk_student_assignment_cp_form" model="ir.ui.view">
+        <field name="name">wk.student.assignment.cp.form</field>
+        <field name="model">wk.student.assignment</field>
+        <field name="arch" type="xml">
+            <form string="Class Performance">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="student_id" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="component_id" readonly="1"/>
+                        <field name="marks_obtained" readonly="1" string="Puntaje obtenido (promedio)"/>
+                        <field name="grades_locked_for_me" invisible="1"/>
+                    </group>
+                    <field name="cp_line_ids">
+                        <list editable="bottom">
+                            <field name="criterion_id" readonly="1"/>
+                            <field name="rating_id" readonly="parent.grades_locked_for_me"/>
+                        </list>
+                    </field>
+                </sheet>
+                <footer>
+                    <button string="Guardar" special="save" class="btn-primary"/>
+                    <button string="Cerrar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

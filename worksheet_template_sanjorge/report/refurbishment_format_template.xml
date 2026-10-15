@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="refurbishment_form_template" model="ir.actions.report">
+        <field name="name">Formato de Acondicionamiento de Dispositivos</field>
+        <field name="model">x_quality_check_worksheet_template_5</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">worksheet_template_eurodent.print_refurbishment_form_template</field>
+        <field name="report_file">worksheet_template_eurodent.print_refurbishment_form_template</field>
+        <field name="print_report_name">'Formato de Acondicionamiento de Dispositivos - %s' %(object.x_purchase_import_id.name)</field>
+        <!-- <field name="binding_model_id" ref="model_x_quality_check_worksheet_template_4" /> -->
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="print_refurbishment_form_template">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="web.basic_layout">
+                <div class="header">
+                    <style>
+                        div {
+                        font-size:12px;
+                        }
+                        .tabla {
+                        width:100%;
+                        }
+                        .logo-company {
+                        width: 60px ;
+                        }
+                        .tabla td {
+                        vertical-align: middle;
+                        padding:3px;
+                        }
+                    </style>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="tabla">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2" rowspan="4" width="181">
+                                                <!-- <img class="logo-empresa"
+                                                src="/web/content/28511/logo eurodent.png"/> -->
+                                                <span class="logo-empresa"
+                                                    t-field="doc.x_company_id.logo"
+                                                    t-options-widget="&quot;image&quot;"
+                                                    t-options-qweb_img_raw_data="1" />
+                                            </td>
+                                            <td colspan="11" rowspan="4" width="1529">ORDEN DE
+                                                ACONDICIONAMIENTO
+                                                DE DISPOSITIVOS Y/O EQUIPOS BIOMEDICOS</td>
+                                            <td width="120">VERSIÓN</td>
+                                            <td width="87">02</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CÓDIGO</td>
+                                            <td>FM-DT-02</td>
+                                        </tr>
+                                        <tr>
+                                            <td>FECHA</td>
+                                            <td>26/02/2025</td>
+                                        </tr>
+                                        <tr>
+                                            <td>PÁGINA</td>
+                                            <td>
+                                                <span class="page" /> de <span class="topage" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page">
+                    <style>
+                        div {
+                        font-size:12px;
+                        }
+                        .tabla {
+                        width:100%;
+                        }
+                        .tabla td {
+                        padding: 3px;
+                        border:1px solid white;
+                        }
+                        .fila-bordeada td {
+                        border:1px solid black;
+                        vertical-align: middle;
+                        }
+                        .firma img {
+                        width:auto;
+                        }
+                    </style>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Calcula 'worksheet' en tiempo de renderizado -->
+                                <table class="tabla">
+                                    <tbody>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2" width="181">IMPORTACIÓN N°</td>
+                                            <td width="242">
+                                                <span t-field="doc.x_purchase_import_id.name" />
+                                            </td>
+                                            <td width="372">ORDEN DE COMPRA</td>
+                                            <td colspan="2" width="181">
+                                                <span t-field="doc.x_purchase_order_id.name" />
+                                            </td>
+                                            <td colspan="2" width="278">FECHA</td>
+                                            <td width="58">
+                                                <span t-field="doc.x_date"
+                                                    t-options="{&quot;widget&quot;: &quot;date&quot;, &quot;format&quot;: &quot;dd&quot;}" />
+                                            </td>
+                                            <td width="60">
+                                                <span t-field="doc.x_date"
+                                                    t-options="{&quot;widget&quot;: &quot;date&quot;, &quot;format&quot;: &quot;MM&quot;}" />
+                                            </td>
+                                            <td width="65">
+                                                <span t-field="doc.x_date"
+                                                    t-options="{&quot;widget&quot;: &quot;date&quot;, &quot;format&quot;: &quot;YYYY&quot;}" />
+                                            </td>
+                                            <td colspan="2" width="273">N° DE ORDEN DE
+                                                ACONDICIONAMIENTO:</td>
+                                            <td colspan="2" width="207">
+                                                <span t-field="doc.x_refurbishment_order" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="15" />
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td rowspan="2">N°</td>
+                                            <td rowspan="2">REFERENCIA</td>
+                                            <td rowspan="2" width="242">DESCRIPCIÓN</td>
+                                            <td rowspan="2" width="372">REGISTRO SANITARIO</td>
+                                            <td rowspan="2">CANTIDAD</td>
+                                            <td colspan="2" rowspan="2">LOTE /SERIAL</td>
+                                            <td rowspan="2" width="199">FECHA DE VENCIMIENTO</td>
+                                            <td colspan="4" class="text-center">ETIQUETAS</td>
+                                            <td colspan="3" rowspan="2" width="409">TESTIGO</td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td>RECIBE</td>
+                                            <td>UTILIZA</td>
+                                            <td>RECHAZA</td>
+                                            <td width="5%">DEVUELVE</td>
+                                        </tr>
+                                        <t t-set="contador" t-value="0" />
+                                        <t t-foreach="doc.x_line_ids" t-as="lines">
+                                            <t t-set="contador" t-value="contador + 1" />
+                                            <tr class="fila-bordeada">
+                                                <td>
+                                                    <span t-esc="contador" />
+                                                </td>
+                                                <td>
+                                                    <span t-field="lines.x_default_code" />
+                                                </td>
+                                                <td>
+                                                    <span t-field="lines.x_product_id.name" />
+                                                </td>
+                                                <td>
+                                                    <span t-field="lines.x_invima" />
+                                                </td>
+                                                <td width="113">
+                                                    <span t-field="lines.x_quantity" />
+                                                </td>
+                                                <td colspan="2" width="147">
+                                                    <span t-field="lines.x_lot_id" />
+                                                </td>
+                                                <td>
+                                                    <t t-if="lines.x_expiration_date">
+                                                        <span t-field="lines.x_expiration_date" />
+                                                    </t>
+                                                    <t t-if="not lines.x_expiration_date">
+                                                        <span>N/A</span>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <span t-field="lines.x_receive" />
+                                                </td>
+                                                <td>
+                                                    <span t-field="lines.x_use" />
+                                                </td>
+                                                <td>
+                                                    <span t-field="lines.x_refuse" />
+                                                </td>
+                                                <td>
+                                                    <span t-field="lines.x_return_to" />
+                                                </td>
+                                                <td colspan="3">
+                                                    <span t-field="lines.x_witness" />
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                        </tr>
+                                        <tr>
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                        </tr>
+                                        <tr>
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                        </tr>
+                                        <tr>
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td>
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="199" />
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td />
+                                        </tr>
+                                        <tr>
+                                            <td />
+                                            <td />
+                                            <td colspan="2" rowspan="3" width="614">
+                                                <span class="firma"
+                                                    t-field="doc.x_refurbishment_responsible_signature"
+                                                    t-options-widget="&quot;image&quot;"
+                                                    t-options-qweb_img_raw_data="1" />
+                                                <hr />
+                                                <p>RESPONSABLE DEL ACONDICIONAMIENTO</p>
+                                                <span t-field="doc.x_refurbishment_responsible" />
+                                            </td>
+                                            <td />
+                                            <td />
+                                            <td />
+                                            <td colspan="5" rowspan="3" width="453">
+                                                <span class="firma"
+                                                    t-field="doc.x_technical_manager_signature"
+                                                    t-options-widget="&quot;image&quot;"
+                                                    t-options-qweb_img_raw_data="1" />
+                                                <hr />
+                                                <p>DIRECCION TECNICA</p>
+                                            </td>
+                                            <td />
+                                            <td />
+                                            <td />
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+
+    </template>
+
+</odoo>

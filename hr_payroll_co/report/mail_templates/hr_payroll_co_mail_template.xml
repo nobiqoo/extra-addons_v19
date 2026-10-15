@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_payroll_co_mail_template" model="mail.template">
+            <field name="name">Comprobante de pago de nómina</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_payslip" />
+            <field name="subject">Nómina {{object.employee_id.partner_id.name}} {{object.period_id.name}}</field>
+            <field name="partner_to"></field>
+            <!-- use_default_to es True por defecto en Odoo 19 y hace que se ignore email_to -->
+            <field name="use_default_to" eval="False" />
+            <field name="email_from">{{object.company_id.email or ''}}</field>
+            <field name="email_to">{{object.employee_id.payroll_mail_notifier or object.employee_id.partner_id.email}}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 15px;"> Estimado/a <strong
+                            t-out="object.employee_id.partner_id.name" />. <br />
+                        <br /> Adjunto se
+                        envía su comprobante de nómina del periodo <strong
+                            t-out="object.period_id.name" />. <br />
+                        <br /> Atentamente <strong
+                            t-out="object.company_id.name" />. </p>
+                </div>
+            </field>
+            <field name="report_template_ids" eval="[(4, ref('hr_payroll_co.payslip_action_report'))]" />
+            <!-- <field name="report_name">{{object.name}}</field> -->
+            <field name="auto_delete" eval="True" />
+        </record>
+
+    </data>
+</odoo>

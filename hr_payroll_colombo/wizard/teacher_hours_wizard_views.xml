@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="teacher_hours_wizard_form" model="ir.ui.view">
+            <field name="name">teacher.hours.wizard.form</field>
+            <field name="model">teacher.hours.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Generar Novedades de Horas">
+                    <group>
+                        <group>
+                            <field name="date_from" />
+                            <field name="date_to" />
+                        </group>
+                        <group>
+                            <field name="novelty_type_id"
+                                options="{'no_create_edit': True, 'no_create': True}" />
+                            <field name="company_id" groups="base.group_multi_company" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="employee_ids" widget="many2many_tags" />
+                    </group>
+                    <footer>
+                        <button name="action_generate" string="Generar" type="object"
+                            class="btn-primary" />
+                        <button string="Cancelar" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="teacher_hours_wizard_action" model="ir.actions.act_window">
+            <field name="name">Generar novedades de horas</field>
+            <field name="res_model">teacher.hours.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="teacher_hours_wizard_menu"
+            name="Generar novedades de horas"
+            parent="hr_payroll_co.novelty_menu_categ"
+            action="teacher_hours_wizard_action"
+            groups="hr_payroll_co.manager_payslip"
+            sequence="50" />
+
+    </data>
+</odoo>

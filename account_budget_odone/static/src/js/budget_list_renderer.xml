@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="account_budget_odone.ListRenderer" t-inherit="web.ListRenderer" t-inherit-mode="primary">
+        <xpath expr="//td[@t-if='groupNameCellColspan &gt; 0']" position="inside">
+            <span t-if="!(props.list.isGrouped and canCreateGroup) and !state.showGroupInput" class="fw-bold">Total</span>
+        </xpath>
+    </t>
+</templates>

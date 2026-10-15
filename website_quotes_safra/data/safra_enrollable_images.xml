@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Catálogo de imágenes de producto ENROLLABLE (tela+color).
+         186 colores con imagen (de 216). Cargadas desde archivos del módulo.
+         Modelo configurable: safra.fabric.color.image. -->
+    <data noupdate="1">
+        <record id="col_0504014_2729" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504014_2729.jpg"/>
+        </record>
+        <record id="col_0504014_2730" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504014_2730.jpg"/>
+        </record>
+        <record id="col_0504014_38" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504014_38.jpg"/>
+        </record>
+        <record id="col_0504014_41" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504014_41.jpg"/>
+        </record>
+        <record id="col_0504014_43" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504014_43.jpg"/>
+        </record>
+        <record id="col_0504014_44" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504014_44.jpg"/>
+        </record>
+        <record id="col_0504014_46" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504014_46.jpg"/>
+        </record>
+        <record id="col_0504044_131" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504044_131.jpg"/>
+        </record>
+        <record id="col_0504044_133" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504044_133.jpg"/>
+        </record>
+        <record id="col_0504047_135" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504047_135.jpg"/>
+        </record>
+        <record id="col_0504047_136" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504047_136.jpg"/>
+        </record>
+        <record id="col_0504047_137" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504047_137.jpg"/>
+        </record>
+        <record id="col_0504047_138" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504047_138.jpg"/>
+        </record>
+        <record id="col_0504047_139" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504047_139.jpg"/>
+        </record>
+        <record id="col_0504047_140" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504047_140.jpg"/>
+        </record>
+        <record id="col_0504047_2643" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504047_2643.jpg"/>
+        </record>
+        <record id="col_0504048_141" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504048_141.jpg"/>
+        </record>
+        <record id="col_0504048_142" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504048_142.jpg"/>
+        </record>
+        <record id="col_0504048_143" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504048_143.jpg"/>
+        </record>
+        <record id="col_0504048_144" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504048_144.jpg"/>
+        </record>
+        <record id="col_0504048_145" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504048_145.jpg"/>
+        </record>
+        <record id="col_0504048_147" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504048_147.jpg"/>
+        </record>
+        <record id="col_0504048_148" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504048_148.jpg"/>
+        </record>
+        <record id="col_0504049_149" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504049_149.jpg"/>
+        </record>
+        <record id="col_0504049_150" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504049_150.jpg"/>
+        </record>
+        <record id="col_0504049_151" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504049_151.jpg"/>
+        </record>
+        <record id="col_0504049_152" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504049_152.jpg"/>
+        </record>
+        <record id="col_0504050_162" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504050_162.jpg"/>
+        </record>
+        <record id="col_0504050_163" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504050_163.jpg"/>
+        </record>
+        <record id="col_0504050_2342" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504050_2342.jpg"/>
+        </record>
+        <record id="col_0504051_164" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504051_164.jpg"/>
+        </record>
+        <record id="col_0504051_165" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504051_165.jpg"/>
+        </record>
+        <record id="col_0504051_166" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504051_166.jpg"/>
+        </record>
+        <record id="col_0504051_167" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504051_167.jpg"/>
+        </record>
+        <record id="col_0504051_2333" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504051_2333.jpg"/>
+        </record>
+        <record id="col_0504052_168" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504052_168.jpg"/>
+        </record>
+        <record id="col_0504052_169" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504052_169.jpg"/>
+        </record>
+        <record id="col_0504052_2357" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504052_2357.jpg"/>
+        </record>
+        <record id="col_0504052_2655" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504052_2655.jpg"/>
+        </record>
+        <record id="col_0504058_190" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504058_190.jpg"/>
+        </record>
+        <record id="col_0504058_191" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504058_191.jpg"/>
+        </record>
+        <record id="col_0504058_192" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504058_192.jpg"/>
+        </record>
+        <record id="col_0504058_193" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504058_193.jpg"/>
+        </record>
+        <record id="col_0504058_194" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504058_194.jpg"/>
+        </record>
+        <record id="col_0504058_195" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504058_195.jpg"/>
+        </record>
+        <record id="col_0504058_196" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504058_196.jpg"/>
+        </record>
+        <record id="col_0504058_198" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504058_198.jpg"/>
+        </record>
+        <record id="col_0504058_199" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504058_199.jpg"/>
+        </record>
+        <record id="col_0504058_200" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504058_200.jpg"/>
+        </record>
+        <record id="col_0504058_201" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504058_201.jpg"/>
+        </record>
+        <record id="col_0504058_202" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504058_202.jpg"/>
+        </record>
+        <record id="col_0504058_2343" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504058_2343.jpg"/>
+        </record>
+        <record id="col_0504058_2353" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504058_2353.jpg"/>
+        </record>
+        <record id="col_0504065_228" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504065_228.jpg"/>
+        </record>
+        <record id="col_0504065_229" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504065_229.jpg"/>
+        </record>
+        <record id="col_0504065_2344" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504065_2344.jpg"/>
+        </record>
+        <record id="col_0504065_2345" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504065_2345.jpg"/>
+        </record>
+        <record id="col_0504187_269" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504187_269.jpg"/>
+        </record>
+        <record id="col_0504189_277" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504189_277.jpg"/>
+        </record>
+        <record id="col_0504189_278" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504189_278.jpg"/>
+        </record>
+        <record id="col_0504190_2253" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504190_2253.jpg"/>
+        </record>
+        <record id="col_0504190_2283" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504190_2283.jpg"/>
+        </record>
+        <record id="col_0504190_279" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504190_279.jpg"/>
+        </record>
+        <record id="col_0504190_281" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504190_281.jpg"/>
+        </record>
+        <record id="col_0504191_282" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504191_282.jpg"/>
+        </record>
+        <record id="col_0504191_283" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504191_283.jpg"/>
+        </record>
+        <record id="col_0504191_284" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504191_284.jpg"/>
+        </record>
+        <record id="col_0504191_285" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504191_285.jpg"/>
+        </record>
+        <record id="col_0504196_2262" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504196_2262.jpg"/>
+        </record>
+        <record id="col_0504196_2263" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504196_2263.jpg"/>
+        </record>
+        <record id="col_0504196_2264" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504196_2264.jpg"/>
+        </record>
+        <record id="col_0504200_2258" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504200_2258.jpg"/>
+        </record>
+        <record id="col_0504200_2259" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504200_2259.jpg"/>
+        </record>
+        <record id="col_0504200_2260" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504200_2260.jpg"/>
+        </record>
+        <record id="col_0504200_2261" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504200_2261.jpg"/>
+        </record>
+        <record id="col_0504203_2281" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504203_2281.jpg"/>
+        </record>
+        <record id="col_0504203_2284" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504203_2284.jpg"/>
+        </record>
+        <record id="col_0504203_2286" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504203_2286.jpg"/>
+        </record>
+        <record id="col_0504203_2287" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504203_2287.jpg"/>
+        </record>
+        <record id="col_0504207_2347" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504207_2347.jpg"/>
+        </record>
+        <record id="col_0504207_2348" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504207_2348.jpg"/>
+        </record>
+        <record id="col_0504207_2349" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504207_2349.jpg"/>
+        </record>
+        <record id="col_0504208_2350" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504208_2350.jpg"/>
+        </record>
+        <record id="col_0504208_2351" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504208_2351.jpg"/>
+        </record>
+        <record id="col_0504208_2352" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504208_2352.jpg"/>
+        </record>
+        <record id="col_0504209_2354" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504209_2354.jpg"/>
+        </record>
+        <record id="col_0504209_2355" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504209_2355.jpg"/>
+        </record>
+        <record id="col_0504209_2356" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504209_2356.jpg"/>
+        </record>
+        <record id="col_0504219_2397" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504219_2397.jpg"/>
+        </record>
+        <record id="col_0504219_2398" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504219_2398.jpg"/>
+        </record>
+        <record id="col_0504219_2399" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504219_2399.jpg"/>
+        </record>
+        <record id="col_0504219_2400" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504219_2400.jpg"/>
+        </record>
+        <record id="col_0504220_2446" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504220_2446.jpg"/>
+        </record>
+        <record id="col_0504220_2454" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504220_2454.jpg"/>
+        </record>
+        <record id="col_0504220_2455" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504220_2455.jpg"/>
+        </record>
+        <record id="col_0504220_2456" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504220_2456.jpg"/>
+        </record>
+        <record id="col_0504220_2484" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504220_2484.jpg"/>
+        </record>
+        <record id="col_0504220_2721" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504220_2721.jpg"/>
+        </record>
+        <record id="col_0504220_2722" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504220_2722.jpg"/>
+        </record>
+        <record id="col_0504224_2457" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504224_2457.jpg"/>
+        </record>
+        <record id="col_0504224_2458" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504224_2458.jpg"/>
+        </record>
+        <record id="col_0504236_2486" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504236_2486.jpg"/>
+        </record>
+        <record id="col_0504236_2487" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504236_2487.jpg"/>
+        </record>
+        <record id="col_0504236_2488" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504236_2488.jpg"/>
+        </record>
+        <record id="col_0504236_2489" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504236_2489.jpg"/>
+        </record>
+        <record id="col_0504237_2490" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504237_2490.jpg"/>
+        </record>
+        <record id="col_0504237_2491" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504237_2491.jpg"/>
+        </record>
+        <record id="col_0504237_2492" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504237_2492.jpg"/>
+        </record>
+        <record id="col_0504237_2493" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504237_2493.jpg"/>
+        </record>
+        <record id="col_0504240_2500" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504240_2500.jpg"/>
+        </record>
+        <record id="col_0504240_2501" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504240_2501.jpg"/>
+        </record>
+        <record id="col_0504240_2502" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504240_2502.jpg"/>
+        </record>
+        <record id="col_0504242_2504" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504242_2504.jpg"/>
+        </record>
+        <record id="col_0504242_2505" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504242_2505.jpg"/>
+        </record>
+        <record id="col_0504242_2506" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/0504242_2506.jpg"/>
+        </record>
+        <record id="col_050439_2497" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/050439_2497.jpg"/>
+        </record>
+        <record id="col_050439_2498" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/050439_2498.jpg"/>
+        </record>
+        <record id="col_050439_2499" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/050439_2499.jpg"/>
+        </record>
+        <record id="col_054238_2494" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054238_2494.jpg"/>
+        </record>
+        <record id="col_054238_2495" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054238_2495.jpg"/>
+        </record>
+        <record id="col_054238_2496" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054238_2496.jpg"/>
+        </record>
+        <record id="col_054247_2546" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054247_2546.jpg"/>
+        </record>
+        <record id="col_054247_2549" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054247_2549.jpg"/>
+        </record>
+        <record id="col_054260_2588" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054260_2588.jpg"/>
+        </record>
+        <record id="col_054260_2589" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054260_2589.jpg"/>
+        </record>
+        <record id="col_054260_2590" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054260_2590.jpg"/>
+        </record>
+        <record id="col_054261_2594" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054261_2594.jpg"/>
+        </record>
+        <record id="col_054261_2595" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054261_2595.jpg"/>
+        </record>
+        <record id="col_054261_2596" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054261_2596.jpg"/>
+        </record>
+        <record id="col_054261_2597" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054261_2597.jpg"/>
+        </record>
+        <record id="col_054261_2598" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054261_2598.jpg"/>
+        </record>
+        <record id="col_054261_2599" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054261_2599.jpg"/>
+        </record>
+        <record id="col_054262_2606" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054262_2606.jpg"/>
+        </record>
+        <record id="col_054262_2607" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054262_2607.jpg"/>
+        </record>
+        <record id="col_054263_2610" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054263_2610.jpg"/>
+        </record>
+        <record id="col_054263_2611" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054263_2611.jpg"/>
+        </record>
+        <record id="col_054288_2656" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054288_2656.jpg"/>
+        </record>
+        <record id="col_054295_2666" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054295_2666.jpg"/>
+        </record>
+        <record id="col_054295_2667" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054295_2667.jpg"/>
+        </record>
+        <record id="col_054295_2668" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054295_2668.jpg"/>
+        </record>
+        <record id="col_054295_2669" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054295_2669.jpg"/>
+        </record>
+        <record id="col_054296_2670" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054296_2670.jpg"/>
+        </record>
+        <record id="col_054296_2671" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054296_2671.jpg"/>
+        </record>
+        <record id="col_054296_2672" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054296_2672.jpg"/>
+        </record>
+        <record id="col_054296_2673" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054296_2673.jpg"/>
+        </record>
+        <record id="col_054297_2674" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054297_2674.jpg"/>
+        </record>
+        <record id="col_054297_2675" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054297_2675.jpg"/>
+        </record>
+        <record id="col_054297_2676" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054297_2676.jpg"/>
+        </record>
+        <record id="col_054297_2677" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054297_2677.jpg"/>
+        </record>
+        <record id="col_054298_2678" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054298_2678.jpg"/>
+        </record>
+        <record id="col_054298_2679" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054298_2679.jpg"/>
+        </record>
+        <record id="col_054298_2680" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054298_2680.jpg"/>
+        </record>
+        <record id="col_054298_2681" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054298_2681.jpg"/>
+        </record>
+        <record id="col_054299_2682" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054299_2682.jpg"/>
+        </record>
+        <record id="col_054299_2683" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054299_2683.jpg"/>
+        </record>
+        <record id="col_054299_2684" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054299_2684.jpg"/>
+        </record>
+        <record id="col_054299_2685" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054299_2685.jpg"/>
+        </record>
+        <record id="col_054300_2686" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054300_2686.jpg"/>
+        </record>
+        <record id="col_054300_2687" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054300_2687.jpg"/>
+        </record>
+        <record id="col_054300_2688" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054300_2688.jpg"/>
+        </record>
+        <record id="col_054300_2689" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054300_2689.jpg"/>
+        </record>
+        <record id="col_054300_2690" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054300_2690.jpg"/>
+        </record>
+        <record id="col_054300_2691" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054300_2691.jpg"/>
+        </record>
+        <record id="col_054301_2698" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054301_2698.jpg"/>
+        </record>
+        <record id="col_054301_2699" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054301_2699.jpg"/>
+        </record>
+        <record id="col_054301_2700" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054301_2700.jpg"/>
+        </record>
+        <record id="col_054301_2701" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054301_2701.jpg"/>
+        </record>
+        <record id="col_054302_2702" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054302_2702.jpg"/>
+        </record>
+        <record id="col_054302_2703" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054302_2703.jpg"/>
+        </record>
+        <record id="col_054302_2704" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054302_2704.jpg"/>
+        </record>
+        <record id="col_054302_2705" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054302_2705.jpg"/>
+        </record>
+        <record id="col_054303_2706" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054303_2706.jpg"/>
+        </record>
+        <record id="col_054303_2707" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054303_2707.jpg"/>
+        </record>
+        <record id="col_054303_2708" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054303_2708.jpg"/>
+        </record>
+        <record id="col_054303_2709" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054303_2709.jpg"/>
+        </record>
+        <record id="col_054303_2710" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054303_2710.jpg"/>
+        </record>
+        <record id="col_054303_2711" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054303_2711.jpg"/>
+        </record>
+        <record id="col_054304_2712" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054304_2712.jpg"/>
+        </record>
+        <record id="col_054304_2713" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054304_2713.jpg"/>
+        </record>
+        <record id="col_054304_2714" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054304_2714.jpg"/>
+        </record>
+        <record id="col_054304_2715" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054304_2715.jpg"/>
+        </record>
+        <record id="col_054305_2716" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054305_2716.jpg"/>
+        </record>
+        <record id="col_054305_2717" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054305_2717.jpg"/>
+        </record>
+        <record id="col_054305_2718" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054305_2718.jpg"/>
+        </record>
+        <record id="col_054305_2719" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054305_2719.jpg"/>
+        </record>
+        <record id="col_054305_2720" model="safra.fabric.color">
+            <field name="image" type="base64" file="website_quotes_safra/static/src/img/products/054305_2720.jpg"/>
+        </record>
+    </data>
+</odoo>

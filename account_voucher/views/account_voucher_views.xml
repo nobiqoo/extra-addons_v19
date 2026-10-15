@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_voucher_search" model="ir.ui.view">
+            <field name="name">view.account.voucher.search</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <search string="Vouchers">
+                    <field name="name" string="Voucher" filter_domain="['|', '|', ('name', 'ilike', self), ('partner_id', 'ilike', self), ('voucher_reference', 'ilike', self)]" />
+                    <field name="partner_id" string="Customer/Supplier" />
+                    <field name="journal_id" />
+                    <field name="user_id" string="Salesman" />
+                    <separator />
+                    <filter string="Customer Vouchers" name="inbound_filter" domain="[('partner_type', '=', 'customer')]" />
+                    <filter string="Supplier Vouchers" name="outbound_filter" domain="[('partner_type', '=', 'supplier')]" />
+                    <separator />
+                    <filter string="Draft" name="state_draft" domain="[('state', '=', 'draft')]" />
+                    <filter string="Posted" name="state_posted" domain="[('state', '=', 'posted')]" />
+                    <separator />
+                    <filter string="Pago" name="voucher_voucher" domain="[('voucher_type', '=', 'voucher')]" />
+                    <filter string="Cruce" name="voucher_cross" domain="[('voucher_type', '=', 'cross')]" />
+                    <filter string="Advance" name="voucher_advance" domain="[('voucher_type', '=', 'advance')]" />
+                    <separator />
+                    <filter string="Voucher Date" name="date" date="date" />
+                    <separator />
+                    <field name="company_id" invisible="1" />
+                    <field name="company_id" groups="base.group_multi_company" />
+                    <filter string="Customer/Supplier" name="partner" domain="[]" context="{'group_by': 'partner_id'}" />
+                    <filter string="Journal" name="journal" domain="[]" context="{'group_by': 'journal_id'}" />
+                    <filter string="Status" name="state" domain="[]" context="{'group_by': 'state'}" />
+                    <filter string="Voucher Date" name="groupby_date" domain="[]" context="{'group_by': 'date'}" />
+                    <filter string="Currency" name="currency" domain="[]" context="{'group_by': 'currency_id'}" groups="base.group_multi_currency" />
+                    <filter string="Company" name="company" domain="[]" context="{'group_by': 'company_id'}" groups="base.group_multi_company" />
+                    <separator />
+                    <filter invisible="1" string="Late Activities" name="activities_overdue" domain="[('activity_ids.date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]" help="Show all records which has next action date is before today" />
+                    <filter invisible="1" string="Today Activities" name="activities_today" domain="[('activity_ids.date_deadline', '=', context_today().strftime('%Y-%m-%d'))]" />
+                    <filter invisible="1" string="Future Activities" name="activities_upcoming_all" domain="[('activity_ids.date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]" />
+                </search>
+            </field>
+        </record>
+
+        <record id="view_account_voucher_tree" model="ir.ui.view">
+            <field name="name">view.account.voucher.tree</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <list edit="false">
+                    <header>
+                        <button name="action_send_mass_emails" string="Enviar correos" type="object" groups="account_voucher.voucher_mass_mail_group" class="oe_link"/>
+                    </header>
+                    <field name="date" />
+                    <field name="name" />
+                    <field name="voucher_type" />
+                    <field name="journal_id" />
+                    <field name="partner_id" />
+                    <field name="company_id" invisible="1" />
+                    <field name="company_id" groups="base.group_multi_company" />
+                    <field name="amount" invisible="True" />
+                    <field name="amount_voucher" string="Amount" sum="Amount" />
+                    <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'posted'" />
+                    <field name="currency_id" groups="base.group_multi_currency" />
+                </list>
+            </field>
+        </record>
+
+        <record id="view_account_voucher_kanban" model="ir.ui.view">
+            <field name="name">view.account.voucher.kanban</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile" create="0" group_create="0" sample="1">
+                    <field name="name" />
+                    <field name="partner_id" />
+                    <field name="date" />
+                    <field name="state" />
+                    <templates>
+                        <t t-name="card">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="row mb4">
+                                    <div class="col-6">
+                                        <strong>
+                                            <span>
+                                                <field name="name" />
+                                            </span>
+                                        </strong>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <strong>
+                                            <i class="fa fa-clock-o" role="img" aria-label="Date" title="Date" />
+                                            <t t-esc="record.date.value" />
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span>
+                                            <field name="partner_id" />
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <field name="amount" widget='monetary' />
+                                        <field name="currency_id" invisible="1" />
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="float-right">
+                                            <field name="state" widget="label_selection" options="{'classes': {'draft': 'secondary', 'sent': 'success'}}" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_account_voucher_pivot" model="ir.ui.view">
+            <field name="name">view.account.voucher.pivot</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <pivot string="Vouchers Analysis">
+                    <field name="voucher_type" />
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_account_voucher_form" model="ir.ui.view">
+            <field name="name">account.voucher.form</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <form string="Voucher">
+                    <header>
+                        <button name="action_voucher_send" string="Send by email" type="object" class="oe_highlight"/>
+                        <button name="compute_line_ids" string="Compute" type="object" invisible="state != 'draft' or voucher_type == 'advance'" />
+                        <button name="action_post" string="Confirm" type="object" class="oe_highlight" invisible="state !='draft'" />
+                        <button name="action_draft" string="Reset To Draft" type="object" class="btn btn-secondary" invisible="state != 'cancel'" groups="account.group_account_invoice" />
+                        <button name="action_cancel" string="Cancel" type="object" invisible="state !='draft'" groups="account.group_account_readonly" />
+                        <button name="action_cancel" string="Cancel" type="object" invisible="state != 'posted'" groups="account.group_account_user" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,posted" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"></div>
+                        <div class="oe_title" invisible="state == 'draft'">
+                            <h1>
+                                <field name="name" readonly="True" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group name="group1">
+                                <field name="voucher_type" readonly="state != 'draft'" />
+                                <field name="partner_type" invisible="True" />
+                                <field name="company_id" invisible="1" />
+                                <field name="partner_id" string="Customer" context="{'default_is_company': True}" readonly="state != 'draft'" />
+                                <field name="company_id" groups="base.group_multi_company" readonly="state != 'draft'" />
+                                <field name="user_id" invisible="True" />
+                                <field name="confirm_action_post" invisible = "True"/>
+                            </group>
+                            <group name="group2">
+                                <field name="currency_id" invisible="1"/>
+                                <field name="company_currency_id" invisible="1"/>
+                                <field name="journal_id" options="{'no_open': True}" domain="[('type','in',('cash', 'bank','general'))]" readonly="state != 'draft'" />
+                                <field name="account_id" options="{'no_create': True}" domain="[('account_type','in',('liability_payable', 'asset_receivable'))]" readonly="state != 'draft'" invisible="voucher_type != 'advance'" />
+                                <field name="date" readonly="state != 'draft'" string="Accounting Date" />
+                                <field name="exchange_rate" readonly="currency_id == company_currency_id"/>
+                                <field name="move_id" invisible="move_id == False" groups="account.group_account_readonly" />
+                                <field name="order_id" string="Sale Order" domain="[('partner_id','=',partner_id)]"/>
+                                <field name="purchase_order_id" domain="[('partner_id','=',partner_id)]" invisible="voucher_type != 'advance'" />
+                            </group>
+                            <group name="group3">
+                                <label for="amount" invisible="voucher_type == 'cross'" />
+                                <div name="amount_div" class="o_row" invisible="voucher_type == 'cross'">
+                                    <field name="amount" readonly="state != 'draft'" />
+                                    <field name="currency_id" options="{'no_create': True, 'no_open': True}" required="True" readonly="state != 'draft'" groups="base.group_multi_currency" />
+                                </div>
+                                <field name="voucher_date" readonly="state != 'draft'" required="True" />
+                                <field name="voucher_reference" string="Reference" readonly="state != 'draft'" />
+                            </group>
+                            <group name="group4" invisible="voucher_type == 'advance'">
+                                <field name="writeoff_amount" />
+                                <field name="writeoff_option" invisible="writeoff_amount == 0.0" />
+                                <field name="writeoff_comment" invisible="True" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="page_lines" string="Voucher Information" invisible="voucher_type == 'advance'">
+                                <group>
+                                    <group>
+                                        <button name="button_line_unlink" string="Remove worthlesste" type="object" invisible="state != 'draft'" />
+                                    </group>
+                                    <group>
+                                        <button name="button_line_amount" string="Worthlesste" type="object" invisible="state != 'draft'" />
+                                    </group>
+                                </group>
+                                <separator string="Account Receivable" invisible="partner_type == 'supplier'" />
+                                <separator string="Account Payable" invisible="partner_type == 'customer'" />
+                                <field name="line_passive_ids" nolabel="1" readonly="state != 'draft'">
+                                    <list editable="bottom">
+                                        <field name="move_line_id" domain="[('account_id.account_type','in',('liability_payable', 'asset_receivable')), ('reconciled','=', False), ('partner_id','=',parent.partner_id), ('debit','>',0.0)]" />
+                                        <field name="account_id" readonly="1" force_save="1"/>
+                                        <field name="date_original" readonly="1" />
+                                        <field name="date_due" readonly="1" />
+                                        <field name="currency_id" options="{'no_create': True, 'no_open': True}" required="True" groups="base.group_multi_currency" optional="hide"/>
+                                        <field name="amount_original" readonly="1" />
+                                        <field name="amount_unreconciled" readonly="1"/>
+                                        <field name="reconcile" />
+                                        <field name="amount" sum="Total Allocation" />
+                                    </list>
+                                </field>
+                                <separator string="Account Receivable" invisible="partner_type == 'customer'" />
+                                <separator string="Account Payable" invisible="partner_type == 'supplier'" />
+                                <field name="line_active_ids" nolabel="1" readonly="state != 'draft'">
+                                    <list editable="bottom">
+                                        <field name="move_line_id" domain="[('account_id.account_type','in',('liability_payable', 'asset_receivable')), ('reconciled','=', False), ('partner_id','=',parent.partner_id), ('debit','>',0.0)]" />
+                                        <field name="account_id" readonly="1" force_save="1"/>
+                                        <field name="date_original" readonly="1" />
+                                        <field name="date_due" readonly="1" />
+                                        <field name="currency_id" options="{'no_create': True, 'no_open': True}" required="True" groups="base.group_multi_currency" optional="hide"/>
+                                        <field name="amount_original" readonly="1" />
+                                        <field name="amount_unreconciled" readonly="1"/>
+                                        <field name="reconcile" />
+                                        <field name="amount" sum="Total Allocation" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="page_reconcile" string="Reconcile Information" invisible="writeoff_option == 'without_writeoff' or writeoff_amount == 0.0">
+                                <separator string="Reconcile Lines" />
+                                <field name="line_reconcile_ids" nolabel="1" readonly="state != 'draft'" context="{'default_amount': writeoff_amount, 'default_currency_id': currency_id}">
+                                    <list string="Reconcile" editable="bottom">
+                                        <field name="account_id" required="True" force_save="1"/>
+                                        <field name="comment" required="True" />
+                                        <field name="partner_id" optional="hide"/>
+                                        <field name="analytic_distribution" widget="analytic_distribution" groups="analytic.group_analytic_accounting"/>
+                                        <field name="amount" sum="Total Allocation" />
+                                        <field name="currency_id" options="{'no_create': True, 'no_open': True}" required="True" groups="base.group_multi_currency" optional="hide"/>
+                                        <field name="voucher_reconcile_id" invisible="1"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="o_attachment_preview" />
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_account_voucher_graph" model="ir.ui.view">
+            <field name="name">view.account.voucher.graph</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <graph string="Vouchers" type="bar" stacked="1" sample="1">
+                    <field name="voucher_type" />
+                    <field name="journal_id" />
+                    <field name="amount" type="measure" />
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_account_voucher_customer" model="ir.actions.act_window">
+            <field name="name">Vouchers</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_mode">list,kanban,form,pivot,graph</field>
+            <field name="context">{
+                'default_voucher_type': 'voucher',
+                'default_partner_type': 'customer',
+                'search_default_inbound_filter': 1,
+            }</field>
+            <field name="domain">[('partner_type','=','customer')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                Register a voucher
+                </p>
+                <p>
+                Vouchers are used to register liquidity movements. You can process those vochers by your own means or by using installed facilities.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_account_voucher_supplier" model="ir.actions.act_window">
+            <field name="name">Vouchers</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_mode">list,kanban,form,graph</field>
+            <field name="context">{
+                'default_voucher_type': 'voucher',
+                'default_partner_type': 'supplier',
+                'search_default_outbound_filter': 1,
+            }</field>
+            <field name="domain">[('partner_type','=','supplier')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                Register a voucher
+                </p>
+                <p>
+                Vouchers are used to register liquidity movements. You can process those vochers by your own means or by using installed facilities.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_account_voucher_customer" parent="account.menu_finance_receivables" sequence="5" action="action_account_voucher_customer" />
+
+        <menuitem id="menu_account_voucher_supplier" parent="account.menu_finance_payables" sequence="5" action="action_account_voucher_supplier" />
+
+    </data>
+</odoo>

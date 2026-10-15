@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Reunión 09-oct (fila 20, Referencia en los 2 en 1). Se carga al
+         final del manifiesto para que estos valores manden sobre los
+         órdenes y etiquetas de archivos anteriores. -->
+    <data noupdate="0">
+        <!-- Punto 3: los 2 en 1 son exactamente dos telas — se retira
+             «Agregar tela» (telas 3 y 4 que se habían agregado el 24-sep). -->
+        <record id="sf_32_fabric_3" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_32_color_3" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_32_fabric_4" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_32_color_4" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_61_fabric_3" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_61_color_3" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_61_fabric_4" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_61_color_4" model="safra.system.field"><field name="active" eval="False"/></record>
+
+        <!-- Punto 4: coordinado por referencia — el de la Referencia 1 va
+             junto a ella y la Referencia 2 trae el suyo. -->
+        <record id="sf_32_coordinado" model="safra.system.field"><field name="sequence">175</field></record>
+        <record id="sf_61_coordinado" model="safra.system.field"><field name="sequence">175</field></record>
+        <record id="sf_32_coordinado_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_32"/>
+            <field name="field_id" ref="field_coordinado_tela_2"/>
+            <field name="sequence">195</field>
+            <field name="label_override">Coordinado 2</field>
+        </record>
+        <record id="sf_61_coordinado_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_61"/>
+            <field name="field_id" ref="field_coordinado_tela_2"/>
+            <field name="sequence">195</field>
+            <field name="label_override">Coordinado 2</field>
+        </record>
+
+        <!-- Punto 2: en el Enrollable 2 en 1 no importa el orden, pero la
+             primera tela es la que va dentro del cabezal. -->
+        <record id="sf_32_fabric_id" model="safra.system.field">
+            <field name="label_override">Referencia 1 dentro de cabezal</field>
+        </record>
+    </data>
+    <!-- Fila 16: el Tipo de Riel de Panel debe ser el de la combinación.
+         noupdate: el mensaje y la severidad se administran en el menú. -->
+    <data noupdate="1">
+        <record id="val_panel_riel" model="safra.validation.rule">
+            <field name="code">V_PANEL_RIEL</field>
+            <field name="name">Panel: Tipo de Riel coherente con la combinación</field>
+            <field name="severity">error</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_biometric_overtime_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+            <t t-call="web.external_layout">
+                <t t-set="data" t-value="doc.get_report_data()"/>
+                <div class="page">
+                    <!-- ── Título ─────────────────────────────────────────────────── -->
+                    <div class="row mb-4">
+                        <div class="col-12 text-center">
+                            <h3 class="font-weight-bold" style="color:#1F4E79;">
+                                REPORTE CONSOLIDADO DE HORAS EXTRAS — BIOMÉTRICO
+                            </h3>
+                            <p class="text-muted">
+                                Período: <strong t-esc="data['wizard'].date_start.strftime('%d/%m/%Y')"/>
+                                al <strong t-esc="data['wizard'].date_end.strftime('%d/%m/%Y')"/>
+                                <t t-if="data['wizard'].department_id">
+                                    | Depto: <t t-esc="data['wizard'].department_id.name"/>
+                                </t>
+                                <t t-if="data['wizard'].address_id">
+                                    | Sede: <t t-esc="data['wizard'].address_id.name"/>
+                                </t>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- ── Tabla principal ────────────────────────────────────────── -->
+                    <table class="table table-bordered table-sm o_main_table" style="font-size:8pt;">
+                        <thead>
+                            <tr style="background-color:#1F4E79; color:white;">
+                                <th class="text-center" rowspan="2">Fecha</th>
+                                <th class="text-center" rowspan="2">Empleado</th>
+                                <th class="text-center" rowspan="2">Cédula</th>
+                                <th class="text-center" rowspan="2">Turno</th>
+                                <th class="text-center" colspan="2">Turno Planificado</th>
+                                <th class="text-center" colspan="2">Ingreso/Salida Real</th>
+                                <th class="text-center" colspan="2">H. Regulares</th>
+                                <th class="text-center" colspan="3">Horas Extras</th>
+                                <th class="text-center" rowspan="2">Festivo</th>
+                                <th class="text-center" rowspan="2">Dom.</th>
+                                <th class="text-center" rowspan="2">Valor Total ($)</th>
+                            </tr>
+                            <tr style="background-color:#2E75B6; color:white;">
+                                <th class="text-center">Entrada</th>
+                                <th class="text-center">Salida</th>
+                                <th class="text-center">Entrada</th>
+                                <th class="text-center">Salida</th>
+                                <th class="text-center">Diurnas</th>
+                                <th class="text-center">Noct.</th>
+                                <th class="text-center">HED</th>
+                                <th class="text-center">HEN</th>
+                                <th class="text-center">HEDF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="data['records']" t-as="rec">
+                                <tr t-attf-class="#{rec_index % 2 == 0 and 'bg-light' or ''}">
+                                    <td class="text-center">
+                                        <t t-esc="rec.work_date.strftime('%d/%m/%Y') if rec.work_date else ''"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="rec.employee_id.name if rec.employee_id else ''"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="rec.employee_id.identification_id if rec.employee_id else ''"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="rec.shift_id.code if rec.shift_id else ''"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="data['fmt_time'](rec.planned_start)"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="data['fmt_time'](rec.planned_end)"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="data['fmt_time'](rec.actual_check_in)"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="data['fmt_time'](rec.actual_check_out)"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'%.2f' % (rec.day_hours or 0.0)"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'%.2f' % (rec.night_hours or 0.0)"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'%.2f' % (rec.extra_day_hours or 0.0)"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'%.2f' % (rec.extra_night_hours or 0.0)"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'%.2f' % (rec.holiday_work_hours or 0.0)"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="'SÍ' if rec.is_holiday else 'NO'"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="'SÍ' if rec.is_sunday else 'NO'"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'{:,.0f}'.format(rec.total_overtime_value or 0.0)"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color:#1F4E79; color:white; font-weight:bold;">
+                                <td colspan="8" class="text-right">TOTALES</td>
+                                <td class="text-right">
+                                    <t t-esc="'%.2f' % data['total_day']"/>
+                                </td>
+                                <td class="text-right">
+                                    <t t-esc="'%.2f' % data['total_night']"/>
+                                </td>
+                                <td class="text-right">
+                                    <t t-esc="'%.2f' % data['total_extra_day']"/>
+                                </td>
+                                <td class="text-right">
+                                    <t t-esc="'%.2f' % data['total_extra_night']"/>
+                                </td>
+                                <td class="text-right">
+                                    <t t-esc="'%.2f' % data['total_holiday']"/>
+                                </td>
+                                <td colspan="2"/>
+                                <td class="text-right">
+                                    <t t-esc="'{:,.0f}'.format(data['total_value'])"/>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <!-- ── Resumen ──────────────────────────────────────────────── -->
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <table class="table table-sm table-bordered" style="font-size:9pt;">
+                                <thead>
+                                    <tr style="background-color:#2E75B6; color:white;">
+                                        <th colspan="2">Resumen de Horas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Horas Regulares Diurnas</td>
+                                        <td class="text-right">
+                                            <t t-esc="'%.2f' % data['total_day']"/> h
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-light">
+                                        <td>Horas Regulares Nocturnas</td>
+                                        <td class="text-right">
+                                            <t t-esc="'%.2f' % data['total_night']"/> h
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>H.E. Diurnas (HED)</td>
+                                        <td class="text-right">
+                                            <t t-esc="'%.2f' % data['total_extra_day']"/> h
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-light">
+                                        <td>H.E. Nocturnas (HEN)</td>
+                                        <td class="text-right">
+                                            <t t-esc="'%.2f' % data['total_extra_night']"/> h
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>H.E. Festivo/Dominical (HEDF)</td>
+                                        <td class="text-right">
+                                            <t t-esc="'%.2f' % data['total_holiday']"/> h
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-6">
+                            <table class="table table-sm table-bordered" style="font-size:9pt;">
+                                <thead>
+                                    <tr style="background-color:#2E75B6; color:white;">
+                                        <th colspan="2">Resumen Económico</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Total Registros</td>
+                                        <td class="text-right">
+                                            <t t-esc="len(data['records'])"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-light">
+                                        <td>Total Valor Horas Extras</td>
+                                        <td class="text-right font-weight-bold">
+                                            $ <t t-esc="'{:,.0f}'.format(data['total_value'])"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- ── Pie de página ──────────────────────────────────────────── -->
+                    <div class="row mt-2">
+                        <div class="col-12 text-muted" style="font-size:7pt;">
+                            <p>
+                                HED: Hora Extra Diurna (+25%) | HEN: Hora Extra Nocturna (+75%) |
+                                HEDF: Hora Extra Festivo/Dominical (+200%) |
+                                Jornada diurna: 06:00 – 21:00 | Jornada nocturna: 21:00 – 06:00
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+            </t>
+    </template>
+</odoo>

@@ -1,0 +1,25 @@
+<odoo>
+    <record id="view_purchase_order_form_inherit_version" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.version</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_order']" position="before">
+                <field name="version" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_purchase_order_form_inherit_description_col" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.description.col</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='order_line']/list/field[@name='product_id']" position="after">
+            <field name="descripcion" optional="show" readonly="state in ('purchase','done','cancel')"/>
+        </xpath>
+        <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="after">
+            <field name="descripcion" readonly="state in ('purchase','done','cancel')"/>
+        </xpath>
+        </field>
+    </record>
+</odoo>

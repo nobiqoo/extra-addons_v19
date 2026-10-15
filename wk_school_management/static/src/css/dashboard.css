@@ -1,0 +1,29 @@
+
+.text_size{
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.wk_kanban_button_box{
+    width: 100%;
+    margin: 0px 0px 5px 0px;
+    cursor: pointer;
+    text-align: center;
+    padding: 6px 5px;
+    font-size: 15px;
+    font-weight:bold;
+}
+.transcript_page{
+    overflow: auto;
+}
+
+.img-fluid{
+    height: 110px !important;
+}
+
+.wk_kanban_button_box:hover {
+    font-weight:600;
+    font-size: 14px;
+    }
+
+

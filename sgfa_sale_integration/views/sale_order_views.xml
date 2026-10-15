@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_sgfa" model="ir.ui.view">
+        <field name="name">sale.order.form.sgfa</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='city_id']" position="after">
+                <field name="orden_sgfa"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter_sgfa" model="ir.ui.view">
+        <field name="name">sale.order.search.sgfa</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="orden_sgfa" string="Orden SGFA"/>
+                <separator/>
+                <filter string="Con Orden SGFA" name="filter_con_sgfa"
+                        domain="[('orden_sgfa', '!=', False)]"/>
+                <filter string="Sin Orden SGFA" name="filter_sin_sgfa"
+                        domain="[('orden_sgfa', '=', False)]"/>
+                <group>
+                    <filter string="Orden SGFA" name="groupby_orden_sgfa"
+                            context="{'group_by': 'orden_sgfa'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

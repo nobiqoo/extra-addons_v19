@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tarea 11151: datos de identificacion del solicitante en la solicitud. -->
+    <record id="wk_application_form_form_colombo" model="ir.ui.view">
+        <field name="name">wk.application.form.colombo</field>
+        <field name="model">wk.application.form</field>
+        <field name="inherit_id" ref="wk_school_management.wk_application_form_form"/>
+        <field name="arch" type="xml">
+            <!-- El nombre completo se calcula a partir de los nombres separados -->
+            <xpath expr="//field[@name='student_name']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='student_name']" position="after">
+                <field name="name1" readonly="state != 'new'"
+                       required="state == 'new'"/>
+                <field name="name2" readonly="state != 'new'"/>
+                <field name="lastname1" readonly="state != 'new'"
+                       required="state == 'new'"/>
+                <field name="lastname2" readonly="state != 'new'"/>
+            </xpath>
+            <!-- Fecha de nacimiento: conserva su obligatoriedad (criterio de
+                 aceptación), mismo patrón que name1/lastname1/vat. Edad
+                 calculada justo al lado. -->
+            <xpath expr="//group[@name='order_details']/field[@name='dob']" position="attributes">
+                <attribute name="required">state == 'new'</attribute>
+            </xpath>
+            <xpath expr="//group[@name='order_details']/field[@name='dob']" position="after">
+                <field name="age" readonly="1"/>
+            </xpath>
+
+            <!-- Tipo y numero de documento: mismo dominio usado en Contactos -->
+            <xpath expr="//group[@name='order_details']/field[@name='application_date']" position="before">
+                <field name="l10n_latam_identification_type_id"
+                       options="{'no_open': True, 'no_create': True}"
+                       domain="country_id and ['|', ('country_id', '=', False), ('country_id', '=', country_id)] or []"
+                       readonly="state != 'new'"
+                       required="state == 'new'"/>
+                <field name="vat" readonly="state != 'new'"
+                       required="state == 'new'"/>
+            </xpath>
+
+            <!-- Requerimiento de campos académicos: Sede (company_id) visible
+                 para todos los perfiles, no solo multi-compañía. -->
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                <attribute name="groups"></attribute>
+            </xpath>
+
+            <!-- Tipo de programa: catálogo configurable, obligatorio. -->
+            <xpath expr="//group[@name='order_details']/field[@name='grade_id']" position="after">
+                <field name="program_type_id"/>
+            </xpath>
+
+            <!-- Celular y correo principal se reubican en la pestaña
+                 "Contacto" (más abajo), junto con los demás datos de
+                 contacto, en lugar de quedar sueltos en el encabezado. -->
+            <xpath expr="//field[@name='phone']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='email']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Campos generales del estudiante/aplicación. -->
+            <xpath expr="//group[@name='student_header']" position="after">
+                <group name="colombo_general_info">
+                    <group>
+                        <field name="tipo_persona" widget="radio"/>
+                        <field name="estado_civil"/>
+                        <field name="nivel_formacion"/>
+                        <field name="ocupacion_actual"/>
+                    </group>
+                    <group>
+                        <field name="issuance_city_id"/>
+                        <field name="origin_city_id"/>
+                        <field name="idioma_nativo"/>
+                        <field name="idioma_nativo_otro" invisible="idioma_nativo != 'otro'"/>
+                    </group>
+                </group>
+            </xpath>
+
+            <!-- La dirección se reubica en la pestaña "Ubicación" (más abajo)
+                 junto con el barrio y la ciudad estructurada. -->
+            <xpath expr="//label[@for='street']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('o_address_format')]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Pestañas Ubicación y Contacto, antes de Acudiente. -->
+            <xpath expr="//page[@name='parent_section']" position="before">
+                <page name="colombo_location" string="Ubicación">
+                    <group>
+                        <field name="barrio"/>
+                        <field name="street" placeholder="Dirección..." readonly="state != 'new'"/>
+                        <field name="street2" placeholder="Dirección 2..." readonly="state != 'new'"/>
+                        <field name="country_id" options="{'no_open': True, 'no_create': True}" readonly="state != 'new'"/>
+                        <field name="state_id" string="Departamento / Estado" options="{'no_open': True, 'no_quick_create': True}" context="{'default_country_id': country_id}" readonly="state != 'new'"/>
+                        <field name="city_id" options="{'no_open': True, 'no_quick_create': True}" readonly="state != 'new'"/>
+                        <field name="zip" string="Código postal" readonly="state != 'new'"/>
+                    </group>
+                </page>
+                <page name="colombo_contact" string="Contacto">
+                    <group>
+                        <group>
+                            <field name="phone" string="Celular del estudiante" readonly="state != 'new'"/>
+                            <field name="landline_phone"/>
+                            <field name="additional_phone"/>
+                            <field name="additional_mobile"/>
+                        </group>
+                        <group>
+                            <field name="email" string="Correo electrónico" widget="email" readonly="state != 'new'"/>
+                            <field name="email_dian" widget="email"/>
+                            <field name="contact_preference"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+            <!-- La pestaña que antes solo mostraba a los padres pasa a
+                 llamarse "Acudiente" y agrega la lista de acudientes
+                 registrados, sin perder los datos de padre/madre. -->
+            <xpath expr="//page[@name='parent_section']" position="attributes">
+                <attribute name="string">Acudiente</attribute>
+            </xpath>
+            <xpath expr="//page[@name='parent_section']" position="inside">
+                <group string="Acudientes registrados">
+                    <field name="guardian_ids" nolabel="1" colspan="2">
+                        <list editable="bottom">
+                            <field name="name"/>
+                            <field name="landline_phone"/>
+                            <field name="mobile"/>
+                            <field name="relationship"/>
+                            <field name="relationship_other" invisible="relationship != 'otro'"/>
+                            <field name="email"/>
+                        </list>
+                    </field>
+                </group>
+            </xpath>
+
+            <!-- Pestaña Comentarios. -->
+            <xpath expr="//page[@name='parent_section']" position="after">
+                <page name="colombo_comments" string="Comentarios">
+                    <field name="application_comment" nolabel="1"
+                           placeholder="Observaciones relacionadas con el proceso de inscripción o información complementaria del estudiante..."/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Busqueda por identificacion en la lista de solicitudes -->
+    <record id="wk_application_form_search_colombo" model="ir.ui.view">
+        <field name="name">wk.application.form.search.colombo</field>
+        <field name="model">wk.application.form</field>
+        <field name="inherit_id" ref="wk_school_management.application_form_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="vat" string="Número de identificación"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

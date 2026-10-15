@@ -1,0 +1,336 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* portfolio_detail
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-22 16:45+0000\n"
+"PO-Revision-Date: 2024-03-22 16:45+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#, python-format
+msgid "Amount"
+msgstr "Monto"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_detail_wizard_line_line__amount_paid
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+msgid "Amount paid"
+msgstr "Monto pagado"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard_line__amount_total
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#, python-format
+msgid "Amount total"
+msgstr "Monto total"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard_line__amount_untaxed
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#, python-format
+msgid "Amount untaxed"
+msgstr "Monto sin impuestos"
+
+#. module: portfolio_detail
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_print_xlsx_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: portfolio_detail
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_wizard_view_form
+msgid "Create portfolio detail"
+msgstr "Crear detalle de portafolio"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_detail_wizard_line_line__create_uid
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_print_xlsx__create_uid
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard__create_uid
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_detail_wizard_line_line__create_date
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_print_xlsx__create_date
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard__create_date
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard_line__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: portfolio_detail
+#: model:ir.model.fields.selection,name:portfolio_detail.selection__portfolio_detail_wizard__find_by__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#, python-format
+msgid "Date due"
+msgstr "Fecha de vencimiento"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard__date_from
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#, python-format
+msgid "Date from"
+msgstr "Fecha desde"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard__date_to
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#, python-format
+msgid "Date to"
+msgstr "Fecha hasta"
+
+#. module: portfolio_detail
+#: model:ir.model,name:portfolio_detail.model_detail_wizard_line_line
+msgid "Detail wizard line line"
+msgstr "Linea de cartera"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_print_xlsx_form
+#, python-format
+msgid "Download File"
+msgstr "Descargar archivo"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard_line__due_date
+msgid "Due date"
+msgstr "Fecha de vencimiento"
+
+#. module: portfolio_detail
+#: model:ir.model.fields.selection,name:portfolio_detail.selection__portfolio_detail_wizard__report_type__excel
+msgid "EXCEL"
+msgstr "EXCEL"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard__move_ids
+msgid "Moves"
+msgstr "Facturas"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_print_xlsx__file_binary
+msgid "File"
+msgstr "Archivo"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_print_xlsx__file_name
+msgid "File name"
+msgstr "Nombre del archivo"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard__find_by
+msgid "Find By"
+msgstr "Buscar por"
+
+#. module: portfolio_detail
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_wizard_view_form
+msgid "Generate report"
+msgstr "Generar reporte"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard_line__invoice
+#: model:ir.model.fields.selection,name:portfolio_detail.selection__portfolio_detail_wizard__find_by__invoice
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#, python-format
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#, python-format
+msgid "Invoice Date"
+msgstr "Fecha de factura"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard_line__invoice_date
+msgid "Invoice date"
+msgstr "Fecha de factura"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_detail_wizard_line_line__line_id
+msgid "Line"
+msgstr "Linea"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard__line_ids
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard_line__line_ids
+msgid "Lines"
+msgstr "Lineas"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard_line__nit
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#, python-format
+msgid "NIT"
+msgstr "NIT"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_wizard.py:0
+#, python-format
+msgid "No results found for this search."
+msgstr "No se encontrardos resultados para esta busqueda"
+
+#. module: portfolio_detail
+#: model:ir.model.fields.selection,name:portfolio_detail.selection__portfolio_detail_wizard__report_type__pdf
+msgid "PDF"
+msgstr "PDF"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#, python-format
+msgid "Paid percentaje:"
+msgstr "Porcentaje pagado"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard_line__partner
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#, python-format
+msgid "Partner"
+msgstr "Tercero"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard__partner_ids
+msgid "Partners"
+msgstr "Terceros"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#, python-format
+msgid "Partners Involved"
+msgstr "Terceros involucrados"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard__partners_involved
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+msgid "Partners involved"
+msgstr "Terceros involucrados"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:portfolio_detail.field_detail_wizard_line_line__payment_method
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#, python-format
+msgid "Payment method"
+msgstr "Metodo de pago"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#, python-format
+msgid "Voucher name"
+msgstr "N. Recibo"
+
+#. module: portfolio_detail
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#, python-format
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#, python-format
+msgid "Payment date"
+msgstr "Fecha de pago"
+
+#. module: portfolio_detail
+#: model:ir.model,name:portfolio_detail.model_portfolio_detail_print_xlsx
+msgid "Portfolio Detail Print Xlsx"
+msgstr "Wizard de impresión XLSX"
+
+#. module: portfolio_detail
+#: model:ir.model,name:portfolio_detail.model_portfolio_detail_wizard
+msgid "Portfolio Detail Wizard"
+msgstr "Imprimir detalle de cartera"
+
+#. module: portfolio_detail
+#: model:ir.model,name:portfolio_detail.model_portfolio_detail_wizard_line
+msgid "Portfolio Detail Wizard line"
+msgstr "Linea de detalle"
+
+#. module: portfolio_detail
+#: model:ir.actions.report,name:portfolio_detail.portfolio_detail_template_action
+#: model:ir.actions.report,name:portfolio_detail.portfolio_detail_xlsx_template_action
+msgid "Portfolio detail"
+msgstr "Detalle de cartera"
+
+#. module: portfolio_detail
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+msgid "Portfolio Detail"
+msgstr "Detalle de Cartera"
+
+#. module: portfolio_detail
+#: model:ir.actions.act_window,name:portfolio_detail.portfolio_detail_wizard_action
+#: model:ir.ui.menu,name:portfolio_detail.portfolio_detail_wizard_menu
+msgid "Portfolio detail wizard"
+msgstr "Detalle de cartera"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_print_xlsx__report_id
+msgid "Report"
+msgstr "Reporte"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard__report_type
+msgid "Report type"
+msgstr "Tipo de reporte"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#, python-format
+msgid "SUBTOTAL:"
+msgstr "SUBTOTAL:"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#, python-format
+msgid "Salary adjustment:"
+msgstr "Ajuste de salario:"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#, python-format
+msgid "Total:"
+msgstr "Total:"
+
+#. module: portfolio_detail
+#: model:ir.model.fields,field_description:portfolio_detail.field_portfolio_detail_wizard_line__wizard_id
+msgid "Wizard"
+msgstr "Wizard"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#, python-format
+msgid "portfolio_detail"
+msgstr "detalle_de_cartera"
+
+#. module: portfolio_detail
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:portfolio_detail.field_detail_wizard_line_line__pending_amount
+#: model_terms:ir.ui.view,arch_db:portfolio_detail.portfolio_detail_template
+#, python-format
+msgid "Pending amount"
+msgstr "Monto pendiente"

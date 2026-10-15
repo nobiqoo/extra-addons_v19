@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_concept_rtefte_form" model="ir.ui.view">
+            <field name="name">hr.concept.rtefte.form</field>
+            <field name="model">hr.concept.rtefte</field>
+            <field name="arch" type="xml">
+                <form string="Certificado de Retención en la Fuente">
+                    <sheet>
+                        <field name="mail_sent" readonly="1" invisible="1" />
+                        <widget name="web_ribbon" title="Enviado" bg_color="bg-success"
+                            invisible="not mail_sent" />
+                        <widget name="web_ribbon" title="No Enviado" bg_color="bg-danger"
+                            invisible="mail_sent" />
+                            
+                        <div class="oe_title">
+                            <h1>
+                                <field name="display_name" readonly="1" class="oe_inline" />
+                            </h1>
+                        </div>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_send_mail" type="object" class="oe_stat_button"
+                                icon="fa-envelope">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_text">Enviar</span>
+                                    <span class="o_stat_text">Correo</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group string="Información General">
+                            <group>
+                                <field name="employee_id" readonly="1" />
+                                <field name="contract_date_start" readonly="1" />
+                                <field name="wage" readonly="1" />
+                            </group>
+                            <group>
+                                <field name="payslip_processing_id" readonly="1" />
+                                <field name="contract_settlement_date" readonly="1" />
+                                <field name="contract_duration" readonly="1" />
+                                <field name="apply_procedure_2" readonly="1" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Ingresos">
+                                <field name="earnings" readonly="1" />
+                                <field name="o_earnings" readonly="1" />
+                                <field name="o_salarial_earnings" readonly="1" />
+                                <field name="comp_earnings" readonly="1" />
+                                <field name="o_rights" readonly="1" />
+                                <field name="total_income" decoration-bf="1" readonly="1" />
+                            </group>
+                            <group string="Ingresos No Constitutivos">
+                                <field name="ded_pens" readonly="1" />
+                                <field name="ded_eps" readonly="1" />
+                                <field name="fond_sol" readonly="1" />
+                                <field name="fond_sub" readonly="1" />
+                                <field name="total_nci" decoration-bf="1" readonly="1" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Otros Ingresos">
+                                <field name="income_ext" readonly="1" />
+                                <field name="prima" readonly="1" />
+                                <field name="prima_liq" readonly="1" />
+                            </group>
+                            <group string="Deducciones">
+                                <field name="deduction_dependents" readonly="1" />
+                                <field name="deduction_estate" readonly="1" />
+                                <field name="deduction_healthcare" readonly="1" />
+                                <field name="deduction_icetex" readonly="1" />
+                                <field name="deduction_total" decoration-bf="1" readonly="1" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Rentas Exentas">
+                                <field name="uvt" readonly="1" />
+                                <field name="annual_top25" readonly="1" />
+                                <field name="top25_monthly" readonly="1" />
+                                <field name="top25_total" readonly="1" />
+                                <field name="annual_top40" readonly="1" />
+                                <field name="top40_monthly" readonly="1" />
+                                <field name="top40_total" readonly="1" />
+                                <field name="exempt_rent" decoration-bf="1" readonly="1" />
+                            </group>
+                            <group string="Aportes Voluntarios">
+                                <field name="avp" readonly="1" />
+                                <field name="afc" readonly="1" />
+                                <field name="voluntary_contributions" decoration-bf="1" readonly="1" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Retención">
+                                <field name="neto_income" readonly="1" />
+                                <field name="brtf" readonly="1" />
+                                <field name="rate" readonly="1" />
+                                <field name="rtefte" decoration-bf="1" readonly="1" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_concept_rtefte_tree" model="ir.ui.view">
+            <field name="name">hr.concept.rtefte.tree</field>
+            <field name="model">hr.concept.rtefte</field>
+            <field name="arch" type="xml">
+                <list>
+                    <header>
+                        <button name="action_export_excel" string="Exportar a Excel" type="object"
+                            class="btn-primary" />
+                        <button name="action_send_mail" string="Enviar Correos" type="object"
+                            class="btn-success" />
+                    </header>
+                    <field name="contract_id" />
+                    <field name="employee_id" />
+                    <field name="period_id" />
+                    <field name="apply_procedure_2" />
+                    <field name="payslip_processing_id" />
+                    <field name="mail_sent" />
+                    <!-- Base y Retención -->
+                    <field name="brtf" sum="Total Base RTEFTE" />
+                    <field name="rtefte" sum="Total RTEFTE" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_concept_rtefte_search" model="ir.ui.view">
+            <field name="name">hr.concept.rtefte.search</field>
+            <field name="model">hr.concept.rtefte</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda de Retención en la Fuente">
+                    <field name="contract_id" />
+                    <field name="employee_id" />
+                    <field name="period_id" />
+                    <field name="apply_procedure_2" />
+                    <field name="payslip_processing_id" />
+
+                    <separator />
+                    <filter name="sent" string="Enviado" domain="[('mail_sent', '=', True)]" />
+                    <filter name="not_sent" string="No Enviado" domain="[('mail_sent', '=', False)]" />
+
+                    <separator />
+                    <filter name="contract_id_filter" string="Contrato"
+                        context="{'group_by': 'contract_id'}" />
+                    <filter name="employee_id_filter" string="Empleado"
+                        context="{'group_by': 'employee_id'}" />
+                    <filter name="period_id_filter" string="Periodo de Nómina"
+                        context="{'group_by': 'period_id'}" />
+                    <filter name="apply_procedure_2_filter" string="Procesamiento"
+                        context="{'group_by': 'apply_procedure_2'}" />
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo> 

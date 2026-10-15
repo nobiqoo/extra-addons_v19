@@ -1,0 +1,9 @@
+<odoo>
+    <data noupdate="1">
+        <record id="journal_mrp_cost" model="account.journal">
+            <field name="name">MRP Costs</field>
+            <field name="code">MPC</field>
+            <field name="type">general</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,24 @@
+"id","dian_code","name","description","retention","active"
+tax_type_0,"01","IVA","Impuesto sobre las Ventas",False,True
+tax_type_1,"02","IC","Impuesto al Consumo Departamental Nominal",False,True
+tax_type_2,"03","ICA","Impuesto de Industria, Comercio y Aviso",False,True
+tax_type_3,"04","INC","Impuesto Nacional al Consumo",False,True
+tax_type_4,"05","ReteIVA","Retención sobre el IVA",True,True
+tax_type_5,"06","ReteRenta","Retención sobre Renta",True,True
+tax_type_6,"07","ReteICA","Retención sobre el ICA",True,True
+tax_type_7,"20","FtoHorticultura","Cuota de Fomento Hortifrutícula",False,True
+tax_type_8,"21","Timbre","Impuesto de Timbre",False,True
+tax_type_9,"22","INC Bolsas","Impuesto Nacional al Consumo de Bolsa Plástica",False,True
+tax_type_10,"23","INCarbono","Impuesto Nacional al Carbono",False,True
+tax_type_11,"24","INCombustibles","Impuesto Nacional a los Combustibles",False,True
+tax_type_12,"25","Sobretasa Combustibles","Sobretasa a los combustibles",False,True
+tax_type_13,"26","Sordicom","Contribución minoristas (Combustibles)",False,True
+tax_type_16,"30","IC Datos","Impuesto al Consumo de Datos",False,True
+tax_type_17,"32","ICL","Impuesto al Consumo de Licores",False,True
+tax_type_18,"33","INPP","Impuesto nacional productos plásticos",False,True
+tax_type_19,"34","IBUA","Impuesto a las bebidas ultraprocesadas azucaradas",False,True
+tax_type_20,"35","ICUI","Impuesto a los productos comestibles ultraprocesados industrialmente y/o con alto contenido de azúcares añadidos, sodio o grasas saturadas",False,True
+tax_type_21,"36","ADV","AD VALOREM",False,True
+tax_type_14,"ZY","No causa","No responsable de tributo",False,False
+tax_type_15,"ZZ","No aplica","Otros tributos, tasas, contribuciones, y similares",False,True
+tax_type_22,"ZA","IVA e INC","IVA e INC",False,True

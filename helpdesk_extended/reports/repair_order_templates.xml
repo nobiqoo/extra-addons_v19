@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+
+        <template id="repair_order_denial_letter">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <t t-call="helpdesk_extended.repair_order_denial_letter_document" />
+                    <p style="page-break-after: always;"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="repair_order_denial_letter_document">
+            <span>Agregar código QWeb para formato carta de negación</span>
+        </template>
+
+    </data>
+</odoo>

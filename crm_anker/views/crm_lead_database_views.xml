@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_crm_lead_database_tree" model="ir.ui.view">
+            <field name="name">crm.lead.database.tree</field>
+            <field name="model">crm.lead.database</field>
+            <field name="arch" type="xml">
+                <list string="Bases de datos">
+                    <field name="name"/>
+                    <field name="company_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_crm_lead_database_form" model="ir.ui.view">
+            <field name="name">crm.lead.database.form</field>
+            <field name="model">crm.lead.database</field>
+            <field name="arch" type="xml">
+                <form string="Base de dato">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_crm_lead_database" model="ir.actions.act_window">
+            <field name="name">Bases de datos</field>
+            <field name="res_model">crm.lead.database</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem 
+            id="menu_crm_lead_database_root"
+            name="Bases de datos"
+            parent="crm.crm_menu_config"
+            sequence="60"
+            action="action_crm_lead_database"/>
+
+    </data>
+</odoo>

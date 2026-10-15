@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Campos propios de la familia PANEL/RIEL (almacenados en attribute_values) -->
+    <data noupdate="0">
+        <record id="field_mando_panel" model="safra.field">
+            <field name="code">mando_panel</field>
+            <field name="name">Mando Panel</field>
+            <field name="section_id" ref="section_accesorios"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">700</field>
+        </record>
+        <record id="opt_mando_panel_0" model="safra.field.option">
+            <field name="field_id" ref="field_mando_panel"/>
+            <field name="value">1</field>
+            <field name="name">Derecho</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="opt_mando_panel_1" model="safra.field.option">
+            <field name="field_id" ref="field_mando_panel"/>
+            <field name="value">2</field>
+            <field name="name">Izquierdo</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="opt_mando_panel_2" model="safra.field.option">
+            <field name="field_id" ref="field_mando_panel"/>
+            <field name="value">3</field>
+            <field name="name">Doble Mando</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="field_interruptor_panel" model="safra.field">
+            <field name="code">interruptor_panel</field>
+            <field name="name">Interruptor</field>
+            <field name="section_id" ref="section_motor"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">700</field>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="opt_interruptor_panel_0" model="safra.field.option">
+            <field name="field_id" ref="field_interruptor_panel"/>
+            <field name="value">0</field>
+            <field name="name">No</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="opt_interruptor_panel_1" model="safra.field.option">
+            <field name="field_id" ref="field_interruptor_panel"/>
+            <field name="value">I100001243</field>
+            <field name="name">Interruptor-Receptor RF</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="field_cenefa_panel" model="safra.field">
+            <field name="code">cenefa_panel</field>
+            <field name="name">Tipo de Cenefa</field>
+            <field name="section_id" ref="section_cenefa"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">700</field>
+        </record>
+        <record id="opt_cenefa_panel_0" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_panel"/>
+            <field name="value">1</field>
+            <field name="name">Sin Cenefa</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="opt_cenefa_panel_1" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_panel"/>
+            <field name="value">2</field>
+            <field name="name">Cenefa Tela ____</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="opt_cenefa_panel_2" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_panel"/>
+            <field name="value">4</field>
+            <field name="name">Cenefa Tela __|</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="opt_cenefa_panel_3" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_panel"/>
+            <field name="value">5</field>
+            <field name="name">Cenefa Tela |__</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="opt_cenefa_panel_4" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_panel"/>
+            <field name="value">6</field>
+            <field name="name">Cenefa Tela |__|</field>
+            <field name="sequence">50</field>
+        </record>
+        <record id="opt_cenefa_panel_5" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_panel"/>
+            <field name="value">3</field>
+            <field name="name">Cenefa Metalica</field>
+            <field name="sequence">60</field>
+        </record>
+        <record id="field_color_cordon" model="safra.field">
+            <field name="code">color_cordon</field>
+            <field name="name">Color del cordón Panel</field>
+            <field name="section_id" ref="section_accesorios"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">700</field>
+        </record>
+        <record id="opt_color_cordon_0" model="safra.field.option">
+            <field name="field_id" ref="field_color_cordon"/>
+            <field name="value">blanco</field>
+            <field name="name">Blanco</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="opt_color_cordon_1" model="safra.field.option">
+            <field name="field_id" ref="field_color_cordon"/>
+            <field name="value">ivory</field>
+            <field name="name">Ivory</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="opt_color_cordon_2" model="safra.field.option">
+            <field name="field_id" ref="field_color_cordon"/>
+            <field name="value">cafe</field>
+            <field name="name">Café</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="opt_color_cordon_3" model="safra.field.option">
+            <field name="field_id" ref="field_color_cordon"/>
+            <field name="value">negro</field>
+            <field name="name">Negro</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="opt_color_cordon_4" model="safra.field.option">
+            <field name="field_id" ref="field_color_cordon"/>
+            <field name="value">gris</field>
+            <field name="name">Gris</field>
+            <field name="sequence">50</field>
+        </record>
+        <record id="field_posicion_telo" model="safra.field">
+            <field name="code">posicion_telo</field>
+            <field name="name">Posición Telo Fijo</field>
+            <field name="section_id" ref="section_otras"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">700</field>
+        </record>
+        <record id="opt_posicion_telo_0" model="safra.field.option">
+            <field name="field_id" ref="field_posicion_telo"/>
+            <field name="value">1</field>
+            <field name="name">Frente</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="opt_posicion_telo_1" model="safra.field.option">
+            <field name="field_id" ref="field_posicion_telo"/>
+            <field name="value">2</field>
+            <field name="name">Atras</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="field_traslape_centro" model="safra.field">
+            <field name="code">traslape_centro</field>
+            <field name="name">¿Riel Dividido?</field>
+            <field name="section_id" ref="section_riel"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">700</field>
+        </record>
+        <record id="opt_traslape_centro_0" model="safra.field.option">
+            <field name="field_id" ref="field_traslape_centro"/>
+            <field name="value">1</field>
+            <field name="name">No</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="opt_traslape_centro_1" model="safra.field.option">
+            <field name="field_id" ref="field_traslape_centro"/>
+            <field name="value">2</field>
+            <field name="name">Si</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="field_tamano_traslape" model="safra.field">
+            <field name="code">tamano_traslape</field>
+            <field name="name">Tamaño del Traslape</field>
+            <field name="section_id" ref="section_riel"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">700</field>
+            <field name="depends_field_id" ref="field_traslape_centro"/>
+            <field name="depends_value">2</field>
+        </record>
+        <record id="opt_tamano_traslape_0" model="safra.field.option">
+            <field name="field_id" ref="field_tamano_traslape"/>
+            <field name="value">0.12</field>
+            <field name="name">12cm</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="opt_tamano_traslape_1" model="safra.field.option">
+            <field name="field_id" ref="field_tamano_traslape"/>
+            <field name="value">0.11</field>
+            <field name="name">11cm</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="opt_tamano_traslape_2" model="safra.field.option">
+            <field name="field_id" ref="field_tamano_traslape"/>
+            <field name="value">0.10</field>
+            <field name="name">10cm</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="opt_tamano_traslape_3" model="safra.field.option">
+            <field name="field_id" ref="field_tamano_traslape"/>
+            <field name="value">0.09</field>
+            <field name="name">9cm</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="opt_tamano_traslape_4" model="safra.field.option">
+            <field name="field_id" ref="field_tamano_traslape"/>
+            <field name="value">0.08</field>
+            <field name="name">8cm</field>
+            <field name="sequence">50</field>
+        </record>
+        <record id="opt_tamano_traslape_5" model="safra.field.option">
+            <field name="field_id" ref="field_tamano_traslape"/>
+            <field name="value">0.07</field>
+            <field name="name">7cm</field>
+            <field name="sequence">60</field>
+        </record>
+        <record id="field_color_cenefa" model="safra.field">
+            <field name="code">color_cenefa</field>
+            <field name="name">Color de la Cenefa</field>
+            <field name="section_id" ref="section_cenefa"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">700</field>
+            <field name="depends_field_id" ref="field_cenefa_panel"/>
+            <field name="depends_value">2,4,5,6,3</field>
+        </record>
+        <record id="opt_color_cenefa_0" model="safra.field.option">
+            <field name="field_id" ref="field_color_cenefa"/>
+            <field name="value">blanco</field>
+            <field name="name">Blanco</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="opt_color_cenefa_1" model="safra.field.option">
+            <field name="field_id" ref="field_color_cenefa"/>
+            <field name="value">ivory</field>
+            <field name="name">Ivory</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="opt_color_cenefa_2" model="safra.field.option">
+            <field name="field_id" ref="field_color_cenefa"/>
+            <field name="value">cafe</field>
+            <field name="name">Café</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="opt_color_cenefa_3" model="safra.field.option">
+            <field name="field_id" ref="field_color_cenefa"/>
+            <field name="value">negro</field>
+            <field name="name">Negro</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="opt_color_cenefa_4" model="safra.field.option">
+            <field name="field_id" ref="field_color_cenefa"/>
+            <field name="value">gris</field>
+            <field name="name">Gris</field>
+            <field name="sequence">50</field>
+        </record>
+        <record id="field_cenefa_dividida" model="safra.field">
+            <field name="code">cenefa_dividida</field>
+            <field name="name">Cenefa Dividida</field>
+            <field name="section_id" ref="section_cenefa"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">700</field>
+            <field name="depends_field_id" ref="field_cenefa_panel"/>
+            <field name="depends_value">2,4,5,6,3</field>
+        </record>
+        <record id="opt_cenefa_dividida_0" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_dividida"/>
+            <field name="value">0</field>
+            <field name="name">No</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="opt_cenefa_dividida_1" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_dividida"/>
+            <field name="value">1</field>
+            <field name="name">Si</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="field_corte_cenefa" model="safra.field">
+            <field name="code">corte_cenefa</field>
+            <field name="name">Tipo de corte Cenefa Tela</field>
+            <field name="section_id" ref="section_cenefa"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">700</field>
+            <field name="depends_field_id" ref="field_cenefa_panel"/>
+            <field name="depends_value">2,4,5,6</field>
+        </record>
+        <record id="opt_corte_cenefa_0" model="safra.field.option">
+            <field name="field_id" ref="field_corte_cenefa"/>
+            <field name="value">1</field>
+            <field name="name">Cenefa añadida</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="opt_corte_cenefa_1" model="safra.field.option">
+            <field name="field_id" ref="field_corte_cenefa"/>
+            <field name="value">2</field>
+            <field name="name">Cenefa Entera</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="field_longitud_baston" model="safra.field">
+            <field name="code">longitud_baston</field>
+            <field name="name">Longitud bastón</field>
+            <field name="section_id" ref="section_accesorios"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">700</field>
+        </record>
+        <record id="opt_longitud_baston_0" model="safra.field.option">
+            <field name="field_id" ref="field_longitud_baston"/>
+            <field name="value">2</field>
+            <field name="name">Bastón de 1.0 metro</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="opt_longitud_baston_1" model="safra.field.option">
+            <field name="field_id" ref="field_longitud_baston"/>
+            <field name="value">3</field>
+            <field name="name">Bastón de 1.5 metros</field>
+            <field name="sequence">20</field>
+        </record>
+    </data>
+</odoo>

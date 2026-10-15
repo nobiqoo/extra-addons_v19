@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- PANEL DUO (54) -->
+    <data noupdate="0">
+        <record id="system_54" model="safra.system"><field name="tech_width_min">0.35</field><field name="tech_width_max">8</field><field name="tech_height_min">1</field><field name="tech_height_max">3.5</field><field name="tech_mechanism"></field></record>
+        <record id="sf_54_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_54_cenefa_corte" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_54_cenefa_lateral" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_54_cenefa_lined" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_54_cenefa_tela" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_54_cenefa_type" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_54_control_channel" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_54_has_motor" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_54_motor_support_type" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_54_requires_charger" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_54_riel_dividido" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_54_tela_al_reves" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_54_width" model="safra.system.field">
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_54_height" model="safra.system.field">
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_54_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_54_fabric_id" model="safra.system.field">
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_54_color_id" model="safra.system.field">
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_54_fabric_id_2" model="safra.system.field">
+            <field name="sequence">150</field>
+        </record>
+        <record id="sf_54_color_id_2" model="safra.system.field">
+            <field name="sequence">160</field>
+        </record>
+        <record id="sf_54_coordinado" model="safra.system.field">
+            <field name="sequence">170</field>
+        </record>
+        <record id="sf_54_motor" model="safra.system.field">
+            <field name="sequence">1000</field>
+            <field name="label_override">Motor</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{'value':'0','name':'Sin motor','sequence':10}),(0,0,{'value':'6','name':'Motor Ultrasilencioso Cortina/Panel Wifi/Rf','sequence':20}),(0,0,{'value':'7','name':'Motor Ultrasilencioso Cortina/Panel Bateria/Rf','sequence':30})]"/>
+            <field name="clear_depends" eval="True"/>
+        </record>
+        <record id="sf_54_mando_panel" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_54"/>
+            <field name="field_id" ref="field_mando_panel"/>
+            <field name="sequence">1005</field>
+        </record>
+        <record id="sf_54_control" model="safra.system.field">
+            <field name="sequence">1010</field>
+            <field name="label_override">Control</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{'value':'0','name':'Sin Control','sequence':10}),(0,0,{'value':'1','name':'Inalámbrico Panel 2 Canales','sequence':20}),(0,0,{'value':'5','name':'Inalámbrico Panel 15 Canales','sequence':30}),(0,0,{'value':'4','name':'Control Motor Wifi/RF','sequence':40}),(0,0,{'value':'7','name':'Control Motor Batería','sequence':50})]"/>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="sf_54_perfil" model="safra.system.field">
+            <field name="sequence">1015</field>
+            <field name="label_override">Tipo de Perfil</field>
+        </record>
+        <record id="sf_54_apertura" model="safra.system.field">
+            <field name="sequence">1020</field>
+            <field name="label_override">Tipo de Apertura</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{'value':'6','name':'Doble función','sequence':10})]"/>
+        </record>
+        <record id="sf_54_aligned" model="safra.system.field">
+            <field name="sequence">1025</field>
+        </record>
+        <record id="sf_54_color_cordon" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_54"/>
+            <field name="field_id" ref="field_color_cordon"/>
+            <field name="sequence">1030</field>
+        </record>
+        <record id="sf_54_traslape_centro" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_54"/>
+            <field name="field_id" ref="field_traslape_centro"/>
+            <field name="sequence">1035</field>
+        </record>
+        <record id="sf_54_posicion_telo" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_54"/>
+            <field name="field_id" ref="field_posicion_telo"/>
+            <field name="sequence">1040</field>
+        </record>
+        <record id="sf_54_tamano_traslape" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_54"/>
+            <field name="field_id" ref="field_tamano_traslape"/>
+            <field name="sequence">1045</field>
+        </record>
+        <record id="sf_54_cenefa_panel" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_54"/>
+            <field name="field_id" ref="field_cenefa_panel"/>
+            <field name="sequence">1050</field>
+        </record>
+        <record id="sf_54_riel_tipo" model="safra.system.field">
+            <field name="sequence">1055</field>
+            <field name="label_override">Tipo de Riel</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{'value':'0','name':'Auto','sequence':10}),(0,0,{'value':'2','name':'5 Vías','sequence':20}),(0,0,{'value':'3','name':'6 Vías','sequence':30})]"/>
+        </record>
+        <record id="sf_54_riel_junto" model="safra.system.field">
+            <field name="sequence">1060</field>
+            <field name="label_override">Riel Junto a</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{'value':'0','name':'No','sequence':10}),(0,0,{'value':'1','name':'Item Siguiente','sequence':20}),(0,0,{'value':'2','name':'Item Anterior','sequence':30})]"/>
+        </record>
+        <record id="sf_54_cenefa_dividida" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_54"/>
+            <field name="field_id" ref="field_cenefa_dividida"/>
+            <field name="sequence">1065</field>
+        </record>
+        <record id="sf_54_color_cenefa" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_54"/>
+            <field name="field_id" ref="field_color_cenefa"/>
+            <field name="sequence">1070</field>
+        </record>
+        <record id="sf_54_perfil_cenefa" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_54"/>
+            <field name="field_id" ref="field_perfil_cenefa"/>
+            <field name="sequence">1075</field>
+            <field name="depends_field_id" ref="field_cenefa_panel"/>
+            <field name="depends_value">2,4,5,6</field>
+        </record>
+        <record id="sf_54_cabezal_forrado" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_54"/>
+            <field name="field_id" ref="field_cabezal_forrado"/>
+            <field name="sequence">1080</field>
+        </record>
+        <record id="sf_54_extra_chain" model="safra.system.field">
+            <field name="sequence">1085</field>
+            <field name="label_override">Cordón Extra (metros)</field>
+        </record>
+        <record id="sf_54_cabezal_tela" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_54"/>
+            <field name="field_id" ref="field_cabezal_tela"/>
+            <field name="sequence">1090</field>
+            <field name="label_override">Tela cabezal forrado</field>
+            <field name="depends_field_id" ref="field_cabezal_forrado"/>
+            <field name="depends_value">1</field>
+        </record>
+        <record id="sf_54_escuadras" model="safra.system.field">
+            <field name="sequence">1095</field>
+        </record>
+        <record id="sf_54_location" model="safra.system.field">
+            <field name="sequence">1100</field>
+        </record>
+        <record id="sf_54_enclosed" model="safra.system.field">
+            <field name="sequence">1105</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,759 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 15:10+0000\n"
+"PO-Revision-Date: 2026-07-30 15:10+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_419\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_service_acceptance
+#: model_terms:ir.actions.act_window,help:purchase_service_acceptance.action_purchase_service_acceptance
+msgid ""
+"A Service Acceptance is created automatically when a purchase order with "
+"Service products is confirmed."
+msgstr ""
+"Una Aceptación del Servicio se crea automáticamente cuando se confirma una "
+"orden de compra con productos de tipo Servicio."
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__date
+msgid "Acceptance Date"
+msgstr "Fecha de Aceptación"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__state
+msgid "Acceptance Status"
+msgstr "Estado de Aceptación"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields.selection,name:purchase_service_acceptance.selection__purchase_service_acceptance__state__done
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_service_acceptance_view_search
+msgid "Accepted"
+msgstr "Aceptado"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__qty_accepted
+msgid "Accepted Qty"
+msgstr "Cantidad Aceptada"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__message_needaction
+msgid "Action Needed"
+msgstr "Acción Requerida"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de Excepción de Actividad"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__activity_state
+msgid "Activity State"
+msgstr "Estado de la Actividad"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de Tipo de Actividad"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_order_line__amount_service_invoiced
+msgid "Already billed by the vendor: a real accounting expense."
+msgstr "Ya facturado por el proveedor: un gasto contable real."
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__analytic_distribution
+msgid "Analytic Distribution"
+msgstr "Distribución Analítica"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__analytic_precision
+msgid "Analytic Precision"
+msgstr "Precisión Analítica"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de Adjuntos"
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/purchase_service_acceptance.py:0
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__backorder_ids
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_service_acceptance_view_form
+msgid "Backorders"
+msgstr "Órdenes Parciales"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_service_acceptance__allowed_validator_ids
+msgid ""
+"Besides Purchase Administrators (who can always validate), only these users "
+"— the Buyer and the Requester of the purchase order — may validate this "
+"Service Acceptance. No extra setup needed: it is always derived from the "
+"purchase order itself."
+msgstr ""
+"Además de los Administradores de Compras (que siempre pueden validar), solo "
+"estos usuarios —el Comprador y el Solicitante de la orden de compra— pueden "
+"validar esta Aceptación del Servicio. No requiere configuración adicional: "
+"siempre se deriva de la propia orden de compra."
+
+#. module: purchase_service_acceptance
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_order_view_form_service_acceptance
+msgid "Billed (P&L)"
+msgstr "Facturado (P&G)"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_order_line__amount_service_invoiced
+msgid "Billed Amount"
+msgstr "Monto Facturado"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__allowed_validator_ids
+msgid "Can Validate"
+msgstr "Puede Validar"
+
+#. module: purchase_service_acceptance
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_service_acceptance_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: purchase_service_acceptance
+#. odoo-javascript
+#: code:addons/purchase_service_acceptance/static/src/xml/service_acceptance_stats_banner.xml:0
+#: model:ir.model.fields.selection,name:purchase_service_acceptance.selection__purchase_service_acceptance__state__cancelled
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_service_acceptance_view_search
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/account_move_line.py:0
+msgid ""
+"Cannot bill \"%s\": %s already billed but only %s has been received so far. "
+"Validate the corresponding Service Acceptance before billing more."
+msgstr ""
+"No se puede facturar \"%s\": ya se facturó %s pero solo se ha recibido %s "
+"hasta ahora. Valide la Aceptación del Servicio correspondiente antes de "
+"facturar más."
+
+#. module: purchase_service_acceptance
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_order_view_form_service_acceptance
+msgid "Committed (P&L)"
+msgstr "Comprometido (P&G)"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_order_line__amount_committed
+msgid "Committed Amount"
+msgstr "Monto Comprometido"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__company_id
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: purchase_service_acceptance
+#. odoo-javascript
+#: code:addons/purchase_service_acceptance/static/src/xml/service_acceptance_stats_banner.xml:0
+msgid "Confirmed"
+msgstr "Confirmados"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__backorder_id
+msgid "Created From"
+msgstr "Creado Desde"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__create_uid
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__create_date
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_service_acceptance__date_planned
+msgid ""
+"Delivery date promised by vendor. This date is used to determine expected "
+"arrival of products."
+msgstr ""
+"Fecha de entrega prometida por el proveedor. Esta fecha se utiliza para "
+"determinar la llegada esperada de los productos."
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_service_acceptance__date_order
+msgid ""
+"Depicts the date within which the Quotation should be confirmed and "
+"converted into a purchase order."
+msgstr ""
+"Indica la fecha límite dentro de la cual la cotización debe confirmarse y "
+"convertirse en una orden de compra."
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_account_move__display_name
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_product_template__display_name
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_order__display_name
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_order_line__display_name
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__display_name
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__display_name
+msgid "Display Name"
+msgstr "Nombre Mostrado"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__date_planned
+msgid "Expected Date"
+msgstr "Fecha Esperada"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Contactos)"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_service_acceptance__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono Font Awesome, ej. fa-tasks"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields.selection,name:purchase_service_acceptance.selection__purchase_order__service_reception_status__full
+msgid "Fully Received"
+msgstr "Recibido Completamente"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__has_message
+msgid "Has Message"
+msgstr "Tiene Mensaje"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_account_move__id
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_account_move_line__id
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_product_template__id
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_order__id
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_order_line__id
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__id
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_service_acceptance__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad de excepción."
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_service_acceptance__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_service_acceptance__message_has_error
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_service_acceptance__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de envío."
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__message_is_follower
+msgid "Is Follower"
+msgstr "Es Seguidor"
+
+#. module: purchase_service_acceptance
+#: model:ir.model,name:purchase_service_acceptance.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento Contable"
+
+#. module: purchase_service_acceptance
+#: model:ir.model,name:purchase_service_acceptance.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte Contable"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__write_uid
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__write_uid
+msgid "Last Updated by"
+msgstr "Última Actualización por"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__write_date
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__write_date
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: purchase_service_acceptance
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_service_acceptance_view_search
+msgid "Late"
+msgstr "Atrasado"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__line_ids
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de Envío del Mensaje"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha Límite de Mi Actividad"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Evento de Calendario de la Siguiente Actividad"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha Límite de la Siguiente Actividad"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la Siguiente Actividad"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de la Siguiente Actividad"
+
+#. module: purchase_service_acceptance
+#: model_terms:ir.actions.act_window,help:purchase_service_acceptance.action_purchase_service_acceptance
+msgid "No service acceptances yet"
+msgstr "Todavía no hay aceptaciones de servicio"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields.selection,name:purchase_service_acceptance.selection__purchase_order__service_reception_status__not_started
+msgid "Not Received"
+msgstr "No Recibido"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de Acciones"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de Errores"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_service_acceptance__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_service_acceptance__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/purchase_service_acceptance.py:0
+msgid "Only %s may validate this Service Acceptance."
+msgstr "Solo %s puede validar esta Aceptación del Servicio."
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/purchase_service_acceptance.py:0
+msgid "Only accepted Service Acceptances can be reset to draft."
+msgstr ""
+"Solo las Aceptaciones del Servicio en estado Aceptado pueden restablecerse a"
+" borrador."
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/purchase_service_acceptance.py:0
+msgid ""
+"Only draft Service Acceptances can be cancelled this way. Use \"Reset to "
+"Pending Acceptance\" for an already-accepted one."
+msgstr ""
+"Solo las Aceptaciones del Servicio en borrador pueden cancelarse de esta "
+"forma. Use \"Restablecer a Pendiente por Aceptar\" para una ya aceptada."
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/purchase_service_acceptance.py:0
+msgid "Only draft acceptances can be validated."
+msgstr "Solo las aceptaciones en borrador pueden validarse."
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__date_order
+msgid "Order Date"
+msgstr "Fecha de la Orden"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__product_qty_ordered
+msgid "Ordered Qty"
+msgstr "Cantidad Ordenada"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_order_line__amount_committed
+msgid ""
+"Ordered but not yet received: a purchase commitment, not yet an accounting "
+"expense."
+msgstr ""
+"Ordenado pero aún no recibido: un compromiso de compra, todavía no es un "
+"gasto contable."
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_order_line__qty_pending_reception
+msgid ""
+"Ordered quantity still not covered by an accepted Service Acceptance line."
+msgstr ""
+"Cantidad ordenada que aún no está cubierta por una línea de Aceptación del "
+"Servicio aceptada."
+
+#. module: purchase_service_acceptance
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_service_acceptance_view_search
+msgid "Partial (Backorders)"
+msgstr "Parcial (Órdenes Parciales)"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields.selection,name:purchase_service_acceptance.selection__purchase_order__service_reception_status__partial
+msgid "Partially Received"
+msgstr "Recibido Parcialmente"
+
+#. module: purchase_service_acceptance
+#. odoo-javascript
+#: code:addons/purchase_service_acceptance/static/src/xml/service_acceptance_stats_banner.xml:0
+#: model:ir.model.fields.selection,name:purchase_service_acceptance.selection__purchase_service_acceptance__state__draft
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_service_acceptance_view_search
+msgid "Pending Acceptance"
+msgstr "Pendiente por Aceptar"
+
+#. module: purchase_service_acceptance
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_order_view_form_service_acceptance
+msgid "Pending Invoice"
+msgstr "Pendiente de Facturar"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__qty_pending
+msgid "Pending Qty"
+msgstr "Cantidad Pendiente"
+
+#. module: purchase_service_acceptance
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_order_view_form_service_acceptance
+msgid "Pending Reception"
+msgstr "Pendiente de Recibir"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_order_line__qty_pending_reception
+msgid "Pending Reception Qty"
+msgstr "Cantidad Pendiente de Recepción"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__qty_previously_accepted
+msgid "Previously Accepted Qty"
+msgstr "Cantidad Previamente Aceptada"
+
+#. module: purchase_service_acceptance
+#: model:ir.model,name:purchase_service_acceptance.model_product_template
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: purchase_service_acceptance
+#: model:ir.model,name:purchase_service_acceptance.model_purchase_order
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__purchase_order_id
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__purchase_order_id
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_service_acceptance_view_search
+msgid "Purchase Order"
+msgstr "Orden de Compra"
+
+#. module: purchase_service_acceptance
+#: model:ir.model,name:purchase_service_acceptance.model_purchase_order_line
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__purchase_line_id
+msgid "Purchase Order Line"
+msgstr "Línea de Orden de Compra"
+
+#. module: purchase_service_acceptance
+#: model:ir.model,name:purchase_service_acceptance.model_purchase_service_acceptance
+msgid "Purchase Service Acceptance"
+msgstr "Aceptación del Servicio de Compra"
+
+#. module: purchase_service_acceptance
+#: model:ir.model,name:purchase_service_acceptance.model_purchase_service_acceptance_line
+msgid "Purchase Service Acceptance Line"
+msgstr "Línea de Aceptación del Servicio de Compra"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_order_line__amount_service_received
+msgid ""
+"Received (executed) but not yet billed by the vendor: not yet an accounting "
+"expense."
+msgstr ""
+"Recibido (ejecutado) pero aún no facturado por el proveedor: todavía no es "
+"un gasto contable."
+
+#. module: purchase_service_acceptance
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_order_view_form_service_acceptance
+msgid "Received Not Billed (P&L)"
+msgstr "Recibido No Facturado (P&G)"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_order_line__amount_service_received
+msgid "Received, Not Yet Billed"
+msgstr "Recibido, Aún No Facturado"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_order__service_reception_status
+msgid ""
+"Reception progress of this order's Service lines, based on the quantities "
+"accepted through their Service Acceptances."
+msgstr ""
+"Avance de recepción de las líneas de Servicio de esta orden, según las "
+"cantidades aceptadas a través de sus Aceptaciones del Servicio."
+
+#. module: purchase_service_acceptance
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_service_acceptance_view_form
+msgid "Reset to Pending Acceptance"
+msgstr "Restablecer a Pendiente por Aceptar"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__user_id
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario Responsable"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de Envío de SMS"
+
+#. module: purchase_service_acceptance
+#. odoo-javascript
+#: code:addons/purchase_service_acceptance/static/src/js/service_acceptance_stats_banner.js:0
+#: model:ir.actions.act_window,name:purchase_service_acceptance.action_purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__acceptance_id
+#: model:ir.ui.menu,name:purchase_service_acceptance.menu_purchase_service_acceptance
+#: model:ir.ui.menu,name:purchase_service_acceptance.menu_purchase_service_acceptance_root
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.account_move_view_form_service_acceptance
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_order_view_form_service_acceptance
+msgid "Service Acceptance"
+msgstr "Aceptación del Servicio"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_account_bank_statement_line__service_acceptance_count
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_account_move__service_acceptance_count
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_order__service_acceptance_count
+msgid "Service Acceptance Count"
+msgstr "Número de Aceptaciones de Servicio"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_order_line__service_acceptance_line_ids
+msgid "Service Acceptance Lines"
+msgstr "Líneas de Aceptación del Servicio"
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/purchase_order.py:0
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_account_bank_statement_line__service_acceptance_ids
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_account_move__service_acceptance_ids
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_order__service_acceptance_ids
+msgid "Service Acceptances"
+msgstr "Aceptaciones de Servicio"
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/purchase_service_acceptance.py:0
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__invoice_ids
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_service_acceptance_view_form
+msgid "Vendor Bills"
+msgstr "Facturas de Proveedor"
+
+#. module: purchase_service_acceptance
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_service_acceptance_view_form
+msgid "Service Lines"
+msgstr "Líneas de Servicio"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_order__service_reception_status
+msgid "Service Reception Status"
+msgstr "Estado de Recepción del Servicio"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__state
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_service_acceptance_view_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_service_acceptance__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Atrasado: La fecha límite ya pasó\n"
+"Hoy: La fecha de la actividad es hoy\n"
+"Planificado: Actividades futuras."
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__subtotal
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__price_tax
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__taxes_id
+msgid "Taxes"
+msgstr "Impuestos"
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/purchase_service_acceptance_line.py:0
+msgid "The accepted quantity cannot be higher than the pending quantity."
+msgstr "La cantidad aceptada no puede ser superior a la cantidad pendiente."
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/purchase_service_acceptance_line.py:0
+msgid "The accepted quantity must be greater than zero."
+msgstr "La cantidad aceptada debe ser mayor a cero."
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/purchase_service_acceptance.py:0
+msgid ""
+"The accepted quantity must be greater than zero. Remove the line if you are "
+"not ready to accept it yet."
+msgstr ""
+"La cantidad aceptada debe ser mayor a cero. Elimine la línea si aún no está "
+"listo para aceptarla."
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/purchase_service_acceptance.py:0
+msgid "There is nothing to accept."
+msgstr "No hay nada por aceptar."
+
+#. module: purchase_service_acceptance
+#. odoo-javascript
+#: code:addons/purchase_service_acceptance/static/src/xml/service_acceptance_stats_banner.xml:0
+msgid "Total"
+msgstr "Total"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_service_acceptance__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de la actividad de excepción en el registro."
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/purchase_order.py:0
+msgid ""
+"Unable to cancel purchase order(s): %s since they have Service Acceptances "
+"that are no longer in draft."
+msgstr ""
+"No se pueden cancelar la(s) orden(es) de compra: %s porque tienen "
+"Aceptaciones del Servicio que ya no están en borrador."
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__price_unit
+msgid "Unit Price"
+msgstr "Precio Unitario"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance_line__product_uom_id
+msgid "Unit of Measure"
+msgstr "Unidad de Medida"
+
+#. module: purchase_service_acceptance
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_order_view_form_service_acceptance
+msgid "Update Service Acceptances"
+msgstr "Actualizar Aceptaciones de Servicio"
+
+#. module: purchase_service_acceptance
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_service_acceptance_view_form
+msgid "Validate"
+msgstr "Validar"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__partner_id
+#: model_terms:ir.ui.view,arch_db:purchase_service_acceptance.purchase_service_acceptance_view_search
+msgid "Vendor"
+msgstr "Proveedor"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,field_description:purchase_service_acceptance.field_purchase_service_acceptance__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del Sitio Web"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_service_acceptance__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación del sitio web"
+
+#. module: purchase_service_acceptance
+#: model:ir.model.fields,help:purchase_service_acceptance.field_purchase_service_acceptance__partner_id
+msgid "You can find a vendor by its Name, TIN, Email or Internal Reference."
+msgstr ""
+"Puede encontrar un proveedor por su Nombre, NIT, Correo Electrónico o "
+"Referencia Interna."
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/purchase_service_acceptance.py:0
+msgid "backorder_id"
+msgstr "Creado Desde"
+
+#. module: purchase_service_acceptance
+#. odoo-python
+#: code:addons/purchase_service_acceptance/models/purchase_order.py:0
+msgid "purchase_order_id"
+msgstr "Orden de Compra"

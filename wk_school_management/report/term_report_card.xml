@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <record id="student_report_card_print" model="ir.actions.report">
+        <field name="name">Report Card</field>
+        <field name="model">student.enrollment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wk_school_management.report_card_generate</field>
+        <field name="report_file">wk_school_management.report_card_generate</field>
+        <field name="print_report_name">'%s - Report Card' % (object.student_id.name).replace('/', '')</field>
+        <field name="binding_model_id" ref="model_student_enrollment"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id='print_student_term_report'>
+        <t t-call="web.external_layout">
+            <div class="oe_structure"/>
+            <t t-foreach="docs" t-as="report">
+                <div t-attf-style="page-break-after:always;">
+                    <div class="row text-center">
+                        <h3>
+                            <span>Report Card: </span><span t-field="report.academic_year_id.name"></span>
+                        </h3>
+                    </div>
+                    <div style="font-size: 16px; line-height: 2;margin:30px;">
+                        <div>
+                            <div style="display: inline-block; width: 140px;"><strong>Student</strong></div>
+                            <div style="display: inline-block; width: 20px;">:</div>
+                            <div style="display: inline-block; width: 500px;">
+                                <span t-field="report.student_id.name"/>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="display: inline-block; width: 140px;"><strong>Session</strong></div>
+                            <div style="display: inline-block; width: 20px;">:</div>
+                            <div style="display: inline-block;">
+                                <span t-field="report.session_id.name"/>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="display: inline-block; width: 140px;"><strong>Academic Year</strong></div>
+                            <div style="display: inline-block; width: 20px;">:</div>
+                            <div style="display: inline-block;">
+                                <span t-field="report.academic_year_id.name"/>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="display: inline-block; width: 140px;"><strong>Grade</strong></div>
+                            <div style="display: inline-block; width: 20px;">:</div>
+                            <div style="display: inline-block;">
+                                <span t-field="report.grade_id.name"/>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="display: inline-block; width: 140px;"><strong>Enrollment No.</strong></div>
+                            <div style="display: inline-block; width: 20px;">:</div>
+                            <div style="display: inline-block;">
+                                <span t-field="report.name"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <t t-foreach="report.get_termwise_report()" t-as="record">
+                        <table class="table table-borderless" style="width: 100%;border: none; margin-top: 20px;">
+                            <thead style="border: none;">
+                                <tr style="font-size: 17px;border: 2px solid black;background-color: #e1e1e1;">
+                                    <th style="text-align: center; border: none; padding: 8px;font-weight:600">Term</th>
+                                    <th style="text-align: center; border: none; padding: 8px;font-weight:600">Subject Code</th>
+                                    <th style="text-align: center; border: none; padding: 8px;font-weight:600">Subject</th>
+                                    <th style="text-align: center; border: none; padding: 8px;font-weight:600">Credit</th>
+                                    <th style="text-align: center; border: none; padding: 8px;font-weight:600">Grade</th>
+                                    <th style="text-align: center; border: none; padding: 8px;font-weight:600">SGPA</th>
+                                    <th style="text-align: center; border: none; padding: 8px;font-weight:600">CGPA</th>
+                                </tr>
+                            </thead>
+                            <tbody style="border: none;font-size: 16px">
+                                <t t-foreach="record['terms']" t-as="term">
+                                    <t t-set="subjects_in_term" t-value="[sub for sub in record['subjects'].values()]"/>
+                                    <t t-set="row_count" t-value="len(subjects_in_term)"/>
+                                    <t t-foreach="subjects_in_term" t-as="subject">
+                                        <tr style="border: none;">
+                                            <t t-if="subject_index == 0">
+                                                <td t-attf-rowspan="{{ row_count }}" style="text-align: center; vertical-align: middle; border: none; padding: 8px;">
+                                                    <t t-esc="term.name"/>
+                                                </td>
+                                            </t>
+                                            <td style="text-align: center; border: none; padding: 8px;">
+                                                <t t-esc="subject['subject_code']"/>
+                                            </td>
+                                            <td style="text-align: center; border: none; padding: 8px;">
+                                                <t t-esc="subject['subject_name']"/>
+                                            </td>
+                                            <td style="text-align: center; border: none; padding: 8px;">
+                                                <t t-esc="subject['credit_value']"/>
+                                            </td>
+                                            <td style="text-align: center; border: none; padding: 8px;">
+                                                <t t-set="term_id" t-value="term.id"/>
+                                                <t t-esc="subject['terms'][term_id]['grade'] if term_id in subject['terms'] else ''"/>
+                                            </td>
+                                            <t t-if="subject_index == 0">
+                                                <td t-attf-rowspan="{{ row_count }}" style="text-align: center; vertical-align: middle; border: none; padding: 8px;">
+                                                    <t t-esc="record['averages'][term.id]"/>
+                                                </td>
+                                                <td t-attf-rowspan="{{ row_count }}" style="text-align: center; vertical-align: middle; border: none; padding: 8px;">
+                                                    <t t-esc="record['cgpa_by_term'][term.id]"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td colspan="7" style="border-top: 1px solid black;"></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </t>
+                    <h4 class="text-center mt-4"><strong>Achievement Description</strong></h4>
+                    <table class="table table-bordered table-sm mt-2">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">Symbol</th>
+                                <th style="text-align: center;">Min(%)</th>
+                                <th style="text-align: center;">Max(%)</th>
+                                <th style="text-align: center;">Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="record['grade_scale_lines']" t-as="line">
+                                <tr class="bg-200 fw-bold o_line_section">
+                                    <td style="text-align: center;"><span t-field="line.grade_symbol"/></td>
+                                    <td style="text-align: center;"><span t-field="line.min_percent"/></td>
+                                    <td style="text-align: center;"><span t-field="line.max_percent"/></td>
+                                    <td style="text-align: center;"><span t-field="line.points"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <h6 class="mt-5">
+                        <strong>Teacher Signature:</strong> _________________________________________________ 
+                    </h6>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_card_generate">
+        <t t-call="web.html_container">
+            <t t-call="wk_school_management.print_student_term_report"/>
+        </t>
+    </template>
+</odoo>

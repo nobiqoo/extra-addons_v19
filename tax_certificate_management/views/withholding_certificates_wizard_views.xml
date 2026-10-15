@@ -1,0 +1,87 @@
+<odoo>
+
+	<record id="withholding_certificates_wizard_view_form" model="ir.ui.view">
+		<field name="name">withholding.certificates.wizard.view.form</field>
+		<field name="model">withholding.certificates.wizard</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="company_id" />
+						<field name="certificate_id" />
+						<field name="periodicity" />
+						<field name="certificate_period_id" />
+					</group>
+					<notebook>
+						<page string="Partners">
+							<field name="partner_ids" mode="list">
+								<list>
+									<field name="name" />
+									<!-- <field name="l10n_latam_identification_type_id"/> -->
+									<field name="vat" />
+									<field name="country_id" />
+									<field name="state_id" />
+									<field name="city_id" />
+								</list>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<footer>
+					<button string="Generate certificates" name="create_certificates" type="object"
+						class="oe_highlight" />
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="withholding_certificates_wizard_confirm_view_form" model="ir.ui.view">
+		<field name="name">withholding.certificates.wizard.confirm.view.form</field>
+		<field name="model">withholding.certificates.wizard.confirm</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="company_id" invisible="1" />
+						<field name="certificate_id" invisible="1" />
+						<field name="periodicity" invisible="1" />
+						<field name="certificate_period_id" invisible="1" />
+						<field name="description" readonly="1" />
+					</group>
+					<notebook invisible="1">
+						<page string="Partners">
+							<field name="partner_ids" mode="list">
+								<list>
+									<field name="name" />
+									<!-- <field name="l10n_latam_identification_type_id"/> -->
+									<field name="vat" />
+									<field name="country_id" />
+									<field name="state_id" />
+									<field name="city_id" />
+								</list>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+				<footer>
+					<button string="Create reports for partners with movements"
+						name="action_confirm" type="object" class="oe_highlight" />
+					<button string="Cancel" name="action_cancel" class="btn-secondary" type="object" />
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_withholding_certificates_wizard" model="ir.actions.act_window">
+		<field name="name">Create withholding certificates</field>
+		<field name="res_model">withholding.certificates.wizard</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+
+	<menuitem id="menu_withholding_certificates_wizard"
+		action="action_withholding_certificates_wizard"
+		parent="account.menu_finance_entries"
+		sequence="12" />
+
+</odoo>

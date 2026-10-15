@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="dian_claim_concept_01" model="dian.claim.concept">
+            <field name="name">Documento con inconsistencias</field>
+            <field name="dian_code">01</field>
+        </record>
+        <record id="dian_claim_concept_02" model="dian.claim.concept">
+            <field name="name">Mercancía no entregada totalmente</field>
+            <field name="dian_code">02</field>
+        </record>
+        <record id="dian_claim_concept_03" model="dian.claim.concept">
+            <field name="name">Mercancía no entregada parcialmente</field>
+            <field name="dian_code">03</field>
+        </record>
+        <record id="dian_claim_concept_04" model="dian.claim.concept">
+            <field name="name">Servicio no prestado</field>
+            <field name="dian_code">04</field>
+        </record>
+    </data>
+</odoo>

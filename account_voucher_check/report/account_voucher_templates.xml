@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="account_voucher_check_format">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <style>
+                            .contenedor-cheque, .contenedor-tabla-facturas, .contenedor_observaciones {
+                            position: relative;
+                            }
+                            p {margin:0;}
+                            span {
+                            font-family: Times New Roman;
+                            font-size: 10px;
+                            color: #000000;
+                            }
+                            .numero_cheque {
+                            position: absolute;
+                            left: 470px;
+                            top: 30px;
+                            }
+
+                            .fecha_emision {
+                            position: absolute;
+                            left: 200px;
+                            top: 83px;
+                            }
+
+                            .pais_emision {
+                            position: absolute;
+                            left: 145px;
+                            top: 83px;
+                            }
+
+                            .monto_cheque_numeros {
+                            position: absolute;
+                            left: 512px;
+                            top: 80px;
+                            font-size: 11px;
+                            text-align:right;
+                            }
+
+                            .nombre_proveedor {
+                            position:absolute ;
+                            width:300px;
+                            left: 145px;
+                            top: 103px;
+                            font-size: 12px;
+                            }
+
+                            .monto_cheque_letras {
+                            position:absolute ;
+                            left: 145px;
+                            top: 133px;
+                            font-size: 10px;
+                            }
+
+                            .contenedor_lineas_factura {
+                            position:absolute;
+                            left: 35px;
+                            top: 290px;
+                            font-size: 10px;
+                            }
+
+                            .facturas_cheque_tabla {
+                            width:650px;
+                            }
+                            .facturas_cheque_tabla td {
+                            border: 0px solid white;
+                            font-size:9px;
+                            }
+                            .beneficiario {
+                            width:500px;
+                            position:absolute;
+                            left: 55px;
+                            top: 580px;
+                            font-size: 10px;
+                            }
+                            .beneficiario_nit {
+                            position:absolute;
+                            left: 300px;
+                            top: 580px;
+                            font-size: 10px;  
+                            }
+                            .referencia {
+                            position:absolute;
+                            left: 55px;
+                            top: 600px;
+                            font-size: 10px;
+                            }
+                            .no_queque_antes_de_tabla {
+                            margin-left:120px;
+                            }
+                            .observaciones {
+                            position:absolute;
+                            left: 55px;
+                            top: 760px;
+                            font-size: 10px;
+                            }
+                            .debito {
+                            position:absolute;
+                            left: 460px;
+                            top: 650px;
+                            font-size: 10px;
+                            }
+                            .credito {
+                            position:absolute;
+                            left: 460px;
+                            top: 610px;
+                            font-size: 10px;
+                            }
+                            .tabla_cuentas {
+                            position:absolute;
+                            left: 55px;
+                            top: 620px;
+                            font-size: 10px;
+                            border:0px solid white;
+                            }
+                            .fecha_emision_pie_pagina {
+                            position:absolute;
+                            left: 440px;
+                            top: 580px;
+                            font-size: 10px;
+                            }
+                            .no_cheque_pie_pagina {
+                            position:absolute;
+                            left: 580px;
+                            top: 580px;
+                            font-size: 10px;
+                            }
+                            .letra-credito {
+                            position:absolute;
+                            left: 430px;
+                            top: 610px;
+                            font-size: 10px; 
+                            }
+                            .letra-debito {
+                            position:absolute;
+                            left: 430px;
+                            top: 650px;
+                            font-size: 10px; 
+                            }
+                        </style>
+                        <div class="contenedor-cheque">
+                            <span class="numero_cheque" t-field="doc.name"/>
+                            <span class="pais_emision" t-field="doc.company_id.country_id"/>
+                            <span class="fecha_emision" t-field="doc.date"/>
+                            <t t-set="total_letras" t-value="doc.currency_id.amount_to_text_without_cents(doc.amount)"/>
+                            <t t-if="doc.currency_id.name == 'COP' and 'Peso' in total_letras and int(doc.amount) != 1">
+                                <t t-set="total_letras" t-value="total_letras.replace('Peso', 'Pesos')"/>
+                            </t>
+                            <t t-if="doc.currency_id.name == 'USD' and 'Dollars' in total_letras">
+                                <t t-set="total_letras" t-value="total_letras.replace('Dollars', 'Dolares')"/>
+                            </t>
+                            <t t-if="doc.currency_id.name == 'USD' and 'Dollar' in total_letras">
+                                <t t-set="total_letras" t-value="total_letras.replace('Dollar', 'Dolar')"/>
+                            </t>
+                            <t t-if="doc.currency_id.name in ('USD','EUR') and 'Cents' in total_letras">
+                                <t t-set="total_letras" t-value="total_letras.replace('Cents', 'Centavos')"/>
+                            </t>
+                            <t t-elif="doc.currency_id.name in ('USD','EUR') and 'Cent' in total_letras">
+                                <t t-set="total_letras" t-value="total_letras.replace('Cent', 'Centavo')"/>
+                            </t>
+                            <span class="monto_cheque_numeros">**********<span t-field="doc.amount"/>
+                            </span>
+                            <span class="nombre_proveedor" t-field="doc.partner_id"/>
+                            <span class="monto_cheque_letras">(**********<span t-if="doc.currency_id" t-esc="total_letras.upper()"/>)</span>
+                        </div>
+                        <div class="contenedor-tabla-facturas">
+                            <div class="contenedor_lineas_factura">
+                                <table class="facturas_cheque_tabla">
+                                    <tbody>
+                                        <t t-foreach="doc.line_passive_ids" t-as="l">
+                                            <tr>
+                                                <td class="text-center" style="width:70px">
+                                                    <span t-field="l.account_id.code"/>
+                                                </td>
+                                                <td style="width:70px">
+                                                    <span t-field="l.date_original"/>
+                                                </td>
+                                                <td style="width:300px">
+                                                    <span t-field="l.move_line_id"/>
+                                                </td>
+                                                <td class="text-right" style="width:70px">
+                                                    <span t-field="l.amount_original"/>
+                                                </td>
+                                                <td class="text-right" style="width:70px">
+                                                    <span t-field="l.amount_unreconciled"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <span class="observaciones">Observaciones:</span>
+                            <span class="beneficiario">Beneficiario: <span t-field="doc.partner_id.name"/></span>
+                            <span class="beneficiario_nit"><span t-field="doc.partner_id.l10n_latam_identification_type_id.l10n_co_edi_code"/>: <span t-field="doc.partner_id.vat"/> <t t-if="doc.partner_id.l10n_co_verification_code">- <span t-field="doc.partner_id.l10n_co_verification_code"/></t></span>
+                            <span class="referencia">Referencia: <span t-field="doc.voucher_reference"/></span>
+                            <t t-set="total_debito" t-value="0"/>
+                            <t t-set="total_credito" t-value="0"/>
+                            <t t-foreach="doc.move_id.line_ids" t-as="moves">
+                                <t t-set="total_debito" t-value="total_debito + moves.debit"/>
+                                <t t-set="total_credito" t-value="total_credito + moves.credit"/>
+                            </t>
+                            <table class="tabla_cuentas">
+                                <t t-foreach="doc.move_id.line_ids" t-as="moves">
+                                    <tr>
+                                        <td>
+                                            <span t-field="moves.account_id"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                            <span class="letra-debito">D</span><span class="debito"> <span t-field="doc.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(total_debito)"/></span>
+                            <span class="letra-credito">C</span><span class="credito"><span t-field="doc.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(total_credito)"/></span>
+                            <span class="fecha_emision_pie_pagina">Fecha: <span t-field="doc.date"/></span>
+                            <span class="no_cheque_pie_pagina">N° Cheque <span t-field="doc.check_number"/></span>
+                            <!-- <span class="talon">Talón <span class="page"/> de <span class="topage"/></span> -->
+                        </div>
+                    </div>
+                    <p style="page-break-after: always;"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

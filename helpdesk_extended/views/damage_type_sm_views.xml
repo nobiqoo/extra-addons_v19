@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="damage_type_sm_form_view" model="ir.ui.view">
+            <field name="name">damage.type.sm.form.view</field>
+            <field name="model">damage.type.sm</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="active" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="damage_type_sm_tree_view" model="ir.ui.view">
+            <field name="name">damage.type.sm.tree.view</field>
+            <field name="model">damage.type.sm</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="active" invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="damage_type_sm_action" model="ir.actions.act_window">
+            <field name="name">Damage types</field>
+            <field name="res_model">damage.type.sm</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Register a damage type
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="damage_type_sm_menu" name="Damage types" action="damage_type_sm_action" parent="helpdesk.helpdesk_menu_config" sequence="20"/>
+
+    </data>
+</odoo>

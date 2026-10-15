@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo auto_sequence="1">
+    <record id="account_statement_report" model="account.report">
+        <field name="name">Estados de cuentas</field>
+        <field name="filter_date_range" eval="False"/>
+        <field name="filter_unfold_all" eval="True"/>
+        <field name="filter_partner" eval="True"/>
+        <field name="filter_journals" eval="True"/>
+        <field name="filter_period_comparison" eval="False"/>
+        <field name="filter_account_type">both</field>
+        <field name="filter_hierarchy">never</field>
+        <field name="filter_show_draft" eval="True"/>
+        <field name="filter_multi_company">selector</field>
+        <field name="default_opening_date_filter">today</field>
+        <field name="custom_handler_model_id" ref="model_account_statement_report_handler"/>
+        <field name="column_ids">
+            <record id="account_statement_report_col_move_number" model="account.report.column">
+                <field name="name">Factura</field>
+                <field name="expression_label">move_number</field>
+                <field name="figure_type">string</field>
+                <field name="sortable" eval="True"/>
+            </record>
+            <record id="account_statement_report_col_move_currency" model="account.report.column">
+                <field name="name">Moneda</field>
+                <field name="expression_label">move_currency</field>
+                <field name="figure_type">string</field>
+            </record>
+            <record id="account_statement_report_col_analytic_account" model="account.report.column">
+                <field name="name">Cuenta analítica</field>
+                <field name="expression_label">analytic_account</field>
+                <field name="figure_type">string</field>
+            </record>
+            <record id="account_statement_report_col_identification_type" model="account.report.column">
+                <field name="name">Tipo de identificación</field>
+                <field name="expression_label">identification_type</field>
+                <field name="figure_type">string</field>
+            </record>
+            <record id="account_statement_report_col_identification_number" model="account.report.column">
+                <field name="name">Número de identificación</field>
+                <field name="expression_label">identification_number</field>
+                <field name="figure_type">string</field>
+            </record>
+            <record id="account_statement_report_col_container_number" model="account.report.column">
+                <field name="name">Contenedor</field>
+                <field name="expression_label">container_number</field>
+                <field name="figure_type">string</field>
+            </record>
+            <record id="account_statement_report_col_invoice_ref" model="account.report.column">
+                <field name="name">Referencia</field>
+                <field name="expression_label">invoice_ref</field>
+                <field name="figure_type">string</field>
+            </record>
+            <record id="account_statement_report_col_invoice_destination" model="account.report.column">
+                <field name="name">Destino</field>
+                <field name="expression_label">invoice_destination</field>
+                <field name="figure_type">string</field>
+            </record>
+            <record id="account_statement_report_col_invoice_origin" model="account.report.column">
+                <field name="name">Origen</field>
+                <field name="expression_label">invoice_origin</field>
+                <field name="figure_type">string</field>
+            </record>
+            <record id="account_statement_report_col_country_name" model="account.report.column">
+                <field name="name">País</field>
+                <field name="expression_label">country_name</field>
+                <field name="figure_type">string</field>
+            </record>
+            <record id="account_statement_report_col_journal_name" model="account.report.column">
+                <field name="name">Diario</field>
+                <field name="expression_label">journal_name</field>
+                <field name="figure_type">string</field>
+            </record>
+            <record id="account_statement_report_col_exchange_rate" model="account.report.column">
+                <field name="name">TRM</field>
+                <field name="expression_label">exchange_rate</field>
+                <field name="figure_type">float</field>
+            </record>
+            <record id="account_statement_report_col_move_position" model="account.report.column">
+                <field name="name">Posición</field>
+                <field name="expression_label">move_position</field>
+                <field name="figure_type">string</field>
+            </record>
+            <record id="account_statement_report_col_report_date" model="account.report.column">
+                <field name="name">Fecha de vencimiento</field>
+                <field name="expression_label">report_date</field>
+                <field name="figure_type">date</field>
+                <field name="sortable" eval="True"/>
+            </record>
+            <record id="account_statement_report_col_account" model="account.report.column">
+                <field name="name">Cuenta</field>
+                <field name="expression_label">account</field>
+                <field name="figure_type">string</field>
+            </record>
+            <record id="account_statement_report_col_period0" model="account.report.column">
+                <field name="name">A la fecha</field>
+                <field name="expression_label">period0</field>
+                <field name="sortable" eval="True"/>
+            </record>
+            <record id="account_statement_report_col_period1" model="account.report.column">
+                <field name="name">Periodo 1</field>
+                <field name="expression_label">period1</field>
+                <field name="sortable" eval="True"/>
+            </record>
+            <record id="account_statement_report_col_period2" model="account.report.column">
+                <field name="name">Periodo 2</field>
+                <field name="expression_label">period2</field>
+                <field name="sortable" eval="True"/>
+            </record>
+            <record id="account_statement_report_col_period3" model="account.report.column">
+                <field name="name">Periodo 3</field>
+                <field name="expression_label">period3</field>
+                <field name="sortable" eval="True"/>
+            </record>
+            <record id="account_statement_report_col_period4" model="account.report.column">
+                <field name="name">Periodo 4</field>
+                <field name="expression_label">period4</field>
+                <field name="sortable" eval="True"/>
+            </record>
+            <record id="account_statement_report_col_period5" model="account.report.column">
+                <field name="name">Más antiguo</field>
+                <field name="expression_label">period5</field>
+                <field name="sortable" eval="True"/>
+            </record>
+            <record id="account_statement_report_col_total" model="account.report.column">
+                <field name="name">Total en pesos</field>
+                <field name="expression_label">total</field>
+                <field name="sortable" eval="True"/>
+            </record>
+            <record id="account_statement_report_col_amount_invoice" model="account.report.column">
+                <field name="name">Total factura</field>
+                <field name="expression_label">amount_invoice</field>
+                <field name="sortable" eval="True"/>
+            </record>
+            <record id="account_statement_report_col_amount_residual" model="account.report.column">
+                <field name="name">Total adeudado</field>
+                <field name="expression_label">amount_residual</field>
+                <field name="sortable" eval="True"/>
+            </record>
+            <record id="account_statement_report_col_line_count" model="account.report.column">
+                <field name="name">Cont</field>
+                <field name="expression_label">line_count</field>
+                <field name="figure_type">integer</field>
+            </record>
+        </field>
+        <field name="line_ids">
+            <record id="account_statement_line" model="account.report.line">
+                <field name="name">Estados de cuentas</field>
+                <field name="groupby">partner_id, id</field>
+                <field name="expression_ids">
+                    <record id="account_statement_line_move_number" model="account.report.expression">
+                        <field name="label">move_number</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">move_number</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_move_currency" model="account.report.expression">
+                        <field name="label">move_currency</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">move_currency</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_analytic_account" model="account.report.expression">
+                        <field name="label">analytic_account</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">analytic_account</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_identification_type" model="account.report.expression">
+                        <field name="label">identification_type</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">identification_type</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_identification_number" model="account.report.expression">
+                        <field name="label">identification_number</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">identification_number</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_container_number" model="account.report.expression">
+                        <field name="label">container_number</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">container_number</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_invoice_ref" model="account.report.expression">
+                        <field name="label">invoice_ref</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">invoice_ref</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_invoice_destination" model="account.report.expression">
+                        <field name="label">invoice_destination</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">invoice_destination</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_invoice_origin" model="account.report.expression">
+                        <field name="label">invoice_origin</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">invoice_origin</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_country_name" model="account.report.expression">
+                        <field name="label">country_name</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">country_name</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_journal_name" model="account.report.expression">
+                        <field name="label">journal_name</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">journal_name</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_exchange_rate" model="account.report.expression">
+                        <field name="label">exchange_rate</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">exchange_rate</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_move_position" model="account.report.expression">
+                        <field name="label">move_position</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">move_position</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_report_date" model="account.report.expression">
+                        <field name="label">report_date</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">report_date</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_account" model="account.report.expression">
+                        <field name="label">account</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">account</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_period0" model="account.report.expression">
+                        <field name="label">period0</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">period0</field>
+                        <field name="auditable" eval="True"/>
+                    </record>
+                    <record id="account_statement_line_period1" model="account.report.expression">
+                        <field name="label">period1</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">period1</field>
+                        <field name="auditable" eval="True"/>
+                    </record>
+                    <record id="account_statement_line_period2" model="account.report.expression">
+                        <field name="label">period2</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">period2</field>
+                        <field name="auditable" eval="True"/>
+                    </record>
+                    <record id="account_statement_line_period3" model="account.report.expression">
+                        <field name="label">period3</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">period3</field>
+                        <field name="auditable" eval="True"/>
+                    </record>
+                    <record id="account_statement_line_period4" model="account.report.expression">
+                        <field name="label">period4</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">period4</field>
+                        <field name="auditable" eval="True"/>
+                    </record>
+                    <record id="account_statement_line_period5" model="account.report.expression">
+                        <field name="label">period5</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">period5</field>
+                        <field name="auditable" eval="True"/>
+                    </record>
+                    <record id="account_statement_line_total" model="account.report.expression">
+                        <field name="label">total</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">total</field>
+                        <field name="auditable" eval="True"/>
+                    </record>
+                    <record id="account_statement_line_amount_invoice" model="account.report.expression">
+                        <field name="label">amount_invoice</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">amount_invoice</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_currency_amount_invoice" model="account.report.expression">
+                        <field name="label">_currency_amount_invoice</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">currency_id</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_amount_residual" model="account.report.expression">
+                        <field name="label">amount_residual</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">amount_residual</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_currency_amount_residual" model="account.report.expression">
+                        <field name="label">_currency_amount_residual</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">currency_id</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                    <record id="account_statement_line_line_count" model="account.report.expression">
+                        <field name="label">line_count</field>
+                        <field name="engine">custom</field>
+                        <field name="formula">_report_custom_engine_account_statement</field>
+                        <field name="subformula">line_count</field>
+                        <field name="auditable" eval="False"/>
+                    </record>
+                </field>
+            </record>
+        </field>
+    </record>
+
+    <record id="action_account_statement_report" model="ir.actions.client">
+        <field name="name">Estados de cuentas</field>
+        <field name="tag">account_report</field>
+        <field name="path">estados-de-cuentas</field>
+        <field name="context" eval="{'report_id': ref('account_reports_statement.account_statement_report')}"/>
+    </record>
+
+    <menuitem id="menu_account_statement_report"
+              name="Estados de cuentas"
+              action="action_account_statement_report"
+              parent="account.account_reports_partners_reports_menu"
+              groups="account.group_account_readonly,account.group_account_basic"
+              sequence="30"/>
+</odoo>

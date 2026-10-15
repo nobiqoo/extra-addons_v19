@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+        
+        <record id="ir_cron_edi_hr_dokumenten_senden" model="ir.cron">
+            <field name="name">Edi Hr: XML Send</field>
+            <field name="model_id" ref="model_edi_hr_document"/>
+            <field name="state">code</field>
+            <field name="code">
+model._an_edi_hr_dokumenten_senden(2)
+            </field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+        </record>
+
+        <record id="ir_cron_edi_hr_dokumenten_status_erhalten" model="ir.cron">
+            <field name="name">Edi Hr: XML Status</field>
+            <field name="model_id" ref="model_edi_hr_document"/>
+            <field name="state">code</field>
+            <field name="code">
+model._edi_hr_dokumenten_status_erhalten(2)
+            </field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+        </record>
+
+    </data>
+</odoo>

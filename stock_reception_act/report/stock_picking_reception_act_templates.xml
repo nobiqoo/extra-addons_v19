@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_reception_act">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="stock_reception_act.report_reception_act_document" t-lang="o._get_report_lang()"/>
+        </t>
+    </template>
+
+    <template id="report_reception_act_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
+                <t t-set="format_number" t-value="lambda x: int(x) if x == int(x) else x"/>
+                <style>
+                    .o_reception_act table {
+                        width: 100%;
+                    }
+                    .o_reception_act td, .o_reception_act th {
+                        padding: 2px 5px;
+                        font-size: 11px;
+                    }
+                    .o_reception_act .o_ra_header_table td {
+                        border: 1px solid #dee2e6;
+                    }
+                    .o_reception_act .o_ra_label {
+                        background-color: #f4f4f4;
+                        font-weight: bold;
+                        white-space: nowrap;
+                    }
+                    .o_reception_act .o_ra_detail_table th {
+                        background-color: #f4f4f4;
+                        border: 1px solid #dee2e6;
+                        text-align: center;
+                    }
+                    .o_reception_act .o_ra_detail_table td {
+                        border: 1px solid #dee2e6;
+                        vertical-align: top;
+                    }
+                    .o_reception_act .o_ra_observations {
+                        min-height: 60px;
+                        border: 1px solid #dee2e6;
+                        padding: 5px;
+                    }
+                    .o_reception_act .o_ra_signature_slot {
+                        height: 40px;
+                        position: relative;
+                    }
+                    .o_reception_act .o_ra_signature_line {
+                        border-top: 1px solid #000;
+                        padding-top: 2px;
+                        text-align: center;
+                    }
+                </style>
+                <div class="page o_reception_act">
+                    <div class="row mb-2">
+                        <div class="col-8">
+                            <h3>
+                                <span t-out="o._get_reception_act_title()">ACTA DE RECEPCIÓN</span>
+                                <span t-field="o.name">WH/IN/0001</span>
+                            </h3>
+                        </div>
+                        <div class="col-4 text-end">
+                            <span t-if="o.company_id.reception_act_code" t-field="o.company_id.reception_act_code"/>
+                            <span t-if="o.company_id.reception_act_version"> · V. <span t-field="o.company_id.reception_act_version"/></span>
+                            <br t-if="o.company_id.reception_act_code or o.company_id.reception_act_version"/>
+                            <span t-if="o.company_id.reception_act_date" t-field="o.company_id.reception_act_date"/>
+                        </div>
+                    </div>
+
+                    <table class="o_ra_header_table mb16">
+                        <tr>
+                            <td class="o_ra_label" width="15%">Fecha</td>
+                            <td width="35%">
+                                <span t-if="o.state == 'done'" t-field="o.date_done"/>
+                                <span t-else="" t-field="o.scheduled_date"/>
+                            </td>
+                            <td class="o_ra_label" width="15%">Consecutivo</td>
+                            <td width="35%"><span t-field="o.name"/></td>
+                        </tr>
+                        <tr>
+                            <td class="o_ra_label">Área</td>
+                            <td><span t-field="o.reception_area"/></td>
+                            <td class="o_ra_label">Sede</td>
+                            <td><span t-field="o.reception_site"/></td>
+                        </tr>
+                        <tr>
+                            <td class="o_ra_label">Tipo de Producto</td>
+                            <td>
+                                <span t-if="o.reception_product_type == 'medical_device'">Dispositivos Médicos</span>
+                                <span t-elif="o.reception_product_type == 'supply'">Insumos</span>
+                            </td>
+                            <td class="o_ra_label">Tipo de Operación</td>
+                            <td><span t-field="o.picking_type_id.name"/></td>
+                        </tr>
+                        <tr>
+                            <td class="o_ra_label">Proveedor / Contacto</td>
+                            <td><span t-field="o.partner_id.name"/></td>
+                            <td class="o_ra_label">Documento Origen</td>
+                            <td><span t-field="o.origin"/></td>
+                        </tr>
+                        <tr>
+                            <td class="o_ra_label">Ubicación Destino</td>
+                            <td><span t-field="o.location_dest_id.display_name"/></td>
+                            <td class="o_ra_label">Responsable</td>
+                            <td><span t-field="o.reception_responsible_id.name"/></td>
+                        </tr>
+                    </table>
+
+                    <table class="o_ra_detail_table mb16">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Ref.</th>
+                                <th>Producto</th>
+                                <th>Marca</th>
+                                <th>Presentación Comercial</th>
+                                <th>Registro Sanitario</th>
+                                <th>Lote / Serie</th>
+                                <th>Fecha de Vencimiento</th>
+                                <th>Vida Útil</th>
+                                <th>Clase de Riesgo</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="lines" t-value="o.move_ids.filtered(lambda m: m.product_uom_qty or m.quantity)"/>
+                            <t t-set="item" t-value="0"/>
+                            <tr t-foreach="lines" t-as="move">
+                                <t t-set="item" t-value="item + 1"/>
+                                <t t-set="lot_lines" t-value="move.move_line_ids.filtered(lambda l: l.lot_id or l.lot_name)"/>
+                                <td class="text-center"><span t-out="item"/></td>
+                                <td><span t-field="move.product_id.default_code"/></td>
+                                <td>
+                                    <span t-field="move.product_id.name"/>
+                                    <p t-if="move.description_picking and move.description_picking != move.product_id.name and move._get_report_description_picking()">
+                                        <span t-out="move._get_report_description_picking()" t-options="{'widget': 'text'}"/>
+                                    </p>
+                                </td>
+                                <td><span t-field="move.brand_id.name"/></td>
+                                <td><span t-field="move.commercial_presentation"/></td>
+                                <td><span t-field="move.sanitary_registration"/></td>
+                                <td>
+                                    <div t-foreach="lot_lines" t-as="ml">
+                                        <span t-out="ml.lot_id.name or ml.lot_name"/>
+                                        <span class="text-muted" t-if="len(lot_lines) &gt; 1"> (<t t-out="format_number(ml.quantity)"/>)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div t-foreach="lot_lines" t-as="ml">
+                                        <span t-if="ml.expiration_date" t-field="ml.expiration_date" t-options="{'widget': 'date'}"/>
+                                    </div>
+                                </td>
+                                <td><span t-field="move.shelf_life"/></td>
+                                <td>
+                                    <span t-if="move.risk_class == 'i'">Clase I</span>
+                                    <span t-elif="move.risk_class == 'iia'">Clase IIa</span>
+                                    <span t-elif="move.risk_class == 'iib'">Clase IIb</span>
+                                    <span t-elif="move.risk_class == 'iii'">Clase III</span>
+                                </td>
+                                <td class="text-end text-nowrap">
+                                    <span t-out="format_number(move.quantity if o.state == 'done' else move.product_uom_qty)"/>
+                                    <span t-field="move.product_uom" groups="uom.group_uom"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="mb16">
+                        <strong>Observaciones:</strong>
+                        <div class="o_ra_observations" t-field="o.note"/>
+                    </div>
+
+                    <div class="row" style="margin-top: 54px;">
+                        <div class="col-6">
+                            <div class="o_ra_signature_slot"></div>
+                            <div class="o_ra_signature_line">
+                                <span t-field="o.reception_responsible_id.name"/>
+                                <br/>
+                                <span class="text-muted">Nombre del Responsable</span>
+                            </div>
+                        </div>
+                        <div class="col-6 text-center">
+                            <div class="o_ra_signature_slot">
+                                <img t-if="o.signature" t-att-src="image_data_uri(o.signature)"
+                                     style="position: absolute; bottom: 2px; left: 0; right: 0; margin: 0 auto;
+                                            max-height: 3cm; max-width: 6cm;"/>
+                            </div>
+                            <div class="o_ra_signature_line">Firma del Responsable</div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Puntos 10-11 (OBS REU TELAS): el ticket de diseño muestra de qué
+         cotización y persiana del portal proviene. -->
+    <record id="helpdesk_ticket_view_form_safra" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.safra.quote</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="safra_quote_id" invisible="not safra_quote_id" readonly="1"/>
+                <field name="safra_quote_line_id" invisible="not safra_quote_line_id" readonly="1"/>
+                <!-- Fase 5.3: redimensión y aprobación del diseño -->
+                <field name="safra_design_m2" invisible="not safra_quote_line_id"/>
+                <field name="safra_design_approved" invisible="not safra_quote_line_id"/>
+            </xpath>
+            <xpath expr="//form/header" position="inside">
+                <button name="action_safra_approve_design" type="object"
+                        string="Aprobar diseño" class="btn-primary"
+                        invisible="not safra_quote_line_id or safra_design_approved"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

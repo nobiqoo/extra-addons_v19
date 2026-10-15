@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Opciones iniciales de U_GrupoProd (tipos de artículo del maestro,
+         según U_GrupoProd de SAP y las hojas 3/4 del Excel). El cliente
+         agrega o edita las suyas en Configuración > Opciones de Producto. -->
+    <data noupdate="1">
+        <record id="popt_gp_tela" model="safra.product.option"><field name="type">grupo_prod</field><field name="name">Tela</field><field name="sequence">10</field></record>
+        <record id="popt_gp_perfileria" model="safra.product.option"><field name="type">grupo_prod</field><field name="name">Perfileria</field><field name="sequence">20</field></record>
+        <record id="popt_gp_tubo" model="safra.product.option"><field name="type">grupo_prod</field><field name="name">Tubos</field><field name="sequence">30</field></record>
+        <record id="popt_gp_mecanismo" model="safra.product.option"><field name="type">grupo_prod</field><field name="name">Mecanismos</field><field name="sequence">40</field></record>
+        <record id="popt_gp_soporte" model="safra.product.option"><field name="type">grupo_prod</field><field name="name">Soportes</field><field name="sequence">50</field></record>
+        <record id="popt_gp_terminal" model="safra.product.option"><field name="type">grupo_prod</field><field name="name">Terminales</field><field name="sequence">60</field></record>
+        <record id="popt_gp_cabezal" model="safra.product.option"><field name="type">grupo_prod</field><field name="name">Cabezal</field><field name="sequence">70</field></record>
+        <record id="popt_gp_motor" model="safra.product.option"><field name="type">grupo_prod</field><field name="name">Motores</field><field name="sequence">80</field></record>
+        <record id="popt_gp_control" model="safra.product.option"><field name="type">grupo_prod</field><field name="name">Controles</field><field name="sequence">90</field></record>
+        <record id="popt_gp_accesorio" model="safra.product.option"><field name="type">grupo_prod</field><field name="name">Accesorios</field><field name="sequence">100</field></record>
+    </data>
+</odoo>

@@ -1,0 +1,52 @@
+<odoo>
+
+	<record id="certificate_period_form" model="ir.ui.view">
+		<field name="name">certificate.period.view.form</field>
+		<field name="model">certificate.period</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name="name" />
+							<field name="date_from" />
+							<field name="date_to" />
+						</group>
+						<group>
+							<field name="company_id" required="1" />
+							<field name="periodicity" />
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="certificate_period_view_tree" model="ir.ui.view">
+		<field name="name">certificate.period.view.tree</field>
+		<field name="model">certificate.period</field>
+		<field name="arch" type="xml">
+			<list>
+				<field name="name" />
+				<field name="company_id" />
+				<field name="date_from" />
+				<field name="date_to" />
+				<field name="periodicity" />
+			</list>
+		</field>
+	</record>
+
+	<record id="certificate_period_action" model="ir.actions.act_window">
+		<field name="type">ir.actions.act_window</field>
+		<field name="name">Certificate period</field>
+		<field name="res_model">certificate.period</field>
+		<field name="view_mode">list,form</field>
+		<field name="context">{}</field>
+	</record>
+
+	<menuitem id="certificate_period_action_menu"
+		action="certificate_period_action"
+		parent="tax_certificate_management.tax_certificate_management_principal_menu"
+		sequence="2" />
+
+</odoo>

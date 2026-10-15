@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="action_project_requirements" model="ir.actions.act_window">
+      <field name="name">Requisiciones</field>
+      <field name="res_model">approval.request</field>
+      <field name="view_mode">list,form</field>
+      <field name="domain">[('project_id', '=', active_id)]</field>
+      <field name="context">
+        {'search_default_project_id': active_id, 'default_project_id': active_id}
+      </field>
+      <field name="views" eval="[
+        (ref('project_approvals_integration.approval_request_list_for_task'), 'list'),
+        (ref('approvals.approval_request_view_form'), 'form')
+      ]"/>
+    </record>
+
+    <record id="project_embedded_action_requirements" model="ir.embedded.actions">
+      <field name="parent_res_model">project.project</field>
+      <field name="sequence">40</field>
+      <field name="parent_action_id" ref="project.act_project_project_2_project_task_all"/>
+      <field name="action_id" ref="project_approvals_integration.action_project_requirements"/>
+    </record>
+
+    <record id="project_embedded_action_requirements_dashboard" model="ir.embedded.actions">
+      <field name="parent_res_model">project.project</field>
+      <field name="sequence">41</field>
+      <field name="parent_action_id" ref="project.project_update_all_action"/>
+      <field name="action_id" ref="project_approvals_integration.action_project_requirements"/>
+    </record>
+
+    <record id="act_project_requirements_view_list" model="ir.actions.act_window.view">
+      <field name="act_window_id" ref="project_approvals_integration.action_project_requirements"/>
+      <field name="view_mode">list</field>
+      <field name="view_id" ref="project_approvals_integration.approval_request_list_for_task"/>
+      <field name="sequence">1</field>
+    </record>
+
+  </data>
+</odoo>

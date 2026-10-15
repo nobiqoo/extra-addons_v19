@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_country_state_form_inherit_dian" model="ir.ui.view">
+            <field name="name">res.country.state.form.inherit.dian</field>
+            <field name="model">res.country.state</field>
+            <field name="inherit_id" ref="base.view_country_state_form"/>
+            <field name="arch" type="xml">
+                <field name="country_id" position="after">
+                    <field name="dian_code"/>
+                </field>
+                <xpath expr="//form" position="inside">
+                    <chatter/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_country_state_tree_inherit_dian" model="ir.ui.view">
+            <field name="name">res.country.state.inherit.view.tree.dian</field>
+            <field name="model">res.country.state</field>
+            <field name="inherit_id" ref="base.view_country_state_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="dian_code"/>
+                </xpath>
+                <xpath expr="//list" position="attributes">
+                    <attribute name="editable" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_biometric_device_details,access.biometric.device.details,model_biometric_device_details,base.group_user,1,1,1,1
+access_daily_attendance,access.daily.attendance,model_daily_attendance,base.group_user,1,0,0,0
+access_zk_machine_attendance,access.zk.machine.attendance,model_zk_machine_attendance,base.group_user,1,0,0,0
+access_biometric_user_mapping,Biometric User Mapping Access,model_biometric_user_mapping,base.group_user,1,1,1,1
+access_biometric_odoo_to_biometric_wizard,access.biometric.odoo.to.biometric.wizard,model_biometric_odoo_to_biometric_wizard,base.group_user,1,1,1,1
+access_biometric_raw_punch_user,access.biometric.raw.punch.user,model_biometric_raw_punch,base.group_user,1,0,0,0
+access_biometric_raw_punch_importer,access.biometric.raw.punch.importer,model_biometric_raw_punch,hr_zk_attendance.group_biometric_raw_punch_importer,1,0,1,1
+access_biometric_raw_punch_editor,access.biometric.raw.punch.editor,model_biometric_raw_punch,hr_zk_attendance.group_biometric_raw_punch_editor,1,1,0,0
+access_biometric_edit_users_menu_wizard,access.biometric.edit.users.menu.wizard,model_biometric_edit_users_menu_wizard,base.group_user,1,1,1,1

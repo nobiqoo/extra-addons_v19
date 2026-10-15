@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_account_extended_form" model="ir.ui.view">
+            <field name="name">view_account_move_tree</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='group_id']" position="after">
+                    <field name="balance_of_the_day" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_account_extended_list" model="ir.ui.view">
+            <field name="name">view_account_move_tree</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_list" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='active']" position="after">
+                    <field name="balance_of_the_day" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

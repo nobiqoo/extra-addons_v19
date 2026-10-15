@@ -1,0 +1,988 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_log_einvoicing_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="o" t-value="doc" />
+
+                <div class="header">
+                    <style>
+                        span, b, p {
+                        font-size:12px;
+                        }
+                        .logo-empresa {
+                        width:85%;
+                        }
+
+                        .logo-empresa img {
+                        width:85%;
+                        }
+                        .texto-resolucion {
+                        text-align: justify;
+                        }
+                        .texto-resolucion p {
+                        font-size: 11px !important;
+                        }
+                        .logo-grid {
+                        display: flex;
+                        justify-content: center;
+                        gap: 100px; /* Increased gap for better spacing */
+                        flex-wrap: wrap;
+                        }
+                        .logo-grid span img {
+                        max-width: 150px;
+                        max-height: 60px;
+                        }
+                    </style>
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <span class="logo-empresa" t-field="doc.company_id.logo"
+                                t-options-widget="&quot;image&quot;" t-options-qweb_img_raw_data="1" />
+                        </div>
+                        <div class="col-4">
+                            <span class="oe_inline">NIT: </span>
+                            <span class="oe_inline" t-field="doc.company_id.vat" />
+                            <div class="texto-resolucion"
+                                t-raw="o._get_html_field_sz(o.journal_id.resolution_text)" />
+                        </div>
+                        <div class="col-1" />
+                        <div class="col-4">
+                            <strong>
+                                <span t-field="doc.company_id.name" />
+                            </strong>
+                            <br />
+                            <strong>
+                                <span t-field="doc.company_id.street" />
+                            </strong>
+                            <br />
+                            <strong>
+                                <span t-field="doc.company_id.phone" />
+                            </strong>
+                            <br />
+                            <strong><span class="oe_inline" t-field="doc.company_id.city" />, <span
+                                    class="oe_inline" t-field="doc.company_id.country_id" /></strong>
+                            <br />
+                            <strong>
+                                <span t-field="doc.company_id.website" style="color: blue;" />
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <div class="logo-grid">
+                                <t t-if="o.company_id.logo_1">
+                                    <span t-field="o.company_id.logo_1" t-options-widget="'image'" />
+                                </t>
+                                <t t-if="o.company_id.logo_2">
+                                    <span t-field="o.company_id.logo_2" t-options-widget="'image'" />
+                                </t>
+                                <t t-if="o.company_id.logo_3">
+                                    <span t-field="o.company_id.logo_3" t-options-widget="'image'" />
+                                </t>
+                                <t t-if="o.company_id.logo_4">
+                                    <span t-field="o.company_id.logo_4" t-options-widget="'image'" />
+                                </t>
+                                <t t-if="o.company_id.logo_5">
+                                    <span t-field="o.company_id.logo_5" t-options-widget="'image'" />
+                                </t>
+                                <t t-if="o.company_id.logo_6">
+                                    <span t-field="o.company_id.logo_6" t-options-widget="'image'" />
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="article" t-att-data-oe-model="o and o._name"
+                    t-att-data-oe-id="o and o.id"
+                    t-att-data-oe-lang="o and o.env.context.get('lang')">
+                    <div class="page">
+                        <style>
+                            .row {
+                            margin-top:10px;
+                            }
+                            p {
+                            font-size:10px;
+                            margin:0px;
+                            line-height:14px;
+                            }
+                            br {
+                            height:2px;
+                            }
+                            strong {
+                            font-weight: 900;
+                            }
+                            .dato-factura-titulo-documento {
+                            color: #110979;
+                            text-align: center;
+                            }
+                            .dato-factura-titulo {
+                            color: #110979;
+                            text-align: justify;
+                            }
+                            .titulo-lineas {
+                            text-align: center;
+                            }
+                            .imagen-calidad {
+                            width:120px;
+                            }
+                            .tabla {
+                            width:100%;
+                            border: none !important;
+                            border-collapse: separate;
+                            }
+                            .tabla-datos-cliente th{
+                            text-align: left;
+                            }
+                            .tabla-datos-cliente td {
+                            text-align: left;
+                            }
+                            .titulo-seccion {
+                            text-align: center;
+                            }
+                            .tabla-lineas .codigo {
+                            text-align: center;
+                            width: 10%;
+                            }
+                            .tabla-lineas .cantidad {
+                            text-align: center;
+                            width: 10%;
+                            }
+                            .tabla-lineas .producto {
+                            text-align: left;
+                            width: 30%;
+                            }
+                            .tabla-lineas .impuestos {
+                            text-align: center;
+                            width: 5%;
+                            }
+                            .tabla-lineas .moneda {
+                            text-align: center;
+                            width: 5%;
+                            }
+                            .tabla-lineas .p_unit, .p_total {
+                            text-align: right;
+                            width: 15%;
+                            }
+                            .cufe {
+                            font-size:11px !important;
+                            }
+                            .favor-liquidar {
+                            font-size:14px !important;
+                            }
+                            table.factura-totales {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 15px;
+                            }
+                            table.factura-totales th, table.factura-totales td {
+                            padding: 8px;
+                            text-align: right;
+                            font-size: 12px;
+                            border: 1px solid #ddd;
+                            }
+                            table.factura-totales th {
+                            background-color: #f4f4f4;
+                            text-transform: uppercase;
+                            font-weight: bold;
+                            }
+                            .subtotal-title {
+                            text-align: left;
+                            font-weight: bold;
+                            color: #333;
+                            }
+                            .tax-group-name {
+                            text-align: left;
+                            font-style: italic;
+                            color: #555;
+                            }
+                            .total-row {
+                            background-color: #e9f5ff;
+                            font-weight: bold;
+                            }
+                            .pse-btn {
+                            display: inline-block;
+                            }
+
+                            .pse-btn img {
+                            width: 100px;
+                            }
+                        </style>
+                        <!-- datos cliente -->
+                        <div class="row">
+                            <div class="col-12">
+                                <hr style="linea-separador" />
+                            </div>
+                        </div>
+                        <separator />
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <b class="dato-factura-titulo-documento">
+                                    <t t-if="o.move_type == 'out_invoice' and not o.type_note">FACTURA
+                                        ELECTRÓNICA DE VENTA N°.</t>
+                                    <t
+                                        t-elif="o.move_type == 'out_refund' and o.type_note=='credit'">NOTA
+                                        CRÉDITO ELECTRÓNICA N°.</t>
+                                    <t
+                                        t-elif="o.move_type == 'out_invoice' and o.type_note=='debit'">NOTA
+                                        DÉBITO ELECTRÓMICA N°.</t>
+                                    <t t-elif="o.move_type == 'in_invoice'">DOCUMENTO SOPORTE N°.</t>
+                                    <t t-elif="o.move_type == 'in_refund'">NOTA DE AJUSTE DE
+                                        DOCUMENTO SOPORTE N°.</t>
+                                </b>
+                                <b class="numero-factura" t-field="o.name" />
+                            </div>
+                        </div>
+                        <separator />
+                        <br />
+                        <div class="row">
+                            <div class="col-1" />
+                            <div class="col-4" style="border: 0px solid red">
+                                <table class="tabla tabla-datos-cliente">
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <b>CLIENTE:</b>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.partner_id" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <b>NUM. DE IDENTIFICACIÓN:</b>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span
+                                                    t-field="o.partner_id.l10n_latam_identification_type_id.name"> </span>
+                                                <span t-field="o.partner_id.vat" />
+                                                <span
+                                                    t-if="o.partner_id.l10n_latam_identification_type_id.dian_code == '31'"
+                                                    t-esc="'-%s' % o.partner_id.l10n_co_verification_code" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>TELÉFONO:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.partner_id.phone" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>DIRECCIÓN:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.partner_id.street" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>CIUDAD:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span
+                                                    t-esc="o.partner_id.city_id and o.partner_id.city_id.name or o.partner_id.city" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>EMAIL:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-esc="o.partner_id.email" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>FECHA FACTURA:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.fe_datetime_invoice"
+                                                    t-options="{'widget': 'date', 'format': 'dd'}" />
+                                                de <span
+                                                    t-field="o.fe_datetime_invoice"
+                                                    t-options="{'widget': 'date', 'format': 'MMMM'}" />
+                                                de <span t-field="o.fe_datetime_invoice"
+                                                    t-options="{'widget': 'date', 'format': 'YYYY'}" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>FECHA DE VENCIMIENTO:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.invoice_date_due"
+                                                    t-options="{'widget': 'date', 'format': 'dd'}" />
+                                                de <span
+                                                    t-field="o.invoice_date_due"
+                                                    t-options="{'widget': 'date', 'format': 'MMMM'}" />
+                                                de <span t-field="o.invoice_date_due"
+                                                    t-options="{'widget': 'date', 'format': 'YYYY'}" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>MEDIO DE PAGO:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.fe_payment_option_id" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>MÉTODO DE PAGO:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.way_to_pay" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-2" />
+                            <div class="col-4" style="border: 0px solid green">
+                                <table class="tabla tabla-datos-cliente">
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>TRM:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.company_currency_id.symbol" />
+                                                <span t-esc="round(o.current_exchange_rate,2)" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>ORDEN DEL CLIENTE:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.customer_order" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>BL:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.hbl" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>NO EMBARQUE</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.shipmentid" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>MN:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.motor_ship" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>POSICIÓN:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.position" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>TRAYECTO:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p><span t-field="o.origin" /> - <span
+                                                    t-field="o.destination" /></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>PESO:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.text_weight" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p>
+                                                <strong>VOLUMEN:</strong>
+                                            </p>
+                                        </th>
+                                        <td>
+                                            <p>
+                                                <span t-field="o.volume" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-3" />
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <hr style="linea-separador" />
+                            </div>
+                        </div>
+                        <!-- líneas de producto ingresos propios-->
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="titulo-seccion propios-line">
+                                    <strong>INGRESOS PROPIOS</strong>
+                                </p>
+                                <t t-set="propios_lines"
+                                    t-value="o.invoice_line_ids.filtered(lambda x: not x.account_id.tercero)" />
+                                <t t-if="not propios_lines">
+                                    <style>
+                                        .propios-line {
+                                        display: none;
+                                        }
+                                        .propios-line td {
+                                        display: none;
+                                        }
+                                    </style>
+                                </t>
+                                <table class="tabla tabla-lineas propios-line">
+                                    <tr>
+                                        <td class="dato-factura-titulo titulo-lineas">
+                                            <p>
+                                                <strong>CÓDIGO</strong>
+                                            </p>
+                                        </td>
+                                        <td class="dato-factura-titulo titulo-lineas">
+                                            <p>
+                                                <strong>CANTIDAD</strong>
+                                            </p>
+                                        </td>
+                                        <td class="dato-factura-titulo titulo-lineas">
+                                            <p>
+                                                <strong>DESCRIPCIÖN</strong>
+                                            </p>
+                                        </td>
+                                        <td class="dato-factura-titulo titulo-lineas">
+                                            <p>
+                                                <strong>IVA</strong>
+                                            </p>
+                                        </td>
+                                        <t t-if="o.currency_id.name != 'COP'">
+                                            <td class="dato-factura-titulo titulo-lineas"
+                                                style="text-align: right;">
+                                                <p>
+                                                    <strong>VALOR UNITARIO USD</strong>
+                                                </p>
+                                            </td>
+                                        </t>
+                                        <td class="dato-factura-titulo titulo-lineas"
+                                            style="text-align: right;">
+                                            <p>
+                                                <strong>VALOR UNITARIO COP</strong>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <t
+                                        t-foreach="o.invoice_line_ids.filtered(lambda x: not x.account_id.tercero)"
+                                        t-as="l">
+                                        <tr>
+                                            <td class="codigo">
+                                                <p>
+                                                    <span t-field="l.product_id.default_code" />
+                                                </p>
+                                            </td>
+                                            <td class="cantidad">
+                                                <p>
+                                                    <span t-esc="round(l.quantity,0)" />
+                                                </p>
+                                            </td>
+                                            <td class="producto">
+                                                <p>
+                                                    <span t-esc="(l.name.split('] ', 1)[1] if l.name and l.name.startswith('[') and '] ' in l.name else l.name)" />
+                                                </p>
+                                            </td>
+                                            <td class="impuestos">
+                                                <p>
+                                                    <t
+                                                        t-foreach="l.tax_ids.filtered(lambda x: x.dian_tax_type_id.dian_code == '01')"
+                                                        t-as="taxes">
+                                                        <span t-esc="taxes.amount" />
+                                                        <br />
+                                                    </t>
+                                                </p>
+                                            </td>
+                                            <t t-if="o.currency_id.name != 'COP'">
+                                                <td class="p_unit">
+                                                    <p>
+                                                        <span t-field="o.currency_id.symbol" />
+                                                        <span t-field="l.price_unit" />
+                                                    </p>
+                                                </td>
+                                            </t>
+                                            <td class="p_unit">
+                                                <p>
+                                                    <span t-field="o.currency_id.symbol" />
+                                                    <span
+                                                        t-esc="'{:,.2f}'.format( (l.price_subtotal if o.currency_id.name == 'COP' else l.price_subtotal * round(o.current_exchange_rate,2)) ).replace(',', '#').replace('.', ',').replace('#', '.')" />
+
+
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- líneas de producto ingresos a terceros-->
+                        <div class="row">
+                            <div class="col-12">
+                                <br />
+                                <br />
+                                <p class="titulo-seccion tercero-line">
+                                    <strong>INGRESOS A TERCEROS</strong>
+                                </p>
+                                <t t-set="tercero_lines"
+                                    t-value="o.invoice_line_ids.filtered(lambda x: x.account_id.tercero)" />
+                                <t t-if="not tercero_lines">
+                                    <style>
+                                        .tercero-line {
+                                        display: none;
+                                        }
+                                        .tercero-line td {
+                                        display: none;
+                                        }
+                                    </style>
+                                </t>
+
+                                <table class="tabla tabla-lineas tercero-line">
+                                    <tr>
+                                        <td class="dato-factura-titulo titulo-lineas">
+                                            <p>
+                                                <strong>CÓDIGO</strong>
+                                            </p>
+                                        </td>
+                                        <td class="dato-factura-titulo titulo-lineas">
+                                            <p>
+                                                <strong>CANTIDAD</strong>
+                                            </p>
+                                        </td>
+                                        <td class="dato-factura-titulo titulo-lineas">
+                                            <p>
+                                                <strong>DESCRIPCIÓN</strong>
+                                            </p>
+                                        </td>
+                                        <td class="dato-factura-titulo titulo-lineas">
+                                            <p>
+                                                <strong>IVA</strong>
+                                            </p>
+                                        </td>
+                                        <t t-if="o.currency_id.name != 'COP'">
+                                            <td class="dato-factura-titulo titulo-lineas"
+                                                style="text-align: right;">
+                                                <p>
+                                                    <strong>VALOR UNITARIO USD </strong>
+                                                </p>
+                                            </td>
+                                        </t>
+                                        <td class="dato-factura-titulo titulo-lineas"
+                                            style="text-align: right;">
+                                            <p>
+                                                <strong>VALOR UNITARIO COP</strong>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <t
+                                        t-foreach="o.invoice_line_ids.filtered(lambda x: x.account_id.tercero)"
+                                        t-as="l">
+                                        <tr>
+                                            <td class="codigo">
+                                                <p>
+                                                    <span t-field="l.product_id.default_code" />
+                                                </p>
+                                            </td>
+                                            <td class="cantidad">
+                                                <p>
+                                                    <span t-esc="round(l.quantity,0)" />
+                                                </p>
+                                            </td>
+                                            <td class="producto">
+                                                <p>
+                                                    <span t-esc="(l.name.split('] ', 1)[1] if l.name and l.name.startswith('[') and '] ' in l.name else l.name)" />
+                                                </p>
+                                            </td>
+                                            <td class="impuestos">
+                                                <p>
+                                                    <t
+                                                        t-foreach="l.tax_ids.filtered(lambda x: x.dian_tax_type_id.dian_code == '01')"
+                                                        t-as="taxes">
+                                                        <span t-esc="taxes.amount" />
+                                                        <br />
+                                                    </t>
+                                                </p>
+                                            </td>
+                                            <t t-if="o.currency_id.name != 'COP'">
+                                                <td class="p_unit">
+                                                    <p>
+                                                        <span t-field="o.currency_id.symbol" />
+                                                        <span t-field="l.price_unit" />
+                                                    </p>
+                                                </td>
+                                            </t>
+                                            <td class="p_unit">
+                                                <p>
+                                                    <span t-field="o.currency_id.symbol" />
+                                                    <span
+                                                        t-esc="'{:,.2f}'.format( (l.price_subtotal if o.currency_id.name == 'COP' else l.price_subtotal * round(o.current_exchange_rate,2)) ).replace(',', '#').replace('.', ',').replace('#', '.')" />
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- información de pago y totales -->
+                        <div class="row">
+                            <div class="col-12">
+                                <hr style="linea-separador" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-7">
+                                <p>
+                                    <strong class="dato-factura-titulo">Información de Pago:</strong>
+                                </p>
+                                <p class="text-justify"> Pague sus facturas en línea a través de
+                                    PSE: <a
+                                        class="pse-btn"
+                                        t-att-href="'https://www.ankerlogistica.com/credibanco/'">
+                                        <img
+                                            src="https://www.ankerlogistica.com/wp-content/uploads/2020/12/PSE-si_Mesa-de-trabajo-1.png"
+                                            alt="Logo PSE" />
+                                    </a>
+                                <br />
+                                <p>
+                                        <strong class="dato-factura-titulo">CUENTAS:</strong>
+                                    </p>
+                                <p>
+                                        <strong>BANCOLOMBIA NO:</strong>
+                                        <strong>58953864419</strong>
+                                    </p>
+                                <p>
+                                        <strong>BANCO DE BOGOTÁ NO:</strong>
+                                        <strong>081533580</strong>
+                                    </p>
+                                <p>
+                                        <strong>HELM BANK NO:</strong>
+                                        <strong>807365978</strong>
+                                    </p>
+                                <br />
+                                    <!-- <span t-esc="o.company_id.conditions_payment"/> -->
+                                    <!-- <span t-esc="o.company_id.conditions_payment_foreign"/> -->
+                                    <br />
+                                    <strong
+                                        class="dato-factura-titulo">TOTAL EN LETRAS: </strong> <span
+                                        t-if="o.currency_id"
+                                        t-esc="o.currency_id.amount_to_text(o.amount_total).upper()" />
+                                </p>
+                                <br />
+                                <p>
+                                    <strong class="dato-factura-titulo">OBSERVACIONES:</strong>
+                                    <span t-esc="o.observaciones_1" />
+                                </p>
+                                <br />
+                            </div>
+                            <div class="col-1" />
+                            <div class="col-4">
+                                <t t-set="total_c" t-value="0" />
+                                <t t-set="tax_totals" t-value="o.tax_totals or {}" />
+                                <table class="factura-totales">
+                                    <thead>
+                                        <tr>
+                                            <th />
+                                            <t t-if="o.currency_id.name != 'COP'">
+                                                <th class="dato-factura-titulo titulo-lineas"
+                                                    style="width: 50%; text-align: right;">
+                                                    <p>
+                                                        <strong>VALOR EN USD</strong>
+                                                    </p>
+                                                </th>
+                                            </t>
+                                            <th class="dato-factura-titulo titulo-lineas"
+                                                style="width: 50%; text-align: right;">
+                                                <p>
+                                                    <strong>VALOR EN COP</strong>
+                                                </p>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="tax_totals.get('subtotals', [])"
+                                            t-as="subtotal">
+                                            <tr>
+                                                <td class="subtotal-title"
+                                                    t-esc="str(subtotal['name']).upper()" />
+                                                <td t-if="o.currency_id.name != 'COP'"
+                                                    t-esc="'{:,.2f}'.format(float(subtotal['base_amount_currency'])).replace(',', '#').replace('.', ',').replace('#', '.')" />
+                                                <td
+                                                    t-esc="'{:,.2f}'.format(float(subtotal['base_amount_currency']) if o.currency_id.name == 'COP' else float(subtotal['base_amount_currency']*round(o.current_exchange_rate,2))).replace(',', '#').replace('.', ',').replace('#', '.')" />
+                                            </tr>
+                                            <!-- Iterar sobre los grupos de impuestos -->
+                                            <t
+                                                t-foreach="subtotal.get('tax_groups', [])"
+                                                t-as="group">
+                                                <tr>
+                                                    <td class="tax-group-name"
+                                                        t-esc="str(group['group_name']).upper()" />
+                                                    <td t-if="o.currency_id.name != 'COP'"
+                                                        t-esc="'{:,.2f}'.format(float(group['tax_amount_currency'])).replace(',', '#').replace('.', ',').replace('#', '.')" />
+                                                    <td
+                                                        t-esc="'{:,.2f}'.format(float(group['tax_amount_currency']) if o.currency_id.name == 'COP' else float(group['tax_amount_currency'] * round(o.current_exchange_rate,2))).replace(',', '#').replace('.', ',').replace('#', '.')" />
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <tr class="border-black o_total">
+                                            <td>
+                                                <p>
+                                                    <strong class="dato-factura-titulo">TOTAL</strong>
+                                                </p>
+                                            </td>
+                                            <t t-if="o.currency_id.name != 'COP'">
+                                                <td class="p_unit" style="text-align: right;">
+                                                    <p>
+                                                        <span t-field="o.currency_id.symbol" />
+                                                        <span t-esc="round(o.amount_total,2)" />
+                                                    </p>
+                                                </td>
+                                            </t>
+                                            <td class="p_unit" style="text-align: right;">
+                                                <p>
+                                                    <span t-field="o.currency_id.symbol" />
+                                                    <span
+                                                        t-esc="'{:,.2f}'.format( (o.amount_total if o.currency_id.name == 'COP' else o.amount_total * round(o.current_exchange_rate,2)) ).replace(',', '#').replace('.', ',').replace('#', '.')" />
+                                                </p>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <p class="favor-liquidar">
+                                    <b>Para realizar pago liquidar con la trm
+                                        oficial del día de pago más el 1.6% si el resultado de la
+                                        trm es
+                                        menor a la registrada en la factura, por favo pagar con la
+                                        trm
+                                        que aparece en la factura.</b>
+                                    <!--<span
+                                    t-esc="o.journal_id.conditions_payment"/>-->
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <hr style="linea-separador" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <p style="text-align: justify;">
+                                    Favor efectuar la cancelación de esta factura en efectivo o
+                                    cheque
+                                    de gerencia, en caso contrario la liberación en puerto se
+                                    realizará hasta tanto el cheque haga canje correspondiente.
+                                    PRACTICAR RETENCIÓN EN LA FUENTE UNICAMENTE POR
+                                    INGRESOS PROPIOS. Esta factura tiene todos los efectos legales
+                                    de
+                                    acuerdo con la ley 1231 de 2008 y al código de
+                                    comercio. No reclamándose contra el contenido de la factura
+                                    dentro
+                                    de los tres días siguientes a la entrega de ella, se
+                                    entenderá irrevocablemente aceptada. Si no es cancelada a su
+                                    vencimiento se causarán intereses de mora liquidadas al
+                                    máximo permitido por ley, sin perjuicio de la acción legal.
+                                    Autorizo
+                                    a la entidad ANKER LOGISTICA Y CARGA S.A.S. o a
+                                    quien represente sus derechos u ostente en el futuro la calidad
+                                    de
+                                    acreedor a repotar, procesar, solicitar y divulgar a la
+                                    central de información Financiera CIFIN que administra la
+                                    asociación
+                                    Bancaria y de Entidades Financieras de Colombia, o
+                                    cualquier otra entidad que maneje o administre bases de datos
+                                    con
+                                    los mismos fines, toda la información referente a mi
+                                    comportamiento comercial. Lo anterior implica que el
+                                    cumplimiento de
+                                    mis obligaciones se refleja en las mencionadas
+                                    bases de datos, en donde se consigna de manera completa, todos
+                                    los
+                                    datos referentes a mi actual y pasado
+                                    comportamiento frente al sector financiero y en general frente
+                                    al
+                                    cumplimiento de mis obligaciones. De acuerdo al
+                                    concepto de la división técnica aduanera de la DIAN No. 001 del
+                                    23/04/2011, esta información queda a responsabilidad del
+                                    cliente y/o Agencia de Aduanas, quienes definen la base gravable
+                                    para el pago de tributos y/o obligaciones financieras.
+                                    Esta factura está sujeta a las notas de las cotizaciones,
+                                    términos
+                                    del contrato de servicio y notas adicionales y clausulado
+                                    de seguros que aplique de acuerdo con la modalidad dela carga
+                                    que
+                                    podrá consultar en nuestra página web
+                                    http://ankerlogistica.com/servicios-2/ La carga relacionada a
+                                    esta
+                                    factura fue entregada y recibida a satisfacción
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <hr style="linea-separador" />
+                            </div>
+                        </div>
+                        <!-- qr y cufe -->
+                        <div class="row" style="page-break-inside: avoid;">
+                            <div class="col-12 contenedor-cufe">
+                                <strong class="dato-factura-titulo cufe">CUFE: <span
+                                        t-field="o.fe_cufe_cude_ref" /></strong>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <img class="img-fluid imagen-calidad"
+                                                t-if="o.fe_qr_image"
+                                                t-attf-src="data:image/png;base64,{{o.fe_qr_image}}" />
+                                            <img class="img-fluid imagen-calidad" t-else=""
+                                                src="/web/image/132-29c33cfa/qr-ejemplo-02.jpg" />
+                                        </div>
+                                        <div class="col-3">
+                                            <table class="tabla">
+                                                <tr>
+                                                    <th>
+                                                        <p class="dato-factura-titulo">
+                                                            <b>FECHA VALIDACIÓN DIAN:</b>
+                                                        </p>
+                                                    </th>
+                                                    <td>
+                                                        <p class="dato-factura-titulo">
+                                                            <span t-field="o.fe_datetime_invoice" />
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        <p class="dato-factura-titulo">
+                                                            <b><span t-field="o.fe_operation_type" />
+                                                                - <span
+                                                                    t-esc="o.fe_operation_type" /></b>
+                                                        </p>
+                                                    </th>
+                                                    <td />
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-6" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="footer" align="center">
+                    <style>
+                        .div_f {
+                        font-family: sans-serif;
+                        font-size: 12px;
+                        }
+                    </style>
+                    <div class="text-center div_f" style="border-top: 1px solid black;">
+                        <div>
+                            <p> Representación Gráfica de la Factuda Electrónica de Venta <br />
+                                power by <a t-attf-href="{'www.odone.com.co'}">www.odone.com.co</a>
+                            </p>
+                        </div>
+                        <div t-if="report_type == 'pdf'" class="text-muted"> Page: <span
+                                class="page" /> / <span class="topage" />
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

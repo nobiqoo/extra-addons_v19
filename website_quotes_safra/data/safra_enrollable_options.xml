@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Conversión de campos texto -> selección con NOMBRES y OPCIONES exactos
+         del portal de pedidos del cliente (ENROLLABLE). noupdate="0". -->
+    <data noupdate="0">
+        <record id="field_perfil" model="safra.field">
+            <field name="name">Tipo de Perfil</field>
+            <field name="field_type">selection</field>
+        </record>
+        <record id="opt_perfil_0" model="safra.field.option">
+            <field name="field_id" ref="field_perfil"/>
+            <field name="value">1</field><field name="name">Estandar</field><field name="sequence">10</field>
+        </record>
+        <record id="opt_perfil_1" model="safra.field.option">
+            <field name="field_id" ref="field_perfil"/>
+            <field name="value">4</field><field name="name">Lujo</field><field name="sequence">20</field>
+        </record>
+        <record id="opt_perfil_2" model="safra.field.option">
+            <field name="field_id" ref="field_perfil"/>
+            <field name="value">6</field><field name="name">Perfil Cuadrado</field><field name="sequence">30</field>
+        </record>
+        <record id="field_motor" model="safra.field">
+            <field name="name">Motor</field>
+            <field name="field_type">selection</field>
+        </record>
+        <record id="opt_motor_0" model="safra.field.option">
+            <field name="field_id" ref="field_motor"/>
+            <field name="value">26</field><field name="name">Motor Tubular Wifi 6/28 RF</field><field name="sequence">10</field>
+        </record>
+        <record id="opt_motor_1" model="safra.field.option">
+            <field name="field_id" ref="field_motor"/>
+            <field name="value">27</field><field name="name">Motor Bateria 6/24</field><field name="sequence">20</field>
+        </record>
+        <record id="opt_motor_2" model="safra.field.option">
+            <field name="field_id" ref="field_motor"/>
+            <field name="value">2</field><field name="name">Motor Tope Mecánico GN/33 Ultrasilencioso RF</field><field name="sequence">30</field>
+        </record>
+        <record id="opt_motor_3" model="safra.field.option">
+            <field name="field_id" ref="field_motor"/>
+            <field name="value">4</field><field name="name">Motor Domótica 4 Cables SA35Q-6/24</field><field name="sequence">40</field>
+        </record>
+        <record id="opt_motor_4" model="safra.field.option">
+            <field name="field_id" ref="field_motor"/>
+            <field name="value">22</field><field name="name">Motor Tubular Somfy LSN 6/33 RTS</field><field name="sequence">50</field>
+        </record>
+        <record id="opt_motor_5" model="safra.field.option">
+            <field name="field_id" ref="field_motor"/>
+            <field name="value">23</field><field name="name">Motor Tubular Somfy Sonesse 6/24 RTS</field><field name="sequence">60</field>
+        </record>
+        <record id="opt_motor_6" model="safra.field.option">
+            <field name="field_id" ref="field_motor"/>
+            <field name="value">24</field><field name="name">Motor Tubular Somfy 406 LSN RTS 433 6/33</field><field name="sequence">70</field>
+        </record>
+        <record id="opt_motor_7" model="safra.field.option">
+            <field name="field_id" ref="field_motor"/>
+            <field name="value">7</field><field name="name">Soporte Intermedio</field><field name="sequence">80</field>
+        </record>
+        <record id="field_motor_support_type" model="safra.field">
+            <field name="name">Tipo de Soporte Motor</field>
+            <field name="field_type">selection</field>
+        </record>
+        <record id="opt_motor_support_type_0" model="safra.field.option">
+            <field name="field_id" ref="field_motor_support_type"/>
+            <field name="value">3</field><field name="name">Soporte Skyline</field><field name="sequence">10</field>
+        </record>
+        <record id="opt_motor_support_type_1" model="safra.field.option">
+            <field name="field_id" ref="field_motor_support_type"/>
+            <field name="value">4</field><field name="name">Soporte R16</field><field name="sequence">20</field>
+        </record>
+        <record id="field_control" model="safra.field">
+            <field name="name">Control</field>
+            <field name="field_type">selection</field>
+        </record>
+        <record id="opt_control_0" model="safra.field.option">
+            <field name="field_id" ref="field_control"/>
+            <field name="value">0</field><field name="name">Sin control</field><field name="sequence">10</field>
+        </record>
+        <record id="opt_control_1" model="safra.field.option">
+            <field name="field_id" ref="field_control"/>
+            <field name="value">25</field><field name="name">Básico 2 canales</field><field name="sequence">20</field>
+        </record>
+        <record id="opt_control_2" model="safra.field.option">
+            <field name="field_id" ref="field_control"/>
+            <field name="value">2</field><field name="name">Básico Multicanal 5</field><field name="sequence">30</field>
+        </record>
+        <record id="opt_control_3" model="safra.field.option">
+            <field name="field_id" ref="field_control"/>
+            <field name="value">4</field><field name="name">Lujo Multicanal 15</field><field name="sequence">40</field>
+        </record>
+        <record id="opt_control_4" model="safra.field.option">
+            <field name="field_id" ref="field_control"/>
+            <field name="value">22</field><field name="name">Control Motor Wifi/RF</field><field name="sequence">50</field>
+        </record>
+        <record id="opt_control_5" model="safra.field.option">
+            <field name="field_id" ref="field_control"/>
+            <field name="value">23</field><field name="name">Control Monocanal Motor Bateria 6/24</field><field name="sequence">60</field>
+        </record>
+        <record id="opt_control_6" model="safra.field.option">
+            <field name="field_id" ref="field_control"/>
+            <field name="value">20</field><field name="name">Control RF 2 Canales Motor Bateria</field><field name="sequence">70</field>
+        </record>
+        <record id="opt_control_7" model="safra.field.option">
+            <field name="field_id" ref="field_control"/>
+            <field name="value">24</field><field name="name">Control Multicanal Motor Bateria 6/24 15 Canales</field><field name="sequence">80</field>
+        </record>
+        <record id="opt_control_8" model="safra.field.option">
+            <field name="field_id" ref="field_control"/>
+            <field name="value">16</field><field name="name">Control Monocanal Somfy Situo 1 Rst Blanco</field><field name="sequence">90</field>
+        </record>
+        <record id="opt_control_9" model="safra.field.option">
+            <field name="field_id" ref="field_control"/>
+            <field name="value">17</field><field name="name">Control Multicanal Somfy Situo 5 canales</field><field name="sequence">100</field>
+        </record>
+        <record id="field_control_channel" model="safra.field">
+            <field name="name">Canal del Control</field>
+            <field name="field_type">selection</field>
+        </record>
+        <record id="opt_control_channel_0" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">0</field><field name="name">Sin canal</field><field name="sequence">10</field>
+        </record>
+        <record id="opt_control_channel_1" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">1</field><field name="name">Canal 1</field><field name="sequence">20</field>
+        </record>
+        <record id="opt_control_channel_2" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">2</field><field name="name">Canal 2</field><field name="sequence">30</field>
+        </record>
+        <record id="opt_control_channel_3" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">3</field><field name="name">Canal 3</field><field name="sequence">40</field>
+        </record>
+        <record id="opt_control_channel_4" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">4</field><field name="name">Canal 4</field><field name="sequence">50</field>
+        </record>
+        <record id="opt_control_channel_5" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">5</field><field name="name">Canal 5</field><field name="sequence">60</field>
+        </record>
+        <record id="opt_control_channel_6" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">6</field><field name="name">Canal 6</field><field name="sequence">70</field>
+        </record>
+        <record id="opt_control_channel_7" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">7</field><field name="name">Canal 7</field><field name="sequence">80</field>
+        </record>
+        <record id="opt_control_channel_8" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">8</field><field name="name">Canal 8</field><field name="sequence">90</field>
+        </record>
+        <record id="opt_control_channel_9" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">9</field><field name="name">Canal 9</field><field name="sequence">100</field>
+        </record>
+        <record id="opt_control_channel_10" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">10</field><field name="name">Canal 10</field><field name="sequence">110</field>
+        </record>
+        <record id="opt_control_channel_11" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">11</field><field name="name">Canal 11</field><field name="sequence">120</field>
+        </record>
+        <record id="opt_control_channel_12" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">12</field><field name="name">Canal 12</field><field name="sequence">130</field>
+        </record>
+        <record id="opt_control_channel_13" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">13</field><field name="name">Canal 13</field><field name="sequence">140</field>
+        </record>
+        <record id="opt_control_channel_14" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">14</field><field name="name">Canal 14</field><field name="sequence">150</field>
+        </record>
+        <record id="opt_control_channel_15" model="safra.field.option">
+            <field name="field_id" ref="field_control_channel"/>
+            <field name="value">15</field><field name="name">Canal 15</field><field name="sequence">160</field>
+        </record>
+        <record id="field_interruptor_rf" model="safra.field">
+            <field name="name">Interruptor</field>
+        </record>
+
+        <!-- Etiqueta exacta del portal -->
+        <record id="field_extra_chain" model="safra.field">
+            <field name="name">Altura Cadena (metros)</field>
+        </record>
+
+        <!-- Sección "Cenefa PVC" del portal (nombres y opciones fieles).
+             Se conservan los valores internos (sin/metalica/tela) para no romper
+             la columna del modelo ni las dependencias. -->
+        <record id="field_cenefa_type" model="safra.field">
+            <field name="name">Cenefa PVC</field>
+        </record>
+        <record id="opt_cenefa_type_0" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_type"/>
+            <field name="value">sin</field><field name="name">No</field><field name="sequence">10</field>
+        </record>
+        <record id="opt_cenefa_type_1" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_type"/>
+            <field name="value">metalica</field><field name="name">Cenefa PVC Clásica</field><field name="sequence">20</field>
+        </record>
+        <record id="opt_cenefa_type_2" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_type"/>
+            <field name="value">tela</field><field name="name">Cenefa PVC Moderna</field><field name="sequence">30</field>
+        </record>
+        <record id="field_cenefa_lateral" model="safra.field">
+            <field name="name">Laterales Cenefa PVC</field>
+        </record>
+        <record id="opt_cenefa_lateral_0" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_lateral"/>
+            <field name="value">sin</field><field name="name">Sin laterales</field><field name="sequence">10</field>
+        </record>
+        <record id="opt_cenefa_lateral_1" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_lateral"/>
+            <field name="value">izquierdo</field><field name="name">Lateral izquierdo</field><field name="sequence">20</field>
+        </record>
+        <record id="opt_cenefa_lateral_2" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_lateral"/>
+            <field name="value">derecho</field><field name="name">Lateral derecho</field><field name="sequence">30</field>
+        </record>
+        <record id="opt_cenefa_lateral_3" model="safra.field.option">
+            <field name="field_id" ref="field_cenefa_lateral"/>
+            <field name="value">ambos</field><field name="name">Lateral ambos lados</field><field name="sequence">40</field>
+        </record>
+        <record id="field_cenefa_lined" model="safra.field">
+            <field name="name">¿Cenefa PVC forrada?</field>
+        </record>
+        <!-- "Tela cenefa PVC" se muestra cuando se marca forrada (igual que el portal) -->
+        <record id="field_cenefa_tela" model="safra.field">
+            <field name="name">Tela cenefa PVC</field>
+            <field name="depends_field_id" ref="field_cenefa_lined"/>
+            <field name="depends_value">1</field>
+        </record>
+        <!-- "Tipo de corte" no existe en el flujo PVC de ENROLLABLE: se oculta -->
+        <record id="sf_01_cenefa_corte" model="safra.system.field">
+            <field name="active" eval="False"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>; ) --> 
+<!-- See LICENSE file for full copyright and licensing details. --> 
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <record id="res_config_settings_view_form_school" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.school.management</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="15"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Education Management" data-string="Education Management" name="wk_school_management" groups="wk_school_management.wk_school_management_admin_group">
+                    <block title="Fee Management" name="fee_element_container">
+                        <setting id="fee_element" string="Fee Element" help="The element to be used for as a late fee element.">
+                            <field name="product_id" class="text-center" style="width: 60%;" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                        </setting>
+                        <setting id="no_of_days" string="Auto fee slip confirmation" help="Cron will automatically update the fee slip status to confirm  before the start date.">
+                            <field name="no_of_days" required="1" class="text-center" style="width: 10%; min-width: 4rem;"/><span> Days</span>
+                            <br/>
+                        </setting>
+                         <setting id="scholarship_element" string="Scholarship Element" help="The element to be used for as a scholarship element.">
+                            <field name="scholarship_product_id" class="text-center" style="width: 60%;" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                        </setting>
+                    </block>
+                    <block title="Service Hours" name="service_hours_container">
+                        <setting id="service_hrs" string="Service Hours" help="Configuration to show/hide service hours in Student Portal.">
+                            <field name="show_service_hours"/>
+                        </setting>
+                    </block>
+                    <block title="Library Management" name="library_container">
+                        <setting id="library_element" string="Book Return and Fine Policy" help="The element to be used as a late book return policy">
+                            <div class="content-group">
+                                <div class="row mt8">
+                                    <label string="Maximum Borrowing Period" for="not_of_return_days"/>
+                                    <field name="not_of_return_days" required="1" />
+                                </div>
+                                <div class="row mt8">
+                                    <label  string="Daily Fine Rate" for="fine_policy"/>
+                                    <field name="fine_policy" required="1" />
+                                </div>
+                            </div>
+                        </setting>
+                        <setting id="max_book_per_student" string="Max Books Allowed" help="Max Number of Books per Student">
+                            <field name="max_book_allowed" class="text-center" style="width: 40%;" />
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_school_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'module':'wk_school_management'}</field>
+    </record>
+
+</odoo>

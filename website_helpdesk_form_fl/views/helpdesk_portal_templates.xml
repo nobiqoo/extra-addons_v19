@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <template id="ticket_submit_form" name="Helpdesk: Submit a Ticket Form (Base + extras)">
+    <t name="Helpdesk: Submit a Ticket Form" t-name="website_helpdesk.ticket_submit_form">
+      <div class="container">
+        <h2 class="text-muted">
+          Enviar un ticket
+          <t t-if="multiple_teams"> - <t t-out="team.name"/>
+          </t>
+        </h2>
+        <div class="oe_structure" id="oe_structure_whelpdesk_form_1"/>
+        <span class="hidden" data-for="helpdesk_ticket_form" t-att-data-values="{'team_id': team and team.id or ''}"/>
+        <div id="helpdesk_section">
+          <section class="s_website_form pt16 pb16 o_colored_level" data-vcss="001" data-snippet="s_website_form" data-name="Form">
+            <div class="container">
+              <form id="helpdesk_ticket_form" action="/website/form/" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*" data-pre-fill="true" data-success-mode="redirect" data-success-page="/your-ticket-has-been-submitted" data-model_name="helpdesk.ticket" hide-change-model="true">
+                <div class="s_website_form_rows row s_col_no_bgcolor">
+                  <div class="mb-0 py-2 s_website_form_field col-12 s_website_form_model_required" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label " style="width: 200px" for="helpdesk5">
+                        <span class="s_website_form_label_content">Asunto del mensaje</span>
+                        <span class="s_website_form_mark"> *</span>
+                      </label>
+                      <div class="col-sm">
+                        <input type="text" class="form-control s_website_form_input" name="name" required="true" id="helpdesk5"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-0 py-2 s_website_form_field col-12 s_website_form_required" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="helpdesk1">
+                        <span class="s_website_form_label_content">Nombre completo</span>
+                        <span class="s_website_form_mark"> *</span>
+                      </label>
+                      <div class="col-sm">
+                        <input type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name" id="helpdesk1"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-0 py-2 s_website_form_field col-12 s_website_form_required" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="helpdesk2">
+                        <span class="s_website_form_label_content">Número de teléfono</span>
+                      </label>
+                      <div class="col-sm">
+                        <input type="tel" class="form-control s_website_form_input" name="partner_phone" data-fill-with="phone" id="helpdesk2"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-0 py-2 s_website_form_field col-12 s_website_form_required" data-type="email" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label " style="width: 200px" for="helpdesk3">
+                        <span class="s_website_form_label_content">Dirección de correo electrónico</span>
+                        <span class="s_website_form_mark"> *</span>
+                      </label>
+                      <div class="col-sm">
+                        <input type="email" class="form-control s_website_form_input" name="partner_email" required="1" data-fill-with="email" id="helpdesk3"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-0 py-2 s_website_form_field col-12 s_website_form_custom" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="helpdesk4">
+                        <span class="s_website_form_label_content">Nombre de la empresa</span>
+                      </label>
+                      <div class="col-sm">
+                        <input type="text" class="form-control s_website_form_input" name="partner_company_name" data-fill-with="commercial_company_name" id="helpdesk4"/>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-0 py-2 s_website_form_field col-12" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label " style="width: 200px" for="helpdesk6">
+                        <span class="s_website_form_label_content">Haga su pregunta</span>
+                        <span class="s_website_form_mark"> *</span>
+                      </label>
+                      <div class="col-sm">
+                        <textarea type="text" class="form-control s_website_form_input" name="description" required="true" id="helpdesk6" rows="5"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-0 py-2 s_website_form_field col-12 s_website_form_custom" data-type="binary" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class=" col-sm-auto s_website_form_label " style="width: 200px" for="helpdesk7">
+                        <span class="s_website_form_label_content">Archivo adjunto</span>
+                      </label>
+                      <div class="col-sm">
+                        <input type="file" class="form-control s_website_form_input" name="Attachment" id="helpdesk7"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 mt-3">
+                    <h4>Datos del Colaborador</h4>
+                  </div>
+
+                  <!-- employee_name -->
+                  <div class="mb-0 py-2 s_website_form_field col-12" data-type="char" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                        <span class="s_website_form_label_content">Nombre del Colaborador</span>
+                      </label>
+                      <div class="col-sm">
+                        <input type="text" class="form-control s_website_form_input" name="employee_name"/>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- document_number -->
+                  <div class="mb-0 py-2 s_website_form_field col-12" data-type="integer" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                        <span class="s_website_form_label_content">Documento (N°)</span>
+                      </label>
+                      <div class="col-sm">
+                        <input type="number" class="form-control s_website_form_input" name="document_number"/>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- entry_date -->
+                  <div class="mb-0 py-2 s_website_form_field col-12" data-type="date" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                        <span class="s_website_form_label_content">Fecha de Ingreso</span>
+                      </label>
+                      <div class="col-sm">
+                        <input type="date" class="form-control s_website_form_input" name="entry_date"/>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- job_id -->
+                  <div class="mb-0 py-2 s_website_form_field col-12" data-type="record" data-name="Field" data-model="hr.job">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                        <span class="s_website_form_label_content">Cargo</span>
+                      </label>
+                      <div class="col-sm">
+                        <select class="form-control s_website_form_input" name="job_id">
+                          <t t-set="data_fields" t-value="team and team._get_data_fields_website_form()"/>
+                          <t t-foreach="data_fields.get('jobs', [])" t-as="j">
+                            <option t-att-value="j[0]" t-esc="j[1]"/>
+                          </t>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- department_id -->
+                  <div class="mb-0 py-2 s_website_form_field col-12" data-type="record" data-name="Field" data-model="hr.department">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                        <span class="s_website_form_label_content">Departamento</span>
+                      </label>
+                      <div class="col-sm">
+                        <select class="form-control s_website_form_input" name="department_id">
+                          <t t-foreach="data_fields.get('departments', [])" t-as="d">
+                            <option t-att-value="d[0]" t-esc="d[1]"/>
+                          </t>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- city_id -->
+                  <div class="mb-0 py-2 s_website_form_field col-12" data-type="record" data-name="Field" data-model="res.city">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                        <span class="s_website_form_label_content">Ciudad</span>
+                      </label>
+                      <div class="col-sm">
+                        <select class="form-control s_website_form_input" name="city_id">
+                          <t t-foreach="data_fields.get('cities', [])" t-as="c">
+                            <option t-att-value="c[0]" t-esc="c[1]"/>
+                          </t>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- hr_coordinator_id -->
+                  <div class="mb-0 py-2 s_website_form_field col-12" data-type="record" data-name="Field" data-model="hr.employee.public">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                        <span class="s_website_form_label_content">Coordinadora de RH</span>
+                      </label>
+                      <div class="col-sm">
+                        <select class="form-control s_website_form_input" name="hr_coordinator_id">
+                          <t t-foreach="data_fields.get('employees', [])" t-as="e">
+                            <option t-att-value="e[0]" t-esc="e[1]"/>
+                          </t>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- manager_id -->
+                  <div class="mb-0 py-2 s_website_form_field col-12" data-type="record" data-name="Field" data-model="hr.employee.public">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                        <span class="s_website_form_label_content">Jefe Inmediato</span>
+                      </label>
+                      <div class="col-sm">
+                        <select class="form-control s_website_form_input" name="manager_id">
+                          <t t-foreach="data_fields.get('employees', [])" t-as="e2">
+                            <option t-att-value="e2[0]" t-esc="e2[1]"/>
+                          </t>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- contract_term -->
+                  <div class="mb-0 py-2 s_website_form_field col-12" data-type="selection" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                        <span class="s_website_form_label_content">Término del Contrato</span>
+                      </label>
+                      <div class="col-sm">
+                        <select class="form-control s_website_form_input" name="contract_term">
+                          <option value="fixed">Fijo</option>
+                          <option value="indefinite">Indefinido</option>
+                          <option value="project">Por proyecto</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- wage (Monetary) -->
+                  <div class="mb-0 py-2 s_website_form_field col-12" data-type="monetary" data-name="Field">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                        <span class="s_website_form_label_content">Salario</span>
+                      </label>
+                      <div class="col-sm">
+                        <!-- currency_id oculto con default de la compañía -->
+                        <input type="hidden" name="currency_id" t-att-value="(team and team._get_data_fields_website_form().get('currency_id')) or ''"/>
+                        <input type="number" step="0.01" class="form-control s_website_form_input" name="wage" placeholder="0.00"/>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ===== Bloque: Adjuntos ===== -->
+                  <div class="col-12 mt-3">
+                    <h4>Adjuntos</h4>
+                  </div>
+
+                  <t t-foreach="[('arl_affiliation','Afiliación ARL'),
+                                ('ccf_affiliation','Afiliación CCF'),
+                                ('email_authorization','Autorización de correo'),
+                                ('bank_certificate','Certificación Bancaria'),
+                                ('severance_certificate','Certificación Cesantías'),
+                                ('eps_certificate','Certificación EPS'),
+                                ('pension_certificate','Certificación Pensiones'),
+                                ('id_card','Cédula'),
+                                ('job_application','Solicitud de Empleo')]" t-as="att">
+                    <div class="mb-0 py-2 s_website_form_field col-12 s_website_form_custom" data-type="binary" data-name="Field">
+                      <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                          <span class="s_website_form_label_content" t-esc="att[1]"/>
+                        </label>
+                        <div class="col-sm">
+                          <input type="file" class="form-control s_website_form_input" t-att-name="att[0]"/>
+                        </div>
+                      </div>
+                    </div>
+                  </t>
+                  <div class="mb-0 py-2 s_website_form_field col-12 s_website_form_dnone" data-name="Field" data-type="record" data-model="helpdesk.team">
+                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                      <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                        <span class="s_website_form_label_content">Equipo del servicio de asistencia</span>
+                      </label>
+                      <div class="col-sm">
+                        <input type="hidden" class="form-control s_website_form_input" name="team_id" id="helpdesk8"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-0 py-2 col-12 s_website_form_submit" data-name="Submit Button">
+                    <div style="width: 200px;" class="s_website_form_label"/>
+                    <a href="#" role="button" class="btn btn-primary btn-lg s_website_form_send o_default_snippet_text">Enviar ticket</a>
+                    <span id="s_website_form_result"/>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
+      </div>
+    </t>
+  </template>
+</odoo>

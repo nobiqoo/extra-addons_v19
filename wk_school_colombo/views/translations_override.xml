@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Tarea 11155 - Ajuste de traducciones del módulo Académico.
+
+    Casi todas las etiquetas se ajustan por catálogo en i18n/es_CO.po. Aquí solo
+    quedan los casos en que el cliente pidió textos distintos para un MISMO
+    campo según la pantalla, algo que una traducción (que es por registro de
+    ir.model.fields, no por vista) no puede resolver.
+
+    wk.student.assignment.scale_line_id queda como "Calificación obtenida" en el
+    catálogo (pantalla Estudiantes → Actividades del estudiante) y se
+    reetiqueta aquí en las otras dos pantallas donde se muestra.
+
+    Tarea 11292 - Al final del archivo se fuerzan además tres términos del
+    catálogo que el .po no alcanza a corregir en bases ya actualizadas.
+-->
+<odoo>
+    <record id="class_assignment_form_translations" model="ir.ui.view">
+        <field name="name">wk.class.assignment.form.traducciones</field>
+        <field name="model">wk.class.assignment</field>
+        <field name="inherit_id" ref="wk_school_management.class_assignment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='student_assignment_ids']/list/field[@name='scale_line_id']"
+                   position="attributes">
+                <attribute name="string">Calificación</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!--
+        El catálogo es.po de Webkul no trae ninguna traducción para este
+        botón (ni siquiera una mal traducida, como en otros casos de este
+        archivo): queda en inglés sin importar el idioma activo. Se corrige
+        por vista, igual que "Assistant Teacher / Docente asistente" en
+        views/populate_class_view.xml.
+    -->
+    <record id="wk_class_timetable_form_translations" model="ir.ui.view">
+        <field name="name">wk.class.timetable.form.traducciones</field>
+        <field name="model">wk.class.timetable</field>
+        <field name="inherit_id" ref="wk_school_management.wk_class_timetable_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='postpone_class']" position="attributes">
+                <attribute name="string">Reprogramar clase</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="wk_evaluation_wizard_form_translations" model="ir.ui.view">
+        <field name="name">wk.evaluation.wizard.form.traducciones</field>
+        <field name="model">wk.evaluation.wizard</field>
+        <field name="inherit_id" ref="wk_school_management.wk_evaluation_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='student_assignment_ids']//field[@name='scale_line_id']"
+                   position="attributes">
+                <attribute name="string">Calificación equivalente</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!--
+        Tarea 11292 (ajuste tras las pruebas funcionales).
+
+        Las traducciones al español de Webkul son automáticas y dejaron tres
+        términos mal traducidos: "Exentado", "Anualmente" y "Costumbre". La
+        corrección está declarada en i18n/es_CO.po, pero Odoo solo reemplaza
+        una traducción que YA existe en la base cuando el servidor arranca con
+        la bandera i18n-overwrite (odoo/tools/translate.py, método
+        TranslationImporter.save: sin ella el valor que ya está en la base se
+        aplica de último y gana). Por eso el ajuste no se vio en las pruebas.
+
+        Aquí los mismos términos se escriben como datos del módulo, con el
+        idioma forzado en el contexto, para que un "-u wk_school_colombo"
+        normal los aplique sin depender de cómo se arranque el servidor. Se
+        escribe únicamente el campo traducido (field_description / name) —lo
+        que el ORM permite sobre campos base: IrModelFields.write lo autoriza
+        con translate_only— y solo se toca la clave es_CO del jsonb, así que el
+        término en inglés no cambia.
+
+        Los valores deben coincidir con los de i18n/es_CO.po. Si Webkul llega a
+        corregir su es.po, se puede eliminar este bloque.
+    -->
+
+    <record id="wk_school_management.field_wk_student_assignment__exempted"
+            model="ir.model.fields" context="{'lang': 'es_CO'}">
+        <field name="field_description">Exento</field>
+    </record>
+
+    <record id="wk_school_management.selection__student_enrollment__payment_term__annualy"
+            model="ir.model.fields.selection" context="{'lang': 'es_CO'}">
+        <field name="name">Anual</field>
+    </record>
+
+    <record id="wk_school_management.selection__student_enrollment__payment_term__custom"
+            model="ir.model.fields.selection" context="{'lang': 'es_CO'}">
+        <field name="name">Personalizado</field>
+    </record>
+
+    <record id="wk_school_management.selection__wk_fee_generate_wizard__payment_term__annualy"
+            model="ir.model.fields.selection" context="{'lang': 'es_CO'}">
+        <field name="name">Anual</field>
+    </record>
+
+    <record id="wk_school_management.selection__wk_fee_generate_wizard__payment_term__custom"
+            model="ir.model.fields.selection" context="{'lang': 'es_CO'}">
+        <field name="name">Personalizado</field>
+    </record>
+
+</odoo>

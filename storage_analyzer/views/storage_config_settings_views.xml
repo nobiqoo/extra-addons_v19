@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- ============================================ -->
+    <!-- CONFIGURACIÓN: Ajustes de Almacenamiento -->
+    <!-- ============================================ -->
+    <record id="res_config_settings_view_form_storage" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.storage.analyzer</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Storage Analyzer" string="Storage Analyzer" name="storage_analyzer" groups="base.group_system">
+                    <field name="storage_limit_mb" invisible="1"/>
+                    <field name="storage_limit_gb" invisible="1"/>
+                    <field name="threshold_warning" invisible="1"/>
+                    <field name="threshold_critical" invisible="1"/>
+                    <field name="enable_alert_email" invisible="1"/>
+
+                    <block title="Límites de Almacenamiento" name="storage_limits_setting_container">
+                        <setting id="storage_limit_setting" string="Límite de Almacenamiento" help="Configure el límite de almacenamiento contratado para alertas.">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="storage_limit_gb" string="Límite (GB)" class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="storage_limit_gb" widget="float" class="oe_inline"/>
+                                </div>
+                                <div class="row mt8">
+                                    <label for="storage_limit_mb" string="Límite (MB)" class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="storage_limit_mb" widget="float" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+
+                    <block title="Umbrales de Alerta" name="storage_thresholds_setting_container">
+                        <setting id="threshold_warning_setting" string="Umbral de Advertencia" help="Porcentaje del límite para lanzar advertencias.">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="threshold_warning" string="Advertencia (%)" class="col-4 col-lg-4 o_light_label"/>
+                                    <field name="threshold_warning" widget="percentage" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting id="threshold_critical_setting" string="Umbral Crítico" help="Porcentaje del límite para lanzar alertas críticas.">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="threshold_critical" string="Crítico (%)" class="col-4 col-lg-4 o_light_label"/>
+                                    <field name="threshold_critical" widget="percentage" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+
+                    <block title="Configuración del Análisis" name="storage_analysis_setting_container">
+                        <setting id="enable_auto_analysis_setting" string="Análisis Automático Diario" help="Ejecutar análisis automáticamente todos los días.">
+                            <field name="enable_auto_analysis"/>
+                        </setting>
+                        <setting id="retention_days_setting" string="Retención de Datos" help="Días para mantener análisis históricos antes de eliminarlos.">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="retention_days" string="Días" class="col-3 col-lg-3 o_light_label"/>
+                                    <field name="retention_days" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+
+                    <block title="Alertas por Correo" name="storage_alert_email_setting_container">
+                        <setting id="enable_alert_email_setting" string="Alertas por Correo" help="Notificar por correo cuando se supere un umbral de almacenamiento.">
+                            <field name="enable_alert_email"/>
+                            <div class="content-group mt16" invisible="not enable_alert_email">
+                                <label for="alert_email_recipient_ids" string="Destinatarios" class="mt8"/>
+                                <field name="alert_email_recipient_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            </div>
+                        </setting>
+                    </block>
+
+                    <block title="Acciones" name="storage_actions_setting_container">
+                        <setting id="run_storage_analysis_setting" string="Ejecutar Análisis Ahora" help="Inicia un análisis de almacenamiento de forma manual.">
+                            <button name="action_run_storage_analysis" type="object"
+                                    string="Ejecutar Análisis Ahora"
+                                    class="btn-primary oe_inline mt8"
+                                    icon="fa-play"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_storage_config_settings" model="ir.actions.act_window">
+        <field name="name">Ajustes</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'module': 'storage_analyzer', 'bin_size': False}</field>
+    </record>
+    
+</odoo>

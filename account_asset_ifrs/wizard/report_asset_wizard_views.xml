@@ -1,0 +1,37 @@
+<odoo>
+    <record id="report_asset_wizard_form" model="ir.ui.view">
+        <field name="name">report.asset.wizard.form</field>
+        <field name="model">report.asset.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate Report Asset">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                    </group>
+                    <group>
+                        <field name="date_to"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate_excel" type="object" string="Generate" class="btn-primary"/>
+                    o
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_open_report_asset_wizard" model="ir.actions.act_window">
+        <field name="name">Generate Report Asset</field>
+        <field name="res_model">report.asset.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem 
+        id="menu_report_asset_wizard"
+        parent="account.account_reports_management_menu"
+        sequence="70" 
+        name="Generate Report Asset"
+        action="action_open_report_asset_wizard" />
+</odoo>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="payroll_processing_template_report">
+		<t t-call="web.basic_layout">
+			<t t-foreach="docs" t-as="o">
+				<t t-foreach="range(2)" t-as="j">
+					<t t-if="j==0">
+						<style>
+							span, p, th, td {
+							font-size:15px;
+							}
+						</style>
+						<div class="container-fluid">
+							<div class="header">
+								<div class="container">
+									<div class="row">
+										<div class="col-6" style="width: 150px; height: 200px;">
+											<span t-field="o.company_id.logo"
+												t-options-widget="&quot;image&quot;" />
+										</div>
+										<div class="col-6 text-right">
+											<h4>
+												Resumen de Nómina
+											</h4>
+											<h5 t-field="o.name" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="page" style="margin-top: 0mm;">
+								<div class="container">
+									<div class="row">
+										<div class="col-6" style="font-size:12px;">
+											<table style="width:100%">
+												<tr>
+													<th>
+														Periodo
+													</th>
+													<td>
+														<span t-field="o.period_id.name" />
+													</td>
+												</tr>
+												<tr>
+													<th>
+														Tipo Nómina
+													</th>
+													<td>
+														<span t-field="o.payslip_type_id.name" />
+													</td>
+												</tr>
+												<tr>
+													<th>
+														Grupo de contrato
+													</th>
+													<td>
+														<span t-field="o.contract_group_id.name" />
+													</td>
+												</tr>
+												<tr>
+													<th>
+														Diario
+													</th>
+													<td>
+														<span t-field="o.journal_id.name" />
+													</td>
+												</tr>
+											</table>
+										</div>
+										<div class="col-6" align="right" style="font-size:12px;">
+											<table style="width:100%">
+												<tr>
+													<th>
+														Fecha de Liquidación
+													</th>
+													<td>
+														<span t-field="o.liquidation_date" />
+													</td>
+												</tr>
+												<tr>
+													<th>
+														Fecha Contabilización
+													</th>
+													<td>
+														<span t-field="o.accounting_date" />
+													</td>
+												</tr>
+												<tr>
+													<th>
+														Compañia
+													</th>
+													<td>
+														<span t-field="o.company_id.name" />
+													</td>
+												</tr>
+												<tr>
+													<th>
+														Proviciones
+													</th>
+													<td>
+														<!-- <span
+															t-field="o.provisions_processing_id.name" /> -->
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class="container">
+									<div class="row">
+										<div class="col-12" style="font-size=11px;">
+											<h4 class="text-center">
+												Nóminas
+											</h4>
+											<table class="table table-condensed"
+												style="font-size:10px">
+												<thead>
+													<tr style="page-break-inside: avoid">
+														<th>
+															Nómbre
+														</th>
+														<th>
+															Cédula
+														</th>
+														<th>
+															Total Devengado
+														</th>
+														<th>
+															Total Deducciones
+														</th>
+														<th>
+															Neto a pagar
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													<t t-set="netos" t-value="0" />
+													<t t-set="numeros" t-value="0" />
+													<t t-foreach="o.payslips_ids.sorted(lambda p: p.employee_id.name)" t-as="e">
+														<tr style="page-break-inside: avoid">
+															<td>
+																<span t-field="e.employee_id.name" />
+															</td>
+															<td>
+																<span
+																	t-field="e.employee_id.partner_id.vat" />
+															</td>
+															<td class="text-right">
+																<t t-set="devengos" t-value="0" />
+																<t t-foreach="e.earnings_ids"
+																	t-as="ei">
+																	<t t-set="devengos"
+																		t-value="devengos+ei.total" />
+																</t>
+																<span t-esc="devengos"
+																	t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}" />
+															</td>
+															<td class="text-right">
+																<t t-set="deducciones" t-value="0" />
+																<t t-foreach="e.deductions_ids"
+																	t-as="ei">
+																	<t t-set="deducciones"
+																		t-value="deducciones+ei.total" />
+																</t>
+																<span t-esc="deducciones"
+																	t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}" />
+															</td>
+															<td class="text-right">
+																<t t-foreach="e.outcome_ids"
+																	t-as="n">
+																	<t t-if="n.name=='NETO A PAGAR'">
+																		<span t-field="n.total"
+																				t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}" />
+																		<t t-set="netos"
+																			t-value="netos+n.total" />
+																	</t>
+																</t>
+															</td>
+														</tr>
+														<t t-set="numeros" t-value="numeros+1" />
+													</t>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class="container">
+									<div class="row">
+										<div class="col-12 pt-8" align="right">
+											<br></br>
+											<table style="width:50%; margin-top:20px">
+												<tr>
+													<th>
+														TOTAL NETO A PAGAR:
+													</th>
+													<td class="text-right">
+														<span t-esc="'{0:,.2f}'.format(netos)"
+															t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.company_id.currency_id&quot;}">
+														</span>
+													</td>
+												</tr>
+												<tr>
+													<th>
+														Total empleados:
+													</th>
+													<td class="text-right">
+														<span t-esc="numeros">
+														</span>
+													</td>
+												</tr>
+											</table>
+											<br />
+											<br />
+											<br />
+											<br />
+											<table style="width:50%">
+												<tr>
+													<td>
+														<div
+															style="height:1px; width:auto; background-color:black">
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td class="text-center">
+														Firma de quien autoriza:
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="footer">
+							</div>
+
+						</div>
+					</t>
+				</t>
+			</t>
+		</t>
+	</template>
+</odoo>

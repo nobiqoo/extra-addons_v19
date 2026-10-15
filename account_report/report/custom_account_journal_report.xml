@@ -1,0 +1,9 @@
+<odoo>
+    <record id="custom_report_account_journal" model="ir.actions.report">
+        <field name="name">Custom General Journal</field>
+        <field name="model">custom.account.journal.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">custom_account_report.account_journal</field>
+        <field name="report_file">custom_account_report.account_journal</field>
+    </record>
+</odoo>

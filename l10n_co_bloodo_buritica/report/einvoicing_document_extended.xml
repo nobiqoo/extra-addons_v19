@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="einvoicing_document_report" inherit_id="l10n_co_bloodo.report_account_move_einvoicing_document">
+        <xpath expr="//t[@t-call='account.document_tax_totals']" position="after">
+            <t t-if="doc.company_id.id == 1">
+                <tr class="o_subtotal">
+                    <td>
+                        Total sin Retenciones
+                    </td>
+                    <td style="text-align: right;">
+                        <span t-out="doc.return_total_without_retentions()" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

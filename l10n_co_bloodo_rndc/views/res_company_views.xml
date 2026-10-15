@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="res_company_rndc_view_form" model="ir.ui.view">
+            <field name="name">res.company.rndc.view.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="l10n_co_bloodo.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='einvoicing']" position="before">
+                    <page string="RNDC">
+                        <group string="Web-Service">
+                            <group name="a">
+                                <field name="rndc_env_id"/>
+                                <field name="rndc_use_wsdl2"/>
+                                <field name="rndc_wsdl" invisible="1"/>
+                                <field name="rndc_wsdl2" invisible="1"/>
+                                <field name="rndc_wsdl_test" invisible="1"/>
+                            </group>
+                            <group name="b">
+                                <field name="rndc_user"/>
+                                <field name="rndc_pwd" password="1"/>
+                                <field name="rndc_pwd_test"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

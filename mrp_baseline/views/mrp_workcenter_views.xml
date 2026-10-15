@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_workcenter_view_mrp" model="ir.ui.view">
+        <field name="name">mrp.workcenter.view.form.inherit</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='costing']" position="inside">
+                <field name="costs_hour_account_account_id" groups="account.group_account_readonly" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

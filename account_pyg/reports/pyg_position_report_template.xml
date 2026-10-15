@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="internal_layout">
+        <div class="article o_account_report_page">
+            <link href="/account_pyg/static/src/css/table.css" rel="stylesheet"/>
+            <t t-out="0"/>
+        </div>
+        <div class="footer">
+            <style>
+                .div_foo { width: 100%; }
+                .custom_footer { width: 49%; border: 0px solid red; float: left; }
+                .foo_r { text-align: right; }
+            </style>
+            <div class="row dic_foo">
+                <div class="col-sm-6 custom_footer">
+                    <span t-out="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                </div>
+                <div class="col-sm-6 text-right custom_footer foo_r">
+                    <span class="page"/>/<span class="topage"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="pyg_position_report_document">
+        <t t-call="web.html_container">
+            <t t-set="o_data" t-value="docs.prepare_data().get('account_ids')"/>
+            <t t-foreach="o_data" t-as="op">
+                <t t-set="o" t-value="docs.env['pyg.position.report'].browse(op.get('aml_id'))"/>
+                <t t-call="account_pyg.internal_layout">
+                    <div class="header">
+                        <style>
+                            .h_container { border-bottom: 1px solid black; padding-bottom: 5px; height: 3cm; }
+                            .h_logo { text-align: center; width: 30%; float: left; }
+                            .h_company { padding: 5px; font-size: 12px; text-align: center; width: 68%; float: left; }
+                            .h_img { height: 100%; max-width: 100%; }
+                        </style>
+                        <div class="container h_container">
+                            <div class="row h_row">
+                                <div class="col-4 h_logo">
+                                    <img class="h_img" t-if="o.company_id.logo"
+                                         t-att-src="image_data_uri(o.company_id.logo)" alt="Logo"/>
+                                </div>
+                                <div class="col-6 h_company">
+                                    <h2><b><span>P&amp;G por posición</span><br/><br/>
+                                    <span>Cuenta Analítica: <t t-out="op.get('name')"/></span></b></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page">
+                        <style>
+                            .line_table { border-collapse: collapse; font-family: arial, sans-serif; font-size: 10px; width: 100%; }
+                            .line_table th { border: 1px solid black; background-color: #CBCBCB; }
+                            .line_table td { border: 1px solid black; }
+                            .o_line_total { font-weight: bold; background-color: #CBCBCB; }
+                        </style>
+                        <br/><br/>
+                        <table class="line_table" name="line_table">
+                            <thead>
+                                <tr>
+                                    <th class="text-left"><span>Tipo</span></th>
+                                    <th class="text-right"><span>Documento</span></th>
+                                    <th width="60px" class="text-right"><span>Fecha</span></th>
+                                    <th class="text-right"><span>Tercero</span></th>
+                                    <th class="text-left"><span>Ingresos</span></th>
+                                    <th class="text-right"><span>Egresos</span></th>
+                                    <th class="text-right"><span>Rentabilidad</span></th>
+                                    <th class="text-right"><span>Rentabilidad (USD)</span></th>
+                                    <th class="text-right"><span>Rentabilidad (Doc)</span></th>
+                                    <th width="50px" class="text-right"><span>Moneda</span></th>
+                                    <th width="50px" class="text-right"><span>TRM</span></th>
+                                    <th class="text-left"><span>Detalle</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="sum_profit" t-value="0"/>
+                                <t t-set="sum_loss" t-value="0"/>
+                                <t t-set="sum_profitability" t-value="0"/>
+                                <t t-set="sum_profitability_usd" t-value="0"/>
+                                <t t-set="sum_profitability_doc" t-value="0"/>
+                                <t t-foreach="op.get('line_ids', [])" t-as="line">
+                                    <t t-set="sum_profit" t-value="sum_profit + line.get('profit')"/>
+                                    <t t-set="sum_loss" t-value="sum_loss + line.get('loss')"/>
+                                    <t t-set="sum_profitability" t-value="sum_profitability + line.get('profitability')"/>
+                                    <t t-set="sum_profitability_usd" t-value="sum_profitability_usd + (line.get('profitability_usd') or 0)"/>
+                                    <t t-set="sum_profitability_doc" t-value="sum_profitability_doc + line.get('profitability_doc')"/>
+                                    <tr>
+                                        <td align="left"><span t-out="line.get('type_doc', '')"/></td>
+                                        <td align="left"><span t-out="line.get('move', '')"/></td>
+                                        <td align="center"><span t-out="line.get('date', '')"/></td>
+                                        <td align="left"><span t-out="line.get('partner', '')"/></td>
+                                        <td align="right"><span t-out="line.get('profit', 0)" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                        <td align="right"><span t-out="line.get('loss', 0)" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                        <td align="right"><span t-out="line.get('profitability', 0)" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                        <td align="right"><span t-out="line.get('profitability_usd', 0)" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                        <td align="right"><span t-out="line.get('profitability_doc', 0)" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                        <td align="center"><span t-out="line.get('currency', '')"/></td>
+                                        <td align="right"><span t-out="round(line.get('rate', 0), 2)"/></td>
+                                        <td align="left"><span t-out="line.get('detail', '')"/></td>
+                                    </tr>
+                                </t>
+                                <tr class="o_line_total">
+                                    <td align="center" colspan="4"><b><span>TOTAL</span></b></td>
+                                    <td align="right"><span t-out="sum_profit" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                    <td align="right"><span t-out="sum_loss" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                    <td align="right"><span t-out="sum_profitability" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                    <td align="right"><span t-out="sum_profitability_usd" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                    <td align="right"><span t-out="sum_profitability_doc" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="pyg_analytic_position_report_document">
+        <t t-call="web.html_container">
+            <t t-set="o_data" t-value="docs.prepare_data().get('account_ids')"/>
+            <t t-foreach="o_data" t-as="op">
+                <t t-set="o" t-value="docs.env['pyg.analytic.position.report'].browse(op.get('aml_id'))"/>
+                <t t-call="account_pyg.internal_layout">
+                    <div class="header">
+                        <div class="container h_container">
+                            <div class="row h_row">
+                                <div class="col-4 h_logo">
+                                    <img class="h_img" t-if="o.company_id.logo"
+                                         t-att-src="image_data_uri(o.company_id.logo)" alt="Logo"/>
+                                </div>
+                                <div class="col-6 h_company">
+                                    <h2><b><span>Informe de Comisiones</span><br/><br/>
+                                    <span>Cuenta Analítica: <t t-out="op.get('name')"/></span></b></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page">
+                        <br/><br/>
+                        <table class="line_table" name="line_table">
+                            <thead>
+                                <tr>
+                                    <th class="text-left"><span>Tipo</span></th>
+                                    <th class="text-right"><span>Documento</span></th>
+                                    <th width="60px" class="text-right"><span>Fecha</span></th>
+                                    <th class="text-right"><span>Tercero</span></th>
+                                    <th class="text-left"><span>Ingresos</span></th>
+                                    <th class="text-right"><span>Egresos</span></th>
+                                    <th class="text-right"><span>Rentabilidad</span></th>
+                                    <th class="text-right"><span>Rentabilidad (USD)</span></th>
+                                    <th class="text-right"><span>Rentabilidad (Doc)</span></th>
+                                    <th width="50px" class="text-right"><span>Moneda</span></th>
+                                    <th width="50px" class="text-right"><span>TRM</span></th>
+                                    <th class="text-left"><span>Detalle</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="sum_profit" t-value="0"/>
+                                <t t-set="sum_loss" t-value="0"/>
+                                <t t-set="sum_profitability" t-value="0"/>
+                                <t t-set="sum_profitability_usd" t-value="0"/>
+                                <t t-set="sum_profitability_doc" t-value="0"/>
+                                <t t-foreach="op.get('line_ids', [])" t-as="line">
+                                    <t t-set="sum_profit" t-value="sum_profit + line.get('profit')"/>
+                                    <t t-set="sum_loss" t-value="sum_loss + line.get('loss')"/>
+                                    <t t-set="sum_profitability" t-value="sum_profitability + line.get('profitability')"/>
+                                    <t t-set="sum_profitability_usd" t-value="sum_profitability_usd + (line.get('profitability_usd') or 0)"/>
+                                    <t t-set="sum_profitability_doc" t-value="sum_profitability_doc + line.get('profitability_doc')"/>
+                                    <tr>
+                                        <td align="left"><span t-out="line.get('type_doc', '')"/></td>
+                                        <td align="left"><span t-out="line.get('move', '')"/></td>
+                                        <td align="center"><span t-out="line.get('date', '')"/></td>
+                                        <td align="left"><span t-out="line.get('partner', '')"/></td>
+                                        <td align="right"><span t-out="line.get('profit', 0)" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                        <td align="right"><span t-out="line.get('loss', 0)" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                        <td align="right"><span t-out="line.get('profitability', 0)" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                        <td align="right"><span t-out="line.get('profitability_usd', 0)" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                        <td align="right"><span t-out="line.get('profitability_doc', 0)" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                        <td align="center"><span t-out="line.get('currency', '')"/></td>
+                                        <td align="right"><span t-out="round(line.get('rate', 0), 2)"/></td>
+                                        <td align="left"><span t-out="line.get('detail', '')"/></td>
+                                    </tr>
+                                </t>
+                                <tr class="o_line_total">
+                                    <td align="center" colspan="4"><b><span>TOTAL</span></b></td>
+                                    <td align="right"><span t-out="sum_profit" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                    <td align="right"><span t-out="sum_loss" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                    <td align="right"><span t-out="sum_profitability" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                    <td align="right"><span t-out="sum_profitability_usd" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                    <td align="right"><span t-out="sum_profitability_doc" t-options="{'widget': 'monetary', 'display_currency': line.get('currency_id')}"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

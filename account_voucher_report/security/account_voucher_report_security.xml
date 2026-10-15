@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="account_voucher_report_company_rule" model="ir.rule">
+            <field name="name">Reporte de pagos multi-company</field>
+            <field name="model_id" ref="model_account_voucher_report"/>
+            <field name="domain_force">[('voucher_company_id', 'in', company_ids)]</field>
+        </record>
+
+    </data>
+</odoo>

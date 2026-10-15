@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+    <record id="approval_product_line_view_tree_inherit_pending" model="ir.ui.view">
+      <field name="name">approval.product.line.tree.pending.to.buy</field>
+      <field name="model">approval.product.line</field>
+      <field name="inherit_id" ref="approvals.approval_product_line_view_tree"/>
+      <field name="arch" type="xml">
+        <xpath expr="//list" position="inside">
+          <field name="qty_pending_to_buy" string="Pendiente por comprar" readonly="1"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

@@ -1,0 +1,215 @@
+<odoo>
+
+    <!-- ===================================================== -->
+    <!-- CRON 1 : HR                                           -->
+    <!-- Ajusta fechas de contrato en colisión con la fecha de -->
+    <!-- creación del empleado o con el contrato anterior.     -->
+    <!-- ===================================================== -->
+
+    <record id="ir_cron_hr_initial_fix" model="ir.cron">
+        <field name="name">HR Pre-Upgrade Fix (Contract Dates)</field>
+        <field name="model_id" ref="model_hr_migration_fix"/>
+        <field name="state">code</field>
+        <field name="code">model.run_initial_fix()</field>
+
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=365)).strftime('%Y-%m-%d %H:%M:%S')"/>
+
+        <field name="priority">1</field>
+        <field name="user_id" ref="base.user_root"/>
+         <field name="active" eval="False"/>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- CRON 2 : HR                                           -->
+    <!-- Restaura las fechas originales de contrato ajustadas  -->
+    <!-- por el CRON 1.                                        -->
+    <!-- ===================================================== -->
+
+    <record id="ir_cron_hr_restore_dates" model="ir.cron">
+        <field name="name">HR Post-Upgrade Restore (Contract Dates)</field>
+        <field name="model_id" ref="model_hr_migration_fix"/>
+        <field name="state">code</field>
+        <field name="code">model.restore_original_dates()</field>
+
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=365)).strftime('%Y-%m-%d %H:%M:%S')"/>
+
+        <field name="priority">2</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="active" eval="False"/>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- CRON 3 : TAX SCOPE                                    -->
+    <!-- Ejecutar manualmente ("Ejecutar Manualmente") cuando  -->
+    <!-- se vaya a iniciar la actualización.                   -->
+    <!-- ===================================================== -->
+
+    <record id="ir_cron_tax_scope_pre_upgrade" model="ir.cron">
+        <field name="name">Tax Scope Pre-Upgrade Fix (l10n_co)</field>
+        <field name="model_id" ref="model_l10n_co_tax_scope_fix"/>
+        <field name="state">code</field>
+        <field name="code">model.run_pre_upgrade_fix()</field>
+
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=365)).strftime('%Y-%m-%d %H:%M:%S')"/>
+
+        <field name="priority">1</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="active" eval="False"/>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- CRON 4 : TAX SCOPE                                        -->
+    <!-- Ejecutar manualmente una vez confirmada la actualización. -->
+    <!-- ========================================================= -->
+
+    <record id="ir_cron_tax_scope_post_upgrade" model="ir.cron">
+        <field name="name">Tax Scope Post-Upgrade Restore (l10n_co)</field>
+        <field name="model_id" ref="model_l10n_co_tax_scope_fix"/>
+        <field name="state">code</field>
+        <field name="code">model.run_post_upgrade_restore()</field>
+
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=365)).strftime('%Y-%m-%d %H:%M:%S')"/>
+
+        <field name="priority">2</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="active" eval="False"/>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- CRON 5 : ACCOUNT_ACCOUNT_RES_COMPANY_REL              -->
+    <!-- Respalda y vacía account_account_res_company_rel      -->
+    <!-- para limpiar filas huérfanas de un intento anterior   -->
+    <!-- interrumpido. Ejecutar manualmente antes de relanzar  -->
+    <!-- el Upgrade.                                           -->
+    <!-- ===================================================== -->
+
+    <record id="ir_cron_account_company_rel_pre_upgrade" model="ir.cron">
+        <field name="name">Account-Company Rel Pre-Upgrade Backup+Clear</field>
+        <field name="model_id" ref="model_account_company_rel_fix"/>
+        <field name="state">code</field>
+        <field name="code">model.run_pre_upgrade_backup_clear()</field>
+
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=365)).strftime('%Y-%m-%d %H:%M:%S')"/>
+
+        <field name="priority">1</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="active" eval="False"/>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- CRON 6 : ACCOUNT_ACCOUNT_RES_COMPANY_REL              -->
+    <!-- Restaura desde el respaldo lo que el PASO 1 borró.    -->
+    <!-- ===================================================== -->
+
+    <record id="ir_cron_account_company_rel_post_upgrade" model="ir.cron">
+        <field name="name">Account-Company Rel Post-Upgrade Restore</field>
+        <field name="model_id" ref="model_account_company_rel_fix"/>
+        <field name="state">code</field>
+        <field name="code">model.run_post_upgrade_restore()</field>
+
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=365)).strftime('%Y-%m-%d %H:%M:%S')"/>
+
+        <field name="priority">2</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- ============================================================== -->
+    <!-- CRON 7 : STOCK LOCATION BOD67/Entrada - PASO 1                 -->
+    <!-- (ANTES de reintentar el Upgrade a 19.0). Reparenta la          -->
+    <!-- ubicación 1230 (Entrada) para que cuelgue de BOD67 (1228) y    -->
+    <!-- no de Existencias (1229), evitando el bucle infinito "COPIA:   -->
+    <!-- Entrada → Existencias" al recalcular stock.warehouse.orderpoint-->
+    <!-- durante la carga del módulo stock.                             -->
+    <!-- ============================================================== -->
+
+    <record id="ir_cron_stock_location_entrada_pre_upgrade" model="ir.cron">
+        <field name="name">Stock Location Entrada Pre-Upgrade Fix (BOD67)</field>
+        <field name="model_id" ref="model_stock_location_entrada_fix"/>
+        <field name="state">code</field>
+        <field name="code">model.run_pre_upgrade_fix()</field>
+
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=365)).strftime('%Y-%m-%d %H:%M:%S')"/>
+
+        <field name="priority">1</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="active" eval="False"/>
+    </record>
+
+
+    <!-- ============================================================== -->
+    <!-- CRON 8 : STOCK LOCATION BOD67/Entrada - PASO 2                 -->
+    <!-- Restaura la ubicación 1230 a su padre original (Existencias,   -->
+    <!-- 1229).                                                         -->
+    <!-- ============================================================== -->
+
+    <record id="ir_cron_stock_location_entrada_post_upgrade" model="ir.cron">
+        <field name="name">Stock Location Entrada Post-Upgrade Restore (BOD67)</field>
+        <field name="model_id" ref="model_stock_location_entrada_fix"/>
+        <field name="state">code</field>
+        <field name="code">model.run_post_upgrade_restore()</field>
+
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=365)).strftime('%Y-%m-%d %H:%M:%S')"/>
+
+        <field name="priority">2</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- ============================================================== -->
+    <!-- CRON 9 : HR.VERSION / HR.CONTRACT                              -->
+    <!-- El upgrade a 19.0 renombró a hr.version la fila de ir_model     -->
+    <!-- que hasta la 18.0 compartían el core y hr_payroll_co (los dos  -->
+    <!-- declaraban _name = 'hr.contract'). Los registros noupdate de   -->
+    <!-- hr_payroll_co (los 2 crons de vacaciones y la regla multi-     -->
+    <!-- compañía) no se reescriben en un upgrade y se quedaron         -->
+    <!-- apuntando a esa fila vieja, ahora hr.version. Ejecutar         -->
+    <!-- manualmente para reapuntarlos al hr.contract propio del        -->
+    <!-- módulo. Idempotente: se puede correr varias veces sin riesgo.  -->
+    <!-- ============================================================== -->
+
+    <record id="ir_cron_hr_version_contract_ref_fix" model="ir.cron">
+        <field name="name">HR Version/Contract Ref Fix (noupdate records)</field>
+        <field name="model_id" ref="model_hr_version_contract_ref_fix"/>
+        <field name="state">code</field>
+        <field name="code">model.run_fix()</field>
+
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=365)).strftime('%Y-%m-%d %H:%M:%S')"/>
+
+        <field name="priority">1</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="active" eval="False"/>
+    </record>
+</odoo>

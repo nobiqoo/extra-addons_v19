@@ -1,0 +1,2745 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- 2276 -->
+        <record id="form_2276" model="mag.media">
+            <field name="code">2276</field>
+            <field name="name">2276 - INGRESOS Y RETENCIONES POR RENTAS DE TRABAJO Y DE PENSIONES v2</field>
+            <field name="smaller_amount">0</field>
+            <field name="update_worked_days">True</field>
+            <field name="query">SELECT
+                A AS "Entidad Informante",
+                B AS "Tipo de documento del beneficiario",
+                C AS "Número de Identificación del beneficiario",
+                D AS "Primer Apellido del beneficiario",
+                E AS "Segundo Apellido del beneficiario",
+                F "Primer Nombre del beneficiario",
+                G AS "Otros Nombres del beneficiario",
+                H "Dirección del beneficiario",
+                I AS "Departamento del beneficiario",
+                J AS "Municipio del beneficiario",
+                K AS "País del beneficiario",
+                SUM(L) AS "Pagos por Salarios",
+                SUM(M) AS "Pagos por emolumentos eclesiásticos",
+                SUM(N) AS "Pagos realizados con bonos electrónicos o de papel de servicio, cheques, tarjetas, vales, etc.",
+                SUM(O) AS "Valor del exceso de los pagos por alimentación mayores a 41 UVT, art. 387-1 E.T.",
+                SUM(P) AS "Pagos por honorarios",
+                SUM(Q) AS "Pagos por servicios",
+                SUM(R) AS "Pagos por comisiones",
+                SUM(S) AS "Pagos por prestaciones sociales",
+                SUM(T) AS "Pagos por viáticos",
+                SUM(U) AS "Pagos por gastos de representación",
+                SUM(V) AS "Pagos por compensaciones trabajo asociado cooperativo",
+                SUM(W) AS "Valor apoyos económicos no reembolsables o condonados, entregados por el Estado o financiados con recursos públicos, para financiar programas educativos.",
+                SUM(X) AS "Otros pagos",
+                SUM(Y) AS "Cesantías e intereses de cesantías efectivamente pagadas al empleado",
+                SUM(Z) AS "Cesantías consignadas al fondo de cesantías",
+                SUM(AA) AS "Auxilio de cesantías reconocido a trabajadores del régimen tradicional del Código Sustantivo del Trabajo, Capítulo VII, Título VIII Parte Primera",
+                SUM(AB) AS "Pensiones de jubilación, vejez o invalidez",
+                SUM(AC) AS "Total ingresos brutos por rentas de trabajo y pensión",
+                SUM(AD) AS "Aportes obligatorios por salud a cargo del trabajador",
+                SUM(AE) AS "Aportes obligatorios a fondos de pensiones y solidaridad pensional a cargo del trabajador",
+                SUM(AF) AS "Aportes voluntarios al régimen de ahorro individual con solidaridad - RAIS",
+                SUM(AG) AS "Aportes voluntarios a fondos de pensiones voluntarias",
+                SUM(AH) AS "Aportes a cuentas AFC.",
+                SUM(AI) AS "Aportes a cuentas AVC.",
+                SUM(AJ) AS "Valor de las retenciones en la fuente por pagos de rentas de trabajo o pensiones",
+                SUM(AK) AS "Impuesto sobre las ventas – IVA, mayor valor del costo o gasto",
+                SUM(AL) AS "Retención en la fuente a título de impuesto sobre las ventas – IVA.",
+                SUM(AM) AS "Pagos por alimentación hasta 41 UVT",
+                SUM(AN) AS "Valor ingreso laboral promedio de los últimos seis meses.",
+                AO AS "Tipo de documento del dependiente económico",
+                AP AS "Número de Identificación del dependiente económico",
+                AQ AS "Identificación del fideicomiso",
+                AR AS "Tipo documento participante en contrato de colaboración.",
+                ASS AS "Identificación del participante en contrato de colaboración."
+            FROM (
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    SUM(hpl.total) AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'L'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    SUM(hpl.total) AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'M'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    SUM(hpl.total) AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'N'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    SUM(hpl.total) AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'O'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    SUM(hpl.total) AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'P'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    SUM(hpl.total) AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'Q'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    SUM(hpl.total) AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'R'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    SUM(hpl.total) AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'S'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    SUM(hpl.total) AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'T'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    SUM(hpl.total) AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'U'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    SUM(hpl.total) AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'V'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    SUM(hpl.total) AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'W'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    SUM(hpl.total) AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'X'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    SUM(hpl.total) AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'Y'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    SUM(hpl.total) AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'Z'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    SUM(hpl.total) AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'AA'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    SUM(hpl.total) AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'AB'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    SUM(hpl.total) AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'AC'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    SUM(hpl.total) AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'AD'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    SUM(hpl.total) AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'AE'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    SUM(hpl.total) AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'AF'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    SUM(hpl.total) AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'AG'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    SUM(hpl.total) AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'AH'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    SUM(hpl.total) AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'AI'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    SUM(hpl.total) AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'AJ'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    SUM(hpl.total) AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'AK'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    SUM(hpl.total) AS AL,
+                    0 AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'AL'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    SUM(hpl.total) AS AM,
+                    0 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'AM'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number
+                UNION
+                SELECT
+                    rc.informant_entity AS A,
+                    li.dian_code AS B,
+                    rp.vat AS C,
+                    rp.lastname1 AS D,
+                    COALESCE(rp.lastname2, '') AS E,
+                    rp.name1 AS F,
+                    COALESCE(rp.name2, '') AS G,
+                    rp.street AS H,
+                    SUBSTRING(rcoe.dian_code, 3) AS I,
+                    rcy.dian_code AS J,
+                    rco.medios_code AS K,
+                    0 AS L,
+                    0 AS M,
+                    0 AS N,
+                    0 AS O,
+                    0 AS P,
+                    0 AS Q,
+                    0 AS R,
+                    0 AS S,
+                    0 AS T,
+                    0 AS U,
+                    0 AS V,
+                    0 AS W,
+                    0 AS X,
+                    0 AS Y,
+                    0 AS Z,
+                    0 AS AA,
+                    0 AS AB,
+                    0 AS AC,
+                    0 AS AD,
+                    0 AS AE,
+                    0 AS AF,
+                    0 AS AG,
+                    0 AS AH,
+                    0 AS AI,
+                    0 AS AJ,
+                    0 AS AK,
+                    0 AS AL,
+                    0 AS AM,
+                    SUM(hpl.total) / hc.worked_days * 30 AS AN,
+                    CASE WHEN li2.name IS NOT NULL THEN li2.name->>'en_US' ELSE NULL END AS AO,
+                    CASE WHEN hfi.document_number IS NOT NULL THEN hfi.document_number ELSE NULL END AS AP,
+                    NULL AS AQ,
+                    NULL AS AR,
+                    NULL AS ASS
+                FROM hr_payslip_line AS hpl
+                    INNER JOIN hr_payslip AS hp ON hp.id = hpl.payslip_id
+                    INNER JOIN hr_contract AS hc ON hc.id = hp.contract_id
+                    INNER JOIN hr_employee AS he ON he.id = hp.employee_id
+                    INNER JOIN res_partner AS rp ON rp.id = he.partner_id
+                    INNER JOIN res_company AS rc ON rc.id = hp.company_id
+                    INNER JOIN l10n_latam_identification_type AS li ON li.id = rp.l10n_latam_identification_type_id
+                    INNER JOIN res_country AS rco ON rco.id = rp.country_id
+                    INNER JOIN res_country_state AS rcoe ON rcoe.id = rp.state_id
+                    INNER JOIN res_city AS rcy ON rcy.id = rp.city_id
+                    INNER JOIN hr_period AS hpe ON hpe.id = hp.period_id
+                    LEFT JOIN hr_family_information AS hfi ON hfi.id = he.family_to_certified
+                    LEFT JOIN l10n_latam_identification_type AS li2 ON li2.id = hfi.l10n_latam_identification_type_id
+                WHERE hpl.name IN (
+                    SELECT 
+                        iwc.name
+                    FROM media_line_concept_rel AS mlcr
+                    INNER JOIN income_and_withholding_concepts AS iwc ON iwc.id = mlcr.line_id
+                    WHERE concept_id in(
+                        SELECT
+                            mmlc.id FROM mag_media_lines_concepts as mmlc
+                        INNER JOIN
+                            mag_media_lines AS mml ON mml.id = mmlc.line_id
+                        INNER JOIN
+                            mag_media AS mm ON mm.id = mml.magnetic_id
+                        WHERE
+                            mm.id = {id} AND mmlc.sequence = 'AN'
+                    )
+                )
+                AND hp.state = 'paid'
+                AND hp.liquidation_date BETWEEN '{date_from_an}' AND '{date_to}'
+                GROUP BY
+                    rc.informant_entity,
+                    li.dian_code,
+                    rp.vat,
+                    rp.lastname1,
+                    rp.lastname2,
+                    rp.name1,
+                    rp.name2,
+                    rp.street,
+                    rcoe.dian_code,
+                    rcy.dian_code,
+                    rco.medios_code,
+                    li2.name,
+                    hfi.document_number,
+                    hc.worked_days
+            ) AS data_payroll
+            GROUP BY
+                A,
+                B,
+                C,
+                D,
+                E,
+                F,
+                G,
+                H,
+                I,
+                J,
+                K,
+                AO,
+                AP,
+                AQ,
+                AR,
+                ASS</field>
+        </record>
+    </data>
+</odoo>

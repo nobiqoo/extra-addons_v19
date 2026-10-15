@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="send_type_email_ei" model="ir.config_parameter">
+            <field name="key">l10n_co_bloodo.type_send_ei_mail</field>
+            <field name="value">once_cc</field>
+        </record>
+
+    </data>
+</odoo>

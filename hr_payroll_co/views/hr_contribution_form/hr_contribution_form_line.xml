@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_contribution_form_line_form" model="ir.ui.view">
+            <field name="name">hr.contribution.form.line.form</field>
+            <field name="model">hr.contribution.form.line</field>
+            <field name="arch" type="xml">
+                <form string="Detalle de planilla de aportes">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="contribution_id" />
+                                <field name="contract_id" />
+                            </group>
+                            <group>
+                                <field name="leave_id" />
+                                <field name="main" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="page_indicators" string="Indicadores">
+                                <group>
+                                    <group name="group_indicators_1">
+                                        <field name="ing" />
+                                        <field name="ret" />
+                                        <field name="tde" />
+                                        <field name="tae" />
+                                        <field name="tdp" />
+                                        <field name="tap" />
+                                        <field name="vsp" />
+                                    </group>
+                                    <group name="group_indicators_2">
+                                        <field name="fixes" />
+                                        <field name="vst" />
+                                        <field name="sln" />
+                                        <field name="ige" />
+                                        <field name="lma" />
+                                        <field name="vac_lr" />
+                                        <field name="avp" />
+                                        <field name="vct" />
+                                        <field name="irl" />
+                                    </group>
+                                    <group name="group_indicators_3" string="Códigos">
+                                        <field name="afp_code" />
+                                        <field name="afp_to_code" />
+                                        <field name="eps_code" />
+                                        <field name="eps_to_code" />
+                                        <field name="ccf_code" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="page_quotation" string="Cotización">
+                                <group>
+                                    <group name="group_quotation_1">
+                                        <field name="pens_days" />
+                                        <field name="eps_days" />
+                                        <field name="arl_days" />
+                                        <field name="ccf_days" />
+                                        <field name="w_hours" />
+                                        <field name="global_ibc" />
+                                    </group>
+                                    <group name="group_quotation_2">
+                                        <field name="wage" />
+                                        <field name="wage_type" />
+                                        <field name="pens_ibc" />
+                                        <field name="eps_ibc" />
+                                        <field name="arl_ibc" />
+                                        <field name="ccf_ibc" />
+                                        <field name="other_ibc" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="page_contributions_afp_eps" string="Aportes AFP EPS">
+                                <group>
+                                    <group name="group_contributions_afp_eps_1" string="Pensión">
+                                        <field name="pens_rate" digits="[1,3]" />
+                                        <field name="pens_cot" />
+                                        <field name="ap_vol_contributor" />
+                                        <field name="ap_vol_company" />
+                                        <field name="pens_total" />
+                                        <field name="pens_public" />
+                                        <field name="pens_accai" />
+                                        <field name="fsol" />
+                                        <field name="fsub" />
+                                        <field name="ret_cont_vol" />
+                                    </group>
+                                    <group name="group_contributions_afp_eps_2" string="Salud">
+                                        <field name="eps_rate" digits="[1,3]" />
+                                        <field name="eps_cot" />
+                                        <field name="ups" />
+                                        <field name="aus_auth" />
+                                        <field name="gd_amount" />
+                                        <field name="mat_auth" />
+                                        <field name="mat_amount" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="contributions_arl_others"
+                                string="Aportes ARL y Parafiscales">
+                                <group>
+                                    <group name="group_arl_others_1" string="ARL y CCF">
+                                        <field name="work_center" />
+                                        <field name="arl_rate" digits="[1,3]" />
+                                        <field name="arl_cot" />
+                                        <field name="ccf_rate" digits="[1,3]" />
+                                        <field name="ccf_cot" />
+                                        <field name="arl_code" />
+                                        <field name="arl_risk" />
+                                    </group>
+                                    <group name="group_arl_others_2" string="Otros Parafiscales">
+                                        <field name="sena_rate" digits="[1,3]" />
+                                        <field name="sena_cot" />
+                                        <field name="icbf_rate" digits="[1,3]" />
+                                        <field name="icbf_cot" />
+                                        <field name="esap_rate" digits="[1,3]" />
+                                        <field name="esap_cot" />
+                                        <field name="men_rate" digits="[1,3]" />
+                                        <field name="men_cot" />
+                                        <field name="exonerated" digits="[1,3]" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="page_dates" string="Fechas">
+                                <group>
+                                    <group name="group_date_1">
+                                        <field name="k_start" />
+                                        <field name="k_end" />
+                                        <field name="vsp_start" />
+                                        <field name="sln_start" />
+                                        <field name="sln_end" />
+                                        <field name="ige_start" />
+                                        <field name="ige_end" />
+                                    </group>
+                                    <group name="group_date_2">
+                                        <field name="lma_start" />
+                                        <field name="lma_end" />
+                                        <field name="vac_start" />
+                                        <field name="vac_end" />
+                                        <field name="vct_start" />
+                                        <field name="vct_end" />
+                                        <field name="atep_start" />
+                                        <field name="atep_end" />
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

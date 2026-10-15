@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="economic_variable_line_form" model="ir.ui.view">
+            <field name="name">economic.variable.line.form</field>
+            <field name="model">economic.variable.line</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="year" />
+                                <field name="month" />
+                            </group>
+                            <group>
+                                <field name="variable_code" invisible="1" />
+                                <field name="value"
+                                    invisible="variable_code in ('TRTEFTE', 'FSOL', 'FSUB')" />
+                            </group>
+                        </group>
+                        <notebook invisible="variable_code not in ('TRTEFTE', 'FSOL', 'FSUB')">
+                            <page name="page_variable_line_details" string="Tabla de Rangos">
+                                <field name="variable_line_detail_ids"
+                                    context="{'default_variable_code': variable_code}">
+                                    <list>
+                                        <field name="lower_limit" />
+                                        <field name="upper_limit" />
+                                        <field name="subtract"
+                                            column_invisible="parent.variable_code in ('FSOL', 'FSUB')" />
+                                        <field name="rate" />
+                                        <field name="add"
+                                            column_invisible="parent.variable_code in ('FSOL', 'FSUB')" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="economic_variable_line_tree" model="ir.ui.view">
+            <field name="name">economic.variable.line.tree</field>
+            <field name="model">economic.variable.line</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="year" />
+                    <field name="month" />
+                </list>
+            </field>
+        </record>
+
+    </data>
+</odoo>

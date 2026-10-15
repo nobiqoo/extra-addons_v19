@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+
+<odoo>
+    <data>
+        
+        <record id="view_transport_route_form" model="ir.ui.view">
+            <field name="name">transport.route.form</field>
+            <field name="model">transport.route</field>
+            <field name="arch" type="xml">
+                <form string="Transport Route">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,active"/>
+                        <!-- Buttons -->
+                        <button name="action_confirm" type="object" string="Confirm" class="oe_highlight" invisible="state != 'draft'"/>
+                        <button name="action_cancel" type="object" string="Cancel" class="btn-secondary" invisible="state == 'inactive'"/>
+                        <button name="action_draft" type="object" string="Set to Draft" class="btn-secondary" invisible="state != 'inactive'"/>
+                        <button name="add_student" type="object" string="Add Student" class="oe_highlight" context="{'default_route_id': id}" />
+                        <button name="action_start_trip" type="object" string="Start Trip" class="oe_highlight" invisible="state != 'active' or has_running_trip"/>
+                        <button name="action_stop_trip" type="object" string="Stop Trip" class="oe_highlight" invisible="state != 'active' or not has_running_trip"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="get_enrolled_students" icon="fa-list-ul" type="object" class="oe_stat_button" invisible="enrolled_students == 0">
+                                <field name="enrolled_students" widget="statinfo" string="Enrolled Students"/>
+                            </button>
+                            <button type="object" name="action_view_trips" class="oe_stat_button" icon="fa-road" invisible="trip_count == 0">
+                                <field name="trip_count" widget="statinfo" string="Trips"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <span class="o_form_label">Route Name</span>
+                                <field name="name" placeholder="Route Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="transport_manager_id" widget="many2one_avatar_user" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                <field name="other_responsible_ids" widget="many2many_avatar_user" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                <field name="student_capacity"/>
+                                <field name="enrolled_students"/>
+                                <field name="remaining_capacity"/>
+                            </group>
+                            <group>
+                                <field name="vehicle_id" required="True" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                <field name="driver_id"/>
+                                <field name="driver_phone"/>
+                                <field name="company_id" readonly="is_single_company" string="School" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="stop" string="Stops">
+                                <field name="route_stop_ids" context="{'default_route_id': id}">
+                                    <list editable="bottom">
+                                        <field name="sequence" widget="handle" />
+                                        <field name="location_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                        <field name="pickup_time" widget="float_time"/>
+                                        <field name="dropoff_time" widget="float_time"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Students">
+                                <field name="student_ids" context="{'default_route_id': id}">
+                                    <list editable="bottom" create="False" delete="False">
+                                        <field name="name" readonly="1"/>
+                                        <field name="current_grade_id" readonly="1"/>
+                                        <field name="location_id" readonly="1"/>
+                                        <button name="action_remove_student" type="object" string="Remove" class="btn-danger" context="{'default_route_id': id}" confirm="Are you sure to remove this Student?"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_transport_route_kanban" model="ir.ui.view">
+            <field name="name">transport.route.kanban</field>
+            <field name="model">transport.route</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <field name="transport_manager_id"/>
+                    <field name="other_responsible_ids"/>
+                    <field name="vehicle_id"/>
+                    <field name="driver_id"/>
+                    <field name="driver_phone"/>
+                    <field name="state"/>
+                    <field name="enrolled_students"/>
+                    <field name="trip_count"/>
+                    <field name="student_capacity"/>
+                    <field name="remaining_capacity"/>
+                    <templates>
+                        <t t-name="card">
+                            <div class="ribbon ribbon-top-right" invisible="state != 'active'">
+                                <span class="text-bg-success">Active</span>
+                            </div>
+                            <div class="ribbon ribbon-top-right" invisible="state != 'inactive'">
+                                <span class="text-bg-danger">InActive</span>
+                            </div>
+                            <main class="ps-2 ps-md-0">
+                                <field name="name" class="fw-bold fs-2"/>
+                                <div><span class="fw-bold"><i class="fa fa-fw me-2 fa-user-circle text-primary" title="Transport Manager"/>Transport Manager:</span> <field name="transport_manager_id"/></div>
+                                <div><span class="fw-bold"><i class="fa fa-fw me-2 fa-bus text-primary" title="Driver Name"/>Driver:</span> <field name="driver_id"/></div>
+                                <div><span class="fw-bold"><i class="fa fa-fw me-2 fa-phone text-primary" title="Driver Phone"/>Driver Phone:</span> <field name="driver_phone"/></div>
+                                <div><span class="fw-bold"><i class="fa fa-fw me-2 fa-bus text-primary" title="Vehical"/>Vehical:</span> <field name="vehicle_id"/></div>
+                                <footer class="justify-content-end">
+                                    <div>
+                                        <span class="badge bg-success me-2" title="Student Capacity"><i class="fa fa-user-plus"/> <field name="student_capacity"/></span>
+                                        <span class="badge bg-info me-2" title="Enrolled Students"><i class="fa fa-users"/> <field name="enrolled_students"/></span>
+                                        <span class="badge bg-warning text-dark me-2" title="Remaining Capacity"><i class="fa fa-user-times"/> <field name="remaining_capacity"/></span>
+                                        <span class="badge bg-secondary" title="Trips"><i class="fa fa-truck"/> <field name="trip_count"/></span>
+                                    </div>
+                                </footer>
+                            </main>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_transport_route_tree" model="ir.ui.view">
+            <field name="name">transport.route.tree</field>
+            <field name="model">transport.route</field>
+            <field name="arch" type="xml">
+                <list string="Transport Routes">
+                    <field name="name"/>
+                    <field name="transport_manager_id" widget="many2one_avatar_user" />
+                    <field name="other_responsible_ids" widget="many2many_avatar_user" />
+                    <field name="driver_id"/>
+                    <field name="driver_phone"/>
+                    <field name="vehicle_id"/>
+                    <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'active'" decoration-danger="state == 'inactive'"/>
+                    <field name="company_id" string="School" optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_transport_route_search" model="ir.ui.view">
+            <field name="name">transport.route.search</field>
+            <field name="model">transport.route</field>
+            <field name="arch" type="xml">
+                <search string="Transport Trips">
+                    <field name="name" string="Route Name"/>
+                    <field name="transport_manager_id" string="Transport Manager"/>
+                    <field name="other_responsible_ids" string="Responsible"/>
+                    <field name="driver_id" string="Driver Name"/>
+                    <field name="driver_phone" string="Driver Phone"/>
+                    <field name="vehicle_id" string="Vehicle Number"/>
+                    <field name="company_id" string="School"/>
+                    
+                    <filter name="state_active" string="Active" domain="[('state', '=', 'active')]"/>
+                    <filter name="state_inactive" string="Inactive" domain="[('state', '=', 'inactive')]"/>
+                    
+                    <group>
+                        <filter string="State" name="group_by_state" context="{'group_by': 'state'}"/>
+                        <filter string="School" name="group_by_company" domain="[]" context="{'group_by': 'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_transport_route" model="ir.actions.act_window">
+            <field name="name">Transport Routes</field>
+            <field name="res_model">transport.route</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="path">transport-route</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new transport route to manage your transport operations.
+                </p>
+            </field>
+        </record>
+    
+    </data>
+</odoo>

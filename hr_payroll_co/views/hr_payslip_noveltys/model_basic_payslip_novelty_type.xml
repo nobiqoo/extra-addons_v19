@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="model_basic_payslip_novelty_type_form" model="ir.ui.view">
+            <field name="name">model.basic.payslip.novelty.type.form</field>
+            <field name="model">model.basic.payslip.novelty.type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Template">
+                    <sheet>
+                        <div name="title" />
+                        <group>
+                            <group>
+                                <field name="name" />
+                            </group>
+                            <group>
+                                <field name="code" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="page_account" string="Contabilidad">
+                                <group>
+                                    <group name="group_adm" string="Administrativo">
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>
+                                                    <span style="margin-right: 140px;">Debito</span>
+                                                </th>
+                                                <th>
+                                                    <span style="margin-right: 136px;">Credito</span>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td>Regular</td>
+                                                <td>
+                                                    <field name="reg_adm_debit" />
+                                                </td>
+                                                <td>
+                                                    <field name="reg_adm_credit" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Integral</td>
+                                                <td>
+                                                    <field name="int_adm_debit" />
+                                                </td>
+                                                <td>
+                                                    <field name="int_adm_credit" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Aprendiz</td>
+                                                <td>
+                                                    <field name="apr_adm_debit" />
+                                                </td>
+                                                <td>
+                                                    <field name="apr_adm_credit" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </group>
+                                    <group name="group_com" string="Comercial">
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>
+                                                    <span style="margin-right: 140px;">Debito</span>
+                                                </th>
+                                                <th>
+                                                    <span style="margin-right: 136px;">Credito</span>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td>Regular</td>
+                                                <td>
+                                                    <field name="reg_com_debit" />
+                                                </td>
+                                                <td>
+                                                    <field name="reg_com_credit" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Integral</td>
+                                                <td>
+                                                    <field name="int_com_debit" />
+                                                </td>
+                                                <td>
+                                                    <field name="int_com_credit" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Aprendiz</td>
+                                                <td>
+                                                    <field name="apr_com_debit" />
+                                                </td>
+                                                <td>
+                                                    <field name="apr_com_credit" />
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </group>
+                                    <group name="group_ope" string="Operativa">
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>
+                                                    <span style="margin-right: 140px;">Debito</span>
+                                                </th>
+                                                <th>
+                                                    <span style="margin-right: 136px;">Credito</span>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td>Regular</td>
+                                                <td>
+                                                    <field name="reg_ope_debit" />
+                                                </td>
+                                                <td>
+                                                    <field name="reg_ope_credit" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Integral</td>
+                                                <td>
+                                                    <field name="int_ope_debit" />
+                                                </td>
+                                                <td>
+                                                    <field name="int_ope_credit" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Aprendiz</td>
+                                                <td>
+                                                    <field name="apr_ope_debit" />
+                                                </td>
+                                                <td>
+                                                    <field name="apr_ope_credit" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </group>
+                                    <group name="group_pro" string="Producción">
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>
+                                                    <span style="margin-right: 140px;">Debito</span>
+                                                </th>
+                                                <th>
+                                                    <span style="margin-right: 136px;">Credito</span>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td>Regular</td>
+                                                <td>
+                                                    <field name="reg_pro_debit" />
+                                                </td>
+                                                <td>
+                                                    <field name="reg_pro_credit" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Integral</td>
+                                                <td>
+                                                    <field name="int_pro_debit" />
+                                                </td>
+                                                <td>
+                                                    <field name="int_pro_credit" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Aprendiz</td>
+                                                <td>
+                                                    <field name="apr_pro_debit" />
+                                                </td>
+                                                <td>
+                                                    <field name="apr_pro_credit" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="page_setup" string="Configuración">
+                                <group name="group_setup" string="General">
+                                    <field name="category" />
+                                    <field name="partner_type" />
+                                    <field name="partner_id" invisible="partner_type != 'OTHER'" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

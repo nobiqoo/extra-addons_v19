@@ -1,0 +1,27 @@
+.o_student_attendance_kiosk_body {
+    height: 100vh;
+    overflow: hidden;
+    background: {
+        size: cover;
+        attachment: fixed;
+        color: var(--homeMenu-bg-color, #{$o-gray-200});
+        image: var(--homeMenu-bg-image, url("/wk_school_management/static/src/img/background-light.svg"));
+    }
+}
+
+.o_hr_attendance_kiosk_company_image {
+    max-height: 10vh;
+    @include media-breakpoint-up(sm) {
+        max-height: 7 vh;
+    }
+}
+
+.o_school_attendance_install_btn {
+    top: 10px;
+    right: -105px;
+    transform: scale(0.90);
+}
+
+.o_mobile_barcode {
+    width: max-content;
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Requerimiento "Gestión de la vista lista de Clases ofertadas" (2.1):
+         check Activa/Inactiva en Asignatura del nivel, editable directamente
+         desde la lista (igual que "Clase activa" en Clases ofertadas). -->
+    <record id="wk_grade_subjects_form_colombo" model="ir.ui.view">
+        <field name="name">wk.grade.subjects.form.colombo</field>
+        <field name="model">wk.grade.subjects</field>
+        <field name="inherit_id" ref="wk_school_management.wk_grade_subjects_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='optional_choice']" position="after">
+                <field name="is_active_subject" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="wk_grade_subjects_tree_colombo" model="ir.ui.view">
+        <field name="name">wk.grade.subjects.list.colombo</field>
+        <field name="model">wk.grade.subjects</field>
+        <field name="inherit_id" ref="wk_school_management.wk_grade_subjects_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='grade_id']" position="after">
+                <field name="is_active_subject" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="wk_grade_subjects_search_colombo" model="ir.ui.view">
+        <field name="name">wk.grade.subjects.search.colombo</field>
+        <field name="model">wk.grade.subjects</field>
+        <field name="inherit_id" ref="wk_school_management.wk_grade_subjects_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='optional_choice']" position="before">
+                <filter name="is_active_subject" string="Activas" domain="[('is_active_subject','=',True)]"/>
+                <filter name="is_inactive_subject" string="Inactivas" domain="[('is_active_subject','=',False)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- HANAS (41) -->
+    <data noupdate="0">
+        <record id="system_41" model="safra.system"><field name="tech_width_min">0.4</field><field name="tech_width_max">6</field><field name="tech_height_min">0.4</field><field name="tech_height_max">3</field><field name="tech_mechanism"></field></record>
+        <record id="sf_41_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_41_mando_position" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_41_width" model="safra.system.field">
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_41_height" model="safra.system.field">
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_41_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_41_fabric_id" model="safra.system.field">
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_41_color_id" model="safra.system.field">
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_41_coordinado" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_41"/>
+            <field name="field_id" ref="field_coordinado"/>
+            <field name="sequence">150</field>
+        </record>
+        <record id="sf_41_motor" model="safra.system.field">
+            <field name="sequence">1000</field>
+            <field name="label_override">Motor</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;0&#x27;,&#x27;name&#x27;:&#x27;Sin motor&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;5&#x27;,&#x27;name&#x27;:&#x27;Motor Vertical Hanas Vintage WiFi&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;8&#x27;,&#x27;name&#x27;:&#x27;Motor Vertical Hanas Vintage Bateria/Rf&#x27;,&#x27;sequence&#x27;:30})]"/>
+            <field name="clear_depends" eval="True"/>
+        </record>
+        <record id="sf_41_control" model="safra.system.field">
+            <field name="sequence">1001</field>
+            <field name="label_override">Control motor</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;0&#x27;,&#x27;name&#x27;:&#x27;Sin Control&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;5&#x27;,&#x27;name&#x27;:&#x27;Control Wifi Vertical Vintage Hannas&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;7&#x27;,&#x27;name&#x27;:&#x27;Control Motor Batería&#x27;,&#x27;sequence&#x27;:30})]"/>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="sf_41_control_channel" model="safra.system.field">
+            <field name="sequence">1002</field>
+            <field name="label_override">Canal del Control</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;0&#x27;,&#x27;name&#x27;:&#x27;Sin canal&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;1&#x27;,&#x27;name&#x27;:&#x27;Canal 1&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;2&#x27;,&#x27;name&#x27;:&#x27;Canal 2&#x27;,&#x27;sequence&#x27;:30}),(0,0,{&#x27;value&#x27;:&#x27;3&#x27;,&#x27;name&#x27;:&#x27;Canal 3&#x27;,&#x27;sequence&#x27;:40}),(0,0,{&#x27;value&#x27;:&#x27;4&#x27;,&#x27;name&#x27;:&#x27;Canal 4&#x27;,&#x27;sequence&#x27;:50}),(0,0,{&#x27;value&#x27;:&#x27;5&#x27;,&#x27;name&#x27;:&#x27;Canal 5&#x27;,&#x27;sequence&#x27;:60}),(0,0,{&#x27;value&#x27;:&#x27;6&#x27;,&#x27;name&#x27;:&#x27;Canal 6&#x27;,&#x27;sequence&#x27;:70}),(0,0,{&#x27;value&#x27;:&#x27;7&#x27;,&#x27;name&#x27;:&#x27;Canal 7&#x27;,&#x27;sequence&#x27;:80}),(0,0,{&#x27;value&#x27;:&#x27;8&#x27;,&#x27;name&#x27;:&#x27;Canal 8&#x27;,&#x27;sequence&#x27;:90}),(0,0,{&#x27;value&#x27;:&#x27;9&#x27;,&#x27;name&#x27;:&#x27;Canal 9&#x27;,&#x27;sequence&#x27;:100}),(0,0,{&#x27;value&#x27;:&#x27;10&#x27;,&#x27;name&#x27;:&#x27;Canal 10&#x27;,&#x27;sequence&#x27;:110}),(0,0,{&#x27;value&#x27;:&#x27;11&#x27;,&#x27;name&#x27;:&#x27;Canal 11&#x27;,&#x27;sequence&#x27;:120}),(0,0,{&#x27;value&#x27;:&#x27;12&#x27;,&#x27;name&#x27;:&#x27;Canal 12&#x27;,&#x27;sequence&#x27;:130}),(0,0,{&#x27;value&#x27;:&#x27;13&#x27;,&#x27;name&#x27;:&#x27;Canal 13&#x27;,&#x27;sequence&#x27;:140})]"/>
+            <field name="depends_field_id" ref="field_motor"/>
+            <field name="depends_value"></field>
+        </record>
+        <record id="sf_41_mando_vertical" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_41"/>
+            <field name="field_id" ref="field_mando_vertical"/>
+            <field name="sequence">1005</field>
+        </record>
+        <record id="sf_41_apertura" model="safra.system.field">
+            <field name="sequence">1006</field>
+            <field name="label_override">Tipo de Apertura</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;1&#x27;,&#x27;name&#x27;:&#x27;Derecha&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;2&#x27;,&#x27;name&#x27;:&#x27;Izquierda&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;3&#x27;,&#x27;name&#x27;:&#x27;Extremos&#x27;,&#x27;sequence&#x27;:30}),(0,0,{&#x27;value&#x27;:&#x27;4&#x27;,&#x27;name&#x27;:&#x27;Centro&#x27;,&#x27;sequence&#x27;:40})]"/>
+        </record>
+        <record id="sf_41_cenefa_type" model="safra.system.field">
+            <field name="sequence">1010</field>
+            <field name="label_override">Cenefa PVC</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{&#x27;value&#x27;:&#x27;sin&#x27;,&#x27;name&#x27;:&#x27;No&#x27;,&#x27;sequence&#x27;:10}),(0,0,{&#x27;value&#x27;:&#x27;metalica&#x27;,&#x27;name&#x27;:&#x27;Cenefa PVC Clásica&#x27;,&#x27;sequence&#x27;:20}),(0,0,{&#x27;value&#x27;:&#x27;tela&#x27;,&#x27;name&#x27;:&#x27;Cenefa PVC Moderna&#x27;,&#x27;sequence&#x27;:30})]"/>
+        </record>
+        <record id="sf_41_cenefa_lateral" model="safra.system.field">
+            <field name="sequence">1011</field>
+            <field name="label_override">Laterales Cenefa PVC</field>
+        </record>
+        <record id="sf_41_cenefa_dividida" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_41"/>
+            <field name="field_id" ref="field_cenefa_dividida"/>
+            <field name="sequence">1012</field>
+            <field name="label_override">Cenefa PVC Dividida</field>
+            <field name="depends_field_id" ref="field_cenefa_type"/>
+            <field name="depends_value">metalica,tela</field>
+        </record>
+        <record id="sf_41_cenefa_longitud" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_41"/>
+            <field name="field_id" ref="field_cenefa_longitud"/>
+            <field name="sequence">1013</field>
+            <field name="depends_field_id" ref="field_cenefa_lateral"/>
+            <field name="depends_value">izquierdo,derecho,ambos</field>
+        </record>
+        <record id="sf_41_extra_chain" model="safra.system.field">
+            <field name="sequence">1020</field>
+            <field name="label_override">Altura Cadena (metros)</field>
+        </record>
+        <record id="sf_41_tipo_entretela" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_41"/>
+            <field name="field_id" ref="field_tipo_entretela"/>
+            <field name="sequence">1022</field>
+        </record>
+        <record id="sf_41_escuadras" model="safra.system.field">
+            <field name="sequence">1024</field>
+        </record>
+        <record id="sf_41_location" model="safra.system.field">
+            <field name="sequence">1026</field>
+        </record>
+        <record id="sf_41_enclosed" model="safra.system.field">
+            <field name="sequence">1028</field>
+        </record>
+    </data>
+</odoo>

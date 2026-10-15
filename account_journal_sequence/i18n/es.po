@@ -1,0 +1,146 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_journal_sequence
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-17 22:25+0000\n"
+"PO-Revision-Date: 2022-08-17 22:25+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_journal_sequence
+#: code:addons/account_journal_sequence/models/account_journal.py:0
+#: code:addons/account_journal_sequence/models/account_journal.py:0
+#, python-format
+msgid "%s Sequence"
+msgstr "%s Secuencia"
+
+#. module: account_journal_sequence
+#: code:addons/account_journal_sequence/models/account_journal.py:0
+#: code:addons/account_journal_sequence/models/account_journal.py:0
+#, python-format
+msgid ": Refund"
+msgstr ": Rectificativa"
+
+#. module: account_journal_sequence
+#: model:ir.model.fields,field_description:account_journal_sequence.field_account_journal__refund_sequence_id
+msgid "Credit Note Entry Sequence"
+msgstr "Secuencia de Nota Crédito"
+
+#. module: account_journal_sequence
+#: model_terms:ir.ui.view,arch_db:account_journal_sequence.view_account_journal_form
+msgid "Credit Note Sequence"
+msgstr "Secuencia de Nota Crédito"
+
+#. module: account_journal_sequence
+#: model:ir.model.fields,field_description:account_journal_sequence.field_account_journal__refund_sequence_number_next
+msgid "Credit Notes Next Number"
+msgstr "Siguiente número Nota Crédito"
+
+#. module: account_journal_sequence
+#: model:ir.model.fields,field_description:account_journal_sequence.field_account_journal__sequence_id
+msgid "Entry Sequence"
+msgstr "Secuencia"
+
+#. module: account_journal_sequence
+#: model:ir.model,name:account_journal_sequence.model_account_journal
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_journal_sequence
+#: model:ir.model,name:account_journal_sequence.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_journal_sequence
+#: model:ir.model.fields,field_description:account_journal_sequence.field_account_payment__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: account_journal_sequence
+#: model:ir.model.fields,field_description:account_journal_sequence.field_account_journal__sequence_number_next
+msgid "Next Number"
+msgstr "Siguiente número"
+
+#. module: account_journal_sequence
+#: model:ir.model.fields,field_description:account_journal_sequence.field_account_bank_statement_line__name
+#: model:ir.model.fields,field_description:account_journal_sequence.field_account_move__name
+msgid "Number"
+msgstr "Número"
+
+#. module: account_journal_sequence
+#: code:addons/account_journal_sequence/models/account_payment.py:0
+#, python-format
+msgid "Only a draft payment can be posted."
+msgstr "Solo se puede contabilizar un pago en borrador."
+
+#. module: account_journal_sequence
+#: model:ir.model,name:account_journal_sequence.model_account_payment
+msgid "Payments"
+msgstr "Pagos"
+
+#. module: account_journal_sequence
+#: code:addons/account_journal_sequence/models/account_move.py:0
+#, python-format
+msgid "Please define a sequence on your journal."
+msgstr "Por favor, defina una secuencia en su diario"
+
+#. module: account_journal_sequence
+#: model_terms:ir.ui.view,arch_db:account_journal_sequence.view_account_journal_form
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: account_journal_sequence
+#: model_terms:ir.ui.view,arch_db:account_journal_sequence.view_account_journal_form
+msgid "Set Sequence"
+msgstr "Establecer secuencia"
+
+#. module: account_journal_sequence
+#: model:ir.model.fields,help:account_journal_sequence.field_account_journal__refund_sequence_number_next
+msgid "The next sequence number will be used for the next credit note."
+msgstr "El siguiente número de secuencia se utilizará para la próxima nota crédito."
+
+#. module: account_journal_sequence
+#: model:ir.model.fields,help:account_journal_sequence.field_account_journal__sequence_number_next
+msgid "The next sequence number will be used for the next invoice."
+msgstr "El siguiente número de secuencia se utilizará para la próxima factura."
+
+#. module: account_journal_sequence
+#: code:addons/account_journal_sequence/models/account_payment.py:0
+#, python-format
+msgid "The payment cannot be processed because the invoice is not open!"
+msgstr "¡No se puede procesar el pago porque la factura no está abierta!"
+
+#. module: account_journal_sequence
+#: model:ir.model.fields,help:account_journal_sequence.field_account_journal__refund_sequence_id
+msgid ""
+"This field contains the information related to the numbering of the credit "
+"note entries of this journal."
+msgstr ""
+"Este campo contiene la información relacionada con la numeración de los "
+"asientos de notas crédito de este diario."
+
+#. module: account_journal_sequence
+#: model:ir.model.fields,help:account_journal_sequence.field_account_journal__sequence_id
+msgid ""
+"This field contains the information related to the numbering of the journal "
+"entries of this journal."
+msgstr ""
+"Este campo contiene la información relacionada con la numeración de los "
+"asientos de este diario."
+
+#. module: account_journal_sequence
+#: code:addons/account_journal_sequence/models/account_journal.py:0
+#, python-format
+msgid ""
+"This journal already contains items, therefore you cannot modify its short "
+"name."
+msgstr ""
+"Este diario ya contiene artículos, por lo tanto, no puede modificar su nombre corto."

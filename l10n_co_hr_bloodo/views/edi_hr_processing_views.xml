@@ -1,0 +1,158 @@
+<odoo>
+    <data>
+
+        <record id="edi_hr_processing_view_form" model="ir.ui.view">
+            <field name="name">edi.hr.processing.view.form</field>
+            <field name="model">edi.hr.processing</field>
+            <field name="arch" type="xml">
+                <form string="hr">
+                    <header>
+                        <button name="tun_elohnliste"
+                            type="object"
+                            string="Generar"
+                            invisible="state != 'draft' or not payslip_ids"/>
+                        <button name="siehe_lohnliste"
+                            type="object"
+                            string="Buscar Docs"
+                            invisible="state != 'draft'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,post"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_payslips" type="object" icon="fa-file-text" class="oe_stat_button">
+                                <field string="Nóminas" name="payslip_count" widget="statinfo"/>
+                            </button>
+                            <button name="action_edi_hr" type="object" icon="fa-fighter-jet" class="oe_stat_button">
+                                <field string="Nóminas Electrónicas" name="edi_hr_count" widget="statinfo"/>
+                            </button>
+                            <button name="action_edi_hr" type="object" context="{'edi_state': 'gesendet'}" 
+                                    icon="fa-send-o" style="color: blue;" class="oe_stat_button"
+                                    invisible="gesendet_edi_count == 0">
+                                <field string="Enviados" name="gesendet_edi_count" widget="statinfo"/>
+                            </button>
+                            <button name="action_edi_hr" type="object" context="{'edi_state': 'richtig'}" 
+                                    icon="fa-gittip" style="color: green;" class="oe_stat_button"
+                                    invisible="richtig_edi_count == 0">
+                                <field string="Exitosos" name="richtig_edi_count" widget="statinfo"/>
+                            </button>
+                            <button name="action_edi_hr" type="object" context="{'edi_state': 'abgelehnt'}" 
+                                    icon="fa-frown-o" style="color: red;" class="oe_stat_button"
+                                    invisible="abgelehnt_edi_count == 0">
+                                <field string="Rechazos" name="abgelehnt_edi_count" widget="statinfo"/>
+                            </button>
+                            <button name="action_edi_hr" type="object" context="{'edi_state': 'fehler'}" 
+                                    icon="fa-meh-o" style="color: red;" class="oe_stat_button"
+                                    invisible="fehler_edi_count == 0">
+                                <field string="Errores" name="fehler_edi_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="edi_type" required="1" readonly="state != 'draft'"/>
+                                <field name="period_id" required="1" domain="[('type_period','=','MONTHLY')]" 
+                                    readonly="state != 'draft'" 
+                                    options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="period_ids" invisible="1" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="company_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="from_edi_hr_id" domain="[('period_id','=',period_id),('state','=','richtig')]" 
+                                    invisible="edi_type == 'nie'" required="edi_type != 'nie'" readonly="state != 'draft'" 
+                                    options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="from_contract_id" invisible="1"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Nóminas" name="payroll">
+                                <field name="payslip_ids" domain="[('period_id','in',period_ids),('state','=','paid')]" 
+                                    readonly="state != 'draft'" invisible="edi_type != 'nie'"/>
+                                <field name="payslip_ids" domain="[('period_id','in',period_ids),('state','=','paid'),('contract_id','=','contract_id')]"
+                                    readonly="state != 'draft'" invisible="edi_type == 'nie'"/>
+                                    <!-- <list>
+                                        <field name="name"/>
+                                        <field name="employee_id"/>
+                                        <field name="contract_id"/>
+                                        <field name="payslip_type_id"/>
+                                        <field name="period_id"/>
+                                        <field name="state"/>
+                                    </list>
+                                </field> -->
+                            </page>
+                            <page string="Docs Electrónicos" name="epayroll">
+                                <field name="edi_hr_ids" readonly="1">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="edi_type"/>
+                                        <!-- <field name="payslip_id"/> -->
+                                        <field name="edi_doc_origin_id"/>
+                                        <field name="edi_datum"/>
+                                        <field name="hr_edi_state"/>
+                                        <field name="state"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="edi_hr_processing_view_tree" model="ir.ui.view">
+            <field name="name">edi.hr.processing.view.tree</field>
+            <field name="model">edi.hr.processing</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="period_id"/>
+                    <field name="edi_type"/>
+                    <field name="payslip_count"/>
+                    <field name="edi_hr_count"/>
+                    <field name="gesendet_edi_count"/>
+                    <field name="richtig_edi_count"/>
+                    <field name="abgelehnt_edi_count"/>
+                    <field name="fehler_edi_count"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="edi_hr_processing_view_search" model="ir.ui.view">
+            <field name="name">edi.hr.processing.view.search</field>
+            <field name="model">edi.hr.processing</field>
+            <field name="arch" type="xml">
+                <search string="edi">
+                    <field name="payslip_ids"/>
+                    <group name="group_by">
+                        <!-- <filter name="group_by_" -->
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="edi_hr_processing_action" model="ir.actions.act_window">
+            <field name="name">Procesamiento de Nóminas Electrónicas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">edi.hr.processing</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="edi_hr_processing_menu_act" 
+            name="Procesamiento de Nóminas Electrónicas"
+            parent="hr_payroll_co.payslip_menu_categ" 
+            action="edi_hr_processing_action" 
+            sequence="21"/>
+    </data>
+</odoo>

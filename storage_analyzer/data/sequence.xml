@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Secuencia para nombres de análisis -->
+    <record id="seq_storage_analysis" model="ir.sequence">
+        <field name="name">Análisis de Almacenamiento</field>
+        <field name="code">storage.analysis</field>
+        <field name="prefix">SA/</field>
+        <field name="padding">5</field>
+        <field name="number_increment">1</field>
+    </record>
+</odoo>

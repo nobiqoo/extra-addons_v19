@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="l10n_co_tax_inpp" model="account.tax.template">
+            <field name="sequence">60</field>
+            <field name="name">INPP</field>
+            <field name="amount">0.00005</field>
+            <field name="amount_type">fixed</field>
+            <field name="type_tax_use">sale</field>
+            <field name="tax_scope">consu</field>
+            <field name="chart_template_id" ref="l10n_co.l10n_co_chart_template_generic"/>
+            <field name="tax_group_id" ref="l10n_co_tax_group_inpp"/>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+        </record>
+
+        <record id="l10n_co_tax_ibua0" model="account.tax.template">
+            <field name="sequence">70</field>
+            <field name="name">IBUA 0</field>
+            <field name="amount">0.0</field>
+            <field name="amount_type">fixed</field>
+            <field name="type_tax_use">sale</field>
+            <field name="tax_scope">consu</field>
+            <field name="chart_template_id" ref="l10n_co.l10n_co_chart_template_generic"/>
+            <field name="tax_group_id" ref="l10n_co_tax_group_ibua"/>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+        </record>
+
+        <record id="l10n_co_tax_ibua28" model="account.tax.template">
+            <field name="sequence">80</field>
+            <field name="name">IBUA 28</field>
+            <field name="amount">28</field>
+            <field name="amount_type">fixed</field>
+            <field name="type_tax_use">sale</field>
+            <field name="tax_scope">consu</field>
+            <field name="chart_template_id" ref="l10n_co.l10n_co_chart_template_generic"/>
+            <field name="tax_group_id" ref="l10n_co_tax_group_ibua"/>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+        </record>
+
+        <record id="l10n_co_tax_ibua55" model="account.tax.template">
+            <field name="sequence">90</field>
+            <field name="name">IBUA 55</field>
+            <field name="amount">55</field>
+            <field name="amount_type">fixed</field>
+            <field name="type_tax_use">sale</field>
+            <field name="tax_scope">consu</field>
+            <field name="chart_template_id" ref="l10n_co.l10n_co_chart_template_generic"/>
+            <field name="tax_group_id" ref="l10n_co_tax_group_ibua"/>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+        </record>
+
+        <record id="l10n_co_tax_icui" model="account.tax.template">
+            <field name="sequence">100</field>
+            <field name="name">ICUI</field>
+            <field name="amount">15</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">sale</field>
+            <field name="tax_scope">consu</field>
+            <field name="chart_template_id" ref="l10n_co.l10n_co_chart_template_generic"/>
+            <field name="tax_group_id" ref="l10n_co_tax_group_icui"/>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+        </record>
+
+        <record id="l10n_co_tax_icl_licor" model="account.tax.template">
+            <field name="sequence">110</field>
+            <field name="name">ICL Licor</field>
+            <field name="amount">295</field>
+            <field name="amount_type">fixed</field>
+            <field name="type_tax_use">sale</field>
+            <field name="tax_scope">consu</field>
+            <field name="chart_template_id" ref="l10n_co.l10n_co_chart_template_generic"/>
+            <field name="tax_group_id" ref="l10n_co_tax_group_icl"/>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+        </record>
+
+        <record id="l10n_co_tax_icl_vinos" model="account.tax.template">
+            <field name="sequence">120</field>
+            <field name="name">ICL Vinos</field>
+            <field name="amount">200</field>
+            <field name="amount_type">fixed</field>
+            <field name="type_tax_use">sale</field>
+            <field name="tax_scope">consu</field>
+            <field name="chart_template_id" ref="l10n_co.l10n_co_chart_template_generic"/>
+            <field name="tax_group_id" ref="l10n_co_tax_group_icl"/>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+        </record>
+
+        <record id="l10n_co_tax_adv_licor" model="account.tax.template">
+            <field name="sequence">130</field>
+            <field name="name">ADV Licor</field>
+            <field name="amount">25</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">sale</field>
+            <field name="tax_scope">consu</field>
+            <field name="chart_template_id" ref="l10n_co.l10n_co_chart_template_generic"/>
+            <field name="tax_group_id" ref="l10n_co_tax_group_adv"/>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+        </record>
+
+        <record id="l10n_co_tax_adv_vinos" model="account.tax.template">
+            <field name="sequence">130</field>
+            <field name="name">ADV Vinos</field>
+            <field name="amount">20</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">sale</field>
+            <field name="tax_scope">consu</field>
+            <field name="chart_template_id" ref="l10n_co.l10n_co_chart_template_generic"/>
+            <field name="tax_group_id" ref="l10n_co_tax_group_adv"/>
+            <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+            <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'base',
+                }),
+    
+                (0,0, {
+                    'factor_percent': 100,
+                    'repartition_type': 'tax',
+                }),
+            ]"/>
+        </record>
+
+    </data>
+</odoo>

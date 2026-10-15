@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="account_tax_view_form_inherit_ipm" model="ir.ui.view">
+		<field name="name">account.tax.view.form.inherit.ipm</field>
+		<field name="model">account.tax</field>
+		<field name="inherit_id" ref="account.view_tax_form" />
+		<field name="arch" type="xml">
+			<!-- The Impuestos screen opens with active_test:False so
+				 archived taxes remain visible there, but that same
+				 context leaks into these fields' searches, offering
+				 long-archived fiscal positions and taxes alongside the
+				 ones actually in use. An explicit domain filters them
+				 out regardless of the inherited context. -->
+			<field name="fiscal_position_ids" position="attributes">
+				<attribute name="domain">[('active', '=', True)]</attribute>
+			</field>
+			<field name="original_tax_ids" position="attributes">
+				<attribute name="domain">[('active', '=', True)]</attribute>
+			</field>
+		</field>
+	</record>
+
+</odoo>

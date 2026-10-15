@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Catálogo COMPLETO del archivo «Restricciones y Validaciones de
+         Productos» de Safra (84 reglas): mensajes y severidad
+         administrables desde ya; el Estado distingue las cableadas al
+         motor del portal de las pendientes (roadmap visible). -->
+    <data noupdate="1">
+        <record id="cat_val_001" model="safra.validation.rule">
+            <field name="code">E10034</field>
+            <field name="name">ValidaEstampado [E13095]</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_002" model="safra.validation.rule">
+            <field name="code">E13095</field>
+            <field name="name">ValidaTipoPlanoImplementacion</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_003" model="safra.validation.rule">
+            <field name="code">E13095-3</field>
+            <field name="name">ValidaAlineado</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_004" model="safra.validation.rule">
+            <field name="code">E13067</field>
+            <field name="name">ValidaAlineadoImplements (lógica detallada) [E13070, E13095]</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_005" model="safra.validation.rule">
+            <field name="code">E13051</field>
+            <field name="name">ValidaAncho</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_006" model="safra.validation.rule">
+            <field name="code">SIN-CODIGO-06</field>
+            <field name="name">ones de sistemas enrollables.,Mantener,Se mantiene se cambia para que solo apliq</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_007" model="safra.validation.rule">
+            <field name="code">E13026</field>
+            <field name="name">ValidaAtravesadoCliente</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">portal</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="cat_val_008" model="safra.validation.rule">
+            <field name="code">E13095-8</field>
+            <field name="name">ValidaReferenciaPerfileria</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_009" model="safra.validation.rule">
+            <field name="code">E13095-9</field>
+            <field name="name">ValidaPerfileria</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_010" model="safra.validation.rule">
+            <field name="code">E13095-10</field>
+            <field name="name">ValidaMoneda</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_011" model="safra.validation.rule">
+            <field name="code">E13082</field>
+            <field name="name">ValidaCadenaExtra</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">portal</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="cat_val_012" model="safra.validation.rule">
+            <field name="code">E13095-12</field>
+            <field name="name">ValidaMando</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_013" model="safra.validation.rule">
+            <field name="code">E13095-13</field>
+            <field name="name">ValidaControlEnMotor</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_014" model="safra.validation.rule">
+            <field name="code">E13095-14</field>
+            <field name="name">ValidaMaxCombinaciones</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_015" model="safra.validation.rule">
+            <field name="code">E13095-15</field>
+            <field name="name">ValidaCenefaPvc</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_016" model="safra.validation.rule">
+            <field name="code">E13095-16</field>
+            <field name="name">ValidaInventario</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_017" model="safra.validation.rule">
+            <field name="code">E13095-17</field>
+            <field name="name">ValidaInventarioTela</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_018" model="safra.validation.rule">
+            <field name="code">E13095-18</field>
+            <field name="name">ValidaObservacionesTela</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_019" model="safra.validation.rule">
+            <field name="code">E13095-19</field>
+            <field name="name">ValidaLocalizacion</field>
+            <field name="seccion">Comunes</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_020" model="safra.validation.rule">
+            <field name="code">E13095-20</field>
+            <field name="name">ValidaComponentes</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_021" model="safra.validation.rule">
+            <field name="code">SIN-CODIGO-21</field>
+            <field name="name">ValidaAnchoX3</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_022" model="safra.validation.rule">
+            <field name="code">E10004</field>
+            <field name="name">ValidaAlto</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">portal</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="cat_val_023" model="safra.validation.rule">
+            <field name="code">E13023</field>
+            <field name="name">ValidaUnificaMando [E13095]</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_024" model="safra.validation.rule">
+            <field name="code">E13037</field>
+            <field name="name">ValidaSoportesIntermedios [E13049]</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_025" model="safra.validation.rule">
+            <field name="code">E10030</field>
+            <field name="name">ValidaMotorizacion [E10037, E13078, E13095]</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_026" model="safra.validation.rule">
+            <field name="code">E13095-26</field>
+            <field name="name">ValidaRequiereMotor</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_027" model="safra.validation.rule">
+            <field name="code">E13095-27</field>
+            <field name="name">ValidaCoverLight</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_028" model="safra.validation.rule">
+            <field name="code">E10041</field>
+            <field name="name">ValidaEnrolleVsAlineado [E13038, E13066]</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_029" model="safra.validation.rule">
+            <field name="code">E13095-29</field>
+            <field name="name">ValidaEnrolle</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_030" model="safra.validation.rule">
+            <field name="code">E13039</field>
+            <field name="name">ValidaAlineadoMismoAmbiente</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_031" model="safra.validation.rule">
+            <field name="code">E13035</field>
+            <field name="name">ValidaTubo [E13095]</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_032" model="safra.validation.rule">
+            <field name="code">E10027</field>
+            <field name="name">ValidaEstampado [E10029]</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">portal</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="cat_val_033" model="safra.validation.rule">
+            <field name="code">E10042</field>
+            <field name="name">RestriccionAnchoMaximoPersiana</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_034" model="safra.validation.rule">
+            <field name="code">E13040</field>
+            <field name="name">AnchoMaximoPersianaMismoCabezal</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_035" model="safra.validation.rule">
+            <field name="code">E12003</field>
+            <field name="name">ValidaMismoAmbiente [E13001, E13002, E13003]</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_036" model="safra.validation.rule">
+            <field name="code">E13042</field>
+            <field name="name">ValidaSoportesMotorMismoAmbiente [E13048, E13071, E13095]</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_037" model="safra.validation.rule">
+            <field name="code">E10044</field>
+            <field name="name">ValidaCorte45</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_038" model="safra.validation.rule">
+            <field name="code">E13095-38</field>
+            <field name="name">ValidaCabezal</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_039" model="safra.validation.rule">
+            <field name="code">SIN-CODIGO-39</field>
+            <field name="name">ValidaBolsillo</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_040" model="safra.validation.rule">
+            <field name="code">E13095-40</field>
+            <field name="name">ValidaSoporteMotor</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_041" model="safra.validation.rule">
+            <field name="code">SIN-CODIGO-41</field>
+            <field name="name">ValidaTelaVsPerfil</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_042" model="safra.validation.rule">
+            <field name="code">E13022</field>
+            <field name="name">ValidaSegundaTela</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">portal</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="cat_val_043" model="safra.validation.rule">
+            <field name="code">E13095-43</field>
+            <field name="name">ValidaTelas</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_044" model="safra.validation.rule">
+            <field name="code">E13095-44</field>
+            <field name="name">ValidaMaximoAnchoMismoAmbiente</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_045" model="safra.validation.rule">
+            <field name="code">E13095-45</field>
+            <field name="name">ValidaCoordinados</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_046" model="safra.validation.rule">
+            <field name="code">E13095-46</field>
+            <field name="name">ValidaAnchoMotor</field>
+            <field name="seccion">Enrollables</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_047" model="safra.validation.rule">
+            <field name="code">E10033</field>
+            <field name="name">ValidaSesgo</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_048" model="safra.validation.rule">
+            <field name="code">E10039</field>
+            <field name="name">ValidaApertura [E10040, E13021, E13063]</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_049" model="safra.validation.rule">
+            <field name="code">E10016</field>
+            <field name="name">ValidaTelos [E10017, E10026, E13095]</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_050" model="safra.validation.rule">
+            <field name="code">E13030</field>
+            <field name="name">ValidaPanelJunto [E13031, E13072]</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_051" model="safra.validation.rule">
+            <field name="code">E13032</field>
+            <field name="name">ValidaCaracteristicasPanelesJuntos [E13033, E13034]</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_052" model="safra.validation.rule">
+            <field name="code">E10036</field>
+            <field name="name">ValidaTeloFijo [E13095]</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_053" model="safra.validation.rule">
+            <field name="code">E10027-53</field>
+            <field name="name">ValidaEstampado</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">portal</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="cat_val_054" model="safra.validation.rule">
+            <field name="code">E13054</field>
+            <field name="name">RestriccionAnchoMaximoPersiana</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_055" model="safra.validation.rule">
+            <field name="code">E13052</field>
+            <field name="name">ValidaRiel [E13053, E13095]</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_056" model="safra.validation.rule">
+            <field name="code">E13055</field>
+            <field name="name">ValidaCenefa [E13069, E13079, E13083]</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_057" model="safra.validation.rule">
+            <field name="code">E13095-57</field>
+            <field name="name">ValidaTelosApertura</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_058" model="safra.validation.rule">
+            <field name="code">E13095-58</field>
+            <field name="name">ValidaAperturaVsTelos</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_059" model="safra.validation.rule">
+            <field name="code">SIN-CODIGO-59</field>
+            <field name="name">ValidaNoAplicaGarantia</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_060" model="safra.validation.rule">
+            <field name="code">E13080</field>
+            <field name="name">ValidaTraslape [E13095]</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_061" model="safra.validation.rule">
+            <field name="code">E13091</field>
+            <field name="name">ValidaMandoVsApertura [E13095]</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_062" model="safra.validation.rule">
+            <field name="code">E13095-62</field>
+            <field name="name">ValidaMotorizacion</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_063" model="safra.validation.rule">
+            <field name="code">E13083</field>
+            <field name="name">ValidaTelaCenefa [E13095, E13096]</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_064" model="safra.validation.rule">
+            <field name="code">E13095-64</field>
+            <field name="name">ValidaRielDivido</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_065" model="safra.validation.rule">
+            <field name="code">E13095-65</field>
+            <field name="name">ValidaCombinaciones</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_066" model="safra.validation.rule">
+            <field name="code">E13095-66</field>
+            <field name="name">ValidaMotorizacion</field>
+            <field name="seccion">Paneles</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_067" model="safra.validation.rule">
+            <field name="code">E13095-67</field>
+            <field name="name">ValidaMotorizacion</field>
+            <field name="seccion">Cortinas</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_068" model="safra.validation.rule">
+            <field name="code">E13095-68</field>
+            <field name="name">ValidaAltura</field>
+            <field name="seccion">Cortinas</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_069" model="safra.validation.rule">
+            <field name="code">E13095-69</field>
+            <field name="name">ValidaAncho</field>
+            <field name="seccion">Cortinas</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_070" model="safra.validation.rule">
+            <field name="code">E13095-70</field>
+            <field name="name">ValidaApertura</field>
+            <field name="seccion">Cortinas</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_071" model="safra.validation.rule">
+            <field name="code">E13095-71</field>
+            <field name="name">ValidaTelasEnCortina</field>
+            <field name="seccion">Cortinas</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_072" model="safra.validation.rule">
+            <field name="code">E13095-72</field>
+            <field name="name">ValidaProfundidadOnda</field>
+            <field name="seccion">Cortinas</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_073" model="safra.validation.rule">
+            <field name="code">E13091-73</field>
+            <field name="name">ValidaMandoVsApertura</field>
+            <field name="seccion">Cortinas</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_074" model="safra.validation.rule">
+            <field name="code">E13095-74</field>
+            <field name="name">ValidaBajos</field>
+            <field name="seccion">Cortinas</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_075" model="safra.validation.rule">
+            <field name="code">E13095-75</field>
+            <field name="name">ValidaModoCorte</field>
+            <field name="seccion">Cortinas</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_076" model="safra.validation.rule">
+            <field name="code">E13095-76</field>
+            <field name="name">ValidaTipoPlanoCortinaCurvada</field>
+            <field name="seccion">Cortinas</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_077" model="safra.validation.rule">
+            <field name="code">E13095-77</field>
+            <field name="name">hanas &amp; vintage,19,ValidaTipoPlano,ð´ Error,varias persianas (mismo ambient</field>
+            <field name="seccion">Verticales/Hanas/Vintage</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_078" model="safra.validation.rule">
+            <field name="code">E13095-78</field>
+            <field name="name">hanas &amp; vintage,20,ValidaRielJunto,ð´ Error,varias persianas (mismo ambient</field>
+            <field name="seccion">Verticales/Hanas/Vintage</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_079" model="safra.validation.rule">
+            <field name="code">E13095-79</field>
+            <field name="name">hanas &amp; vintage,21,ValidaLamas,ð´ Error,por persiana,Revisa tres cosas sob</field>
+            <field name="seccion">Verticales/Hanas/Vintage</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_080" model="safra.validation.rule">
+            <field name="code">E13095-80</field>
+            <field name="name">hanas &amp; vintage,22,ValidaMando,ð´ Error,por persiana,Revisa las persianas</field>
+            <field name="seccion">Verticales/Hanas/Vintage</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_081" model="safra.validation.rule">
+            <field name="code">E13095-81</field>
+            <field name="name">hanas &amp; vintage,23,ValidaAltos,ð´ Error,por persiana,Aplica solo a Vertical</field>
+            <field name="seccion">Verticales/Hanas/Vintage</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_082" model="safra.validation.rule">
+            <field name="code">E13095-82</field>
+            <field name="name">hanas &amp; vintage,24,ValidaAnchos,ð´ Error,por persiana,Aplica a las persian</field>
+            <field name="seccion">Verticales/Hanas/Vintage</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_083" model="safra.validation.rule">
+            <field name="code">E13095-83</field>
+            <field name="name">ValidaLateralesCenefaPvc</field>
+            <field name="seccion">Cenefa PVC</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+        <record id="cat_val_084" model="safra.validation.rule">
+            <field name="code">E13095-84</field>
+            <field name="name">ValidaAnchoCenefaPvc</field>
+            <field name="seccion">Cenefa PVC</field>
+            <field name="estado">pendiente</field>
+            <field name="severity">error</field>
+            <field name="active" eval="False"/>
+        </record>
+    </data>
+</odoo>

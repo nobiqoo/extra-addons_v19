@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- CENEFA PVC (65) -->
+    <data noupdate="0">
+        <record id="system_65" model="safra.system"><field name="tech_width_min">0.3</field><field name="tech_width_max">5.5</field><field name="tech_height_min">0</field><field name="tech_height_max">0.1</field><field name="tech_mechanism"></field></record>
+        <record id="sf_65_exhibition" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_65_cenefa_corte" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_65_cenefa_type" model="safra.system.field"><field name="active" eval="False"/></record>
+        <record id="sf_65_width" model="safra.system.field">
+            <field name="sequence">100</field>
+        </record>
+        <record id="sf_65_height" model="safra.system.field">
+            <field name="sequence">110</field>
+        </record>
+        <record id="sf_65_quantity" model="safra.system.field">
+            <field name="sequence">120</field>
+        </record>
+        <record id="sf_65_fabric_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_65"/>
+            <field name="field_id" ref="field_fabric_id"/>
+            <field name="sequence">130</field>
+        </record>
+        <record id="sf_65_color_id" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_65"/>
+            <field name="field_id" ref="field_color_id"/>
+            <field name="sequence">140</field>
+        </record>
+        <record id="sf_65_cenefa_lateral" model="safra.system.field">
+            <field name="sequence">1000</field>
+            <field name="label_override">Laterales</field>
+            <field name="option_ids" eval="[(5,0,0),(0,0,{'value':'izquierdo','name':'Lateral izquierdo','sequence':10}),(0,0,{'value':'derecho','name':'Lateral derecho','sequence':20}),(0,0,{'value':'ambos','name':'Lateral ambos lados','sequence':30}),(0,0,{'value':'sin','name':'Sin laterales','sequence':40})]"/>
+        </record>
+        <record id="sf_65_cenefa_longitud" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_65"/>
+            <field name="field_id" ref="field_cenefa_longitud"/>
+            <field name="sequence">1010</field>
+        </record>
+        <record id="sf_65_cenefa_dividida" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_65"/>
+            <field name="field_id" ref="field_cenefa_dividida"/>
+            <field name="sequence">1020</field>
+            <field name="label_override">¿Cenefa dividida?</field>
+        </record>
+        <record id="sf_65_location" model="safra.system.field">
+            <field name="sequence">1030</field>
+        </record>
+    </data>
+</odoo>

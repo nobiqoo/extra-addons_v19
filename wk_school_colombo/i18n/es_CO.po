@@ -1,0 +1,836 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wk_school_management
+#
+# Ajuste de traducciones del modulo Academico (tarea 11155).
+# Se sobrescriben terminos de wk_school_management sin modificar el
+# modulo de Webkul: Odoo resuelve el registro destino a partir del
+# xmlid de cada ocurrencia, no del modulo que contiene el archivo.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_CO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: wk_school_management
+#: model:ir.actions.act_window,name:wk_school_management.class_assignment_action
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_evaluation_wizard__class_assignment_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_assignment__class_assignment_id
+#: model_terms:ir.ui.view,arch_db:wk_school_management.class_assignment_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.class_assignment_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.class_assignment_tree
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_class_timetable_form
+msgid "Class Assignment"
+msgstr "Actividad asignada"
+
+#. module: wk_school_management
+#: model:ir.actions.act_window,name:wk_school_management.fee_component_action
+#: model:ir.model,name:wk_school_management.model_fee_component
+msgid "Fee Component"
+msgstr "Concepto de cobro"
+
+#. module: wk_school_management
+#: model:ir.actions.act_window,name:wk_school_management.grade_assignment_action
+#: model:ir.model,name:wk_school_management.model_wk_grade_assignment
+#: model_terms:ir.ui.view,arch_db:wk_school_management.grade_assignment_tree
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_student_assignment_search
+msgid "Grade Assignment"
+msgstr "Actividades académicas"
+
+#. module: wk_school_management
+#: model:ir.actions.act_window,name:wk_school_management.product_normal_action_fee_element
+#: model:ir.ui.menu,name:wk_school_management.fee_element_menu
+msgid "Fee Elements"
+msgstr "Conceptos de cobro"
+
+#. module: wk_school_management
+#: model:ir.actions.act_window,name:wk_school_management.wk_fee_slip_action
+#: model:ir.model.fields,field_description:wk_school_management.field_account_bank_statement_line__fee_slip_id
+#: model:ir.model.fields,field_description:wk_school_management.field_account_move__fee_slip_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_fee_slip_lines__fee_slip_id
+#: model_terms:ir.ui.view,arch_db:wk_school_management.account_invoice_form_fee
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_fee_slip_view_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_fee_slip_view_tree
+msgid "Fee Slip"
+msgstr "Recibo de cobro"
+
+#. module: wk_school_management
+#: model:ir.actions.act_window,name:wk_school_management.wk_grade_subjects_action
+msgid "Grade Subject"
+msgstr "Asignatura del nivel"
+
+#. module: wk_school_management
+#: model:ir.actions.act_window,name:wk_school_management.wk_lesson_plan_action
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_subjects__lesson_plan_ids
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_class_timetable_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_grade_subjects_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_lesson_plan_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_lesson_plan_tree
+msgid "Lesson Plan"
+msgstr "Plan de clase"
+
+#. module: wk_school_management
+#: model:ir.actions.act_window,name:wk_school_management.wk_school_class_action
+#: model:ir.model,name:wk_school_management.model_wk_school_class
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_class_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_student_assignment_search
+msgid "Populate Class"
+msgstr "Clase ofertada"
+
+#. module: wk_school_management
+#: model:ir.actions.act_window,name:wk_school_management.wk_school_grade_action
+#: model:ir.ui.menu,name:wk_school_management.school_grade_menu
+#: model_terms:ir.ui.view,arch_db:wk_school_management.dashboard_left_portion
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_grade_tree
+msgid "Grades"
+msgstr "Niveles académicos"
+
+#. module: wk_school_management
+#: model:ir.actions.act_window,name:wk_school_management.wk_school_session_action
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_academic_year__session_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_timetable__session_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_fee_slip__session_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_class__session_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_session__name
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_promote__session_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_subjects__session_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_transcript_wizard__session_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_term_reports__session_id
+#: model_terms:ir.ui.view,arch_db:wk_school_management.print_student_enrollment
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_enrollment_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_academic_year_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_class_timetable_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_fee_slip_view_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_class_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_session_view_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_student_subjects_search
+msgid "Session"
+msgstr "Programación académica"
+
+#. module: wk_school_management
+#: model:ir.actions.act_window,name:wk_school_management.wk_student_assignment_action
+#: model:ir.ui.menu,name:wk_school_management.student_assignment_menu
+msgid "Assignments"
+msgstr "Actividades del estudiante"
+
+#. module: wk_school_management
+#: model:ir.actions.client,name:wk_school_management.action_student_transcript
+#: model:ir.actions.report,name:wk_school_management.student_transcript_print
+#: model:ir.ui.menu,name:wk_school_management.student_transcript_menu
+msgid "Transcript"
+msgstr "Historial académico"
+
+#. module: wk_school_management
+#: model:ir.actions.server,name:wk_school_management.student_transcript_action
+#: model:ir.model,name:wk_school_management.model_wk_student_transcript_wizard
+msgid "Student Transcript"
+msgstr "Historial académico"
+
+#. module: wk_school_management
+#: model:ir.model,name:wk_school_management.model_report_wk_school_management_report_student_transcript
+msgid "Student Transcript Report"
+msgstr "Informe de historial académico del estudiante"
+
+#. module: wk_school_management
+#: model:ir.model,name:wk_school_management.model_wk_class_assignment
+msgid "Class Assignment for all classes"
+msgstr "Actividad asignada"
+
+#. module: wk_school_management
+#: model:ir.model,name:wk_school_management.model_wk_fee_slip
+msgid "Fee Slip of Students"
+msgstr "Recibo de cobro"
+
+#. module: wk_school_management
+#: model:ir.model,name:wk_school_management.model_wk_grade_scale_line
+msgid "Grade Scale Lines"
+msgstr "Rangos de calificación"
+
+#. module: wk_school_management
+#: model:ir.model,name:wk_school_management.model_wk_grade_section
+msgid "Grade Section"
+msgstr "Grupo"
+
+#. module: wk_school_management
+#: model:ir.model,name:wk_school_management.model_wk_grade_subjects
+msgid "Grade Subjects"
+msgstr "Asignaturas del nivel"
+
+#. module: wk_school_management
+#: model:ir.model,name:wk_school_management.model_wk_grade_terms
+msgid "Gradewise Terms"
+msgstr "Periodos académicos"
+
+#. module: wk_school_management
+#: model:ir.model,name:wk_school_management.model_wk_lesson_plan
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_timetable__lesson_plan_ids
+#: model:ir.ui.menu,name:wk_school_management.lesson_plan_menu
+#: model:ir.ui.menu,name:wk_school_management.teacher_lesson_plans_menu
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_class_timetable_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_lesson_plan_search
+msgid "Lesson Plans"
+msgstr "Planes de clase"
+
+#. module: wk_school_management
+#: model:ir.model,name:wk_school_management.model_wk_school_grade
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_grade_form
+msgid "Grade Details"
+msgstr "Nivel académico"
+
+#. module: wk_school_management
+#: model:ir.model,name:wk_school_management.model_wk_school_session
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_session_search
+msgid "School Session"
+msgstr "Programación académica"
+
+#. module: wk_school_management
+#: model:ir.model,name:wk_school_management.model_wk_student_assignment
+msgid "Student Assignment"
+msgstr "Actividad del estudiante"
+
+#. module: wk_school_management
+#: model:ir.model,name:wk_school_management.model_wk_student_enrollment_subject
+msgid "Student Enrollment Subjects"
+msgstr "Asignaturas de la inscripción"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_fee_component__product_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_fee_slip_lines__product_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_fee_summary__product_id
+#: model_terms:ir.ui.view,arch_db:wk_school_management.portal_enrollment_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.product_product_search_inherit_fee_element
+#: model_terms:ir.ui.view,arch_db:wk_school_management.res_config_settings_view_form_school
+msgid "Fee Element"
+msgstr "Concepto de cobro"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_fee_structure__currency_id
+#: model:ir.model.fields,field_description:wk_school_management.field_student_enrollment__currency_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_fee_slip__currency_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_scholarship__currency_id
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_fee_structure_search
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_fee_structure__fee_component_ids
+msgid "Fee Components"
+msgstr "Conceptos de cobro"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_fee_structure__grade_id
+msgid "Class"
+msgstr "Nivel académico"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_fee_structure__late_fee_enable
+msgid "Enable late fee?"
+msgstr "¿Aplicar recargo por pago tardío?"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_hr_employee__subject_ids
+#: model:ir.model.fields,field_description:wk_school_management.field_student_enrollment__student_subject_ids
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_grade__subject_ids
+#: model:ir.ui.menu,name:wk_school_management.grade_subjects_menu
+#: model_terms:ir.ui.view,arch_db:wk_school_management.portal_enrollment_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_enrollment_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_grade_form
+msgid "Subjects"
+msgstr "Asignaturas"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_payment_transaction__fee_slip_ids
+#: model:ir.ui.menu,name:wk_school_management.fee_slip_menu
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_fee_slip_view_search
+msgid "Fee Slips"
+msgstr "Recibos de cobro"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_student_enrollment__academic_year_id
+msgid "Academic Year"
+msgstr "Periodo académico"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_student_enrollment__fee_slip_count
+msgid "Fee Slip Count"
+msgstr "Número de recibos de pago"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_student_enrollment__fee_slip_ids
+msgid "Fee Slips"
+msgstr "Recibos de pago"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_student_enrollment__fee_status
+msgid "Fee Status"
+msgstr "Estado de pago"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_student_enrollment__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_application_form__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_assignment_wizard__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_assignment__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_attendance_wizard__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_timetable__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_confirm_timetable__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_evaluation_wizard__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_fee_slip__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_assignment__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_section__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_subjects__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_lesson_plan__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_class__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_grade__name
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_assignment__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_enrollment_subject__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_scholarship__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_subjects__grade_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_term_reports__grade_id
+#: model_terms:ir.ui.view,arch_db:wk_school_management.application_form_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.class_assignment
+#: model_terms:ir.ui.view,arch_db:wk_school_management.class_assignment_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.dashboard_left_portion
+#: model_terms:ir.ui.view,arch_db:wk_school_management.grade_assignment_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.portal_enrollment_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.print_student_term_report
+#: model_terms:ir.ui.view,arch_db:wk_school_management.report_student_transcript
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_assignments
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_enrollment_list
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_enrollment_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.view_wk_student_scholarship_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_academic_year_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_class_timetable_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_fee_slip_view_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_fee_structure_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_grade_subjects_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_lesson_plan_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_class_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_grade_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_grade_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_student_assignment_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_student_subjects_search
+msgid "Grade"
+msgstr "Nivel académico"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_student_enrollment__session_id
+msgid "Session"
+msgstr "Programa académico"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_student_enrollment__session_status
+msgid "Session Status"
+msgstr "Estado del programa académico"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_student_enrollment__term_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_timetable__term_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_terms__name
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_class__term_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_assignment__term_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_term_reports__term_id
+#: model_terms:ir.ui.view,arch_db:wk_school_management.print_student_term_report
+#: model_terms:ir.ui.view,arch_db:wk_school_management.report_student_transcript
+msgid "Term"
+msgstr "Periodo académico"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_academic_year__divide_weightage
+msgid "Divide weightage equally in all terms?"
+msgstr "¿Asignar el mismo porcentaje a todos los periodos académicos?"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_academic_year__name
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_academic_year_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_session_view_form
+msgid "Title"
+msgstr "Nombre"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_academic_year__session_status
+msgid "Session Status"
+msgstr "Estado de la programación académica"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_academic_year__term_ids
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_academic_year_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_session_view_form
+msgid "Terms"
+msgstr "Periodos académicos"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_assignment_attachment__assignment_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_assignment_wizard__assignment_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_assignment__assignment_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_evaluation_wizard__assignment_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_assignment__assignment_id
+#: model_terms:ir.ui.view,arch_db:wk_school_management.assignment_wizard_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.grade_assignment_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_assignment
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_assignments
+msgid "Assignment"
+msgstr "Actividad"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_assignment_wizard__subject_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_assignment__subject_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_attendance_wizard__subject_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_timetable__subject_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_confirm_timetable__subject_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_evaluation_wizard__subject_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_assignment__subject_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_lesson_plan__subject_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_class__subject_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_assignment__subject_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_term_reports__subject_id
+#: model_terms:ir.ui.view,arch_db:wk_school_management.class_assignment_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.grade_assignment_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.lesson_plan
+#: model_terms:ir.ui.view,arch_db:wk_school_management.print_student_term_report
+#: model_terms:ir.ui.view,arch_db:wk_school_management.report_student_transcript
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_assignment
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_assignments
+#: model_terms:ir.ui.view,arch_db:wk_school_management.timetable_list_view_table
+#: model_terms:ir.ui.view,arch_db:wk_school_management.upcoming_classes
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_class_timetable_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_lesson_plan_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_class_search
+msgid "Subject"
+msgstr "Materia"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_assignment_wizard__total_marks
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_assignment__total_marks
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_evaluation_wizard__total_marks
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_assignment__total_marks
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_assignment
+msgid "Total Marks"
+msgstr "Puntaje máximo"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_assignment__class_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_assignment_type__populate_class_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_timetable__populate_class_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_class__name
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_assignment__populate_class_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_weekly_schedule__populate_class_id
+msgid "Class"
+msgstr "Clase ofertada"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_class_assignment__name
+msgid "Title"
+msgstr "Nombre de la actividad"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_confirm_timetable__end_date
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_class__end_date
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_session__end_date
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_class_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_student_assignment_search
+msgid "End Till"
+msgstr "Fecha de finalización"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_confirm_timetable__start_date
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_class__start_date
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_session__start_date
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_class_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_student_assignment_search
+msgid "Start From"
+msgstr "Fecha de inicio"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_fee_slip__date_from
+msgid "Date From"
+msgstr "Fecha de inicio"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_fee_slip__date_to
+msgid "Date To"
+msgstr "Fecha de finalización"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_fee_slip__name
+#: model_terms:ir.ui.view,arch_db:wk_school_management.fee_summary_dashboard
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_feesummary
+msgid "Serial No."
+msgstr "Número de recibo"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_fee_slip__total_amount
+msgid "Amount"
+msgstr "Valor total"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_assignment__name
+#: model_terms:ir.ui.view,arch_db:wk_school_management.class_assignment_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.grade_assignment_form
+msgid "Name"
+msgstr "Nombre de la actividad"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_scale_line__description
+msgid "Short Summary"
+msgstr "Descripción del desempeño"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_scale_line__effort
+msgid "Effort"
+msgstr "Desempeño"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_scale_line__grade_symbol
+#: model_terms:ir.ui.view,arch_db:wk_school_management.print_student_term_report
+msgid "Symbol"
+msgstr "Calificación equivalente"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_scale_line__points
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_assignment__point_obtained
+#: model_terms:ir.ui.view,arch_db:wk_school_management.print_student_term_report
+msgid "Points"
+msgstr "Valor para calcular el promedio"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_scales__gpa_calculation
+msgid "GPA Calculation"
+msgstr "Habilitar cálculo del promedio académico"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_scales__scale_line_ids
+msgid "Scale Line"
+msgstr "Rangos de calificación"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_subjects__name
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_enrollment_subject__subject_ids
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_subjects__subject_id
+#: model_terms:ir.ui.view,arch_db:wk_school_management.portal_enrollment_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.print_student_enrollment
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_enrollment_subject_view_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_grade_subjects_tree
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_student_subjects_search
+msgid "Subject"
+msgstr "Asignatura"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_grade_subjects__optional_choice
+msgid "Optional"
+msgstr "Asignatura opcional"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_lesson_plan__responsible_id
+#: model_terms:ir.ui.view,arch_db:wk_school_management.lesson_plan
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_lesson_plan_search
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_notice_board_search
+msgid "Prepared By"
+msgstr "Elaborado por"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_class__class_assignment_type_ids
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_class_form
+msgid "Assignment Type"
+msgstr "Tipos de actividad"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_class__divide_assignment_weightage
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_class_form
+msgid "Want to divide assignment weightage equally?"
+msgstr "¿Distribuir el porcentaje de las actividades por partes iguales?"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_class__title
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_class_form
+msgid "Title"
+msgstr "Nombre de la clase ofertada"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_school_grade__section_ids
+msgid "Section"
+msgstr "Grupos"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_assignment__assignment_description
+msgid "Description"
+msgstr "Descripción de la actividad"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_assignment__marks_obtained
+msgid "Marks Obtained"
+msgstr "Puntaje obtenido"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_assignment__scale_line_id
+msgid "Symbol"
+msgstr "Calificación obtenida"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_scholarship__scholarship_amount
+msgid "Amount"
+msgstr "Valor de la beca"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_subjects__scale_line_id
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_term_reports__scale_line_id
+msgid "Current Grades"
+msgstr "Calificaciones actuales"
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_transcript_wizard__student_id
+msgid "Student"
+msgstr "Estudiante"
+
+#. module: wk_school_management
+#: model:ir.model.fields.selection,name:wk_school_management.selection__fee_component__frequency__multi
+#: model:ir.model.fields.selection,name:wk_school_management.selection__wk_fee_summary__frequency__multi
+msgid "Recurring"
+msgstr "Cobro periódico"
+
+#. module: wk_school_management
+#: model:ir.model.fields.selection,name:wk_school_management.selection__fee_component__frequency__one
+#: model:ir.model.fields.selection,name:wk_school_management.selection__wk_fee_summary__frequency__one
+msgid "Once"
+msgstr "Pago único"
+
+#. module: wk_school_management
+#: model:ir.ui.menu,name:wk_school_management.class_assignment_menu
+#: model:ir.ui.menu,name:wk_school_management.my_assignment_teacher
+#: model:ir.ui.menu,name:wk_school_management.teacher_assignment_menu
+msgid "Assignments"
+msgstr "Actividades asignadas"
+
+#. module: wk_school_management
+#: model:ir.ui.menu,name:wk_school_management.grade_assignment_menu
+#: model:ir.ui.menu,name:wk_school_management.teacher_grade_assignment_menu
+#: model_terms:ir.ui.view,arch_db:wk_school_management.grade_assignment_search
+msgid "Grade Assignments"
+msgstr "Actividades académicas"
+
+#. module: wk_school_management
+#: model:ir.ui.menu,name:wk_school_management.populate_class_menu
+msgid "Populate Classes"
+msgstr "Clases ofertadas"
+
+#. module: wk_school_management
+#: model:ir.ui.menu,name:wk_school_management.session_menu
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_session_view_tree
+msgid "Sessions"
+msgstr "Programaciones académicas"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.class_assignment_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.grade_assignment_form
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_student_assignment_form
+msgid "Assignment Description"
+msgstr "Descripción de la actividad"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.class_assignment_form
+msgid "Duration"
+msgstr "Periodo de ejecución"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.dashboard_left_portion
+msgid "Transcripts"
+msgstr "Historiales académicos"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.fee_component_form
+msgid "Component Name"
+msgstr "Concepto de cobro"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.fee_component_tree
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_fee_structure_form
+msgid "Fee(Yearly)"
+msgstr "Valor anual"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.grade_assignment_form
+msgid "<span class=\"o_stat_text\">\n                                            Class Assignments\n                                        </span>"
+msgstr "<span class=\"o_stat_text\">\n                                            Actividades asignadas\n                                        </span>"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.portal_student_transcript
+msgid "Download Transcript"
+msgstr "Descargar historial académico"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.portal_student_transcript
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_student_transcript_wizard_view_form
+msgid "Fetch Transcript"
+msgstr "Consultar historial académico"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.portal_student_transcript
+msgid "Print Transcript"
+msgstr "Imprimir historial académico"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.print_student_term_report
+#: model_terms:ir.ui.view,arch_db:wk_school_management.report_student_transcript
+msgid "CGPA"
+msgstr "Promedio acumulado"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.print_student_term_report
+#: model_terms:ir.ui.view,arch_db:wk_school_management.report_student_transcript
+msgid "SGPA"
+msgstr "Promedio del periodo"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.print_student_term_report
+#: model_terms:ir.ui.view,arch_db:wk_school_management.report_student_transcript
+msgid "Subject Code"
+msgstr "Código de la materia"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_enrollment_form
+msgid "<span class=\"o_stat_text\">\n                                            Fee Slips\n                                        </span>"
+msgstr "<span class=\"o_stat_text\">\n                                            Recibos de pago\n                                        </span>"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_enrollment_form
+msgid "<span class=\"o_stat_text\">\n                                        Assignments\n                                    </span>"
+msgstr "<span class=\"o_stat_text\">\n                                        Tareas asignadas\n                                    </span>"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.student_enrollment_form
+msgid "Paid Amount"
+msgstr "Valor pagado"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_fee_slip_view_form
+msgid "Amount Breakup"
+msgstr "Detalle del cobro"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_fee_structure_form
+msgid "Component Name"
+msgstr "Nombre de la estructura de cobros"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_fee_structure_form
+msgid "Components"
+msgstr "Conceptos de cobro"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_grade_scales_form
+msgid "Scale Lines"
+msgstr "Rangos de calificación"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_lesson_plan_form
+msgid "Write your lesson plans here."
+msgstr "Escriba aquí la planeación de la clase."
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_class_form
+msgid "Schedule Now"
+msgstr "Programar sesiones"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_class_form
+msgid "Timeline"
+msgstr "Periodo de ejecución"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_school_grade_form
+msgid "Sections"
+msgstr "Grupos"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_student_assignment_form
+msgid "Submitted Assignments"
+msgstr "Entrega del estudiante"
+
+#. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_student_transcript_wizard_view_form
+msgid "Select Session"
+msgstr "Seleccionar programación académica"
+
+#
+# Tarea 11292: ajustes de traduccion solicitados tras las pruebas
+# funcionales del modulo Academico. Las traducciones de Webkul para estos
+# terminos son automaticas y quedaron mal ("Exentado", "Anualmente",
+# "Costumbre"); cada msgid lista TODAS las ocurrencias que declara
+# wk_school_management/i18n/es.po, porque una referencia omitida conserva el
+# texto original de Webkul.
+#
+
+#. module: wk_school_management
+#: model:ir.model.fields,field_description:wk_school_management.field_wk_student_assignment__exempted
+msgid "Exempted"
+msgstr "Exento"
+
+#. module: wk_school_management
+#: model:ir.model.fields.selection,name:wk_school_management.selection__student_enrollment__payment_term__annualy
+#: model:ir.model.fields.selection,name:wk_school_management.selection__wk_fee_generate_wizard__payment_term__annualy
+msgid "Annually"
+msgstr "Anual"
+
+#. module: wk_school_management
+#: model:ir.model.fields.selection,name:wk_school_management.selection__student_enrollment__payment_term__custom
+#: model:ir.model.fields.selection,name:wk_school_management.selection__wk_fee_generate_wizard__payment_term__custom
+msgid "Custom"
+msgstr "Personalizado"
+
+# Requerimiento "Resultado académico, Promoción y Finalización" (2.17):
+# promote_bulk_enrollments_action se renombra de "Promote Students" a
+# "Promover seleccionados" (data/ir_action_data_override.xml). El campo
+# `name` es traducible (translate=True) y se guarda como un dict por
+# idioma: sobreescribir solo el texto en inglés desde el XML no actualiza
+# la traducción es_CO ya cargada para el texto ANTERIOR ("Promocionar
+# estudiantes"), que seguiría mostrándose sin esta entrada explícita.
+#. module: wk_school_colombo
+#: model:ir.actions.server,name:wk_school_management.promote_bulk_enrollments_action
+msgid "Promover seleccionados"
+msgstr "Promover seleccionados"
+
+# Requerimiento "Validación de cruces": el campo "Día" nuevo de la línea
+# del asistente de creación masiva (wk.school.colombo.bulk.class.line)
+# reutiliza los mismos valores que wk.weekly.schedule.weekday, pero al ser
+# un campo propio este módulo necesita su propia traducción -la de
+# wk.weekly.schedule ya existe, en el es.po de wk_school_management-.
+#. module: wk_school_colombo
+#: model:ir.model.fields.selection,name:wk_school_colombo.selection__wk_school_colombo_bulk_class_line__weekday__monday
+msgid "Monday"
+msgstr "Lunes"
+
+#. module: wk_school_colombo
+#: model:ir.model.fields.selection,name:wk_school_colombo.selection__wk_school_colombo_bulk_class_line__weekday__tuesday
+msgid "Tuesday"
+msgstr "Martes"
+
+#. module: wk_school_colombo
+#: model:ir.model.fields.selection,name:wk_school_colombo.selection__wk_school_colombo_bulk_class_line__weekday__wednesday
+msgid "Wednesday"
+msgstr "Miércoles"
+
+#. module: wk_school_colombo
+#: model:ir.model.fields.selection,name:wk_school_colombo.selection__wk_school_colombo_bulk_class_line__weekday__thursday
+msgid "Thursday"
+msgstr "Jueves"
+
+#. module: wk_school_colombo
+#: model:ir.model.fields.selection,name:wk_school_colombo.selection__wk_school_colombo_bulk_class_line__weekday__friday
+msgid "Friday"
+msgstr "Viernes"
+
+#. module: wk_school_colombo
+#: model:ir.model.fields.selection,name:wk_school_colombo.selection__wk_school_colombo_bulk_class_line__weekday__saturday
+msgid "Saturday"
+msgstr "Sábado"
+
+#. module: wk_school_colombo
+#: model:ir.model.fields.selection,name:wk_school_colombo.selection__wk_school_colombo_bulk_class_line__weekday__sunday
+msgid "Sunday"
+msgstr "Domingo"

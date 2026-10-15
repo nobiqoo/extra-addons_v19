@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="income_and_withholding_concepts_tree" model="ir.ui.view">
+            <field name="name">income.and.withholding.concepts.tree</field>
+            <field name="model">income.and.withholding.concepts</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="type" />
+                </list>
+            </field>
+        </record>
+    </data>
+</odoo>

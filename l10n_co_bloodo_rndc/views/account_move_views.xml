@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="account_move_rndc_view_form" model="ir.ui.view">
+            <field name="name">account.move.rndc.view.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="l10n_co_bloodo.invoice_form_inherit_dian"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='xml_datei_erhalten']" position="after">
+                    <button name="button_rndc_senden" string="Enviar al RNDC" type="object" class="oe_stat_button btn-outline-info" invisible="fe_operation_type != '12' or fe_ad_file == False or fe_state != '00' or ei_rndc_state == 'ok'" context="{'eimail_force': True}"/>
+                </xpath>
+                <xpath expr="//page[@name='response_ei']" position="after">
+                    <page string="RNDC" invisible="fe_operation_type != '12'">
+                        <group>
+                            <field name="ei_rndc_state" readonly="1"/>
+                            <field name="ei_rndc_response" readonly="1"/>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//group[@name='ei_fields']" position="inside">
+                    <field name="ei_rndc_state" widget="badge" decoration-danger="ei_rndc_state == 'error'" decoration-success="ei_rndc_state == 'ok'" decoration-warning="ei_rndc_state in ('ok_error', 'other')"
+                        invisible="fe_operation_type != '12'"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

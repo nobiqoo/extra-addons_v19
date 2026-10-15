@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_overtime_form" model="ir.ui.view">
+            <field name="name">hr.overtime.form</field>
+            <field name="model">hr.overtime</field>
+            <field name="inherit_id" ref="model_basic_payslip_novelty_form" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/span[@name='label_dates']"
+                    position='inside'>
+                    <b>Fecha</b>
+                </xpath>
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/field[@name='approve_date']"
+                    position='after'>
+                    <field name="qty" readonly="state != 'draft'" />
+                    <field name="payslip_id" />
+                </xpath>
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/div/field[@name='date_end']"
+                    position='replace' />
+                <xpath expr="//sheet/group[@name='group_basic_data']/group/field[@name='amount']"
+                    position='attributes'>
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath
+                    expr="//sheet/group[@name='group_basic_data']/group/field[@name='company_id']"
+                    position='after'>
+                    <field name="overtime_type_id" readonly="state != 'draft'" />
+                    <field name="period_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_overtime_tree" model="ir.ui.view">
+            <field name="name">hr.overtime.tree</field>
+            <field name="model">hr.overtime</field>
+            <field name="type">list</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="contract_id" />
+                    <field name="employee_id" />
+                    <field name="overtime_type_id" />
+                    <field name="state" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_overtime_search" model="ir.ui.view">
+            <field name="name">hr.overtime.search</field>
+            <field name="model">hr.overtime</field>
+            <field name="inherit_id" ref="model_basic_payslip_novelty_search" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="overtime_type_id" />
+
+                    <separator />
+                    <filter name="overtime_type_group" string="Categoría Hora Extra"
+                        context="{'group_by': 'overtime_type_id'}" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_overtime_action" model="ir.actions.act_window">
+            <field name="name">Horas Extra</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.overtime</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_overtime_menu_act" name="Horas Extra" parent="novelty_menu_categ"
+            action="hr_overtime_action" sequence="1" />
+
+    </data>
+
+    <data noupdate="1">
+        <record id="seq_hr_overtime" model="ir.sequence">
+            <field name="name">Número Hora Extra</field>
+            <field name="code">seq.hr.overtime</field>
+            <field name="prefix">EXT-</field>
+            <field name="padding">10</field>
+        </record>
+    </data>
+</odoo>

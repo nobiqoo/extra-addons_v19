@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="advance_application_fields_view_tree" model="ir.ui.view">
+			<field name="name">application.portal.fields.view.list</field>
+			<field name="model">application.portal.fields</field>
+			<field name="type">list</field>
+			<field name="arch" type="xml">
+				<list string="Application fields">
+					<field name="sequence" widget="handle"/>
+					<field name="id" column_invisible="1"/>
+					<field name="field" column_invisible="1"/>
+					<field name="field_label" column_invisible="0"/>
+					<field name="field_type"/>
+					<field name="is_required"/>
+					<field name="no_of_cols"/>
+					<field name="placeholder" column_invisible="1"/>
+					<field name="help" column_invisible="1"/>
+				</list>
+			</field>
+		</record>
+
+        <record id="advance_application_fields_view_form" model="ir.ui.view">
+			<field name="name">application.portal.fields.view.form</field>
+			<field name="model">application.portal.fields</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Signup fields">
+					<sheet>
+						<group string="Field Details">
+							<group>
+								<field name="field" options="{'no_create_edit': True, 'no_open': True, 'no_quick_create': True,'no_create': True}"/>
+								<field name="field_label"/>
+								<field name="placeholder" placeholder="Add a placeholder.." invisible="field_type == 'binary'"/>
+							</group>
+							<group>
+								<field name="field_type" style="text-transform:capitalize;"/>
+								<field name="sequence"/>
+								<field name="no_of_cols"/>
+								<label for="is_required"/>
+								<div>
+									<field name="is_required"/>
+									<label for="is_required" string="Enable if it is required in application form" class="text-muted"/>
+								</div>
+							</group>
+						</group>
+						<group>
+							<field name="help" placeholder="Add a description for students..." invisible="field_type == 'binary'"/>
+						</group>
+						<group string="Field Domain" invisible='1'>
+							<group>
+								<field name="field_domain" readonly="0"
+									placeholder='e.g. ["|",["id","=",1],["id","=",1]]'/>
+							</group>
+							<group>
+								<button name="action_add_domain" type="object" string="Add Domain"
+									class="oe_button oe_highlight oe_edit_only"
+									invisible="field_type not in ['many2one','many2many']"
+									/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+        <record id="application_portal_settings_view_tree" model="ir.ui.view">
+			<field name="name">application.portal.settings.view.list</field>
+			<field name="model">application.portal.settings</field>
+			<field name="type">list</field>
+			<field name="arch" type="xml">
+				<list string="Application Portal Signup">
+					<field name="name"/>
+					<field name="website_id"/>
+					<field name="active"/>
+				</list>
+			</field>
+		</record>
+
+		<record id="application_portal_settings_view_form" model="ir.ui.view">
+			<field name="name">application.portal.settings.view.form</field>
+			<field name="model">application.portal.settings</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Application Portal settings">
+					<sheet>
+						<div class="oe_button_box" name="button_box">
+							<button name="toggle_active" string="Active" type="object" class="oe_stat_button text-success" icon="fa-check-circle text-success" invisible="active == True">
+                               <field name="active" string="" widget="website_publish_button" invisible="True"/>
+                           </button>
+                           <button name="toggle_active" string="Inactive" type="object" class="oe_stat_button text-danger" icon="fa-times-circle text-danger" confirm="This will deactivate the other settings of this website." invisible="active == False">
+                               <field name="active" string="" widget="website_publish_button" invisible="True"/>
+                           </button>
+						</div>
+						<div class="oe_title">
+	                        <label class="oe_edit_only" for="name" string="Name"/>
+	                        <h1><field name="name" required="1" placeholder="Name" class=""/></h1>
+	                    </div>
+						<group>
+							<group>
+								<field name="website_id" help="Settings on this from will apply to this website"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Signup Fields">
+								<field name="portal_field_ids" help="Add fields for signup page from here">
+									<list string="Application fields">
+										<field name="sequence" widget="handle"/>
+										<field name="id" column_invisible="1"/>
+										<field name="field" column_invisible="1"/>
+										<field name="field_label" column_invisible="0"/>
+										<field name="field_type"/>
+										<field name="is_required"/>
+										<field name="no_of_cols"/>
+										<field name="placeholder" column_invisible="1"/>
+										<field name="help" column_invisible="1"/>
+									</list>
+								</field>
+							</page>
+							<page string="Documents">
+								<group>
+									<field name="required_document_ids" help="Add documents required for signup page from here" widget="many2many_tags"/>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+        <record id="application_portal_settings_view_search" model="ir.ui.view">
+			<field name="name">application.portal.settings.view.search</field>
+			<field name="model">application.portal.settings</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Search">
+					<field name="name" string="Name" filter_domain="['|',('name','ilike',self),('name','=',self)]"/>
+					<filter name="active" string="Archive" domain="[('active','=',False)]"/>
+					<group>
+						<filter name="group_website" string="Website" context="{'group_by': 'website_id'}"/>
+					</group>
+			   </search>
+			</field>
+		</record>
+
+        <record id="application_portal_action" model="ir.actions.act_window">
+			<field name="name">Application Portal settings</field>
+			<field name="res_model">application.portal.settings</field>
+			<field name="view_mode">list,form</field>
+			<field name="path">advance_portal</field>
+			<field name="context">{'search_default_group_website': 1, }</field>
+			<field name="help" type="html">
+			  <p>
+				Here is a list of all the Application settings created.
+				You can click on any record to get the detailed information
+				about these settings.
+			  </p>
+			</field>
+		</record>
+    </data>
+</odoo>

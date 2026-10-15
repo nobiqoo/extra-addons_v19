@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Multi-company: user only sees dian.sync of its companies -->
+        <record id="rule_dian_sync_company_comp" model="ir.rule">
+            <field name="name">DIAN Sync: multi-company</field>
+            <field name="model_id" ref="model_dian_sync"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <!-- Multi-company: user only sees dian.document of its companies -->
+        <record id="rule_dian_document_company_comp" model="ir.rule">
+            <field name="name">DIAN Document: multi-company</field>
+            <field name="model_id" ref="model_dian_document"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+    </data>
+</odoo>

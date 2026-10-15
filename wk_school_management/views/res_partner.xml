@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="view_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="is_parent" readonly="1" invisible="is_parent == False"/>
+                    <field name="is_student" readonly="1" invisible="is_student == False"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="get_student_partner_id" icon="fa-address-book" type="object" 
+                        class="oe_stat_button"
+                        string="Student" invisible="is_student == False"/>
+                    <button name="get_child_id" icon="fa-users" type="object" 
+                        class="oe_stat_button"
+                        string="Students" invisible="is_parent == False"/>
+                </xpath>
+                <xpath expr="//page[@name='contact_addresses']" position="after">
+                    <page name="students" string="Students">
+                        <group>
+                            <field name="student_ids" widget="many2many_tags" readonly="1" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                            <field name="student_portal_active" invisible="1"/>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//widget[@name='web_ribbon']" position="before">
+                    <div class="ribbon ribbon-top-right" invisible="not user_ids">
+                        <span class="text-bg-success">Portal</span>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_partner_kanban_view" model="ir.ui.view">
+            <field name="name">res.partner.kanban.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//widget[@name='web_ribbon']" position="before">
+                    <div class="ribbon ribbon-top-right" invisible="not user_ids">
+                        <span class="text-bg-success">Portal</span>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_res_partner_filter_custom" model="ir.ui.view">
+            <field name="name">res.partner.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='salesperson']" position="inside">
+                    <filter name="group_students" string="Students" context="{'group_by': 'student_ids'}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

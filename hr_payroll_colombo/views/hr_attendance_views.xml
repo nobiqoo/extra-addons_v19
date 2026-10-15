@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="view_attendance_tree_teacher_payroll" model="ir.ui.view">
+            <field name="name">hr.attendance.list.inherit.hr.payroll.colombo</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//list/header" position="inside">
+                    <button class="btn-secondary" string="Aprobar para Nómina"
+                        name="action_approve_for_payroll" type="object" />
+                    <button class="btn-secondary" string="Desaprobar para Nómina"
+                        name="action_refuse_for_payroll" type="object" />
+                </xpath>
+                <xpath expr="//field[@name='worked_hours']" position="after">
+                    <field name="can_approve_payroll" column_invisible="1" />
+                    <field name="payroll_novelty_state" column_invisible="1" />
+                    <field name="school_class_id" optional="show"
+                        readonly="approved_for_payroll" />
+                    <field name="payroll_hours" optional="show"
+                        widget="float_time" readonly="approved_for_payroll" />
+                    <field name="analytic_account_id" optional="hidden" />
+                    <field name="approved_for_payroll" optional="show"
+                        readonly="not can_approve_payroll or (payroll_novelty_id and payroll_novelty_state != 'draft')" />
+                    <field name="payroll_novelty_id" optional="hidden" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_attendance_view_form_teacher_payroll" model="ir.ui.view">
+            <field name="name">hr.attendance.form.inherit.hr.payroll.colombo</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='worked_hours']" position="after">
+                    <field name="can_approve_payroll" invisible="1" />
+                    <field name="payroll_novelty_state" invisible="1" />
+                    <field name="school_class_id"
+                        readonly="approved_for_payroll" />
+                    <field name="payroll_hours" widget="float_time"
+                        readonly="approved_for_payroll" />
+                    <field name="analytic_account_id" />
+                    <field name="approved_for_payroll"
+                        readonly="not can_approve_payroll or (payroll_novelty_id and payroll_novelty_state != 'draft')" />
+                    <field name="payroll_novelty_id"
+                        invisible="not payroll_novelty_id" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

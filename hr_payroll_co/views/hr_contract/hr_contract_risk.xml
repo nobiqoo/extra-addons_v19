@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="hr_contract_risk_action" model="ir.actions.act_window">
+        <field name="name">Riesgo laboral</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.contract.risk</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Crear riesgo laboral
+            </p>
+            <p></p>
+        </field>
+    </record>
+
+    <menuitem
+        id="hr_contract_risk_menu_act"
+        name="Riesgos laborales"
+        parent="hr_payroll_co.hr_contract_menu_categ"
+        action="hr_payroll_co.hr_contract_risk_action" sequence="3" />
+</odoo>

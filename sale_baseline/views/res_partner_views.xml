@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">view.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='sale']/field[@name='user_id']" position="after">
+                    <field name="is_blocked_not_buy" readonly="0"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- <record id="view_res_partner_account_advance_inherit" model="ir.ui.view">
+            <field name="name">view.res.partner.account.advance.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='accounting_entries']" position="after">
+                    <group>
+                        <field name="block_expired_invoice" groups="sale_baseline.group_block_expired_invoice"/>
+                        <field name="block_credit_limit" groups="sale_baseline.group_block_credit_limit"/>
+                    </group>
+                </xpath>
+            </field>
+        </record> -->
+
+        <record id="view_res_partner_account_form" model="ir.ui.view">
+            <field name="name">view_res_partner_account_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='general']" position="before">
+                    <group string="Credit control" groups="account.group_account_invoice">
+                        <field name="credit_limit_readonly" invisible="1"/>
+                        <field name="use_partner_credit_limit" readonly="credit_limit_readonly"/>
+                        <field name="credit_limit" class="oe_inline" invisible="not use_partner_credit_limit" readonly="credit_limit_readonly"/>
+                        <field name="share_credit_limit" class="oe_inline" invisible="not use_partner_credit_limit" readonly="credit_limit_readonly"/>
+                        <field name="credit" />
+                        <field name="block_expired_invoice" groups="sale_baseline.group_block_expired_invoice"/>
+                        <field name="block_credit_limit" groups="sale_baseline.group_block_credit_limit"/>
+                    </group>
+                    <group string="Credit documents" name="credit_documents">
+                        <field name="credit_documents_readonly" invisible="1"/>
+                        <label for="promissory_note"/>
+                        <div>
+                            <div class="o_row">
+                                <field name="promissory_note" readonly="credit_documents_readonly"/>
+                                <field name="promissory_note_filename" invisible="1"/>
+                                <field name="promissory_note_file" filename="promissory_note_filename" readonly="credit_documents_readonly"/>
+                            </div>
+                            <div class="text-muted" invisible="not promissory_note_update_date">
+                                <span class="me-1">Updated on</span>
+                                <field name="promissory_note_update_date" class="oe_inline"/>
+                                <span class="mx-1">by</span>
+                                <field name="promissory_note_update_user_id" class="oe_inline" options="{'no_open': True}"/>
+                            </div>
+                        </div>
+                        <label for="risk_bureau"/>
+                        <div>
+                            <div class="o_row">
+                                <field name="risk_bureau" readonly="credit_documents_readonly"/>
+                                <field name="risk_bureau_filename" invisible="1"/>
+                                <field name="risk_bureau_file" filename="risk_bureau_filename" readonly="credit_documents_readonly"/>
+                            </div>
+                            <div class="text-muted" invisible="not risk_bureau_update_date">
+                                <span class="me-1">Updated on</span>
+                                <field name="risk_bureau_update_date" class="oe_inline"/>
+                                <span class="mx-1">by</span>
+                                <field name="risk_bureau_update_user_id" class="oe_inline" options="{'no_open': True}"/>
+                            </div>
+                        </div>
+                        <label for="credit_application"/>
+                        <div>
+                            <div class="o_row">
+                                <field name="credit_application" readonly="credit_documents_readonly"/>
+                                <field name="credit_application_filename" invisible="1"/>
+                                <field name="credit_application_file" filename="credit_application_filename" readonly="credit_documents_readonly"/>
+                            </div>
+                            <div class="text-muted" invisible="not credit_application_update_date">
+                                <span class="me-1">Updated on</span>
+                                <field name="credit_application_update_date" class="oe_inline"/>
+                                <span class="mx-1">by</span>
+                                <field name="credit_application_update_user_id" class="oe_inline" options="{'no_open': True}"/>
+                            </div>
+                        </div>
+                        <label for="data_authorization"/>
+                        <div>
+                            <div class="o_row">
+                                <field name="data_authorization" readonly="credit_documents_readonly"/>
+                                <field name="data_authorization_filename" invisible="1"/>
+                                <field name="data_authorization_file" filename="data_authorization_filename" readonly="credit_documents_readonly"/>
+                            </div>
+                            <div class="text-muted" invisible="not data_authorization_update_date">
+                                <span class="me-1">Updated on</span>
+                                <field name="data_authorization_update_date" class="oe_inline"/>
+                                <span class="mx-1">by</span>
+                                <field name="data_authorization_update_user_id" class="oe_inline" options="{'no_open': True}"/>
+                            </div>
+                        </div>
+                        <label for="insured"/>
+                        <div>
+                            <div class="o_row">
+                                <field name="insured" readonly="credit_documents_readonly"/>
+                                <field name="insured_filename" invisible="1"/>
+                                <field name="insured_file" filename="insured_filename" readonly="credit_documents_readonly"/>
+                            </div>
+                            <div class="text-muted" invisible="not insured_update_date">
+                                <span class="me-1">Updated on</span>
+                                <field name="insured_update_date" class="oe_inline"/>
+                                <span class="mx-1">by</span>
+                                <field name="insured_update_user_id" class="oe_inline" options="{'no_open': True}"/>
+                            </div>
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_inherit_account_credit_limit" model="ir.ui.view">
+            <field name="name">view.inherit.account.credit.limit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='credit_limits']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='credit_limits']//field[@name='use_partner_credit_limit']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <attribute name="readonly">credit_limit_readonly == True</attribute>
+                </xpath>
+                <xpath expr="//group[@name='credit_limits']//label[@for='use_partner_credit_limit']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='credit_limits']//label[@for='use_partner_credit_limit']" position="before">
+                    <field name="credit_limit_readonly" invisible="1"/>
+                </xpath>
+                <xpath expr="//group[@name='credit_limits']//field[@name='credit_limit']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_res_partner_history_credit_inherit" model="ir.ui.view">
+            <field name="name">view.res.partner.history.credit.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[3]" position="after">
+                    <page string="Credit limit History" name="credit_history">
+                        <field name="credit_limit_history_ids">
+                            <list editable="bottom">
+                                <field name="date"/>
+                                <field name="user_id"/>
+                                <field name="credit"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

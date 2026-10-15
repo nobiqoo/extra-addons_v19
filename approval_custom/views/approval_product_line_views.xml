@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="approval_product_line_view_tree_custom" model="ir.ui.view">
+        <field name="name">approval.product.line.view.tree.custom</field>
+        <field name="model">approval.product.line</field>
+        <field name="inherit_id" ref="approvals.approval_product_line_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="analytic_distribution" widget="analytic_distribution" string="Analítica"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

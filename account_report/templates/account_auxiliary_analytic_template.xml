@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+
+        <template id="account_auxiliary_analytic_qweb">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="header">
+                        <link href="/account_report/static/src/css/table.css"
+                              rel="stylesheet"/>
+                        <t t-set="REPORT_TYPE"
+                           t-value="{'local': 'LOCAL', 'ifrs': 'NIIF'}"/>
+                        <div class="act_as_table data_table">
+                            <div class="act_as_row">
+                                <div class="act_as_cell labels">INFORME</div>
+                                <div class="act_as_cell bold-cell-report">
+                                    LIBRO AUXILIAR ANALÍTICO
+                                </div>
+                                <div class="act_as_cell labels">
+                                    FECHA PROCESO
+                                </div>
+                                <div class="act_as_cell">
+                                    <t t-esc="context_timestamp(
+                                        doc.date_process
+                                    ).strftime('%Y/%m/%d %H:%M:%S')"/>
+                                </div>
+                            </div>
+                            <div class="act_as_row">
+                                <div class="act_as_cell labels">COMPAÑÍA</div>
+                                <div class="act_as_cell">
+                                    <t t-esc="doc.env.company.name or ''"/>
+                                </div>
+                                <div class="act_as_cell labels">DESDE</div>
+                                <div class="act_as_cell">
+                                    <t t-esc="doc.date_from.strftime(
+                                        '%Y/%m/%d')"/>
+                                </div>
+                            </div>
+                            <div class="act_as_row">
+                                <div class="act_as_cell labels">NIT</div>
+                                <div class="act_as_cell">
+                                    <t t-esc="doc.env.company.partner_id.vat
+                                              or ''"/>
+                                </div>
+                                <div class="act_as_cell labels">HASTA</div>
+                                <div class="act_as_cell">
+                                    <t t-esc="doc.date_to.strftime(
+                                        '%Y/%m/%d')"/>
+                                </div>
+                            </div>
+                            <div class="act_as_row">
+                                <div class="act_as_cell labels">TIPO</div>
+                                <div class="act_as_cell">
+                                    <t t-esc="REPORT_TYPE.get(
+                                        doc.report_type)"/>
+                                </div>
+                                <div class="act_as_cell labels">Pág.</div>
+                                <div class="act_as_cell bold-cell-report">
+                                    <span class="page"/>/<span class="topage"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article"
+                         t-att-data-oe-model="doc and doc._name"
+                         t-att-data-oe-id="doc and doc.id"
+                         t-att-data-oe-lang="doc and
+                             doc.env.context.get('lang')">
+                        <link href="/account_report/static/src/css/table.css"
+                              rel="stylesheet"/>
+                        <div class="page">
+                            <div class="report_col">
+                                <t t-raw="doc.data_report_preview()"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                    </div>
+                </t>
+            </t>
+            <style>
+                .report_col {
+                    font-size: 16px;
+                    font-family: narrow;
+                }
+            </style>
+        </template>
+
+    </data>
+</odoo>

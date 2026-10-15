@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="menu_action_account_report_aged_partner_balance_work"
+        name="Reporte de Cartera (Obras)"
+        parent="account.account_reports_partners_reports_menu"
+        sequence="5"
+        action="sale_order_work.action_account_report_pb_work"/>
+
+</odoo>

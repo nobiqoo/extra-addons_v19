@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="wk_attendance_wizard_view_form" model="ir.ui.view">
+            <field name="name">wk.attendance.wizard.form</field>
+            <field name="model">wk.attendance.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Start Class">
+                    <sheet>
+                        <div class="oe_title">
+                            <h2>
+                                You are going to start this class!
+                            </h2>
+                            <p>
+                                By starting this class the records for the class attendance would get created for the enrolled students in this class.
+                            </p>
+                        </div>
+                        <div class="o_row">
+                            <field name="fetch_entry_attendance" colspan="12"/>
+                            <label for="fetch_entry_attendance" string="Do you want to fetch Students entry attendance records?"/>
+                        </div>
+                    </sheet>
+                    <footer>
+                        <button name="start_scheduled_class" type="object" string="Start Class" class="btn-success"/>
+                        <button string="Cancel" class="btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_attendance_wizard_action" model="ir.actions.act_window">
+            <field name="name">Start Class</field>
+            <field name="res_model">wk.attendance.wizard</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <record id="wk_class_attendance_wizard_view_form" model="ir.ui.view">
+            <field name="name">wk.class.attendance.wizard.form</field>
+            <field name="model">wk.class.attendance.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Mark Attendance">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="grade_id"/>
+                                <field name="section_id" invisible="not section_visibility"/>
+                                <field name="subject_id"/> 
+                            </group>
+                            <group>
+                                <field name="academic_year_id"/>
+                                <field name="class_date"/>
+                                <field name="class_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <field name="class_attendance_ids">
+                            <list editable="bottom" domain="([('class_id','=',class_id)])" create="0" decoration-danger = "state =='absent'" decoration-success="state =='present'">
+                                <field name="student_id" readonly="1"/>
+                                <field name="class_id" readonly="1"/>
+                                <field name="class_date" column_invisible="1"/>
+                                <field name="attendance_tag_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                                <field name="state"/>
+                            </list>
+                        </field>
+                    </sheet>
+                    <footer>
+                        <button name="confirm_class_attendance" type="object" string="Done" class="btn-success"/>
+                        <button string="Close" class="btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wk_student_transcript_wizard_view_form" model="ir.ui.view">
+            <field name="name">wk.student.transcript.wizard.form</field>
+            <field name="model">wk.student.transcript.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Select Session">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="student_id" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="session_id" options="{'no_create': True}"/>
+                                <field name="domain_session_ids" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="fetch_student_transcript" type="object" string="Fetch Transcript" class="btn-success"/>
+                        <button string="Close" class="btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

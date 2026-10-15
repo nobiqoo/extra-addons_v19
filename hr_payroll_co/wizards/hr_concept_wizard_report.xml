@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_concept_wizard_report_view_form" model="ir.ui.view">
+            <field name="name">hr.concept.wizard.report.view.form</field>
+            <field name="model">hr.concept.wizard.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de conceptos de nomina">
+                    <sheet>
+                        <h1>Contratos</h1>
+                        <group>
+                            <group>
+                                <field name="contracts_ids">
+                                    <list>
+                                        <field name="name" />
+                                    </list>
+                                </field>
+                            </group>
+                            <group>
+                                <field name="contract_groups_ids">
+                                    <list>
+                                        <field name="name" />
+                                    </list>
+                                </field>
+                            </group>
+                        </group>
+                        <h1>Periodo</h1>
+                        <group>
+                            <field name="search_type" />
+                        </group>
+                        <group>
+                            <group>
+                                <field
+                                    name="period_id"
+                                    invisible="search_type != 'unique'" />
+                                <field
+                                    name="from_period_id"
+                                    invisible="search_type == 'unique'" />
+                            </group>
+                            <group>
+                                <field
+                                    name="to_period_id"
+                                    invisible="search_type == 'unique'" />
+                            </group>
+                        </group>
+                        <h1>Nómina</h1>
+                        <group>
+                            <group>
+                                <field name="payslip_category" />
+                                <field name="payslip_state" />
+                            </group>
+                            <group>
+                                <field name="payslip_types_ids" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="show_report" string="Generar" class="btn btn-primary"
+                            type="object" />
+                        <button name="show_previous_report" string="Informe anterior" type="object"
+                            class="oe_highlight" icon="fa-arrow-circle-o-left" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_concept_wizard_report_action" model="ir.actions.act_window">
+            <field name="name">Reporte de conceptos de nómina</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.concept.wizard.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="hr_concept_wizard_report_view_form" />
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="hr_concept_wizard_report_menu_act" name="Reporte de conceptos de nómina"
+            parent="reports_menu_categ" action="hr_concept_wizard_report_action" sequence="1" />
+
+    </data>
+</odoo>

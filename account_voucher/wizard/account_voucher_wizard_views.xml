@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_voucher_wizard_form" model="ir.ui.view">
+            <field name="name">account.voucher.wizard.form</field>
+            <field name="model">account.voucher.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Register Voucher">
+                    <sheet>
+                        <group>
+                            <field name="active_bool" invisible="True" />
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company" />
+                                <field name="journal_id" options="{'no_open': True}" />
+                                <field name="date" />
+                            </group>
+                            <group invisible="active_bool == True">
+                                <label for="amount" />
+                                <div name="amount_div" class="o_row">
+                                    <field name="amount" />
+                                    <field name="currency_id" options="{'no_create': True, 'no_open': True}" required="True" groups="base.group_multi_currency" />
+                                </div>
+                                <field name="voucher_reference" string="Reference" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Create Voucher" name="button_create_voucher" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

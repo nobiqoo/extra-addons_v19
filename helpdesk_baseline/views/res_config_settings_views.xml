@@ -1,0 +1,36 @@
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">view.res.config.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="80" />
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Helpdesk" string="Helpdesk" name="helpdesk">
+                    <block tittle="Financial Information" name="financial_info">
+                        <setting id="helpdesk_ticket_income_expense" help="Allows to manage income and expenses from help desk tickets.">
+                             <field name="helpdesk_ticket_income_expense"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_helpdesk_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'helpdesk', 'bin_size': False}</field>
+    </record>
+
+    <menuitem id="menu_helpdesk_general_settings"
+        name="Settings"
+        parent="helpdesk.helpdesk_menu_config"
+        sequence="0"
+        action="action_helpdesk_config_settings"
+        groups="base.group_system"/>
+</odoo>

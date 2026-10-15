@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+         Menú principal: Control de Turnos y Asistencia
+         ════════════════════════════════════════════════════════════════════ -->
+
+    <menuitem id="menu_biometric_root"
+              name="Control de Turnos"
+              sequence="85"
+              web_icon="hr_payroll_co_biometric,static/description/icon.png"
+              groups="hr_payroll_co_biometric.group_biometric_user"/>
+
+    <!-- ── Programación ──────────────────────────────────────────────────── -->
+    <menuitem id="menu_biometric_planning"
+              name="Programación"
+              parent="menu_biometric_root"
+              sequence="10"/>
+
+    <menuitem id="menu_biometric_schedule"
+              name="Programaciones de Turnos"
+              parent="menu_biometric_planning"
+              action="action_hr_shift_schedule"
+              sequence="10"/>
+
+    <menuitem id="menu_biometric_wizard"
+              name="Procesar / Generar Masivamente"
+              parent="menu_biometric_planning"
+              action="action_hr_process_attendance_wizard"
+              sequence="20"
+              groups="hr_payroll_co_biometric.group_biometric_supervisor"/>
+
+    <menuitem id="menu_biometric_import_shifts_excel"
+              name="Importar Turnos desde Excel"
+              parent="menu_biometric_planning"
+              action="action_hr_import_shifts_excel_wizard"
+              sequence="30"
+              groups="hr_payroll_co_biometric.group_biometric_supervisor"/>
+
+    <menuitem id="menu_biometric_schedule_calendar"
+              name="Calendario de Turnos"
+              parent="menu_biometric_planning"
+              action="action_hr_shift_schedule_line"
+              sequence="15"
+              groups="hr_payroll_co_biometric.group_biometric_user"/>
+
+    <!-- ── Asistencia ──────────────────────────────────────────────────── -->
+    <menuitem id="menu_biometric_attendance"
+              name="Asistencia"
+              parent="menu_biometric_root"
+              sequence="20"/>
+
+    <menuitem id="menu_biometric_attendance_records"
+              name="Registros de Asistencia"
+              parent="menu_biometric_attendance"
+              action="action_hr_attendance_record"
+              sequence="10"/>
+
+    <menuitem id="menu_biometric_novelty"
+              name="Novedades"
+              parent="menu_biometric_attendance"
+              action="action_hr_attendance_novelty"
+              sequence="20"/>
+
+    <menuitem id="menu_biometric_novelty_pending"
+              name="Novedades Pendientes"
+              parent="menu_biometric_attendance"
+              action="action_hr_attendance_novelty_pending"
+              sequence="30"
+              groups="hr_payroll_co_biometric.group_biometric_hr"/>
+
+    <menuitem id="menu_biometric_overtime_category_pivot"
+              name="Horas Extras por Categoría"
+              parent="menu_biometric_attendance"
+              action="action_hr_attendance_novelty_overtime_pivot"
+              sequence="35"
+              groups="hr_payroll_co_biometric.group_biometric_supervisor"/>
+
+    <menuitem id="menu_biometric_overtime_report"
+              name="Reporte Horas Extras"
+              parent="menu_biometric_attendance"
+              action="action_hr_biometric_overtime_report_wizard"
+              sequence="40"
+              groups="hr_payroll_co_biometric.group_biometric_supervisor"/>
+
+    <!-- ── Configuración ──────────────────────────────────────────────── -->
+    <menuitem id="menu_biometric_config"
+              name="Configuración"
+              parent="menu_biometric_root"
+              sequence="100"
+              groups="hr_payroll_co_biometric.group_biometric_manager"/>
+
+    <menuitem id="menu_biometric_shifts"
+              name="Turnos Laborales"
+              parent="menu_biometric_config"
+              action="action_hr_shift"
+              sequence="10"/>
+
+    <menuitem id="menu_biometric_overtime_rules"
+              name="Reglas de Horas Extras"
+              parent="menu_biometric_config"
+              action="action_hr_overtime_rule"
+              sequence="20"/>
+
+    <menuitem id="menu_biometric_documentation"
+              name="Documentación"
+              parent="menu_biometric_config"
+              action="action_biometric_documentation"
+              sequence="90"/>
+
+</odoo>

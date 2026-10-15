@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="wage_update_history_action" model="ir.actions.act_window">
+        <field name="name">Cambio de Salario</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wage.update.history</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Registrar Cambio de Salario
+            </p>
+            <p></p>
+        </field>
+    </record>
+    <menuitem id="wage_update_history_menu_act" name="Cambios de Salario" parent="hr_payroll_co.hr_contract_menu_categ" action="hr_payroll_co.wage_update_history_action" sequence="3" />
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_difference_in_change_maker_to_manager,access.difference.in.change.maker.to.manager,model_difference_in_change_maker,difference_in_change_caused.exchange_difference_manager,1,1,1,1
+access_difference_in_change_revert_wizard_to_manager,access.difference.in.change.revert.wizard.to.manager,model_difference_in_change_revert_wizard,difference_in_change_caused.exchange_difference_manager,1,1,1,1

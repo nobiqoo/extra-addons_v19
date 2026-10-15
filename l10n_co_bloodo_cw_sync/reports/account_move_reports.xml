@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_einvoicing_report_logistic" model="report.paperformat">
+            <field name="name">Factura Electrónica Logistic</field>
+            <field name="default" eval="True"/>
+            <field name="format">Letter</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">45</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_report_einvoicing_print" model="ir.actions.report">
+            <field name="name">Factura Electrónica log</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="paperformat_id" ref="l10n_co_bloodo_cw_sync.paperformat_einvoicing_report_logistic"/>
+            <field name="report_name">l10n_co_bloodo_cw_sync.report_log_einvoicing_document</field>
+            <field name="report_file">l10n_co_bloodo_cw_sync.report_log_einvoicing_document</field>
+            <field name="print_report_name">'Factura Electrónica %s' % object.name</field>
+        </record>
+    </data>
+</odoo>

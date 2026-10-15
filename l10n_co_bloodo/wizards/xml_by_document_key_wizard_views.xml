@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="xml_by_document_key_form" model="ir.ui.view">
+            <field name="name">xml.by.document.key.form</field>
+            <field name="model">xml.by.document.key</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="company_id" readonly="1"/>
+                                <field name="track_id"/>
+                            </group>
+                            <group>
+                                <field name="xml_fname" invisible="1"/>
+                                <field name="xml_file" widget="binary" filename="xml_fname" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Descargar" name="xml_erhalten" type="object" class="oe_highlight"/>
+                        <button string="Cancelar" special="cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

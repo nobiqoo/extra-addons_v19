@@ -1,0 +1,14 @@
+<odoo>
+    <record id="view_biometric_edit_users_menu_wizard_form" model="ir.ui.view">
+        <field name="name">biometric.edit.users.menu.wizard.form</field>
+        <field name="model">biometric.edit.users.menu.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Editar usuarios">
+                <group>
+                    <button name="action_map_biometric_to_odoo" type="object" string="Mapear usuarios del Biometrico al Odoo" class="btn-primary"/>
+                    <button name="action_map_odoo_to_biometric" type="object" string="Mapear usuarios del Odoo al biométrico" class="btn-secondary"/>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

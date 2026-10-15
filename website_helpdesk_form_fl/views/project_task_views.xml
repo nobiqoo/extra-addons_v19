@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- <record id="view_project_task_kanban_inherit_block_flag" model="ir.ui.view">
+        <field name="name">project.task.kanban.inherit.block.flag</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//templates//t[@t-name='kanban-box']" position="inside">
+                <div t-if="record.x_is_blocked.raw_value" class="o_badge text-danger" style="margin-top:4px;">Bloqueada</div>
+            </xpath>
+        </field>
+    </record> -->
+    <record id="view_project_task_form_helpdesk_ticket" model="ir.ui.view">
+        <field name="name">project.task.form.helpdesk.ticket</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <button name="action_dependent_tasks" position="after">
+                <button name="action_open_helpdesk_ticket" type="object" string="Tickets" class="btn-secondary" icon="fa-ticket">
+                    <field name="count_helpdesk_tickets" widget="statinfo" string="Tickets"/>
+                </button>
+            </button>
+        </field>
+    </record>
+    <record id="view_project_task_form_inherit_dependents_btn" model="ir.ui.view">
+        <field name="name">project.task.form.inherit.dependents.btn</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button type="object" name="action_view_dependents" string="Dependientes" class="oe_stat_button" icon="fa-code-fork"/>
+            </xpath>
+            <xpath expr="//page[@name='sub_tasks_page']" position="inside">
+                <group string="Dependencias" colspan="2">
+                    <field name="predecessor_task_id" readonly="1"/>
+                    <field name="x_is_blocked" readonly="1"/>
+                    <field name="next_stage_id" readonly="1"/>
+                </group>
+            </xpath>
+
+            <xpath expr="//field[@name='child_ids']/tree|//field[@name='child_ids']/list" position="inside">
+                <field name="x_is_blocked" readonly="1" optional="hide"/>
+                <field name="next_stage_id" readonly="1" optional="hide"/>
+            </xpath>
+            <!-- <xpath expr="//sheet/notebook" position="inside">
+                <page string="Subtareas" name="deps">
+                    <group>
+                        <field name="predecessor_task_id" readonly="1" />
+                        <field name="x_is_blocked" readonly="1" invisible="1" />
+                        <field name="next_stage_id" readonly="1" />
+                    </group>
+                    <field name="dependent_task_ids" nolabel="1">
+                        <list>
+                            <field name="name" readonly="1" />
+                            <field name="user_ids" widget="many2many_avatar_user" readonly="1" />
+                            <field name="stage_id" readonly="1" />
+                        </list>
+                    </field>
+                </page>
+            </xpath> -->
+        </field>
+    </record>
+</odoo>

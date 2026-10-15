@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_portfolio_detail_wizard,access.portfolio.detail.wizard,model_portfolio_detail_wizard,base.group_user,1,1,1,1
+access_portfolio_detail_print_xlsx,access.portfolio.detail.print.xlsx,model_portfolio_detail_print_xlsx,base.group_user,1,1,1,1
+access_portfolio_detail_wizard_line,access.portfolio.detail.wizard.line,model_portfolio_detail_wizard_line,base.group_user,1,1,1,1
+access_detail_wizard_line_line,access.detail.wizard.line.line,model_detail_wizard_line_line,base.group_user,1,1,1,1

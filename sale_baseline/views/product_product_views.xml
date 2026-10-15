@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_product_product_list_price_public_tree" model="ir.ui.view">
+            <field name="name">view.product.product.list.price.public.tree</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='lst_price']" position="before">
+                    <field name="ldp_price" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_product_list_price_public_kanban" model="ir.ui.view">
+            <field name="name">view.product.product.list.price.public.kanban</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//span[2]" position="after">
+                    <span>
+                        Price LdP: <field name="ldp_price"/>
+                    </span>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

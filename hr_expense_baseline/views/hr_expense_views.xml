@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_expense_inherit_view_form" model="ir.ui.view">
+        <field name="name">hr.expense.inherit.view.form</field>
+        <field name="model">hr.expense</field>
+        <field name="inherit_id" ref="hr_expense.hr_expense_view_form" />
+        <field name="active">True</field>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@id='lo']" position="before">
+                <field name="type" string="Type" />
+                <field name="related_employee_id" invisible="1" />
+                <field name="advance_id" string="Advance Id" widget="many2one"
+                    domain="[('employee_id', '=', related_employee_id), ('state', 'in', ('pending_legalization','expired'))]"
+                    invisible="type != 'advance'" required="type == 'advance'"/>
+                <field name="petty_cash_responsible_id" string="Petty Cash Responsible"
+                    widget="many2one"
+                    invisible="type != 'expense_petty_cash'" required="type == 'expense_petty_cash'" />
+                <field name="petty_cash_fund" string="Petty Cash Fund" widget="monetary"
+                    readonly="1" invisible="type != 'expense_petty_cash'" force_save="1"/>
+            </xpath>
+            <xpath expr="//field[@name='price_unit']" position="before">
+                <field name="partner_id" />
+            </xpath>
+            <xpath expr="//field[@name='account_id']" position="after">
+                <field name="expense_journal_id"
+                    readonly="type == 'expense_petty_cash' and petty_cash_responsible_id != False" 
+                    force_save="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_expense_view_form_without_header_inh" model="ir.ui.view">
+        <field name="name">hr.expense.view.form.without.header.inh</field>
+        <field name="model">hr.expense</field>
+        <field name="inherit_id" ref="hr_expense.hr_expense_view_form_without_header"/>
+        <field name="arch" type="xml">
+            <field name="analytic_distribution" position="attributes">
+                <attribute name="force_save">1</attribute>
+            </field>
+            <field name="account_id" position="after">
+                <field name="expense_journal_id" force_save="1"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

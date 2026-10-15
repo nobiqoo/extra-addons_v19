@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_partner_property_form_inherit_dian" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.dian</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <field name="property_account_position_id" position="after">
+                    <field name="fiscal_position_local" invisible="1"/>
+                    <field name="dian_obligation_type_ids" invisible="not fiscal_position_local" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" widget="many2many_tags"/>
+                    <field name="dian_tax_scheme_id" invisible="not fiscal_position_local"/>
+                    <field name="dian_fiscal_regimen" invisible="not fiscal_position_local"/>
+                    <field name="dian_representation_type_id" invisible="not fiscal_position_local" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                    <field name="dian_establishment_type_id" invisible="not fiscal_position_local" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                    <field name="dian_customs_type_ids" invisible="not fiscal_position_local" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" widget="many2many_tags"/>
+                    <field name="dian_commercial_name" invisible="not fiscal_position_local"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_partner_latam_form" model="ir.ui.view">
+            <field name="name">res.partner.inherit.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="l10n_latam_base.view_partner_latam_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div/field[@name='vat']" position="after">
+                    <span> - </span>
+                    <field name="l10n_co_verification_code" class="oe_inline"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.inherit.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//h1" position="after">
+                    <field name="fiscal_position_local" invisible="1"/>
+                    <group name="partner_names" invisible="not (fiscal_position_local and not is_company)">
+                        <group name="names">
+                            <label for="name1" string="Nombres"/>
+                            <div>
+                                <field name="name1" nolabel="1" placeholder="First name..." invisible="is_company" required="fiscal_position_local and not is_company and type == 'contact'" class="oe_edit_only"/>
+                                <field name="name2" nolabel="1" placeholder="Second name..." invisible="is_company" class="oe_edit_only"/>
+                            </div>
+                        </group>
+                        <group name="lastnames">
+                            <label for="lastname1" string="Apellidos"/>
+                            <div>
+                                <field name="lastname1" nolabel="1" placeholder="First last name..." invisible="is_company" required="fiscal_position_local and not is_company and type == 'contact'" class="oe_edit_only"/>
+                                <field name="lastname2" nolabel="1" placeholder="Second last name..." invisible="is_company" class="oe_edit_only"/>
+                            </div>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='website']" position="before">
+                    <field name="fiscal_position_local" invisible="1"/>
+                    <field name="edi_email" widget="email" placeholder="DIAN Email" invisible="not fiscal_position_local"/>
+                    <field name="edi_email_cc" widget="email" placeholder="DIAN Email cc" invisible="not fiscal_position_local"/>
+                    <field name="dian_not_send_email" invisible="not fiscal_position_local"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

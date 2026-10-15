@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- OBS REU GENERALES - 110926 (reunión de presentación del 11-sep):
+         1) Paneles/lamas con varias telas: coordinado y cantidad de lamas
+            POR TELA + restricción contra la cantidad total de lamas.
+         2) Blackout Texturizado: catálogo de diseños de textura.
+         3) Referencias de tela no repetidas en la misma persiana.
+         (El resto de la hoja: secuencia en el encabezado va por JS y los
+         componentes de kit por modelo safra.motor.kit.component.) -->
+    <data noupdate="0">
+
+        <!-- ============ Diseño de textura (Blackout Texturizado) ============ -->
+        <record id="field_textura_design" model="safra.field">
+            <field name="code">textura_design</field>
+            <field name="name">Diseño de Textura</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">design</field>
+            <field name="col_size">4</field>
+            <field name="sequence">125</field>
+            <field name="fabric_flag">texturable</field>
+            <field name="help_text">Textura que se imprime sobre la tela texturizada</field>
+        </record>
+        <record id="sf_01_textura_design" model="safra.system.field">
+            <field name="system_id" ref="system_01"/>
+            <field name="field_id" ref="field_textura_design"/>
+            <field name="sequence">195</field>
+        </record>
+        <record id="sf_32_textura_design" model="safra.system.field">
+            <field name="system_id" ref="system_32"/>
+            <field name="field_id" ref="field_textura_design"/>
+            <field name="sequence">195</field>
+        </record>
+
+        <!-- ============ Coordinado por tela (telas 2 a 5) ============ -->
+        <record id="field_coordinado_tela_2" model="safra.field">
+            <field name="code">coordinado_tela_2</field>
+            <field name="name">Coordinado Tela 2</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">141</field>
+            <field name="depends_field_id" ref="field_fabric_id_2"/>
+        </record>
+        <record id="field_coordinado_tela_3" model="safra.field">
+            <field name="code">coordinado_tela_3</field>
+            <field name="name">Coordinado Tela 3</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">161</field>
+            <field name="depends_field_id" ref="field_fabric_id_3"/>
+        </record>
+        <record id="field_coordinado_tela_4" model="safra.field">
+            <field name="code">coordinado_tela_4</field>
+            <field name="name">Coordinado Tela 4</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">181</field>
+            <field name="depends_field_id" ref="field_fabric_id_4"/>
+        </record>
+        <record id="field_coordinado_tela_5" model="safra.field">
+            <field name="code">coordinado_tela_5</field>
+            <field name="name">Coordinado Tela 5</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">selection</field>
+            <field name="col_size">4</field>
+            <field name="sequence">201</field>
+            <field name="depends_field_id" ref="field_fabric_id_5"/>
+        </record>
+    </data>
+
+    <data noupdate="0">
+        <function model="safra.field" name="_seed_coordinado_tela_options"/>
+    </data>
+
+    <data noupdate="0">
+        <!-- ============ Cantidad de lamas por tela (1 a 5) ============ -->
+        <!-- La tela 1 solo reparte lamas cuando hay una segunda tela. -->
+        <record id="field_lamas_tela_1" model="safra.field">
+            <field name="code">lamas_tela_1</field>
+            <field name="name">Lamas Tela 1</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">integer</field>
+            <field name="col_size">4</field>
+            <field name="sequence">123</field>
+            <field name="depends_field_id" ref="field_fabric_id_2"/>
+            <field name="help_text">Cuántas lamas/telos van en esta tela (la suma de todas las telas debe cuadrar con la cantidad total)</field>
+        </record>
+        <record id="field_lamas_tela_2" model="safra.field">
+            <field name="code">lamas_tela_2</field>
+            <field name="name">Lamas Tela 2</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">integer</field>
+            <field name="col_size">4</field>
+            <field name="sequence">142</field>
+            <field name="depends_field_id" ref="field_fabric_id_2"/>
+        </record>
+        <record id="field_lamas_tela_3" model="safra.field">
+            <field name="code">lamas_tela_3</field>
+            <field name="name">Lamas Tela 3</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">integer</field>
+            <field name="col_size">4</field>
+            <field name="sequence">162</field>
+            <field name="depends_field_id" ref="field_fabric_id_3"/>
+        </record>
+        <record id="field_lamas_tela_4" model="safra.field">
+            <field name="code">lamas_tela_4</field>
+            <field name="name">Lamas Tela 4</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">integer</field>
+            <field name="col_size">4</field>
+            <field name="sequence">182</field>
+            <field name="depends_field_id" ref="field_fabric_id_4"/>
+        </record>
+        <record id="field_lamas_tela_5" model="safra.field">
+            <field name="code">lamas_tela_5</field>
+            <field name="name">Lamas Tela 5</field>
+            <field name="section_id" ref="section_tela"/>
+            <field name="field_type">integer</field>
+            <field name="col_size">4</field>
+            <field name="sequence">202</field>
+            <field name="depends_field_id" ref="field_fabric_id_5"/>
+        </record>
+
+        <!-- ============ Asociaciones por sistema (lamas/telos) ============
+             Secuencias intercaladas tras el Color de cada tela según el
+             orden de safra_matriz_order (colores en 160-250). -->
+
+        <!-- PANEL JAPONÉS (11): color 170 / 190 / 210 / 230 / 250 -->
+        <record id="sf_11_lamas_tela_1" model="safra.system.field">
+            <field name="system_id" ref="system_11"/>
+            <field name="field_id" ref="field_lamas_tela_1"/>
+            <field name="sequence">174</field>
+        </record>
+        <record id="sf_11_coordinado_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_11"/>
+            <field name="field_id" ref="field_coordinado_tela_2"/>
+            <field name="sequence">192</field>
+        </record>
+        <record id="sf_11_lamas_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_11"/>
+            <field name="field_id" ref="field_lamas_tela_2"/>
+            <field name="sequence">194</field>
+        </record>
+        <record id="sf_11_coordinado_tela_3" model="safra.system.field">
+            <field name="system_id" ref="system_11"/>
+            <field name="field_id" ref="field_coordinado_tela_3"/>
+            <field name="sequence">212</field>
+        </record>
+        <record id="sf_11_lamas_tela_3" model="safra.system.field">
+            <field name="system_id" ref="system_11"/>
+            <field name="field_id" ref="field_lamas_tela_3"/>
+            <field name="sequence">214</field>
+        </record>
+        <record id="sf_11_coordinado_tela_4" model="safra.system.field">
+            <field name="system_id" ref="system_11"/>
+            <field name="field_id" ref="field_coordinado_tela_4"/>
+            <field name="sequence">232</field>
+        </record>
+        <record id="sf_11_lamas_tela_4" model="safra.system.field">
+            <field name="system_id" ref="system_11"/>
+            <field name="field_id" ref="field_lamas_tela_4"/>
+            <field name="sequence">234</field>
+        </record>
+        <record id="sf_11_coordinado_tela_5" model="safra.system.field">
+            <field name="system_id" ref="system_11"/>
+            <field name="field_id" ref="field_coordinado_tela_5"/>
+            <field name="sequence">252</field>
+        </record>
+        <record id="sf_11_lamas_tela_5" model="safra.system.field">
+            <field name="system_id" ref="system_11"/>
+            <field name="field_id" ref="field_lamas_tela_5"/>
+            <field name="sequence">254</field>
+        </record>
+
+        <!-- PANEL DUO (54): color 170 / 190 (solo 2 telas) -->
+        <record id="sf_54_lamas_tela_1" model="safra.system.field">
+            <field name="system_id" ref="system_54"/>
+            <field name="field_id" ref="field_lamas_tela_1"/>
+            <field name="sequence">174</field>
+        </record>
+        <record id="sf_54_coordinado_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_54"/>
+            <field name="field_id" ref="field_coordinado_tela_2"/>
+            <field name="sequence">192</field>
+        </record>
+        <record id="sf_54_lamas_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_54"/>
+            <field name="field_id" ref="field_lamas_tela_2"/>
+            <field name="sequence">194</field>
+        </record>
+
+        <!-- VERTICAL (40): color 160 / 180 / 200 / 220 / 240 -->
+        <record id="sf_40_lamas_tela_1" model="safra.system.field">
+            <field name="system_id" ref="system_40"/>
+            <field name="field_id" ref="field_lamas_tela_1"/>
+            <field name="sequence">164</field>
+        </record>
+        <record id="sf_40_coordinado_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_40"/>
+            <field name="field_id" ref="field_coordinado_tela_2"/>
+            <field name="sequence">182</field>
+        </record>
+        <record id="sf_40_lamas_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_40"/>
+            <field name="field_id" ref="field_lamas_tela_2"/>
+            <field name="sequence">184</field>
+        </record>
+        <record id="sf_40_coordinado_tela_3" model="safra.system.field">
+            <field name="system_id" ref="system_40"/>
+            <field name="field_id" ref="field_coordinado_tela_3"/>
+            <field name="sequence">202</field>
+        </record>
+        <record id="sf_40_lamas_tela_3" model="safra.system.field">
+            <field name="system_id" ref="system_40"/>
+            <field name="field_id" ref="field_lamas_tela_3"/>
+            <field name="sequence">204</field>
+        </record>
+        <record id="sf_40_coordinado_tela_4" model="safra.system.field">
+            <field name="system_id" ref="system_40"/>
+            <field name="field_id" ref="field_coordinado_tela_4"/>
+            <field name="sequence">222</field>
+        </record>
+        <record id="sf_40_lamas_tela_4" model="safra.system.field">
+            <field name="system_id" ref="system_40"/>
+            <field name="field_id" ref="field_lamas_tela_4"/>
+            <field name="sequence">224</field>
+        </record>
+        <record id="sf_40_coordinado_tela_5" model="safra.system.field">
+            <field name="system_id" ref="system_40"/>
+            <field name="field_id" ref="field_coordinado_tela_5"/>
+            <field name="sequence">242</field>
+        </record>
+        <record id="sf_40_lamas_tela_5" model="safra.system.field">
+            <field name="system_id" ref="system_40"/>
+            <field name="field_id" ref="field_lamas_tela_5"/>
+            <field name="sequence">244</field>
+        </record>
+
+        <!-- VINTAGE (42): color 160 / 180 / 200 / 220 / 240 -->
+        <record id="sf_42_lamas_tela_1" model="safra.system.field">
+            <field name="system_id" ref="system_42"/>
+            <field name="field_id" ref="field_lamas_tela_1"/>
+            <field name="sequence">164</field>
+        </record>
+        <record id="sf_42_coordinado_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_42"/>
+            <field name="field_id" ref="field_coordinado_tela_2"/>
+            <field name="sequence">182</field>
+        </record>
+        <record id="sf_42_lamas_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_42"/>
+            <field name="field_id" ref="field_lamas_tela_2"/>
+            <field name="sequence">184</field>
+        </record>
+        <record id="sf_42_coordinado_tela_3" model="safra.system.field">
+            <field name="system_id" ref="system_42"/>
+            <field name="field_id" ref="field_coordinado_tela_3"/>
+            <field name="sequence">202</field>
+        </record>
+        <record id="sf_42_lamas_tela_3" model="safra.system.field">
+            <field name="system_id" ref="system_42"/>
+            <field name="field_id" ref="field_lamas_tela_3"/>
+            <field name="sequence">204</field>
+        </record>
+        <record id="sf_42_coordinado_tela_4" model="safra.system.field">
+            <field name="system_id" ref="system_42"/>
+            <field name="field_id" ref="field_coordinado_tela_4"/>
+            <field name="sequence">222</field>
+        </record>
+        <record id="sf_42_lamas_tela_4" model="safra.system.field">
+            <field name="system_id" ref="system_42"/>
+            <field name="field_id" ref="field_lamas_tela_4"/>
+            <field name="sequence">224</field>
+        </record>
+        <record id="sf_42_coordinado_tela_5" model="safra.system.field">
+            <field name="system_id" ref="system_42"/>
+            <field name="field_id" ref="field_coordinado_tela_5"/>
+            <field name="sequence">242</field>
+        </record>
+        <record id="sf_42_lamas_tela_5" model="safra.system.field">
+            <field name="system_id" ref="system_42"/>
+            <field name="field_id" ref="field_lamas_tela_5"/>
+            <field name="sequence">244</field>
+        </record>
+
+        <!-- VINTAGE SENCILLA (63): color 160 / 180 / 200 / 220 / 240 -->
+        <record id="sf_63_lamas_tela_1" model="safra.system.field">
+            <field name="system_id" ref="system_63"/>
+            <field name="field_id" ref="field_lamas_tela_1"/>
+            <field name="sequence">164</field>
+        </record>
+        <record id="sf_63_coordinado_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_63"/>
+            <field name="field_id" ref="field_coordinado_tela_2"/>
+            <field name="sequence">182</field>
+        </record>
+        <record id="sf_63_lamas_tela_2" model="safra.system.field">
+            <field name="system_id" ref="system_63"/>
+            <field name="field_id" ref="field_lamas_tela_2"/>
+            <field name="sequence">184</field>
+        </record>
+        <record id="sf_63_coordinado_tela_3" model="safra.system.field">
+            <field name="system_id" ref="system_63"/>
+            <field name="field_id" ref="field_coordinado_tela_3"/>
+            <field name="sequence">202</field>
+        </record>
+        <record id="sf_63_lamas_tela_3" model="safra.system.field">
+            <field name="system_id" ref="system_63"/>
+            <field name="field_id" ref="field_lamas_tela_3"/>
+            <field name="sequence">204</field>
+        </record>
+        <record id="sf_63_coordinado_tela_4" model="safra.system.field">
+            <field name="system_id" ref="system_63"/>
+            <field name="field_id" ref="field_coordinado_tela_4"/>
+            <field name="sequence">222</field>
+        </record>
+        <record id="sf_63_lamas_tela_4" model="safra.system.field">
+            <field name="system_id" ref="system_63"/>
+            <field name="field_id" ref="field_lamas_tela_4"/>
+            <field name="sequence">224</field>
+        </record>
+        <record id="sf_63_coordinado_tela_5" model="safra.system.field">
+            <field name="system_id" ref="system_63"/>
+            <field name="field_id" ref="field_coordinado_tela_5"/>
+            <field name="sequence">242</field>
+        </record>
+        <record id="sf_63_lamas_tela_5" model="safra.system.field">
+            <field name="system_id" ref="system_63"/>
+            <field name="field_id" ref="field_lamas_tela_5"/>
+            <field name="sequence">244</field>
+        </record>
+    </data>
+
+    <!-- Reglas nuevas del motor de validaciones (noupdate: severidad y
+         mensaje editables en Configuración > Validaciones). -->
+    <data noupdate="1">
+        <record id="val_lamas_tela" model="safra.validation.rule">
+            <field name="code">V_LAMAS_TELA</field>
+            <field name="name">Lamas por tela no exceden la cantidad total</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_lamas_tela_suma" model="safra.validation.rule">
+            <field name="code">V_LAMAS_TELA_SUMA</field>
+            <field name="name">Lamas por tela completan la cantidad total</field>
+            <field name="severity">warning</field>
+        </record>
+        <!-- Reunión 24-sep: Safra pide QUITAR la restricción de combinación
+             repetida (el cliente puede alternar blanco/negro/blanco). La
+             regla queda inactiva pero re-activable desde Configuración >
+             Validaciones; el filtro del selector de colores la obedece. -->
+        <record id="val_telas_repetidas" model="safra.validation.rule">
+            <field name="code">V_TELAS_REPETIDAS</field>
+            <field name="active" eval="False"/>
+            <field name="name">Referencias de tela no repetidas</field>
+            <field name="severity">error</field>
+        </record>
+        <record id="val_textura_seleccion" model="safra.validation.rule">
+            <field name="code">V_TEXTURA_SELECCION</field>
+            <field name="name">Tela texturizada con diseño de textura elegido</field>
+            <field name="severity">error</field>
+        </record>
+    </data>
+</odoo>

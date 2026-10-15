@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_payslip_processing_form" model="ir.ui.view">
+            <field name="name">hr.payslip.processing.form</field>
+            <field name="model">hr.payslip.processing</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="load_contracts_ids" string="Cargar contratos" type="object"
+                            invisible="state == 'paid'" />
+                        <button name="unlink_contracts_ids" string="Borrar contratos"
+                            class="btn btn-danger" type="object"
+                            invisible="state == 'paid'" />
+                        <button name="create_payslips_ids" string="Crear nóminas" type="object"
+                            invisible="state == 'paid'" />
+                        <button name="drop_payslips_ids" string="Borrar nóminas"
+                            class="btn btn-danger" type="object"
+                            invisible="state == 'paid'" />
+                        <button name="compute_payslips_ids" string="Calcular nóminas" type="object"
+                            invisible="state == 'paid' or location_code != 'co'" />
+                        <button name="to_paid" string="Causar" type="object"
+                            invisible="state == 'paid' or location_code != 'co'" />
+                        <button name="to_draft" string="Pasar a borrador" type="object"
+                            invisible="state == 'draft'" />
+                        <button name="send_mails" string="Enviar comprobantes" type="object"
+                            class="oe_highlight" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,paid" />
+                    </header>
+                    <sheet>
+                        <div name="title">
+                            <h1>
+                                <field name="name" placeholder="Nombre" />
+                            </h1>
+                        </div>
+                        <field name="type_period" invisible="1" />
+                        <field name="location_code" invisible="1" />
+                        <field name="payslip_type_category" invisible="1" />
+                        <group>
+                            <group>
+                                <field name="period_id" />
+                                <field name="payslip_type_id" />
+                                <field name="cutoff_date"
+                                    invisible="1" />
+                                <field name="contract_group_id" />
+                                <field name="journal_id" />
+                            </group>
+                            <group>
+                                <field name="liquidation_date" />
+                                <field name="accounting_date" />
+                                <field name="company_id" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="page_contracts" string="Contratos">
+                                <field name="contracts_ids"
+                                    domain="[('state', '=', 'open'),('schedule_pay', '=', type_period)]">
+                                    <list>
+                                        <field name="name" />
+                                        <field name="employee_id" />
+                                        <field name="wage" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="page_payslips" string="Nóminas">
+                                <field name="payslips_ids">
+                                    <list>
+                                        <field name="name" />
+                                        <field name="contract_id" />
+                                        <field name="employee_id" />
+                                        <field name="state" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="page_error_log" string="Detalle de errores">
+                                <field name="error_log" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_payslip_processing_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.processing.tree</field>
+            <field name="model">hr.payslip.processing</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="period_id" />
+                    <field name="liquidation_date" />
+                    <field name="accounting_date" />
+                    <field name="payslip_type_id" />
+                    <field name="state" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_payslip_processing_search" model="ir.ui.view">
+            <field name="name">hr.payslip.processing.search</field>
+            <field name="model">hr.payslip.processing</field>
+            <field name="arch" type="xml">
+                <search string="Search payslip processing">
+                    <field name="name" />
+                    <field name="period_id" />
+                    <field name="payslip_type_id" />
+                    <field name="contract_group_id" />
+
+                    <separator />
+                    <filter name="paid_filter" string="Pagada" domain="[('state', '=', 'paid')]" />
+                    <filter name="draft_filter" string="Borrador" domain="[('state', '=', 'draft')]" />
+
+                    <separator />
+                    <filter name="posted_in_filter" date="accounting_date"
+                        string="Contabilizado en:" />
+
+                    <separator />
+                    <filter name="state_group" string="Estado" context="{'group_by': 'state'}" />
+                    <filter name="period_group" string="Periodo"
+                        context="{'group_by': 'period_id'}" />
+                    <filter name="payslip_type_group" string="Tipo de Nómina"
+                        context="{'group_by': 'payslip_type_id'}" />
+                </search>
+            </field>
+        </record>
+
+        <record id="hr_payslip_processing_action" model="ir.actions.act_window">
+            <field name="name">Procesamiento de Nóminas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payslip.processing</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_payslip_processing_menu_act" name="Procesamiento de Nóminas"
+            parent="payslip_menu_categ" action="hr_payslip_processing_action" sequence="2" />
+    </data>
+</odoo>

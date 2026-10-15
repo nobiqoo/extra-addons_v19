@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Ajustes de la revisión funcional (columna "Revisión LAU" del Excel,
+         ago-31): Ancho 2 creado y mapeado junto a Alto 2 en Vertical
+         Irregular; Referencia/Color 2 obligatorios en los sistemas 2 en 1;
+         LIENZO renombrado a CUADRO LIENZO (nombre usado por el cliente). -->
+    <data>
+
+        <!-- Ancho 2 (F10 de la matriz: "debe funcionar igual que ancho") -->
+        <record id="field_width2" model="safra.field">
+            <field name="code">width2</field>
+            <field name="name">Ancho 2</field>
+            <field name="section_id" ref="website_quotes_safra.section_dimensiones"/>
+            <field name="field_type">float</field>
+        </record>
+        <record id="sf_55_width2" model="safra.system.field">
+            <field name="system_id" ref="website_quotes_safra.system_55"/>
+            <field name="field_id" ref="website_quotes_safra.field_width2"/>
+            <field name="sequence">125</field>
+        </record>
+
+        <!-- Segunda tela obligatoria en 2 en 1 / Sheer 2 en 1 (F21/F22) -->
+        <record id="sf_32_fabric_id_2" model="safra.system.field"><field name="required" eval="True"/></record>
+        <record id="sf_32_color_id_2" model="safra.system.field"><field name="required" eval="True"/></record>
+        <record id="sf_61_fabric_id_2" model="safra.system.field"><field name="required" eval="True"/></record>
+        <record id="sf_61_color_id_2" model="safra.system.field"><field name="required" eval="True"/></record>
+
+        <!-- Nombre usado por el cliente para el sistema 56 (F13) -->
+        <record id="system_56" model="safra.system">
+            <field name="name">CUADRO LIENZO</field>
+        </record>
+
+        <!-- Consecutivo para códigos de sistemas creados desde el maestro de
+             productos (cuando el producto no tiene referencia interna). -->
+        <record id="seq_safra_system_code" model="ir.sequence">
+            <field name="name">Código de sistema Safra</field>
+            <field name="code">safra.system.code</field>
+            <field name="prefix">S</field>
+            <field name="padding">3</field>
+        </record>
+
+        <!-- Todo sistema del portal debe existir en el maestro de productos
+             con el check "Es sistema del cotizador" (el selector del portal
+             filtra por él). Idempotente: crea y vincula los faltantes en
+             cada actualización. -->
+        <function model="safra.system" name="_ensure_products" eval="[[]]"/>
+        <!-- Igual para referencias/telas y colores: cada uno existe como
+             producto del maestro con su código y su check. -->
+        <function model="safra.fabric.color" name="_ensure_products" eval="[[]]"/>
+        <!-- Catálogo de colores (U_color): siembra desde el portal y asigna
+             el color a los artículos por nombre. Idempotente. -->
+        <function model="safra.color" name="_seed_from_portal" eval="[[]]"/>
+
+        <!-- Reimpone los flags de tela que gobiernan campos condicionales
+             del portal (drift detectado: safra_fields.xml es noupdate y en
+             la BD estaban vacíos). -->
+        <record id="field_atravesar_tela" model="safra.field">
+            <field name="fabric_flag">pierceable</field>
+        </record>
+        <record id="field_design_print" model="safra.field">
+            <field name="fabric_flag">printable</field>
+        </record>
+        <!-- Punto 14: Sesgo condicionado a tela sesgable. -->
+        <record id="field_sesgo" model="safra.field">
+            <field name="fabric_flag">sesgable</field>
+        </record>
+
+        <!-- Punto 18: categorías del catálogo de referencias. -->
+        <record id="popt_refcat_tela" model="safra.product.option">
+            <field name="type">ref_categoria</field>
+            <field name="name">Tela</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="popt_refcat_sesgo" model="safra.product.option">
+            <field name="type">ref_categoria</field>
+            <field name="name">Sesgo</field>
+            <field name="sequence">20</field>
+        </record>
+        <function model="safra.fabric" name="_migrate_categories" eval="[[]]"/>
+
+        <!-- Punto 16: Sesgo pasa a tipo «Referencia (categoría)»: sus
+             opciones son los productos de las referencias de categoría
+             Sesgo (menú Sesgos), ya no la lista quemada de colores. -->
+        <record id="field_sesgo" model="safra.field">
+            <field name="field_type">ref_categoria</field>
+            <field name="ref_category_id" ref="popt_refcat_sesgo"/>
+        </record>
+
+        <!-- Puntos 10-11 (retoque): «Diseño Personalizado» pasa a ser la
+             lista del catálogo de diseños (como el «Diseño Impresión» del
+             portal del cliente); el catálogo se siembra con los diseños
+             actuales y es configurable en Configuración > Diseños de
+             Impresión. -->
+        <record id="field_custom_design" model="safra.field">
+            <field name="field_type">design</field>
+            <!-- Reimpone el flag (drift: safra_fields.xml es noupdate). -->
+            <field name="fabric_flag">printable</field>
+        </record>
+        <!-- La sección DISEÑO DE IMPRESIÓN completa aplica solo con diseño
+             activo (matriz: «Solo si la tela escogida tiene estampado»). -->
+        <record id="field_design_exterior" model="safra.field">
+            <field name="depends_field_id" ref="field_design_print"/>
+            <field name="depends_value">1</field>
+        </record>
+        <function model="safra.design" name="_seed_defaults" eval="[[]]"/>
+
+        <!-- Secciones del cotizador con los nombres y el orden de la hoja
+             «Matriz Unificada» (pedido del cliente); reasigna cada campo a
+             su sección según la matriz. -->
+        <function model="safra.field.section" name="_apply_matriz_sections" eval="[[]]"/>
+
+    </data>
+</odoo>

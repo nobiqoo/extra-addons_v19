@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_voucher_check_format_papper" model="report.paperformat">
+            <field name="name">Cheque Papel</field>
+            <field name="default" eval="True"/>
+            <field name="format">Letter</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">72</field>
+        </record>
+
+        <record id="action_account_voucher_check_format" model="ir.actions.report">
+            <field name="name">Cheque</field>
+            <field name="model">account.voucher</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="paperformat_id" ref="account_voucher_check.account_voucher_check_format_papper"/>
+            <field name="report_name">account_voucher_check.account_voucher_check_format</field>
+            <field name="report_file">account_voucher_check.account_voucher_check_format</field>
+            <field name="print_report_name">'Cheque %s' % object.name</field>
+            <field name="is_invoice_report" eval="True"/>
+        </record>
+    </data>
+</odoo>

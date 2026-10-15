@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ─── Vista lista ──────────────────────────────────────────────────── -->
+    <record id="view_hr_attendance_record_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.record.list</field>
+        <field name="model">hr.attendance.record</field>
+        <field name="arch" type="xml">
+            <list string="Registros de Asistencia"
+                  decoration-success="attendance_result == 'ok'"
+                  decoration-warning="attendance_result in ('late_minor','late_major','partial_absence')"
+                  decoration-danger="attendance_result in ('total_absence','biometric_issue') or overtime_limit_alert"
+                  decoration-info="attendance_result == 'extra_hours' and not overtime_limit_alert">
+                <field name="overtime_limit_alert" column_invisible="True"/>
+                <field name="work_date"/>
+                <field name="employee_id"/>
+                <field name="shift_id"/>
+                <field name="planned_start"/>
+                <field name="planned_end"/>
+                <field name="actual_check_in"/>
+                <field name="actual_check_out"/>
+                <field name="delay_minutes" optional="show"/>
+                <field name="extra_hours" optional="show"/>
+                <field name="weekly_extra_hours" optional="show" widget="float_time"/>
+                <field name="overtime_limit_message" optional="show"/>
+                <field name="worked_hours" widget="float_time"/>
+                <field name="extra_day_hours" optional="show"/>
+                <field name="extra_night_hours" optional="show"/>
+                <field name="holiday_work_hours" optional="show"/>
+                <field name="total_overtime_value" optional="show"/>
+                <field name="is_sunday" optional="hide"/>
+                <field name="is_holiday" optional="hide"/>
+                <field name="attendance_result" widget="badge"
+                       decoration-success="attendance_result == 'ok'"
+                       decoration-warning="attendance_result in ('late_minor','late_major','partial_absence')"
+                       decoration-danger="attendance_result in ('total_absence','biometric_issue')"
+                       decoration-info="attendance_result == 'extra_hours'"/>
+                <field name="correction_state" string="Corrección" widget="badge" optional="show"
+                       decoration-muted="correction_state == 'none'"
+                       decoration-warning="correction_state in ('requested','review')"
+                       decoration-success="correction_state in ('approved','applied')"
+                       decoration-danger="correction_state == 'rejected'"/>
+                <field name="novelty_count" optional="show"/>
+                <button name="action_view_novelties" type="object"
+                        string="Ver Novedades" icon="fa-bell"
+                        invisible="novelty_count == 0"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ─── Vista formulario ─────────────────────────────────────────────── -->
+    <record id="view_hr_attendance_record_form" model="ir.ui.view">
+        <field name="name">hr.attendance.record.form</field>
+        <field name="model">hr.attendance.record</field>
+        <field name="arch" type="xml">
+            <form string="Registro de Asistencia">
+                <header>
+                    <button name="action_compute_from_biometric"
+                            string="Recalcular desde Biométrico"
+                            type="object"
+                            class="btn-secondary"
+                            confirm="¿Desea recalcular este registro desde las marcaciones biométricas?"/>
+                    <button name="action_request_correction"
+                            string="Solicitar Corrección"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="correction_state != 'none'"/>
+                    <button name="action_approve_correction"
+                            string="Aprobar Corrección"
+                            type="object"
+                            class="oe_highlight"
+                            groups="hr_payroll_co_biometric.group_biometric_hr"
+                            invisible="correction_state != 'requested'"/>
+                    <button name="action_reject_correction"
+                            string="Rechazar Corrección"
+                            type="object"
+                            class="btn-danger"
+                            groups="hr_payroll_co_biometric.group_biometric_hr"
+                            invisible="correction_state != 'requested'"/>
+                    <field name="attendance_result" widget="statusbar"
+                           statusbar_visible="total_absence,ok,extra_hours"/>
+                </header>
+                <sheet>
+                    <field name="overtime_limit_alert" invisible="1"/>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not overtime_limit_alert">
+                        <strong>Límite de horas extra excedido:</strong>
+                        <field name="overtime_limit_message" nolabel="1" readonly="1"/>
+                    </div>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_novelties" type="object"
+                                class="oe_stat_button" icon="fa-bell">
+                            <field name="novelty_count" widget="statinfo" string="Novedades"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group string="Empleado y Turno">
+                            <field name="employee_id"/>
+                            <field name="shift_id"/>
+                            <field name="work_date"/>
+                            <field name="is_sunday"/>
+                            <field name="is_holiday"/>
+                            <field name="schedule_line_id" optional="show"/>
+                        </group>
+                        <group string="Resultado">
+                            <field name="attendance_result" widget="badge"
+                                   decoration-success="attendance_result == 'ok'"
+                                   decoration-warning="attendance_result in ('late_minor','late_major','partial_absence')"
+                                   decoration-danger="attendance_result in ('total_absence','biometric_issue')"
+                                   decoration-info="attendance_result == 'extra_hours'"/>
+                            <field name="delay_minutes"/>
+                            <field name="early_out_minutes"/>
+                            <field name="extra_hours"/>
+                            <field name="weekly_extra_hours" widget="float_time"/>
+                            <field name="correction_state" widget="badge"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Horario" name="schedule">
+                            <group>
+                                <group string="Programado">
+                                    <field name="planned_start"/>
+                                    <field name="planned_end"/>
+                                    <field name="planned_hours" widget="float_time"/>
+                                </group>
+                                <group string="Real (Biométrico)">
+                                    <field name="actual_check_in"/>
+                                    <field name="actual_check_out"/>
+                                    <field name="worked_hours" widget="float_time"/>
+                                    <field name="biometric_punch_count" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Breakdown Horas" name="hours_breakdown">
+                            <group>
+                                <group string="Horas Regulares">
+                                    <field name="day_hours" widget="float_time"/>
+                                    <field name="night_hours" widget="float_time"/>
+                                </group>
+                                <group string="Horas Extras">
+                                    <field name="extra_day_hours" widget="float_time"/>
+                                    <field name="extra_night_hours" widget="float_time"/>
+                                    <field name="holiday_work_hours" widget="float_time"/>
+                                </group>
+                            </group>
+                            <group string="Valoración Económica">
+                                <group>
+                                    <field name="hour_base_value" widget="monetary"/>
+                                    <field name="night_surcharge_value" widget="monetary"/>
+                                </group>
+                                <group>
+                                    <field name="extra_day_value" widget="monetary"/>
+                                    <field name="extra_night_value" widget="monetary"/>
+                                    <field name="holiday_extra_value" widget="monetary"/>
+                                    <field name="total_overtime_value" widget="monetary"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Corrección" name="correction"
+                              invisible="correction_state == 'none'">
+                            <group>
+                                <field name="correction_state"/>
+                                <field name="correction_reason"/>
+                                <field name="correction_approved_by" readonly="1"/>
+                                <field name="correction_date" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Novedades" name="novelties">
+                            <field name="novelty_ids" mode="list">
+                                <list string="Novedades" editable="bottom">
+                                    <field name="name" readonly="1"/>
+                                    <field name="novelty_type"
+                                           readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"/>
+                                    <field name="description"
+                                           readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"/>
+                                    <field name="minutes"
+                                           readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"/>
+                                    <field name="extra_hours"
+                                           readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"/>
+                                    <field name="state" widget="badge"
+                                           readonly="state == 'applied' and novelty_type in ['extra_hours', 'extra_day_hours', 'extra_night_hours', 'night_surcharge', 'compensatory']"
+                                           decoration-success="state == 'applied'"
+                                           decoration-warning="state in ('review','approved')"
+                                           decoration-danger="state == 'rejected'"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Observaciones">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ─── Búsqueda ──────────────────────────────────────────────────────── -->
+    <record id="view_hr_attendance_record_search" model="ir.ui.view">
+        <field name="name">hr.attendance.record.search</field>
+        <field name="model">hr.attendance.record</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Registros de Asistencia">
+                <field name="employee_id"/>
+                <field name="work_date" string="Fecha"/>
+                <field name="shift_id"/>
+                <filter string="Correctos" name="ok" domain="[('attendance_result','=','ok')]"/>
+                <filter string="Tardanzas" name="late"
+                        domain="[('attendance_result','in',['late_minor','late_major'])]"/>
+                <filter string="Ausencias" name="absent"
+                        domain="[('attendance_result','in',['total_absence','partial_absence'])]"/>
+                <filter string="Horas Extras" name="extra"
+                        domain="[('attendance_result','=','extra_hours')]"/>
+                <filter string="Inconsistencias Biométricas" name="bio_issue"
+                        domain="[('attendance_result','=','biometric_issue')]"/>
+                <separator/>
+                <filter string="Dominicales" name="sunday" domain="[('is_sunday','=',True)]"/>
+                <filter string="Festivos" name="holiday" domain="[('is_holiday','=',True)]"/>
+                <separator/>
+                <filter string="Con Corrección Pendiente" name="correction_pending"
+                        domain="[('correction_state','=','requested')]"/>
+                <group>
+                    <filter string="Empleado" name="group_employee"
+                            context="{'group_by': 'employee_id'}"/>
+                    <filter string="Resultado" name="group_result"
+                            context="{'group_by': 'attendance_result'}"/>
+                    <filter string="Fecha" name="group_date"
+                            context="{'group_by': 'work_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ─── Acción ──────────────────────────────────────────────────────── -->
+    <record id="action_hr_attendance_record" model="ir.actions.act_window">
+        <field name="name">Registros de Asistencia</field>
+        <field name="res_model">hr.attendance.record</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_hr_attendance_record_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay registros de asistencia aún
+            </p>
+            <p>
+                Los registros se generan automáticamente al procesar las programaciones de turnos
+                contra las marcaciones biométricas ZKTeco.
+            </p>
+        </field>
+    </record>
+
+</odoo>

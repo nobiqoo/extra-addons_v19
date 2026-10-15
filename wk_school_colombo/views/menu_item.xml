@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Oculta el menú Transporte (y sus submenús Routes, Trips y
+         Transport Locations) de Gestión Educativa -->
+    <record id="wk_school_management.transport_main_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Tarea 11292: menús que no aplican al Centro Colombo Americano. Se
+         desactivan en lugar de borrarse para conservar sus acciones, que
+         siguen disponibles desde sus modelos de origen. -->
+
+    <!-- Estudiantes -> Asistencia -> "Quiosco de asistencia": la toma de
+         asistencia por código de barras no se usa. -->
+    <record id="wk_school_management.student_kiosk_barcode" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Maestros -> "tiempo libre": las ausencias del personal se gestionan
+         desde el proceso de nómina, no desde Gestión Educativa. -->
+    <record id="wk_school_management.faculty_timeoff_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Mi perfil -> "Perfil": abre la ficha del colaborador, información que
+         no corresponde a las funciones del perfil académico. El menú "Mi
+         perfil" conserva Horarios y Aviso. La ficha del empleado sigue
+         disponible desde Empleados para quien tenga ese acceso. -->
+    <record id="wk_school_management.teacher_profile_menu111" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Tarea 11243: acceso informativo a los elementos de tarifa desde el
+         menú Clases. Usa los mismos registros de product.product que
+         Configuración -> Elementos de tarifa, sin duplicar información.
+         Las claves create/edit/delete del contexto se inyectan como atributos
+         del arch de la vista, por lo que también desactivan duplicar e
+         importar (que dependen de la acción de creación). -->
+    <record id="product_normal_action_course_fees" model="ir.actions.act_window">
+        <field name="name">Tarifas de cursos</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('is_fee_element', '=', True)]</field>
+        <field name="context">{'search_default_fee_element': 1, 'create': False, 'edit': False, 'delete': False}</field>
+        <field name="view_id" ref="product.product_product_tree_view"/>
+        <field name="search_view_id" ref="wk_school_management.product_product_search_inherit_fee_element"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay tarifas de cursos para mostrar
+            </p><p>
+                Las tarifas de cursos se crean desde Configuración -&gt; Elementos de tarifa.
+            </p>
+        </field>
+    </record>
+
+    <!-- Tarea 11292 (ajuste tras pruebas funcionales): el menú vuelve a estar
+         activo, pero restringido al grupo Officer. La jerarquía de
+         wk_school_management es Admin -> Officer -> Staff, así que el
+         administrador lo sigue viendo por implicación y los maestros, que
+         pertenecen únicamente a Staff, dejan de verlo. No hace falta un grupo
+         nuevo.
+
+         El grupo Staff se antepone con "-" porque <menuitem groups="..."> solo
+         enlaza grupos (Command.link) y nunca reemplaza los que el menú ya
+         tenía: sin el prefijo, el enlace anterior a Staff seguiría vigente en
+         las bases ya actualizadas y el menú continuaría visible para los
+         maestros. -->
+    <menuitem id="course_fees_menu"
+        name="Tarifas de cursos"
+        parent="wk_school_management.class_main_menu"
+        groups="-wk_school_management.wk_school_management_staff_group,wk_school_management.wk_school_management_officer_group"
+        sequence="50"
+        action="product_normal_action_course_fees"
+        active="True"
+    />
+
+    <!-- Requerimiento de campos académicos: catálogo configurable de Tipo de
+         programa, junto a los demás catálogos académicos de "Miscellaneous". -->
+    <menuitem id="program_type_menu"
+        name="Tipos de programa"
+        parent="wk_school_management.menu_school_config3"
+        groups="base.group_user"
+        sequence="25"
+        action="wk_school_colombo_program_type_action"
+    />
+
+    <!-- Menú de auditoría cross-estudiante del histórico de observaciones,
+         junto al menú de Disciplina; el acceso real lo determinan
+         security/ir.model.access.csv e ir_rule.xml (Staff ve solo lo de sus
+         propios estudiantes, Officer/Admin ven todo). -->
+    <menuitem id="observation_menu"
+        name="Observaciones"
+        parent="wk_school_management.student_form_menu"
+        groups="wk_school_management.wk_school_management_staff_group"
+        sequence="7"
+        action="wk_school_colombo_observation_action"
+    />
+
+</odoo>

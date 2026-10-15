@@ -1,0 +1,9 @@
+<odoo>
+    <record id="action_report_stock_valuation_report" model="ir.actions.report">
+        <field name="name">Stock Valuation Report</field>
+        <field name="model">stock.valuation.report</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">stock_report.report_stock_valuation</field>
+        <field name="print_report_name">'stock_valuation_report'</field>
+    </record>
+</odoo>

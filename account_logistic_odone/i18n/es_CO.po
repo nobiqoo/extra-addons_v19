@@ -1,0 +1,285 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_logistic_odone
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-23 21:32+0000\n"
+"PO-Revision-Date: 2024-12-23 21:32+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_logistic_odone
+#: model_terms:ir.ui.view,arch_db:account_logistic_odone.product_template_form
+msgid "<span>USD</span>"
+msgstr ""
+
+#. module: account_logistic_odone
+#: model:ir.model,name:account_logistic_odone.model_account_account
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_analytic_wizard__account_accounts_ids
+msgid "Account Accounts"
+msgstr "Cuentas contables"
+
+#. module: account_logistic_odone
+#: model:ir.model,name:account_logistic_odone.model_report_account_consolcargo_report_account_analytic
+#: model_terms:ir.ui.view,arch_db:account_logistic_odone.view_account_analytic_wizard_form
+msgid "Account analytic report"
+msgstr "Informe de cuentas analíticas"
+
+#. module: account_logistic_odone
+#: model:ir.actions.report,name:account_logistic_odone.report_account_analytic_xlsx
+msgid "Account analytic report XLSX"
+msgstr "Informe XLSX cuentas analíticas"
+
+#. module: account_logistic_odone
+#: model:ir.model,name:account_logistic_odone.model_account_analytic_wizard
+msgid "Account analytic wizard"
+msgstr ""
+
+#. module: account_logistic_odone
+#: model:ir.ui.menu,name:account_logistic_odone.menu_account_analytic
+msgid "Analytic Accounting"
+msgstr "Contabilidad analítica"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_analytic_wizard__analytic_accounts_ids
+msgid "Analytic Accounts"
+msgstr "Cuentas analíticas"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_account__balance_of_the_day
+msgid "Balance of the day"
+msgstr "Balance del día"
+
+#. module: account_logistic_odone
+#: model_terms:ir.ui.view,arch_db:account_logistic_odone.product_template_form
+msgid "COP"
+msgstr ""
+
+#. module: account_logistic_odone
+#: model_terms:ir.ui.view,arch_db:account_logistic_odone.view_account_analytic_wizard_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_bank_statement_line__city
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_move__city
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_move_line__city
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_payment__city
+msgid "City."
+msgstr "Ciudad."
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_move_line__code
+msgid "Code"
+msgstr "Código"
+
+#. module: account_logistic_odone
+#: model:ir.model,name:account_logistic_odone.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_bank_statement_line__container_number
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_move__container_number
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_payment__container_number
+msgid "Container number"
+msgstr "Número de container"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_analytic_wizard__create_uid
+#: model:ir.model.fields,field_description:account_logistic_odone.field_res_partner_network__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_analytic_wizard__create_date
+#: model:ir.model.fields,field_description:account_logistic_odone.field_res_partner_network__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_bank_statement_line__customer_order
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_move__customer_order
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_payment__customer_order
+msgid "Customer order"
+msgstr "Orden del cliente"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_bank_statement_line__destination
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_move__destination
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_payment__destination
+msgid "Destination"
+msgstr "Destino"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_analytic_wizard__display_name
+#: model:ir.model.fields,field_description:account_logistic_odone.field_res_partner_network__display_name
+msgid "Display Name"
+msgstr "Nombre Público"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_analytic_wizard__date_end
+msgid "End date"
+msgstr "Fecha final"
+
+#. module: account_logistic_odone
+#: model_terms:ir.ui.view,arch_db:account_logistic_odone.view_account_analytic_wizard_form
+msgid "Generate XLSX report"
+msgstr "Generar informe XLSX"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_bank_statement_line__hbl
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_move__hbl
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_payment__hbl
+msgid "HBL"
+msgstr ""
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_analytic_wizard__id
+#: model:ir.model.fields,field_description:account_logistic_odone.field_res_partner_network__id
+msgid "ID"
+msgstr ""
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_bank_statement_line__origin
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_move__origin
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_payment__origin
+msgid "Invoice origin"
+msgstr "Origen de la factura"
+
+#. module: account_logistic_odone
+#: model:ir.model,name:account_logistic_odone.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_logistic_odone
+#: model:ir.model,name:account_logistic_odone.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_analytic_wizard__write_uid
+#: model:ir.model.fields,field_description:account_logistic_odone.field_res_partner_network__write_uid
+msgid "Last Updated by"
+msgstr "Actualizado por"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_analytic_wizard__write_date
+#: model:ir.model.fields,field_description:account_logistic_odone.field_res_partner_network__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_bank_statement_line__motor_ship
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_move__motor_ship
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_payment__motor_ship
+msgid "Motor ship"
+msgstr "Motonave"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_res_partner_network__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_bank_statement_line__networks_ids
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_move__networks_ids
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_payment__networks_ids
+#: model:ir.model.fields,field_description:account_logistic_odone.field_res_partner__networks_ids
+#: model:ir.model.fields,field_description:account_logistic_odone.field_res_users__networks_ids
+msgid "Networks"
+msgstr "Redes"
+
+#. module: account_logistic_odone
+#: model_terms:ir.ui.view,arch_db:account_logistic_odone.view_account_move_form
+msgid "Origin"
+msgstr "Origen"
+
+#. module: account_logistic_odone
+#: model:ir.model,name:account_logistic_odone.model_res_partner_network
+msgid "Partner Network"
+msgstr "Redes"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_bank_statement_line__position
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_move__position
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_move_line__position
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_payment__position
+msgid "Position"
+msgstr "Posición"
+
+#. module: account_logistic_odone
+#: model:ir.actions.act_window,name:account_logistic_odone.action_account_analytic_wizard
+#: model:ir.ui.menu,name:account_logistic_odone.menu_account_analytic_wizard
+msgid "Position PAL"
+msgstr ""
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,help:account_logistic_odone.field_product_product__list_price
+#: model:ir.model.fields,help:account_logistic_odone.field_product_template__list_price
+msgid "Price at which the product is sold to customers."
+msgstr "Precio al que se vende el producto a los clientes."
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_product_product__list_price_base
+#: model:ir.model.fields,field_description:account_logistic_odone.field_product_template__list_price_base
+msgid "Price base"
+msgstr "Precio base"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_product_product__points_to_add
+#: model:ir.model.fields,field_description:account_logistic_odone.field_product_template__points_to_add
+msgid "Price extra"
+msgstr "Precio extre"
+
+#. module: account_logistic_odone
+#: model:ir.model,name:account_logistic_odone.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_analytic_wizard__range_id
+msgid "Range"
+msgstr "Rango"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_product_product__sale_currency_id
+#: model:ir.model.fields,field_description:account_logistic_odone.field_product_template__sale_currency_id
+msgid "Sale currency"
+msgstr "Moneda de venta"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_product_product__list_price
+#: model:ir.model.fields,field_description:account_logistic_odone.field_product_template__list_price
+msgid "Sales Price"
+msgstr "Precio de venta"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_analytic_wizard__date_start
+msgid "Start date"
+msgstr "Fecha inicio"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_bank_statement_line__volume
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_move__volume
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_payment__volume
+msgid "Volume"
+msgstr "Volumen"
+
+#. module: account_logistic_odone
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_bank_statement_line__text_weight
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_move__text_weight
+#: model:ir.model.fields,field_description:account_logistic_odone.field_account_payment__text_weight
+msgid "Weight"
+msgstr "Peso"

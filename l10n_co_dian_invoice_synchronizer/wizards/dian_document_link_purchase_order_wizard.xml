@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_dian_document_link_purchase_order_wizard_form" model="ir.ui.view">
+        <field name="name">dian.document.link.purchase.order.wizard.form</field>
+        <field name="model">dian.document.link.purchase.order.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Link Purchase Order">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        <p class="mb-0">
+                            <i class="fa fa-info-circle me-2" /> Showing up to the first 100
+                            documents without a linked purchase order. </p>
+                    </div>
+                    <field name="line_ids">
+                        <list editable="bottom" create="0" delete="0">
+                            <field name="document_name" string="Document" readonly="1" />
+                            <field name="company_id" column_invisible="1" />
+                            <field name="purchase_order_id"
+                                domain="[('company_id', '=', company_id)]"
+                                options="{'no_create': True}" />
+                        </list>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_link_purchase_orders"
+                        string="Link Purchase Orders"
+                        class="btn-primary"
+                        type="object" />
+                    <button string="Cancel"
+                        class="btn-secondary"
+                        special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dian_document_link_purchase_order_wizard" model="ir.actions.act_window">
+        <field name="name">Link Purchase Order</field>
+        <field name="res_model">dian.document.link.purchase.order.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_dian_document_manual_actions"
+        name="Manual Actions"
+        parent="dian_invoices_menu_categ"
+        sequence="20" />
+
+    <menuitem
+        id="menu_dian_document_link_purchase_order"
+        name="Link Purchase Order"
+        parent="menu_dian_document_manual_actions"
+        action="action_dian_document_link_purchase_order_wizard"
+        sequence="10" />
+
+</odoo>

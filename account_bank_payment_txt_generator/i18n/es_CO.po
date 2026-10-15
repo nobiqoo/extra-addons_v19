@@ -1,0 +1,520 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_bank_payment_txt_generator
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-13 16:37+0000\n"
+"PO-Revision-Date: 2022-09-13 16:37+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields.selection,name:account_bank_payment_txt_generator.selection__res_bank_txt_config__state__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.actions.act_window,help:account_bank_payment_txt_generator.res_bank_txt_config_action
+msgid "Add bank txt configuration"
+msgstr "Agregar configuración de txt bancario"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__alignment
+msgid "Alignment"
+msgstr "Alineación"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Available in"
+msgstr "Disponible en"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config__bank_id
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_select_wizard__bank_id
+msgid "Bank"
+msgstr "Banco"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model,name:account_bank_payment_txt_generator.model_res_bank_txt_config
+msgid "Bank txt config"
+msgstr "configuración de txt bancario"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model,name:account_bank_payment_txt_generator.model_res_bank_txt_config_line
+msgid "Bank txt config line"
+msgstr "Lina de configuración de txt bancario"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.ui.menu,name:account_bank_payment_txt_generator.res_bank_txt_config_menu_act
+msgid "Bank txt setting"
+msgstr "Ajustes txt bancario"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.actions.act_window,name:account_bank_payment_txt_generator.res_bank_txt_config_action
+msgid "Banks txt settings"
+msgstr "Ajustes de txt bancario"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Body"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields.selection,name:account_bank_payment_txt_generator.selection__res_bank_txt_config_line__value_type__burned
+msgid "Burned value"
+msgstr "Valor quemado"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields.selection,name:account_bank_payment_txt_generator.selection__res_bank_txt_config_line__value_type__call
+msgid "Call variable"
+msgstr "Llamar variable"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.bank_txt_select_wizard_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Cantidad de lineas o registros de pago"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Codigo de identificacion de banco del beneficiario"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.actions.act_window,help:account_bank_payment_txt_generator.res_bank_txt_config_action
+msgid ""
+"Configuration record to generate TXT file to upload the payment to the "
+"banking portal"
+msgstr ""
+"Registro de configuración para generar archivo TXT para subir el pago al portal bancario"
+
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config__create_uid
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__create_uid
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_select_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config__create_date
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__create_date
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_select_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Cuenta bancaria a debitar"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Descripcion 2 de la transaccion dada en las lineas"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Descripcion de la transaccion dada en las lineas"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config__display_name
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__display_name
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_select_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Fecha actual (formateable)"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__fill
+msgid "Filling"
+msgstr "Relleno"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Footer"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.bank_txt_select_wizard_form
+msgid "Generate txt"
+msgstr "Generar Txt"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Header"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Help"
+msgstr "Ayuda"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Help with available variable expressions"
+msgstr "Expresiones de variables disponibles"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Help with python expressions:"
+msgstr "Expresiones Python"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config__id
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__id
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_select_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields.selection,name:account_bank_payment_txt_generator.selection__res_bank_txt_config__state__incative
+msgid "Inactive"
+msgstr "Inactivo"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config____last_update
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line____last_update
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_select_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config__write_uid
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__write_uid
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_select_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config__write_date
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__write_date
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_select_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields.selection,name:account_bank_payment_txt_generator.selection__res_bank_txt_config_line__alignment__left
+msgid "Left"
+msgstr "Izquierda"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_select_wizard__msg
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config__name
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_account_payment_order__txt_filename
+msgid "Name txt file"
+msgstr "Nombre txt"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Nit beneficiario sin digito de verificacion"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Nit de la compañia sin digito de verificacion"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Nombre de la compañia"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Nombre del beneficiario"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Numero de cuenta beneficiario"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Objeto Payment Order (account.payment.order)"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Objeto Transactions (account.payment.line)"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid ""
+"Para utilizar estas variables seleccione en el campo de tipo de contenido \"Contexto\" y\n"
+"                                            escriba en el campo de contenido el nombre de la convencion exacto.<br/>\n"
+"                                            Si la convencion es una fecha formateable escriba una \",\" seguido del formato python de fecha<br/>\n"
+"                                            <b>Ejemplo:</b>\n"
+"                                            payment_date,%y%m%d retorna la fecha de pago en formato AAMMDD"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model,name:account_bank_payment_txt_generator.model_account_payment_line
+msgid "Payment Lines"
+msgstr "Líneas de pago"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model,name:account_bank_payment_txt_generator.model_account_payment_order
+msgid "Payment Order"
+msgstr "Orden de pago"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_select_wizard__order_id
+msgid "Payment order"
+msgstr "Orden de pago"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields.selection,name:account_bank_payment_txt_generator.selection__res_bank_txt_config_line__value_type__python
+msgid "Python"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Referencia de la transaccion dada en las lineas"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Return value"
+msgstr "Valor devuelto"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields.selection,name:account_bank_payment_txt_generator.selection__res_bank_txt_config_line__alignment__right
+msgid "Right"
+msgstr "Derecha"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Secuencia de linea"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__size
+msgid "Size"
+msgstr "Tamaño"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config__state
+msgid "State"
+msgstr "Estado"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid ""
+"These variables can be used with python syntax to access the information you require.\n"
+"                                        <br/>"
+msgstr ""
+"Estas variables pueden ser usadas con sintaxis Python para acceder a la información requerida.\n"
+"                                        <br/>"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Total transferido"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.account_payment_order_txt
+msgid "TxT"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config__body_line_id
+msgid "Txt Body"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config__footer_line_id
+msgid "Txt Footer"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config__header_line_id
+msgid "Txt Header"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_account_payment_order__txt_file
+msgid "Txt file"
+msgstr "Archivo Txt"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_select_wizard__txt_doc_id
+msgid "Txt format"
+msgstr "Formato Txt"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__header_setting_id
+msgid "Txt generator setting"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__body_setting_id
+msgid "Txt generator setting."
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__footer_setting_id
+msgid "Txt generator setting.."
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Valor de transaccion linea"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__value
+msgid "Value"
+msgstr "Valor"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config_line__value_type
+msgid "Value type"
+msgstr "Tipo de Valor"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "Variable"
+msgstr "Variable"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model,name:account_bank_payment_txt_generator.model_res_bank_txt_select_wizard
+msgid "Wizard to select bank txt config"
+msgstr "Wizard para seleccionar la configuración de txt bancario"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "body"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "header, body, footer"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "line"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "order"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "total chars"
+msgstr "Caracteres totales"
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "txt"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_amount"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_benef_bank_account"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_benef_bank_account_bic"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_benef_name"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_benef_nit"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_communication"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_communication2"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_company_name"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_company_nit"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_date_now"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_debit_bank_account"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_n_lines"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_ref"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_seq"
+msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
+msgid "z_total_amount"
+msgstr ""

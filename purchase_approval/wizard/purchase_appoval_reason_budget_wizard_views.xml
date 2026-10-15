@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_appoval_reason_budget_wizard_view_form" model="ir.ui.view">
+        <field name="name">purchase.appoval.reason.budget.wizard.view.form</field>
+        <field name="model">purchase.appoval.reason.budget.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="order_id" invisible="1"/>
+                            <field name="reason_approval_by_budget" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="approva_budget" string="Aprobar Presupuesto" class="btn btn-primary"
+                        type="object" /> o
+                    <button string="Cancelar" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

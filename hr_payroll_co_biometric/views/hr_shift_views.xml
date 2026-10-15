@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ─── Vista lista de Turnos ─────────────────────────────────────────── -->
+    <record id="view_hr_shift_tree" model="ir.ui.view">
+        <field name="name">hr.shift.list</field>
+        <field name="model">hr.shift</field>
+        <field name="arch" type="xml">
+            <list string="Turnos" decoration-muted="not active">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="shift_type"/>
+                <field name="hour_from" widget="float_time"/>
+                <field name="hour_to" widget="float_time"/>
+                <field name="effective_hours" widget="float_time"/>
+                <field name="tolerance_in"/>
+                <field name="tolerance_out"/>
+                <field name="apply_overtime_tolerance" optional="show"/>
+                <field name="crosses_midnight"/>
+                <field name="active" column_invisible="1"/>
+                <field name="color" widget="color_picker" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ─── Vista formulario de Turno ──────────────────────────────────────── -->
+    <record id="view_hr_shift_form" model="ir.ui.view">
+        <field name="name">hr.shift.form</field>
+        <field name="model">hr.shift</field>
+        <field name="arch" type="xml">
+            <form string="Turno Laboral">
+                <header>
+                    <field name="active" widget="boolean_toggle" nolabel="1" string="Activo"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Nombre del turno..."/></h1>
+                    </div>
+                    <group>
+                        <group string="Identificación">
+                            <field name="code"/>
+                            <field name="shift_type"/>
+                            <field name="color" widget="color_picker"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Horario">
+                            <field name="hour_from" widget="float_time"/>
+                            <field name="hour_to" widget="float_time"/>
+                            <field name="crosses_midnight" readonly="1"/>
+                            <field name="rest_time" widget="float_time"/>
+                            <field name="effective_hours" widget="float_time" readonly="1"/>
+                            <field name="tolerance_in"/>
+                            <field name="tolerance_out"/>
+                            <field name="apply_overtime_tolerance"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Turno de Alargue" name="extension">
+                            <group>
+                                <field name="is_extension"/>
+                                <field name="extension_hours" invisible="not is_extension"/>
+                                <field name="extension_position" invisible="not is_extension"/>
+                                <field name="extension_includes_meal" invisible="not is_extension"/>
+                            </group>
+                        </page>
+                        <page string="Turno Rotativo (Ciclo 21 Días)" name="rotating">
+                            <group>
+                                <field name="is_rotating_cycle"/>
+                                <field name="cycle_day_shift_id" invisible="not is_rotating_cycle"/>
+                                <field name="cycle_night_shift_id" invisible="not is_rotating_cycle"/>
+                                <field name="cycle_work_days" invisible="not is_rotating_cycle"/>
+                                <field name="cycle_rest_days" invisible="not is_rotating_cycle"/>
+                                <field name="cycle_target_hours" invisible="not is_rotating_cycle"/>
+                            </group>
+                        </page>
+                        <page string="Asignación por Días" name="assignment_days">
+                            <group>
+                                <field name="assignment_mode"/>
+                            </group>
+                            <field name="weekday_line_ids" invisible="assignment_mode != 'weekdays'" nolabel="1">
+                                <list string="Horarios por Día" editable="bottom">
+                                    <field name="weekday" required="1"/>
+                                    <field name="hour_from" widget="float_time" required="1"/>
+                                    <field name="hour_to" widget="float_time" required="1"/>
+                                    <field name="skip_rest_time" string="Omitir Descanso"/>
+                                    <field name="crosses_midnight" readonly="1"/>
+                                    <field name="effective_hours" widget="float_time" readonly="1"/>
+                                </list>
+                            </field>
+                            <div class="text-muted" invisible="assignment_mode != 'weekdays'">
+                                Agregue una línea por cada día laboral. La programación usará las horas definidas en cada línea.
+                            </div>
+                        </page>
+                        <page string="Observaciones">
+                            <field name="notes" placeholder="Notas adicionales sobre el turno..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ─── Búsqueda ──────────────────────────────────────────────────────── -->
+    <record id="view_hr_shift_search" model="ir.ui.view">
+        <field name="name">hr.shift.search</field>
+        <field name="model">hr.shift</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Turnos">
+                <field name="name" string="Turno"/>
+                <field name="code"/>
+                <filter string="Diurnos" name="day" domain="[('shift_type','=','day')]"/>
+                <filter string="Nocturnos" name="night" domain="[('shift_type','=','night')]"/>
+                <filter string="Rotativos" name="rotating" domain="[('shift_type','=','rotating')]"/>
+                <filter string="Dominicales" name="sunday" domain="[('shift_type','=','sunday')]"/>
+                <filter string="Festivos" name="holiday" domain="[('shift_type','=','holiday')]"/>
+                <separator/>
+                <filter string="Activos" name="active" domain="[('active','=',True)]"/>
+                <filter string="Archivados" name="archived" domain="[('active','=',False)]"/>
+                <group>
+                    <filter string="Tipo" name="group_type" context="{'group_by': 'shift_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ─── Acción ──────────────────────────────────────────────────────── -->
+    <record id="action_hr_shift" model="ir.actions.act_window">
+        <field name="name">Turnos Laborales</field>
+        <field name="res_model">hr.shift</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_hr_shift_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea el primer turno laboral
+            </p>
+            <p>
+                Define los turnos diurnos, nocturnos, rotativos y demás tipos de jornada.
+            </p>
+        </field>
+    </record>
+
+</odoo>

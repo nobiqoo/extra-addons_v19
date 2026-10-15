@@ -1,0 +1,62 @@
+<odoo>
+  <record id="view_supply_selector_wizard_form" model="ir.ui.view">
+    <field name="name">supply.selector.wizard.form</field>
+    <field name="model">supply.selector.wizard</field>
+    <field name="arch" type="xml">
+      <form string="A Abastecer">
+        <group>
+          <group>
+            <field name="company_id" readonly="1"/>
+            <field name="picking_type_id" options="{'no_open': True, 'no_create': True}"/>
+            <field name="location_src_id" options="{'no_open': True, 'no_create': True}"/>
+            <field name="location_dest_id" options="{'no_open': True, 'no_create': True}"/>
+          </group>
+          <group>
+            <field name="scheduled_date"/>
+            <field name="project_id" options="{'no_open': True, 'no_create': True}"/>
+          </group>
+        </group>
+        <group string="Productos">
+          <field name="line_ids">
+            <list editable="bottom">
+              <field name="item_id" column_invisible="1"/>
+              <field name="request_name"/>
+              <field name="product_id" />
+              <field name="description"/>
+              <field name="uom_id" />
+              <field name="qty_pending_supply" column_invisible="1"/>
+              <field name="qty_pending_supply_show" string="Cant. Pendiente" readonly="1"/>
+              <field name="qty_on_hand" force_save="1" readonly="1"/>
+              <field name="qty_to_supply"/>
+            </list>
+          </field>
+        </group>
+        <footer>
+          <button string="Generar Abastecimiento" type="object" name="action_open_confirm" class="btn-primary"/>
+          <button string="Cancelar" class="btn-secondary" special="cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <!-- Server action bound to approval.purchase.item list -->
+  <record id="action_supply_selector_wizard" model="ir.actions.server">
+    <field name="name">A Abastecer</field>
+    <field name="model_id" ref="model_approval_purchase_item"/>
+    <field name="binding_model_id" ref="model_approval_purchase_item"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list</field>
+    <field name="state">code</field>
+    <field name="code">
+      action = {
+        'type': 'ir.actions.act_window',
+        'name': 'A Abastecer',
+        'res_model': 'supply.selector.wizard',
+        'view_mode': 'form',
+        'views': [(env.ref('purchase_selector.view_supply_selector_wizard_form').id, 'form')],
+        'target': 'new',
+        'context': dict(env.context, active_model='approval.purchase.item', active_ids=env.context.get('active_ids')),
+      }
+    </field>
+  </record>
+</odoo>

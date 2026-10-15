@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>; ) --> 
+<!-- See LICENSE file for full copyright and licensing details. --> 
+<!-- License URL : https://store.webkul.com/license.html/ -->
+
+<odoo>
+    <data>
+        <!-- MAIL TEMPLATE FOR Application Submission -->
+        <record id="application_submission_mail" model="mail.template">
+            <field name="name">Application Submission Mail</field>
+            <field name="model_id" ref="model_wk_application_form"/>
+            <field name="email_from">{{object.company_id.email_formatted}}</field>
+            <field name='email_to'>{{object.email}}</field>
+            <field name="subject">Application Submission Mail</field>
+            <field name="description">Sent for application submission of the child</field>
+            <field name="body_html" type="html">
+                <span>Dear <strong><t t-out="object.student_name"/></strong>,</span>
+                <p>
+                    We are pleased to inform you that your application form for
+                    the grade <strong><t t-out="object.grade_id.name"/></strong> with the
+                    application number <strong><t t-out="object.name"/></strong> has been successfully submitted.
+                </p>
+                <p>If you have any questions or need assistance, please feel free to contact us.</p>
+                <p>Thank you for your interest in <strong><t t-out="object.company_id.name"/></strong></p>
+                <span>Best Regards</span><br></br><br></br>
+                <a href="/application_search" 
+                    style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px">
+                    View Status
+                </a>
+            </field>
+            <field name="report_template_ids" eval="[(4, ref('wk_school_management.student_application_details_print'))]"/>
+        </record>
+
+        <!-- MAIL TEMPLATE FOR Application Confirmation -->
+        <record id="application_confirmation_mail" model="mail.template">
+            <field name="name">Application Confirmation Mail</field>
+            <field name="model_id" ref="model_wk_application_form"/>
+            <field name="email_from">{{(user.email or '')}}</field>
+            <field name='email_to'>{{object.email}}</field>
+            <field name="subject"> Application Confirmation Mail</field>
+            <field name="description">Sent for Application confirmation of the child</field>
+            <field name="body_html" type="html">
+                <span>Dear <strong><t t-out="object.student_name"/></strong>,</span>
+                <p>
+                    We are pleased to inform you that your application form for
+                    the grade <strong><t t-out="object.grade_id.name"/></strong> with the
+                    application number <strong><t t-out="object.name"/></strong> has been successfully moved to the 
+                    confirmed stage.
+                </p>
+                <p>We appreciate your patience during this important stage of the admissions process.</p>
+                <p>If you have any questions or need assistance, please feel free to contact us.</p>
+                <p>Thank you for your interest in <strong><t t-out="object.company_id.name"/></strong></p>
+                <span>Best Regards</span>
+            </field>
+        </record>   
+
+        <!-- MAIL TEMPLATE FOR Application Enrollment -->
+        <record id="application_enrollment_mail" model="mail.template">
+            <field name="name">Application Enrollment Mail</field>
+            <field name="model_id" ref="model_wk_application_form"/>
+            <field name="email_from">{{(user.email or '')}}</field>
+            <field name='email_to'>{{object.email}}</field>
+            <field name="subject"> Application Enrollment Mail</field>
+            <field name="description">Sent for Application enrollment of the child</field>
+            <field name="body_html" type="html">
+                <span>Dear <strong><t t-out="object.student_name"/></strong>,</span>
+                <p>
+                    We are pleased to inform you that your application form for
+                    the grade <strong><t t-out="object.grade_id.name"/></strong> 
+                    has been moved to further stage of enrollment.
+                </p>
+                <span>Best Regards</span>
+            </field>
+        </record>   
+
+        <!-- MAIL TEMPLATE FOR Cancelling Application -->  
+        <record id="application_cancelling_mail" model="mail.template">
+            <field name="name">Application Cancellation Mail</field>
+            <field name="model_id" ref="model_wk_application_form"/>
+            <field name="email_from">{{(user.email or '')}}</field>
+            <field name='email_to'>{{object.email}}</field>
+            <field name="subject"> Application Cancellation Mail</field>
+            <field name="description">Sent for application cancellation of the child</field>
+            <field name="body_html" type="html">
+                <span>Dear <strong><t t-out="object.student_name"/></strong>,</span>
+                <p> Your application process has been cancelled.</p>
+                <span>The reason for the cancellation is: <strong><t t-out="ctx.get('reason')"/></strong></span>
+                <p>Thank you for your interest in <strong><t t-out="object.company_id.name"/></strong></p>
+                <span>Best Regards</span>
+            </field>
+        </record>      
+
+        <!-- MAIL TEMPLATE FOR Successful Fee Slip Payment -->  
+        <record id="fee_slip_success_mail" model="mail.template">
+            <field name="name">Successful Fee Slip Payment Mail</field>
+            <field name="model_id" ref="model_wk_fee_slip"/>
+            <field name="email_from">{{ object.student_id.company_id.email_formatted }}</field>
+            <field name='email_to'>{{ object.student_id.email }}</field>
+            <field name="subject">Fee Slip Payment Update</field>
+            <field name="description">Sent on slip payment update</field>
+            <field name="body_html" type="html">
+                <div>
+                    Dear <strong><t t-out="object.student_id.name"/></strong>,
+                </div>
+                <t t-if="object.state == 'paid'">
+                    <p>
+                        The fee slip <strong><t t-out="object.name"/></strong> for the period
+                        <strong><t t-out="object.date_from"/></strong> to
+                        <strong><t t-out="object.date_to"/></strong>
+                        has been <strong>fully paid</strong>.
+                    </p>
+                    <p>
+                        Total Amount Paid: <strong><t t-out="object.total_amount"/></strong>
+                    </p>
+                </t>
+
+                <t t-if="object.state == 'partial'">
+                    <p>
+                        The fee slip <strong><t t-out="object.name"/></strong> for the period
+                        <strong><t t-out="object.date_from"/></strong> to
+                        <strong><t t-out="object.date_to"/></strong>
+                        has received a <strong>partial payment</strong>.
+                    </p>
+
+                    <t t-set="paid_amount"
+                    t-value="sum(inv.amount_total - inv.amount_residual for inv in object.invoice_ids if inv.state == 'posted')"/>
+                    <t t-set="due_amount"
+                    t-value="object.total_amount - paid_amount"/>
+                    <p>
+                        Amount Paid So Far:
+                        <strong><t t-out="paid_amount"/></strong><br/>
+                        Remaining Due:
+                        <strong><t t-out="due_amount"/></strong>
+                    </p>
+                </t>
+                <p>Thank you.</p>
+            </field>
+        </record> 
+
+        <!-- MAIL TEMPLATE FOR Overdue Fee Slip -->  
+        <record id="fee_slip_overdue_mail" model="mail.template">
+            <field name="name">Overdue Fee Slip Payment Mail</field>
+            <field name="model_id" ref="model_wk_fee_slip"/>
+            <field name="email_from">{{object.student_id.company_id.email_formatted}}</field>
+            <field name="email_to">{{object.student_id.email}}</field>
+            <field name="subject">Overdue Fee Payment</field>
+            <field name="description">Sent on the overdue state of fee slip payment</field>
+            <field name="body_html" type="html">
+                <div>Dear <strong><t t-out="object.student_id.name"/></strong>,</div>
+                <p>
+                    The payment for the fee slip referring to <strong><t t-out="object.name"/></strong>,which amounts in 
+                    <strong><t t-out="object.currency_id.name"/> <t t-out="object.total_amount"/></strong> for the period 
+                    <strong><t t-out="object.date_from"/></strong> to <strong><t t-out="object.date_to"/></strong>
+                    is overdue.<br/>
+                    Please deposit the fee to avoid further late fee charges.
+                </p>
+                <t t-set="payment_url" t-value="object.get_payment_url()"/>
+                <a t-attf-href="{{payment_url}}" style="background-color: #875A7B; padding: 10px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 12px;"><strong>Open </strong><strong t-esc="object.name"/></a><br/><br/>
+                <span>Thanks</span>
+            </field>
+        </record> 
+    </data>
+</odoo>

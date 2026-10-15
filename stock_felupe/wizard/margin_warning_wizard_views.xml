@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_margin_warning_wizard" model="ir.ui.view">
+        <field name="name">margin.warning.wizard.form</field>
+        <field name="model">margin.warning.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Advertencia de Margen Bajo">
+                <field name="line_id" invisible="1"/>
+                <field name="res_users_sale_activity" invisible="1"/>
+                <group>
+                    <field name="message"/>
+                </group>
+                <footer>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    <button
+                        string="Continuar y Crear Actividad"
+                        type="object"
+                        name="action_continue"
+                        class="btn-primary"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

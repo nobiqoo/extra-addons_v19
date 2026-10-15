@@ -1,0 +1,312 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* difference_in_change_caused
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-30 00:11+0000\n"
+"PO-Revision-Date: 2024-10-30 00:11+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__accounts_ids
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__other_accounts_ids
+msgid "Accounts"
+msgstr "Cuentas contables"
+
+#. module: difference_in_change_caused
+#: model_terms:ir.ui.view,arch_db:difference_in_change_caused.difference_in_change_maker_form_view
+msgid "Back to draft"
+msgstr "Volver a borrador"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields.selection,name:difference_in_change_caused.selection__difference_in_change_maker__state__cancel
+#: model_terms:ir.ui.view,arch_db:difference_in_change_caused.difference_in_change_maker_form_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__company_id
+msgid "Company"
+msgstr "Compañia"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__currency_id
+msgid "Company currency"
+msgstr "Moneda de la compañia"
+
+#. module: difference_in_change_caused
+#: model_terms:ir.ui.view,arch_db:difference_in_change_caused.difference_in_change_maker_form_view
+msgid "Compute invoices"
+msgstr "Calcular asientos"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields.selection,name:difference_in_change_caused.selection__difference_in_change_maker__state__computed
+msgid "Computed"
+msgstr "Calculado"
+
+#. module: difference_in_change_caused
+#: model_terms:ir.ui.view,arch_db:difference_in_change_caused.difference_in_change_maker_form_view
+msgid "Create difference in change"
+msgstr "Crear diferencia en cambio"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__cut_date
+msgid "Cut date"
+msgstr "Fecha de corte"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__date_in_moves
+msgid "Date in moves"
+msgstr "Fecha en asientos"
+
+#. module: difference_in_change_caused
+#: model:ir.actions.act_window,name:difference_in_change_caused.difference_in_change_maker_action
+#: model:ir.ui.menu,name:difference_in_change_caused.difference_in_change_menu
+msgid "Difference in change"
+msgstr "Diferencia en cambio"
+
+#. module: difference_in_change_caused
+#: model:ir.model,name:difference_in_change_caused.model_difference_in_change_maker
+msgid "Difference in change maker"
+msgstr "Crear diferencia en cambio"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields.selection,name:difference_in_change_caused.selection__difference_in_change_maker__state__done
+msgid "Done"
+msgstr "Terminado"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields.selection,name:difference_in_change_caused.selection__difference_in_change_maker__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_account_bank_statement_line__exchange_id
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_account_move__exchange_id
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_account_payment__exchange_id
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_revert_wizard__exchange_id
+msgid "Exchange"
+msgstr "Diferecia en cambio"
+
+#. module: difference_in_change_caused
+#: model:res.groups,name:difference_in_change_caused.exchange_difference_manager
+msgid "Exchange difference manager"
+msgstr "Manager de diferencia en cambio"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__exchange_move_ids
+msgid "Exchange moves"
+msgstr "Movimientos generados"
+
+#. module: difference_in_change_caused
+#. odoo-python
+#: code:addons/difference_in_change_caused/models/difference_in_change_maker.py:0
+#, python-format
+msgid "Exchange of "
+msgstr "Cambio de "
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__foreign_currency_id
+msgid "Foreign currency"
+msgstr "Moneda extranjera"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__id
+msgid "ID"
+msgstr ""
+
+#. module: difference_in_change_caused
+#: model:ir.model,name:difference_in_change_caused.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: difference_in_change_caused
+#: model:ir.ui.menu,name:difference_in_change_caused.difference_in_change_maker_menu
+msgid "Making a difference in change"
+msgstr "Realizar diferencia en cambio"
+
+#. module: difference_in_change_caused
+#: model_terms:ir.ui.view,arch_db:difference_in_change_caused.difference_in_change_maker_form_view
+msgid "Move lines to process"
+msgstr "Asientos a procesar"
+
+#. module: difference_in_change_caused
+#: model_terms:ir.ui.view,arch_db:difference_in_change_caused.difference_in_change_maker_form_view
+msgid "Moves"
+msgstr "Asientos"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__moves_count
+msgid "Moves count"
+msgstr "Contador de asientos"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields.selection,name:difference_in_change_caused.selection__difference_in_change_maker__state__reverted
+msgid "Moves reversed"
+msgstr "Asientos reversados"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__move_lines_ids
+msgid "Moves to process"
+msgstr "Asientos a procesar"
+
+#. module: difference_in_change_caused
+#. odoo-python
+#: code:addons/difference_in_change_caused/models/difference_in_change_maker.py:0
+#, python-format
+msgid "Must be write the move date."
+msgstr "Se debe escribir una fecha para los asientos"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: difference_in_change_caused
+#. odoo-python
+#: code:addons/difference_in_change_caused/models/difference_in_change_maker.py:0
+#, python-format
+msgid "No movements found for these options."
+msgstr "No se encontraron asientos pendientes para las opciones ingresadas"
+
+#. module: difference_in_change_caused
+#: model_terms:ir.ui.view,arch_db:difference_in_change_caused.difference_in_change_maker_form_view
+msgid "Revert movements"
+msgstr "Reversar asientos"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__state
+msgid "State"
+msgstr "Estado"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_account_bank_statement_line__exchange_state
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_account_move__exchange_state
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_account_payment__exchange_state
+msgid "Exchange state"
+msgstr "Estado (EXCH)"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__trm_amount
+msgid "TRM"
+msgstr "TRM"
+
+#. module: difference_in_change_caused
+#. odoo-python
+#: code:addons/difference_in_change_caused/models/difference_in_change_maker.py:0
+#, python-format
+msgid "The TRM must be grater than zero."
+msgstr "La TRM debe ser mayor a cero."
+
+#. module: difference_in_change_caused
+#. odoo-python
+#: code:addons/difference_in_change_caused/models/difference_in_change_maker.py:0
+#, python-format
+msgid "Move origin: "
+msgstr "Asiento origen: "
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,help:difference_in_change_caused.field_difference_in_change_maker__date_in_moves
+msgid "This date will be applied in moves to create"
+msgstr "Esta fecha sera aplicada en los asientos a crear."
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_account_move_line__amount_to_exchange
+msgid "Amount to exchange"
+msgstr "Monto a diferenciar"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_account_move_line__current_exchange_rate
+msgid "Current exchange rate"
+msgstr "TRM en asiento"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_maker__document_type
+msgid "Document type"
+msgstr "Tipo de documento"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields.selection,name:difference_in_change_caused.selection__difference_in_change_maker__document_type__account
+msgid "Account"
+msgstr "Saldo"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields.selection,name:difference_in_change_caused.selection__difference_in_change_maker__document_type__movement
+msgid "Movement"
+msgstr "Movimiento"
+
+#. module: difference_in_change_caused
+#. odoo-python
+#: code:addons/difference_in_change_caused/models/difference_in_change_maker.py:0
+#, python-format
+msgid "There is not a account of expense set in the company."
+msgstr "No hay una cuenta de perdidas configurada en la compañia!"
+
+#. module: difference_in_change_caused
+#. odoo-python
+#: code:addons/difference_in_change_caused/models/difference_in_change_maker.py:0
+#, python-format
+msgid "There is not a account of income set in the company."
+msgstr "No hay una cuenta de ganancia configurada en la compañia!"
+
+#. module: difference_in_change_caused
+#. odoo-python
+#: code:addons/difference_in_change_caused/models/difference_in_change_maker.py:0
+#, python-format
+msgid "There is not a journal of exchange set in the company."
+msgstr "No hay un díario de diferencia en cambio configurado en la compañia!"
+
+#. module: event_quoter_alcala
+#: model:mail.template,name:event_quoter_alcala.financial_approve_to_local_users_template
+msgid "Financial Approval Notification"
+msgstr "Notificación de aprobación financiera"
+
+#. module: difference_in_change_caused
+#: model_terms:ir.ui.view,arch_db:difference_in_change_caused.difference_in_change_revert_wizard_form_view
+msgid "Revert movements"
+msgstr "Revertir movimientos"
+
+#. module: difference_in_change_caused
+#: model:ir.model.fields,field_description:difference_in_change_caused.field_difference_in_change_revert_wizard__revert_date
+msgid "Revert date"
+msgstr "Fecha de reversión"
+
+#. module: difference_in_change_caused
+#. odoo-python
+#: code:addons/difference_in_change_caused/models/difference_in_change_maker.py:0
+#, python-format
+msgid "Revert movements"
+msgstr "Revertir movimientos"

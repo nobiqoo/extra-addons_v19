@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+        <!-- Automatización: Facturado -->
+        <record id="sync_odoo_cw_invoicing" model="base.automation">
+            <field name="name">Sync. Odoo-CW: Facturado</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="trigger">on_write</field>
+            <field name="trigger_field_ids" search="[('model', '=', 'account.move'), ('name', '=', 'state')]"/>
+            <field name="filter_pre_domain">[('state','=','draft'),('move_type','in',('out_invoice','out_refund','in_invoice','in_refund'))]</field>
+            <field name="filter_domain">[('state','=','posted'),('move_type','in',('out_invoice','out_refund','in_invoice','in_refund'))]</field>
+            <field name="active">False</field>
+        </record>
+        <record id="action_server_sync_cw_invoicing" model="ir.actions.server">
+            <field name="name">Sync. Odoo-CW: Facturado</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="base_automation_id" ref="sync_odoo_cw_invoicing"/>
+            <field name="state">code</field>
+            <field name="code">record.send_posted_invoice_to_cw()</field>
+        </record>
+
+        <!-- Automatización: Pagado -->
+        <record id="sync_odoo_cw_paid" model="base.automation">
+            <field name="name">Sync. Odoo-CW: Pagado</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="trigger">on_write</field>
+            <field name="trigger_field_ids" search="[('model', '=', 'account.move'), ('name', '=', 'amount_residual')]"/>
+            <field name="filter_pre_domain">[('amount_residual','>',0),('move_type','in',('out_invoice','out_refund','in_invoice','in_refund'))]</field>
+            <field name="filter_domain">[('amount_residual','=',0),('move_type','in',('out_invoice','out_refund','in_invoice','in_refund'))]</field>
+            <field name="active">False</field>
+        </record>
+        <record id="action_server_sync_cw_paid" model="ir.actions.server">
+            <field name="name">Sync. Odoo-CW: Pagado</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="base_automation_id" ref="sync_odoo_cw_paid"/>
+            <field name="state">code</field>
+            <field name="code">record.send_posted_paid_to_cw()</field>
+        </record>
+
+        <!-- Automatización: Cancelado -->
+        <record id="sync_odoo_cw_cancelled" model="base.automation">
+            <field name="name">Sync. Odoo-CW: Cancelado</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="trigger">on_write</field>
+            <field name="trigger_field_ids" search="[('model', '=', 'account.move'), ('name', '=', 'state')]"/>
+            <field name="filter_pre_domain">[('state','=','posted'),('move_type','in',('out_invoice','out_refund','in_invoice','in_refund'))]</field>
+            <field name="filter_domain">[('state','=','cancel'),('move_type','in',('out_invoice','out_refund','in_invoice','in_refund'))]</field>
+            <field name="active">False</field>
+        </record>
+        <record id="action_server_sync_cw_cancelled" model="ir.actions.server">
+            <field name="name">Sync. Odoo-CW: Cancelado</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="base_automation_id" ref="sync_odoo_cw_cancelled"/>
+            <field name="state">code</field>
+            <field name="code">record.send_posted_cancelled_to_cw()</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,20 @@
+{
+    "name": "Purchase Selector – Pendientes por Tratar",
+    'version': '19.0.0.0.1',
+    'author': 'OdOne S.A.S.',
+    'website': 'https://www.odone.com.co/',
+    "depends": ["approvals", "purchase", "project", "stock"],
+    "data": [
+        "security/ir.model.access.csv",
+        "security/security.xml",
+        "views/approval_purchase_item_views.xml",
+        "views/approval_request_views.xml",
+        #"views/purchase_order_views.xml",
+        'views/approval_request_views_pending.xml',
+        "wizard/purchase_selector_wizard_views.xml",
+        "wizard/purchase_selector_confirm_wizard_views.xml",
+        "wizard/supply_selector_wizard_views.xml",
+        "wizard/supply_selector_confirm_wizard_views.xml",
+    ],
+    "license": "LGPL-3",
+}

@@ -1,0 +1,31 @@
+<odoo>
+    <record id="product_template_form" model="ir.ui.view">
+        <field name="name">product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_standard_price']/label[1]" position="replace" />
+
+            <xpath expr="//field[@name='product_tooltip']" position="after">
+                <label for="list_price_base" class="mt-1" />
+                <div>
+                    <field name="list_price_base" class="oe_inline" widget="monetary"
+                        options="{'currency_field': 'currency_id', 'field_digits': True}" />
+                    <field name="sale_currency_id" placeholder="COP" />
+                </div>
+                <label for="points_to_add" class="mt-1" />
+                <div>
+                    <field name="points_to_add" class="oe_inline" widget="monetary"
+                        options="{'currency_field': 'currency_id', 'field_digits': True}" />
+                    <field name="sale_currency_id" placeholder="COP" />
+                </div>
+                <label for="list_price" class="mt-1" />
+                <div>
+                    <field name="list_price" class="oe_inline" widget="monetary"
+                        options="{'currency_field': 'currency_id', 'field_digits': True}" />
+                    <span>USD</span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

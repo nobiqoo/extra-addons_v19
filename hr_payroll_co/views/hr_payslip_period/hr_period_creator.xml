@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_period_creator_form" model="ir.ui.view">
+            <field name="name">hr.period.creator.form</field>
+            <field name="model">hr.period.creator</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="year"/>
+                            <field name="month"/>
+                            <field name="type_period"/>
+                            <field name="company_id"/>
+                            <field name="notes"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="create_periods" string="Crear periodos" class="btn btn-primary" type="object"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_period_creator_action" model="ir.actions.act_window">
+            <field name="name">Creador de periodos de nómina</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.period.creator</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="hr_period_creator_form" />
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="hr_period_creator_menu_act" name="Creador de periodos de nómina"
+            parent="hr_period_menu_categ" action="hr_period_creator_action" sequence="2"/>
+
+    </data>
+</odoo>

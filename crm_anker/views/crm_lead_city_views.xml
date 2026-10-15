@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_crm_lead_city_tree" model="ir.ui.view">
+            <field name="name">crm.lead.city.tree</field>
+            <field name="model">crm.lead.city</field>
+            <field name="arch" type="xml">
+                <list string="Ciudades">
+                    <field name="name"/>
+                    <field name="country_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_crm_lead_city_form" model="ir.ui.view">
+            <field name="name">crm.lead.city.form</field>
+            <field name="model">crm.lead.city</field>
+            <field name="arch" type="xml">
+                <form string="Ciudad">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="country_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_crm_lead_city" model="ir.actions.act_window">
+            <field name="name">Ciudades</field>
+            <field name="res_model">crm.lead.city</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem 
+            id="menu_crm_lead_city_root"
+            name="Ciudades"
+            parent="crm.crm_menu_config"
+            sequence="110"
+            action="action_crm_lead_city"/>
+
+    </data>
+</odoo>

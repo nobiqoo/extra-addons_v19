@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <record id="transaction_form_inherit_school" model="ir.ui.view">
+        <field name="name">payment.transaction.form.inherit.school.payment</field>
+        <field name="model">payment.transaction</field>
+        <field name="inherit_id" ref="payment.payment_transaction_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_view_fee_slip" type="object"
+                        class="oe_stat_button" icon="fa-money"
+                        invisible="fee_slip_ids_nbr == 0">
+                    <field name="fee_slip_ids_nbr" widget="statinfo" string="Fee Slip(s)"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

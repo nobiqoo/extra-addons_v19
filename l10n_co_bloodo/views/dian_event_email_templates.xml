@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+        <record id="dian_event_email_template" model="mail.template">
+            <field name="name">Evento Factura Electrónica - Enviar por Email</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="email_from">{{object.company_id.edi_email}}</field>
+            <field name="reply_to">{{object.company_id.edi_email}}</field>
+            <field name="subject">Evento;{{object.is_supplier_ei and object.name_ei_ref or object.fe_invoice_name}};{{object.company_id.partner_id.vat}};{{object.company_id.name}};{{object.ie_event_active_id.name}};{{object.ie_event_status}}</field>
+            <field name="email_to">{{object.partner_id.edi_email or object.partner_id.email}},{{object.company_id.edi_email}}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">{{object.partner_id.lang}}</field>
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                <p>
+                    Señor(es),
+                    <br>
+                    <t t-out="object.partner_id.name"/>
+                </p>
+                <p t-if="object.is_supplier_ei">
+                    Le informamos que se ha generado el evento <strong t-out="object.ie_event_active_id.ev_id.display_name"/><br>
+                    a la factura/nota electrónica <strong t-out="object.name_ei_ref"/>.
+                </p>
+                <p t-else="">
+                    Le informamos que se ha generado el evento <strong t-out="object.ie_event_active_id.ev_id.display_name"/><br>
+                    a la factura/nota electrónica <strong t-out="object.name"/>.
+                </p>
+                <p t-if="object.ie_event_active_id.notes">
+                    <strong>NOTA:</strong> <t t-out="object.ie_event_active_id.notes"/>
+                </p>
+                <p>
+                    <!-- Si pasados tres (3) días hábiles siguientes a la recepción de la factura/nota electrónica, no se ha recibido un correo indicando rechazo de la factura/nota electrónica, el sistema la dará por aceptada. -->
+                    <br>
+                    <br>
+                    Escriba a <t t-out="object.company_id.edi_email"/> si desea modificar sus datos para el envío de la factura/nota electrónica.
+                </p>
+                <br>
+                <p>Cordialmente,</p>
+                <t t-out="object.invoice_user_id.signature"/>
+                <!-- <p><strong><t t-out="object.company_id.name"/></strong></p> -->
+            </div>
+            ]]></field>
+        </record>
+    </data>
+</odoo>

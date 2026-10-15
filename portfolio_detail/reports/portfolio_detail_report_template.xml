@@ -1,0 +1,141 @@
+<odoo>
+    <template id="portfolio_detail_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div>
+                        <h1>Portfolio Detail</h1>
+                        <div class="page">
+                            <div class="oe_structure" />
+                            <div>
+                                <table class="table table-sm o_main_table">
+                                    <t t-if="doc.find_by == 'date'">
+                                        <thead style="display: table-row-group">
+                                            <tr>
+                                                <th>Date from</th>
+                                                <th>Date to</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="display: table-row-group">
+                                            <tr>
+                                                <td>
+                                                    <span t-field="doc.date_from"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="doc.date_to"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </t>
+                                    <thead style="display: table-row-group">
+                                            <tr>
+                                                <th colspan="2">Partners involved</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="display: table-row-group">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <span t-field="doc.partners_involved"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                </table>
+                            </div>
+                            <div>
+                                <table class="table table-sm o_main_table table-bordered" style="page-break-inside: auto;">
+                                    <thead style="display: table-row-group">
+                                        <tr>
+                                            <th>Invoice</th>
+                                            <th>Partner</th>
+                                            <th>NIT</th>
+                                            <th>Invoice Date</th>
+                                            <th>Date due</th>
+                                            <th>Amount untaxed</th>
+                                            <th>Amount total</th>
+                                            <th>Voucher name</th>
+                                            <th>Reference</th>
+                                            <th>Payment date</th>
+                                            <th>Payment method</th>
+                                            <th>Amount paid</th>
+                                            <th>Pending amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <span t-esc="line.invoice"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.partner"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.nit"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.invoice_date"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.due_date"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="doc.format_currency(line.amount_untaxed)"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="doc.format_currency(line.amount_total)"/>
+                                            </td>
+                                        </tr>
+                                        <t t-set="i" t-value="1"/>
+                                        <t t-foreach="line.line_ids" t-as="lin">
+                                            <tr style="{ padding: 8px;
+                                                line-height: 1.42857143;
+                                                vertical-align: top;
+                                                border-top: 1px solid #ddd;}"
+                                            >
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                    #<span t-esc="i"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="lin.name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="lin.ref"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="lin.date"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="lin.payment_method"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="doc.format_currency(lin.amount_paid)"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="doc.format_currency(lin.pending_amount)"/>
+                                                </td>
+                                            </tr>
+                                            <t t-set="i" t-value="i + 1"/>
+                                        </t>
+                                    </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <template id="product_maintenance_life_report">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <style>
+                        .section {
+                            margin-bottom: 20px;
+                        }
+                        .section h2 {
+                            font-size: 18px;
+                            background-color: #ddd;
+                            padding: 5px;
+                            text-align: center;
+                        }
+                        .section table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        .section table th, .section table td {
+                            border: 1px solid #000;
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        .section table th {
+                            background-color: #f0f0f0;
+                        }
+                        .image-container {
+                            text-align: center;
+                            margin: 20px 0;
+                        }
+                        .header-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            border: 1px solid black;
+                            margin: 0;
+                            padding: 0;
+                        }
+                        .header-table td {
+                            border: 1px solid black;
+                            padding: 0; /* Quitar padding */
+                            margin: 0; /* Quitar márgenes */
+                            box-sizing: border-box;
+                        }
+                        .logo {
+                            width: 100px;
+                            border-right: 2px solid black;
+                        }
+                        .logo img {
+                            max-width: 100%;
+                            max-height: 100%;
+                        }
+                        .header-center {
+                            text-align: center;
+                            vertical-align: middle;
+                            width: 600px;
+                        }
+                        .header-right {
+                            text-align: left;
+                        }
+                        .header-right td {
+                            border-left: 1px solid black;
+                        }
+                    </style>
+                    <table class="header-table">
+                        <tr>
+                            <td class="logo">
+                                <img src="logo.png" alt="Logo"/>
+                            </td>
+                            <td class="header-center">
+                                Hoja de Vida Equipo
+                            </td>
+                            <td class="header-right">
+                                <table class="header-table">
+                                    <tr>
+                                        <td>VERSIÓN</td>
+                                        <td>02</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CÓDIGO</td>
+                                        <td>FM-ST-07</td>
+                                    </tr>
+                                    <tr>
+                                        <td>FECHA</td>
+                                        <td>19/01/2023</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PÁGINA</td>
+                                        <td>1 de 1</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="page">
+                        <div class="image-container">
+                            <t t-if="doc.product_id.image_1920">
+                                <img t-att-src="image_data_uri(doc.product_id.image_1920)" alt="Imagen Producto" style="height: 150px; width: 300px;"/>
+                            </t>
+                        </div>
+                        <div class="section">
+                            <h2>IDENTIFICACIÓN Y ESPECIFICACIONES DE EQUIPO</h2>
+                            <table>
+                                <tr><th>NOMBRE</th><td><t t-esc="doc.name"/></td></tr>
+                                <tr><th>CIUDAD</th><td><t t-esc="doc.city_id and doc.city_id.display_name or ''"/></td></tr>
+                                <tr><th>MARCA</th><td><t t-esc="doc.brand_id.display_name if doc.brand_id else ''"/></td></tr>
+                                <tr><th>MODELO</th><td><t t-esc="doc.model"/></td></tr>
+                                <tr><th>REGISTRO SANITARIO</th><td><t t-esc="doc.health_registration"/></td></tr>
+                                <tr><th>SERIE</th><td><t t-esc="doc.lot_id.name"/></td></tr>
+                            </table>
+                        </div>
+                        <div class="section">
+                            <h2>DATOS TECNICOS DEL EQUIPO</h2>
+                            <table>
+                                <tr><th>TIPO DE RIESGO</th><td><t t-esc="doc.risk_type"/></td><th>PRESIÓN (Psi)</th><td><t t-esc="doc.pretion"/></td></tr>
+                                <tr><th>VOLTAJE (V)</th><td><t t-esc="doc.voltage"/></td><th>TEMPERATURA (°C)</th><td><t t-esc="doc.temperature"/></td></tr>
+                                <tr><th>CORRIENTE (A)</th><td><t t-esc="doc.current"/></td><th>PESO (Kg)</th><td><t t-esc="doc.weight"/></td></tr>
+                                <tr><th>FRECUENCIA (Hz)</th><td><t t-esc="doc.frequency"/></td><th>FLUJO (L/min)</th><td><t t-esc="doc.flow"/></td></tr>
+                                <tr><th>POTENCIA (W)</th><td><t t-esc="doc.power"/></td><th>Otro</th><td><t t-esc="doc.other"/></td></tr>
+                            </table>
+                        </div>
+                        <div class="section">
+                            <h2>DATOS DEL PROVEEDOR O FABRICANTE</h2>
+                            <table>
+                                <tr><th>FABRICACIÓN</th><td><t t-esc="doc.manufacturing"/></td></tr>
+                                <tr><th>NOMBRE DEL PROVEEDOR</th><td><t t-esc="doc.provider_id.display_name"/></td></tr>
+                                <tr><th>DIRECCIÓN</th><td><t t-esc="doc.provider_id.street"/></td></tr>
+                                <tr><th>CONTACTO</th><td><t t-esc="doc.provider_id.phone"/></td></tr>
+                                <tr><th>POSEE CATÁLOGO DE MANEJO U OPERACIÓN</th><td><t t-esc="doc.get_catalog()"/></td></tr>
+                                <tr><th>PERIODICIDAD DE MANTENIMIENTO</th><td><t t-esc="doc.expected_mtbf"/> Días</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="footer" style="font-size: 10px; text-align: center;">
+                        Av. Calle 127 No. 7-70 - Torre Eurodent - PBX (+571) 6054000 - www.Eurodent.com.co<br/>
+                        Este documento es propiedad y copia controlada de Representaciones Eurodent S.A.S
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

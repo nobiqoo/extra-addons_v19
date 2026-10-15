@@ -1,0 +1,1256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <record id="base.af" model="res.country">
+            <!-- <field name="name">Afganistán</field> -->
+            <field name="medios_code">013</field>
+        </record>
+
+        <record id="base.al" model="res.country">
+            <!-- <field name="name">Albania</field> -->
+            <field name="medios_code">017</field>
+        </record>
+
+        <record id="base.de" model="res.country">
+            <!-- <field name="name">Alemania</field> -->
+            <field name="medios_code">023</field>
+        </record>
+
+        <record id="base.ad" model="res.country">
+            <!-- <field name="name">Andorra</field> -->
+            <field name="medios_code">037</field>
+        </record>
+
+        <record id="base.ao" model="res.country">
+            <!-- <field name="name">Angola</field> -->
+            <field name="medios_code">040</field>
+        </record>
+
+        <record id="base.ai" model="res.country">
+            <!-- <field name="name">Anguilla</field> -->
+            <field name="medios_code">041</field>
+        </record>
+
+        <record id="base.ag" model="res.country">
+            <!-- <field name="name">Antigua y Barbuda</field> -->
+            <field name="medios_code">043</field>
+        </record>
+
+        <record id="base.aq" model="res.country">
+            <!-- <field name="name">Antártida</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.sa" model="res.country">
+            <!-- <field name="name">Arabia Saudita</field> -->
+            <field name="medios_code">053</field>
+        </record>
+
+        <record id="base.dz" model="res.country">
+            <!-- <field name="name">Argelia</field> -->
+            <field name="medios_code">059</field>
+        </record>
+
+        <record id="base.ar" model="res.country">
+            <!-- <field name="name">Argentina</field> -->
+            <field name="medios_code">063</field>
+        </record>
+
+        <record id="base.am" model="res.country">
+            <!-- <field name="name">Armenia</field> -->
+            <field name="medios_code">026</field>
+        </record>
+
+        <record id="base.aw" model="res.country">
+            <!-- <field name="name">Aruba</field> -->
+            <field name="medios_code">027</field>
+        </record>
+
+        <record id="base.au" model="res.country">
+            <!-- <field name="name">Australia</field> -->
+            <field name="medios_code">069</field>
+        </record>
+
+        <record id="base.at" model="res.country">
+            <!-- <field name="name">Austria</field> -->
+            <field name="medios_code">072</field>
+        </record>
+
+        <record id="base.az" model="res.country">
+            <!-- <field name="name">Azerbaiyán</field> -->
+            <field name="medios_code">074</field>
+        </record>
+
+        <record id="base.bs" model="res.country">
+            <!-- <field name="name">Bahamas</field> -->
+            <field name="medios_code">077</field>
+        </record>
+
+        <record id="base.bh" model="res.country">
+            <!-- <field name="name">Bahréin</field> -->
+            <field name="medios_code">080</field>
+        </record>
+
+        <record id="base.bd" model="res.country">
+            <!-- <field name="name">Bangladesh</field> -->
+            <field name="medios_code">081</field>
+        </record>
+
+        <record id="base.bb" model="res.country">
+            <!-- <field name="name">Barbados</field> -->
+            <field name="medios_code">083</field>
+        </record>
+
+        <record id="base.bz" model="res.country">
+            <!-- <field name="name">Belize</field> -->
+            <field name="medios_code">088</field>
+        </record>
+
+        <record id="base.bj" model="res.country">
+            <!-- <field name="name">Benín</field> -->
+            <field name="medios_code">229</field>
+        </record>
+
+        <record id="base.bm" model="res.country">
+            <!-- <field name="name">Bermudas</field> -->
+            <field name="medios_code">090</field>
+        </record>
+
+        <record id="base.bt" model="res.country">
+            <!-- <field name="name">Bhután</field> -->
+            <field name="medios_code">119</field>
+        </record>
+
+        <record id="base.by" model="res.country">
+            <!-- <field name="name">Bielorrusia</field> -->
+            <field name="medios_code">091</field>
+        </record>
+
+        <record id="base.mm" model="res.country">
+            <!-- <field name="name">Birmania</field> -->
+            <field name="medios_code">093</field>
+        </record>
+
+        <record id="base.bo" model="res.country">
+            <!-- <field name="name">Bolivia</field> -->
+            <field name="medios_code">097</field>
+        </record>
+
+        <record id="base.bq" model="res.country">
+            <!-- <field name="name">Bonaire, San Eustaquio y Saba</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.ba" model="res.country">
+            <!-- <field name="name">Bosnia-Herzegovina</field> -->
+            <field name="medios_code">029</field>
+        </record>
+
+        <record id="base.bw" model="res.country">
+            <!-- <field name="name">Botsuana</field> -->
+            <field name="medios_code">101</field>
+        </record>
+
+        <record id="base.br" model="res.country">
+            <!-- <field name="name">Brasil</field> -->
+            <field name="medios_code">105</field>
+        </record>
+
+        <record id="base.bn" model="res.country">
+            <!-- <field name="name">Brunei Darussalam</field> -->
+            <field name="medios_code">108</field>
+        </record>
+
+        <record id="base.bg" model="res.country">
+            <!-- <field name="name">Bulgaria</field> -->
+            <field name="medios_code">111</field>
+        </record>
+
+        <record id="base.bf" model="res.country">
+            <!-- <field name="name">Burkina Faso</field> -->
+            <field name="medios_code">031</field>
+        </record>
+
+        <record id="base.bi" model="res.country">
+            <!-- <field name="name">Burundi</field> -->
+            <field name="medios_code">115</field>
+        </record>
+
+        <record id="base.be" model="res.country">
+            <!-- <field name="name">Bélgica</field> -->
+            <field name="medios_code">087</field>
+        </record>
+
+        <record id="base.cv" model="res.country">
+            <!-- <field name="name">Cabo Verde</field> -->
+            <field name="medios_code">127</field>
+        </record>
+
+        <record id="base.kh" model="res.country">
+            <!-- <field name="name">Camboya</field> -->
+            <field name="medios_code">141</field>
+        </record>
+
+        <record id="base.cm" model="res.country">
+            <!-- <field name="name">Camerún</field> -->
+            <field name="medios_code">145</field>
+        </record>
+
+        <record id="base.ca" model="res.country">
+            <!-- <field name="name">Canadá</field> -->
+            <field name="medios_code">149</field>
+        </record>
+
+        <record id="base.td" model="res.country">
+            <!-- <field name="name">Chad</field> -->
+            <field name="medios_code">203</field>
+        </record>
+
+        <record id="base.cl" model="res.country">
+            <!-- <field name="name">Chile</field> -->
+            <field name="medios_code">211</field>
+        </record>
+
+        <record id="base.cn" model="res.country">
+            <!-- <field name="name">China</field> -->
+            <field name="medios_code">215</field>
+        </record>
+
+        <record id="base.cy" model="res.country">
+            <!-- <field name="name">Chipre</field> -->
+            <field name="medios_code">221</field>
+        </record>
+
+        <record id="base.co" model="res.country">
+            <!-- <field name="name">Colombia</field> -->
+            <field name="medios_code">169</field>
+        </record>
+
+        <record id="base.km" model="res.country">
+            <!-- <field name="name">Comores</field> -->
+            <field name="medios_code">173</field>
+        </record>
+
+        <record id="base.cg" model="res.country">
+            <!-- <field name="name">Congo</field> -->
+            <field name="medios_code">177</field>
+        </record>
+
+        <record id="base.kp" model="res.country">
+            <!-- <field name="name">Corea del Norte</field> -->
+            <field name="medios_code">187</field>
+        </record>
+
+        <record id="base.kr" model="res.country">
+            <!-- <field name="name">Corea del Sur</field> -->
+            <field name="medios_code">190</field>
+        </record>
+
+        <record id="base.cr" model="res.country">
+            <!-- <field name="name">Costa Rica</field> -->
+            <field name="medios_code">196</field>
+        </record>
+
+        <record id="base.ci" model="res.country">
+            <!-- <field name="name">Costa de Marfil</field> -->
+            <field name="medios_code">193</field>
+        </record>
+
+        <record id="base.hr" model="res.country">
+            <!-- <field name="name">Croacia</field> -->
+            <field name="medios_code">198</field>
+        </record>
+
+        <record id="base.cu" model="res.country">
+            <!-- <field name="name">Cuba</field> -->
+            <field name="medios_code">199</field>
+        </record>
+
+        <record id="base.cw" model="res.country">
+            <!-- <field name="name">Curaçao</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.dk" model="res.country">
+            <!-- <field name="name">Dinamarca</field> -->
+            <field name="medios_code">232</field>
+        </record>
+
+        <record id="base.dm" model="res.country">
+            <!-- <field name="name">Dominica</field> -->
+            <field name="medios_code">235</field>
+        </record>
+
+        <record id="base.um" model="res.country">
+            <!-- <field name="name">EE.UU. Islas Exteriores Menores</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.ec" model="res.country">
+            <!-- <field name="name">Ecuador</field> -->
+            <field name="medios_code">239</field>
+        </record>
+
+        <record id="base.eg" model="res.country">
+            <!-- <field name="name">Egipto</field> -->
+            <field name="medios_code">240</field>
+        </record>
+
+        <record id="base.sv" model="res.country">
+            <!-- <field name="name">El Salvador</field> -->
+            <field name="medios_code">242</field>
+        </record>
+
+        <record id="base.ae" model="res.country">
+            <!-- <field name="name">Emiratos Árabes Unidos</field> -->
+            <field name="medios_code">244</field>
+        </record>
+
+        <record id="base.er" model="res.country">
+            <!-- <field name="name">Eritrea</field> -->
+            <field name="medios_code">243</field>
+        </record>
+
+        <record id="base.sk" model="res.country">
+            <!-- <field name="name">Eslovaquia</field> -->
+            <field name="medios_code">246</field>
+        </record>
+
+        <record id="base.si" model="res.country">
+            <!-- <field name="name">Eslovenia</field> -->
+            <field name="medios_code">247</field>
+        </record>
+
+        <record id="base.es" model="res.country">
+            <!-- <field name="name">España</field> -->
+            <field name="medios_code">245</field>
+        </record>
+
+        <record id="base.ps" model="res.country">
+            <!-- <field name="name">Estado de Palestina</field> -->
+            <field name="medios_code">897</field>
+        </record>
+
+        <record id="base.us" model="res.country">
+            <!-- <field name="name">Estados Unidos</field> -->
+            <field name="medios_code">249</field>
+        </record>
+
+        <record id="base.ee" model="res.country">
+            <!-- <field name="name">Estonia</field> -->
+            <field name="medios_code">251</field>
+        </record>
+
+        <record id="base.et" model="res.country">
+            <!-- <field name="name">Etiopía</field> -->
+            <field name="medios_code">253</field>
+        </record>
+
+        <record id="base.ru" model="res.country">
+            <!-- <field name="name">Federación Rusa</field> -->
+            <field name="medios_code">676</field>
+        </record>
+
+        <record id="base.fj" model="res.country">
+            <!-- <field name="name">Fiji</field> -->
+            <field name="medios_code">870</field>
+        </record>
+
+        <record id="base.ph" model="res.country">
+            <!-- <field name="name">Filipinas</field> -->
+            <field name="medios_code">267</field>
+        </record>
+
+        <record id="base.fi" model="res.country">
+            <!-- <field name="name">Finlandia</field> -->
+            <field name="medios_code">271</field>
+        </record>
+
+        <record id="base.fr" model="res.country">
+            <!-- <field name="name">Francia</field> -->
+            <field name="medios_code">275</field>
+        </record>
+
+        <record id="base.ga" model="res.country">
+            <!-- <field name="name">Gabón</field> -->
+            <field name="medios_code">281</field>
+        </record>
+
+        <record id="base.gm" model="res.country">
+            <!-- <field name="name">Gambia</field> -->
+            <field name="medios_code">285</field>
+        </record>
+
+        <record id="base.ge" model="res.country">
+            <!-- <field name="name">Georgia</field> -->
+            <field name="medios_code">287</field>
+        </record>
+
+        <record id="base.gh" model="res.country">
+            <!-- <field name="name">Ghana</field> -->
+            <field name="medios_code">289</field>
+        </record>
+
+        <record id="base.gi" model="res.country">
+            <!-- <field name="name">Gibraltar</field> -->
+            <field name="medios_code">293</field>
+        </record>
+
+        <record id="base.gd" model="res.country">
+            <!-- <field name="name">Granada</field> -->
+            <field name="medios_code">297</field>
+        </record>
+
+        <record id="base.gr" model="res.country">
+            <!-- <field name="name">Grecia</field> -->
+            <field name="medios_code">301</field>
+        </record>
+
+        <record id="base.gl" model="res.country">
+            <!-- <field name="name">Groenlandia</field> -->
+            <field name="medios_code">305</field>
+        </record>
+
+        <record id="base.gp" model="res.country">
+            <!-- <field name="name">Guadalupe</field> -->
+            <field name="medios_code">309</field>
+        </record>
+
+        <record id="base.gu" model="res.country">
+            <!-- <field name="name">Guam</field> -->
+            <field name="medios_code">313</field>
+        </record>
+
+        <record id="base.gt" model="res.country">
+            <!-- <field name="name">Guatemala</field> -->
+            <field name="medios_code">317</field>
+        </record>
+
+        <record id="base.gy" model="res.country">
+            <!-- <field name="name">Guayana</field> -->
+            <field name="medios_code">337</field>
+        </record>
+
+        <record id="base.gf" model="res.country">
+            <!-- <field name="name">Guayana Francesa</field> -->
+            <field name="medios_code">325</field>
+        </record>
+
+        <record id="base.gg" model="res.country">
+            <!-- <field name="name">Guernsey</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.gn" model="res.country">
+            <!-- <field name="name">Guinea</field> -->
+            <field name="medios_code">329</field>
+        </record>
+
+        <record id="base.gq" model="res.country">
+            <!-- <field name="name">Guinea Ecuatorial</field> -->
+            <field name="medios_code">331</field>
+        </record>
+
+        <record id="base.gw" model="res.country">
+            <!-- <field name="name">Guinea-Bisáu</field> -->
+            <field name="medios_code">334</field>
+        </record>
+
+        <record id="base.ht" model="res.country">
+            <!-- <field name="name">Haití</field> -->
+            <field name="medios_code">341</field>
+        </record>
+
+        <record id="base.nl" model="res.country">
+            <!-- <field name="name">Holanda</field> -->
+            <field name="medios_code">573</field>
+        </record>
+
+        <record id="base.hn" model="res.country">
+            <!-- <field name="name">Honduras</field> -->
+            <field name="medios_code">345</field>
+        </record>
+
+        <record id="base.hk" model="res.country">
+            <!-- <field name="name">Hong Kong</field> -->
+            <field name="medios_code">351</field>
+        </record>
+
+        <record id="base.hu" model="res.country">
+            <!-- <field name="name">Hungría</field> -->
+            <field name="medios_code">355</field>
+        </record>
+
+        <record id="base.in" model="res.country">
+            <!-- <field name="name">India</field> -->
+            <field name="medios_code">361</field>
+        </record>
+
+        <record id="base.id" model="res.country">
+            <!-- <field name="name">Indonesia</field> -->
+            <field name="medios_code">365</field>
+        </record>
+
+        <record id="base.iq" model="res.country">
+            <!-- <field name="name">Irak</field> -->
+            <field name="medios_code">369</field>
+        </record>
+
+        <record id="base.ie" model="res.country">
+            <!-- <field name="name">Irlanda</field> -->
+            <field name="medios_code">375</field>
+        </record>
+
+        <record id="base.ir" model="res.country">
+            <!-- <field name="name">Irán</field> -->
+            <field name="medios_code">372</field>
+        </record>
+
+        <record id="base.bv" model="res.country">
+            <!-- <field name="name">Isla Bouvet</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.nf" model="res.country">
+            <!-- <field name="name">Isla Norfolk</field> -->
+            <field name="medios_code">535</field>
+        </record>
+
+        <record id="base.im" model="res.country">
+            <!-- <field name="name">Isla de Man</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.cx" model="res.country">
+            <!-- <field name="name">Isla de Navidad</field> -->
+            <field name="medios_code">511</field>
+        </record>
+
+        <record id="base.is" model="res.country">
+            <!-- <field name="name">Islandia</field> -->
+            <field name="medios_code">379</field>
+        </record>
+
+        <record id="base.ky" model="res.country">
+            <!-- <field name="name">Islas Caimán</field> -->
+            <field name="medios_code">137</field>
+        </record>
+
+        <record id="base.cc" model="res.country">
+            <!-- <field name="name">Islas Cocos (Keeling)</field> -->
+            <field name="medios_code">165</field>
+        </record>
+
+        <record id="base.ck" model="res.country">
+            <!-- <field name="name">Islas Cook</field> -->
+            <field name="medios_code">183</field>
+        </record>
+
+        <record id="base.fo" model="res.country">
+            <!-- <field name="name">Islas Feroe</field> -->
+            <field name="medios_code">259</field>
+        </record>
+
+        <record id="base.gs" model="res.country">
+            <!-- <field name="name">Islas Georgia del sur y Sandwich del sur</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.hm" model="res.country">
+            <!-- <field name="name">Islas Heard y McDonald</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.fk" model="res.country">
+            <!-- <field name="name">Islas Malvinas</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.mp" model="res.country">
+            <!-- <field name="name">Islas Marianas del Norte</field> -->
+            <field name="medios_code">469</field>
+        </record>
+
+        <record id="base.mh" model="res.country">
+            <!-- <field name="name">Islas Marshall</field> -->
+            <field name="medios_code">472</field>
+        </record>
+
+        <record id="base.pn" model="res.country">
+            <!-- <field name="name">Islas Pitcairn</field> -->
+            <field name="medios_code">593</field>
+        </record>
+
+        <record id="base.sb" model="res.country">
+            <!-- <field name="name">Islas Salomón</field> -->
+            <field name="medios_code">677</field>
+        </record>
+
+        <record id="base.tc" model="res.country">
+            <!-- <field name="name">Islas Turcas y Caicos</field> -->
+            <field name="medios_code">823</field>
+        </record>
+
+        <record id="base.vg" model="res.country">
+            <!-- <field name="name">Islas Vírgenes (Británicas)</field> -->
+            <field name="medios_code">863</field>
+        </record>
+
+        <record id="base.vi" model="res.country">
+            <!-- <field name="name">Islas Vírgenes (EE.UU.)</field> -->
+            <field name="medios_code">866</field>
+        </record>
+
+        <record id="base.ax" model="res.country">
+            <!-- <field name="name">Islas Åland</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.il" model="res.country">
+            <!-- <field name="name">Israel</field> -->
+            <field name="medios_code">383</field>
+        </record>
+
+        <record id="base.it" model="res.country">
+            <!-- <field name="name">Italia</field> -->
+            <field name="medios_code">386</field>
+        </record>
+
+        <record id="base.jm" model="res.country">
+            <!-- <field name="name">Jamaica</field> -->
+            <field name="medios_code">391</field>
+        </record>
+
+        <record id="base.jp" model="res.country">
+            <!-- <field name="name">Japón</field> -->
+            <field name="medios_code">399</field>
+        </record>
+
+        <record id="base.je" model="res.country">
+            <!-- <field name="name">Jersey</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.jo" model="res.country">
+            <!-- <field name="name">Jordania</field> -->
+            <field name="medios_code">403</field>
+        </record>
+
+        <record id="base.kz" model="res.country">
+            <!-- <field name="name">Kazajstán</field> -->
+            <field name="medios_code">406</field>
+        </record>
+
+        <record id="base.ke" model="res.country">
+            <!-- <field name="name">Kenia</field> -->
+            <field name="medios_code">410</field>
+        </record>
+
+        <record id="base.kg" model="res.country">
+            <!-- <field name="name">Kirguistán</field> -->
+            <field name="medios_code">412</field>
+        </record>
+
+        <record id="base.ki" model="res.country">
+            <!-- <field name="name">Kiribati</field> -->
+            <field name="medios_code">411</field>
+        </record>
+
+        <record id="base.xk" model="res.country">
+            <!-- <field name="name">Kosovo</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.kw" model="res.country">
+            <!-- <field name="name">Kuwait</field> -->
+            <field name="medios_code">413</field>
+        </record>
+
+        <record id="base.la" model="res.country">
+            <!-- <field name="name">Laos</field> -->
+            <field name="medios_code">420</field>
+        </record>
+
+        <record id="base.ls" model="res.country">
+            <!-- <field name="name">Lesotho</field> -->
+            <field name="medios_code">426</field>
+        </record>
+
+        <record id="base.lv" model="res.country">
+            <!-- <field name="name">Letonia</field> -->
+            <field name="medios_code">429</field>
+        </record>
+
+        <record id="base.lr" model="res.country">
+            <!-- <field name="name">Liberia</field> -->
+            <field name="medios_code">434</field>
+        </record>
+
+        <record id="base.ly" model="res.country">
+            <!-- <field name="name">Libia</field> -->
+            <field name="medios_code">438</field>
+        </record>
+
+        <record id="base.li" model="res.country">
+            <!-- <field name="name">Liechtenstein</field> -->
+            <field name="medios_code">440</field>
+        </record>
+
+        <record id="base.lt" model="res.country">
+            <!-- <field name="name">Lituania</field> -->
+            <field name="medios_code">443</field>
+        </record>
+
+        <record id="base.lu" model="res.country">
+            <!-- <field name="name">Luxemburgo</field> -->
+            <field name="medios_code">445</field>
+        </record>
+
+        <record id="base.lb" model="res.country">
+            <!-- <field name="name">Líbano</field> -->
+            <field name="medios_code">431</field>
+        </record>
+
+        <record id="base.mo" model="res.country">
+            <!-- <field name="name">Macao</field> -->
+            <field name="medios_code">447</field>
+        </record>
+
+        <record id="base.mk" model="res.country">
+            <!-- <field name="name">Macedonia del Norte</field> -->
+            <field name="medios_code">448</field>
+        </record>
+
+        <record id="base.mg" model="res.country">
+            <!-- <field name="name">Madagascar</field> -->
+            <field name="medios_code">450</field>
+        </record>
+
+        <record id="base.my" model="res.country">
+            <!-- <field name="name">Malasia</field> -->
+            <field name="medios_code">455</field>
+        </record>
+
+        <record id="base.mw" model="res.country">
+            <!-- <field name="name">Malawi</field> -->
+            <field name="medios_code">458</field>
+        </record>
+
+        <record id="base.mv" model="res.country">
+            <!-- <field name="name">Maldivas</field> -->
+            <field name="medios_code">461</field>
+        </record>
+
+        <record id="base.ml" model="res.country">
+            <!-- <field name="name">Mali</field> -->
+            <field name="medios_code">464</field>
+        </record>
+
+        <record id="base.mt" model="res.country">
+            <!-- <field name="name">Malta</field> -->
+            <field name="medios_code">467</field>
+        </record>
+
+        <record id="base.ma" model="res.country">
+            <!-- <field name="name">Marruecos</field> -->
+            <field name="medios_code">474</field>
+        </record>
+
+        <record id="base.mq" model="res.country">
+            <!-- <field name="name">Martinica</field> -->
+            <field name="medios_code">477</field>
+        </record>
+
+        <record id="base.mu" model="res.country">
+            <!-- <field name="name">Mauricio</field> -->
+            <field name="medios_code">485</field>
+        </record>
+
+        <record id="base.mr" model="res.country">
+            <!-- <field name="name">Mauritania</field> -->
+            <field name="medios_code">488</field>
+        </record>
+
+        <record id="base.yt" model="res.country">
+            <!-- <field name="name">Mayotte</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.fm" model="res.country">
+            <!-- <field name="name">Micronesia</field> -->
+            <field name="medios_code">494</field>
+        </record>
+
+        <record id="base.md" model="res.country">
+            <!-- <field name="name">Moldavia</field> -->
+            <field name="medios_code">496</field>
+        </record>
+
+        <record id="base.mn" model="res.country">
+            <!-- <field name="name">Mongolia</field> -->
+            <field name="medios_code">497</field>
+        </record>
+
+        <record id="base.me" model="res.country">
+            <!-- <field name="name">Montenegro</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.ms" model="res.country">
+            <!-- <field name="name">Montserrat</field> -->
+            <field name="medios_code">501</field>
+        </record>
+
+        <record id="base.mz" model="res.country">
+            <!-- <field name="name">Mozambique</field> -->
+            <field name="medios_code">505</field>
+        </record>
+
+        <record id="base.mx" model="res.country">
+            <!-- <field name="name">México</field> -->
+            <field name="medios_code">493</field>
+        </record>
+
+        <record id="base.mc" model="res.country">
+            <!-- <field name="name">Mónaco</field> -->
+            <field name="medios_code">498</field>
+        </record>
+
+        <record id="base.na" model="res.country">
+            <!-- <field name="name">Namibia</field> -->
+            <field name="medios_code">507</field>
+        </record>
+
+        <record id="base.nr" model="res.country">
+            <!-- <field name="name">Nauru</field> -->
+            <field name="medios_code">508</field>
+        </record>
+
+        <record id="base.np" model="res.country">
+            <!-- <field name="name">Nepal</field> -->
+            <field name="medios_code">517</field>
+        </record>
+
+        <record id="base.ni" model="res.country">
+            <!-- <field name="name">Nicaragua</field> -->
+            <field name="medios_code">521</field>
+        </record>
+
+        <record id="base.ng" model="res.country">
+            <!-- <field name="name">Nigeria</field> -->
+            <field name="medios_code">528</field>
+        </record>
+
+        <record id="base.nu" model="res.country">
+            <!-- <field name="name">Niue</field> -->
+            <field name="medios_code">531</field>
+        </record>
+
+        <record id="base.no" model="res.country">
+            <!-- <field name="name">Noruega</field> -->
+            <field name="medios_code">538</field>
+        </record>
+
+        <record id="base.nc" model="res.country">
+            <!-- <field name="name">Nueva Caledonia</field> -->
+            <field name="medios_code">542</field>
+        </record>
+
+        <record id="base.nz" model="res.country">
+            <!-- <field name="name">Nueva Zelanda</field> -->
+            <field name="medios_code">548</field>
+        </record>
+
+        <record id="base.ne" model="res.country">
+            <!-- <field name="name">Níger</field> -->
+            <field name="medios_code">525</field>
+        </record>
+
+        <record id="base.om" model="res.country">
+            <!-- <field name="name">Omán</field> -->
+            <field name="medios_code">556</field>
+        </record>
+
+        <record id="base.pk" model="res.country">
+            <!-- <field name="name">Pakistán</field> -->
+            <field name="medios_code">576</field>
+        </record>
+
+        <record id="base.pw" model="res.country">
+            <!-- <field name="name">Palau</field> -->
+            <field name="medios_code">578</field>
+        </record>
+
+        <record id="base.pa" model="res.country">
+            <!-- <field name="name">Panamá</field> -->
+            <field name="medios_code">580</field>
+        </record>
+
+        <record id="base.pg" model="res.country">
+            <!-- <field name="name">Papúa Nueva Guinea</field> -->
+            <field name="medios_code">545</field>
+        </record>
+
+        <record id="base.py" model="res.country">
+            <!-- <field name="name">Paraguay</field> -->
+            <field name="medios_code">586</field>
+        </record>
+
+        <record id="base.pe" model="res.country">
+            <!-- <field name="name">Perú</field> -->
+            <field name="medios_code">589</field>
+        </record>
+
+        <record id="base.pf" model="res.country">
+            <!-- <field name="name">Polinesia Francesa</field> -->
+            <field name="medios_code">599</field>
+        </record>
+
+        <record id="base.pl" model="res.country">
+            <!-- <field name="name">Polonia</field> -->
+            <field name="medios_code">603</field>
+        </record>
+
+        <record id="base.pt" model="res.country">
+            <!-- <field name="name">Portugal</field> -->
+            <field name="medios_code">607</field>
+        </record>
+
+        <record id="base.pr" model="res.country">
+            <!-- <field name="name">Puerto Rico</field> -->
+            <field name="medios_code">611</field>
+        </record>
+
+        <record id="base.qa" model="res.country">
+            <!-- <field name="name">Qatar</field> -->
+            <field name="medios_code">618</field>
+        </record>
+
+        <record id="base.uk" model="res.country">
+            <!-- <field name="name">Reino Unido</field> -->
+            <field name="medios_code">628</field>
+        </record>
+
+        <record id="base.cf" model="res.country">
+            <!-- <field name="name">República Centro Africana</field> -->
+            <field name="medios_code">640</field>
+        </record>
+
+        <record id="base.cz" model="res.country">
+            <!-- <field name="name">República Checa</field> -->
+            <field name="medios_code">644</field>
+        </record>
+
+        <record id="base.cd" model="res.country">
+            <!-- <field name="name">República Democrática del Congo</field> -->
+            <field name="medios_code">177</field>
+        </record>
+
+        <record id="base.do" model="res.country">
+            <!-- <field name="name">República Dominicana</field> -->
+            <field name="medios_code">647</field>
+        </record>
+
+        <record id="base.re" model="res.country">
+            <!-- <field name="name">Reunión</field> -->
+            <field name="medios_code">660</field>
+        </record>
+
+        <record id="base.rw" model="res.country">
+            <!-- <field name="name">Ruanda</field> -->
+            <field name="medios_code">675</field>
+        </record>
+
+        <record id="base.ro" model="res.country">
+            <!-- <field name="name">Rumania</field> -->
+            <field name="medios_code">670</field>
+        </record>
+
+        <record id="base.ws" model="res.country">
+            <!-- <field name="name">Samoa</field> -->
+            <field name="medios_code">687</field>
+        </record>
+
+        <record id="base.as" model="res.country">
+            <!-- <field name="name">Samoa Americana</field> -->
+            <field name="medios_code">690</field>
+        </record>
+
+        <record id="base.bl" model="res.country">
+            <!-- <field name="name">San Bartolomé</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.kn" model="res.country">
+            <!-- <field name="name">San Cristóbal y Nieves</field> -->
+            <field name="medios_code">695</field>
+        </record>
+
+        <record id="base.sm" model="res.country">
+            <!-- <field name="name">San Marino</field> -->
+            <field name="medios_code">697</field>
+        </record>
+
+        <record id="base.sx" model="res.country">
+            <!-- <field name="name">San Martín (parte holandesa)</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.mf" model="res.country">
+            <!-- <field name="name">San Martín (zona francesa)</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.pm" model="res.country">
+            <!-- <field name="name">San Pierre y Miquelon</field> -->
+            <field name="medios_code">700</field>
+        </record>
+
+        <record id="base.vc" model="res.country">
+            <!-- <field name="name">San Vicente y las Granadinas</field> -->
+            <field name="medios_code">705</field>
+        </record>
+
+        <record id="base.sh" model="res.country">
+            <!-- <field name="name">Santa Elena, Ascensión y Tristán de Acuña </field> -->
+            <field name="medios_code">710</field>
+        </record>
+
+        <record id="base.lc" model="res.country">
+            <!-- <field name="name">Santa Lucía</field> -->
+            <field name="medios_code">715</field>
+        </record>
+
+        <record id="base.va" model="res.country">
+            <!-- <field name="name">Santa Sede (Ciudad Estado del Vaticano)</field> -->
+            <field name="medios_code">159</field>
+        </record>
+
+        <record id="base.st" model="res.country">
+            <!-- <field name="name">Santo Tomé y Príncipe</field> -->
+            <field name="medios_code">720</field>
+        </record>
+
+        <record id="base.sn" model="res.country">
+            <!-- <field name="name">Senegal</field> -->
+            <field name="medios_code">728</field>
+        </record>
+
+        <record id="base.rs" model="res.country">
+            <!-- <field name="name">Serbia</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.sc" model="res.country">
+            <!-- <field name="name">Seychelles</field> -->
+            <field name="medios_code">731</field>
+        </record>
+
+        <record id="base.sl" model="res.country">
+            <!-- <field name="name">Sierra Leona</field> -->
+            <field name="medios_code">735</field>
+        </record>
+
+        <record id="base.sg" model="res.country">
+            <!-- <field name="name">Singapur</field> -->
+            <field name="medios_code">741</field>
+        </record>
+
+        <record id="base.sy" model="res.country">
+            <!-- <field name="name">Siria</field> -->
+            <field name="medios_code">744</field>
+        </record>
+
+        <record id="base.so" model="res.country">
+            <!-- <field name="name">Somalia</field> -->
+            <field name="medios_code">748</field>
+        </record>
+
+        <record id="base.lk" model="res.country">
+            <!-- <field name="name">Sri Lanka</field> -->
+            <field name="medios_code">750</field>
+        </record>
+
+        <record id="base.sz" model="res.country">
+            <!-- <field name="name">Suazilandia</field> -->
+            <field name="medios_code">773</field>
+        </record>
+
+        <record id="base.za" model="res.country">
+            <!-- <field name="name">Sudáfrica</field> -->
+            <field name="medios_code">756</field>
+        </record>
+
+        <record id="base.sd" model="res.country">
+            <!-- <field name="name">Sudán</field> -->
+            <field name="medios_code">759</field>
+        </record>
+
+        <record id="base.ss" model="res.country">
+            <!-- <field name="name">Sudán del Sur</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.se" model="res.country">
+            <!-- <field name="name">Suecia</field> -->
+            <field name="medios_code">764</field>
+        </record>
+
+        <record id="base.ch" model="res.country">
+            <!-- <field name="name">Suiza</field> -->
+            <field name="medios_code">767</field>
+        </record>
+
+        <record id="base.sr" model="res.country">
+            <!-- <field name="name">Surinam</field> -->
+            <field name="medios_code">770</field>
+        </record>
+
+        <record id="base.sj" model="res.country">
+            <!-- <field name="name">Svalbard y Jan Mayen</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.eh" model="res.country">
+            <!-- <field name="name">Sáhara occidental</field> -->
+            <field name="medios_code">685</field>
+        </record>
+
+        <record id="base.th" model="res.country">
+            <!-- <field name="name">Tailandia</field> -->
+            <field name="medios_code">776</field>
+        </record>
+
+        <record id="base.tw" model="res.country">
+            <!-- <field name="name">Taiwán</field> -->
+            <field name="medios_code">218</field>
+        </record>
+
+        <record id="base.tj" model="res.country">
+            <!-- <field name="name">Tajikistán</field> -->
+            <field name="medios_code">774</field>
+        </record>
+
+        <record id="base.tz" model="res.country">
+            <!-- <field name="name">Tanzania</field> -->
+            <field name="medios_code">780</field>
+        </record>
+
+        <record id="base.io" model="res.country">
+            <!-- <field name="name">Territorio británico del Océano Índico</field> -->
+            <field name="medios_code">787</field>
+        </record>
+
+        <record id="base.tf" model="res.country">
+            <!-- <field name="name">Territorios franceses del sur</field> -->
+            <field name="medios_code"></field>
+        </record>
+
+        <record id="base.tl" model="res.country">
+            <!-- <field name="name">Timor Oriental</field> -->
+            <field name="medios_code">788</field>
+        </record>
+
+        <record id="base.tg" model="res.country">
+            <!-- <field name="name">Togo</field> -->
+            <field name="medios_code">800</field>
+        </record>
+
+        <record id="base.tk" model="res.country">
+            <!-- <field name="name">Tokelau</field> -->
+            <field name="medios_code">805</field>
+        </record>
+
+        <record id="base.to" model="res.country">
+            <!-- <field name="name">Tonga</field> -->
+            <field name="medios_code">810</field>
+        </record>
+
+        <record id="base.tt" model="res.country">
+            <!-- <field name="name">Trinidad y Tobago</field> -->
+            <field name="medios_code">815</field>
+        </record>
+
+        <record id="base.tm" model="res.country">
+            <!-- <field name="name">Turkmekistán</field> -->
+            <field name="medios_code">825</field>
+        </record>
+
+        <record id="base.tr" model="res.country">
+            <!-- <field name="name">Turquía</field> -->
+            <field name="medios_code">827</field>
+        </record>
+
+        <record id="base.tv" model="res.country">
+            <!-- <field name="name">Tuvalu</field> -->
+            <field name="medios_code">828</field>
+        </record>
+
+        <record id="base.tn" model="res.country">
+            <!-- <field name="name">Túnez</field> -->
+            <field name="medios_code">820</field>
+        </record>
+
+        <record id="base.ua" model="res.country">
+            <!-- <field name="name">Ucrania</field> -->
+            <field name="medios_code">830</field>
+        </record>
+
+        <record id="base.ug" model="res.country">
+            <!-- <field name="name">Uganda</field> -->
+            <field name="medios_code">833</field>
+        </record>
+
+        <record id="base.uy" model="res.country">
+            <!-- <field name="name">Uruguay</field> -->
+            <field name="medios_code">845</field>
+        </record>
+
+        <record id="base.uz" model="res.country">
+            <!-- <field name="name">Uzbekistán</field> -->
+            <field name="medios_code">847</field>
+        </record>
+
+        <record id="base.vu" model="res.country">
+            <!-- <field name="name">Vanuatu</field> -->
+            <field name="medios_code">551</field>
+        </record>
+
+        <record id="base.ve" model="res.country">
+            <!-- <field name="name">Venezuela</field> -->
+            <field name="medios_code">850</field>
+        </record>
+
+        <record id="base.vn" model="res.country">
+            <!-- <field name="name">Vietnam</field> -->
+            <field name="medios_code">855</field>
+        </record>
+
+        <record id="base.wf" model="res.country">
+            <!-- <field name="name">Wallis y Futuna</field> -->
+            <field name="medios_code">875</field>
+        </record>
+
+        <record id="base.ye" model="res.country">
+            <!-- <field name="name">Yemen</field> -->
+            <field name="medios_code">880</field>
+        </record>
+
+        <record id="base.dj" model="res.country">
+            <!-- <field name="name">Yibuti</field> -->
+            <field name="medios_code">783</field>
+        </record>
+
+        <record id="base.zm" model="res.country">
+            <!-- <field name="name">Zambia</field> -->
+            <field name="medios_code">890</field>
+        </record>
+
+        <record id="base.zw" model="res.country">
+            <!-- <field name="name">Zimbabwe</field> -->
+            <field name="medios_code">664</field>
+        </record>
+
+    </data>
+</odoo>

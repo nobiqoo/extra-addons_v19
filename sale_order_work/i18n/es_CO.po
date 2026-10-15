@@ -1,0 +1,256 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_order_work
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-04 20:20+0000\n"
+"PO-Revision-Date: 2024-07-04 20:20+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_period1
+msgid "1-30"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_period2
+msgid "31-60"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_period3
+msgid "61-90"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_period4
+msgid "91-120"
+msgstr ""
+
+#. module: sale_order_work
+#: model_terms:ir.ui.view,arch_db:sale_order_work.search_template_work
+msgid "<span class=\"fa fa-folder-open\"/> Obras"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.model,name:sale_order_work.model_account_report
+msgid "Accounting Report"
+msgstr "Informe financiero"
+
+#. module: sale_order_work
+#: model:ir.model,name:sale_order_work.model_account_aged_partner_balance_works_report_handler
+msgid "Aged Partner Balance Work Custom Handler"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_city_name
+msgid "Ciudad"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.model,name:sale_order_work.model_res_partner
+msgid "Contact"
+msgstr "Natural"
+
+#. module: sale_order_work
+#: model_terms:ir.actions.act_window,help:sale_order_work.action_sale_order_work_form
+msgid "Crear una Obra"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.model.fields,field_description:sale_order_work.field_sale_order_work__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.model.fields,field_description:sale_order_work.field_sale_order_work__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_account_name
+msgid "Cuenta"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.model.fields,field_description:sale_order_work.field_sale_order_work__description
+msgid "Descripción"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.model.fields,field_description:sale_order_work.field_sale_order_work__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_days_due
+msgid "Días Vencido"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_period0
+msgid "En Fecha"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_expected_date
+msgid "Fecha prevista"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_due_date
+msgid "Fecha vencimiento"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.model.fields,field_description:sale_order_work.field_sale_order_work__id
+msgid "ID"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_amount_currency
+msgid "Importe en moneda"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.model,name:sale_order_work.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.model,name:sale_order_work.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: sale_order_work
+#: model:ir.model.fields,field_description:sale_order_work.field_sale_order_work____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.model.fields,field_description:sale_order_work.field_sale_order_work__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.model.fields,field_description:sale_order_work.field_sale_order_work__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_currency
+msgid "Moneda"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_period5
+msgid "Más antiguos"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_vat
+msgid "NIT"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.model.fields,field_description:sale_order_work.field_sale_order_work__name
+msgid "Nombre"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_work_name
+#: model:ir.model.fields,field_description:sale_order_work.field_account_bank_statement_line__work_id
+#: model:ir.model.fields,field_description:sale_order_work.field_account_move__work_id
+#: model:ir.model.fields,field_description:sale_order_work.field_account_move_line__work_id
+#: model:ir.model.fields,field_description:sale_order_work.field_account_payment__work_id
+#: model:ir.model.fields,field_description:sale_order_work.field_res_partner__work_ids
+#: model:ir.model.fields,field_description:sale_order_work.field_res_users__work_ids
+#: model:ir.model.fields,field_description:sale_order_work.field_sale_order__work_id
+msgid "Obra"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.actions.act_window,name:sale_order_work.action_sale_order_work_form
+#: model:ir.ui.menu,name:sale_order_work.menu_sale_order_work_form
+msgid "Obras"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.model,name:sale_order_work.model_sale_order_work
+msgid "Obras Ventas"
+msgstr ""
+
+#. module: sale_order_work
+#. odoo-python
+#: code:addons/sale_order_work/models/account_aged_partner_balance_work.py:0
+#, python-format
+msgid "Receivable"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.actions.client,name:sale_order_work.action_account_report_pb_work
+#: model:ir.ui.menu,name:sale_order_work.menu_action_account_report_aged_partner_balance_work
+msgid "Reporte de Cartera (Obras)"
+msgstr ""
+
+#. module: sale_order_work
+#: model:ir.model,name:sale_order_work.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: sale_order_work
+#: model:ir.model.fields,field_description:sale_order_work.field_account_aged_partner_balance_works_report_handler__smart_search
+#: model:ir.model.fields,field_description:sale_order_work.field_account_move__smart_search
+#: model:ir.model.fields,field_description:sale_order_work.field_account_move_line__smart_search
+#: model:ir.model.fields,field_description:sale_order_work.field_account_report__smart_search
+#: model:ir.model.fields,field_description:sale_order_work.field_res_partner__smart_search
+#: model:ir.model.fields,field_description:sale_order_work.field_sale_order__smart_search
+#: model:ir.model.fields,field_description:sale_order_work.field_sale_order_work__smart_search
+msgid "Smart Search"
+msgstr "Búsqueda inteligente"
+
+#. module: sale_order_work
+#: model:ir.model.fields,field_description:sale_order_work.field_sale_order_work__partner_ids
+#: model_terms:ir.ui.view,arch_db:sale_order_work.view_sale_order_work_form
+msgid "Terceros"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_total
+msgid "Total"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report,name:sale_order_work.aged_partner_balance_work_report
+msgid "Vencido por Cobrar Obras II"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.line,name:sale_order_work.aged_receivable_works_line
+msgid "Vencido por cobrar"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.line,name:sale_order_work.aged_payable_works_line
+msgid "Vencido por pagar"
+msgstr ""
+
+#. module: sale_order_work
+#: model:account.report.column,name:sale_order_work.aged_p_balance_work_report_salesman_name
+msgid "Vendedor"
+msgstr ""
+
+#. module: sale_order_work
+#. odoo-javascript
+#: code:addons/sale_order_work/static/src/js/account_aged_partner_balance_works.js:0
+#, python-format
+msgid "Works"
+msgstr "Obras"

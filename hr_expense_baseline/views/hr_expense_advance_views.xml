@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_expense_advance_view_search" model="ir.ui.view">
+        <field name="name">hr.expense.advance.seah</field>
+        <field name="model">hr.expense.advance</field>
+        <field name="arch" type="xml">
+            <search string="Advances">
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_expense_advance_view_tree" model="ir.ui.view">
+        <field name="name">hr.expense.advance.tree</field>
+        <field name="model">hr.expense.advance</field>
+        <field name="arch" type="xml">
+            <list string="Advances" default_order="date desc, name desc">
+                <field name="date" invisible="1" />
+                <field name="name" />
+                <field name="employee_id" />
+                <field name="amount" />
+                <field name="currency_id" />
+                <field name="request_date" />
+                <field name="approval_date" />
+                <field name="due_date" />
+                <field name="state" string="State"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_expense_advance_view_form" model="ir.ui.view">
+        <field name="name">hr.expense.advance.view.form</field>
+        <field name="model">hr.expense.advance</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Send" type="object" class="btn btn-primary" name="action_send" invisible="state != 'draft'" />
+                    <button string="Approved" type="object" class="btn btn-primary" name="action_approved" invisible="state != 'pending_approval'" />
+                    <button string="Decline" type="object" class="btn btn-secondary" name="action_decline" invisible="state != 'pending_approval'" />
+                    <button string="Generate Advance" type="object" class="btn btn-primary" name="action_generate_advance" invisible="state != 'generate_advance'" />
+                    <button string="Change to Draft" type="object" class="btn btn-primary" name="action_draft" invisible="state not in ['pending_legalization','expired']" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,pending_approval,generate_advance,pending_legalization,approved,expired" clickable="True" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span>Name</span>
+                        <h1>
+                            <field name="name" readonly="1" nolabel="1" class="o_field_char o_field_widget o_required_modifier" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" widget="many2one" />
+                            <field name="director_id" />
+                            <field name="currency_id" />
+                            <field name="amount" />
+                            <field name="local_amount" readonly="1" />
+                            <field name="company_id" />
+                        </group>
+                        <group name="Date">
+                            <field name="request_date" />
+                            <field name="approval_date" readonly="1" />
+                            <field name="due_date" readonly="1" />
+                            <field name="paid_expense_ids" widget="many2many_tags" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description" nolabel="1" placeholder="Enter your description" readonly="state != 'draft'" />
+                        </page>
+                        <page string="account">
+                            <group>
+                                <group>
+                                    <field name="journal_id" required="state == 'generate_advance'" readonly="state != 'generate_advance'" />
+                                    <field name="date_accounting" required="state == 'generate_advance'" readonly="state != 'generate_advance'" />
+                                    <field name="voucher_out" widget="many2one" options="{'no_open': False}" />
+                                </group>
+                                <group>
+                                    <field name="account_payable" readonly="1" />
+                                    <field name="account_receivable" readonly= "1" />
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="o_attachment_preview" />
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_expense_advance" model="ir.actions.act_window">
+        <field name="name">Advances</field>
+        <field name="res_model">hr.expense.advance</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="hr_expense_advance_view_tree" />
+    </record>
+
+    <menuitem id="menu_hr_expense_advance" name="Advances" action="action_hr_expense_advance" parent="hr_expense.menu_hr_expense_my_expenses" sequence="10" />
+</odoo>

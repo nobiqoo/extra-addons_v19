@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_bank_txt_config_all,res.bank.txt_config.all,model_res_bank_txt_config,base.group_user,1,0,0,0
+access_res_bank_txt_config,res.bank.txt_config,model_res_bank_txt_config,account.group_account_manager,1,1,1,1
+
+access_res_bank_txt_config_line_all,res.bank.txt_config.line.all,model_res_bank_txt_config_line,base.group_user,1,0,0,0
+access_res_bank_txt_config_line,res.bank.txt_config.line,model_res_bank_txt_config_line,account.group_account_manager,1,1,1,1
+
+access_res_bank_txt_select_wizard_all,res_bank_txt_select_wizard_all,model_res_bank_txt_select_wizard,base.group_user,1,1,1,1
+access_account_payment_line_temp_all,account_payment_line_temp_all,model_account_payment_line_temp,base.group_user,1,1,1,1

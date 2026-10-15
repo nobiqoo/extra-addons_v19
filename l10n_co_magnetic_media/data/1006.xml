@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- 1006 -->
+        <record id="form_1006" model="mag.media">
+            <field name="code">1006</field>
+            <field name="name">1006 - IVA Generado</field>
+            <field name="smaller_amount">0</field>
+            <field name="query">
+WITH principal AS (
+    SELECT
+        mm.smaller_amount as Mini,
+        it.dian_code as A,
+        rp.vat as B,
+        rp.l10n_co_verification_code as C,
+        rp.lastname1 as D,
+        rp.lastname2 as E,
+        rp.name1 as F,
+        rp.name2 as G,
+        rp.name as H,
+        (
+        CASE WHEN mmlc.sequence = 'I' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'I' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'I' AND mmlc.type = 'sf' THEN SUM(aml.credit-aml.debit)
+        WHEN mmlc.sequence = 'I' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+        ) as I,
+        (
+        CASE WHEN mmlc.sequence = 'J' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'J' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'J' AND mmlc.type = 'sf' THEN SUM(aml.credit-aml.debit)
+        WHEN mmlc.sequence = 'J' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+        ) as J,
+        (
+        CASE WHEN mmlc.sequence = 'K' AND mmlc.type = 'd' THEN SUM(aml.debit)
+        WHEN mmlc.sequence = 'K' AND mmlc.type = 'c' THEN SUM(aml.credit)
+        WHEN mmlc.sequence = 'K' AND mmlc.type = 'sf' THEN SUM(aml.credit-aml.debit)
+        WHEN mmlc.sequence = 'K' AND mmlc.type = 'bi' THEN SUM(aml.tax_base_amount) END
+        ) as K
+    FROM mag_media mm
+    INNER JOIN mag_media_lines mml ON mml.magnetic_id = mm.id
+    INNER JOIN mag_media_lines_concepts mmlc ON mmlc.line_id = mml.id
+    inner join (
+        select aammlcr.account_account_id as account_id, aammlcr.mag_media_lines_concepts_id as concept_id
+        from account_account_mag_media_lines_concepts_rel aammlcr
+        union all
+        select aaat.account_account_id as account_id, mmlcaat.concept_ids as concept_id
+        from mag_media_lines_concepts_account_account_tag mmlcaat
+        inner join account_account_tag aat on aat.id = mmlcaat.tag_ids
+        inner join account_account_account_tag aaat on aaat.account_account_tag_id = aat.id
+    ) as aa on aa.concept_id = mmlc.id
+    INNER JOIN account_move_line aml ON aml.account_id = aa.account_id
+    LEFT JOIN res_partner rp ON rp.id = aml.partner_id
+    LEFT JOIN l10n_latam_identification_type it ON it.id = rp.l10n_latam_identification_type_id
+    LEFT JOIN res_country_state rcs ON rcs.id = rp.state_id
+    LEFT JOIN res_city rcsc ON rcsc.id = rp.city_id
+    LEFT JOIN res_country rc ON rc.id = rp.country_id
+    WHERE
+        mm.id = {id}
+        AND aml.date BETWEEN '{date_from}' AND '{date_to}'
+        AND aml.parent_state = 'posted'
+        AND aml.company_id = {company_id}
+    GROUP BY
+        mml.code,
+        it.dian_code,
+        rp.vat,
+        rp.l10n_co_verification_code,
+        rp.name1,
+        rp.name2,
+        rp.lastname1,
+        rp.lastname2,
+        rp.name,
+        mmlc.sequence,
+        mmlc.type,
+        mm.smaller_amount
+)
+SELECT
+    A as "Tipo documento",
+    B as "Número identificación del informado",
+    C as "DV",
+    D as "Primer apellido del informado",
+    E as "Segundo apellido del informado",
+    F as "Primer nombre del informado",
+    G as "Segundo nombre del informado",
+    H as "Razón social del informado",
+    SUM(I) as "Impuesto (iva) generado",
+    SUM(J) as "IVA recuperado por operaciones en devoluciones en compras anuladas, rescindidas o resueltas",
+    SUM(K) as "Impuesto al consumo generado"
+FROM (
+    SELECT A, B, C, D, E, F, G, H, SUM(I) AS I, SUM(J) AS J, SUM(K) AS K
+    FROM principal
+    GROUP BY A, B, C, D, E, F, G, H, Mini
+--    HAVING	SUM(I) &gt;= Mini::float
+
+-- UNION
+
+-- SELECT
+--    '43' as A,
+--    '222222222' as B,
+--    '7' as C,
+--    '' as D,
+--    '' as E,
+--    '' as F,
+--    '' as G,
+--    'CUANTIAS MENORES' as H,
+--    SUM(I) as I,
+--    SUM(J) as J,
+--    SUM(K) as K
+-- FROM (
+--	SELECT Mini, A, B, C, D, E, F, G, H, SUM(I) AS I, SUM(J) AS J, SUM(K) AS K
+--	FROM principal
+--	GROUP BY A, B, C, D, E, F, G, H, Mini
+--	HAVING	SUM(I) &lt; Mini::float
+--) AS cm
+--GROUP BY Mini
+) AS datos
+GROUP BY A, B, C, D, E, F, G, H
+ORDER BY B
+            -- HAVING SUM(I) &gt; 0
+            </field>
+        </record>
+    </data>
+</odoo>

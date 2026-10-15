@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="payroll_template_report">
+			<t t-foreach="docs" t-as="doc">
+				<t t-call="web.basic_layout">
+				    <t t-set="currency" t-value="doc.company_id.currency_id.symbol"/>
+					<t t-set="decimal_places" t-value="doc.company_id.decimal_in_payroll_pdf or 0"/>
+					<div class="page">
+						<div class="header">
+							<style>
+								table {
+								width:100%;
+								border: none;
+								}
+								.tabla-recuadro-gris-claro {
+								background-color: #eeeef0;
+								}
+
+								.tabla-recuadro-azul {
+								background-color: #1B3C70;
+								color: white;
+								border: 1px solid rgba(255, 255, 255, 0.1);
+								}
+
+								.tabla-recuadro-blanco {
+								background-color: white;
+								color: black;
+								}
+								.datos-nomina-encabezado-gris td {
+								padding: 2px 5px;
+								border: 3px solid white !important;
+								}
+
+								.datos-nomina-empleado-documento td {
+								padding: 2px 5px;
+								border: 1px solid rgba(255, 255, 255, 0.1);
+								}
+								.datos-nomina-encabezado-gris b {
+								color: #60605e;
+								}
+								p {
+								font-size: 14px;
+								line-height:16px;
+								}
+								.datos-empleado .tabla-recuadro-blanco-letrazul b {
+								color: #1B3C70;
+								}
+								.tabla-company td {
+									border: 1px solid rgba(255, 255, 255, 0.1);
+									vertical-align: middle;
+									padding: 3px 6px;
+								}
+								/* Caja del logo. t-field con widget "image" genera una
+								   etiqueta img sin atributos de estilo, asi que el tamaño
+								   hay que imponerlo sobre la imagen, no sobre el parrafo
+								   contenedor. Se usa max-width/max-height (y no
+								   object-fit, que wkhtmltopdf no soporta) para escalar
+								   conservando la proporcion y no invadir la celda de
+								   datos de la compañia. */
+								.logo-company {
+									display: block;
+									height: 110px;
+									line-height: 110px;
+									margin: 0;
+									text-align: center;
+								}
+								.logo-company img {
+									max-width: 100%;
+									max-height: 100%;
+									width: auto;
+									height: auto;
+									vertical-align: middle;
+								}
+								.datos-company {
+									margin: 0;
+									font-size: 12px;
+									line-height: 15px;
+									word-wrap: break-word;
+								}
+								.datos-company .nombre-company {
+									font-size: 14px;
+								}
+							</style>
+							<div class="row">
+								<div class="col-6">
+									<table class="tabla-company" style="width:100%;">
+										<tr>
+										<!-- LOGO -->
+											<td style="width:35%;">
+												<p name="logo_company_component" class="logo-company" t-field="doc.company_id.logo" t-options-widget="&quot;image&quot;"/>
+											</td>
+										<!-- DATOS DE LA EMPRESA -->
+											<td style="width:65%;">
+												<p class="datos-company">
+												<strong class="nombre-company">
+													<span t-field="doc.company_id.name"/>
+												</strong>
+													<br/>
+													<span t-field="doc.company_id.vat"/>
+													<br/>
+													<span t-field="doc.company_id.phone"/>
+													<br/>
+													<span t-field="doc.company_id.street"/>
+												</p>
+											</td>
+										</tr>
+									</table>
+								</div>
+								<div class="col-6">
+									<table class="datos-nomina-encabezado-gris">
+										<tr>
+											<td class="text-right">
+												<b>Comprobante: </b>
+											</td>
+											<td class="tabla-recuadro-gris-claro">
+												<span class="comprobante-campo" t-field="doc.employee_id.identification_id"/>
+											</td>
+										</tr>
+										<tr>
+											<td class="text-right">
+												<b>Referencia: </b>
+											</td>
+											<td class="tabla-recuadro-gris-claro">
+												<span class="referencia-comprobante-campo" t-field="doc.name"/>
+											</td>
+										</tr>
+										<tr>
+											<td class="text-right">
+												<b>Período: </b>
+											</td>
+											<td class="tabla-recuadro-gris-claro">
+												<span class="periodo-campo" t-field="doc.period_id"/>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="page">
+							<style>
+                                p {
+                                    margin:0px;
+                                }
+								.row {
+								margin-bottom:10px;
+								}
+								table {
+								width:100%;
+								}
+								.tabla-recuadro-gris-claro {
+								background-color: #eeeef0;
+								}
+
+								.tabla-recuadro-azul {
+								background-color: #1B3C70;
+								color: white;
+								}
+
+								.tabla-recuadro-blanco {
+								background-color: white;
+								color: black;
+								}
+								.datos-nomina-encabezado-gris td {
+								padding: 2px 5px;
+								border: 3px solid white !important;
+								}
+
+								.datos-nomina-empleado-documento td {
+								padding: 2px 5px;
+								}
+								.datos-nomina-encabezado-gris b {
+								color: #60605e;
+								}
+								p {
+								font-size: 12px;
+								line-height:14px;
+								}
+								.datos-empleado .tabla-recuadro-blanco-letrazul b {
+								color: #1B3C70;
+								}
+								.tabla-detalle-nomina td {
+                                margin:0 5px;
+								padding: 5px 5px;
+								border: 1px solid rgba(255, 255, 255, 0.1);
+								}
+								.tabla-detalle-nomina .detalle-titulo {
+								background-color: #6E6E6E;
+								color:white;
+								}
+								.tabla-detalle-nomina .detalle-nct {
+								background-color: #CECCCD;
+								color:#6E6E6E;
+								}
+								.detalle-nct-valores {
+								background-color: #EEEEF0;
+                                font-size:12px;
+								}
+                                .detalle-nct-valores  {
+                                    border: 1px solid white;
+                                }
+								.total-neto-a-pagar {
+								background-color: #9AB6E2;
+								color: #1B3C70;
+								}
+								.declaro-texto-liquidacion {
+									text-align: justify
+								}
+                                .tabla-neto-pagar .detalle-nct-valores td {
+                                    padding:2px;
+                                }
+								.pie_total_dev_ded td {
+									background-color:#999999;
+									color: white;
+								}
+							</style>
+							<div class="container">
+								<div class="row">
+									<div class="col-12" style="background-color: #1B3C70; padding:5px; border: 1px solid rgba(255, 255, 255, 0.1);">
+										<table class="datos-nomina-empleado-documento">
+											<tr>
+												<td width="10%" class="tabla-recuadro-azul" style="border: 1px solid rgba(255, 255, 255, 0.1);">
+													<b>Empleado: </b>
+												</td>
+												<td width="40%" class="tabla-recuadro-blanco" style="border: 1px solid rgba(255, 255, 255, 0.1);">
+													<span class="empleado-campo" t-field="doc.employee_id"/>
+												</td>
+												<td width="10%" class="tabla-recuadro-azul" style="border: 1px solid rgba(255, 255, 255, 0.1);">
+													<b>Documento: </b>
+												</td>
+												<td width="40%" class="tabla-recuadro-blanco">Comprobante
+													de <span t-field="doc.payslip_type_id.category"/></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="row datos-empleado">
+									<div class="col-5">
+										<table class="datos-nomina-encabezado-gris">
+											<tr>
+												<td width="15%" class="tabla-recuadro-blanco-letrazul">
+													<b>Email: </b>
+												</td>
+												<td width="85%" class="tabla-recuadro-gris-claro">
+													<span class="email" t-field="doc.employee_id.work_email"/>
+												</td>
+											</tr>
+										</table>
+										<table class="datos-nomina-encabezado-gris">
+											<tr>
+												<td width="15%" class="tabla-recuadro-blanco-letrazul">
+													<b>Cargo: </b>
+												</td>
+												<td width="85%" class="tabla-recuadro-gris-claro">
+													<span class="cargo-campo" t-field="doc.contract_id.job_id"/>
+												</td>
+											</tr>
+										</table>
+										<table class="datos-nomina-encabezado-gris">
+											<tr>
+												<td width="60%" class="tabla-recuadro-blanco-letrazul">
+													<b>Tipo de contrato: </b>
+												</td>
+												<td width="40%" class="tabla-recuadro-gris-claro">
+													<span class="cargo-campo" t-field="doc.contract_id.term"/>
+												</td>
+											</tr>
+										</table>
+										<table class="datos-nomina-encabezado-gris">
+											<tr>
+												<td width="60%" class="tabla-recuadro-blanco-letrazul">
+													<b>Cuenta bancaria: </b>
+												</td>
+												<td width="40%" class="tabla-recuadro-gris-claro">
+													<span class="cuenta-bancaria-campo"> ******** <!-- 
+														<span t-esc="doc.employee_id.bank_account_id.acc_number[7:]" />
+													-->
+													</span>
+												</td>
+											</tr>
+										</table>
+										<table t-if="doc.payslip_type_id.category == 'LIQ'" class="datos-nomina-encabezado-gris">
+											<tr>
+												<td width="60%" class="tabla-recuadro-blanco-letrazul">
+													<b>Tiempo laborado: </b>
+												</td>
+												<td width="40%" class="tabla-recuadro-gris-claro">
+													<span t-esc="doc.contract_id._get_worked_days()"/>
+													<span>días</span>
+												</td>
+											</tr>
+										</table>
+										<table t-if="doc.payslip_type_id.category == 'VAC'" class="datos-nomina-encabezado-gris">
+											<tr>
+												<td width="60%" class="tabla-recuadro-blanco-letrazul">
+													<b>Fecha inicio vacaciones: </b>
+												</td>
+												<td width="40%" class="tabla-recuadro-gris-claro">
+													<t t-foreach="doc.earnings_ids" t-as="dev">
+														<span t-field="dev.leave_id.date_start"/>
+													</t>
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div class="col-7">
+										<table class="datos-nomina-encabezado-gris">
+											<tr>
+												<td width="20%" class="tabla-recuadro-blanco-letrazul">
+													<b>Contrato: </b>
+												</td>
+												<td width="80%" class="tabla-recuadro-gris-claro">
+													<span class="contrato-campo">
+														<span t-field="doc.contract_id.name"/>
+													</span>
+												</td>
+											</tr>
+										</table>
+										<table class="datos-nomina-encabezado-gris">
+											<tr>
+												<td width="50%" class="tabla-recuadro-blanco-letrazul">
+													<b>Salario Básico Mensual: </b>
+												</td>
+												<td width="50%" class="tabla-recuadro-gris-claro">
+													<span class="salario-basico-campo" t-field="doc.contract_id.wage"/>
+												</td>
+											</tr>
+										</table>
+										<table>
+											<tr class="datos-nomina-encabezado-gris">
+												<td width="50%" class="tabla-recuadro-blanco-letrazul">
+													<b>Fecha inicio contrato: </b>
+												</td>
+												<td width="50%" class="tabla-recuadro-gris-claro">
+													<span class="fecha-inicio-contrato" t-field="doc.contract_id.date_start"/>
+												</td>
+											</tr>
+										</table>
+										<table t-if="doc.payslip_type_id.category == 'LIQ'">
+											<tr class="datos-nomina-encabezado-gris">
+												<td width="50%" class="tabla-recuadro-blanco-letrazul">
+													<b>Fecha de retiro: </b>
+												</td>
+												<td width="50%" class="tabla-recuadro-gris-claro">
+													<span class="fecha-inicio-contrato" t-field="doc.contract_id.settlement_date"/>
+												</td>
+											</tr>
+										</table>
+										<table t-if="doc.payslip_type_id.category == 'LIQ' and doc.company_id.show_settlement_type_in_report">
+											<tr class="datos-nomina-encabezado-gris">
+												<td width="50%" class="tabla-recuadro-blanco-letrazul">
+													<b>Tipo de finalización: </b>
+												</td>
+												<td width="50%" class="tabla-recuadro-gris-claro">
+													<span class="fecha-inicio-contrato" t-field="doc.contract_id.settlement_type"/>
+												</td>
+											</tr>
+										</table>
+										<table t-if="doc.payslip_type_id.category == 'VAC'" class="datos-nomina-encabezado-gris">
+											<tr>
+												<td width="50%" class="tabla-recuadro-blanco-letrazul">
+													<b>Fecha fin vacaciones: </b>
+												</td>
+												<td width="50%" class="tabla-recuadro-gris-claro">
+													<t t-foreach="doc.earnings_ids" t-as="dev">
+														<span t-field="dev.leave_id.date_end"/>
+													</t>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-6">
+										<table class="tabla-detalle-nomina">
+											<tr>
+												<td colspan="4" class="text-center detalle-titulo">
+													<b>Devengos</b>
+												</td>
+											</tr>
+											<tr>
+												<td class="text-center detalle-nct" style="width:135px;">
+													<b>Nombre</b>
+												</td>
+												<t t-if="doc.company_id.include_social_base_report">
+													<td class="text-center detalle-nct" style="width:43px;">
+														<b>Base</b>
+													</td>
+												</t>
+												<td class="text-center detalle-nct" style="width:43px;">
+													<b>Cantidad</b>
+												</td>
+												<td class="text-center detalle-nct" style="width:43px;">
+													<b>Total</b>
+												</td>
+											</tr>
+                                            <t t-set="total_devengos" t-value="0"/>
+											<t t-foreach="doc.earnings_ids" t-as="dev">
+                                                <t t-set="total_devengos" t-value="total_devengos + dev.total"/>
+												<tr class="detalle-nct-valores">
+													<td>
+														<span t-esc="dev.name"/>
+													</td>
+													<t t-if="doc.company_id.include_social_base_report">
+														<t t-if="dev.concept_id.code in ('PRIMA', 'CES', 'PRIMA_LIQ', 'CES_LIQ', 'ICES', 'ICES_LIQ')">
+															<td>
+																<p style="text-align:right;"><span t-esc="'{0} {1:,.{2}f}'.format(currency, dev.value, decimal_places)"/></p>
+															</td>
+														</t>
+														<t t-else="">
+															<td>
+															</td>
+														</t>
+													</t>
+													<td>
+														<t t-if="dev.overtime_id.qty">
+															<p style="text-align:right;"><span t-esc="dev.overtime_id.qty"/></p>
+														</t>
+														<t t-else="">
+															<p style="text-align:right;"><span t-esc="round(dev.qty,2)"/></p>
+														</t>
+													</td>
+													<t t-if="doc.company_id.include_social_base_report">
+														<td class="text-right">
+															<p style="text-align:right;"><span t-esc="'{0} {1:,.{2}f}'.format(currency, dev.total, decimal_places)"/></p>
+														</td>
+													</t>
+													<t t-else="">
+														<td class="text-right">
+															<p style="text-align:right;"><span t-esc="'{0} {1:,.{2}f}'.format(currency, dev.total, decimal_places)"/></p>
+														</td>
+													</t>
+												</tr>
+											</t>
+                                            <tfoot class="pie_total_dev_ded" t-if="doc.payslip_type_id.category == 'LIQ' and not doc.company_id.include_social_base_report">
+                                                <tr>
+                                                    <td>
+                                                        <p><b>TOTAL DEVENGOS</b></p>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        <p style="text-align:right;"><b t-esc="'{0} {1:,.{2}f}'.format(currency, total_devengos, decimal_places)"/></p>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+											<tfoot class="pie_total_dev_ded" t-if="doc.payslip_type_id.category == 'LIQ' and doc.company_id.include_social_base_report">
+                                                <tr>
+                                                    <td>
+                                                        <p><b>TOTAL DEVENGOS</b></p>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <p style="text-align:right;"><b t-esc="'{0} {1:,.{2}f}'.format(currency, total_devengos, decimal_places)"/></p>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+										</table>
+									</div>
+									<div class="col-6">
+										<table class="tabla-detalle-nomina">
+											<tr>
+												<td colspan="3" class="text-center detalle-titulo">
+													<b>Deducciones</b>
+												</td>
+											</tr>
+											<tr>
+												<td class="text-center detalle-nct">
+													<b>Nombre</b>
+												</td>
+												<td class="text-center detalle-nct">
+													<b>Cantidad</b>
+												</td>
+												<td class="text-center detalle-nct">
+													<b>Total</b>
+												</td>
+											</tr>
+                                            <t t-set="total_deducciones" t-value="0"/>
+											<t t-foreach="doc.deductions_ids" t-as="ded">
+                                                <t t-set="total_deducciones" t-value="total_deducciones + ded.total"/>
+												<tr class="detalle-nct-valores">
+													<td>
+														<span t-esc="ded.name"/>
+													</td>
+													<td class="text-center">
+														<span t-esc="ded.qty"/>
+													</td>
+													<td class="text-right">
+														<p style="text-align:right;"><span>
+															
+														</span>
+														<span t-esc="'{0} {1:,.{2}f}'.format(currency, ded.total, decimal_places)"/></p>
+													</td>
+												</tr>
+												<t t-if="doc.company_id.show_loan_balance_in_payslip and ded.novelty_id.loan_id">
+													<tr class="detalle-nct-valores">
+														<td colspan="2" style="font-size:11px; color:#333; padding-left:15px;">
+															<i>Saldo pendiente préstamo:</i>
+														</td>
+														<td class="text-right" style="font-size:11px; color:#333;">
+															<p style="text-align:right;"><i><span t-esc="'{0} {1:,.{2}f}'.format(currency, ded.novelty_id.loan_id.paid_balance, decimal_places)"/></i></p>
+														</td>
+													</tr>
+												</t>
+											</t>
+                                            <tfoot class="pie_total_dev_ded" t-if="doc.payslip_type_id.category == 'LIQ'">
+                                                <tr>
+                                                    <td>
+                                                        <p><b>TOTAL DEDUCCIONES</b></p>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        <p style="text-align:right;"><b t-esc="'{0} {1:,.{2}f}'.format(currency, total_deducciones, decimal_places)"/></p>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+										</table>
+										<table class="tabla-detalle-nomina tabla-neto-pagar">
+											<tr>
+												<td colspan="3" class="text-center detalle-titulo">
+													<b>Neto</b>
+												</td>
+											</tr>
+											<tr>
+												<td class="text-center detalle-nct">
+													<b>Nombre</b>
+												</td>
+												<td class="text-center detalle-nct">
+													<b>Cantidad</b>
+												</td>
+												<td class="text-center detalle-nct">
+													<b>Total</b>
+												</td>
+											</tr>
+											<t t-foreach="doc.outcome_ids" t-as="out">
+												<tr class="detalle-nct-valores">
+													<td>
+														<t t-if="out.concept_id.code in ('NETO', 'NETO_LIQ', 'NETO_GT')">
+															<span t-field="out.name"/>
+														</t>
+													</td>
+													<td class="text-center">
+														<t t-if="out.concept_id.code in ('NETO', 'NETO_LIQ', 'NETO_GT')">
+															<span t-esc="out.qty"/>
+														</t>
+													</td>
+													<td class="text-right">
+														<t t-if="out.concept_id.code in ('NETO', 'NETO_LIQ', 'NETO_GT')">
+															<table>
+																<tr>
+																	<td class="text-right">
+																		<p style="text-align:right;"><span>
+																			
+																		</span>
+																		<span t-esc="'{0} {1:,.{2}f}'.format(currency, out.total, decimal_places)"/></p>
+																	</td>
+																</tr>
+															</table>
+														</t>
+													</td>
+												</tr>
+											</t>
+										</table>
+										<table class="tabla-detalle-nomina">
+											<tr class="total-neto-a-pagar">
+												<td colspan="2">
+													<b>Neto a pagar:</b>
+												</td>
+												<td>
+													<t t-set="neto_amount" t-value="sum([line.total for line in doc.outcome_ids if line.concept_id.code in ('NETO', 'NETO_LIQ', 'NETO_GT')])"/>
+													<t t-if="neto_amount &gt; 0">
+														<table>
+															<tr>
+																<td class="text-right">
+																	<p style="text-align:right;"><span>
+																		
+																	</span>
+																	<span t-esc="'{0} {1:,.{2}f}'.format(currency, neto_amount, decimal_places)"/></p>
+																</td>
+															</tr>
+														</table>
+													</t>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<!-- Bloque original de firma (nóminas NO liquidación o liquidación SIN constancia personalizada) -->
+								<t t-if="doc.payslip_type_id.category != 'LIQ' or not doc.company_id.use_custom_settlement_constancy">
+									<div class="row">
+										<div class="col-12">
+											<br/>
+											<br/>
+											<br/>
+											<hr style="border:2px solid #CCCCCC"/>
+											<span class="nombre-empleado-firma">
+												<center><span t-field="doc.employee_id"/><br/> Cédula de
+													ciudadanía <span t-field="doc.employee_id.identification_id"/></center>
+											</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12 declaro-texto-liquidacion">
+											<t t-if="doc.payslip_type_id.category == 'LIQ'">
+												<t t-if="doc.company_id.use_liquidation_custom_footer">
+													<br/>
+													<span class="declaro-texto-liquidacion">
+														<span t-field="doc.company_id.liquidation_payslip_sign_text"/>
+													</span>
+													<br/>
+													<div style="margin-top: 10px; page-break-inside: avoid;">
+														<t t-set="liquidation_signature" t-value="doc.company_id.liquidation_payslip_sign or doc.company_id.work_certificate_sign"/>
+														<img t-if="liquidation_signature" t-att-src="image_data_uri(liquidation_signature)" style="max-width: 180px; max-height: 100px;" alt="Firma Talento Humano"/>
+														<div style="margin-top: 6px;">
+														<t t-if="doc.company_id.liquidation_payslip_text">
+															<span t-field="doc.company_id.liquidation_payslip_text"/>
+														</t>
+														<t t-else="">
+															<span>Talento Humano</span>
+														</t>
+														</div>
+													</div>
+												</t>
+												<t t-else="">
+													<span class="declaro-texto-liquidacion"> Declaro que <span t-field="doc.company_id.name"/> , canceló conforme a la
+														ley y a lo convenido los salarios, recargos por trabajo
+														extra, trabajo nocturno, en dominicales o festivos,
+														reconocimiento de compensatorios todo tipo de viáticos
+														permanentes y/o ocasionales, gastos de representación,
+														auxilios legales y extra legales, articulo 21 ley 50/90,
+														vacaciones, licencias, bonificaciones, auxilio de cesantías,
+														intereses a las cesantías, primas legales y extralegales
+														cuando a ello había lugar, beneficios extralegales,
+														dotaciones; todo lo cual fue recibido a entera satisfacción. </span>
+												</t>
+											</t>
+										</div>
+									</div>
+									<div t-if="doc.payslip_type_id.category == 'LIQ' and doc.company_id.show_prepared_by" class="row" style="margin-top: 30px; page-break-inside: avoid;">
+										<div class="col-12 declaro-texto-liquidacion">
+											<span>Elaborado por: </span>
+											<span t-if="doc.company_id.prepared_by_name" t-field="doc.company_id.prepared_by_name"/>
+											<span t-else="">______________________</span>
+										</div>
+									</div>
+								</t>
+								<!-- Bloque constancia personalizada de liquidación -->
+								<t t-if="doc.payslip_type_id.category == 'LIQ' and doc.company_id.use_custom_settlement_constancy">
+									<div class="row" style="margin-top:50px;">
+										<div class="col-12">
+											<table style="width:100%; border-collapse:collapse; font-size:11px;">
+												<!-- <tr>
+													<td colspan="3" style="background-color:#D9D9D9; border:1px solid #999; padding:4px 6px; font-weight:bold;">
+														CONSTANCIAS - Se hace constar expresamente los siguiente:
+													</td>
+												</tr> -->
+												<tr>
+													<td colspan="3" style="border:1px solid #999; padding:6px; text-align:justify;">
+														<t t-out="doc.company_id.settlement_constancy_text"/>
+													</td>
+												</tr>
+												<tr>
+													<td style="border:1px solid #999; padding:20px 6px 6px 6px; width:33%; font-weight:bold; vertical-align:top;">
+														ELABORÓ:
+														<span t-if="doc.company_id.show_prepared_by and doc.company_id.prepared_by_name" style="font-weight:normal;" t-field="doc.company_id.prepared_by_name"/>
+													</td>
+													<td style="border:1px solid #999; padding:20px 6px 6px 6px; width:34%; font-weight:bold; vertical-align:top;">
+														REVISÓ:
+													</td>
+													<td style="border:1px solid #999; padding:20px 6px 6px 6px; width:33%; font-weight:bold; vertical-align:top;">
+														APROBÓ:
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<div style="margin-top:30px; font-size:11px;">
+										<div style="display:inline-block; width:48%; vertical-align:top;">
+											<div style="margin-bottom:8px;">
+												<span style="font-weight:bold; display:inline-block; width:120px;">Firma colaborador</span>
+												<span style="display:inline-block; width:55%; border-bottom:1px solid #333;">&#160;</span>
+											</div>
+											<div>
+												<span style="font-weight:bold; display:inline-block; width:120px;">Cédula o NIT</span>
+												<span t-esc="doc.employee_id.partner_id.vat" />
+											</div>
+										</div>
+										<div style="display:inline-block; width:48%; vertical-align:top;">
+											<div style="margin-bottom:8px;">
+												<span style="font-weight:bold; display:inline-block; width:120px;">Firma empresa</span>
+												<span style="display:inline-block; width:55%; border-bottom:1px solid #333;">&#160;</span>
+											</div>
+											<div>
+												<span style="font-weight:bold; display:inline-block; width:120px;">NIT</span>
+												<span t-esc="doc.company_id.partner_id.vat" />
+											</div>
+											<div style="margin-top:10px; text-align:right;">
+												<b>Fecha de elaboración:  </b>
+												<span t-esc="doc.liquidation_date.strftime('%d/%m/%Y') if doc.liquidation_date else ''"/>
+											</div>
+										</div>
+									</div>
+								</t>
+							</div>
+						</div>
+					</div>
+					<p style="page-break-after: always;"/>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>

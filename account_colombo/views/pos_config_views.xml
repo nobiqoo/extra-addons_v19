@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Tarea 10340: la sede se define por caja, no por pedido. El cajero no
+         la elige ni ve la tarifa: el frontend agrega el ReteICA a cada línea.
+         El ajuste vive en Punto de venta -> Configuración -> Ajustes, que es
+         donde se configura la caja en Odoo 19; el formulario de pos.config
+         apenas se usa. -->
+    <record id="res_config_settings_view_form_operation_site" model="ir.ui.view">
+        <field name="name">res.config.settings.form.pos.operation.site</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='pos_accounting_section']" position="inside">
+                <setting id="pos_operation_site"
+                         string="Sede de Operación"
+                         help="Sede desde la que opera esta caja. Las líneas del pedido nacen con el ReteICA de venta configurado en la sede, además de los impuestos del producto.">
+                    <field name="pos_has_active_session" invisible="1"/>
+                    <!-- Con la caja abierta el navegador ya cargó el impuesto:
+                         cambiar la sede ahí dejaría el ticket y la contabilidad
+                         con tarifas distintas hasta cerrar la sesión. -->
+                    <field name="pos_operation_site_id"
+                           readonly="pos_has_active_session"
+                           options="{'no_create': True, 'no_open': True}"/>
+                    <div class="text-warning" invisible="not pos_has_active_session">
+                        Cierre la sesión de caja para cambiar la sede.
+                    </div>
+                    <div class="content-group mt16" invisible="not pos_operation_site_id">
+                        <div class="row">
+                            <label string="ReteICA aplicado" for="pos_reteica_tax_id"
+                                   class="col-lg-3 o_light_label"/>
+                            <field name="pos_reteica_tax_id" readonly="1"/>
+                        </div>
+                        <div>
+                            <button name="%(account_colombo.action_account_operation_site)d"
+                                    icon="oi-arrow-right" type="action"
+                                    string="Sedes de Operación" class="btn-link"/>
+                        </div>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- El mismo dato queda visible en la ficha del punto de venta, para
+         quien administre las cajas desde Configuración -> Punto de venta. -->
+    <record id="pos_config_view_form_operation_site" model="ir.ui.view">
+        <field name="name">pos.config.form.operation.site</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='configuration']/div[hasclass('o_settings_container')]" position="inside">
+                <setting string="Sede de Operación"
+                         help="Sede desde la que opera esta caja. Determina el ReteICA que se aplica a las líneas del pedido.">
+                    <field name="operation_site_id" readonly="has_active_session"
+                           options="{'no_create': True, 'no_open': True}"/>
+                    <div class="text-muted" invisible="not operation_site_id">
+                        ReteICA aplicado: <field name="reteica_tax_id" readonly="1" nolabel="1" class="oe_inline"/>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

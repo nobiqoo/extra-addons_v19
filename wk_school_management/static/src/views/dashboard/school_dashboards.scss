@@ -1,0 +1,82 @@
+.main_container{
+    background-color: #F0F4F8;
+    padding: 2% 6%;
+}
+
+.dashboard_header{
+    font-family: 'Lato', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 33.89px;
+    text-align: left;
+    color:#0F172A;
+    margin-left: 6%;
+}
+
+.wk_stat_card{
+    box-shadow: 0px 4px 16px 0px #00000014;
+    background-color: white;
+    border-radius: 6px;
+}
+
+.ds_label{
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19.36px;
+    color: #334155;
+    text-align: left;
+}
+
+.ds_description{
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.94px;
+    text-align: left;
+    color : #475569;
+}
+
+.wk_count{
+    font-family: 'Lato', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 31.47px;
+    color:#0F172A
+}
+
+.header{
+    font-family: 'Lato', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29.05px;
+    color:#000000;
+}
+
+.wk_label {
+    display: flex;
+    flex-direction: column;
+}
+
+.wk_label .wk_stat_card {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.row.wk_assignment_stat {
+    display: flex;
+    align-items: stretch;
+}
+
+.assignment_card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.class_assignment_table, 
+.student_assignment_table {
+    flex-grow: 1;
+}
+

@@ -1,0 +1,9 @@
+<odoo>
+    <record id="report_account_balance_inventory" model="ir.actions.report">
+        <field name="name">General Balance inventory</field>
+        <field name="model">account.balance.inventory.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">account_report.account_balance_inventory</field>
+        <field name="report_file">account_report.account_balance_inventory</field>
+    </record>
+</odoo>

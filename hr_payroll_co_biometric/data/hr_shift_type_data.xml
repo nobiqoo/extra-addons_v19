@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Turno A: Mañana -->
+        <record id="shift_turno_a" model="hr.shift">
+            <field name="name">Turno A - Mañana</field>
+            <field name="code">TA</field>
+            <field name="shift_type">day</field>
+            <field name="hour_from">6.0</field>
+            <field name="hour_to">14.0</field>
+            <field name="rest_time">0.5</field>
+            <field name="tolerance_in">5</field>
+            <field name="tolerance_out">5</field>
+            <field name="color">10</field>
+        </record>
+
+        <!-- Turno B: Tarde -->
+        <record id="shift_turno_b" model="hr.shift">
+            <field name="name">Turno B - Tarde</field>
+            <field name="code">TB</field>
+            <field name="shift_type">day</field>
+            <field name="hour_from">14.0</field>
+            <field name="hour_to">22.0</field>
+            <field name="rest_time">0.5</field>
+            <field name="tolerance_in">5</field>
+            <field name="tolerance_out">5</field>
+            <field name="color">3</field>
+        </record>
+
+        <!-- Turno C: Noche (cruza medianoche) -->
+        <record id="shift_turno_c" model="hr.shift">
+            <field name="name">Turno C - Noche</field>
+            <field name="code">TC</field>
+            <field name="shift_type">night</field>
+            <field name="hour_from">22.0</field>
+            <field name="hour_to">6.0</field>
+            <field name="rest_time">0.5</field>
+            <field name="tolerance_in">5</field>
+            <field name="tolerance_out">5</field>
+            <field name="color">1</field>
+        </record>
+
+        <!-- Turno Administrativo -->
+        <record id="shift_administrativo" model="hr.shift">
+            <field name="name">Administrativo</field>
+            <field name="code">ADM</field>
+            <field name="shift_type">admin</field>
+            <field name="hour_from">8.0</field>
+            <field name="hour_to">18.0</field>
+            <field name="rest_time">1.0</field>
+            <field name="tolerance_in">10</field>
+            <field name="tolerance_out">10</field>
+            <field name="color">4</field>
+        </record>
+
+        <!-- Turno 12 horas día -->
+        <record id="shift_12h_day" model="hr.shift">
+            <field name="name">Turno 12 Horas Día</field>
+            <field name="code">T12D</field>
+            <field name="shift_type">twelve</field>
+            <field name="hour_from">6.0</field>
+            <field name="hour_to">18.0</field>
+            <field name="rest_time">1.0</field>
+            <field name="tolerance_in">10</field>
+            <field name="tolerance_out">10</field>
+            <field name="color">6</field>
+        </record>
+
+        <!-- Turno 12 horas noche -->
+        <record id="shift_12h_night" model="hr.shift">
+            <field name="name">Turno 12 Horas Noche</field>
+            <field name="code">T12N</field>
+            <field name="shift_type">twelve</field>
+            <field name="hour_from">18.0</field>
+            <field name="hour_to">6.0</field>
+            <field name="rest_time">1.0</field>
+            <field name="tolerance_in">10</field>
+            <field name="tolerance_out">10</field>
+            <field name="color">1</field>
+        </record>
+
+        <!-- Secuencia para novedades -->
+        <record id="seq_hr_attendance_novelty" model="ir.sequence">
+            <field name="name">Novedad de Asistencia</field>
+            <field name="code">hr.attendance.novelty</field>
+            <field name="prefix">NOV/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

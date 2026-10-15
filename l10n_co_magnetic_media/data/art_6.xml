@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ART. 6 Rete ICA -->
+        <record id="form_art_sujetos_rete_ica" model="mag.media">
+            <field name="code">ART. 6</field>
+            <field name="name">ART. 6 - Sujetos Rete ICA</field>
+            <field name="smaller_amount">0</field>
+            <field name="query">
+                <![CDATA[
+WITH aml_agg AS (
+    SELECT
+        aml.partner_id,
+        EXTRACT(YEAR FROM aml.date) AS year,
+        SUM(
+            CASE
+                WHEN mmlc.sequence = 'J' AND mmlc.type = 'd' THEN aml.debit
+                WHEN mmlc.sequence = 'J' AND mmlc.type = 'c' THEN aml.credit
+                WHEN mmlc.sequence = 'J' AND mmlc.type = 'sf' THEN aml.debit - aml.credit
+                WHEN mmlc.sequence = 'J' AND mmlc.type = 'bi' THEN aml.tax_base_amount
+                ELSE 0
+            END
+        ) AS sum_J,
+        SUM(
+            CASE
+                WHEN mmlc.sequence = 'K' AND mmlc.type = 'd' THEN aml.debit
+                WHEN mmlc.sequence = 'K' AND mmlc.type = 'c' THEN aml.credit
+                WHEN mmlc.sequence = 'K' AND mmlc.type = 'sf' THEN aml.debit - aml.credit
+                WHEN mmlc.sequence = 'K' AND mmlc.type = 'bi' THEN aml.tax_base_amount
+                ELSE 0
+            END
+        ) AS sum_K
+    FROM
+        mag_media mm
+        INNER JOIN mag_media_lines mml ON mml.magnetic_id = mm.id
+        INNER JOIN mag_media_lines_concepts mmlc ON mmlc.line_id = mml.id
+        INNER JOIN (
+            SELECT aammlcr.account_account_id AS account_id, aammlcr.mag_media_lines_concepts_id AS concept_id
+            FROM account_account_mag_media_lines_concepts_rel aammlcr
+            UNION ALL
+            SELECT aaat.account_account_id AS account_id, mmlcaat.concept_ids AS concept_id
+            FROM mag_media_lines_concepts_account_account_tag mmlcaat
+            INNER JOIN account_account_tag aat ON aat.id = mmlcaat.tag_ids
+            INNER JOIN account_account_account_tag aaat ON aaat.account_account_tag_id = aat.id
+        ) AS aa ON aa.concept_id = mmlc.id
+        LEFT JOIN account_move_line aml ON aml.account_id = aa.account_id
+    WHERE
+        mm.id = {id}
+        AND aml.date BETWEEN '{date_from}' AND '{date_to}'
+        AND aml.parent_state = 'posted'
+        AND aml.company_id = {company_id}
+    GROUP BY aml.partner_id, EXTRACT(YEAR FROM aml.date)
+)
+SELECT
+    a.year AS "Vigencia",
+    CASE
+        WHEN it.l10n_co_edi_code IS NOT NULL THEN it.l10n_co_edi_code
+        ELSE it.dian_code
+    END AS "Tipo de documento",
+    rp.vat AS "Número de documento de identificación",
+    rp.name AS "Nombres y Apellidos o Razón Social",
+    rp.street AS "Dirección de Notificación",
+    rp.phone AS "Teléfono",
+    rp.email AS "Email",
+    rcsc.dian_code AS "Código ciudad o municipio (codificación DANE)",
+    rcs.dian_code AS "Código Departamento (codificación DANE)",
+    CASE
+        WHEN mm.smaller_amount != 0.00 THEN
+            CASE WHEN a.sum_J > mm.smaller_amount THEN a.sum_J ELSE NULL END
+        ELSE a.sum_J
+    END AS "Monto Pago sin IVA",
+    CASE
+        WHEN mm.smaller_amount != 0.00 THEN
+            CASE WHEN a.sum_K > mm.smaller_amount THEN a.sum_K ELSE NULL END
+        ELSE a.sum_K
+    END AS "Monto Retención",
+    COALESCE(MAX(t.amount), 0) AS "Tarifa"
+FROM aml_agg a
+LEFT JOIN res_partner rp ON rp.id = a.partner_id
+LEFT JOIN l10n_latam_identification_type it ON it.id = rp.l10n_latam_identification_type_id
+LEFT JOIN res_city rcsc ON rcsc.id = rp.city_id
+LEFT JOIN res_country_state rcs ON rcs.id = rp.state_id
+CROSS JOIN mag_media mm  -- mm.id es fijo ({id})
+LEFT JOIN account_tax_repartition_line atrl
+    ON atrl.account_id = (SELECT aml.account_id FROM account_move_line aml LIMIT 1)
+    AND atrl.repartition_type = 'tax'
+LEFT JOIN account_tax t
+    ON t.id = atrl.invoice_tax_id OR t.id = atrl.refund_tax_id
+GROUP BY
+    a.year,
+    it.l10n_co_edi_code,
+    it.dian_code,
+    rp.vat,
+    rp.name,
+    rp.street,
+    rp.phone,
+    rp.email,
+    rcsc.dian_code,
+    rcs.dian_code,
+    mm.smaller_amount,
+    a.sum_J,
+    a.sum_K
+HAVING
+    (mm.smaller_amount = 0)
+    OR (mm.smaller_amount != 0 AND a.sum_K > mm.smaller_amount);
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

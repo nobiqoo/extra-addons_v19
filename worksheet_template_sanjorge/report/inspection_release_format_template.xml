@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="inspection_release_form_template" model="ir.actions.report">
+        <field name="name">Formato de Recepción, Inspección y Liberación de Equipos</field>
+        <field name="model">x_quality_check_worksheet_template_4</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">worksheet_template_eurodent.print_inspection_release_form_template</field>
+        <field name="report_file">worksheet_template_eurodent.print_inspection_release_form_template</field>
+        <field name="print_report_name">'Formato de Recepción, Inspección y Liberación - %s' %(object.x_purchase_import_id.name)</field>
+        <!-- <field name="binding_model_id" ref="model_x_quality_check_worksheet_template_4" /> -->
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="print_inspection_release_form_template">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="web.basic_layout">
+                <div class="header">
+                    <style>
+                        div {
+                        font-size:12px;
+                        }
+                        .tabla {
+                        width:100%;
+                        }
+                        .logo-empresa {
+                        width: 60px ;
+                        }
+                        .tabla td {
+                        vertical-align: middle;
+                        padding:3px;
+                        }
+                    </style>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="tabla">
+                                    <tbody>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2" rowspan="4" width="181">
+                                                <!-- <img class="logo-empresa"
+                                                src="/web/content/28511/logo eurodent.png"/> -->
+                                                <span class="logo-empresa"
+                                                    t-field="doc.x_company_id.logo"
+                                                    t-options-widget="&quot;image&quot;"
+                                                    t-options-qweb_img_raw_data="1" />
+                                            </td>
+                                            <td colspan="11" rowspan="4" width="1529">FORMATO DE
+                                                RECEPCIÓN INSPECCIÓN Y LIBERACIÓN DE DISPOSTIVOS
+                                                MEDICOS
+                                            </td>
+                                            <td width="120">VERSIÓN</td>
+                                            <td width="87">02</td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td>CÓDIGO</td>
+                                            <td>FM-DT-01</td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td>FECHA</td>
+                                            <td>26/02/2025</td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td>PÁGINA</td>
+                                            <td>
+                                                <span class="page" /> de <span class="topage" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page">
+                    <style>
+                        div {
+                        font-size:12px;
+                        }
+                        .tabla {
+                        width:100%;
+                        }
+                        .tabla td {
+                        padding: 3px;
+                        border:1px solid white;
+                        }
+                        .fila-bordeada td {
+                        border:1px solid black;
+                        vertical-align: middle;
+                        }
+                        .negrilla {
+                        font-weight: bold !important;
+                        margin:0;
+                        text-align:center;
+                        }
+
+                        p {
+                        margin:0px;
+                        }
+                        .texto-vertical {
+                        writing-mode: vertical-rl; /* Establece el texto vertical, de abajo a arriba
+                        */
+                        transform: rotate(180deg); /* Gira el texto 180 grados para que se lea de
+                        arriba a abajo */
+                        text-align: center; /* Centra el texto */
+                        padding: 10px; /* Espaciado alrededor del texto */
+                        }
+                        .firma img {
+                        width:auto;
+                        }
+                    </style>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="tabla">
+                                    <tbody>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2" width="242">IMPORTACION N°</td>
+                                            <td width="303">
+                                                <span t-field="doc.x_purchase_import_id" />
+                                            </td>
+                                            <td colspan="4" width="267">FECHA DE RECEPCIÓN</td>
+                                            <td colspan="2" width="69">
+                                                <span t-field="doc.x_date_received"
+                                                    t-options="{&quot;widget&quot;: &quot;date&quot;, &quot;format&quot;: &quot;dd&quot;}" />
+                                            </td>
+                                            <td width="49">
+                                                <span t-field="doc.x_date_received"
+                                                    t-options="{&quot;widget&quot;: &quot;date&quot;, &quot;format&quot;: &quot;MM&quot;}" />
+                                            </td>
+                                            <td width="103">
+                                                <span t-field="doc.x_date_received"
+                                                    t-options="{&quot;widget&quot;: &quot;date&quot;, &quot;format&quot;: &quot;YYYY&quot;}" />
+                                            </td>
+                                            <td colspan="4" width="188">ORDEN DE COMPRA:</td>
+                                            <td class="text-center" colspan="4" width="223">
+                                                <p t-field="doc.x_purchase_order_id.name" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2">PROVEEDOR</td>
+                                            <td width="303">
+                                                <p t-field="doc.x_partner_id" />
+                                            </td>
+                                            <td colspan="4">CANTIDAD REPORTADA</td>
+                                            <td class="text-center" colspan="4">
+                                                <p t-field="doc.x_reported_quantity" />
+                                            </td>
+                                            <td colspan="8" width="411">INSPECCIÓN (Cumple (C); No
+                                                cumple(NC);
+                                                No aplica (NA)</td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2">UNIDAD EMBALAJE</td>
+                                            <td>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <p>CAJAS <t
+                                                                    t-if="doc.x_packaging_unit == 'box'">
+                                                                ☒</t></p>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <p>PALLETS <t
+                                                                    t-if="doc.x_packaging_unit == 'pallet'">
+                                                                ☒</t></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td colspan="4">CANTIDAD RECEPCIONADA</td>
+                                            <td class="text-center" colspan="4">
+                                                <p t-field="doc.x_received_quantity" />
+                                            </td>
+                                            <td class="texto-vertical" rowspan="5" width="47">
+                                                <p>CERTIFICADO ANALISIS / CONFORMIDAD</p>
+                                            </td>
+                                            <td class="texto-vertical" rowspan="5" width="47">
+                                                <p>FICHAS TECNICAS</p>
+                                            </td>
+                                            <td class="texto-vertical" rowspan="5" width="47">
+                                                <p>ETIQUETADO DE FABRICA</p>
+                                            </td>
+                                            <td class="texto-vertical" rowspan="5" width="47">
+                                                <p>REGISTRO SANITARIO</p>
+                                            </td>
+                                            <td class="texto-vertical" rowspan="5" width="47">
+                                                <p>CERTIFICADO NO OBLIGATORIEDAD</p>
+                                            </td>
+                                            <td class="texto-vertical" rowspan="5" width="66">
+                                                <p>DEVOLUCIONES</p>
+                                            </td>
+                                            <td class="texto-vertical" rowspan="5" width="25">
+                                                <p>RECHAZOS</p>
+                                            </td>
+                                            <td class="texto-vertical" rowspan="5" width="85">
+                                                <p>LIBERADOS PARA ACONDICIONAMIENTO</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2">ESTADO FISICO EMBALAJE</td>
+                                            <td>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <p>CUMPLE <t
+                                                                    t-if="doc.x_packaging_state_physical == 'approve'">
+                                                                ☒</t></p>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <p>NO CUMPLE <t
+                                                                    t-if="doc.x_packaging_state_physical == 'not_approve'">
+                                                                ☒</t></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td colspan="4">FECHA DE INSPECCIÓN</td>
+                                            <td colspan="2">
+                                                <span t-field="doc.x_inspection_date"
+                                                    t-options="{&quot;widget&quot;: &quot;date&quot;, &quot;format&quot;: &quot;dd&quot;}" />
+                                            </td>
+                                            <td>
+                                                <span t-field="doc.x_inspection_date"
+                                                    t-options="{&quot;widget&quot;: &quot;date&quot;, &quot;format&quot;: &quot;MM&quot;}" />
+                                            </td>
+                                            <td>
+                                                <span t-field="doc.x_inspection_date"
+                                                    t-options="{&quot;widget&quot;: &quot;date&quot;, &quot;format&quot;: &quot;YYYY&quot;}" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2" width="242">VERIFICACIÓN AL 100%</td>
+                                            <td>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <p>SÍ <t
+                                                                    t-if="doc.x_total_verification == 'yes'">
+                                                                ☒</t></p>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <p>NO <t
+                                                                    t-if="doc.x_total_verification == 'no'">
+                                                                ☒</t></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td colspan="4" width="267">FECHA DE LIBERACIÓN</td>
+                                            <td colspan="2">
+                                                <span t-field="doc.x_release_date"
+                                                    t-options="{&quot;widget&quot;: &quot;date&quot;, &quot;format&quot;: &quot;dd&quot;}" />
+                                            </td>
+                                            <td>
+                                                <span t-field="doc.x_release_date"
+                                                    t-options="{&quot;widget&quot;: &quot;date&quot;, &quot;format&quot;: &quot;MM&quot;}" />
+                                            </td>
+                                            <td>
+                                                <span t-field="doc.x_release_date"
+                                                    t-options="{&quot;widget&quot;: &quot;date&quot;, &quot;format&quot;: &quot;YYYY&quot;}" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2" width="242">MUESTREO ALEATORIO</td>
+                                            <td>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <p>SI <t
+                                                                    t-if="doc.x_random_sampling == 'yes'">
+                                                                ☒</t></p>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <p>NO <t
+                                                                    t-if="doc.x_random_sampling == 'no'">
+                                                                ☒</t></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td colspan="4">CANTIDAD DE MUESTREO</td>
+                                            <td class="text-center" colspan="4">
+                                                <p t-field="doc.x_sampling_quantity" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td width="48">N°</td>
+                                            <td width="194">REFERENCIA</td>
+                                            <td width="303">DESCRIPCIÓN</td>
+                                            <td width="90">CANTIDAD</td>
+                                            <td width="78">CONTEO</td>
+                                            <td colspan="2" width="99">UNIDAD DE MEDIDA</td>
+                                            <td colspan="3" width="118">LOTE O SERIAL</td>
+                                            <td width="103">FECHA VENCIMIENTO</td>
+                                        </tr>
+                                        <t t-set="contador" t-value="0" />
+                                        <t t-foreach="doc.x_line_ids" t-as="lines">
+                                            <t t-set="contador" t-value="contador + 1" />
+                                            <tr class="fila-bordeada">
+                                                <td>
+                                                    <p t-esc="contador" />
+                                                </td>
+                                                <td>
+                                                    <p t-field="lines.x_default_code" />
+                                                </td>
+                                                <td>
+                                                    <p t-field="lines.x_product_id.name" />
+                                                </td>
+                                                <td>
+                                                    <p t-field="lines.x_product_uom_qty" />
+                                                </td>
+                                                <td>
+                                                    <p t-field="lines.x_quantity" />
+                                                </td>
+                                                <td colspan="2">
+                                                    <p t-field="lines.x_product_uom" />
+                                                </td>
+                                                <td colspan="3">
+                                                    <t t-if="lines.x_lot_id">
+                                                        <p t-field="lines.x_lot_id" />
+                                                    </t>
+                                                    <t t-if="not lines.x_lot_id">
+                                                        <p>N/A</p>
+                                                    </t>
+                                                </td>
+                                                <td width="103">
+                                                    <t t-if="lines.x_expiration_date">
+                                                        <p t-field="lines.x_expiration_date" />
+                                                    </t>
+                                                    <t t-if="not lines.x_expiration_date">
+                                                        <p>N/A</p>
+                                                    </t>
+                                                </td>
+                                                <td width="47">
+                                                    <p t-field="lines.x_analysis_certificate" />
+                                                </td>
+                                                <td width="47">
+                                                    <p t-field="lines.x_technical_specification" />
+                                                </td>
+                                                <td>
+                                                    <p t-field="lines.x_factory_labelling" />
+                                                </td>
+                                                <td>
+                                                    <p t-field="lines.x_sanitary_registration" />
+                                                </td>
+                                                <td>
+                                                    <p t-field="lines.x_non_obligatory_certificate" />
+                                                </td>
+                                                <td>
+                                                    <p t-field="lines.x_returns" />
+                                                </td>
+                                                <td>
+                                                    <p t-field="lines.x_rejections" />
+                                                </td>
+                                                <td>
+                                                    <p t-field="lines.x_released_for_refurbishment" />
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="19" rowspan="5"> OBSERVACIONES: <span
+                                                    t-field="doc.x_observations" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada" />
+                                        <tr class="fila-bordeada" />
+                                        <tr class="fila-bordeada" />
+                                        <tr class="fila-bordeada" />
+                                        <tr class="fila-bordeada">
+                                            <td colspan="19" />
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3" rowspan="4">
+                                                <span class="firma"
+                                                    t-field="doc.x_technical_manager_signature"
+                                                    t-options-widget="&quot;image&quot;"
+                                                    t-options-qweb_img_raw_data="1" />
+                                                <p t-field="doc.x_technical_manager" />
+                                            </td>
+                                            <td colspan="8" rowspan="4">
+                                                <span class="firma"
+                                                    t-field="doc.x_warehouse_manager_signature"
+                                                    t-options-widget="&quot;image&quot;"
+                                                    t-options-qweb_img_raw_data="1" />
+                                                <p t-field="doc.x_warehouse_manager" />
+                                            </td>
+                                            <td colspan="8" rowspan="4">
+                                                <span class="firma"
+                                                    t-field="doc.x_importations_manager_signature"
+                                                    t-options-widget="&quot;image&quot;"
+                                                    t-options-qweb_img_raw_data="1" />
+                                                <p t-field="doc.x_importations_manager" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada" />
+                                        <tr class="fila-bordeada" />
+                                        <tr class="fila-bordeada" />
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3">VoBo Dirección Técnica</td>
+                                            <td colspan="8">VoBo Director de Almacén</td>
+                                            <td colspan="8">VoBo Director de Importaciones</td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3" rowspan="2">
+                                                <p t-field="doc.x_technical_manager" />
+                                            </td>
+                                            <td colspan="8" rowspan="5">
+                                                <span class="firma"
+                                                    t-field="doc.x_warehouse_auxiliary_signature"
+                                                    t-options-widget="&quot;image&quot;"
+                                                    t-options-qweb_img_raw_data="1" />
+                                                <p t-field="doc.x_warehouse_auxiliary" />
+                                            </td>
+                                            <td colspan="8" rowspan="5">
+                                                <span class="firma"
+                                                    t-field="doc.x_importations_analyst_signature"
+                                                    t-options-widget="&quot;image&quot;"
+                                                    t-options-qweb_img_raw_data="1" />
+                                                <p t-field="doc.x_importations_analyst" />
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada" />
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3">
+                                                <span class="firma" t-field="doc.x_signature_drive"
+                                                    t-options-widget="&quot;image&quot;"
+                                                    t-options-qweb_img_raw_data="1" />
+                                                <p>VoBo Conductor</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2">
+                                                <p>
+                                                    <b>Nombre:</b>
+                                                    <span t-field="doc.x_driver_name" />
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p>
+                                                    <b>Cédula:</b>
+                                                    <span t-field="doc.x_driver_vat" />
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="2">
+                                                <p>
+                                                    <b>Placa:</b>
+                                                    <span t-field="doc.x_license_plate" />
+                                                </p>
+                                            </td>
+                                            <td>Transportadora:</td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="3">
+                                                <p>
+                                                    <b>Número de Transporte:</b>
+                                                    <span t-field="doc.x_conveyer_number" />
+                                                </p>
+                                            </td>
+                                            <td colspan="8">VoBo Auxiliar de Almacén</td>
+                                            <td colspan="8">VoBo Analista de Importaciones</td>
+                                        </tr>
+                                        <tr class="fila-bordeada">
+                                            <td colspan="19">Este documento es propiedad y copia
+                                                controlada de
+                                                Representaciones Eurodent S.A.S</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+
+    </template>
+
+</odoo>

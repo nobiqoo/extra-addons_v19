@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="hr_payslip_processing_gt_form" model="ir.ui.view">
+            <field name="name">hr.payslip.processing.gt.form</field>
+            <field name="model">hr.payslip.processing</field>
+            <field name="inherit_id" ref="hr_payroll_co.hr_payslip_processing_form" />
+            <field name="arch" type="xml">
+                <button name="compute_payslips_ids" position="after">
+                    <button name="compute_payslips_ids_gt" string="Calcular" type="object"
+                        invisible="state == 'paid' or location_code != 'gt'" />
+                </button>
+                <button name="to_paid" position="after">
+                    <button name="to_paid_gt" string="Causar" type="object"
+                        invisible="state == 'paid' or location_code != 'gt'" />
+                </button>
+            </field>
+        </record>
+    </data>
+</odoo>

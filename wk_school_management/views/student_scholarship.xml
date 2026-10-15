@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="view_wk_student_scholarship_form" model="ir.ui.view">
+            <field name="name">wk.student.scholarship.form</field>
+            <field name="model">wk.student.scholarship</field>
+            <field name="arch" type="xml">
+                <form string="Scholarship">
+                    <header invisible="id == False">
+                        <button name="approve_scholarship" string="Approve" type="object" class="oe_highlight" invisible="state != 'new'"  confirm="Are you sure you want to approve this scholarship?"/>
+                        <button name="pay_scholarship" string="Mark Paid" type="object" class="oe_highlight bg-success" invisible="state != 'approve' or invoice_id == False"  confirm="Are you sure you want to pay this scholarship?"/>
+                        <button name="generate_in_invoice" string="Generate Invoice" type="object" class="oe_highlight" invisible="state != 'approve' or invoice_id != False"  confirm="Are you sure you want to generate the invoice?"/>
+                        <button name="cancel_scholarship" string="Cancel" type="object"  invisible="state != 'new'" confirm="Are you sure you want to cancel this scholarship?"/>
+                        <button name="reset_scholarship" string="Reset" type="object"  invisible="invoice_id != False or state == 'new'" confirm="Are you sure you want to reset this scholarship?"/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,progress,approve"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group name="student_scholarship_header">
+                            <group>
+                                <field name="student_id" readonly="state != 'new'" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                <field name="enrollment_id"/>
+                                <field name="scholarship_amount" readonly="state != 'new'"/>
+                                <field name="approver_id" readonly="1"/>
+                                <field name="currency_id"/>
+                                <field name="company_id" readonly="is_single_company" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="grade_id"/>
+                                <field name="section_id" invisible="not section_visibility"/>
+                                <field name="current_academic_year_id"/>
+                                <field name="paid_date"/>
+                                <field name="invoice_id" readonly="true"/>
+                                <field name="invoice_status" invisible="invoice_id == False"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_wk_student_scholarship_tree" model="ir.ui.view">
+            <field name="name">wk.student.scholarship.list</field>
+            <field name="model">wk.student.scholarship</field>
+            <field name="arch" type="xml">
+                <list string="Scholarship">
+                    <field name="name"/>
+                    <field name="student_id"/>
+                    <field name="enrollment_id"/>
+                    <field name="grade_id"/>
+                    <field name="section_id" optional="hide"/>
+                    <field name="current_academic_year_id" optional="hide"/>
+                    <field name="scholarship_amount" sum="Total"/>
+                    <field name="paid_date" optional="hide"/>
+                    <field name="create_date"/>
+                    <field name="write_uid"/>
+                    <field name="write_date" optional="hide"/>
+                    <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                    <field name="company_id"
+                        groups="base.group_multi_company"
+                        optional="show"
+                        readonly="1"/>
+                    <field name="currency_id" optional="hide"/>
+                    <field name="create_uid" optional="hide"/>
+                    <field name="invoice_status" widget="badge" optional="show"/>
+                    <field name="state" widget="badge" decoration-primary="state =='new'" 
+                        decoration-danger="state =='cancel'" decoration-success="state =='paid'"
+                        decoration-warning="state =='progress'" decoration-info="state=='approve'"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_wk_student_scholarship_search" model="ir.ui.view">
+           <field name="name">wk.student.scholarship.search</field>
+           <field name="model">wk.student.scholarship</field>
+           <field name="arch" type="xml">
+               <search>
+                    <field name="name" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="student_id"/>
+                    <field name="company_id"/>
+                    <field name="enrollment_id"/>
+                    <filter name="new" string="New" domain="[('state','=','new')]"/>
+                    <filter name="approve" string="Approved" domain="[('state','=','approve')]" />
+                    <filter name="paid" string="Paid" domain="[('state','=','paid')]" />
+                    <filter name="cancel" string="Cancel" domain="[('state','=','cancel')]"/>
+                    <group>
+                        <filter name="group_by_school" string="School" domain="[]" context="{'group_by':'company_id'}"/>
+                        <filter name="group_by_student" string="Student" domain="[]" context="{'group_by':'student_id'}"/>
+                        <filter name="group_by_grade" string="Grade" domain="[]" context="{'group_by':'grade_id'}"/>
+                        <filter name="group_by_academic_year" string="Academic Year" domain="[]" context="{'group_by':'current_academic_year_id'}"/>
+                        <filter name="group_by_approver" string="Approved By" domain="[]" context="{'group_by':'approver_id'}"/>
+                    </group>
+               </search>
+           </field>
+        </record>
+
+        <record id="wk_student_scholarship_graph_view" model="ir.ui.view">
+            <field name="name">wk.student.scholarship.view.graph</field>
+            <field name="model">wk.student.scholarship</field>
+            <field name="arch" type="xml">
+                <graph string="New Scholarships Over Grade" type="bar" sample="1">
+                    <field name="scholarship_amount"/>
+                    <field name="paid_date" interval="month"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="wk_student_scholarship_action" model="ir.actions.act_window">
+            <field name="name">Scholarship</field>
+            <field name="res_model">wk.student.scholarship</field>
+            <field name="view_mode">form,list,graph</field>
+            <field name="view_id" ref="view_wk_student_scholarship_tree"/>
+            <field name="path">student-scholarship</field>
+        </record>
+    </data>
+</odoo>

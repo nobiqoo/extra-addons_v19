@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <record id="student_enrollment_details_print" model="ir.actions.report">
+        <field name="name">Enrollment</field>
+        <field name="model">student.enrollment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wk_school_management.report_enrollment</field>
+        <field name="report_file">wk_school_management.report_enrollment</field>
+        <field name="print_report_name">'%s - Enrollment' % (object.student_id.name).replace('/', '')</field>
+        <field name="binding_model_id" ref="model_student_enrollment"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id='print_student_enrollment'>
+        <t t-call="web.external_layout">
+            <div class="oe_structure"/>
+            <t t-foreach="docs" t-as="enrollment">
+                <div style="page-break-after: always;">
+                    <div class="row" style="margin-bottom:20px;">
+                        <div class="col-8">
+                                <h3 class="mt-5">
+                                    <span t-field="enrollment.name">SO0000</span>
+                                </h3>
+                            </div>
+                        <div class="col-4" t-if="enrollment.student_image">
+                            <img t-att-src="image_data_uri(enrollment.student_image)"
+                                style="height:70pt;width:40%; border-radius:5px;"
+                                alt="Student Image"/>
+                        </div>
+                    </div>
+
+                    <div class="row mt-5 mb-2">
+                        <div class="col-auto mw-100">
+                            <strong>Student: </strong>
+                        </div>
+                        <div class="col-5 mw-100">
+                            <div t-field="enrollment.student_id"
+                            t-options='{"fields":[ "name"]}' />
+                        </div>
+                        <div class="col-auto mw-100">
+                            <strong>Session: </strong>
+                        </div>
+                        <div class="col-5 mw-100">
+                            <div t-field="enrollment.session_id.name" />
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 mb-2">
+                        <div class="col-auto mw-100">
+                            <strong>School: </strong>
+                        </div>
+                        <div class="col-5 mw-100 ">
+                            <div t-out="enrollment.company_id"
+                                t-options='{"widget": "contact", "fields": ["name"]}'/>
+                        </div>
+                        <div class="col-auto mw-100"><strong>Grade:</strong></div>
+                        <div class="col-5 mw-100">
+                            <div t-field="enrollment.grade_id.name" />
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">Subject</th>
+                                <th style="text-align: center;">Session</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="enrollment.student_subject_ids" t-as="subject">
+                                <tr class="bg-200 fw-bold o_line_section">
+                                    <td style="text-align: center;"><span t-field="subject.subject_id"/></td>
+                                    <td style="text-align: center;"><span t-field="subject.session_id"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_enrollment_raw">
+        <t t-call="web.html_container">
+            <t t-call="wk_school_management.print_student_enrollment"/>
+        </t>
+    </template>
+
+    <template id="report_enrollment">
+        <t t-call="wk_school_management.report_enrollment_raw"/>
+    </template>
+</odoo>

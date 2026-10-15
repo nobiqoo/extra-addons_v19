@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_novelty_form_teacher_hours" model="ir.ui.view">
+            <field name="name">hr.novelty.form.inherit.hr.payroll.colombo</field>
+            <field name="model">hr.novelty</field>
+            <field name="inherit_id" ref="hr_payroll_co.hr_novelty_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='page_novelty_line']" position="before">
+                    <page name="page_teacher_hours" string="Horas por Curso"
+                        invisible="not is_teacher_hours">
+                        <field name="is_teacher_hours" invisible="1" />
+                        <field name="teacher_hour_line_ids"
+                            readonly="state != 'draft'">
+                            <list editable="bottom">
+                                <field name="school_class_id" />
+                                <field name="analytic_account_id" />
+                                <field name="hours" sum="Total Horas" />
+                                <field name="hour_value" />
+                                <field name="subtotal" sum="Total" />
+                                <field name="percentage" />
+                                <field name="currency_id" column_invisible="1" />
+                            </list>
+                        </field>
+                        <group class="oe_subtotal_footer">
+                            <field name="teacher_total_hours" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_novelty_type_form_teacher_hours" model="ir.ui.view">
+            <field name="name">hr.novelty.type.form.inherit.hr.payroll.colombo</field>
+            <field name="model">hr.novelty.type</field>
+            <field name="inherit_id" ref="hr_payroll_co.hr_novelty_type_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='dep_days_worked']" position="after">
+                    <field name="is_teacher_hours" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

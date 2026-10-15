@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_edi_hr_report_wizard,l10n_co_ne_report.access_edi_hr_report_wizard,model_edi_hr_report_wizard,hr_payroll_co.manager_payslip,1,1,1,1

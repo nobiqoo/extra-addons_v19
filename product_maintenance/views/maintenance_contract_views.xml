@@ -1,0 +1,89 @@
+<odoo>
+    <!-- Vista tipo lista -->
+    <record id="view_maintenance_contract_list" model="ir.ui.view">
+        <field name="name">maintenance.contract.list</field>
+        <field name="model">maintenance.contract</field>
+        <field name="arch" type="xml">
+            <list>
+                    <field name="contract_name"/>
+                    <field name="contract_number"/>
+                    <field name="contract_partner_id"/>
+                    <field name="contract_period"/>
+                    <field name="contract_start_date"/>
+                    <field name="contract_end_date"/>
+                    <field name="maintenance_type"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista tipo formulario -->
+    <record id="view_maintenance_contract_form" model="ir.ui.view">
+        <field name="name">maintenance.contract.form</field>
+        <field name="model">maintenance.contract</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="contract_name"/>
+                        <field name="contract_number"/>
+                        <field name="contract_partner_id"/>
+                        <field name="contract_period"/>
+                        <field name="contract_start_date"/>
+                        <field name="contract_end_date"/>
+                        <field name="maintenance_type"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Estrategia de Generación">
+                            <header>
+                                <button name="action_create_maintenance_detailed_period"
+                                        string="Generar Mantenimientos (Periodo)"
+                                        type="object"
+                                        invisible="strategy_type != 'period'"/>
+                                <button name="action_create_maintenance_detailed_tempario"
+                                        string="Generar Mantenimientos (Tempario)"
+                                        type="object"
+                                        class="btn-primary"
+                                        invisible="strategy_type != 'tempario'"/>
+                            </header>
+                            <group>
+                                <field name="strategy_type"/>
+                            </group>
+                            <group name="period_fields" invisible="strategy_type != 'period'">
+                                <field name="period_start_date"/>
+                                <field name="period_end_date"/>
+                                <field name="period_frequency"/>
+                                <field name="period_interval"/>
+                                <field name="contract_equipment_ids"/>
+                                <field name="period_tempario_ids"/>
+                            </group>
+                            <group name="tempario_fields" invisible="strategy_type != 'tempario'">
+                                <field name="tempario_start_date"/>
+                                <field name="tempario_end_date"/>
+                                <field name="contract_equipment_ids"/>
+                                <field name="period_tempario_ids"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_maintenance_contract" model="ir.actions.act_window">
+        <field name="name">Contratos</field>
+        <field name="res_model">maintenance.contract</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menú (dentro de Maestros de Mantenimiento) -->
+    <menuitem
+        id="menu_maintenance_contract"
+        name="Contratos"
+        parent="repair.menu_repair_order"
+        action="action_maintenance_contract"
+        sequence="20"
+    />
+
+</odoo>

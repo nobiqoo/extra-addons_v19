@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="income_and_withholding_certificate_template_report">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <style>
+                        .image-background {
+                        position:absolute;
+                        top:0px;
+                        left:0px;
+                        width:99%;
+                        height:auto;
+                        z-index:-1;
+                        }
+                        .basic-field{
+                        position:absolute;
+                        height:8px;
+                        }
+                        .social-reason-field{
+                        position:absolute;
+                        height:8px;
+                        width:800px;
+                        }
+                        .retainer-field{
+                        position:absolute;
+                        height:8px;
+                        width:490px;
+                        }
+                        .payment-field{
+                        position:absolute;
+                        height:8px;
+                        width:150px;
+                        text-align: right;
+                        }
+                    </style>
+                    <div class="container-fluid">
+                        <t t-set="decimal_precision" t-value="doc.company_id.decimal_in_income_cert_pdf or 0"/>
+                        <span
+                            class="basic-field"
+                            t-field="doc.year"
+                            t-attf-style="top: {{ doc.template_id.year_top }}px; left: {{ doc.template_id.year_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.form_number"
+                            t-attf-style="top: {{ doc.template_id.form_number_top }}px; left: {{ doc.template_id.form_number_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.nit"
+                            t-attf-style="top: {{ doc.template_id.nit_top }}px; left: {{ doc.template_id.nit_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.verification_code"
+                            t-attf-style="top: {{ doc.template_id.verification_code_top }}px; left: {{ doc.template_id.verification_code_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.retainer_first_last_name"
+                            t-attf-style="top: {{ doc.template_id.retainer_first_last_name_top }}px; left: {{ doc.template_id.retainer_first_last_name_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.retainer_second_last_name"
+                            t-attf-style="top: {{ doc.template_id.retainer_second_last_name_top }}px; left: {{ doc.template_id.retainer_second_last_name_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.retainer_first_name"
+                            t-attf-style="top: {{ doc.template_id.retainer_first_name_top }}px; left: {{ doc.template_id.retainer_first_name_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.retainer_second_name"
+                            t-attf-style="top: {{ doc.template_id.retainer_second_name_top }}px; left: {{ doc.template_id.retainer_second_name_left }}px;" />
+                        <span
+                            class="social-reason-field"
+                            t-field="doc.social_reason"
+                            t-attf-style="top: {{ doc.template_id.social_reason_top }}px; left: {{ doc.template_id.social_reason_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.employee_document_type"
+                            t-attf-style="top: {{ doc.template_id.employee_document_type_top }}px; left: {{ doc.template_id.employee_document_type_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.employee_vat"
+                            t-attf-style="top: {{ doc.template_id.employee_vat_top }}px; left: {{ doc.template_id.employee_vat_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.employee_first_last_name"
+                            t-attf-style="top: {{ doc.template_id.employee_first_last_name_top }}px; left: {{ doc.template_id.employee_first_last_name_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.employee_second_last_name"
+                            t-attf-style="top: {{ doc.template_id.employee_second_last_name_top }}px; left: {{ doc.template_id.employee_second_last_name_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.employee_first_name"
+                            t-attf-style="top: {{ doc.template_id.employee_first_name_top }}px; left: {{ doc.template_id.employee_first_name_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.employee_second_name"
+                            t-attf-style="top: {{ doc.template_id.employee_second_name_top }}px; left: {{ doc.template_id.employee_second_name_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.date_from_year"
+                            t-attf-style="top: {{ doc.template_id.date_from_year_top }}px; left: {{ doc.template_id.date_from_year_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.date_from_month"
+                            t-attf-style="top: {{ doc.template_id.date_from_month_top }}px; left: {{ doc.template_id.date_from_month_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.date_from_day"
+                            t-attf-style="top: {{ doc.template_id.date_from_day_top }}px; left: {{ doc.template_id.date_from_day_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.date_to_year"
+                            t-attf-style="top: {{ doc.template_id.date_to_year_top }}px; left: {{ doc.template_id.date_to_year_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.date_to_month"
+                            t-attf-style="top: {{ doc.template_id.date_to_month_top }}px; left: {{ doc.template_id.date_to_month_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.date_to_day"
+                            t-attf-style="top: {{ doc.template_id.date_to_day_top }}px; left: {{ doc.template_id.date_to_day_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.date_year"
+                            t-attf-style="top: {{ doc.template_id.date_year_top }}px; left: {{ doc.template_id.date_year_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.date_month"
+                            t-attf-style="top: {{ doc.template_id.date_month_top }}px; left: {{ doc.template_id.date_month_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.date_day"
+                            t-attf-style="top: {{ doc.template_id.date_day_top }}px; left: {{ doc.template_id.date_day_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.holding_place"
+                            t-attf-style="top: {{ doc.template_id.holding_place_top }}px; left: {{ doc.template_id.holding_place_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.departament_code"
+                            t-attf-style="top: {{ doc.template_id.departament_code_top }}px; left: {{ doc.template_id.departament_code_left }}px;" />
+                        <span
+                            class="basic-field"
+                            t-field="doc.city_code"
+                            t-attf-style="top: {{ doc.template_id.city_code_top }}px; left: {{ doc.template_id.city_code_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.salary_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.salary_payments_top }}px; left: {{ doc.template_id.salary_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.bonus_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.bonus_payments_top }}px; left: {{ doc.template_id.bonus_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.food_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.food_payments_top }}px; left: {{ doc.template_id.food_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.fee_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.fee_payments_top }}px; left: {{ doc.template_id.fee_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.service_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.service_payments_top }}px; left: {{ doc.template_id.service_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.commission_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.commission_payments_top }}px; left: {{ doc.template_id.commission_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.social_benefit_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.social_benefit_payments_top }}px; left: {{ doc.template_id.social_benefit_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.travel_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.travel_payments_top }}px; left: {{ doc.template_id.travel_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.proxy_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.proxy_payments_top }}px; left: {{ doc.template_id.proxy_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.cooperative_work_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.cooperative_work_payments_top }}px; left: {{ doc.template_id.cooperative_work_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.other_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.other_payments_top }}px; left: {{ doc.template_id.other_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.severance_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.severance_payments_top }}px; left: {{ doc.template_id.severance_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.severance_cst_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.severance_cst_payments_top }}px; left: {{ doc.template_id.severance_cst_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.severance_fund_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.severance_fund_payments_top }}px; left: {{ doc.template_id.severance_fund_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.pension_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.pension_payments_top }}px; left: {{ doc.template_id.pension_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.financial_support_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.financial_support_payments_top }}px; left: {{ doc.template_id.financial_support_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.total_payments" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.total_payments_top }}px; left: {{ doc.template_id.total_payments_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.health_contributions" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.health_contributions_top }}px; left: {{ doc.template_id.health_contributions_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.pension_contributions" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.pension_contributions_top }}px; left: {{ doc.template_id.pension_contributions_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.voluntary_contributions_rais" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.voluntary_contributions_rais_top }}px; left: {{ doc.template_id.voluntary_contributions_rais_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.afp_contribution" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.afp_contribution_top }}px; left: {{ doc.template_id.afp_contribution_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.afc_contributions" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.afc_contributions_top }}px; left: {{ doc.template_id.afc_contributions_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.avc_contributions" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.avc_contributions_top }}px; left: {{ doc.template_id.avc_contributions_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.average_salary" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.average_salary_top }}px; left: {{ doc.template_id.average_salary_left }}px;" />
+                        <span
+                            class="payment-field"
+                            t-field="doc.withholding_tax" t-options="{'precision': decimal_precision}"
+                            t-attf-style="top: {{ doc.template_id.withholding_tax_top }}px; left: {{ doc.template_id.withholding_tax_left }}px;" />
+                        <span
+                            class="retainer-field"
+                            t-field="doc.retainer"
+                            t-attf-style="top: {{ doc.template_id.retainer_top }}px; left: {{ doc.template_id.retainer_left }}px;" />
+                        <img class="image-background"
+                            src="/hr_payroll_co/static/src/img/Formulario_220_2024.jpg" />
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

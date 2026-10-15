@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		<template id="payroll_template_report_child" inherit_id="payroll_template_report">
+			<!-- Setup here size of company logo -->
+			<xpath expr="//p[@name='logo_company_component']" position="attributes">
+				<attribute name="style">
+					display:block;
+					height:110px;
+					line-height:110px;
+					margin:0;
+					text-align:center;
+				</attribute>
+			</xpath>
+		</template>
+	</data>
+</odoo>

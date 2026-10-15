@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="seq_dian_sync" model="ir.sequence">
+        <field name="name">DIAN Sync</field>
+        <field name="code">dian.sync</field>
+        <field name="prefix">SYNC/%(year)s-%(month)s-%(day)s/</field>
+        <field name="padding">4</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        <field name="use_date_range">True</field>
+    </record>
+
+    <menuitem
+        id="dian_invoices_menu_categ"
+        name="DIAN Invoices"
+        parent="accountant.menu_accounting"
+        sequence="5"/>
+
+</odoo>

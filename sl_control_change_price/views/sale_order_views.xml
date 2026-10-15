@@ -1,0 +1,105 @@
+<odoo>
+    <data>
+
+        <record id="sale_view_order_form_inherit_change_to_price" model="ir.ui.view">
+            <field name="name">sale_view_order_form_inherit_change_to_price</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <!-- Campos invisibles para control -->
+                <xpath expr="//form" position="inside">
+                    <field name="can_edit_price_after_confirm" invisible="1"/>
+                    <field name="approved" invisible="1"/>
+                </xpath>
+
+                <!-- Alerta de pendiente de aprobación -->
+                <xpath expr="//header" position="after">
+                    <div class="alert alert-success text-center o_form_header"
+                         invisible="not approved or state in ['sale','done']"
+                         role="alert">
+                        <a class="close" data-dismiss="alert"/>
+                        <div>
+                            <strong>✓ Cambio de Precio Aprobado - Puede confirmar la orden</strong>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning text-center o_form_header"
+                         invisible="not disable_confirm_button or state in ['sale','done'] or approved"
+                         role="alert">
+                        <a class="close" data-dismiss="alert"/>
+                        <div>
+                            <strong>⚠ Pendiente a autorización de Precio</strong>
+                        </div>
+                    </div>
+                </xpath>
+
+                <!-- Control de readonly del formulario -->
+                <xpath expr="//form" position="attributes">
+                    <attribute name="readonly">state == 'done' and not can_edit_price_after_confirm</attribute>
+                </xpath>
+
+                <!-- Botones de acción -->
+                <xpath expr="//header/button[@name='action_confirm']" position="after">
+                    <field name="disable_confirm_button" invisible="1"/>
+                    <button name="send_request_to_change_price"
+                            type="object"
+                            invisible="not disable_confirm_button or state not in ['draft','sent']"
+                            class="btn btn-info"
+                            string="Solicitud cambio de precio"/>
+                    <button name="refuse_change_price"
+                            type="object"
+                            string="Rechazar"
+                            groups="sl_control_change_price.group_can_approve_reject"
+                            invisible="state != 'to_approve'"/>
+                    <button name="approve_change_price"
+                            type="object"
+                            string="Aprobar"
+                            groups="sl_control_change_price.group_can_approve_reject"
+                            invisible="state != 'to_approve'"/>
+                    <button name="action_cancel"
+                            type="object"
+                            string="Cancel"
+                            invisible="state not in ['to_approve','refused']"
+                            data-hotkey="z"/>
+                </xpath>
+
+                <!-- Ajuste del botón Send by Email (draft) -->
+                <xpath expr="//button[@name='action_quotation_send' and @id='quotation_send_primary']" position="attributes">
+                    <attribute name="invisible">disable_confirm_button or state not in ['draft']</attribute>
+                </xpath>
+
+                <!-- Ajuste botones de confirmación -->
+                <xpath expr="//button[@name='action_confirm' and @id='action_confirm']" position="attributes">
+                    <attribute name="invisible">(state != 'sent') or (disable_confirm_button and not approved)</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_confirm' and not(@id='action_confirm')]" position="attributes">
+                    <attribute name="invisible">(state != 'draft') or (disable_confirm_button and not approved)</attribute>
+                </xpath>
+
+                <!-- Control de readonly en líneas de pedido -->
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                    <attribute name="readonly">(state == 'done' or not can_edit_price_after_confirm) and state in ['sale','cancel']</attribute>
+                </xpath>
+
+                <!-- Agregar campo warning_line y decoración en líneas -->
+                <xpath expr="//field[@name='order_line']//list" position="attributes">
+                    <attribute name="decoration-danger">warning_line</attribute>
+                </xpath>
+
+                <!-- Agregar campo warning_line y botón de info en las líneas -->
+                <xpath expr="//field[@name='order_line']//list//field[@name='price_unit']" position="before">
+                    <field name="warning_line" column_invisible="True"/>
+                    <field name="message_restriction" column_invisible="True"/>
+                    <button class="btn btn-link"
+                            name="show_message_restriction"
+                            type="object"
+                            icon="fa-info-circle"
+                            invisible="not warning_line"
+                            title="Ver restricción"
+                    />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

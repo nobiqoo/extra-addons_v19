@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="cw_template_xml">
+            <UniversalEvent xmlns="http://www.cargowise.com/Schemas/Universal/2011/11">
+                <Event>
+                    <DataContext>
+                        <Company>
+                            <Code>BOG</Code>
+                        </Company>
+                        <EnterpriseID t-out="enterprise_id"/>
+                        <ServerID t-out="server"/>
+                        <!--
+                            Servidor de Pruebas/Entrenamiento -> TRN
+                            Servidor de Producción -> PRD
+                        -->
+                        <DataTargetCollection>
+                            <DataTarget>
+                                <Type>AccountingInvoice</Type>
+                                <Key t-out="invoice_id"/>
+                            </DataTarget>
+                        </DataTargetCollection>
+                    </DataContext>
+                    <EventTime t-out="date"/>
+                    <EventType t-out="event_type"/>
+                    <EventReference t-out="event_ref"/>
+                    <AdditionalFieldsToUpdateCollection>
+                        <t t-foreach="values" t-as="value">
+                            <AdditionalFieldsToUpdate>
+                                <Type t-out="value.get('type')"/>
+                                <Value t-out="value.get('value')"/>
+                            </AdditionalFieldsToUpdate>
+                        </t>
+                    </AdditionalFieldsToUpdateCollection>
+                    <ContextCollection>
+                        <Context>
+                            <Type>DataProvider</Type>
+                            <Value>ODOO</Value>
+                        </Context>
+                    </ContextCollection>
+                </Event>
+            </UniversalEvent>
+        </template>
+    </data>
+</odoo>
