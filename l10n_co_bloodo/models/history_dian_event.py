@@ -25,7 +25,8 @@ class HistoryDianEvent(models.Model):
     dian_ar_fname = fields.Char('Name AppResponse DIAN')
     dian_date_event = fields.Datetime('Registration date')
 
-    move_id = fields.Many2one('account.move', 'Invoice')
+    move_id = fields.Many2one('account.move', 'Invoice', index=True)
+    document_id = fields.Many2one('dian.document', 'Documento DIAN')
     ad_file = fields.Binary('AttachedDocument')
     ad_fname = fields.Char('Name AttachedDocument')
     exe_env = fields.Char('Environment')

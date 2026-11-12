@@ -34,17 +34,32 @@ class HrOvertime(models.Model):
             if not all((record.qty, record.rate, record.contract_id, record.date_start)):
                 continue
 
-            max_hours_work = self.env['economic.variable'].get_value_by_date(
-                'MAX_HOURS_WORK', record.date_start)
-            if max_hours_work == 0:
-                raise ValidationError(
-                    'Configure en las variables economicas "HORAS DE LA JORNADA LABORAL MAXIMA MENSUAL" para el año %s' % record.date_start.year)
+            record._set_amount(record._get_monthly_hours())
 
-            record._set_amount(max_hours_work)
+    def _is_hourly_worker(self):
+        return (self.contract_id.company_id.enable_hourly_payroll
+                and self.contract_id.is_hourly_worker)
 
-    def _set_amount(self, max_hours_work):
+    def _get_monthly_hours(self):
+        """
+        Horas mensuales usadas como divisor para obtener el valor hora.
+        - Trabajador por horas: horas mensuales configuradas en el contrato.
+        - Estándar: variable económica "HORAS DE LA JORNADA LABORAL MAXIMA MENSUAL".
+        """
+        if self._is_hourly_worker():
+            return self.contract_id.get_hourly_schedule(
+                self.date_start)['monthly_hours']
+
+        max_hours_work = self.env['economic.variable'].get_value_by_date(
+            'MAX_HOURS_WORK', self.date_start)
+        if max_hours_work == 0:
+            raise ValidationError(
+                'Configure en las variables economicas "HORAS DE LA JORNADA LABORAL MAXIMA MENSUAL" para el año %s' % self.date_start.year)
+        return max_hours_work
+
+    def _set_amount(self, monthly_hours):
         wage = self.contract_id.get_wage(self.date_start).get('wage', 0)
-        self.amount = wage * self.rate * self.qty / max_hours_work
+        self.amount = wage * self.rate * self.qty / monthly_hours
 
     def to_confirm(self):
         self._compute_value()

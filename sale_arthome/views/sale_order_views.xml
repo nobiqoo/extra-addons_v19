@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_inherit_sale_arthome" model="ir.ui.view">
+        <field name="name">sale.order.form.sale.arthome</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other_information']/group" position="inside">
+                <group name="carrier_info" string="Carrier">
+                    <field name="carrier_partner_id" options="{'no_create': True}"/>
+                    <field name="carrier_tracking_number"/>
+                    <field name="propagate_to_pickings"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_tree_inherit_sale_arthome" model="ir.ui.view">
+        <field name="name">sale.order.list.sale.arthome</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list/header" position="inside">
+                <button name="%(sale_arthome.action_sale_carrier_update_wizard)d" type="action" string="Update Carriers" display="always" class="btn-secondary" groups="sales_team.group_sale_salesman"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_status']" position="after">
+                <field name="carrier_partner_id" optional="show"/>
+                <field name="carrier_tracking_number" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_quotation_tree_inherit_sale_arthome" model="ir.ui.view">
+        <field name="name">sale.order.quotation.list.sale.arthome</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list/header" position="inside">
+                <button name="%(sale_arthome.action_sale_carrier_update_wizard)d" type="action" string="Update Carriers" display="always" class="btn-secondary" groups="sales_team.group_sale_salesman"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_status']" position="after">
+                <field name="carrier_partner_id" optional="show"/>
+                <field name="carrier_tracking_number" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter_inherit_sale_arthome" model="ir.ui.view">
+        <field name="name">sale.order.list.select.sale.arthome</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="carrier_partner_id"/>
+                <field name="carrier_tracking_number"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

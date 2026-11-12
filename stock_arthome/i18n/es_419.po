@@ -1,0 +1,1064 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_arthome
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-07 23:23+0000\n"
+"PO-Revision-Date: 2026-10-07 23:23+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_419\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "%(product)s (demand %(demand)s %(uom)s)"
+msgstr "%(product)s (demanda %(demand)s %(uom)s)"
+
+#. module: stock_arthome
+#. odoo-javascript
+#. odoo-python
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.js:0
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "%(valid)s lines imported, %(errors)s rows rejected."
+msgstr "%(valid)s líneas importadas, %(errors)s filas rechazadas."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "%(valid)s lines imported."
+msgstr "%(valid)s líneas importadas."
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.inputs_and_outputs_document_delivery_slip_arthome
+msgid "<b>BOX COUNT</b>"
+msgstr "<b>CANTIDAD DE CAJAS</b>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.inputs_and_outputs_document_order_info_arthome
+msgid "<b>DISPATCH NOTE/INSTRUCTION:</b>"
+msgstr "<b>NOTA/INSTRUCCIÓN DE DESPACHO:</b>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.inputs_and_outputs_document_delivery_slip_arthome
+msgid "<b>INSURABLE VALUE</b>"
+msgstr "<b>VALOR ASEGURABLE</b>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.inputs_and_outputs_document_delivery_slip_arthome
+msgid "<b>LINE COUNT</b>"
+msgstr "<b>CANTIDAD DE LÍNEAS</b>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.inputs_and_outputs_document_delivery_slip_arthome
+msgid "<b>TOTAL WEIGHT</b>"
+msgstr "<b>PESO TOTAL</b>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.res_config_settings_view_form_delivery_slip_arthome
+msgid "<span> %</span>"
+msgstr "<span> %</span>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_picking_order_info_arthome
+msgid "<strong>Box Count:</strong>"
+msgstr "<strong>Cantidad de cajas:</strong>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_delivery_document_delivery_slip_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_saleorder_document_box_count_arthome
+msgid "<strong>Box Count</strong>"
+msgstr "<strong>Cantidad de cajas</strong>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_einvoicing_document_delivery_comment_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_package_barcode_order_info_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_picking_order_info_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_return_slip_order_info_arthome
+msgid "<strong>Dispatch Note/Instruction:</strong>"
+msgstr "<strong>Nota/Instrucción de despacho:</strong>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_delivery_document_order_info_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_invoice_document_delivery_comment_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_saleorder_document_delivery_comment_arthome
+msgid "<strong>Dispatch Note/Instruction</strong>"
+msgstr "<strong>Nota/Instrucción de despacho</strong>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_picking_order_info_arthome
+msgid "<strong>Insurable Value:</strong>"
+msgstr "<strong>Valor asegurable:</strong>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_delivery_document_delivery_slip_arthome
+msgid "<strong>Insurable Value</strong>"
+msgstr "<strong>Valor asegurable</strong>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_picking_order_info_arthome
+msgid "<strong>Line Count:</strong>"
+msgstr "<strong>Cantidad de líneas:</strong>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_delivery_document_delivery_slip_arthome
+msgid "<strong>Line Count</strong>"
+msgstr "<strong>Cantidad de líneas</strong>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_delivery_document_order_info_arthome
+msgid "<strong>Lot/Serial Number</strong>"
+msgstr "<strong>Lote/Número de serie</strong>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_package_barcode_order_info_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_picking_order_info_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_return_slip_order_info_arthome
+msgid "<strong>Order Number:</strong>"
+msgstr "<strong>Número de pedido:</strong>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_delivery_document_order_info_arthome
+msgid "<strong>Order Number</strong>"
+msgstr "<strong>Número de pedido</strong>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_package_barcode_order_info_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_picking_order_info_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_return_slip_order_info_arthome
+msgid "<strong>Salesperson:</strong>"
+msgstr "<strong>Vendedor:</strong>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_delivery_document_order_info_arthome
+msgid "<strong>Salesperson</strong>"
+msgstr "<strong>Vendedor</strong>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_picking_order_info_arthome
+msgid "<strong>Total Weight:</strong>"
+msgstr "<strong>Peso total:</strong>"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.report_delivery_document_delivery_slip_arthome
+msgid "<strong>Total Weight</strong>"
+msgstr "<strong>Peso total</strong>"
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_stock_picking_lot_import__keep_lines
+msgid ""
+"Add the imported lots to the current lines instead of replacing the lines of"
+" the imported products."
+msgstr ""
+"Agrega los lotes importados a las líneas actuales en lugar de reemplazar las"
+" líneas de los productos importados."
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_sale_order__box_count
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__box_count
+msgid "Box Count"
+msgstr "Cantidad de cajas"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__box_count_applicable
+msgid "Box Count Applicable"
+msgstr "Aplica cantidad de cajas"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_stock_picking_lot_import_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: stock_arthome
+#: model:ir.model,name:stock_arthome.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: stock_arthome
+#: model:ir.model,name:stock_arthome.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_stock_picking__insurable_value
+msgid ""
+"Configured percentage (Inventory settings) of the sale order net unit price "
+"multiplied by the quantities of this transfer. It can be edited; it is "
+"recomputed when the quantities change."
+msgstr ""
+"Porcentaje configurado (Ajustes de Inventario) sobre el precio unitario neto"
+" del pedido de venta por las cantidades de esta transferencia. Se puede "
+"editar; se recalcula cuando cambian las cantidades."
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_stock_picking__delivery_comment
+msgid ""
+"Copied from the sale order, or from the general customer note of the point "
+"of sale order, when the transfer is created. Editing the order updates the "
+"open transfers that still have its previous text; done transfers keep the "
+"text they were processed with. It can be adjusted on open deliveries."
+msgstr ""
+"Se copia del pedido de venta, o de la nota general al cliente de la orden "
+"del punto de venta, al crear la transferencia. Editar el pedido actualiza "
+"las transferencias abiertas que aún tienen el texto anterior; las "
+"transferencias hechas conservan el texto con el que se procesaron. Se puede "
+"ajustar en las entregas abiertas."
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__create_uid
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__create_date
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__dim
+msgid "DIM"
+msgstr "DIM"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_picking_form_delivery_slip_arthome
+msgid "Delivery Slip"
+msgstr "Remisión"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__delivery_slip_applicable
+msgid "Delivery Slip Applicable"
+msgstr "Aplica remisión"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_account_bank_statement_line__delivery_comment
+#: model:ir.model.fields,field_description:stock_arthome.field_account_move__delivery_comment
+#: model:ir.model.fields,field_description:stock_arthome.field_sale_order__delivery_comment
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__delivery_comment
+msgid "Dispatch Note/Instruction"
+msgstr "Nota/Instrucción de despacho"
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_account_bank_statement_line__delivery_comment
+#: model:ir.model.fields,help:stock_arthome.field_account_move__delivery_comment
+msgid ""
+"Dispatch instructions copied from the sale order when the invoice was "
+"created."
+msgstr ""
+"Instrucciones de despacho copiadas del pedido de venta al crear la factura."
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_sale_order__delivery_comment
+msgid ""
+"Dispatch instructions written once in the order. They are copied to its "
+"transfers (pick, pack and delivery) and printed on their reports, and copied"
+" to the invoice when it is created. Editing them updates only the open "
+"transfers."
+msgstr ""
+"Instrucciones de despacho que se escriben una sola vez en el pedido. Se "
+"copian a sus transferencias (recolección, empaque y entrega) y se imprimen "
+"en sus reportes, y se copian a la factura al crearla. Editarlas actualiza "
+"solo las transferencias abiertas."
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_account_move__display_name
+#: model:ir.model.fields,field_description:stock_arthome.field_pos_order__display_name
+#: model:ir.model.fields,field_description:stock_arthome.field_purchase_import__display_name
+#: model:ir.model.fields,field_description:stock_arthome.field_res_company__display_name
+#: model:ir.model.fields,field_description:stock_arthome.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:stock_arthome.field_sale_order__display_name
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_move__display_name
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__display_name
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__display_name
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__display_name
+msgid "Display Name"
+msgstr "Nombre en pantalla"
+
+#. module: stock_arthome
+#. odoo-javascript
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_stock_picking_lot_import_form
+msgid "Download template"
+msgstr "Descargar plantilla"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/stock_move.py:0
+msgid "Duplicated lot/serial number in the imported data."
+msgstr "Lote/serie repetido en los datos importados."
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__error_count
+msgid "Error Count"
+msgstr "Filas rechazadas"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/stock_move.py:0
+msgid "Exceeds the demand (%(demand)s %(uom)s) by %(excess)s."
+msgstr "Supera la demanda (%(demand)s %(uom)s) en %(excess)s."
+
+#. module: stock_arthome
+#. odoo-javascript
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__import_file
+msgid "File"
+msgstr "Archivo"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__import_file_name
+msgid "File Name"
+msgstr "Nombre del archivo"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/purchase_import.py:0
+msgid "First load the products of the import with the \"Products\" button."
+msgstr ""
+"Primero cargue los productos de la importación con el botón \"Productos\"."
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_account_move__id
+#: model:ir.model.fields,field_description:stock_arthome.field_pos_order__id
+#: model:ir.model.fields,field_description:stock_arthome.field_purchase_import__id
+#: model:ir.model.fields,field_description:stock_arthome.field_res_company__id
+#: model:ir.model.fields,field_description:stock_arthome.field_res_config_settings__id
+#: model:ir.model.fields,field_description:stock_arthome.field_sale_order__id
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_move__id
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__id
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__id
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/purchase_import.py:0
+#: code:addons/stock_arthome/models/stock_picking.py:0
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_picking_form_lot_import_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_purchase_import_form_lot_import_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_stock_picking_lot_import_form
+msgid "Import Serial/Lot Numbers"
+msgstr "Importar números de serie o lote"
+
+#. module: stock_arthome
+#: model:ir.model,name:stock_arthome.model_stock_picking_lot_import
+msgid "Import Serial/Lot Numbers in a Transfer"
+msgstr "Importar números de serie o lote en una transferencia"
+
+#. module: stock_arthome
+#: model:ir.model,name:stock_arthome.model_stock_picking_lot_import_line
+msgid "Import Serial/Lot Numbers in a Transfer: Preview Line"
+msgstr ""
+"Importar números de serie o lote en una transferencia: línea de vista previa"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_stock_picking_lot_import_form
+msgid ""
+"Import the lots/serial numbers of all the products at once.\n"
+"                    Download the template: it lists the products that use lots by internal reference.\n"
+"                    Add one row per lot (copy the row of the product as many times as needed) and fill in\n"
+"                    Lot/Serial, Quantity and, optionally, Traceability Note and DIM."
+msgstr ""
+"Importe de una sola vez los lotes/números de serie de todos los productos.\n"
+"                    Descargue la plantilla: trae los productos que usan lotes por referencia interna.\n"
+"                    Agregue una fila por lote (copie la fila del producto las veces que necesite) y llene\n"
+"                    Lote/Serie, Cantidad y, opcionalmente, Comentario de trazabilidad y DIM."
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_stock_picking_lot_import_form
+msgid ""
+"Import the lots/serial numbers of all the purchase orders of the import at once.\n"
+"                    Download the template: it lists one row per purchase order and product that use lots.\n"
+"                    Add one row per lot (copy the row as many times as needed) and fill in Lot/Serial, Quantity and,\n"
+"                    optionally, Traceability Note and DIM. Each lot goes to the receipt of its purchase order.\n"
+"                    The purchase order can be left empty when the product is in a single order. The receipt\n"
+"                    is optional: fill it in only to choose among several pending receipts of the order."
+msgstr ""
+"Importe de una sola vez los lotes/series de todas las órdenes de compra de "
+"la importación. Descargue la plantilla: trae una fila por cada orden de "
+"compra y producto que usa lotes. Agregue una fila por lote (copie la fila "
+"las veces que necesite) y diligencie Lote/Serie, Cantidad y, opcionalmente, "
+"Comentario de trazabilidad y DIM. Cada lote va a la recepción de su orden de"
+" compra. La orden de compra puede ir vacía cuando el producto está en una "
+"sola orden. La recepción es opcional: llénela solo para elegir entre varias "
+"recepciones pendientes de la orden."
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_stock_picking_lot_import_form
+msgid "Import valid lines"
+msgstr "Importar líneas válidas"
+
+#. module: stock_arthome
+#. odoo-javascript
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+msgid "Import valid lines ("
+msgstr "Importar líneas válidas ("
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid ""
+"Indicate the purchase order; the product is in several orders (%(orders)s)."
+msgstr ""
+"Indique la orden de compra; el producto está en varias órdenes (%(orders)s)."
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__insurable_value
+#: model_terms:ir.ui.view,arch_db:stock_arthome.res_config_settings_view_form_delivery_slip_arthome
+msgid "Insurable Value"
+msgstr "Valor asegurable"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__insurable_currency_id
+msgid "Insurable Value Currency"
+msgstr "Moneda del valor asegurable"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_res_company__insurable_value_percentage
+#: model:ir.model.fields,field_description:stock_arthome.field_res_config_settings__insurable_value_percentage
+msgid "Insurable Value Percentage"
+msgstr "Porcentaje asegurable"
+
+#. module: stock_arthome
+#: model:ir.model,name:stock_arthome.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__keep_lines
+msgid "Keep current lines"
+msgstr "Conservar líneas actuales"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__write_uid
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__write_date
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__line_count
+msgid "Line Count"
+msgstr "Cantidad de líneas"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__line_count_applicable
+msgid "Line Count Applicable"
+msgstr "Aplica cantidad de líneas"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__lot_import_applicable
+msgid "Lot Import Applicable"
+msgstr "Aplica importación de lotes"
+
+#. module: stock_arthome
+#. odoo-javascript
+#. odoo-python
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__lot_name
+msgid "Lot/Serial"
+msgstr "Lote/Serie"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "Lots"
+msgstr "Lotes"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/stock_move.py:0
+msgid "Missing lot/serial number."
+msgstr "Falta el número de lote/serie."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "Missing product reference."
+msgstr "Falta la referencia del producto."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/stock_move.py:0
+msgid "Missing quantity."
+msgstr "Falta la cantidad."
+
+#. module: stock_arthome
+#. odoo-javascript
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+msgid "No file selected (xlsx, xls, csv, ods)"
+msgstr "Ningún archivo seleccionado (xlsx, xls, csv, ods)"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/stock_move.py:0
+msgid "No product found to import Serials/Lots for."
+msgstr "No se encontró el producto para importar lotes/series."
+
+#. module: stock_arthome
+#. odoo-javascript
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+msgid "Notice"
+msgstr "Aviso"
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_stock_picking__box_count
+msgid ""
+"Number of boxes of the delivery, typed by the warehouse user. The sale order"
+" shows the sum of its deliveries that are not cancelled."
+msgstr ""
+"Cantidad de cajas de la entrega, digitada por el usuario de bodega. El "
+"pedido de venta muestra la suma de sus entregas no canceladas."
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_stock_picking__line_count
+msgid ""
+"Number of distinct lots/serial numbers per product in the detailed "
+"operations. A product without lot, or not reserved yet, counts as 1."
+msgstr ""
+"Cantidad de lotes/números de serie distintos por producto en las operaciones"
+" detalladas. Un producto sin lote, o aún sin reservar, cuenta 1."
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_stock_picking_lot_import_form
+msgid ""
+"Or paste here the rows copied from the template: Purchase Order, Reference, "
+"Product, Lot/Serial, Quantity, Traceability Note, DIM"
+msgstr ""
+"O pegue aquí las filas copiadas de la plantilla: Orden de compra, "
+"Referencia, Producto, Lote/Serie, Cantidad, Comentario de trazabilidad, DIM"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_stock_picking_lot_import_form
+msgid ""
+"Or paste here the rows copied from the template: Reference, Product, "
+"Lot/Serial, Quantity, Traceability Note, DIM"
+msgstr ""
+"O pegue aquí las filas copiadas de la plantilla: Referencia, Producto, "
+"Lote/Serie, Cantidad, Comentario de trazabilidad, DIM"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__lot_text
+msgid "Or paste the rows"
+msgstr "O pegue las filas"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__order_info_applicable
+msgid "Order Info Applicable"
+msgstr "Aplica datos del pedido"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__order_reference
+msgid "Order Number"
+msgstr "Número de pedido"
+
+#. module: stock_arthome
+#. odoo-javascript
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_stock_picking_lot_import_form
+msgid "Over the demand:"
+msgstr "Superan la demanda:"
+
+#. module: stock_arthome
+#. odoo-javascript
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+msgid ""
+"Paste the columns Lot/Serial and Quantity copied from Excel, or upload a file.\n"
+"                Optional columns: Traceability Note and DIM (the DIM applies to the whole product; the last one wins).\n"
+"                Quantities accept the formats 1.234,50 and 12,5."
+msgstr ""
+"Pegue las columnas Lote/Serie y Cantidad copiadas de Excel, o cargue un archivo.\n"
+"                Columnas opcionales: Comentario de trazabilidad y DIM (el DIM aplica a todo el producto; gana el último).\n"
+"                Las cantidades aceptan los formatos 1.234,50 y 12,5."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "Pending to Receive"
+msgstr "Pendiente por recibir"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.res_config_settings_view_form_delivery_slip_arthome
+msgid "Percentage"
+msgstr "Porcentaje"
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_res_company__insurable_value_percentage
+#: model:ir.model.fields,help:stock_arthome.field_res_config_settings__insurable_value_percentage
+msgid ""
+"Percentage of the sale order net price applied to the transfer quantities to"
+" compute the insurable value of the transfer."
+msgstr ""
+"Porcentaje del precio neto del pedido de venta que se aplica a las "
+"cantidades de la transferencia para calcular su valor asegurable."
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.res_config_settings_view_form_delivery_slip_arthome
+msgid ""
+"Percentage of the sale order net price used to compute the insurable value "
+"of the transfers. Changing it does not update existing transfers."
+msgstr ""
+"Porcentaje del precio neto del pedido de venta con el que se calcula el "
+"valor asegurable de las transferencias. Cambiarlo no modifica las "
+"transferencias existentes."
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__picking_id
+msgid "Picking"
+msgstr "Transferencia"
+
+#. module: stock_arthome
+#: model:ir.model,name:stock_arthome.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "Órdenes del punto de venta"
+
+#. module: stock_arthome
+#. odoo-javascript
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__line_ids
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_stock_picking_lot_import_form
+msgid "Preview"
+msgstr "Vista previa"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_stock_picking_lot_import_form
+msgid "Preview again"
+msgstr "Volver a previsualizar"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__previewed
+msgid "Previewed"
+msgstr "Previsualizado"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_stock_picking__delivery_weight
+msgid ""
+"Product weight multiplied by the demanded quantity, or by the done quantity "
+"once the transfer is done. Products without weight count as 0."
+msgstr ""
+"Peso del producto por la cantidad demandada, o por la cantidad hecha una vez"
+" validada la transferencia. Los productos sin peso suman 0."
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__purchase_import_id
+msgid "Purchase Import"
+msgstr "Importación de compra"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__order_name
+msgid "Purchase Order"
+msgstr "Orden de compra"
+
+#. module: stock_arthome
+#: model:ir.model,name:stock_arthome.model_purchase_import
+msgid "Purchase import"
+msgstr "Importación de compra"
+
+#. module: stock_arthome
+#. odoo-javascript
+#. odoo-python
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__quantity
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: stock_arthome
+#. odoo-javascript
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__reason
+msgid "Reason"
+msgstr "Motivo"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__picking_id
+msgid "Receipt"
+msgstr "Recepción"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__code
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: stock_arthome
+#: model:ir.model.fields.selection,name:stock_arthome.selection__stock_picking_lot_import_line__status__error
+msgid "Rejected"
+msgstr "Rechazada"
+
+#. module: stock_arthome
+#. odoo-javascript
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_stock_picking_lot_import_form
+msgid "Rejected rows:"
+msgstr "Filas rechazadas:"
+
+#. module: stock_arthome
+#. odoo-javascript
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+msgid "Remove file"
+msgstr "Quitar archivo"
+
+#. module: stock_arthome
+#. odoo-javascript
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__row
+msgid "Row"
+msgstr "Fila"
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_stock_picking_lot_import__lot_text
+msgid "Rows copied from the template, in the same column order."
+msgstr "Filas copiadas de la plantilla, en el mismo orden de columnas."
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_stock_picking__order_reference
+msgid "Sale order, or point of sale receipt, that originated the transfer."
+msgstr ""
+"Pedido de venta, o recibo del punto de venta, que originó la transferencia."
+
+#. module: stock_arthome
+#: model:ir.model,name:stock_arthome.model_sale_order
+msgid "Sales Order"
+msgstr "Orden de venta"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__salesperson_name
+msgid "Salesperson"
+msgstr "Vendedor"
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_stock_picking__salesperson_name
+msgid "Salesperson of the sale order, or cashier of the point of sale order."
+msgstr ""
+"Vendedor del pedido de venta, o cajero de la orden del punto de venta."
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__status
+msgid "Status"
+msgstr "Estado"
+
+#. module: stock_arthome
+#: model:ir.model,name:stock_arthome.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de stock"
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_sale_order__box_count
+msgid ""
+"Sum of the box count of the deliveries and dropships of the order that are "
+"not cancelled."
+msgstr ""
+"Suma de la cantidad de cajas de las entregas y dropship del pedido que no "
+"están canceladas."
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_stock_picking__box_count_applicable
+msgid ""
+"Technical field: the transfer comes from a sale order and is a delivery or a"
+" dropship."
+msgstr ""
+"Campo técnico: la transferencia viene de un pedido de venta y es una entrega"
+" o un dropship."
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_stock_picking__delivery_slip_applicable
+msgid ""
+"Technical field: the transfer comes from a sale order and is a delivery or "
+"an internal step (pick/pack)."
+msgstr ""
+"Campo técnico: la transferencia viene de un pedido de venta y es una entrega"
+" o un paso interno (recolección/empaque)."
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_stock_picking__line_count_applicable
+msgid ""
+"Technical field: the transfer comes from a sale order and is a delivery, a "
+"dropship or an internal step (pick/pack)."
+msgstr ""
+"Campo técnico: la transferencia viene de un pedido de venta y es una "
+"entrega, un dropship o un paso interno (recolección/empaque)."
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_stock_picking__order_info_applicable
+msgid ""
+"Technical field: the transfer comes from a sale order or a point of sale "
+"order and is a delivery or an internal step (pick/pack)."
+msgstr ""
+"Campo técnico: la transferencia viene de un pedido de venta o de una orden "
+"del punto de venta y es una entrega o un paso interno (recolección/empaque)."
+
+#. module: stock_arthome
+#: model:ir.model.fields,help:stock_arthome.field_stock_picking__lot_import_applicable
+msgid ""
+"Technical field: the transfer has products whose lots/serial numbers can be "
+"imported."
+msgstr ""
+"Campo técnico: la transferencia tiene productos cuyos lotes/números de serie"
+" se pueden importar."
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__template_file
+msgid "Template File"
+msgstr "Archivo de plantilla"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__template_file_name
+msgid "Template File Name"
+msgstr "Nombre de la plantilla"
+
+#. module: stock_arthome
+#: model:ir.model.constraint,message:stock_arthome.constraint_stock_picking_box_count_positive
+msgid "The box count cannot be negative."
+msgstr "La cantidad de cajas no puede ser negativa."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/stock_move.py:0
+msgid "The file could not be read: %s"
+msgstr "No se pudo leer el archivo: %s"
+
+#. module: stock_arthome
+#: model:ir.model.constraint,message:stock_arthome.constraint_res_company_insurable_value_percentage_range
+msgid "The insurable value percentage must be between 0 and 100."
+msgstr "El porcentaje asegurable debe estar entre 0 y 100."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/stock_move.py:0
+msgid "The lot/serial number already exists for this product."
+msgstr "El lote/serie ya existe para este producto."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/stock_move.py:0
+msgid "The lot/serial number is already in the current lines."
+msgstr "El lote/serie ya está en las líneas actuales."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "The product %(product)s is not in the order %(order)s."
+msgstr "El producto %(product)s no está en la orden %(order)s."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "The product reference is not in this import."
+msgstr "La referencia del producto no está en esta importación."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "The product reference is not in this transfer."
+msgstr "La referencia del producto no está en esta transferencia."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid ""
+"The purchase order %(order)s does not belong to the import "
+"%(purchase_import)s."
+msgstr "La orden %(order)s no pertenece a la importación %(purchase_import)s."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/stock_move.py:0
+msgid ""
+"The quantity has more decimals than the unit of measure allows "
+"(%(rounding)s)."
+msgstr ""
+"La cantidad tiene más decimales de los que permite la unidad de medida "
+"(%(rounding)s)."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/stock_move.py:0
+msgid "The quantity is not a valid number."
+msgstr "La cantidad no es un número válido."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/stock_move.py:0
+msgid "The quantity must be greater than zero."
+msgstr "La cantidad debe ser mayor que cero."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/stock_move.py:0
+msgid "The quantity of a serial number must be 1."
+msgstr "La cantidad de un número de serie debe ser 1."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid ""
+"The receipt %(picking)s is not a pending receipt of this product in the "
+"order %(order)s."
+msgstr ""
+"La recepción %(picking)s no es una recepción pendiente de este producto en "
+"la orden %(order)s."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "The receipt of the order %(order)s is not pending."
+msgstr "La recepción de la orden %(order)s no está pendiente."
+
+#. module: stock_arthome
+#. odoo-javascript
+#. odoo-python
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.js:0
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "There are no valid lines to import."
+msgstr "No hay líneas válidas para importar."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/purchase_import.py:0
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "This import has no products that use lots/serial numbers to import."
+msgstr ""
+"Esta importación no tiene productos que usen lotes/números de serie para "
+"importar."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid ""
+"This product does not use lots/serial numbers to import in this import."
+msgstr ""
+"Este producto no usa lotes/números de serie para importar en esta "
+"importación."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid ""
+"This product does not use lots/serial numbers to import in this transfer."
+msgstr ""
+"Este producto no usa lotes/números de serie para importar en esta "
+"transferencia."
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "This transfer has no products that use lots/serial numbers to import."
+msgstr ""
+"Esta transferencia no tiene productos que usen lotes/números de serie para "
+"importar."
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.vpicktree_delivery_slip_arthome
+msgid "Total Insurable Value"
+msgstr "Valor asegurable total"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__delivery_weight
+msgid "Total Weight"
+msgstr "Peso total"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__comment
+msgid "Traceability Note"
+msgstr "Comentario de trazabilidad"
+
+#. module: stock_arthome
+#: model:ir.model,name:stock_arthome.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/models/stock_move.py:0
+msgid "Unsupported file format. Please use one of: %s."
+msgstr "Formato de archivo no soportado. Use uno de: %s."
+
+#. module: stock_arthome
+#. odoo-javascript
+#. odoo-python
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.js:0
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "Upload a file or paste the lots and quantities to import."
+msgstr "Cargue un archivo o pegue los lotes y cantidades a importar."
+
+#. module: stock_arthome
+#. odoo-javascript
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+msgid "Upload file"
+msgstr "Cargar archivo"
+
+#. module: stock_arthome
+#: model:ir.model.fields.selection,name:stock_arthome.selection__stock_picking_lot_import_line__status__valid
+msgid "Valid"
+msgstr "Válida"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__valid_count
+msgid "Valid Count"
+msgstr "Líneas válidas"
+
+#. module: stock_arthome
+#. odoo-javascript
+#: code:addons/stock_arthome/static/src/widgets/generate_dialog_patch.xml:0
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_stock_picking_lot_import_form
+msgid "Valid lines:"
+msgstr "Líneas válidas:"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import__warning_count
+msgid "Warning Count"
+msgstr "Filas que superan la demanda"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking__delivery_weight_uom_name
+msgid "Weight Unit of Measure"
+msgstr "Unidad de peso"
+
+#. module: stock_arthome
+#: model:ir.model.fields,field_description:stock_arthome.field_stock_picking_lot_import_line__wizard_id
+msgid "Wizard"
+msgstr "Asistente"
+
+#. module: stock_arthome
+#: model_terms:ir.ui.view,arch_db:stock_arthome.view_order_form_delivery_comment_arthome
+msgid "e.g. Deliver at the back door, in the afternoon"
+msgstr "ej. Entregar en la puerta trasera, en la tarde"
+
+#. module: stock_arthome
+#. odoo-python
+#: code:addons/stock_arthome/wizard/stock_picking_lot_import.py:0
+msgid "lots_%s.xlsx"
+msgstr "lotes_%s.xlsx"

@@ -611,11 +611,13 @@ msgstr ""
 
 #. module: l10n_co_bloodo
 #: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_import_wizard_form
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_xml_fetch_wizard_form
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: l10n_co_bloodo
 #: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.aml_consignment_data_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.xml_by_document_key_form
 msgid "Cancelar"
 msgstr ""
 
@@ -672,6 +674,7 @@ msgstr "Concepto de corrección DS"
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ie_claim_id
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ie_claim_id
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ie_claim_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__ie_claim_id
 msgid "Concepto de rechazo"
 msgstr ""
 
@@ -747,16 +750,30 @@ msgstr "Crear Tercero"
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__create_uid
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__create_uid
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__create_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__create_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_xml_fetch_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_error__create_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__create_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_xml_by_document_key__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creado por"
 
 #. module: l10n_co_bloodo
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__create_date
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__create_date
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__create_date
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__create_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__create_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_xml_fetch_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_error__create_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__create_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_xml_by_document_key__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creado el"
 
 #. module: l10n_co_bloodo
 #: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__way_to_pay__credit
@@ -772,6 +789,8 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_line__ev_fe_state
 #: model:ir.model.fields,help:l10n_co_bloodo.field_account_move__ev_fe_state
 #: model:ir.model.fields,help:l10n_co_bloodo.field_account_payment__ev_fe_state
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__ev_fe_state
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_event_mixin__ev_fe_state
 msgid "Código de estado del evento entregado a la DIAN"
 msgstr ""
 
@@ -901,8 +920,20 @@ msgstr "Dierecto a la DIAN"
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__display_name
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__display_name
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_xml_fetch_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_mixin__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_error__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_synchronizer__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_sync__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_fetchmail_server__display_name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_xml_by_document_key__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nombre mostrado"
 
 #. module: l10n_co_bloodo
 #. odoo-python
@@ -1024,6 +1055,7 @@ msgstr ""
 #. module: l10n_co_bloodo
 #. odoo-python
 #: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/dian_event_mixin.py:0
 #, python-format
 msgid ""
 "El código de evento que está intentando enviar es incorrecto.\n"
@@ -1206,6 +1238,7 @@ msgstr ""
 #. module: l10n_co_bloodo
 #. odoo-python
 #: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/dian_event_mixin.py:0
 #, python-format
 msgid ""
 "Error desconocido en metodo %s. \n"
@@ -1219,6 +1252,7 @@ msgstr ""
 #. module: l10n_co_bloodo
 #. odoo-python
 #: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/dian_event_mixin.py:0
 #, python-format
 msgid ""
 "Error desconocido en metodo %s. \n"
@@ -1261,6 +1295,7 @@ msgstr ""
 #. module: l10n_co_bloodo
 #. odoo-python
 #: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/dian_event_mixin.py:0
 #, python-format
 msgid ""
 "Error en metodo GetStatusEvent.\n"
@@ -1363,6 +1398,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ev_fe_state
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ev_fe_state
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ev_fe_state
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__ev_fe_state
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_mixin__ev_fe_state
 msgid "Estado de envío del evento"
 msgstr "Estado de entrega evento"
 
@@ -1370,6 +1407,8 @@ msgstr "Estado de entrega evento"
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ie_event_display
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ie_event_display
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ie_event_display
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__ie_event_display
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_mixin__ie_event_display
 msgid "Estado evento"
 msgstr ""
 
@@ -1437,6 +1476,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ie_event_active_id
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ie_event_active_id
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ie_event_active_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__ie_event_active_id
 msgid "Evento activo"
 msgstr ""
 
@@ -1495,6 +1535,7 @@ msgstr ""
 #: code:addons/l10n_co_bloodo/models/account_move.py:0
 #: code:addons/l10n_co_bloodo/models/account_move.py:0
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__move_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_error__invoice_id
 #, python-format
 msgid "Factura"
 msgstr ""
@@ -1580,6 +1621,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ie_event_active_date
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ie_event_active_date
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ie_event_active_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__ie_event_active_date
 msgid "Fecha de registro del evento"
 msgstr "Fecha registro evento"
 
@@ -1638,6 +1680,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ie_event_history_ids
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ie_event_history_ids
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ie_event_history_ids
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__ie_event_history_ids
 msgid "Historial eventos"
 msgstr "Historico de eventos"
 
@@ -1663,8 +1706,20 @@ msgstr "Historico de eventos"
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__id
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__id
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_xml_fetch_wizard__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_mixin__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_error__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_wizard__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_synchronizer__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_sync__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_fetchmail_server__id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_xml_by_document_key__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: l10n_co_bloodo
 #. odoo-python
@@ -1795,16 +1850,30 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__write_uid
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__write_uid
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__write_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__write_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_xml_fetch_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_error__write_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__write_uid
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_xml_by_document_key__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Última actualización por"
 
 #. module: l10n_co_bloodo
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_consignment_data__write_date
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__write_date
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__write_date
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_invoice_import_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__write_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__write_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_xml_fetch_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_error__write_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__write_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_xml_by_document_key__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Última actualización el"
 
 #. module: l10n_co_bloodo
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_journal__edi_technical_key
@@ -1855,6 +1924,8 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_co_bloodo.field_account_bank_statement_line__ev_fe_response
 #: model:ir.model.fields,help:l10n_co_bloodo.field_account_move__ev_fe_response
 #: model:ir.model.fields,help:l10n_co_bloodo.field_account_payment__ev_fe_response
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__ev_fe_response
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_event_mixin__ev_fe_response
 msgid ""
 "Mensaje de respuesta de la entrega del evento. Aquí puede ver la lista de "
 "validaciones para corregir si el evento ha sido rechazado."
@@ -1882,6 +1953,8 @@ msgstr ""
 
 #. module: l10n_co_bloodo
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_edi_document_log__name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__name
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__name
 msgid "Name"
 msgstr "Nombre"
 
@@ -1962,6 +2035,7 @@ msgstr ""
 #. module: l10n_co_bloodo
 #. odoo-python
 #: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/dian_event_mixin.py:0
 #, python-format
 msgid "No hay un CUFE de referencia para consultar el estado."
 msgstr ""
@@ -1969,6 +2043,7 @@ msgstr ""
 #. module: l10n_co_bloodo
 #. odoo-python
 #: code:addons/l10n_co_bloodo/models/account_move.py:0
+#: code:addons/l10n_co_bloodo/models/dian_event_mixin.py:0
 #, python-format
 msgid "No hay un CUFE de referencia para consultar estado."
 msgstr ""
@@ -2125,6 +2200,8 @@ msgstr "Notas en FE"
 
 #. module: l10n_co_bloodo
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__notes
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__note
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_invoice_line_form
 msgid "Notes"
 msgstr "Notas"
 
@@ -2449,6 +2526,8 @@ msgstr "Respuesta de rangos de numeración"
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__fe_response
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__fe_response
 #: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.invoice_form_inherit_dian
+#: code:addons/l10n_co_bloodo/wizards/xml_by_document_key_wizard.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_events
 msgid "Respuesta DIAN"
 msgstr "Respuesta"
 
@@ -2461,6 +2540,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_bank_statement_line__ev_fe_response
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_move__ev_fe_response
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_account_payment__ev_fe_response
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__ev_fe_response
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_mixin__ev_fe_response
 msgid "Respuesta de entrega evento"
 msgstr ""
 
@@ -2667,6 +2748,7 @@ msgstr ""
 #. module: l10n_co_bloodo
 #. odoo-python
 #: code:addons/l10n_co_bloodo/models/ir_sentences.py:0
+#: code:addons/l10n_co_bloodo/wizards/xml_by_document_key_wizard.py:0
 #, python-format
 msgid ""
 "The DIAN response could not be processed. \n"
@@ -2840,36 +2922,50 @@ msgstr ""
 
 #. module: l10n_co_bloodo
 #: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__02
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__02
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__02
 msgid "[02] Documento validado por la DIAN"
 msgstr ""
 
 #. module: l10n_co_bloodo
 #: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__030
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__030
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__030
 msgid "[030] Acuse de recibo"
 msgstr ""
 
 #. module: l10n_co_bloodo
 #: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__031
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__031
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__031
 msgid "[031] Reclamo"
 msgstr ""
 
 #. module: l10n_co_bloodo
 #: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__032
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__032
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__032
 msgid "[032] Recibo del bien"
 msgstr ""
 
 #. module: l10n_co_bloodo
 #: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__033
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__033
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__033
 msgid "[033] Aceptación expresa"
 msgstr ""
 
 #. module: l10n_co_bloodo
 #: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__034
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__034
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__034
 msgid "[034] Aceptación Tácita"
 msgstr ""
 
 #. module: l10n_co_bloodo
 #: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__account_move__ie_event_display__04
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__04
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__04
 msgid "[03] Documento rechazado por la DIAN"
 msgstr ""
 
@@ -2969,4 +3065,1976 @@ msgstr ""
 #. module: l10n_co_bloodo
 #: model:ir.model.fields,field_description:l10n_co_bloodo.field_ir_sequence__edi_resolution_control
 msgid "¿Usar el control de resoluciones DIAN?"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/wizards/dian_document_xml_fetch_wizard.py:0
+msgid ""
+"%(queued)s document(s) queued to fetch their XML, %(skipped)s skipped "
+"(already loaded, being processed or company without direct e-invoicing)."
+msgstr ""
+"%(queued)s documento(s) en cola para obtener su XML, %(skipped)s omitido(s) "
+"(XML ya cargado, en proceso o compañía sin facturación electrónica directa)."
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_document_move.py:0
+msgid "%d documents linked, %d not matched, %d already had an invoice."
+msgstr "%d documentos asociados, %d sin coincidencia, %d ya tenían factura."
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid ""
+"%s: el documento %s se está obteniendo de la DIAN en este momento, no se "
+"modificó."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid "%s: el documento %s ya tenía los datos del XML, no se modificó."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid "%s: error, %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid "%s: error, el XML no trae CUFE (UUID) o no es un documento soportado."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid "%s: omitido (el emisor es esta misma compañía)."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid "%s: procesado, documento creado (%s)."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid "%s: procesado, se completaron los datos del XML (%s)."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__01
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "01 - Electronic sales invoice"
+msgstr "01 - Factura electrónica de Venta"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__02
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "02 - Electronic export sales invoice"
+msgstr "02 - Factura electrónica de venta - exportación"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__03
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "03 - Electronic transmission instrument - type 03"
+msgstr "03 - Instrumento electrónico de transmisión - tipo 03"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__04
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "04 - Electronic sales invoice - type 04"
+msgstr "04 - Factura electrónica de Venta - tipo 04"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__1
+msgid "1 - Unspecified instrument"
+msgstr "1 - Instrumento no definido"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__10
+msgid "10 - Cash"
+msgstr "10 - Efectivo"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__11
+msgid "11 - Savings credit reversal"
+msgstr "11 - Reversión Crédito Ahorro"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__12
+msgid "12 - Savings debit reversal"
+msgstr "12 - Reversión Débito Ahorro"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__13
+msgid "13 - Savings Credit"
+msgstr "13 - Crédito Ahorro"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__14
+msgid "14 - Savings Debit"
+msgstr "14 - Débito Ahorro"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__15
+msgid "15 - Book entry credit"
+msgstr "15 - Bookentry Crédito"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__16
+msgid "16 - Book entry debit"
+msgstr "16 - Bookentry Débito"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__17
+msgid "17 - CCD credit disbursement"
+msgstr "17 - Desembolso Crédito (CCD)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__18
+msgid "18 - CCD debit disbursement"
+msgstr "18 - Desembolso (CCD) débito"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__19
+msgid "19 - Corporate Trade Payment (CTP) credit"
+msgstr "19 - Crédito Pago negocio corporativo (CTP)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__2
+msgid "2 - ACH Credit"
+msgstr "2 - Crédito ACH"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__20
+msgid "20 - Cheque"
+msgstr "20 - Cheque"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__20
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "20 - Electronic equivalent of POS cash register receipt"
+msgstr ""
+"20 - Documento equivalente electrónico del tiquete de máquina registradora "
+"con sistema P.O.S."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__21
+msgid "21 - Bank draft"
+msgstr "21 - Proyecto bancario"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__22
+msgid "22 - Certified bank draft"
+msgstr "22 - Proyecto bancario certificado"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__23
+msgid "23 - Cashier's cheque"
+msgstr "23 - Cheque bancario de gerencia"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__24
+msgid "24 - Bill of exchange awaiting acceptance"
+msgstr "24 - Nota cambiaria esperando aceptación"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__25
+msgid "25 - Certified cheque"
+msgstr "25 - Cheque certificado"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__25
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "25 - Cinema admission ticket"
+msgstr "25 - Boleta de ingreso a cine"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__26
+msgid "26 - Local cheque"
+msgstr "26 - Cheque Local"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__27
+msgid "27 - Corporate Trade Payment (CTP) debit"
+msgstr "27 - Débito Pago Negocio Corporativo (CTP)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__27
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "27 - Public show admission ticket"
+msgstr "27 - Boleta de ingreso a espectáculos públicos"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__28
+msgid "28 - Corporate Trade Exchange (CTX) credit"
+msgstr "28 - Crédito Negocio Intercambio Corporativo (CTX)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__29
+msgid "29 - Corporate Trade Exchange (CTX) debit"
+msgstr "29 - Débito Negocio Intercambio Corporativo (CTX)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__3
+msgid "3 - ACH Debit"
+msgstr "3 - Débito ACH"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__30
+msgid "30 - Credit transfer"
+msgstr "30 - Transferencia Crédito"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "30 - Localized and non-localized gaming"
+msgstr "30 - Juegos localizados y no localizados"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__30
+msgid "30 - Localized and non-localized gaming - daily sales control report"
+msgstr ""
+"30 - Documento en juegos localizados y no localizados - relación diaria de "
+"control de ventas"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__31
+msgid "31 - Debit transfer"
+msgstr "31 - Transferencia Débito"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__32
+msgid "32 - CCD+ credit disbursement"
+msgstr "32 - Desembolso Crédito plus (CCD+)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__33
+msgid "33 - CCD+ debit disbursement"
+msgstr "33 - Desembolso Débito plus (CCD+)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__34
+msgid "34 - Pre-authorized payment and deposit (PPD)"
+msgstr "34 - Pago y depósito pre acordado (PPD)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__35
+msgid "35 - CCD credit disbursement"
+msgstr "35 - Desembolso Crédito (CCD)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__35
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "35 - Land passenger transport ticket"
+msgstr "35 - Tiquete de transporte de pasajeros terrestre"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__36
+msgid "36 - CCD debit disbursement"
+msgstr "36 - Desembolso Débito (CCD)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__37
+msgid "37 - Corporate Trade Payment (CTP) savings credit"
+msgstr "37 - Pago Negocio Corporativo Ahorros Crédito (CTP)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__38
+msgid "38 - Corporate Trade Payment (CTP) savings debit"
+msgstr "38 - Pago Negocio Corporativo Ahorros Débito (CTP)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__39
+msgid "39 - Corporate Trade Exchange (CTX) Credit"
+msgstr "39 - Crédito Intercambio Corporativo (CTX)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__4
+msgid "4 - ACH demand debit reversal"
+msgstr "4 - Reversión débito de demanda ACH"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__40
+msgid "40 - Corporate Trade Exchange (CTX) debit"
+msgstr "40 - Débito Intercambio Corporativo (CTX)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__40
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "40 - Toll collection document"
+msgstr "40 - Documento expedido para el cobro de peajes"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__41
+msgid "41 - CCD+ credit disbursement"
+msgstr "41 - Desembolso Crédito plus (CCD+)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__42
+msgid "42 - Bank consignment"
+msgstr "42 - Consignación bancaria"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__43
+msgid "43 - CCD+ debit disbursement"
+msgstr "43 - Desembolso Débito plus (CCD+)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__44
+msgid "44 - Bill of exchange"
+msgstr "44 - Nota cambiaria"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__45
+msgid "45 - Bank credit transfer"
+msgstr "45 - Transferencia Crédito Bancario"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "45 - Statement issued by financial institutions"
+msgstr "45 - Extracto expedido por sociedades financieras"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__45
+msgid "45 - Statement issued by financial institutions and funds"
+msgstr "45 - Extracto expedido por sociedades financieras y fondos"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__46
+msgid "46 - Interbank debit transfer"
+msgstr "46 - Transferencia Débito Interbancario"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__47
+msgid "47 - Bank debit transfer"
+msgstr "47 - Transferencia Débito Bancaria"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__48
+msgid "48 - Credit Card"
+msgstr "48 - Tarjeta Crédito"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__49
+msgid "49 - Debit Card"
+msgstr "49 - Tarjeta Débito"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__5
+msgid "5 - ACH demand credit reversal"
+msgstr "5 - Reversión crédito de demanda ACH"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__50
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "50 - Air passenger transport ticket"
+msgstr "50 - Tiquete de billete de transporte aéreo de pasajeros"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__50
+msgid "50 - Postal giro"
+msgstr "50 - Postgiro"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__51
+msgid "51 - Standard bank telex"
+msgstr "51 - Telex estándar bancario"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__52
+msgid "52 - Urgent commercial payment"
+msgstr "52 - Pago comercial urgente"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__53
+msgid "53 - Urgent treasury payment"
+msgstr "53 - Pago Tesorería Urgente"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "55 - Stock exchange, agricultural and commodities"
+msgstr "55 - Bolsa de valores, agropecuaria y commodities"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__55
+msgid "55 - Stock exchange, agricultural and commodities operations document"
+msgstr ""
+"55 - Documento de operación de bolsa de valores, agropecuaria y de otros "
+"comodities"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__6
+msgid "6 - ACH demand credit"
+msgstr "6 - Crédito de demanda ACH"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__60
+msgid "60 - Promissory note"
+msgstr "60 - Nota promisoria"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__60
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "60 - Public and residential utilities document"
+msgstr "60 - Documento expedido para los servicios públicos y domiciliarios"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__61
+msgid "61 - Promissory note signed by the creditor"
+msgstr "61 - Nota promisoria firmada por el acreedor"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__62
+msgid "62 - Promissory note signed by creditor, bank endorsed"
+msgstr "62 - Nota promisoria firmada por el acreedor, avalada por el banco"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__63
+msgid "63 - Promissory note signed by creditor, third party endorsed"
+msgstr "63 - Nota promisoria firmada por el acreedor, avalada por un tercero"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__64
+msgid "64 - Promissory note signed by the bank"
+msgstr "64 - Nota promisoria firmada por el banco"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__65
+msgid "65 - Promissory note signed by a bank endorsed by another bank"
+msgstr "65 - Nota promisoria firmada por un banco avalada por otro banco"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__66
+msgid "66 - Signed promissory note"
+msgstr "66 - Nota promisoria firmada"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__67
+msgid "67 - Promissory note signed by a third party endorsed by a bank"
+msgstr "67 - Nota promisoria firmada por un tercero avalada por un banco"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__7
+msgid "7 - ACH demand debit"
+msgstr "7 - Débito de demanda ACH"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__70
+msgid "70 - Note withdrawal by creditor"
+msgstr "70 - Retiro de nota por el acreedor"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__71
+msgid "71 - Bonds"
+msgstr "71 - Bonos"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__72
+msgid "72 - Vouchers"
+msgstr "72 - Vales"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__74
+msgid "74 - Note withdrawal by creditor on a bank"
+msgstr "74 - Retiro de nota por el acreedor sobre un banco"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__75
+msgid "75 - Note withdrawal by creditor, endorsed by another bank"
+msgstr "75 - Retiro de nota por el acreedor, avalada por otro banco"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__76
+msgid "76 - Note withdrawal by creditor, on a bank endorsed by third party"
+msgstr ""
+"76 - Retiro de nota por el acreedor, sobre un banco avalada por un tercero"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__77
+msgid "77 - Withdrawal of note by creditor on a third party"
+msgstr "77 - Retiro de una nota por el acreedor sobre un tercero"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__78
+msgid "78 - Withdrawal of note by creditor on third party endorsed by bank"
+msgstr ""
+"78 - Retiro de una nota por el acreedor sobre un tercero avalada por un "
+"banco"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__9
+msgid "9 - National or Regional clearing"
+msgstr "9 - Clearing Nacional o Regional"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__91
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "91 - Credit note"
+msgstr "91 - Nota Crédito"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__91
+msgid "91 - Transferable bank note"
+msgstr "91 - Nota bancaria transferible"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__92
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "92 - Debit note"
+msgstr "92 - Nota Débito"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__92
+msgid "92 - Transferable local cheque"
+msgstr "92 - Cheque local transferible"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__93
+msgid "93 - Referenced draft"
+msgstr "93 - Giro referenciado"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__94
+msgid "94 - Urgent draft"
+msgstr "94 - Giro urgente"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__95
+msgid "95 - Open format draft"
+msgstr "95 - Giro formato abierto"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__96
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "96 - Events (ApplicationResponse)"
+msgstr "96 - Eventos (ApplicationResponse)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__96
+msgid "96 - Requested payment method not used"
+msgstr "96 - Método de pago solicitado no usado"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__97
+msgid "97 - Clearing between partners"
+msgstr "97 - Clearing entre partners"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_xml
+msgid ""
+"<span class=\"fa fa-exclamation-triangle\" title=\"Warning\"/>\n"
+"                    No contact found with identification number"
+msgstr ""
+"<span class=\"fa fa-exclamation-triangle\" title=\"Warning\"/>\n"
+"                    No se encontró contacto con el número de identificación"
+
+#. module: l10n_co_bloodo
+#: model:res.groups,comment:l10n_co_bloodo.group_dian_invoice_intake
+msgid ""
+"Acceso a la Bandeja FE Proveedor (correo), que registra en Facturas DIAN las"
+" facturas electrónicas que llegan por correo."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_wizard__action_todo
+msgid "Acción"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_events
+msgid "Aceptación expresa (033)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_res_company__dian_intake_send_acknowledgment
+msgid "Acuse de FE recibidas por correo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_events
+msgid "Acuse de recibo (030)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__payable_amount
+msgid "Amount to pay (cbc:PayableAmount)."
+msgstr "Valor a pagar (cbc:PayableAmount)."
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_xml
+msgid "Amounts (from XML)"
+msgstr "Valores (desde XML)"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.actions.act_window,help:l10n_co_bloodo.action_fetchmail_server_company
+msgid ""
+"Asigna la compañía de cada servidor de correo entrante.\n"
+"                Los correos recibidos por ese servidor quedarán en la\n"
+"                bandeja de esa compañía. Si se deja vacío, se usa la\n"
+"                compañía por defecto de quien procese el correo (igual\n"
+"                que antes)."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__email_subject
+msgid "Asunto"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/wizards/dian_event_send_wizard.py:0
+msgid "Atención"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de adjuntos"
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.act_window,name:l10n_co_bloodo.action_dian_invoice_intake
+#: model:ir.ui.menu,name:l10n_co_bloodo.menu_dian_invoice_intake
+msgid "Bandeja FE Proveedor (correo)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_dian_invoice_intake
+msgid "Bandeja de entrada - Facturas de proveedor por correo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__base_quantity
+msgid "Base Quantity"
+msgstr "Cantidad base"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__base_quantity_unit_code
+msgid "Base Quantity Unit Code"
+msgstr "Código unidad cantidad base"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_xml_fetch_wizard_form
+msgid "Being processed (skipped)"
+msgstr "En proceso (omitidos)"
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.server,name:l10n_co_bloodo.cron_dian_invoice_data_recovery_ir_actions_server
+msgid "Bloodo invoice data recovery"
+msgstr "Bloodo: recuperación de datos de facturas"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_xml_by_document_key__track_id
+msgid "CUFE"
+msgstr "CUFE"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.dian_event_send_wizard_form
+msgid "Cerrar"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__company_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_document_xml.py:0
+msgid "Company %s has no DIAN certificate configured."
+msgstr "La compañía %s no tiene configurado el certificado DIAN."
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_xml_fetch_wizard_form
+msgid "Company without direct e-invoicing (skipped)"
+msgstr "Compañía sin facturación electrónica directa (omitidos)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__company_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_fetchmail_server__company_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_xml_by_document_key__company_id
+msgid "Compañía"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_fetchmail_server__company_id
+msgid ""
+"Compañía a la que pertenecen los correos que llegan por este servidor. Si se"
+" deja vacío, los correos recibidos por este servidor quedan en la compañía "
+"por defecto de quien procese el correo (comportamiento actual, sin cambios)."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.act_window,name:l10n_co_bloodo.action_fetchmail_server_company
+#: model:ir.ui.menu,name:l10n_co_bloodo.menu_fetchmail_server_company
+msgid "Compañía por servidor de correo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_events
+msgid "Con errores de evento"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/wizards/xml_by_document_key_wizard.py:0
+msgid "Consultar XML"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_tax_total_form
+msgid "Context"
+msgstr "Contexto"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_xml
+msgid "Credit / debit note (from XML)"
+msgstr "Nota crédito / débito (desde XML)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__credited_quantity
+msgid "Credited Quantity"
+msgstr "Cantidad creditada"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/wizards/xml_by_document_key_wizard.py:0
+msgid "Código: {}: {}"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_dian_document_invoice_line
+msgid "DIAN Document Invoice Line"
+msgstr "Línea de factura documento DIAN"
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_dian_document_tax_total
+msgid "DIAN Document Tax Total"
+msgstr "Total impuesto documento DIAN"
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_dian_document
+msgid "DIAN Electronic Invoice Document"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_dian_sync
+msgid "DIAN Invoice Synchronization"
+msgstr "Sincronización de facturas DIAN"
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_dian_invoice_synchronizer
+msgid "DIAN Invoice Synchronizer"
+msgstr "Sincronizador de facturas DIAN"
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.server,name:l10n_co_bloodo.cron_dian_document_fetch_xml_ir_actions_server
+msgid "DIAN: Obtener XML de documentos recibidos"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.dian_event_send_wizard_form
+msgid "DOCUMENTOS VÁLIDOS"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.xml_by_document_key_form
+msgid "Descargar"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__description
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_error__error
+msgid "Description"
+msgstr "Descripción"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__error_message
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_invoice_intake_form
+msgid "Detalle"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_dian_event_mixin
+msgid "Dian Event Mixin"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_dian_event_send_error
+msgid "Dian Event Send Error"
+msgstr "Error de envío de evento DIAN"
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_dian_event_send_wizard
+msgid "Dian Event Send Wizard"
+msgstr "Asistente de envío de eventos DIAN"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__discrepancy_reference_id
+msgid "Discrepancy Reference ID"
+msgstr "ID referencia discrepancia"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__discrepancy_response_code
+msgid "Discrepancy Response Code"
+msgstr "Código respuesta discrepancia"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_xml_by_document_key__xml_file
+msgid "Doc. XML"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__document_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__document_id
+msgid "Document"
+msgstr "Documento"
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_error__document_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_history_dian_event__document_id
+msgid "Documento DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_wizard__document_ids
+msgid "Documentos DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_wizard__error_line_ids
+msgid "Documentos con error"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_event_send_wizard__error_line_ids
+msgid "Documentos que no pueden procesar el evento solicitado."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_xml_fetch_wizard__document_ids
+msgid "Documents"
+msgstr "Documentos"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_xml_fetch_wizard__done_count
+msgid "Done Count"
+msgstr "Cantidad con XML"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.dian_event_send_wizard_form
+msgid "ERRORES"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_document_events.py:0
+msgid "El NIT de %s no está establecido."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid ""
+"El correo no trae ningún adjunto .xml o .zip reconocible como factura "
+"electrónica."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.dian_event_send_wizard_form
+msgid "El evento solamente se aplicará a DOCUMENTOS VÁLIDOS"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__xml_state__error
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_invoice_intake__state__error
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_sync__xml_state__error
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_invoice_intake_search
+msgid "Error"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_sync__error_summary_html
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_sync_form_xml
+msgid "Error Summary"
+msgstr "Resumen de errores"
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/wizards/xml_by_document_key_wizard.py:0
+msgid ""
+"Error de conexión en metodo GetXMLByDocumentKey.\n"
+"%s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__other
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__other
+msgid "Error desconocido"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/wizards/xml_by_document_key_wizard.py:0
+msgid ""
+"Error en metodo GetXMLByDocumentKey.\n"
+"Estado: %s \n"
+"Reason: %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_sync__xml_state
+msgid ""
+"Error: at least one document failed to fetch its XML. Pending XML: at least "
+"one document is still waiting for (or processing) its XML. XML loaded: every"
+" document has its XML data."
+msgstr ""
+"Error: al menos un documento falló al obtener su XML. XML pendiente: al "
+"menos un documento sigue esperando (o procesando) su XML. XML cargado: todos"
+" los documentos tienen los datos de su XML."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__state
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_events
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_invoice_intake_search
+msgid "Estado"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid "Este es un correo automático, no es necesario responderlo."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_wizard__event_name
+msgid "Evento"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.server,name:l10n_co_bloodo.ir_actions_server_dian_doc_event_033
+msgid "Evento DIAN: Aceptación expresa"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.server,name:l10n_co_bloodo.ir_actions_server_dian_doc_event_030
+msgid "Evento DIAN: Acuse de recibo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.server,name:l10n_co_bloodo.ir_actions_server_dian_doc_event_status
+msgid "Evento DIAN: Consulta estado"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.server,name:l10n_co_bloodo.ir_actions_server_dian_doc_event_032
+msgid "Evento DIAN: Recibo del bien"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__ie_event_display
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_event_mixin__ie_event_display
+msgid ""
+"Evento activo del documento electrónico. Consulte el estado para mantenerlo "
+"actualizado."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_events
+msgid "Eventos DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_events
+msgid "Eventos pendientes"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.dian_event_send_wizard_form
+msgid "FACTURAS VÁLIDAS"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid "Factura recibida - %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_wizard__invoice_ids
+msgid "Facturas"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid "Facturas recibidas (%s)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__xml_attempts
+msgid "Failed attempts to fetch the XML from DIAN."
+msgstr "Intentos fallidos de obtener el XML desde la DIAN."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__ev_check_date
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_mixin__ev_check_date
+msgid "Fecha consulta evento DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__ev_check_date
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_event_mixin__ev_check_date
+msgid "Fecha de la última consulta del estado del evento DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__received_date
+msgid "Fecha de recepción"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_xml_fetch_wizard_form
+msgid "Fetch XML"
+msgstr "Obtener XML"
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.act_window,name:l10n_co_bloodo.action_dian_document_xml_fetch_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_xml_fetch_wizard_form
+msgid "Fetch XML from DIAN"
+msgstr "Obtener XML desde la DIAN"
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_dian_document_xml_fetch_wizard
+msgid "Fetch XML of DIAN documents"
+msgstr "Obtener XML de documentos DIAN"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (contactos)"
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/wizards/xml_by_document_key_wizard.py:0
+msgid ""
+"GetXMLByDocumentKey Error\n"
+"\n"
+"No hay un documento xml en la respuesta.\n"
+"\n"
+"%s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid "Hemos recibido y registrado su factura electrónica:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid "Hemos recibido y registrado sus facturas electrónicas:"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_invoice_intake__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, los mensajes nuevos requieren su atención."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_invoice_intake__message_has_error
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_invoice_intake__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_fetchmail_server
+msgid "Incoming Mail Server"
+msgstr "Servidor de correo entrante"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__sender_vat_match
+msgid "Indicates whether sender_vat (DIAN API) matches sender_vat_xml (XML)."
+msgstr "Indica si sender_vat (API DIAN) coincide con sender_vat_xml (XML)."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__invoice_type__
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "Invalid / Unspecified"
+msgstr "No válido / Sin especificar"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__invoice_line_id
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_invoice_line_form
+msgid "Invoice Line"
+msgstr "Línea de factura"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__invoice_line_ids
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_xml
+msgid "Invoice Lines"
+msgstr "Líneas de factura"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "Invoice Type"
+msgstr "Tipo de factura"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__invoice_type
+msgid "Invoice Type Code"
+msgstr "Código tipo de factura"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__sender_id
+msgid "Invoice issuer (vendor) found by NIT (sender_vat) in res.partner.vat."
+msgstr ""
+"Emisor de la factura (proveedor) encontrado por NIT (sender_vat) en "
+"res.partner.vat."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__invoiced_quantity
+msgid "Invoiced Quantity"
+msgstr "Cantidad facturada"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_invoice_line_form
+msgid "Item identification"
+msgstr "Identificación del ítem"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_invoice_line_form
+msgid "Line"
+msgstr "Línea"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__line_extension_amount
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__line_extension_amount
+msgid "Line Extension Amount"
+msgstr "Valor extensión de línea"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__line_number
+msgid "Line Number"
+msgstr "Número de línea"
+
+#. module: l10n_co_bloodo
+#: model:ir.actions.server,name:l10n_co_bloodo.action_match_dian_documents
+msgid "Link to Invoices"
+msgstr "Asociar a facturas"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document_invoice_line__manufacturers_item_identification
+msgid "Manufacturer item ID (cac:ManufacturersItemIdentification/cbc:ID)."
+msgstr "ID ítem del fabricante (cac:ManufacturersItemIdentification/cbc:ID)."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__manufacturers_item_identification
+msgid "Manufacturers Item ID"
+msgstr "ID ítem fabricante"
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_document_move.py:0
+msgid "Matching complete"
+msgstr "Asociación completada"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_wizard__message
+msgid "Mensaje"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega del mensaje"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_xml
+msgid "NIT / VAT (XML)"
+msgstr "NIT / VAT (XML)"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_xml
+msgid "No error message."
+msgstr "Sin mensaje de error."
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_sync.py:0
+msgid "No errors during synchronization."
+msgstr "No hubo errores durante la sincronización."
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/wizards/dian_event_send_wizard.py:0
+msgid "No hay documentos válidos para %s."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_event_mixin.py:0
+msgid "No hay eventos registrados en la DIAN para el documento %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_document_events.py:0
+msgid "No se encontró un tercero con el NIT %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_document_events.py:0
+msgid "No se pudo obtener número de secuencia para %s."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_xml_fetch_wizard__not_allowed_count
+msgid "Not Allowed Count"
+msgstr "Cantidad no permitida"
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_invoice_intake__state__new
+msgid "Nuevo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_invoice_intake__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_invoice_intake__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_event_send_wizard__to_process
+msgid ""
+"Número de documentos que se procesarán directamente, el resto se procesará "
+"en segundo plano."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_invoice_intake__state__skipped
+msgid "Omitida (factura de venta propia)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_document_events.py:0
+msgid "Operación \"%s\" no soportada para documentos DIAN."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_invoice_intake_search
+msgid "Parcial"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__payable_amount
+msgid "Payable Amount"
+msgstr "Valor a pagar"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "Payment Means"
+msgstr "Medio de pago"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__payment_means_code
+msgid "Payment Means Code"
+msgstr "Código medio de pago"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__payment_means_code
+msgid "Payment means code (cac:PaymentMeans/cbc:PaymentMeansCode)."
+msgstr "Código del medio de pago (cac:PaymentMeans/cbc:PaymentMeansCode)."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__pending
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__pending
+msgid "Pendiente consulta de estado"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__pending033
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__pending033
+msgid "Pendiente de Aceptación expresa"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__pending030
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__pending030
+msgid "Pendiente de Acuse de recibo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__pending032
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__pending032
+msgid "Pendiente de Recibo del bien"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__xml_state__pending
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_sync__xml_state__pending
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "Pending XML"
+msgstr "XML pendiente"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__percent
+msgid "Percent"
+msgstr "Porcentaje"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__price_amount
+msgid "Price Amount"
+msgstr "Valor del precio"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_invoice_intake__state__processed
+msgid "Procesada"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_invoice_intake__state__partial
+msgid "Procesada parcialmente"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_invoice_intake_search
+msgid "Procesadas"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.dian_event_send_wizard_form
+msgid "Procesar Evento"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/wizards/dian_event_send_wizard.py:0
+msgid "Proceso de evento %s finalizado"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_wizard__to_process
+msgid "Proceso directo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__xml_state__processing
+msgid "Processing"
+msgstr "Procesando"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_xml_fetch_wizard__processing_count
+msgid "Processing Count"
+msgstr "Cantidad en proceso"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "Processing XML"
+msgstr "Procesando XML"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__quantity_unit_code
+msgid "Quantity Unit Code"
+msgstr "Código unidad de cantidad"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_invoice_line_form
+msgid "Quantity and price"
+msgstr "Cantidad y precio"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document_invoice_line__credited_quantity
+msgid "Quantity credited (cbc:CreditedQuantity in cac:CreditNoteLine)."
+msgstr "Cantidad creditada (cbc:CreditedQuantity en cac:CreditNoteLine)."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__discrepancy_response_code
+msgid ""
+"Reason code for the credit/debit note "
+"(cac:DiscrepancyResponse/cbc:ResponseCode)."
+msgstr ""
+"Código de motivo de la nota crédito/débito "
+"(cac:DiscrepancyResponse/cbc:ResponseCode)."
+
+#. module: l10n_co_bloodo
+#: model:res.groups,name:l10n_co_bloodo.group_dian_invoice_intake
+msgid "Recepción de FE de proveedor por correo"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_events
+msgid "Rechazo (evento 031)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_events
+msgid "Recibo del bien (032)"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_xml
+msgid "Reference to adjusted invoice"
+msgstr "Referencia a la factura ajustada"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__discrepancy_reference_id
+msgid ""
+"Reference to the invoice being adjusted "
+"(cac:DiscrepancyResponse/cbc:ReferenceID)."
+msgstr ""
+"Referencia a la factura que se ajusta "
+"(cac:DiscrepancyResponse/cbc:ReferenceID)."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__name
+msgid "Referencia"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.dian_event_send_wizard_form
+msgid "Refrescar"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__dian_document_ids
+msgid "Registros en Facturas DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_invoice_intake_form
+msgid "Reintentar"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__email_from
+msgid "Remitente"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__xml_priority
+msgid "Requested by a user from the wizard: processed before the rest."
+msgstr ""
+"Solicitado por un usuario desde el asistente: se procesa antes que los "
+"demás."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_res_company__dian_intake_send_acknowledgment
+msgid ""
+"Responder automáticamente al remitente cuando una factura electrónica de "
+"proveedor que llega por correo (Bandeja FE Proveedor) se registra en "
+"Facturas DIAN."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_xml
+msgid "Response code"
+msgstr "Código de respuesta"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega del SMS"
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_document_events.py:0
+msgid ""
+"Se debe seleccionar un \"Concepto de rechazo\" para enviar el evento de "
+"Rechazo."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__sellers_item_identification
+msgid "Sellers Item ID"
+msgstr "ID ítem del vendedor"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__sender_id
+msgid "Sender"
+msgstr "Emisor"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__sender_vat_xml
+msgid ""
+"Sender NIT extracted from the XML "
+"(cac:AccountingSupplierParty/cac:Party/cac:PartyTaxScheme/cbc:CompanyID, "
+"schemeName=\"31\")."
+msgstr ""
+"NIT del emisor extraído del XML "
+"(cac:AccountingSupplierParty/cac:Party/cac:PartyTaxScheme/cbc:CompanyID, "
+"schemeName=\"31\")."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__sender_vat_xml
+msgid "Sender VAT (XML)"
+msgstr "NIT del emisor (XML)"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__sender_vat_match
+msgid "Sender VAT Match"
+msgstr "Coincidencia NIT del emisor"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "Sender VAT mismatch"
+msgstr "NIT del emisor no coincide"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_events
+msgid "Sin evento"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid ""
+"Solo los administradores contables pueden reintentar el procesamiento de la "
+"bandeja."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__standard_item_identification
+msgid "Standard Item ID"
+msgstr "ID ítem estándar"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__line_extension_amount
+msgid "Sum of line amounts (cbc:LineExtensionAmount)."
+msgstr "Suma de los valores de línea (cbc:LineExtensionAmount)."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__tax_amount
+msgid "Tax Amount"
+msgstr "Valor del impuesto"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__tax_exclusive_amount
+msgid "Tax Exclusive Amount"
+msgstr "Valor sin impuestos"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__tax_inclusive_amount
+msgid "Tax Inclusive Amount"
+msgstr "Valor con impuestos"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__tax_scheme_id
+msgid "Tax Scheme ID"
+msgstr "ID esquema de impuesto"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__tax_scheme_name
+msgid "Tax Scheme Name"
+msgstr "Nombre del esquema de impuesto"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_xml
+msgid "Tax Summary"
+msgstr "Resumen de impuestos"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_tax_total_form
+msgid "Tax Total"
+msgstr "Total impuestos"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__tax_total_ids
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_invoice_line__tax_total_ids
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_invoice_line_form
+msgid "Tax Totals"
+msgstr "Totales de impuestos"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_tax_total_form
+msgid "Tax details"
+msgstr "Detalle de impuestos"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_tax_total__taxable_amount
+msgid "Taxable Amount"
+msgstr "Base gravable"
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_document_xml.py:0
+msgid ""
+"The XML returned by DIAN is not a supported document (Invoice, CreditNote or"
+" DebitNote) or could not be parsed."
+msgstr ""
+"El XML devuelto por la DIAN no es un documento soportado (Invoice, "
+"CreditNote o DebitNote) o no se pudo leer."
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_sync.py:0
+msgid ""
+"The following documents had errors while fetching or parsing XML. Review the"
+" messages below."
+msgstr ""
+"Los siguientes documentos tuvieron errores al obtener o analizar el XML. "
+"Revise los mensajes a continuación."
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_xml_fetch_wizard_form
+msgid ""
+"The selected documents will be queued and their XML will be fetched from\n"
+"                    DIAN in the background (at most 100 documents per request)."
+msgstr ""
+"Los documentos seleccionados quedarán en cola y su XML se obtendrá desde la\n"
+"                    DIAN en segundo plano (máximo 100 documentos por solicitud)."
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_document_events.py:0
+msgid "Tipo de archivo no reconocido para eventos: %s"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document_xml_fetch_wizard__to_queue_count
+msgid "To Queue Count"
+msgstr "Cantidad a encolar"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_xml_fetch_wizard_form
+msgid "To queue"
+msgstr "A encolar"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__tax_inclusive_amount
+msgid "Total with tax (cbc:TaxInclusiveAmount)."
+msgstr "Total con impuestos (cbc:TaxInclusiveAmount)."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__tax_exclusive_amount
+msgid "Total without tax (cbc:TaxExclusiveAmount)."
+msgstr "Total sin impuestos (cbc:TaxExclusiveAmount)."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_error__url_invoice
+msgid "URL Factura"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_event_send_error__url_invoice
+msgid "URL para abrir el documento en una nueva pestaña del navegador."
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_document_xml.py:0
+msgid "Unexpected error fetching the XML: %s"
+msgstr "Error inesperado al obtener el XML: %s"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__ev_fe_user_id
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_mixin__ev_fe_user_id
+msgid "Usuario evento"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_document__ev_fe_user_id
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_event_mixin__ev_fe_user_id
+msgid "Usuario que realizó el último evento en el documento electrónico"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.dian_event_send_wizard_form
+msgid "VER"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "Vendor"
+msgstr "Proveedor"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_invoice_intake_form
+msgid "Ver en Facturas DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_invoice_intake__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,help:l10n_co_bloodo.field_dian_invoice_intake__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación del sitio web"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "Without vendor"
+msgstr "Sin proveedor"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_event_send_error__event_wz_id
+msgid "Wizard eventos DIAN"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_xml
+msgid "XML / Errors"
+msgstr "XML / Errores"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__xml_attempts
+msgid "XML Attempts"
+msgstr "Intentos XML"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__xml_processing_since
+msgid "XML Processing Since"
+msgstr "Procesando XML desde"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__xml_query_error_message
+msgid "XML Query Error Message"
+msgstr "Mensaje de error consulta XML"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__xml_priority
+msgid "XML Requested"
+msgstr "XML solicitado"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_document__xml_state
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_dian_sync__xml_state
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_form_xml
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "XML Status"
+msgstr "Estado XML"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_xml_fetch_wizard_form
+msgid "XML already loaded (skipped)"
+msgstr "XML ya cargado (omitidos)"
+
+#. module: l10n_co_bloodo
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "XML error"
+msgstr "Error de XML"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__xml_state__done
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_sync__xml_state__done
+#: model_terms:ir.ui.view,arch_db:l10n_co_bloodo.view_dian_document_search_xml
+msgid "XML loaded"
+msgstr "XML cargado"
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/wizards/dian_document_xml_fetch_wizard.py:0
+msgid "XML request"
+msgstr "Solicitud de XML"
+
+#. module: l10n_co_bloodo
+#: model:ir.model,name:l10n_co_bloodo.model_xml_by_document_key
+msgid "Xml by document key"
+msgstr "XML por clave de documento"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields,field_description:l10n_co_bloodo.field_xml_by_document_key__xml_fname
+msgid "Xml fname"
+msgstr "Nombre del archivo XML"
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/wizards/dian_document_xml_fetch_wizard.py:0
+msgid ""
+"You can request the XML of at most %(limit)s documents at once (%(count)s "
+"selected)."
+msgstr ""
+"Puede solicitar el XML de máximo %(limit)s documentos a la vez (%(count)s "
+"seleccionados)."
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/wizards/dian_document_xml_fetch_wizard.py:0
+msgid "You can request the XML of at most %s documents at once."
+msgstr "Puede solicitar el XML de máximo %s documentos a la vez."
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__payment_means_code__zzz
+msgid "ZZZ - Other"
+msgstr "ZZZ - Otro"
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__035
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__035
+msgid "[035] Aval"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__036
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__036
+msgid ""
+"[036] Inscripción en el RADIAN de la factura electrónica de venta como "
+"título valor que circula en el territorio nacional"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__037
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__037
+msgid "[037] Endoso en propiedad"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__038
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__038
+msgid "[038] Endoso en garantía"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__039
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__039
+msgid "[039] Endoso en procuración"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__040
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__040
+msgid "[040] Cancelación de endoso"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__041
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__041
+msgid "[041] Limitación para circulación de la FE como título valor"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__042
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__042
+msgid ""
+"[042] Terminación de la limitación para circulación de la FE como título "
+"valor"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__043
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__043
+msgid "[043] Mandato"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__044
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__044
+msgid "[044] Terminación del mandato"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__045
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__045
+msgid "[045] Pago de la FE como título valor"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__046
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__046
+msgid "[046] Informe para el pago"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__047
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__047
+msgid "[047] Endoso con efectos de cesión ordinaria"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__048
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__048
+msgid "[048] Protesto"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__049
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__049
+msgid "[049] Transferencia de los derechos económicos"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__050
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__050
+msgid ""
+"[050] Notificación al deudor sobre la transferencia de los derechos "
+"económicos"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__051
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__051
+msgid "[051] Pago de la transferencia de los derechos económicos"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_document__ie_event_display__67
+#: model:ir.model.fields.selection,name:l10n_co_bloodo.selection__dian_event_mixin__ie_event_display__67
+msgid "[67] Sin eventos asociados"
+msgstr ""
+
+#. module: l10n_co_bloodo
+#. odoo-python
+#: code:addons/l10n_co_bloodo/models/dian_invoice_intake.py:0
+msgid "id"
 msgstr ""

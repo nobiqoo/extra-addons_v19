@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_embargo_form" model="ir.ui.view">
+            <field name="name">hr.embargo.form</field>
+            <field name="model">hr.embargo</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Garnishment">
+                    <header>
+                        <button name="to_cancel" string="Cancel" type="object"
+                            invisible="state == 'cancel'" />
+                        <button name="to_draft" string="Set to Draft" type="object"
+                            invisible="state == 'draft'" />
+                        <button name="to_confirm" string="Confirm" type="object"
+                            invisible="state != 'draft'" />
+                        <button name="to_validated" string="Start" type="object"
+                            invisible="state != 'confirm'" class="btn-primary" />
+                        <button name="to_pause" string="Pause" type="object"
+                            invisible="state != 'validated'" />
+                        <button name="to_resume" string="Resume" type="object"
+                            invisible="state != 'paused'" class="btn-primary" />
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="draft,confirm,validated,closed" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Parties">
+                                <field name="claimant_id" readonly="state != 'draft'" />
+                                <field name="employee_id" readonly="state != 'draft'" />
+                                <field name="contract_id" readonly="state != 'draft'" />
+                            </group>
+                            <group string="Judicial Information">
+                                <field name="embargo_type_id" readonly="state != 'draft'" />
+                                <field name="case_number" readonly="state != 'draft'" />
+                                <field name="court_process_number" readonly="state != 'draft'" />
+                                <field name="court_id" readonly="state != 'draft'" />
+                                <field name="judicial_account" readonly="state != 'draft'" />
+                                <field name="savings_account" readonly="state != 'draft'" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Dates">
+                                <field name="act_date" readonly="state != 'draft'" />
+                                <field name="date_start" readonly="state != 'draft'" />
+                                <field name="date_end" readonly="state != 'draft'" />
+                                <field name="discount_frequency" readonly="state != 'draft'" />
+                            </group>
+                            <group string="Amounts">
+                                <field name="calculation_type" invisible="1" />
+                                <field name="fixed_quota_value"
+                                    invisible="calculation_type != 'fixed_quota'"
+                                    readonly="state != 'draft'" />
+                                <field name="percentage_value"
+                                    invisible="calculation_type != 'percentage'"
+                                    readonly="state != 'draft'" />
+                                <field name="skip_legal_ceiling"
+                                    invisible="calculation_type not in ('percentage', 'fixed_quota')"
+                                    readonly="state != 'draft'" />
+                                <field name="amount" readonly="state != 'draft'" />
+                                <field name="paid_amount" readonly="1" />
+                                <field name="pending_balance" readonly="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="page_base" string="Garnishable Base">
+                                <group>
+                                    <field name="base_category_ids" widget="many2many_tags" readonly="state not in ('draft', 'validated')" />
+                                    <field name="excluded_concept_ids" widget="many2many_tags" readonly="state not in ('draft', 'validated')" />
+                                    <field name="ss_treatment" readonly="state != 'draft'"/>
+                                    <field name="ss_deduction_concept_ids"
+                                        widget="many2many_tags"
+                                        invisible="ss_treatment != 'custom'" readonly="state not in ('draft', 'validated')"/>
+                                </group>
+                            </page>
+                            <page name="page_applies" string="Applies To">
+                                <group>
+                                    <field name="applies_payroll" />
+                                    <field name="applies_prima" />
+                                    <field name="applies_severance" />
+                                    <field name="applies_severance_interest" />
+                                    <field name="applies_vacation" />
+                                    <field name="applies_settlement" />
+                                </group>
+                            </page>
+                            <page name="page_installments" string="Installments">
+                                <field name="line_ids" readonly="1">
+                                    <list>
+                                        <field name="period_id" />
+                                        <field name="base_amount" />
+                                        <field name="amount" />
+                                        <field name="state" />
+                                        <field name="payslip_id" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter reload_on_post="True" />
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_embargo_tree" model="ir.ui.view">
+            <field name="name">hr.embargo.tree</field>
+            <field name="model">hr.embargo</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="employee_id" />
+                    <field name="claimant_id" />
+                    <field name="embargo_type_id" />
+                    <field name="amount" />
+                    <field name="pending_balance" />
+                    <field name="state" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_embargo_search" model="ir.ui.view">
+            <field name="name">hr.embargo.search</field>
+            <field name="model">hr.embargo</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Garnishments">
+                    <field name="name" />
+                    <field name="employee_id" />
+                    <field name="contract_id" />
+                    <field name="claimant_id" />
+                    <field name="embargo_type_id" />
+
+                    <separator />
+                    <filter name="draft_filter" string="Draft" domain="[('state', '=', 'draft')]" />
+                    <filter name="validated_filter" string="In Progress"
+                        domain="[('state', '=', 'validated')]" />
+                    <filter name="paused_filter" string="Paused"
+                        domain="[('state', '=', 'paused')]" />
+                    <filter name="paid_filter" string="Fully Paid"
+                        domain="[('state', '=', 'paid')]" />
+                    <filter name="closed_filter" string="Closed"
+                        domain="[('state', '=', 'closed')]" />
+
+                    <separator />
+                    <filter name="state_group" string="Status" context="{'group_by': 'state'}" />
+                    <filter name="embargo_type_group" string="Garnishment Type"
+                        context="{'group_by': 'embargo_type_id'}" />
+                    <filter name="employee_group" string="Employee"
+                        context="{'group_by': 'employee_id'}" />
+                </search>
+            </field>
+        </record>
+
+        <record id="hr_embargo_action" model="ir.actions.act_window">
+            <field name="name">Embargos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.embargo</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_embargo_menu_act" name="Embargos" parent="embargo_menu_categ"
+            action="hr_embargo_action" sequence="1" />
+
+    </data>
+
+    <data noupdate="1">
+        <record id="seq_hr_embargo" model="ir.sequence">
+            <field name="name">Garnishment Number</field>
+            <field name="code">seq.hr.embargo</field>
+            <field name="prefix">EMB-</field>
+            <field name="padding">10</field>
+        </record>
+    </data>
+</odoo>

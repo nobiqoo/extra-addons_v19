@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_biometric_user_mapping_wizard_form" model="ir.ui.view">
+        <field name="name">biometric.user.mapping.wizard.form</field>
+        <field name="model">biometric.user.mapping.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Mapeo de Usuarios del Biométrico a Odoo">
+                <header>
+                    <button name="action_create_all_unmapped"
+                            string="Crear Todos los Empleados Faltantes"
+                            type="object"
+                            class="oe_highlight btn-primary"
+                            icon="fa-user-plus"
+                            invisible="unmapped_count == 0"/>
+                    <button name="action_auto_map_by_biometric_id"
+                            string="Auto-Vincular por ID Biométrico"
+                            type="object"
+                            class="btn-secondary"
+                            icon="fa-magic"
+                            invisible="unmapped_count == 0"/>
+                </header>
+                <sheet>
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-md-6">
+                            <h4 class="mb-1 text-primary">
+                                <i class="fa fa-tablet me-2"/>
+                                <field name="device_id" readonly="1" options="{'no_open': True}"/>
+                            </h4>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <span class="badge text-bg-light fs-6 me-2">
+                                Total: <field name="total_count" readonly="1"/>
+                            </span>
+                            <span class="badge text-bg-success fs-6 me-2">
+                                <i class="fa fa-check me-1"/> <field name="mapped_count" readonly="1"/> Mapeados
+                            </span>
+                            <span class="badge text-bg-danger fs-6" invisible="unmapped_count == 0">
+                                <i class="fa fa-exclamation-triangle me-1"/> <field name="unmapped_count" readonly="1"/> Faltantes
+                            </span>
+                        </div>
+                    </div>
+
+                    <field name="unmapped_count" invisible="1"/>
+                    <field name="mapped_count" invisible="1"/>
+                    <field name="total_count" invisible="1"/>
+
+                    <div class="alert alert-warning py-2 mb-3" invisible="unmapped_count == 0">
+                        <i class="fa fa-info-circle me-1"/> Hay <strong><field name="unmapped_count" readonly="1"/> usuarios en el biométrico</strong> que aún no están vinculados en Odoo. Puedes pulsar <strong>"Crear Todos los Empleados Faltantes"</strong> arriba para crearlos con un solo clic, o pulsar <strong>"Crear Empleado"</strong> en cada fila.
+                    </div>
+
+                    <div class="alert alert-success py-2 mb-3" invisible="unmapped_count != 0">
+                        <i class="fa fa-check-circle me-1"/> ¡Excelente! Todos los usuarios de este biométrico están correctamente mapeados con empleados de Odoo.
+                    </div>
+
+                    <field name="line_ids">
+                        <list editable="bottom" create="false" delete="false"
+                              default_order="cast_pin asc"
+                              decoration-danger="status == 'unmapped'">
+                            <field name="cast_pin" column_invisible="1"/>
+                            <field name="device_user_id" string="ID / PIN" readonly="1" style="width: 12%; font-weight: bold;"/>
+                            <field name="device_user_name" string="Nombre en Biométrico" readonly="1" style="width: 32%;"/>
+                            <field name="employee_id" string="Empleado de Odoo" style="width: 32%;" options="{'no_create': True}"/>
+                            <field name="status" string="Estado" widget="badge"
+                                   decoration-success="status == 'mapped'"
+                                   decoration-danger="status == 'unmapped'"
+                                   style="width: 14%;"/>
+                            <button name="action_create_employee"
+                                    string="Crear Empleado"
+                                    type="object"
+                                    class="btn-sm btn-primary"
+                                    icon="fa-user-plus"
+                                    invisible="status == 'mapped'"/>
+                            <button name="action_delete_user_from_device"
+                                    title="Eliminar del biométrico"
+                                    type="object"
+                                    class="btn-sm btn-link text-danger"
+                                    icon="fa-trash"
+                                    confirm="¿Está seguro de que desea eliminar permanentemente este usuario del dispositivo biométrico?"/>
+                        </list>
+                    </field>
+                </sheet>
+                <footer>
+                    <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -10,7 +10,7 @@
     <data noupdate="1">
 
         <!-- Motor Enrollable Wifi /RF 6-28 -->
-        <record id="kit_26_r24" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_26_r24" model="safra.motor.kit">
             <field name="motor_value">26</field>
             <field name="motor_name">Motor Enrollable Wifi /RF 6-28</field>
             <field name="tubo">R24</field>
@@ -20,7 +20,7 @@
             <field name="control_names">Control Motor Wifi/RF</field>
             <field name="control_values">22</field>
         </record>
-        <record id="kit_26_tubo_40mm_motorizado" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_26_tubo_40mm_motorizado" model="safra.motor.kit">
             <field name="motor_value">26</field>
             <field name="motor_name">Motor Enrollable Wifi /RF 6-28</field>
             <field name="tubo">Tubo 40mm (Motorizado)</field>
@@ -30,7 +30,7 @@
             <field name="control_names">Control Motor Wifi/RF</field>
             <field name="control_values">22</field>
         </record>
-        <record id="kit_26_tubo_2_12" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_26_tubo_2_12" model="safra.motor.kit">
             <field name="motor_value">26</field>
             <field name="motor_name">Motor Enrollable Wifi /RF 6-28</field>
             <field name="tubo">Tubo 2 1/2</field>
@@ -40,7 +40,7 @@
             <field name="control_names">Control Motor Wifi/RF</field>
             <field name="control_values">22</field>
         </record>
-        <record id="kit_26_tubo_3" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_26_tubo_3" model="safra.motor.kit">
             <field name="motor_value">26</field>
             <field name="motor_name">Motor Enrollable Wifi /RF 6-28</field>
             <field name="tubo">Tubo 3</field>
@@ -52,7 +52,7 @@
         </record>
 
         <!-- Motor Bateria 6/24 Incluye Cargador -->
-        <record id="kit_27_r24" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_27_r24" model="safra.motor.kit">
             <field name="motor_value">27</field>
             <field name="motor_name">Motor Bateria 6/24 Incluye Cargador</field>
             <field name="tubo">R24</field>
@@ -63,7 +63,7 @@
             <field name="control_values">23,24</field>
             <field name="aplica_cargador" eval="True"/>
         </record>
-        <record id="kit_27_tubo_40mm_motorizado" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_27_tubo_40mm_motorizado" model="safra.motor.kit">
             <field name="motor_value">27</field>
             <field name="motor_name">Motor Bateria 6/24 Incluye Cargador</field>
             <field name="tubo">Tubo 40mm (Motorizado)</field>
@@ -76,7 +76,7 @@
         </record>
 
         <!-- Motor Tope Mecanico GN/33 Ultrasilencioso RF -->
-        <record id="kit_2_r24" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_2_r24" model="safra.motor.kit">
             <field name="motor_value">2</field>
             <field name="motor_name">Motor Tope Mecanico GN/33 Ultrasilencioso RF</field>
             <field name="tubo">R24</field>
@@ -86,7 +86,7 @@
             <field name="control_names">Control inalambrico 2 canales / Control inalambrico 15 canales lujo</field>
             <field name="control_values">25,4</field>
         </record>
-        <record id="kit_2_tubo_40mm_motorizado" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_2_tubo_40mm_motorizado" model="safra.motor.kit">
             <field name="motor_value">2</field>
             <field name="motor_name">Motor Tope Mecanico GN/33 Ultrasilencioso RF</field>
             <field name="tubo">Tubo 40mm (Motorizado)</field>
@@ -96,7 +96,7 @@
             <field name="control_names">Control inalambrico 2 canales / Control inalambrico 15 canales lujo</field>
             <field name="control_values">25,4</field>
         </record>
-        <record id="kit_2_tubo_2_12" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_2_tubo_2_12" model="safra.motor.kit">
             <field name="motor_value">2</field>
             <field name="motor_name">Motor Tope Mecanico GN/33 Ultrasilencioso RF</field>
             <field name="tubo">Tubo 2 1/2</field>
@@ -106,7 +106,7 @@
             <field name="control_names">Control inalambrico 2 canales / Control inalambrico 15 canales lujo</field>
             <field name="control_values">25,4</field>
         </record>
-        <record id="kit_2_tubo_3" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_2_tubo_3" model="safra.motor.kit">
             <field name="motor_value">2</field>
             <field name="motor_name">Motor Tope Mecanico GN/33 Ultrasilencioso RF</field>
             <field name="tubo">Tubo 3</field>
@@ -118,7 +118,7 @@
         </record>
 
         <!-- Motor Silencioso Interruptor Tope Mecanico SA35Q-6/24 -->
-        <record id="kit_4_r24" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_4_r24" model="safra.motor.kit">
             <field name="motor_value">4</field>
             <field name="motor_name">Motor Silencioso Interruptor Tope Mecanico SA35Q-6/24</field>
             <field name="tubo">R24</field>
@@ -129,7 +129,7 @@
             <field name="control_names">Control inalambrico 15 canales lujo / Control inalambrico monocanal lujo</field>
             <field name="control_values">4</field>
         </record>
-        <record id="kit_4_tubo_40mm_motorizado" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_4_tubo_40mm_motorizado" model="safra.motor.kit">
             <field name="motor_value">4</field>
             <field name="motor_name">Motor Silencioso Interruptor Tope Mecanico SA35Q-6/24</field>
             <field name="tubo">Tubo 40mm (Motorizado)</field>
@@ -140,7 +140,7 @@
             <field name="control_names">Control inalambrico 15 canales lujo / Control inalambrico monocanal lujo</field>
             <field name="control_values">4</field>
         </record>
-        <record id="kit_4_tubo_2_12" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_4_tubo_2_12" model="safra.motor.kit">
             <field name="motor_value">4</field>
             <field name="motor_name">Motor Silencioso Interruptor Tope Mecanico SA35Q-6/24</field>
             <field name="tubo">Tubo 2 1/2</field>
@@ -151,7 +151,7 @@
             <field name="control_names">Control inalambrico 15 canales lujo / Control inalambrico monocanal lujo</field>
             <field name="control_values">4</field>
         </record>
-        <record id="kit_4_tubo_3" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_4_tubo_3" model="safra.motor.kit">
             <field name="motor_value">4</field>
             <field name="motor_name">Motor Silencioso Interruptor Tope Mecanico SA35Q-6/24</field>
             <field name="tubo">Tubo 3</field>
@@ -164,7 +164,7 @@
         </record>
 
         <!-- Motor Somfy LSN RTS 6/33 -->
-        <record id="kit_22_r24" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_22_r24" model="safra.motor.kit">
             <field name="motor_value">22</field>
             <field name="motor_name">Motor Somfy LSN RTS 6/33</field>
             <field name="tubo">R24</field>
@@ -173,7 +173,7 @@
             <field name="compra_completa" eval="True"/>
             <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
         </record>
-        <record id="kit_22_tubo_40mm_motorizado" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_22_tubo_40mm_motorizado" model="safra.motor.kit">
             <field name="motor_value">22</field>
             <field name="motor_name">Motor Somfy LSN RTS 6/33</field>
             <field name="tubo">Tubo 40mm (Motorizado)</field>
@@ -182,7 +182,7 @@
             <field name="compra_completa" eval="True"/>
             <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
         </record>
-        <record id="kit_22_tubo_2_12" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_22_tubo_2_12" model="safra.motor.kit">
             <field name="motor_value">22</field>
             <field name="motor_name">Motor Somfy LSN RTS 6/33</field>
             <field name="tubo">Tubo 2 1/2</field>
@@ -191,7 +191,7 @@
             <field name="compra_completa" eval="True"/>
             <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
         </record>
-        <record id="kit_22_tubo_3" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_22_tubo_3" model="safra.motor.kit">
             <field name="motor_value">22</field>
             <field name="motor_name">Motor Somfy LSN RTS 6/33</field>
             <field name="tubo">Tubo 3</field>
@@ -202,7 +202,7 @@
         </record>
 
         <!-- Motor Somfy 406A2 Sonesse Rts 6/24 3.5m Unit -->
-        <record id="kit_23_r24" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_23_r24" model="safra.motor.kit">
             <field name="motor_value">23</field>
             <field name="motor_name">Motor Somfy 406A2 Sonesse Rts 6/24 3.5m Unit</field>
             <field name="tubo">R24</field>
@@ -211,7 +211,7 @@
             <field name="compra_completa" eval="True"/>
             <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
         </record>
-        <record id="kit_23_tubo_40mm_motorizado" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_23_tubo_40mm_motorizado" model="safra.motor.kit">
             <field name="motor_value">23</field>
             <field name="motor_name">Motor Somfy 406A2 Sonesse Rts 6/24 3.5m Unit</field>
             <field name="tubo">Tubo 40mm (Motorizado)</field>
@@ -220,7 +220,7 @@
             <field name="compra_completa" eval="True"/>
             <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
         </record>
-        <record id="kit_23_tubo_2_12" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_23_tubo_2_12" model="safra.motor.kit">
             <field name="motor_value">23</field>
             <field name="motor_name">Motor Somfy 406A2 Sonesse Rts 6/24 3.5m Unit</field>
             <field name="tubo">Tubo 2 1/2</field>
@@ -229,7 +229,7 @@
             <field name="compra_completa" eval="True"/>
             <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
         </record>
-        <record id="kit_23_tubo_3" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_23_tubo_3" model="safra.motor.kit">
             <field name="motor_value">23</field>
             <field name="motor_name">Motor Somfy 406A2 Sonesse Rts 6/24 3.5m Unit</field>
             <field name="tubo">Tubo 3</field>
@@ -240,7 +240,7 @@
         </record>
 
         <!-- Motor Somfy 406S2 LSN Rts 433 6/33 -->
-        <record id="kit_24_r24" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_24_r24" model="safra.motor.kit">
             <field name="motor_value">24</field>
             <field name="motor_name">Motor Somfy 406S2 LSN Rts 433 6/33</field>
             <field name="tubo">R24</field>
@@ -249,7 +249,7 @@
             <field name="compra_completa" eval="True"/>
             <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
         </record>
-        <record id="kit_24_tubo_40mm_motorizado" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_24_tubo_40mm_motorizado" model="safra.motor.kit">
             <field name="motor_value">24</field>
             <field name="motor_name">Motor Somfy 406S2 LSN Rts 433 6/33</field>
             <field name="tubo">Tubo 40mm (Motorizado)</field>
@@ -258,7 +258,7 @@
             <field name="compra_completa" eval="True"/>
             <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
         </record>
-        <record id="kit_24_tubo_2_12" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_24_tubo_2_12" model="safra.motor.kit">
             <field name="motor_value">24</field>
             <field name="motor_name">Motor Somfy 406S2 LSN Rts 433 6/33</field>
             <field name="tubo">Tubo 2 1/2</field>
@@ -267,7 +267,7 @@
             <field name="compra_completa" eval="True"/>
             <field name="nota">Se compra con todos los accesorios; el pedido debe dejarse pasar a compra.</field>
         </record>
-        <record id="kit_24_tubo_3" model="safra.motor.kit">
+        <record forcecreate="0" id="kit_24_tubo_3" model="safra.motor.kit">
             <field name="motor_value">24</field>
             <field name="motor_name">Motor Somfy 406S2 LSN Rts 433 6/33</field>
             <field name="tubo">Tubo 3</field>

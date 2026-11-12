@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_picking_order_info_arthome" inherit_id="stock.report_picking">
+        <xpath expr="//div[@name='div_picking_date']/.." position="after">
+            <div t-if="o.order_info_applicable" class="mb32 o_stock_report_header_row" name="picking_order_info_row">
+                <div t-if="o.order_reference" name="div_order_reference">
+                    <strong>Order Number:</strong>
+                    <p t-field="o.order_reference"/>
+                </div>
+                <div t-if="o.salesperson_name" name="div_salesperson">
+                    <strong>Salesperson:</strong>
+                    <p t-field="o.salesperson_name"/>
+                </div>
+            </div>
+            <div t-if="o.line_count_applicable" class="mb32 o_stock_report_header_row" name="picking_delivery_slip_row">
+                <div t-if="o.box_count_applicable" name="div_box_count">
+                    <strong>Box Count:</strong>
+                    <p t-field="o.box_count"/>
+                </div>
+                <t t-if="o.delivery_slip_applicable">
+                    <div name="div_delivery_weight">
+                        <strong>Total Weight:</strong>
+                        <p>
+                            <span t-field="o.delivery_weight"/>
+                            <span t-field="o.delivery_weight_uom_name"/>
+                        </p>
+                    </div>
+                    <div name="div_insurable_value">
+                        <strong>Insurable Value:</strong>
+                        <p t-field="o.insurable_value"/>
+                    </div>
+                </t>
+                <div name="div_line_count">
+                    <strong>Line Count:</strong>
+                    <p t-field="o.line_count"/>
+                </div>
+            </div>
+            <div t-if="o.order_info_applicable and o.delivery_comment" class="mb-3" name="div_delivery_comment">
+                <strong>Dispatch Note/Instruction:</strong>
+                <div t-field="o.delivery_comment" class="border rounded p-2 fw-bold" style="background-color: #e9ecef;"/>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

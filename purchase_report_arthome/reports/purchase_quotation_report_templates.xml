@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_purchasequotation_document_internal_reference" inherit_id="purchase.report_purchasequotation_document">
+        <xpath expr="//th[@name='th_description']" position="after">
+            <th name="th_internal_reference"><strong>Internal Reference</strong></th>
+        </xpath>
+        <xpath expr="//td[@id='product']" position="before">
+            <t t-set="internal_reference" t-value="order_line.product_id.default_code or ''"/>
+            <t t-set="reference_prefix" t-value="'[%s] ' % internal_reference"/>
+        </xpath>
+        <xpath expr="//td[@id='product']/span[@t-field='order_line.name']" position="replace">
+            <span t-out="order_line.name[len(reference_prefix):] if internal_reference and order_line.name.startswith(reference_prefix) else order_line.name" style="white-space: pre-line;"/>
+        </xpath>
+        <xpath expr="//td[@id='product']" position="after">
+            <td><span t-out="internal_reference"/></td>
+        </xpath>
+    </template>
+</odoo>

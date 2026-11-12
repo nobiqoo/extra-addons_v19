@@ -2,6 +2,10 @@
 
 from odoo import _, api, fields, models
 
+import time as time_module
+import logging
+_logger = logging.getLogger(__name__)
+
 move_types = {
     '1': 'Entrada',
     '-1': 'Salida',
@@ -66,7 +70,13 @@ class StockMoveWizard(models.TransientModel):
 
     def prepare_data(self):
         self.ensure_one()
+        return {
+            'record_id': self.id
+        }
 
+    def prepare_data_ok(self):
+        self.ensure_one()
+        time_start = time_module.perf_counter()
         Location = self.env['stock.location']
         Move = self.env['stock.move']
         Product = self.env['product.product']
@@ -74,7 +84,7 @@ class StockMoveWizard(models.TransientModel):
         locations = self.locations_ids
         if not locations:
             domain = [
-                ('usage', '=', 'internal'),
+                ('usage', 'in', ['internal', 'transit']),
                 '|',
                 ('company_id', '=', self.company_id.id),
                 ('company_id', '=', False)
@@ -95,100 +105,98 @@ class StockMoveWizard(models.TransientModel):
                 domain.append(('categ_id', 'in', self.categories_ids.ids))
             products = Product.search(domain)
 
-        location_data = []
-        for location in locations:
-            product_data = []
-            for product in products:
-                date_end = fields.Date.add(self.date_end, days=1)
-                move_data = []
-                move_domain = [
-                    ('date', '>=', fields.Datetime.to_datetime(self.date_start)),
-                    ('date', '<=', fields.Datetime.to_datetime(date_end)),
-                    ('product_id', '=', product.id),
-                    ('state', '=', 'done'),
-                    ('company_id', '=', self.company_id.id),
-                    '|',
-                    ('location_id', '=', location.id),
-                    ('location_dest_id', '=', location.id)
-                ]
-                moves = Move.search(move_domain, order='date, id')
-                to_date = fields.Date.subtract(self.date_start, days=1)
-                # svl_quantity = product.with_context(to_date=to_date).quantity_svl
-                qty_available = product.with_context(location=location.id,to_date=to_date).qty_available
-                for move in moves:
-                    # Type
-                    # if move._is_in():
-                    #     move_type = 1
-                    # elif move._is_out():
-                    #     move_type = -1
-                    # else:
-                    #     move_type = 0
-                    if move.location_id.id == move.location_dest_id.id:
-                        move_type = 0
-                    elif move.location_id.id == location.id:
-                        move_type = -1
-                    else:
-                        move_type = 1
-
-                    # Qty
-                    qty = move.product_uom_qty * move_type
-
-                    # Price
-                    price_unit = move._get_price_unit()
-                    price_total = price_unit * qty
-
-                    move_vals = {
-                        'id': move.id,
-                        'date': move.date,
-                        'reference': move.reference,
-                        'origin': move.origin or '',
-                        'partner': move.partner_id and move.partner_id.display_name or '',
-                        'product': move.product_id.display_name,
-                        'from': move.location_id.complete_name,
-                        'to': move.location_dest_id.complete_name,
-                        'type': move_types.get(str(move_type)),
-                        # 'init': svl_quantity,
-                        'init': qty_available,
-                        # 'demand': move.product_uom_qty,
-                        'demand': move.quantity,
-                        # 'final': svl_quantity + qty,
-                        'final': qty_available + qty,
-                        'uom': move.product_uom.name,
-                        'unit': price_unit,
-                        'total': price_total,
-                        'company': move.company_id.name,
-                        'status': _(move.state),
+        date_end = fields.Date.add(self.date_end, days=1)
+        move_data = []
+        move_domain = [
+            ('date', '>=', fields.Datetime.to_datetime(self.date_start)),
+            ('date', '<=', fields.Datetime.to_datetime(date_end)),
+            ('product_id', 'in', products.ids),
+            ('state', '=', 'done'),
+            ('company_id', '=', self.company_id.id),
+            '|',
+            ('location_id', 'in', locations.ids),
+            ('location_dest_id', 'in', locations.ids)
+        ]
+        moves = Move.search(move_domain, order='date, id')
+        to_date = fields.Date.subtract(self.date_start, days=1)
+                
+        out_locations = {}
+        for move in moves:
+            location = []
+            if move.location_id.id == move.location_dest_id.id:
+                move_type = 0
+                location.append((move.location_id, move_type))
+            else:
+                if move.location_id.usage in ('internal', 'transit'):
+                    move_type = -1
+                    location.append((move.location_id, move_type))
+                if move.location_dest_id.usage in ('internal', 'transit'):
+                    move_type = 1
+                    location.append((move.location_dest_id, move_type))
+                # else:
+                #     raise ValueError(_("Move does not involve an internal location: \n %s --> [%s] %s") % (move.picking_id.display_name, move.id, move.display_name))
+            product = move.product_id
+            # Define arreglo
+            for loc_id, move_type in location:
+                if str(loc_id.id) not in out_locations:
+                    out_locations[str(loc_id.id)] = {
+                        'id': loc_id.id,
+                        'name': loc_id.complete_name,
+                        'products': {}
                     }
-                    move_data.append(move_vals)
-                    # svl_quantity += qty
-                    qty_available += qty
+                if str(product.id) not in out_locations[str(loc_id.id)]['products']:
+                    qty_available = product.with_context(
+                        location=loc_id.id,
+                        to_date=to_date,
+                        allowed_company_ids=[self.company_id.id],
+                    ).qty_available
+                    out_locations[str(loc_id.id)]['products'][str(product.id)] = {
+                        'id': product.id,
+                        'name': product.display_name,
+                        'qty_available': qty_available,
+                        'moves': []
+                    }
+                # Qty
+                qty = move.product_uom_qty * move_type
 
-                product_vals = {
-                    'id': product.id,
-                    'name': product.display_name,
-                    'moves': move_data
+            # Price
+                price_unit = move._get_price_unit() 
+                price_total = price_unit * qty
+                qty_available = out_locations[str(loc_id.id)]['products'][str(product.id)]['qty_available']
+                move_vals = {
+                    'id': move.id,
+                    'date': move.date,
+                    'reference': move.reference,
+                    'origin': move.origin or '',
+                    'partner': move.partner_id and move.partner_id.display_name or '',
+                    'product': move.product_id.display_name,
+                    'from': move.location_id.complete_name,
+                    'to': move.location_dest_id.complete_name,
+                    'type': move_types.get(str(move_type)),
+                    # 'init': svl_quantity,
+                    'init': qty_available,
+                    # 'demand': move.product_uom_qty,
+                    'demand': move.quantity,
+                    # 'final': svl_quantity + qty,
+                    'final': qty_available + qty,
+                    'uom': move.product_uom.name,
+                    'unit': price_unit,
+                    'total': price_total,
+                    'company': move.company_id.name,
+                    'status': _(move.state),
                 }
-                if not move_data:
-                    continue
-                product_data.append(product_vals)
+                out_locations[str(loc_id.id)]['products'][str(product.id)]['moves'].append(move_vals)
+                out_locations[str(loc_id.id)]['products'][str(product.id)]['qty_available'] += qty
 
-            if not product_data:
-                continue
-
-            location_vals = {
-                'id': location.id,
-                'name': location.complete_name,
-                'products': product_data
-            }
-            location_data.append(location_vals)
-
+        time_end = time_module.perf_counter()
+        _logger.warning(f"KARDEX: Data prepared in {time_end - time_start:.2f} seconds")
         return {
             'company': self.company_id.name,
             'user': self.env.user.name,
             'start': self.date_start,
             'end': self.date_end,
             # 'products': product_data,
-            'locations': location_data
+            'locations': list(out_locations.values())
         }
 
     def report_data(self):

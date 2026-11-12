@@ -176,6 +176,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_report/wizard/account_auxiliary.py:0
 #: code:addons/account_report/wizard/account_auxiliary_invoices.py:0
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
 msgid "Amount"
 msgstr ""
 
@@ -324,6 +325,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_report.account_journal_wizard_form
 #: model_terms:ir.ui.view,arch_db:account_report.view_account_auxiliary_form
 #: model_terms:ir.ui.view,arch_db:account_report.view_account_balance_form
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_print_xlsx_form
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -394,6 +396,10 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__create_uid
 #: model:ir.model.fields,field_description:account_report.field_account_valuation_report_lines__create_uid
 #: model:ir.model.fields,field_description:account_report.field_account_valuation_report_wizard__create_uid
+#: model:ir.model.fields,field_description:account_report.field_detail_wizard_line_line__create_uid
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_print_xlsx__create_uid
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard__create_uid
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard_line__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
@@ -406,6 +412,10 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__create_date
 #: model:ir.model.fields,field_description:account_report.field_account_valuation_report_lines__create_date
 #: model:ir.model.fields,field_description:account_report.field_account_valuation_report_wizard__create_date
+#: model:ir.model.fields,field_description:account_report.field_detail_wizard_line_line__create_date
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_print_xlsx__create_date
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard__create_date
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard_line__create_date
 msgid "Created on"
 msgstr "Creado"
 
@@ -484,6 +494,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_report.account_balance_major_wizard_form
 #: model_terms:ir.ui.view,arch_db:account_report.account_journal_wizard_form
 #: model_terms:ir.ui.view,arch_db:account_report.view_account_auxiliary_form
+#: model:ir.model.fields.selection,name:account_report.selection__portfolio_detail_wizard__find_by__date
 msgid "Date"
 msgstr "Fecha"
 
@@ -556,6 +567,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_report.account_journal_wizard_form
 #: model_terms:ir.ui.view,arch_db:account_report.view_account_auxiliary_form
 #: model_terms:ir.ui.view,arch_db:account_report.view_account_balance_form
+#: model:ir.model.fields.selection,name:account_report.selection__portfolio_detail_wizard__report_type__excel
 msgid "EXCEL"
 msgstr ""
 
@@ -849,11 +861,17 @@ msgstr ""
 
 #. module: account_report
 #: model:ir.model.fields,field_description:account_report.field_purchase_invoice_report__invoice
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard_line__invoice
+#: model:ir.model.fields.selection,name:account_report.selection__portfolio_detail_wizard__find_by__invoice
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
 msgid "Invoice"
 msgstr "Factura"
 
 #. module: account_report
 #: model:ir.model.fields,field_description:account_report.field_purchase_invoice_report__invoice_date
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
 msgid "Invoice Date"
 msgstr "Fecha de la factura"
 
@@ -1015,6 +1033,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_report/wizard/account_auxiliary.py:0
 #: code:addons/account_report/wizard/account_auxiliary_invoices.py:0
+#: model:ir.model.fields,field_description:account_report.field_detail_wizard_line_line__line_id
 msgid "Line"
 msgstr ""
 
@@ -1059,6 +1078,9 @@ msgstr "¿Multi moneda?"
 #: model_terms:ir.ui.view,arch_db:account_report.account_balance_major_qweb
 #: model_terms:ir.ui.view,arch_db:account_report.account_balance_qweb
 #: model_terms:ir.ui.view,arch_db:account_report.account_journal_qweb
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard_line__nit
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
 msgid "NIT"
 msgstr ""
 
@@ -1134,6 +1156,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_report.account_journal_wizard_form
 #: model_terms:ir.ui.view,arch_db:account_report.view_account_auxiliary_form
 #: model_terms:ir.ui.view,arch_db:account_report.view_account_balance_form
+#: model:ir.model.fields.selection,name:account_report.selection__portfolio_detail_wizard__report_type__pdf
 msgid "PDF"
 msgstr ""
 
@@ -1142,6 +1165,9 @@ msgstr ""
 #: code:addons/account_report/wizard/account_auxiliary.py:0
 #: code:addons/account_report/wizard/account_auxiliary_invoices.py:0
 #: code:addons/account_report/wizard/account_balance.py:0
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard_line__partner
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
 msgid "Partner"
 msgstr ""
 
@@ -1173,6 +1199,7 @@ msgstr "Informes Terceros"
 #: model_terms:ir.ui.view,arch_db:account_report.account_journal_wizard_form
 #: model_terms:ir.ui.view,arch_db:account_report.view_account_auxiliary_form
 #: model_terms:ir.ui.view,arch_db:account_report.view_account_balance_form
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard__partner_ids
 msgid "Partners"
 msgstr "Contactos"
 
@@ -1296,6 +1323,7 @@ msgstr ""
 #: code:addons/account_report/report/account_balance_inventory.py:0
 #: code:addons/account_report/wizard/account_balance_inventory_wizard.py:0
 #: code:addons/account_report/wizard/account_journal_wizard.py:0
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_print_xlsx__report_id
 msgid "Report"
 msgstr ""
 
@@ -1512,3 +1540,255 @@ msgstr "ó"
 #: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__filter_code
 msgid "¿Filtrar por niveles?"
 msgstr ""
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_detail_wizard_line_line__amount_paid
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
+msgid "Amount paid"
+msgstr "Monto pagado"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard_line__amount_total
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
+#, python-format
+msgid "Amount total"
+msgstr "Monto total"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard_line__amount_untaxed
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
+#, python-format
+msgid "Amount untaxed"
+msgstr "Monto sin impuestos"
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_wizard_view_form
+msgid "Create portfolio detail"
+msgstr "Crear detalle de portafolio"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
+#, python-format
+msgid "Date due"
+msgstr "Fecha de vencimiento"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard__date_from
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
+#, python-format
+msgid "Date from"
+msgstr "Fecha desde"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard__date_to
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
+#, python-format
+msgid "Date to"
+msgstr "Fecha hasta"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_detail_wizard_line_line
+msgid "Detail wizard line line"
+msgstr "Linea de cartera"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_print_xlsx_form
+#, python-format
+msgid "Download File"
+msgstr "Descargar archivo"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard_line__due_date
+msgid "Due date"
+msgstr "Fecha de vencimiento"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard__move_ids
+msgid "Moves"
+msgstr "Facturas"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_print_xlsx__file_binary
+msgid "File"
+msgstr "Archivo"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_print_xlsx__file_name
+msgid "File name"
+msgstr "Nombre del archivo"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard__find_by
+msgid "Find By"
+msgstr "Buscar por"
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_wizard_view_form
+msgid "Generate report"
+msgstr "Generar reporte"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard_line__invoice_date
+msgid "Invoice date"
+msgstr "Fecha de factura"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard__line_ids
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard_line__line_ids
+msgid "Lines"
+msgstr "Lineas"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_wizard.py:0
+#, python-format
+msgid "No results found for this search."
+msgstr "No se encontrardos resultados para esta busqueda"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#, python-format
+msgid "Paid percentaje:"
+msgstr "Porcentaje pagado"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#, python-format
+msgid "Partners Involved"
+msgstr "Terceros involucrados"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard__partners_involved
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
+msgid "Partners involved"
+msgstr "Terceros involucrados"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:account_report.field_detail_wizard_line_line__payment_method
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
+#, python-format
+msgid "Payment method"
+msgstr "Metodo de pago"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
+#, python-format
+msgid "Voucher name"
+msgstr "N. Recibo"
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
+#, python-format
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
+#, python-format
+msgid "Payment date"
+msgstr "Fecha de pago"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_portfolio_detail_print_xlsx
+msgid "Portfolio Detail Print Xlsx"
+msgstr "Wizard de impresión XLSX"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_portfolio_detail_wizard
+msgid "Portfolio Detail Wizard"
+msgstr "Imprimir detalle de cartera"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_portfolio_detail_wizard_line
+msgid "Portfolio Detail Wizard line"
+msgstr "Linea de detalle"
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.portfolio_detail_template_action
+#: model:ir.actions.report,name:account_report.portfolio_detail_xlsx_template_action
+msgid "Portfolio detail"
+msgstr "Detalle de cartera"
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+msgid "Portfolio Detail"
+msgstr "Detalle de Cartera"
+
+#. module: account_report
+#: model:ir.actions.act_window,name:account_report.portfolio_detail_wizard_action
+#: model:ir.ui.menu,name:account_report.portfolio_detail_wizard_menu
+msgid "Portfolio detail wizard"
+msgstr "Detalle de cartera"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard__report_type
+msgid "Report type"
+msgstr "Tipo de reporte"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#, python-format
+msgid "SUBTOTAL:"
+msgstr "SUBTOTAL:"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#, python-format
+msgid "Salary adjustment:"
+msgstr "Ajuste de salario:"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#, python-format
+msgid "Total:"
+msgstr "Total:"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard_line__wizard_id
+msgid "Wizard"
+msgstr "Wizard"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#, python-format
+msgid "portfolio_detail"
+msgstr "detalle_de_cartera"
+
+#. module: account_report
+#: code:addons/portfolio_detail/wizard/portfolio_detail_print_xlsx.py:0
+#: model:ir.model.fields,field_description:account_report.field_detail_wizard_line_line__pending_amount
+#: model_terms:ir.ui.view,arch_db:account_report.portfolio_detail_template
+#, python-format
+msgid "Pending amount"
+msgstr "Monto pendiente"
+
+#. module: account_report
+#: model:ir.model.fields.selection,name:account_report.selection__portfolio_detail_wizard__partner_type__customer
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: account_report
+#: model:ir.actions.act_window,name:account_report.portfolio_detail_supplier_wizard_action
+#: model:ir.ui.menu,name:account_report.portfolio_detail_supplier_wizard_menu
+msgid "Portfolio detail wizard - Vendor"
+msgstr "Detalle de cartera Proveedor"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_portfolio_detail_wizard__partner_type
+msgid "Partner type"
+msgstr "Tipo de tercero"
+
+#. module: account_report
+#: model:ir.model.fields.selection,name:account_report.selection__portfolio_detail_wizard__partner_type__supplier
+msgid "Supplier"
+msgstr "Proveedor"

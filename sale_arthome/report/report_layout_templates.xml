@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="external_layout_striped_salesperson_arthome" inherit_id="web.external_layout_striped">
+        <xpath expr="//div[@t-field='company.report_footer']" position="after">
+            <div t-if="report_type == 'pdf' and salesperson_footer" class="text-muted" t-out="salesperson_footer"/>
+        </xpath>
+    </template>
+
+    <template id="external_layout_boxed_salesperson_arthome" inherit_id="web.external_layout_boxed">
+        <xpath expr="//span[@t-field='company.report_footer']" position="after">
+            <div t-if="report_type == 'pdf' and salesperson_footer" class="text-muted" t-out="salesperson_footer"/>
+        </xpath>
+    </template>
+
+    <template id="external_layout_bold_salesperson_arthome" inherit_id="web.external_layout_bold">
+        <xpath expr="//span[@t-field='company.report_footer']" position="after">
+            <div t-if="report_type == 'pdf' and salesperson_footer" class="text-muted" t-out="salesperson_footer"/>
+        </xpath>
+    </template>
+
+    <template id="external_layout_standard_salesperson_arthome" inherit_id="web.external_layout_standard">
+        <xpath expr="//div[hasclass('o_footer_content')]" position="after">
+            <div t-if="report_type == 'pdf' and salesperson_footer" class="text-muted text-center" t-out="salesperson_footer"/>
+        </xpath>
+    </template>
+
+    <template id="external_layout_folder_salesperson_arthome" inherit_id="web.external_layout_folder">
+        <xpath expr="//div[hasclass('o_footer_content')]" position="after">
+            <div t-if="report_type == 'pdf' and salesperson_footer" class="text-muted text-center" t-out="salesperson_footer"/>
+        </xpath>
+    </template>
+
+    <template id="external_layout_wave_salesperson_arthome" inherit_id="web.external_layout_wave">
+        <xpath expr="//div[@t-field='company.report_footer']" position="after">
+            <div t-if="report_type == 'pdf' and salesperson_footer" class="text-muted" t-out="salesperson_footer"/>
+        </xpath>
+    </template>
+
+    <template id="external_layout_bubble_salesperson_arthome" inherit_id="web.external_layout_bubble">
+        <xpath expr="//div[@t-field='company.report_footer']" position="after">
+            <div t-if="report_type == 'pdf' and salesperson_footer" class="text-muted" t-out="salesperson_footer"/>
+        </xpath>
+    </template>
+
+</odoo>

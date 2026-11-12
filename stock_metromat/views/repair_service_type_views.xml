@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="repair_service_type_view_list" model="ir.ui.view">
+        <field name="name">repair.service.type.list</field>
+        <field name="model">repair.service.type</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="repair_service_type_action" model="ir.actions.act_window">
+        <field name="name">Tipos de servicio</field>
+        <field name="res_model">repair.service.type</field>
+        <field name="view_mode">list</field>
+        <field name="context">{'active_test': False}</field>
+    </record>
+
+    <menuitem id="repair_service_type_menu"
+              name="Tipos de servicio"
+              parent="repair.repair_menu_config"
+              action="repair_service_type_action"
+              sequence="50"/>
+</odoo>

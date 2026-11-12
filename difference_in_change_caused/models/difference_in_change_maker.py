@@ -205,12 +205,12 @@ class DifferenceInChangeMaker(models.Model):
         if not self.company_id.currency_exchange_journal_id:
             raise ValidationError(
                 _('There is not a journal of exchange set in the company.'))
-        if not self.company_id.income_currency_exchange_account_id:
+        if not self.company_id.income_currency_exchange_account_made_id:
             raise ValidationError(
-                _('There is not a account of income set in the company.'))
-        if not self.company_id.expense_currency_exchange_account_id:
+                _('There is not a realized exchange gain account set in the company.'))
+        if not self.company_id.expense_currency_exchange_account_made_id:
             raise ValidationError(
-                _('There is not a account of expense set in the company.'))
+                _('There is not a realized exchange loss account set in the company.'))
 
         am = move_obj.create({
             'date': self.date_in_moves,
@@ -237,9 +237,9 @@ class DifferenceInChangeMaker(models.Model):
                       move_line.current_exchange_rate*move_line.amount_residual_currency)
             if amount > 0:
                 debit_account = move_line.account_id
-                credit_account = self.company_id.income_currency_exchange_account_id
+                credit_account = self.company_id.income_currency_exchange_account_made_id
             elif amount < 0:
-                debit_account = self.company_id.expense_currency_exchange_account_id
+                debit_account = self.company_id.expense_currency_exchange_account_made_id
                 credit_account = move_line.account_id
             else:
                 continue
@@ -256,9 +256,9 @@ class DifferenceInChangeMaker(models.Model):
                                move_line.current_exchange_rate*move_line.amount_residual_currency)
             if amount > 0:
                 debit_account = account_bank
-                credit_account = self.company_id.income_currency_exchange_account_id
+                credit_account = self.company_id.income_currency_exchange_account_made_id
             elif amount < 0:
-                debit_account = self.company_id.expense_currency_exchange_account_id
+                debit_account = self.company_id.expense_currency_exchange_account_made_id
                 credit_account = account_bank
             else:
                 continue

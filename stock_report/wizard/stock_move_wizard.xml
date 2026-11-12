@@ -17,8 +17,8 @@
                             <field name="company_id" required="True" groups="base.group_multi_company" />
                             <field name="categories_ids" widget="many2many_tags" />
                             <field name="products_ids" domain="[('type','=','consu'),'|',('company_id','=',False),('company_id','=',company_id)]" widget="many2many_tags" />
-                            <field name="warehouses_ids" domain="[('company_id','=',False),('company_id','=',company_id)]" groups="stock.group_stock_multi_warehouses" widget="many2many_tags" />
-                            <field name="locations_ids" domain="[('usage','=','internal'),'|',('company_id','=',False),('company_id','=',company_id)]" groups="stock.group_stock_multi_locations" widget="many2many_tags" />
+                            <field name="warehouses_ids" domain="['|',('company_id','=',False),('company_id','=',company_id)]" groups="stock.group_stock_multi_warehouses" widget="many2many_tags" />
+                            <field name="locations_ids" domain="[('usage','in',['internal','transit']),'|',('company_id','=',False),('company_id','=',company_id)]" groups="stock.group_stock_multi_locations" widget="many2many_tags" />
                         </group>
                     </group>
                 </sheet>

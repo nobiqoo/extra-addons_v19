@@ -407,3 +407,21 @@ msgstr ""
 #: code:addons/account_payment_order_baseline/models/account_voucher.py:0
 msgid "You cannot delete voucher '%s' while its journal entry is posted. Cancel it first."
 msgstr ""
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.res_config_settings_view_form_reconcile_policy
+msgid "Reconciliation policies"
+msgstr ""
+
+#. module: account_payment_order_baseline
+#: model_terms:ir.ui.view,arch_db:account_payment_order_baseline.res_config_settings_view_form_reconcile_policy
+msgid ""
+"Does not allow unreconciling receivable/payable entries or returning paid "
+"documents to draft unless it is done from the source document (voucher or "
+"payment order)."
+msgstr ""
+
+#. module: account_payment_order_baseline
+#: model:ir.model.fields,field_description:account_payment_order_baseline.field_res_config_settings__restrict_paid_document_unreconcile
+msgid "Restrict unreconciling paid documents"
+msgstr ""

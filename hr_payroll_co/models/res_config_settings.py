@@ -262,3 +262,8 @@ class ResConfigSettings(models.TransientModel):
         string='Incluir ingresos complementarios en provisión de vacaciones',
         config_parameter="hr_payroll_co.include_comp_earnings_in_prv_vac"
     )
+
+    enable_hourly_payroll = fields.Boolean(
+        related='company_id.enable_hourly_payroll',
+        readonly=False,
+        string='Habilitar Nómina por Horas')

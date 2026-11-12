@@ -40,7 +40,14 @@
                             <!-- Reunión 13-oct (filas 50-52): la presentación
                                  de las opciones se configura aquí. -->
                             <field name="display_mode" placeholder="La del campo"/>
+                            <!-- Reunión 15-oct (fila 50): perfiles (u otros
+                                 insumos) que solo sirven para ciertas telas. -->
+                            <field name="es_tela" invisible="1"/>
+                            <field name="tela_ids" widget="many2many_tags" invisible="es_tela"
+                                   options="{'no_create': True}" placeholder="Todas las telas"/>
                             <field name="es_control" invisible="1"/>
+                            <field name="es_riel" invisible="1"/>
+                            <field name="es_motor" invisible="1"/>
                             <field name="active"/>
                         </group>
                         <group string="Parametrización">
@@ -50,14 +57,19 @@
                             <field name="is_texturable"/>
                             <field name="is_doublefaced"/>
                             <field name="pierceable_type"/>
-                            <field name="is_anadido" invisible="pierceable_type == 'no'"/>
+                            <!-- Sprint 1.6 (fila 142): independiente de Atravesable -->
+                            <field name="is_anadido"/>
+                            <field name="max_anadidos" invisible="not is_anadido"/>
                             <field name="is_sesgable"/>
                             <!-- Pendientes 24-sep (10.3): «Tela con franjas»
                                  y «Familia Sheer» son lo mismo — queda solo
                                  Familia Sheer (has_franjas se fusionó). -->
                             <field name="permite_cenefa_entera"/>
+                            <field name="permite_bolsillo"/>
                             <field name="peso_gm2"/>
                             <field name="grosor_mm"/>
+                            <!-- Sprint 1.6 (fila 167) -->
+                            <field name="espacio_util"/>
                             <field name="cant_min_stock"/>
                             <field name="warehouse_ids" widget="many2many_tags"
                                    options="{'no_create': True}"/>
@@ -67,8 +79,10 @@
                         <!-- Revisión 17-sep: «Colores» es impreciso — son
                              atributos/variables (perfiles, sesgos, etc.). -->
                         <page string="Atributos / Variables">
-                            <field name="color_ids">
-                                <list editable="bottom">
+                            <!-- Los archivados se muestran en gris para poder
+                                 reactivarlos con «Activo». -->
+                            <field name="color_todos_ids">
+                                <list editable="bottom" decoration-muted="not active">
                                     <!-- Pendientes 24-sep (10.1): lo que se
                                          asocia es el PRODUCTO del maestro. -->
                                     <field name="product_tmpl_id" string="Producto"/>
@@ -78,14 +92,29 @@
                                     <field name="image" widget="image" options="{'size': [0, 40]}" optional="show"/>
                                     <field name="u_color_id"/>
                                     <field name="etiqueta" optional="show"/>
+                                    <field name="archivado_por" optional="show"/>
                                     <field name="system_ids" widget="many2many_tags" optional="show"
                                            options="{'no_create': True}"/>
+                                    <!-- Reunión 28-oct (fila 50): telas con las que la línea no sirve. -->
+                                    <field name="tela_excluida_ids" widget="many2many_tags" optional="show"
+                                           column_invisible="parent.es_tela"
+                                           options="{'no_create': True}" placeholder="Sirve con todas"/>
                                     <!-- Reunión 13-oct (filas 56-57): controles —
                                          motores compatibles y canales por línea. -->
                                     <field name="motor_ids" widget="many2many_tags"
                                            column_invisible="not parent.es_control"
                                            options="{'no_create': True}"/>
-                                    <field name="canales" column_invisible="not parent.es_control"/>
+                                    <field name="canales" column_invisible="not parent.es_control and not parent.es_riel"/>
+                                    <!-- Sprint 1.5 (fila 99): rieles — vías y Riel Velcrado. -->
+                                    <field name="velcrado" column_invisible="not parent.es_riel"/>
+                                    <!-- Sprint 1.2 (pendiente 13-oct): motores — módulo RF y
+                                         cargador, antes en el maestro. -->
+                                    <field name="requiere_rf" column_invisible="not parent.es_motor"/>
+                                    <field name="rf_item_id" column_invisible="not parent.es_motor"
+                                           invisible="not requiere_rf" options="{'no_create': True}"/>
+                                    <field name="requiere_cargador" column_invisible="not parent.es_motor"/>
+                                    <field name="cargador_item_id" column_invisible="not parent.es_motor"
+                                           invisible="not requiere_cargador" options="{'no_create': True}"/>
                                     <field name="code" readonly="product_tmpl_id"/>
                                     <field name="name" column_invisible="1"/>
                                     <field name="active"/>
@@ -108,10 +137,28 @@
         </field>
     </record>
 
+    <!-- Revisión cálculo de tubo (27-oct, punto 1.1): el menú se segmenta
+         por categoría (Tela, Tubo, Mecanismo, Soporte, Terminal, Cabezal…). -->
+    <record id="view_safra_fabric_search" model="ir.ui.view">
+        <field name="name">safra.fabric.search</field>
+        <field name="model">safra.fabric</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="category_id"/>
+                <group>
+                    <filter string="Categoría" name="g_categoria" context="{'group_by': 'category_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record id="action_safra_fabric" model="ir.actions.act_window">
         <field name="name">Referencias / Telas</field>
         <field name="res_model">safra.fabric</field>
         <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_safra_fabric_search"/>
     </record>
 
     <!-- Punto 16: menú propio para las referencias de categoría Sesgo,
@@ -163,12 +210,23 @@
                             <field name="tech_height_max"/>
                             <field name="img_group"/>
                             <field name="weight_factor"/>
+                            <field name="tubo_solo_ancho"/>
+                            <field name="panel_telo_min" placeholder="General"/>
+                            <field name="panel_telo_max" placeholder="General"/>
+                            <field name="calculo_corte" required="product_tmpl_id"/>
+                            <field name="factor_confeccion"/>
                         </group>
                         <group string="Ficha técnica de exhibición">
                             <field name="exh_width_min" placeholder="Igual a la ficha"/>
                             <field name="exh_width_max" placeholder="Igual a la ficha"/>
                             <field name="exh_height_min" placeholder="Igual a la ficha"/>
                             <field name="exh_height_max" placeholder="Igual a la ficha"/>
+                        </group>
+                        <!-- Ajustes 20-oct (fila 79) -->
+                        <group string="Diseño de impresión: aceptación de la imagen">
+                            <field name="diseno_dpi_minimo"/>
+                            <field name="diseno_dpi_optimo"/>
+                            <field name="diseno_proporcion_max"/>
                         </group>
                     </group>
                     <notebook>
@@ -182,6 +240,9 @@
                                     <field name="depends_field_id" optional="hide"/>
                                     <field name="depends_value" optional="hide"/>
                                     <field name="active"/>
+                                    <field name="option_count" optional="show"/>
+                                    <button name="action_open_opciones" type="object" string="Opciones"
+                                            icon="fa-list-ul" title="Ver las opciones de este campo en este sistema"/>
                                 </list>
                             </field>
                         </page>
@@ -203,13 +264,18 @@
         <field name="name">safra.quote.tree</field>
         <field name="model">safra.quote</field>
         <field name="arch" type="xml">
-            <list string="Cotizaciones Safra" decoration-info="state == 'draft'" decoration-success="state == 'confirmed'" decoration-muted="state == 'cancelled'">
+            <list string="Cotizaciones Safra" decoration-info="state == 'draft'" decoration-success="state == 'confirmed'" decoration-muted="state == 'cancelled'" decoration-warning="state == 'blocked'">
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="user_id"/>
                 <field name="date"/>
+                <field name="orden_compra" optional="show"/>
                 <field name="amount_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'confirmed'" decoration-danger="state == 'cancelled'"/>
+                <field name="safra_express" optional="show"/>
+                <field name="es_exportacion" optional="show"/>
+                <field name="es_proyecto_especial" optional="hide"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'confirmed'" decoration-danger="state == 'cancelled'" decoration-warning="state == 'blocked'"/>
+                <field name="borrador_portal" widget="boolean_toggle" readonly="1" optional="show"/>
                 <field name="currency_id" column_invisible="1"/>
             </list>
         </field>
@@ -222,19 +288,44 @@
             <form string="Cotización Safra">
                 <header>
                     <button name="action_confirm" string="Confirmar" type="object" class="btn-primary"
-                            invisible="state not in ('draft', 'design_approved')"/>
+                            invisible="state not in ('draft', 'design_approved', 'production_approved') or borrador_portal"/>
                     <button name="action_cancel" string="Cancelar" type="object"
-                            invisible="state not in ('draft', 'pending_design', 'design_approved', 'confirmed')"/>
-                    <button name="action_draft" string="Restablecer borrador" type="object" invisible="state != 'cancelled'"/>
+                            invisible="state not in ('draft', 'blocked', 'pending_production', 'pending_design', 'design_approved', 'production_approved', 'confirmed')"/>
+                    <button name="action_draft" string="Restablecer borrador" type="object" invisible="state not in ('cancelled', 'blocked')"/>
                     <field name="state" widget="statusbar"
                            statusbar_visible="draft,pending_design,design_approved,confirmed"/>
+                    <!-- Reunión 15-oct (fila 74): los estados de producción se
+                         ven en la barra solo cuando la cotización pasa por ellos. -->
                 </header>
                 <sheet>
+                    <!-- Revisión 27-oct: borrador del portal sin finalizar -->
+                    <div class="alert alert-warning" role="alert" invisible="not borrador_portal">
+                        <strong>Borrador sin finalizar:</strong> el cliente la guardó desde el portal y no ha pulsado
+                        «Finalizar pedido». No se confirma ni abre tickets hasta que la finalice.
+                        <field name="borrador_portal" invisible="1"/>
+                        <field name="borrador_errores" class="d-block mt-1" style="white-space: pre-line"
+                               invisible="not borrador_errores"/>
+                    </div>
+                    <!-- Mejoras Sprint 1.1 (21-oct, fila 2) -->
+                    <div class="alert alert-warning" role="alert" invisible="state != 'blocked'">
+                        <strong>Cotización bloqueada:</strong> ya no cumple las condiciones para confirmarse.
+                        El cliente la corrige editándola desde el portal.
+                        <field name="bloqueo_motivos" class="d-block mt-1" style="white-space: pre-line"/>
+                    </div>
                     <div name="button_box" class="oe_button_box">
                         <button name="action_view_design_tickets" type="object"
                                 class="oe_stat_button" icon="fa-paint-brush"
                                 invisible="design_ticket_count == 0">
-                            <field name="design_ticket_count" widget="statinfo" string="Tickets diseño"/>
+                            <field name="design_ticket_count" widget="statinfo" string="Tickets"/>
+                        </button>
+                        <!-- Prueba 126.1: pedido de venta de la cotización confirmada -->
+                        <button name="action_view_sale_order" type="object"
+                                class="oe_stat_button" icon="fa-dollar"
+                                invisible="not sale_order_id" groups="sales_team.group_sale_salesman">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Pedido de venta</span>
+                                <field name="sale_order_id" readonly="1" class="o_stat_value"/>
+                            </div>
                         </button>
                     </div>
                     <group>
@@ -242,13 +333,44 @@
                             <field name="name"/>
                             <field name="partner_id"/>
                             <field name="user_id"/>
+                            <!-- Ajustes Sprint 1.6 (26-oct, filas 182 y 127) -->
+                            <field name="orden_compra"/>
+                            <field name="embalaje_ids" widget="many2many_tags"
+                                   domain="[('fabric_id.category_id.name', '=ilike', 'embalaje'), ('product_tmpl_id', '!=', False)]"
+                                   options="{'no_create': True}"/>
+                        </group>
+                        <!-- Datos de despacho (filas 184-188) -->
+                        <group string="Datos de despacho" name="despacho">
+                            <field name="recoge_fabrica"/>
+                            <field name="despacho_country_id" invisible="recoge_fabrica"/>
+                            <field name="despacho_city_id" invisible="recoge_fabrica" options="{'no_create': True}"/>
+                            <field name="despacho_direccion" invisible="recoge_fabrica"/>
+                            <field name="despacho_destinatario" invisible="recoge_fabrica"/>
+                            <field name="despacho_fecha" options="{'min_date': 'today'}"/>
                         </group>
                         <group>
                             <field name="date"/>
                             <field name="safra_express"/>
+                            <!-- Sprint 1.6 (filas 126 y 128) -->
+                            <field name="es_exportacion"/>
+                            <field name="es_proyecto_especial"/>
+                            <field name="requiere_verificacion"/>
                             <field name="amount_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                             <field name="currency_id" invisible="1"/>
                         </group>
+                    </group>
+                    <group string="Verificación de fabricación" invisible="not requiere_verificacion">
+                        <field name="verificacion_observaciones"/>
+                        <field name="verificacion_detalle" invisible="not verificacion_detalle"/>
+                        <field name="verificacion_ticket_id"/>
+                        <field name="verificacion_aprobada" readonly="1"/>
+                        <!-- Reunión 09-nov (fila 74): aceptación del cliente y garantía que indica planta -->
+                        <field name="verificacion_acepta_sin_garantia"/>
+                        <field name="verificacion_garantia" invisible="not verificacion_garantia"/>
+                        <field name="verificacion_garantia_motivo" invisible="not verificacion_garantia_motivo"/>
+                        <!-- Fila 130 -->
+                        <field name="verificacion_rechazada" invisible="not verificacion_rechazada"/>
+                        <field name="verificacion_rechazo_motivo" invisible="not verificacion_rechazada"/>
                     </group>
                     <notebook>
                         <page string="Persianas">
@@ -265,7 +387,7 @@
                                     <field name="lote_sugerido_id" optional="show"/>
                                     <field name="has_motor"/>
                                     <field name="cenefa_type"/>
-                                    <field name="safra_express"/>
+                                    <field name="safra_express" readonly="1"/>
                                     <field name="price_unit"/>
                                     <field name="price_total"/>
                                 </list>
@@ -311,7 +433,7 @@
                                             <field name="escuadras"/>
                                             <field name="bolsillo_size"/>
                                             <field name="extra_chain"/>
-                                            <field name="safra_express"/>
+                                            <field name="safra_express" readonly="1"/>
                                         </group>
                                     </group>
                                     <group>
@@ -355,6 +477,16 @@
                                         <field name="design_ticket_id"/>
                                         <field name="design_m2_cobro"/>
                                         <field name="design_approved"/>
+                                        <!-- Ajustes 20-oct (fila 79) -->
+                                        <field name="design_final_filename" invisible="1"/>
+                                        <field name="design_final_file" filename="design_final_filename"/>
+                                    </group>
+                                    <!-- Reunión 15-oct (fila 74) -->
+                                    <group string="Pedido sin restricciones" invisible="not sin_restricciones">
+                                        <field name="sin_restricciones"/>
+                                        <field name="sin_restricciones_detalle"/>
+                                        <field name="production_ticket_id"/>
+                                        <field name="sin_restricciones_aprobado"/>
                                     </group>
                                     <group string="Atributos del portal" invisible="not attributes_display">
                                         <field name="attributes_display" nolabel="1" colspan="2"/>
@@ -385,10 +517,18 @@
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="user_id"/>
+                <field name="orden_compra"/>
                 <filter string="Borrador" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Sin finalizar (borrador del portal)" name="borrador_portal" domain="[('borrador_portal','=',True)]"/>
                 <filter string="Confirmadas" name="confirmed" domain="[('state','=','confirmed')]"/>
                 <separator/>
                 <filter string="Mis cotizaciones" name="my_quotes" domain="[('user_id','=',uid)]"/>
+                <separator/>
+                <!-- Sprint 1.6 (filas 126-128) -->
+                <filter string="Safra Express" name="safra_express" domain="[('safra_express','=',True)]"/>
+                <filter string="Exportación" name="es_exportacion" domain="[('es_exportacion','=',True)]"/>
+                <filter string="Requiere verificación" name="requiere_verificacion" domain="[('requiere_verificacion','=',True)]"/>
+                <filter string="Proyectos especiales" name="es_proyecto_especial" domain="[('es_proyecto_especial','=',True)]"/>
                 <group>
                     <filter string="Cliente" name="partner" context="{'group_by': 'partner_id'}"/>
                     <filter string="Estado" name="state_group" context="{'group_by': 'state'}"/>
@@ -405,11 +545,62 @@
         <field name="context">{'search_default_my_quotes': 1}</field>
     </record>
 
+    <!-- Sprint 1.6 (fila 127): informe de las persianas que salieron con
+         Safra Express (por sistema, cliente o mes). -->
+    <record id="view_safra_quote_line_express_list" model="ir.ui.view">
+        <field name="name">safra.quote.line.express.list</field>
+        <field name="model">safra.quote.line</field>
+        <field name="arch" type="xml">
+            <list string="Persianas con Safra Express" create="0" edit="0">
+                <field name="quote_id"/>
+                <field name="quote_partner_id"/>
+                <field name="quote_date"/>
+                <field name="quote_state" widget="badge"/>
+                <field name="system_id"/>
+                <field name="fabric_id"/>
+                <field name="color_id"/>
+                <field name="width"/>
+                <field name="height"/>
+                <field name="quantity" sum="Total"/>
+                <field name="price_total" sum="Total"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_safra_quote_line_express_search" model="ir.ui.view">
+        <field name="name">safra.quote.line.express.search</field>
+        <field name="model">safra.quote.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="quote_id"/>
+                <field name="system_id"/>
+                <field name="fabric_id"/>
+                <filter string="Safra Express" name="safra_express" domain="[('safra_express','=',True)]"/>
+                <filter string="Confirmadas" name="confirmadas" domain="[('quote_state','=','confirmed')]"/>
+                <group>
+                    <filter string="Sistema" name="g_system" context="{'group_by': 'system_id'}"/>
+                    <filter string="Referencia" name="g_fabric" context="{'group_by': 'fabric_id'}"/>
+                    <filter string="Cliente" name="g_partner" context="{'group_by': 'quote_partner_id'}"/>
+                    <filter string="Mes" name="g_mes" context="{'group_by': 'quote_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_safra_quote_line_express" model="ir.actions.act_window">
+        <field name="name">Persianas con Safra Express</field>
+        <field name="res_model">safra.quote.line</field>
+        <field name="view_mode">list,pivot</field>
+        <field name="view_id" ref="view_safra_quote_line_express_list"/>
+        <field name="search_view_id" ref="view_safra_quote_line_express_search"/>
+        <field name="context">{'search_default_safra_express': 1, 'search_default_g_system': 1}</field>
+    </record>
+
     <!-- ======================== MENÚ ======================== -->
 
     <menuitem id="menu_safra_root" name="Cotizador Safra" sequence="90"
               web_icon="website_quotes_safra,static/description/icon.png"/>
     <menuitem id="menu_safra_quotes" name="Cotizaciones" parent="menu_safra_root" action="action_safra_quote" sequence="10"/>
+    <menuitem id="menu_safra_quote_line_express" name="Persianas con Safra Express" parent="menu_safra_root"
+              action="action_safra_quote_line_express" sequence="15"/>
     <menuitem id="menu_safra_fabrics" name="Referencias / Telas" parent="menu_safra_root" action="action_safra_fabric" sequence="20"/>
     <menuitem id="menu_safra_fabric_sesgos" name="Sesgos" parent="menu_safra_root" action="action_safra_fabric_sesgo" sequence="25"/>
     <menuitem id="menu_safra_systems" name="Sistemas" parent="menu_safra_root" action="action_safra_system" sequence="30"/>

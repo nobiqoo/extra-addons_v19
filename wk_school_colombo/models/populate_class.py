@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
+import base64
+import io
+import itertools
+
+import xlsxwriter
+
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import str2bool
 
 from .res_config_settings import ALLOW_SAME_DAY_PARAM
-
-# Selección reutilizada también desde la Escala de calificación avanzada
-# (models/grade_scale_structure.py, subtarea 8: "Programa o modalidad").
-CLASS_MODALITY_SELECTION = [
-    ('sabatino', 'Sabatino'),
-    ('diario', 'Diario'),
-    ('vacacional', 'Vacacional'),
-]
 
 
 class PopulateClass(models.Model):
@@ -24,14 +22,85 @@ class PopulateClass(models.Model):
     # Sin lógica asociada: la subtarea de activación/inactivación es la que
     # define qué implica desactivar una clase.
     is_active_class = fields.Boolean(string="Clase activa", default=True)
-    book_id = fields.Many2one('wk.books', string="Libro")
+    # Helper para la pestaña Observaciones (views/populate_class_view.xml):
+    # student_ids es M2M a wk.student.subjects (Materias/matrículas), no a
+    # student.student directamente -no se puede filtrar pick_student_id por
+    # "('id', 'in', parent.student_ids...)" sin este paso intermedio. Antes
+    # se usaba 'current_grade_id' (Nivel académico actual del estudiante),
+    # que no identifica la Clase: mostraba TODOS los estudiantes de ese
+    # Nivel (en otras clases del mismo Nivel) o NINGUNO si el Nivel no
+    # coincidía exactamente, en vez de solo los matriculados en esta clase.
+    enrolled_student_ids = fields.Many2many(
+        'student.student', string="Estudiantes matriculados en esta clase",
+        compute='_compute_enrolled_student_ids')
 
+    @api.depends('student_ids.student_id')
+    def _compute_enrolled_student_ids(self):
+        for klass in self:
+            klass.enrolled_student_ids = klass.student_ids.student_id
+    # Ronda de ajustes post-prueba: catálogo configurable (models/sede.py)
+    # en vez de company_id.
+    sede_id = fields.Many2one('wk.school.colombo.sede', string="Sede")
+    # Ronda de ajustes post-prueba: el catálogo bibliotecario de Webkul
+    # (wk.books) no lo usa la institución y nunca trae resultados. Se pasa a
+    # product.product, filtrado por el Boolean "¿Es libro?"
+    # (models/product_product.py) para no traer certificados, exámenes y
+    # demás productos de venta.
+    book_id = fields.Many2one(
+        'product.product', string="Libro",
+        domain="[('is_book_element', '=', True)]")
+
+    # Ajustes nov-2026: la materia solo se ofrece si esta ligada a la sede y a
+    # la modalidad de la clase (models/grade_subject.py: sede_ids/modality_ids).
     subject_id = fields.Many2one(
         'wk.grade.subjects', string='Subject',
-        domain="[('grade_id', '=', grade_id), ('is_active_subject', '=', True)]")
+        domain="[('grade_id', '=', grade_id), ('is_active_subject', '=', True),"
+               " ('sede_ids', 'in', sede_id), ('modality_ids', 'in', modality_id)]")
 
-    class_modality = fields.Selection(
-        CLASS_MODALITY_SELECTION, string="Modalidad")
+    # Ronda de ajustes post-prueba: catálogo configurable
+    # (models/class_modality.py) en vez de un Selection fijo en código.
+    modality_id = fields.Many2one(
+        'wk.school.colombo.class.modality', string="Modalidad")
+
+    @api.onchange('sede_id', 'modality_id')
+    def _onchange_sede_modality_clear_subject(self):
+        """Limpia la materia si ya no corresponde a la sede/modalidad."""
+        subject = self.subject_id
+        if subject and (
+                (self.sede_id and self.sede_id not in subject.sede_ids)
+                or (self.modality_id
+                    and self.modality_id not in subject.modality_ids)):
+            self.subject_id = False
+
+    # Tarea 12439 (Reporte de Registros / Cursos): "Programa" de la clase
+    # (ej. "Inglés Intermedio para Adultos"), necesario para el encabezado
+    # del reporte y como filtro propio. No existía ninguna forma de
+    # resolverlo para una clase cualquiera -la única relación previa,
+    # grading_scale_id.program_type_id, solo aplica a las clases con
+    # Estructura de calificación avanzada aplicada-. Campo independiente y
+    # editable en cualquier clase; el onchange de abajo solo sugiere el
+    # valor cuando la clase sí tiene esa Escala, sin forzarlo ni sobre
+    # escribir una selección manual ya hecha.
+    program_type_id = fields.Many2one(
+        'wk.school.colombo.program.type', string="Programa")
+
+    @api.onchange('grading_scale_id')
+    def _onchange_grading_scale_suggest_program(self):
+        if self.grading_scale_id.program_type_id and not self.program_type_id:
+            self.program_type_id = self.grading_scale_id.program_type_id
+
+    # Ronda de ajustes post-prueba: marca la única Clase ofertada que
+    # representa el examen de clasificación (ver README 14.12 y
+    # models/grade_consolidated.py::_wk_sync_classification_exam_result).
+    # Sin esta marca explícita, ningún Consolidado puede escribir en
+    # student.enrollment.classification_exam_result.
+    is_classification_exam_class = fields.Boolean(
+        string="Examen de clasificación",
+        help="Marca esta Clase ofertada como el examen de clasificación: el "
+             "comentario que el calificador escriba en el Consolidado se "
+             "copia automáticamente al campo \"Resultado examen de "
+             "clasificación\" de la Inscripción del estudiante. Ninguna otra "
+             "Clase puede escribir ahí.")
 
     # Placeholder de visibilidad grupal de calificaciones, sin lógica
     # asociada (ver models/student_student.py::hide_grades_for_student).
@@ -423,6 +492,131 @@ class PopulateClass(models.Model):
         """
         for record in self:
             record.write({'is_active_class': False})
+
+    def action_generate_registration_report(self):
+        """Botón "Generar Reporte de Registros / Cursos" (tarea 12439).
+
+        Exporta a Excel las Clases ofertadas seleccionadas en la lista,
+        agrupadas por Curso (Nivel académico) con subtotales y un total
+        general, siguiendo la estructura del formato de referencia
+        suministrado por el Colombo. Es de solo consulta/exportación: no
+        modifica ningún registro.
+        """
+        if not self.env.user.has_group(
+                'wk_school_management.wk_school_management_officer_group'):
+            raise UserError(_(
+                "No tiene permisos para generar el Reporte de Registros / "
+                "Cursos."))
+
+        classes = self.sorted(key=lambda c: (c.grade_id.id, c.id))
+
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+        sheet = workbook.add_worksheet('Registros')
+        bold = workbook.add_format({'bold': True})
+        title_format = workbook.add_format({'bold': True, 'font_size': 12})
+
+        programs = ', '.join(dict.fromkeys(
+            classes.mapped('program_type_id.name'))) or _("Sin programa")
+        sedes = ', '.join(dict.fromkeys(
+            classes.mapped('sede_id.name'))) or _("Todas")
+        start_dates = classes.filtered('start_date').mapped('start_date')
+        end_dates = classes.filtered('end_date').mapped('end_date')
+        date_range = (
+            "%s / %s" % (min(start_dates), max(end_dates))
+            if start_dates and end_dates else '')
+        Schedule = self.env['wk.weekly.schedule']
+        timeslots = classes.mapped('weekly_schedule_ids.timeslot_id')
+        horario_range = (
+            "%s - %s" % (
+                Schedule._format_time_label(min(timeslots.mapped('start_time'))),
+                Schedule._format_time_label(max(timeslots.mapped('end_time'))))
+            if timeslots else '')
+        generated_label = fields.Date.context_today(self).strftime('%Y-%m-%d')
+
+        sheet.write(0, 0, _("REPORTE DE REGISTROS"), title_format)
+        sheet.write(1, 0, "%s: %s" % (_("PROGRAMA"), programs))
+        sheet.write(2, 0, "%s: %s" % (_("TIPO"), _("Reporte por cursos")))
+        sheet.write(3, 0, "%s: %s" % (_("SEDE"), sedes))
+        sheet.write(4, 0, "%s: %s" % (_("FECHA"), date_range))
+        sheet.write(5, 0, "%s: %s" % (_("HORARIO"), horario_range))
+        sheet.write(6, 0, "%s: %s" % (_("GENERADO"), generated_label))
+
+        row = 8
+        sheet.write(row, 0, "%s: %s" % (_("PROGRAMA"), programs), bold)
+        row += 1
+
+        headers = [
+            _("No."), _("Curso"), _("Horario"), _("Fecha Ini"), _("Fecha Fin"),
+            _("Profesor"), _("Assistant Teacher"), _("Libro"), _("Salón"),
+            _("Cupos"), _("Inscritos"), _("Libres"),
+        ]
+        for col, label in enumerate(headers):
+            sheet.write(row, col, label, bold)
+        row += 1
+
+        index = 0
+        total_cupos = total_inscritos = 0
+        for __, group_iter in itertools.groupby(
+                classes, key=lambda c: c.grade_id.id):
+            group = list(group_iter)
+            grade_name = group[0].grade_id.name or ''
+            group_cupos = group_inscritos = 0
+            for klass in group:
+                libres = klass.capacity - klass.total_enrolled
+                sheet.write(row, 0, index)
+                sheet.write(row, 1, grade_name)
+                sheet.write(row, 2, klass.weekly_schedule_summary or '')
+                sheet.write(row, 3, str(klass.start_date or ''))
+                sheet.write(row, 4, str(klass.end_date or ''))
+                sheet.write(row, 5, klass.teacher_id.name or '')
+                sheet.write(row, 6, ', '.join(klass.teacher_ids.mapped('name')))
+                sheet.write(row, 7, klass.book_id.name or '')
+                sheet.write(row, 8, klass.location_summary or '')
+                sheet.write(row, 9, klass.capacity)
+                sheet.write(row, 10, klass.total_enrolled)
+                sheet.write(row, 11, libres)
+                row += 1
+                index += 1
+                group_cupos += klass.capacity
+                group_inscritos += klass.total_enrolled
+
+            sheet.write(row, 0, "%s %s" % (_("TOTAL CURSO"), grade_name), bold)
+            sheet.write(row, 1, len(group), bold)
+            sheet.write(row, 9, group_cupos, bold)
+            sheet.write(row, 10, group_inscritos, bold)
+            sheet.write(row, 11, group_cupos - group_inscritos, bold)
+            row += 2
+            total_cupos += group_cupos
+            total_inscritos += group_inscritos
+
+        sheet.write(row, 8, _("TOTAL"), bold)
+        sheet.write(row, 9, total_cupos, bold)
+        sheet.write(row, 10, total_inscritos, bold)
+        sheet.write(row, 11, total_cupos - total_inscritos, bold)
+
+        sheet.set_column(0, 0, 6)
+        sheet.set_column(1, 1, 16)
+        sheet.set_column(2, 2, 30)
+        sheet.set_column(3, 4, 12)
+        sheet.set_column(5, 6, 28)
+        sheet.set_column(7, 8, 20)
+        sheet.set_column(9, 11, 10)
+        workbook.close()
+
+        attachment = self.env['ir.attachment'].create({
+            'name': 'Reporte_Registros_Cursos_%s.xlsx' % generated_label,
+            'datas': base64.b64encode(output.getvalue()),
+            'res_model': self._name,
+            'res_id': classes[0].id,
+            'mimetype': ('application/vnd.openxmlformats-officedocument'
+                         '.spreadsheetml.sheet'),
+        })
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/web/content/%s?download=true' % attachment.id,
+            'target': 'self',
+        }
 
     def action_open_bulk_wizard(self):
         """Abre el asistente de creación masiva de Clases ofertadas."""

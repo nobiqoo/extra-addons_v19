@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_stock_picking_lot_import_form" model="ir.ui.view">
+        <field name="name">stock.picking.lot.import.form</field>
+        <field name="model">stock.picking.lot.import</field>
+        <field name="arch" type="xml">
+            <form string="Import Serial/Lot Numbers">
+                <field name="picking_id" invisible="1"/>
+                <field name="purchase_import_id" invisible="1"/>
+                <field name="previewed" invisible="1"/>
+                <div class="alert alert-info o_picking_lot_import_help" role="status" invisible="purchase_import_id">
+                    Import the lots/serial numbers of all the products at once.
+                    Download the template: it lists the products that use lots by internal reference.
+                    Add one row per lot (copy the row of the product as many times as needed) and fill in
+                    Lot/Serial, Quantity and, optionally, Traceability Note and DIM.
+                </div>
+                <div class="alert alert-info o_picking_lot_import_help" role="status" invisible="not purchase_import_id">
+                    Import the lots/serial numbers of all the purchase orders of the import at once.
+                    Download the template: it lists one row per purchase order and product that use lots.
+                    Add one row per lot (copy the row as many times as needed) and fill in Lot/Serial, Quantity and,
+                    optionally, Traceability Note and DIM. Each lot goes to the receipt of its purchase order.
+                    The purchase order can be left empty when the product is in a single order. The receipt
+                    is optional: fill it in only to choose among several pending receipts of the order.
+                </div>
+                <group>
+                    <group>
+                        <field name="import_file" filename="import_file_name" class="o_picking_lot_import_file"/>
+                        <field name="import_file_name" invisible="1"/>
+                        <field name="keep_lines"/>
+                    </group>
+                    <group>
+                        <button name="action_download_template" type="object" class="btn-link o_picking_lot_import_template" icon="fa-download" string="Download template"/>
+                    </group>
+                </group>
+                <field name="lot_text" nolabel="1" class="o_picking_lot_import_text" invisible="purchase_import_id" placeholder="Or paste here the rows copied from the template: Reference, Product, Lot/Serial, Quantity, Traceability Note, DIM"/>
+                <field name="lot_text" nolabel="1" class="o_picking_lot_import_text" invisible="not purchase_import_id" placeholder="Or paste here the rows copied from the template: Purchase Order, Reference, Product, Lot/Serial, Quantity, Traceability Note, DIM"/>
+                <div invisible="not previewed" class="d-flex gap-3 my-2 o_picking_lot_import_summary">
+                    <span class="badge text-bg-success o_picking_lot_import_valid">
+                        Valid lines: <field name="valid_count" class="d-inline"/>
+                    </span>
+                    <span class="badge text-bg-danger o_picking_lot_import_rejected" invisible="not error_count">
+                        Rejected rows: <field name="error_count" class="d-inline"/>
+                    </span>
+                    <span class="badge text-bg-warning o_picking_lot_import_over" invisible="not warning_count">
+                        Over the demand: <field name="warning_count" class="d-inline"/>
+                    </span>
+                </div>
+                <field name="line_ids" invisible="not previewed" readonly="1" class="o_picking_lot_import_preview">
+                    <list decoration-danger="status == 'error'" decoration-warning="status == 'valid' and reason" create="0" delete="0">
+                        <field name="row"/>
+                        <field name="order_name" column_invisible="not parent.purchase_import_id" width="90px"/>
+                        <field name="picking_id" column_invisible="not parent.purchase_import_id" width="140px"/>
+                        <field name="code" optional="hide"/>
+                        <field name="product_id"/>
+                        <field name="lot_name"/>
+                        <field name="quantity"/>
+                        <field name="comment"/>
+                        <field name="dim"/>
+                        <field name="status" widget="badge" decoration-success="status == 'valid'" decoration-danger="status == 'error'"/>
+                        <field name="reason"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_preview" type="object" string="Preview" class="btn-primary o_picking_lot_import_preview_btn" invisible="previewed" data-hotkey="p"/>
+                    <button name="action_preview" type="object" string="Preview again" class="btn-secondary" invisible="not previewed"/>
+                    <button name="action_import" type="object" class="btn-primary o_picking_lot_import_apply" string="Import valid lines" invisible="not previewed or not valid_count" data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

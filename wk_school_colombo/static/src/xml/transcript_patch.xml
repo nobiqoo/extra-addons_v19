@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ajuste y ampliación del Histórico Académico del Estudiante (tarea
+     12438): mismo patrón de gradesheet_patch.xml (tarea 12436) -t-inherit
+     en modo extension sobre la plantilla original de wk_school_management,
+     sin tocarla-. Se reemplazan: el selector de Estudiante (ya no depende
+     de elegir primero una Programación académica), el enlace de descarga
+     (apuntaba al portal, por sesión), y los bloques de resultados (de
+     materias/SGPA/CGPA por una sola sesión a la trayectoria completa
+     consolidada + detalle de calificaciones por clase). -->
+<templates xml:space="preserve">
+    <t t-inherit="transcript_template" t-inherit-mode="extension">
+
+        <xpath expr="//select[@id='enrollment_ids_selection']" position="replace">
+            <select class="form-select" id="wk_student_selection">
+                <option value="-1" disabled="disabled" selected="selected"></option>
+                <t t-foreach="state.students" t-as="wk_student" t-index="wk_student_index" t-key="wk_student.id">
+                    <option t-att-value="wk_student.id">
+                        <t t-out="wk_student.name"/>
+                    </option>
+                </t>
+            </select>
+        </xpath>
+
+        <xpath expr="//a[contains(@t-attf-href,'/my/transcript/download')]" position="replace">
+            <button class="btn btn-info w-100" t-on-click="_wk_download_pdf">
+                <i class="fa fa-download"></i>
+                Descargar PDF
+            </button>
+        </xpath>
+
+        <xpath expr="//div[contains(@class,'detail_header')]" position="replace">
+            <div class="detail_header mb-3 p-4" style="background-color: white;">
+                <t t-if="state.wk_header.name">
+                    <div class="row">
+                        <div class="col-md-6 fs-5">
+                            <div class="my-1"><span class="fw-bolder">Nombre: </span><t t-out="state.wk_header.name"/></div>
+                            <div class="my-1"><span class="fw-bolder">No. de identificación: </span><t t-out="state.wk_header.document"/></div>
+                            <div class="my-1"><span class="fw-bolder">Fecha de nacimiento: </span><t t-out="state.wk_header.birth_date"/></div>
+                            <div class="my-1"><span class="fw-bolder">Correo electrónico: </span><t t-out="state.wk_header.email"/></div>
+                            <div class="my-1"><span class="fw-bolder">Teléfono: </span><t t-out="state.wk_header.phone"/></div>
+                        </div>
+                        <div class="col-md-6 fs-5">
+                            <div class="my-1"><span class="fw-bolder">Programa(s): </span><t t-out="state.wk_header.programs"/></div>
+                            <div class="my-1"><span class="fw-bolder">Estado actual: </span><t t-out="state.wk_header.status"/></div>
+                            <div class="my-1"><span class="fw-bolder">Fecha de generación: </span><t t-out="state.wk_header.generated_date"/></div>
+                            <div class="my-1"><span class="fw-bolder">Generado por: </span><t t-out="state.wk_header.generated_by"/></div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[contains(@class,'table_header')]" position="replace">
+            <div class="table_header p-4 mb-3" style="background-color: white;">
+                <div class="error_message" t-if="state.wk_error">
+                    <h4 style="color:#b10202;"><t t-out="state.wk_error"/></h4>
+                </div>
+
+                <t t-if="state.wk_rows.length">
+                    <h3 style="color:#1e3a5f;">Trayectoria académica</h3>
+                    <div style="overflow-x:auto;">
+                        <table class="table table-sm table-bordered table-hover">
+                            <thead style="background-color:#f3f3f3;">
+                                <tr>
+                                    <th>Programa</th>
+                                    <th>Periodo académico</th>
+                                    <th>Nivel / Módulo</th>
+                                    <th>Clase ofertada</th>
+                                    <th>Inscripción</th>
+                                    <th>Fecha inicio</th>
+                                    <th>Fecha fin</th>
+                                    <th>Resultado</th>
+                                    <th>Final Grade</th>
+                                    <th>Equivalencia cualitativa</th>
+                                    <th>Pass / Fail</th>
+                                    <th>Horas ausencia</th>
+                                    <th>Estado académico</th>
+                                    <th>Acción realizada</th>
+                                    <th>Fecha acción</th>
+                                    <th>Observaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.wk_rows" t-as="wk_row" t-index="wk_row_index" t-key="wk_row_index">
+                                    <tr style="cursor:pointer;"
+                                        t-att-class="wk_row_index === state.wk_selected_index ? 'table-active' : ''"
+                                        t-on-click="() => this._wk_select_row(wk_row_index)">
+                                        <td><t t-out="wk_row.program"/></td>
+                                        <td><t t-out="wk_row.period"/></td>
+                                        <td><t t-out="wk_row.grade_module"/></td>
+                                        <td><t t-out="wk_row.class_name"/></td>
+                                        <td><t t-out="wk_row.enrollment_name"/></td>
+                                        <td><t t-out="wk_row.date_start"/></td>
+                                        <td><t t-out="wk_row.date_end"/></td>
+                                        <td><t t-out="wk_row.academic_result"/></td>
+                                        <td><t t-out="wk_row.final_grade !== null ? wk_row.final_grade : '-'"/></td>
+                                        <td><t t-out="wk_row.performance_range"/></td>
+                                        <td><t t-out="wk_row.pass_fail"/></td>
+                                        <td><t t-out="wk_row.absence_hours"/></td>
+                                        <td><t t-out="wk_row.academic_status"/></td>
+                                        <td><t t-out="wk_row.action_taken"/></td>
+                                        <td><t t-out="wk_row.action_date"/></td>
+                                        <td><t t-out="wk_row.observations"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <t t-if="state.wk_selected_index > -1">
+                        <t t-set="wk_selected" t-value="state.wk_rows[state.wk_selected_index]"/>
+                        <h3 class="mt-4" style="color:#1e3a5f;">Detalle de calificaciones</h3>
+                        <div class="mb-2">
+                            <strong>Clase ofertada: </strong><t t-out="wk_selected.class_name"/>
+                            &#160;&#160;
+                            <strong>Programa: </strong><t t-out="wk_selected.program"/>
+                            &#160;&#160;
+                            <strong>Periodo: </strong><t t-out="wk_selected.period"/>
+                        </div>
+                        <t t-if="wk_selected.detail">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <t t-if="wk_selected.detail.midterm_components">
+                                        <h5>Midterm</h5>
+                                        <table class="table table-sm table-bordered">
+                                            <thead><tr><th>Componente</th><th>Ponderación (%)</th><th>Nota</th></tr></thead>
+                                            <tbody>
+                                                <t t-foreach="wk_selected.detail.midterm_components" t-as="wk_comp" t-index="wk_comp_index" t-key="wk_comp_index">
+                                                    <tr>
+                                                        <td><t t-out="wk_comp.name"/></td>
+                                                        <td><t t-out="wk_comp.weight"/></td>
+                                                        <td><t t-out="wk_comp.grade !== null ? wk_comp.grade : '-'"/></td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </t>
+                                    <h5>Final</h5>
+                                    <table class="table table-sm table-bordered">
+                                        <thead><tr><th>Componente</th><th>Ponderación (%)</th><th>Nota</th></tr></thead>
+                                        <tbody>
+                                            <t t-foreach="wk_selected.detail.final_components" t-as="wk_comp" t-index="wk_comp_index" t-key="wk_comp_index">
+                                                <tr>
+                                                    <td><t t-out="wk_comp.name"/></td>
+                                                    <td><t t-out="wk_comp.weight"/></td>
+                                                    <td><t t-out="wk_comp.grade !== null ? wk_comp.grade : '-'"/></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                    <div t-if="wk_selected.detail.comments" class="mb-2">
+                                        <strong>Resultado examen: </strong><t t-out="wk_selected.detail.comments"/>
+                                    </div>
+                                    <div t-if="wk_selected.detail.observation" class="mb-2">
+                                        <strong>Observación: </strong><t t-out="wk_selected.detail.observation"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Resumen de la clase</h5>
+                                    <table class="table table-sm table-bordered">
+                                        <tbody>
+                                            <tr t-if="'midterm_grade' in wk_selected.detail">
+                                                <th>Midterm Grade</th><td><t t-out="wk_selected.detail.midterm_grade"/></td>
+                                            </tr>
+                                            <tr><th>Final Grade</th><td><t t-out="wk_selected.detail.final_grade"/></td></tr>
+                                            <tr><th>Equivalencia cualitativa</th><td><t t-out="wk_selected.detail.performance_range"/></td></tr>
+                                            <tr><th>Pass / Fail</th><td><t t-out="wk_selected.detail.result"/></td></tr>
+                                            <tr><th>Ranking</th><td><t t-out="wk_selected.detail.ranking"/></td></tr>
+                                            <tr><th>Horas de ausencia</th><td><t t-out="wk_selected.detail.absence_hours"/></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <p class="text-muted">Esta clase no tiene Consolidado de notas (Estructura de calificación avanzada) aplicado; no hay detalle de componentes disponible.</p>
+                        </t>
+                    </t>
+                </t>
+            </div>
+        </xpath>
+
+    </t>
+</templates>

@@ -75,6 +75,13 @@
                             groups="wk_school_management.wk_school_management_officer_group"/>
                     <button name="action_hide_all" type="object" string="Ocultar notas en portal (todos)"
                             groups="wk_school_management.wk_school_management_officer_group"/>
+                    <!-- Incidencia PT12201 (2.17/2.18): abre "Resultados" como lista
+                         independiente -la pestaña "Resultados" de abajo es un list
+                         embebido en este formulario, que nunca puede mostrar
+                         checkboxes de selección (ver action_open_results_list). -->
+                    <button name="action_open_results_list" type="object"
+                            string="Procesar resultados (selección múltiple)"
+                            groups="wk_school_management.wk_school_management_officer_group"/>
                     <button name="action_print_class_list_all" type="object" string="Class List (todos)"/>
                     <button name="action_print_class_list_pass" type="object" string="Class List (Pass)"/>
                     <button name="action_print_class_list_fail" type="object" string="Class List (Fail)"/>
@@ -88,7 +95,7 @@
                     <group>
                         <group>
                             <field name="subject_id" readonly="1" string="Módulo"/>
-                            <field name="modality" readonly="1"/>
+                            <field name="modality_id" readonly="1"/>
                             <field name="teacher_id" readonly="1"/>
                             <field name="academic_year_id" readonly="1"/>
                         </group>
@@ -149,23 +156,18 @@
                             </field>
                         </page>
                         <page string="Resultados">
+                            <!-- Incidencia PT12201: las acciones masivas (Publicar/Ocultar/
+                                 Promover seleccionados) NO pueden vivir en este list -está
+                                 embebido en un formulario (campo one2many), y esa combinación
+                                 nunca muestra checkboxes de selección de fila, sin importar qué
+                                 atributos se le pongan (ver action_open_results_list más
+                                 arriba, que abre la misma información como lista
+                                 independiente, donde sí funcionan). Este list se conserva tal
+                                 cual para la edición en línea de cada fila (Comentarios,
+                                 Visible en portal). -->
                             <field name="line_ids">
-                                <list editable="bottom" decoration-danger="result == 'fail'" decoration-success="result == 'pass'">
-                                    <!-- Requerimiento 2.10: "acciones masivas... sobre uno, varios o
-                                         todos los estudiantes" - botones de encabezado, habilitados
-                                         al marcar el checkbox de una o más filas (selección arbitraria,
-                                         no solo "todos" -ver action_publish_all/action_hide_all en el
-                                         encabezado del formulario- ni solo "uno a la vez"). El check
-                                         "Visible en portal" de cada fila sigue cubriendo el ajuste
-                                         individual posterior. -->
-                                    <header>
-                                        <button name="action_publish_selected" type="object"
-                                                string="Publicar seleccionados"
-                                                groups="wk_school_management.wk_school_management_officer_group"/>
-                                        <button name="action_hide_selected" type="object"
-                                                string="Ocultar seleccionados"
-                                                groups="wk_school_management.wk_school_management_officer_group"/>
-                                    </header>
+                                <list editable="bottom"
+                                      decoration-danger="result == 'fail'" decoration-success="result == 'pass'">
                                     <field name="grade_decimals" column_invisible="1"/>
                                     <field name="student_id" readonly="1"/>
                                     <field name="course_status" readonly="1"/>
@@ -188,6 +190,7 @@
                                     <field name="portal_visible" widget="boolean_toggle"
                                            groups="wk_school_management.wk_school_management_officer_group"/>
                                     <field name="comments"/>
+                                    <field name="observation"/>
                                 </list>
                             </field>
                             <group col="3">
@@ -229,12 +232,13 @@
                                 </list>
                             </field>
                         </page>
-                        <page string="Comentarios">
+                        <page string="Resultado examen y observaciones">
                             <field name="line_ids" nolabel="1">
                                 <list create="0" delete="0" editable="bottom">
                                     <field name="student_id" readonly="1"/>
                                     <field name="result" readonly="1" widget="badge"/>
                                     <field name="comments"/>
+                                    <field name="observation"/>
                                 </list>
                             </field>
                         </page>
@@ -285,5 +289,45 @@
         parent="wk_school_management.teacher_main_menu"
         sequence="45"
         action="wk_grade_consolidated_action"/>
+
+    <!-- Incidencia PT12201 (2.17/2.18): lista independiente de Resultados,
+         abierta desde "Procesar resultados (selección múltiple)" en el
+         Consolidado (action_open_results_list). A diferencia del list
+         embebido de la pestaña "Resultados", este SÍ soporta checkboxes de
+         selección de fila -por eso los botones de <header> funcionan aquí-. -->
+    <record id="wk_grade_consolidated_line_list" model="ir.ui.view">
+        <field name="name">wk.school.colombo.grade.consolidated.line.list</field>
+        <field name="model">wk.school.colombo.grade.consolidated.line</field>
+        <field name="arch" type="xml">
+            <list string="Resultados" create="0"
+                  decoration-danger="result == 'fail'" decoration-success="result == 'pass'">
+                <header>
+                    <button name="action_publish_selected" type="object"
+                            string="Publicar seleccionados"
+                            groups="wk_school_management.wk_school_management_officer_group"/>
+                    <button name="action_hide_selected" type="object"
+                            string="Ocultar seleccionados"
+                            groups="wk_school_management.wk_school_management_officer_group"/>
+                    <button name="action_promote_selected" type="object"
+                            string="Promover seleccionados"
+                            groups="wk_school_management.wk_school_management_officer_group"/>
+                </header>
+                <field name="grade_decimals" column_invisible="1"/>
+                <field name="student_id" readonly="1"/>
+                <field name="course_status" readonly="1"/>
+                <field name="final_grade" readonly="1"
+                       widget="wk_grade_float" options="{'decimals_field': 'grade_decimals'}"/>
+                <field name="absence_hours" readonly="1"/>
+                <field name="ranking_badge" readonly="1" string="Posición"/>
+                <field name="performance_range_code" readonly="1" optional="show"/>
+                <field name="result" readonly="1" widget="badge"/>
+                <field name="fail_reason" readonly="1"/>
+                <field name="portal_visible" widget="boolean_toggle"
+                       groups="wk_school_management.wk_school_management_officer_group"/>
+                <field name="comments" optional="show"/>
+                <field name="observation" optional="show"/>
+            </list>
+        </field>
+    </record>
 
 </odoo>

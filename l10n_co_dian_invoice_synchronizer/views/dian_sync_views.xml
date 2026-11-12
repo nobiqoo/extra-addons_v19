@@ -12,9 +12,12 @@
                 <field name="user_id" />
                 <field name="document_count" />
                 <field name="already_in_system_count" />
+                <field name="discarded_other_company_count" optional="show"
+                    decoration-warning="discarded_other_company_count != 0" />
                 <field name="application_response_count" />
                 <field name="mapping_error_count" />
                 <field name="dian_records_filtered" />
+                <field name="dian_protocol" optional="hide" />
                 <field name="unaccounted_count" decoration-danger="unaccounted_count != 0" />
             </list>
         </field>
@@ -35,11 +38,14 @@
                             <field name="sync_date" />
                             <field name="sync_period" />
                             <field name="sync_duration_seconds" />
+                            <field name="dian_protocol" />
                             <field name="user_id" />
                         </group>
                         <group string="Summary">
                             <field name="document_count" readonly="1" />
                             <field name="already_in_system_count" readonly="1" />
+                            <field name="discarded_other_company_count"
+                                decoration-warning="discarded_other_company_count != 0" />
                             <field name="application_response_count" readonly="1" />
                             <field name="mapping_error_count" readonly="1" />
                             <field name="dian_records_filtered" readonly="1" />
@@ -64,9 +70,6 @@
                         </page>
                         <page string="Mapping Errors" name="mapping_errors">
                             <field name="mapping_errors_html" nolabel="1" readonly="1" />
-                        </page>
-                        <page string="Error Summary" name="error_summary">
-                            <field name="error_summary_html" nolabel="1" readonly="1" />
                         </page>
                     </notebook>
                 </sheet>

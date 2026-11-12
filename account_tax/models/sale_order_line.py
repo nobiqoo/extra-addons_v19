@@ -63,15 +63,23 @@ class SaleOrderLine(models.Model):
         taxes = Tax
         taxes |= self.compute_line_tax()
 
+        # En ventas la tarifa de ReteICA depende del CIIU de la compañía (vendedora), como en v18
+        # y en la factura. Se pasa explícito para no tomar el partner_id (cliente) del contexto de la vista.
         applicable_taxes = taxes.calculate_base_single_line(
             line=self,
             city_id=self.city_id,
-            partner_id=self.order_id.partner_id,
+            partner_id=self.order_id.company_id.partner_id,
         )
 
-        if applicable_taxes:
-            self.tax_ids = applicable_taxes  
+        self.tax_ids = applicable_taxes
 
     @api.onchange('product_id')
     def _onchange_city_id(self):
         self.city_id = self.order_id.city_id
+
+    def _prepare_invoice_line(self, **optional_values):
+        invoice_line = super()._prepare_invoice_line(**optional_values)
+        invoice_line.update({
+            'city_id': self.city_id and self.city_id.id or False
+        })
+        return invoice_line

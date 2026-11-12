@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_biometric_employee_mass_sync_wizard_form" model="ir.ui.view">
+        <field name="name">biometric.employee.mass.sync.wizard.form</field>
+        <field name="model">biometric.employee.mass.sync.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Sincronización Masiva con Biométricos">
+                <group>
+                    <group string="Tipo de Acción">
+                        <field name="action_type" widget="radio"/>
+                        <field name="sync_mode" widget="radio"/>
+                    </group>
+                    <group string="Dispositivos Específicos" invisible="sync_mode != 'force_devices'">
+                        <field name="device_ids" widget="many2many_tags" options="{'no_create': True}" required="sync_mode == 'force_devices'" placeholder="Seleccione dispositivos a los que forzar..."/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Empleados a Procesar" name="employees">
+                        <field name="employee_ids" widget="many2many" options="{'no_create': True}">
+                            <list create="false" delete="false">
+                                <field name="name"/>
+                                <field name="device_id_num" string="ID Biométrico"/>
+                                <field name="allowed_device_ids" widget="many2many_tags" string="Dispositivos Permitidos"/>
+                                <field name="department_id"/>
+                                <field name="job_id"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="action_execute_sync" type="object" string="Ejecutar Sincronización" class="btn-primary" icon="fa-refresh"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción masiva vinculada a la lista de Empleados (Menú 'Acción') -->
+    <record id="action_biometric_employee_mass_sync" model="ir.actions.act_window">
+        <field name="name">Sincronizar con Biométricos</field>
+        <field name="res_model">biometric.employee.mass.sync.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="hr.model_hr_employee"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

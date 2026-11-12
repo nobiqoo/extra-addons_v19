@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_arthome_invoice_lots" model="ir.ui.view">
+        <field name="name">product.template.form.arthome.invoice.lots</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']" position="inside">
+                <group string="Factura electrónica Art Home" invisible="type == 'service'">
+                    <field name="arthome_split_invoice_lots"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

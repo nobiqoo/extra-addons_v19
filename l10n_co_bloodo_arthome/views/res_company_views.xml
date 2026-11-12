@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_arthome_invoice" model="ir.ui.view">
+        <field name="name">res.company.form.arthome.invoice</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Factura Art Home" name="arthome_invoice">
+                    <group>
+                        <field name="arthome_invoice_header"
+                               placeholder="Nombre de la empresa&#10;N.I.T...&#10;Dirección y teléfonos&#10;Información tributaria y resolución"
+                               style="min-height: 240px;"/>
+                    </group>
+                    <p class="text-muted">
+                        Este texto reemplaza el bloque central del encabezado del PDF.
+                        Escriba una línea por cada dato. Si lo deja vacío, se mostrarán
+                        los datos de la compañía y la resolución configurada en el diario.
+                        No modifica la configuración ni los datos enviados a la DIAN.
+                    </p>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

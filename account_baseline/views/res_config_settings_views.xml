@@ -51,11 +51,39 @@
                     </div>
                 </div>
             </setting>
-            <xpath expr="//div[./field[@name='account_journal_early_pay_discount_loss_account_id']]" position="after">
-                <div class="row mt8">
-                    <label for="account_journal_tax_with_discount_id" class="col-lg-5 o_light_label" />
-                    <field name="account_journal_tax_with_discount_id" />
-                </div>
+            <xpath expr="//block[@id='default_accounts']" position="after">
+                <block title="Muestras, promociones y obsequios" id="account_baseline_promotions_gifts">
+                    <setting company_dependent="1"
+                             string="Aplicar IVA asumido por defecto en obsequios/promociones"
+                             help="Solo al crear la factura desde el pedido: activo fuerza recálculo de impuestos en líneas al 100 %. En la factura, el onchange no depende de esta opción (100 % añade IVA asumido; otro descuento, no).">
+                        <field name="apply_iva_assumed_on_gift_invoice_lines" widget="boolean_toggle" />
+                    </setting>
+                    <setting company_dependent="1"
+                             help="Cuentas e impuestos para facturas con descuento del 100 % (IVA asumido) y para el costo de salida de inventario en obsequios.">
+                        <div class="content-group">
+                            <div class="row mt8">
+                                <label for="account_journal_tax_with_discount_id" class="col-lg-5 o_light_label" />
+                                <field name="account_journal_tax_with_discount_id" />
+                            </div>
+                            <div class="row mt8">
+                                <label for="account_iva_debit" class="col-lg-5 o_light_label" />
+                                <field name="account_iva_debit" />
+                            </div>
+                            <div class="row mt8">
+                                <label for="tax_iva_assumed_id" class="col-lg-5 o_light_label" />
+                                <field name="tax_iva_assumed_id" />
+                            </div>
+                            <div class="row mt8">
+                                <label for="account_sale_stock_out_expense_id" class="col-lg-5 o_light_label" />
+                                <field name="account_sale_stock_out_expense_id" options="{'no_create': True}" />
+                            </div>
+                            <div class="row mt8" groups="analytic.group_analytic_accounting">
+                                <label for="promotion_gift_cogs_analytic_distribution" class="col-lg-5 o_light_label" />
+                                <field name="promotion_gift_cogs_analytic_distribution" widget="analytic_distribution" />
+                            </div>
+                        </div>
+                    </setting>
+                </block>
             </xpath>
         </field>
     </record>

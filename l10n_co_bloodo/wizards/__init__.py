@@ -6,3 +6,5 @@ from . import account_invoice_send
 from . import xml_by_document_key_wizard
 from . import dian_event_send_wizard
 from . import send_dian_result_wizard
+from . import dian_document_xml_fetch_wizard
+from . import dian_invoice_synchronizer

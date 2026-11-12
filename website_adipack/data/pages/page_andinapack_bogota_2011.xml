@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="page_andinapack_bogota_2011" model="website.page">
+        <field name="name">Andina Pack 2011 Global</field>
+        <field name="type">qweb</field>
+        <field name="url">/andinapack-bogota-2011</field>
+        <field name="key">website_adipack.page_andinapack_bogota_2011</field>
+        <field name="is_published" eval="True"/>
+        <field name="website_meta_title">Andina Pack 2011 Global | Adipack - Adinox</field>
+        <field name="website_meta_description">Andina Pack 2011 Global realizado en Corferias Bogotá se convierte en referente tecnológico de envases y embalajes para la región.</field>
+        <field name="arch" type="xml"><t t-name="website_adipack.page_andinapack_bogota_2011"><t t-call="website.layout"><div id="wrap" class="oe_structure oe_empty"><section class="o_adp_post_header oe_img_bg o_bg_img_center o_colored_level" style="background-image: url('/website_adipack/static/src/uploads/2011/11/andinapack2011-logo-eventos-1.jpg')" data-snippet="s_text_block" data-name="Encabezado"><div class="o_adp_post_overlay"/><div class="container position-relative"><div class="d-flex align-items-center gap-4"><div class="o_adp_post_date"><div class="o_adp_post_day">10</div><div class="o_adp_post_month">Nov</div></div><div class="o_adp_post_head"><h1>Andina Pack 2011 Global</h1><p class="o_adp_post_info"><i class="fa fa-clock-o me-2"/>10 noviembre, 2011</p></div></div></div></section><section class="o_adp_section o_adp_post_body o_colored_level pt64 pb64" data-snippet="s_text_block" data-name="Contenido"><div class="container o_adp_post_container"><div class="row"><div class="o_colored_level col-12 col-lg-12"><div class="s_share text-start o_no_link_popover o_adp_share" data-snippet="s_share" data-name="Share"><a href="https://www.facebook.com/sharer/sharer.php?u={url}" class="s_share_facebook" target="_blank" aria-label="Facebook"><i class="fa fa-facebook rounded shadow-sm"/></a><a href="https://www.linkedin.com/sharing/share-offsite/?url={url}" class="s_share_linkedin" target="_blank" aria-label="LinkedIn"><i class="fa fa-linkedin rounded shadow-sm"/></a><a href="https://twitter.com/intent/tweet?text={title}&amp;url={url}" class="s_share_twitter" target="_blank" aria-label="X"><i class="fa fa-twitter rounded shadow-sm"/></a><a href="mailto:?body={url}&amp;subject={title}" class="s_share_email" aria-label="Email"><i class="fa fa-envelope rounded shadow-sm"/></a></div></div></div></div></section></div></t></t></field>
+    </record>
+</odoo>

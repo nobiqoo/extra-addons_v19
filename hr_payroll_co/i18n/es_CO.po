@@ -1640,8 +1640,9 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_concept_wizard_report_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_period_creator_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll_co.income_and_withholding_certificate_builder_form
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #. module: hr_payroll_co
 #: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_contract__settlement_type__causa
@@ -3684,6 +3685,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_payroll_co.field_medical_exam__employee_id
 #: model:ir.model.fields,field_description:hr_payroll_co.field_res_partner__employee
 #: model:ir.model.fields,field_description:hr_payroll_co.field_res_users__employee
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_priority__employee_id
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__employee_id
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file_line__employee_id
 msgid "Employee"
 msgstr "Empleado"
 
@@ -7959,3 +7963,893 @@ msgstr ""
 #: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_payslip_report_wizard__search_type__unique
 msgid "Único"
 msgstr ""
+
+#. module: hr_payroll_co
+#: model:ir.model,name:hr_payroll_co.model_hr_embargo_base_category
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_base_category_form
+msgid "Garnishment Base Category"
+msgstr "Categoría Base de Embargo"
+
+#. module: hr_payroll_co
+#: model:ir.model,name:hr_payroll_co.model_hr_embargo_court
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_court_form
+msgid "Garnishment Court"
+msgstr "Juzgado de Embargo"
+
+#. module: hr_payroll_co
+#: model:ir.model,name:hr_payroll_co.model_hr_embargo_destination_office
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_destination_office_form
+msgid "Garnishment Destination Office"
+msgstr "Oficina Destino de Embargo"
+
+#. module: hr_payroll_co
+#: model:ir.model,name:hr_payroll_co.model_hr_embargo_type
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_type_form
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_priority_line__embargo_type_id
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__embargo_type_id
+msgid "Garnishment Type"
+msgstr "Tipo de Embargo"
+
+#. module: hr_payroll_co
+#: model:ir.model,name:hr_payroll_co.model_hr_embargo_priority
+msgid "Garnishment Priority Override"
+msgstr "Prioridad de Embargo"
+
+#. module: hr_payroll_co
+#: model:ir.model,name:hr_payroll_co.model_hr_embargo_priority_line
+msgid "Garnishment Priority Line"
+msgstr "Línea de Prioridad de Embargo"
+
+#. module: hr_payroll_co
+#: model:ir.model,name:hr_payroll_co.model_hr_embargo
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_line__embargo_id
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file_line__embargo_id
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_payslip_line__embargo_id
+msgid "Garnishment"
+msgstr "Embargo"
+
+#. module: hr_payroll_co
+#: model:ir.model,name:hr_payroll_co.model_hr_embargo_line
+msgid "Garnishment Installment"
+msgstr "Cuota de Embargo"
+
+#. module: hr_payroll_co
+#: model:ir.model,name:hr_payroll_co.model_hr_embargo_file
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_file_form
+msgid "Judicial Deposit Flat File"
+msgstr "Archivo Plano de Depósito Judicial"
+
+#. module: hr_payroll_co
+#: model:ir.model,name:hr_payroll_co.model_hr_embargo_file_line
+msgid "Judicial Deposit Flat File Line"
+msgstr "Línea de Archivo Plano de Depósito Judicial"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_base_category__name
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_court__name
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_destination_office__name
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_type__name
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__name
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_base_category__code
+msgid "Technical Code"
+msgstr "Código Técnico"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_base_category__active
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_court__active
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_destination_office__active
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_type__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_base_category__company_id
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_court__company_id
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_destination_office__company_id
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_type__company_id
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_priority__company_id
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__company_id
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_court__code
+msgid "Court Code"
+msgstr "Código del Juzgado"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_court__judicial_account
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__judicial_account
+msgid "Judicial Account"
+msgstr "Cuenta Judicial"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_destination_office__code
+msgid "SBAN Code"
+msgstr "Código SBAN"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_type__code
+msgid "Code"
+msgstr "Código"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_type__description
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_type_form
+msgid "Description"
+msgstr "Descripción"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_type__priority
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_priority_line__priority
+msgid "Priority"
+msgstr "Prioridad"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_type__legal_type
+msgid "Legal Type"
+msgstr "Tipo Legal"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_type__calculation_type
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__calculation_type
+msgid "Calculation Type"
+msgstr "Tipo de Cálculo"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__base_category_ids
+msgid "Base Categories"
+msgstr "Categorías Base"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_type__ss_treatment
+msgid "Social Security Treatment"
+msgstr "Tratamiento de Seguridad Social"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__ss_deduction_concept_ids
+msgid "Deductions Subtracted from the Base"
+msgstr "Deducciones Restadas de la Base"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__excluded_concept_ids
+msgid "Excluded Concepts"
+msgstr "Conceptos Excluidos"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__applies_payroll
+msgid "Applies to Monthly/Biweekly Payroll"
+msgstr "Aplica a Nómina Mensual/Quincenal"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__applies_prima
+msgid "Applies to Service Bonus (Prima)"
+msgstr "Aplica a Prima de Servicios"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__applies_severance
+msgid "Applies to Severance (Cesantías)"
+msgstr "Aplica a Cesantías"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__applies_severance_interest
+msgid "Applies to Severance Interest"
+msgstr "Aplica a Intereses de Cesantías"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__applies_vacation
+msgid "Applies to Vacation"
+msgstr "Aplica a Vacaciones"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_type__concept_id
+msgid "Payroll Concept"
+msgstr "Concepto de nómina"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_court__destination_code
+msgid "Destination Code"
+msgstr "Código destino"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__applies_settlement
+msgid "Applies to Final Settlement"
+msgstr "Aplica a Liquidación Final"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo__applies_prima
+msgid ""
+"The garnishment applies to the service bonus payslips, and the service "
+"bonus (also the one paid in the final settlement) is part of its base."
+msgstr ""
+"El embargo aplica a las nóminas de prima de servicios, y la prima "
+"(también la pagada en la liquidación de contrato) hace parte de su base."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo__applies_severance
+msgid ""
+"The garnishment applies to the severance payslips, and the severance "
+"(also the one paid in the final settlement) is part of its base."
+msgstr ""
+"El embargo aplica a las nóminas de cesantías, y las cesantías (también "
+"las pagadas en la liquidación de contrato) hacen parte de su base."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo__applies_severance_interest
+msgid ""
+"The garnishment applies to the severance interest payslips, and the "
+"severance interest (also the one paid in the final settlement) is part of "
+"its base."
+msgstr ""
+"El embargo aplica a las nóminas de intereses de cesantías, y los "
+"intereses de cesantías (también los pagados en la liquidación de "
+"contrato) hacen parte de su base."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo__applies_vacation
+msgid ""
+"The garnishment applies to the vacation payslips, and the vacation "
+"compensated in the final settlement is part of its base."
+msgstr ""
+"El embargo aplica a las nóminas de vacaciones, y las vacaciones "
+"compensadas en la liquidación de contrato hacen parte de su base."
+
+
+
+
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__skip_legal_ceiling
+msgid "Ignore Minimum Wage Ceiling"
+msgstr "No Respetar Tope Legal (SMMLV)"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo__skip_legal_ceiling
+msgid ""
+"Check it when the court order sets the amount to discount directly (e.g. "
+"an executive garnishment of 30% of the salary from a cooperative): the "
+"garnishment then discounts exactly what its percentage or fixed "
+"installment gives, before or after social security according to its "
+"configuration, without respecting the combined legal ceiling (a fifth of "
+"the amount exceeding the minimum wage, or 50% of the earnings for "
+"alimony), and does not consume that ceiling for the other garnishments of "
+"the employee."
+msgstr ""
+"Márquelo cuando la medida del juzgado indique directamente el valor a "
+"descontar (p. ej. un embargo ejecutivo del 30% del salario de una "
+"cooperativa): el embargo descuenta exactamente lo que da su porcentaje o "
+"cuota fija, antes o después de la seguridad social según su "
+"configuración, sin respetar el tope legal conjunto (la quinta parte de lo "
+"que exceda el salario mínimo, o el 50% de los devengos para alimentos), y "
+"no consume ese tope para los demás embargos del empleado."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_type__file_concept_code
+msgid "File Concept Code"
+msgstr "Código de Concepto del Archivo"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_priority__contract_id
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__contract_id
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_line__contract_id
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_priority__line_ids
+msgid "Priority Lines"
+msgstr "Líneas de Prioridad"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_priority_line__priority_id
+msgid "Priority Configuration"
+msgstr "Configuración de Prioridad"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__state
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_line__state
+msgid "Status"
+msgstr "Estado"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__approve_date
+msgid "Approval Date"
+msgstr "Fecha de Aprobación"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__date_start
+msgid "Discount Start Date"
+msgstr "Fecha de Inicio del Descuento"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__date_end
+msgid "Discount End Date"
+msgstr "Fecha Final del Descuento"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__amount
+msgid "Debt (Initial Amount)"
+msgstr "Deuda (Valor Inicial)"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__claimant_id
+msgid "Claimant"
+msgstr "Demandante"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__case_number
+msgid "Case Number"
+msgstr "Número de Expediente"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__court_process_number
+msgid "Court Process Number"
+msgstr "Número del Proceso en la Corte"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__court_id
+msgid "Court"
+msgstr "Juzgado"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__destination_office_id
+msgid "Destination Office"
+msgstr "Oficina de Destino"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__savings_account
+msgid "Savings Account"
+msgstr "Cuenta de Ahorros"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__act_date
+msgid "Act Date"
+msgstr "Fecha del Auto"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__discount_frequency
+msgid "Discount Frequency"
+msgstr "Frecuencia de Descuento"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__percentage_value
+msgid "Percentage Value"
+msgstr "Valor del Porcentaje"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__fixed_quota_value
+msgid "Fixed Installment Value"
+msgstr "Valor de la Cuota Fija"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__paid_amount
+msgid "Accumulated Paid Amount"
+msgstr "Valor Acumulado Pagado"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__pending_balance
+msgid "Pending Balance"
+msgstr "Saldo Pendiente"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__embargable_concept_ids
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
+msgid "Garnishable Concepts"
+msgstr "Conceptos Embargables"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo__line_ids
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
+msgid "Installments"
+msgstr "Pagos"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_line__payslip_id
+msgid "Payslip"
+msgstr "Nómina"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_line__period_id
+msgid "Period"
+msgstr "Periodo"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_line__base_amount
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
+msgid "Garnishable Base"
+msgstr "Base Embargable"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_line__amount
+msgid "Installment Amount"
+msgstr "Valor de la Cuota"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file__date_start
+msgid "Start Date"
+msgstr "Fecha Inicial"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file__date_end
+msgid "End Date"
+msgstr "Fecha Final"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file__cc
+msgid "CC"
+msgstr "CC"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file__origin_office
+msgid "Origin Office (SBAN)"
+msgstr "Oficina de Origen (SBAN)"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file__line_ids
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file__file_data
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file_line__file_id
+msgid "File"
+msgstr "Archivo"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file__file_name
+msgid "File Name"
+msgstr "Nombre del Archivo"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file_line__embargo_line_id
+msgid "Installment"
+msgstr "Cuota"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file_line__amount
+msgid "Amount"
+msgstr "Valor"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file_line__work_phone
+msgid "Work Phone"
+msgstr "Teléfono de Trabajo"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file_line__work_email
+msgid "Work Email"
+msgstr "Correo de Trabajo"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file_line__department_id
+msgid "Department"
+msgstr "Departamento"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,field_description:hr_payroll_co.field_hr_embargo_file_line__job_id
+msgid "Job Position"
+msgstr "Cargo"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo_base_category__code
+msgid "Technical payslip category code this entry maps to (e.g. earnings, o_salarial_earnings, comp_earnings, o_rights, o_earnings)."
+msgstr "Código técnico de la categoría de nómina al que corresponde este registro (ej. earnings, o_salarial_earnings, comp_earnings, o_rights, o_earnings)."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo_type__priority
+msgid "Default application order when an employee has several active garnishments (lower numbers apply first). Can be overridden per contract in Garnishment Priorities."
+msgstr "Orden de aplicación por defecto cuando un empleado tiene varios embargos activos (los números más bajos aplican primero). Se puede anular por contrato en Prioridades de Embargo."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo_type__base_category_ids
+msgid "Salary categories taken into account to build the garnishable base."
+msgstr "Categorías salariales que se tienen en cuenta para construir la base embargable."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo_type__ss_deduction_concept_ids
+msgid "Used when the treatment is Custom: concepts subtracted from the base, e.g. health, pension, solidarity fund, withholding tax."
+msgstr "Se usa cuando el tratamiento es Personalizado: conceptos que se restan de la base, ej. salud, pensión, fondo de solidaridad, retención en la fuente."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo_type__excluded_concept_ids
+msgid "Concepts always excluded from the garnishable base, e.g. transportation allowance, non-salary bonuses, per diem, extralegal allowances."
+msgstr "Conceptos que siempre se excluyen de la base embargable, ej. auxilio de transporte, bonificaciones no salariales, viáticos, auxilios extralegales."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo_type__file_concept_code
+msgid "\"Código del concepto\" used to build the judicial deposit flat file (Banco Agrario design), field 5 of the Registro de Datos."
+msgstr "Código del concepto usado para construir el archivo plano de depósito judicial (diseño Banco Agrario), campo 5 del Registro de Datos."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo__claimant_id
+msgid "Third party (person or entity) that filed the garnishment claim; credited in the accounting entry generated when the payslip is posted."
+msgstr "Tercero (persona o entidad) que instauró la demanda de embargo; se acredita en el asiento contable generado al contabilizar la nómina."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo__act_date
+msgid "Date of the judicial order/act that originated the garnishment."
+msgstr "Fecha del auto/orden judicial que originó el embargo."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo__percentage_value
+msgid "Used when the garnishment type's calculation is Percentage of payment."
+msgstr "Se usa cuando el cálculo del tipo de embargo es Porcentaje de pago."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo__fixed_quota_value
+msgid "Used when the garnishment type's calculation is Fixed installment."
+msgstr "Se usa cuando el cálculo del tipo de embargo es Cuota fija."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo__embargable_concept_ids
+msgid "Specific payroll concepts considered for this garnishment's base, in addition to the garnishment type's base categories."
+msgstr "Conceptos específicos de nómina considerados para la base de este embargo, adicionales a las categorías base del tipo de embargo."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo_file__cc
+msgid "Two-digit daily sequence used to tell apart several files generated the same day (part of the file name: GDYYYYMMDDXXXXXXXXXXX_CC.TXT)."
+msgstr "Consecutivo diario de dos dígitos usado para diferenciar varios archivos generados el mismo día (parte del nombre del archivo: GDYYYYMMDDXXXXXXXXXXX_CC.TXT)."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields,help:hr_payroll_co.field_hr_embargo_file__origin_office
+msgid "Bank office code. Use 0030 for account-debit payments (Recepción Medio de Pago en Línea); use the paying office's code for PIN/in-branch payments."
+msgstr "Código de oficina bancaria. Use 0030 para pagos con débito a cuenta (Recepción Medio de Pago en Línea); use el código de la oficina pagadora para pagos con PIN/en oficina."
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo__state__confirm
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo__state__validated
+msgid "In Progress"
+msgstr "En Progreso"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo__state__cancel
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo__state__paid
+msgid "Paid"
+msgstr "Pagado"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo__state__paused
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_search
+msgid "Paused"
+msgstr "Pausado"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
+msgid "Pause"
+msgstr "Pausar"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
+msgid "Resume"
+msgstr "Reanudar"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo__discount_frequency__biweekly
+msgid "Biweekly"
+msgstr "Quincenal"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo__discount_frequency__monthly
+msgid "Monthly"
+msgstr "Mensual"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__legal_type__alimony
+msgid "Alimony"
+msgstr "Alimentario"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__legal_type__ordinary
+msgid "Ordinary"
+msgstr "Ordinario"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__legal_type__coercive
+msgid "Coercive"
+msgstr "Coactivo"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__legal_type__cooperative
+msgid "Cooperative"
+msgstr "Cooperativa"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__legal_type__judicial
+msgid "Judicial"
+msgstr "Judicial"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__legal_type__other
+msgid "Other"
+msgstr "Otros"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__calculation_type__fixed_quota
+msgid "Fixed installment"
+msgstr "Cuota fija"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__calculation_type__percentage
+msgid "Percentage of payment"
+msgstr "Porcentaje de pago"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__calculation_type__fifth_over_minimum_with_deductions
+msgid "Fifth of the amount exceeding the minimum wage (with legal deductions)"
+msgstr "Quinta parte del excedente del salario mínimo (con descuento de ley)"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__calculation_type__fifth_over_minimum_without_deductions
+msgid "Fifth of the amount exceeding the minimum wage (without legal deductions)"
+msgstr "Quinta parte del excedente del salario mínimo (sin descuento de ley)"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo__ss_treatment__gross
+msgid "Gross amount"
+msgstr "Valor bruto"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo__ss_treatment__after_ss
+msgid ""
+"After social security deductions (health, pension, solidarity and subsistence "
+"funds, withholding tax)"
+msgstr ""
+"Después de descuentos de seguridad social (salud, pensión, fondo de "
+"solidaridad y subsistencia, retención en la fuente)"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo__ss_treatment__custom
+msgid "Custom (configurable deductions)"
+msgstr "Personalizado (deducciones configurables)"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__file_concept_code__1
+msgid "Judicial deposits"
+msgstr "Depósitos judiciales"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__file_concept_code__2
+msgid "Coercive entities"
+msgstr "Entes coactivos"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__file_concept_code__3
+msgid "Release from custody (Excarcelaciones)"
+msgstr "Excarcelaciones"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__file_concept_code__4
+msgid "Auctions (Remates)"
+msgstr "Remates"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__file_concept_code__5
+msgid "Social benefits"
+msgstr "Prestaciones sociales"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__file_concept_code__6
+msgid "Alimony installments"
+msgstr "Cuotas alimentarias"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_type__file_concept_code__7
+msgid "Judicial fee (Arancel judicial)"
+msgstr "Arancel judicial"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_line__state__validated
+msgid "Validated"
+msgstr "Validada"
+
+#. module: hr_payroll_co
+#: model:ir.model.fields.selection,name:hr_payroll_co.selection__hr_embargo_line__state__paid
+msgid "Paid"
+msgstr "Pagada"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
+msgid "Set to Draft"
+msgstr "Pasar a Borrador"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
+msgid "Start"
+msgstr "Iniciar"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
+msgid "Parties"
+msgstr "Partes"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
+msgid "Judicial Information"
+msgstr "Información Judicial"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
+msgid "Dates"
+msgstr "Fechas"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
+msgid "Amounts"
+msgstr "Valores"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_search
+msgid "Search Garnishments"
+msgstr "Buscar Embargos"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_type_form
+msgid "e.g. Alimony garnishment"
+msgstr "ej. Embargo de alimentos"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_type_form
+msgid "Calculation"
+msgstr "Cálculo"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_type_form
+msgid "Method"
+msgstr "Método"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_type_form
+msgid "Limits"
+msgstr "Límites"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_form
+msgid "Applies To"
+msgstr "Aplica A"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_priority_form
+msgid "Garnishment Priority"
+msgstr "Prioridad de Embargo"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_file_form
+msgid "Load Installments"
+msgstr "Cargar Cuotas"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_file_form
+msgid "Generate File"
+msgstr "Generar Archivo"
+
+#. module: hr_payroll_co
+#: model_terms:ir.ui.view,arch_db:hr_payroll_co.hr_embargo_file_form
+msgid "Employees"
+msgstr "Empleados"
+
+#. module: hr_payroll_co
+#: model:ir.actions.act_window,name:hr_payroll_co.hr_embargo_type_action
+msgid "Garnishment Types"
+msgstr "Tipos de Embargo"
+
+#. module: hr_payroll_co
+#: model:ir.actions.act_window,name:hr_payroll_co.hr_embargo_priority_action
+msgid "Garnishment Priorities"
+msgstr "Prioridades de Embargo"
+
+#. module: hr_payroll_co
+#: model:ir.actions.act_window,name:hr_payroll_co.hr_embargo_base_category_action
+msgid "Garnishment Base Categories"
+msgstr "Categorías Base de Embargo"
+
+#. module: hr_payroll_co
+#: model:ir.actions.act_window,name:hr_payroll_co.hr_embargo_court_action
+msgid "Garnishment Courts"
+msgstr "Juzgados de Embargo"
+
+#. module: hr_payroll_co
+#: model:ir.actions.act_window,name:hr_payroll_co.hr_embargo_destination_office_action
+msgid "Garnishment Destination Offices"
+msgstr "Oficinas Destino de Embargo"
+
+#. module: hr_payroll_co
+#. odoo-python
+#: code:addons/hr_payroll_co/models/hr_embargo/hr_embargo.py:0
+msgid "The debt amount must be greater than zero."
+msgstr "El valor de la deuda debe ser mayor a cero."
+
+#. module: hr_payroll_co
+#. odoo-python
+#: code:addons/hr_payroll_co/models/hr_embargo/hr_embargo.py:0
+msgid "The Discount Frequency doesn't match the contract's payroll schedule."
+msgstr "La frecuencia del embargo no coincide con la periodicidad de nómina del contrato."
+
+#. module: hr_payroll_co
+#. odoo-python
+#: code:addons/hr_payroll_co/models/hr_embargo/hr_embargo.py:0
+msgid "Configure the percentage value for this garnishment."
+msgstr "Configure el porcentaje para este embargo"
+
+#. module: hr_payroll_co
+#. odoo-python
+#: code:addons/hr_payroll_co/models/hr_embargo/hr_embargo.py:0
+msgid "Configure the fixed installment value for this garnishment."
+msgstr "Configure el valor fijo para este embargo"
+
+#. module: hr_payroll_co
+#. odoo-python
+#: code:addons/hr_payroll_co/models/hr_embargo/hr_embargo.py:0
+msgid "This garnishment cannot be cancelled, it already has paid installments."
+msgstr "Este embargo no puede ser cancelado, ya tiene pagos registrados."
+
+#. module: hr_payroll_co
+#. odoo-python
+#: code:addons/hr_payroll_co/models/hr_embargo/hr_embargo.py:0
+msgid "This garnishment cannot go back to draft, it already has paid installments."
+msgstr "Este embargo no puede ser pasado a borrador, ya tiene pagos registrados."
+
+#. module: hr_payroll_co
+#. odoo-python
+#: code:addons/hr_payroll_co/models/hr_embargo/hr_embargo_file.py:0
+msgid "There are no installments to include. Use \"Load Installments\" first."
+msgstr "No hay embargos para incluir. Use \"Cargar embargos\" primero"
+
+#. module: hr_payroll_co
+#: model:ir.model.constraint,message:hr_payroll_co.constraint_hr_embargo_base_category_code_company_id_uniq
+msgid "The technical code must be unique per company."
+msgstr "El código técnico debe ser único por compañía."
+
+#. module: hr_payroll_co
+#: model:ir.model.constraint,message:hr_payroll_co.constraint_hr_embargo_court_code_company_id_uniq
+msgid "The court code must be unique per company."
+msgstr "El código del juzgado debe ser único por compañía."
+
+#. module: hr_payroll_co
+#: model:ir.model.constraint,message:hr_payroll_co.constraint_hr_embargo_destination_office_code_company_id_uniq
+msgid "The destination office code must be unique per company."
+msgstr "El código de la oficina destino debe ser único por compañía."
+
+#. module: hr_payroll_co
+#: model:ir.model.constraint,message:hr_payroll_co.constraint_hr_embargo_type_code_company_id_uniq
+msgid "The code must be unique per company."
+msgstr "El código debe ser único por compañía."
+
+#. module: hr_payroll_co
+#: model:ir.model.constraint,message:hr_payroll_co.constraint_hr_embargo_priority_contract_id_uniq
+msgid "A contract can only have one priority configuration."
+msgstr "Un contrato solo puede tener una configuración de prioridad."
+
+#. module: hr_payroll_co
+#: model:ir.model.constraint,message:hr_payroll_co.constraint_hr_embargo_priority_line_priority_id_embargo_type_id_uniq
+msgid "This garnishment type is already configured for this contract."
+msgstr "Este tipo de embargo ya está configurado para este contrato."
+
+#. module: hr_payroll_co
+#: model:ir.model.constraint,message:hr_payroll_co.constraint_hr_embargo_file_line_file_id_embargo_line_id_uniq
+msgid "This installment is already included in this file."
+msgstr "Esta cuota ya está incluida en este archivo."

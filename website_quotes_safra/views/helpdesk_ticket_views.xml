@@ -13,11 +13,54 @@
                 <!-- Fase 5.3: redimensión y aprobación del diseño -->
                 <field name="safra_design_m2" invisible="not safra_quote_line_id"/>
                 <field name="safra_design_approved" invisible="not safra_quote_line_id"/>
+                <!-- Ajustes 20-oct (fila 79): diseño final del diseñador -->
+                <field name="safra_design_final_filename" invisible="1"/>
+                <field name="safra_design_final_file" filename="safra_design_final_filename"
+                       invisible="not safra_quote_line_id"/>
+                <!-- Reunión 15-oct (fila 74): aprobación de producción -->
+                <field name="safra_sin_restricciones" invisible="not safra_sin_restricciones"/>
+                <!-- Sprint 1.6 (fila 128): verificación de fabricación -->
+                <field name="safra_verificacion" invisible="not safra_verificacion"/>
+                <field name="safra_produccion_aprobada"
+                       invisible="not safra_sin_restricciones and not safra_verificacion"/>
+                <!-- Reunión 09-nov (fila 74): garantía que indica planta al aprobar -->
+                <field name="safra_garantia" invisible="not safra_garantia"/>
+                <field name="safra_garantia_motivo" invisible="not safra_verificacion or safra_verificacion_rechazada"
+                       readonly="safra_produccion_aprobada"
+                       placeholder="Obligatorio para aprobar: por qué va con garantía o sin garantía (lo ve el cliente en el portal)"/>
+                <!-- Ajustes Sprint 1.6 (26-oct, fila 130): rechazo con motivo -->
+                <field name="safra_verificacion_rechazada" invisible="not safra_verificacion_rechazada"/>
+                <field name="safra_rechazo_motivo" invisible="not safra_verificacion or safra_produccion_aprobada"
+                       readonly="safra_verificacion_rechazada"
+                       groups="website_quotes_safra.group_safra_rechazo_verificacion"
+                       placeholder="Qué debe corregir el cliente para que planta pueda fabricarlo"/>
             </xpath>
             <xpath expr="//form/header" position="inside">
+                <!-- Matriz, fila 191: la cotización en el portal, solo consulta. -->
+                <button name="action_safra_ver_portal" type="object" icon="fa-external-link"
+                        string="Ver cotización en el portal" class="btn-secondary"
+                        invisible="not safra_quote_id"/>
                 <button name="action_safra_approve_design" type="object"
                         string="Aprobar diseño" class="btn-primary"
                         invisible="not safra_quote_line_id or safra_design_approved"/>
+                <button name="action_safra_approve_production" type="object"
+                        string="Aprobar fabricación" class="btn-primary"
+                        confirm="La persiana no tiene garantía. ¿Confirma que producción la puede fabricar?"
+                        invisible="not safra_sin_restricciones or safra_produccion_aprobada"/>
+                <!-- Reunión 09-nov (fila 74): planta aprueba e indica la garantía. -->
+                <button name="action_safra_aprobar_con_garantia" type="object"
+                        string="Aprobar con garantía" class="btn-primary"
+                        confirm="¿Confirma que el pedido se puede fabricar y va CON garantía? El cliente lo verá en el portal."
+                        invisible="not safra_verificacion or safra_produccion_aprobada or safra_verificacion_rechazada"/>
+                <button name="action_safra_aprobar_sin_garantia" type="object"
+                        string="Aprobar sin garantía" class="btn-primary"
+                        confirm="¿Confirma que el pedido se puede fabricar y va SIN garantía? El cliente lo verá en el portal."
+                        invisible="not safra_verificacion or safra_produccion_aprobada or safra_verificacion_rechazada"/>
+                <button name="action_safra_reject_verification" type="object"
+                        string="Rechazar verificación" class="btn-secondary"
+                        groups="website_quotes_safra.group_safra_rechazo_verificacion"
+                        confirm="La cotización vuelve a Borrador para que el cliente la corrija o la elimine. ¿Rechazar?"
+                        invisible="not safra_verificacion or safra_produccion_aprobada or safra_verificacion_rechazada"/>
             </xpath>
         </field>
     </record>

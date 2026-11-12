@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- MENÚ RAÍZ DE BIOMÉTRICO (DENTRO DE ASISTENCIAS) -->
+    <menuitem id="biometric_device_details_menu"
+              name="Biometric ADMS"
+              parent="hr_attendance.menu_hr_attendance_root"
+              sequence="21"/>
+
+    <menuitem id="biometric_device_details_sub_menu"
+              name="Dispositivos Biométricos"
+              action="biometric_device_details_action"
+              parent="biometric_device_details_menu"
+              sequence="10"/>
+
+    <menuitem id="menu_biometric_sync_users_wizard"
+              name="Sincronizar Usuarios"
+              action="action_biometric_odoo_to_biometric_wizard_menu"
+              parent="biometric_device_details_menu"
+              sequence="15"/>
+
+    <menuitem id="daily_attendance_menu"
+              name="Análisis de Asistencia"
+              action="daily_attendance_action"
+              parent="biometric_device_details_menu"
+              groups="hr_attendance.group_hr_attendance_officer"
+              sequence="20"/>
+
+    <menuitem id="menu_biometric_raw_punch"
+              name="Marcaciones en Crudo"
+              parent="biometric_device_details_menu"
+              action="action_biometric_raw_punch"
+              sequence="30"/>
+
+    <menuitem id="menu_biometric_device_command"
+              name="Historial de Comandos ADMS"
+              parent="biometric_device_details_menu"
+              action="action_biometric_device_command"
+              groups="hr_attendance.group_hr_attendance_officer"
+              sequence="40"/>
+</odoo>

@@ -186,3 +186,57 @@ msgstr ""
 msgid ""
 "You don't have permissions to validate incoming shipments in this warehouse."
 msgstr ""
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_res_company__create_invoices_from_picking
+#: model:ir.model.fields,field_description:stock_baseline.field_res_config_settings__create_invoices_from_picking
+msgid "Create invoices from the transfer"
+msgstr ""
+
+#. module: stock_baseline
+#: model:ir.model.fields,help:stock_baseline.field_res_company__create_invoices_from_picking
+#: model:ir.model.fields,help:stock_baseline.field_res_config_settings__create_invoices_from_picking
+msgid "Create invoices from the transfer."
+msgstr ""
+
+#. module: stock_baseline
+#: model:ir.model.fields,help:stock_baseline.field_res_partner__invoice_manually_from_picking
+#: model:ir.model.fields,help:stock_baseline.field_res_users__invoice_manually_from_picking
+msgid ""
+"If checked, delivery orders for this contact will not generate an automatic "
+"invoice; they must be invoiced manually."
+msgstr ""
+
+#. module: stock_baseline
+#: model_terms:ir.ui.view,arch_db:stock_baseline.res_config_settings_view_form_inherit
+msgid "If enabled, a customer invoice will be generated from the delivery."
+msgstr ""
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_res_partner__invoice_manually_from_picking
+#: model:ir.model.fields,field_description:stock_baseline.field_res_users__invoice_manually_from_picking
+msgid "Invoice manually from delivery"
+msgstr ""
+
+#. module: stock_baseline
+#. odoo-python
+#: code:addons/stock_baseline/models/stock_picking.py:0
+msgid "Invoice(s) %s automatically created from this picking. %s."
+msgstr ""
+
+#. module: stock_baseline
+#. odoo-python
+#: code:addons/stock_baseline/models/stock_picking.py:0
+msgid "Invoice(s) %s automatically created when validating this picking."
+msgstr ""
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_stock_warehouse__journal_id
+msgid "Journal"
+msgstr ""
+
+#. module: stock_baseline
+#. odoo-python
+#: code:addons/stock_baseline/models/stock_picking.py:0
+msgid "Please set a journal in the warehouse configuration."
+msgstr ""

@@ -14,7 +14,7 @@ class ResCompany(models.Model):
         string='Responsabilidad fiscal (inglés)',
         help='Texto de responsabilidad fiscal del encabezado para clientes de '
              'habla inglesa. Si está vacío se usa el texto en español.')
-    tributary_information_en = fields.Text(
+    tributary_information_en = fields.Html(
         string='Información tributaria (inglés)',
         help='Información tributaria de la representación gráfica para clientes '
              'de habla inglesa. Si está vacía se usa el texto en español.')

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Semilla inicial del catálogo de Modalidad (reemplaza el Selection
+         fijo que traía el código). Editable/ampliable desde Configuración;
+         estos tres registros solo evitan que el catálogo nazca vacío. -->
+    <record id="class_modality_sabatino" model="wk.school.colombo.class.modality">
+        <field name="name">Sabatino</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="class_modality_diario" model="wk.school.colombo.class.modality">
+        <field name="name">Diario</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="class_modality_vacacional" model="wk.school.colombo.class.modality">
+        <field name="name">Vacacional</field>
+        <field name="sequence">30</field>
+    </record>
+
+</odoo>

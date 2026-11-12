@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="1">
+
+        <record model="hr.embargo.base.category" id="hr_embargo_base_category_earnings">
+            <field name="name">Devengado</field>
+            <field name="code">earnings</field>
+        </record>
+
+        <record model="hr.embargo.base.category" id="hr_embargo_base_category_o_salarial_earnings">
+            <field name="name">Otros devengos salariales</field>
+            <field name="code">o_salarial_earnings</field>
+        </record>
+
+        <record model="hr.embargo.base.category" id="hr_embargo_base_category_o_rights">
+            <field name="name">Otros derechos</field>
+            <field name="code">o_rights</field>
+        </record>
+
+        <record model="hr.embargo.base.category" id="hr_embargo_base_category_comp_earnings">
+            <field name="name">Ingresos complementarios</field>
+            <field name="code">comp_earnings</field>
+        </record>
+
+        <record model="hr.embargo.base.category" id="hr_embargo_base_category_o_earnings">
+            <field name="name">Otros devengos</field>
+            <field name="code">o_earnings</field>
+        </record>
+
+    </data>
+</odoo>

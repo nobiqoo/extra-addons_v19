@@ -25,12 +25,8 @@
                             position: absolute;
                             left: 200px;
                             top: 83px;
-                            }
-
-                            .pais_emision {
-                            position: absolute;
-                            left: 145px;
-                            top: 83px;
+                            width: 300px;
+                            text-align: right;
                             }
 
                             .monto_cheque_numeros {
@@ -92,12 +88,6 @@
                             .no_queque_antes_de_tabla {
                             margin-left:120px;
                             }
-                            .observaciones {
-                            position:absolute;
-                            left: 55px;
-                            top: 760px;
-                            font-size: 10px;
-                            }
                             .debito {
                             position:absolute;
                             left: 460px;
@@ -144,7 +134,6 @@
                         </style>
                         <div class="contenedor-cheque">
                             <span class="numero_cheque" t-field="doc.name"/>
-                            <span class="pais_emision" t-field="doc.company_id.country_id"/>
                             <span class="fecha_emision" t-field="doc.date"/>
                             <t t-set="total_letras" t-value="doc.currency_id.amount_to_text_without_cents(doc.amount)"/>
                             <t t-if="doc.currency_id.name == 'COP' and 'Peso' in total_letras and int(doc.amount) != 1">
@@ -193,9 +182,8 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <span class="observaciones">Observaciones:</span>
                             <span class="beneficiario">Beneficiario: <span t-field="doc.partner_id.name"/></span>
-                            <span class="beneficiario_nit"><span t-field="doc.partner_id.l10n_latam_identification_type_id.l10n_co_edi_code"/>: <span t-field="doc.partner_id.vat"/> <t t-if="doc.partner_id.l10n_co_verification_code">- <span t-field="doc.partner_id.l10n_co_verification_code"/></t></span>
+                            <span class="beneficiario_nit"><span t-field="doc.partner_id.l10n_latam_identification_type_id.name"/>: <span t-field="doc.partner_id.vat"/> <t t-if="doc.partner_id.l10n_co_verification_code">- <span t-field="doc.partner_id.l10n_co_verification_code"/></t></span>
                             <span class="referencia">Referencia: <span t-field="doc.voucher_reference"/></span>
                             <t t-set="total_debito" t-value="0"/>
                             <t t-set="total_credito" t-value="0"/>

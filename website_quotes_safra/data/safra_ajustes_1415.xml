@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Ajustes Sprint 1.4 (reunión 20-oct) y Sprint 1.5 (reunión 22-oct). -->
+    <data noupdate="0">
+        <!-- Fila 95: la casilla vieja de la felpa pasa a la línea de Referencias. -->
+        <function model="safra.system" name="_una_vez" eval="['safra.field', '_migrar_felpa']"/>
+        <!-- Filas 88, 91, 95, 101, 102 y 118 (una sola vez por base). -->
+        <function model="safra.system" name="_una_vez" eval="['safra.field', '_apply_ajustes_1415']"/>
+    </data>
+
+    <!-- noupdate: el mensaje y la severidad se administran en Validaciones. -->
+    <data noupdate="1">
+        <record forcecreate="0" id="val_opcion_auto" model="safra.validation.rule">
+            <field name="code">V_OPCION_AUTO</field>
+            <field name="name">Opción que se elige sola por las medidas (riel o cenefa dividida, cenefa añadida)</field>
+            <field name="severity">error</field>
+        </record>
+        <record forcecreate="0" id="val_diseno_resolucion" model="safra.validation.rule">
+            <field name="code">V_DISENO_RESOLUCION</field>
+            <field name="name">Diseño del catálogo con la resolución mínima para la medida</field>
+            <field name="severity">error</field>
+        </record>
+    </data>
+</odoo>

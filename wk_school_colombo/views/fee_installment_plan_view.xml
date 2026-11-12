@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tarea 11856: vista de soporte del acuerdo de pago por cuotas. No
+         tiene menú propio -se consulta desde la inscripción (Resumen de
+         tarifas) o desde "Recibos de cobro"-, pero conviene tener un
+         formulario propio para abrir el registro completo en modo
+         depuración o desde un futuro botón inteligente. -->
+    <record id="wk_fee_installment_plan_view_form" model="ir.ui.view">
+        <field name="name">wk.fee.installment.plan.view.form</field>
+        <field name="model">wk.fee.installment.plan</field>
+        <field name="arch" type="xml">
+            <form string="Acuerdo de pago por cuotas">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="enrollment_id" readonly="1"/>
+                            <field name="fee_slip_id" readonly="1"/>
+                            <field name="invoice_id" readonly="1"/>
+                            <field name="estado_acuerdo" widget="badge"/>
+                        </group>
+                        <group>
+                            <field name="monto_total" readonly="1"/>
+                            <field name="monto_inicial" readonly="1"/>
+                            <field name="numero_abonos" readonly="1"/>
+                            <field name="periodicidad" readonly="1"/>
+                            <field name="saldo_pendiente_total" readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="line_ids" readonly="1">
+                        <list>
+                            <field name="name"/>
+                            <field name="fecha_vencimiento"/>
+                            <field name="valor_programado"/>
+                            <field name="valor_pagado"/>
+                            <field name="saldo"/>
+                            <field name="estado" widget="badge"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

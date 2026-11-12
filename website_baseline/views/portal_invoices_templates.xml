@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Columnas de fecha y valor del último pago, y botón del estado de cuenta -->
+    <template id="portal_my_invoices_payment_info" inherit_id="account.portal_my_invoices"
+              name="Portal: pagos y estado de cuenta en facturas">
+
+        <xpath expr=".//t[@t-call='portal.portal_table']" position="before">
+            <div t-if="filterby == 'bills'" class="d-flex justify-content-end mb-3">
+                <a class="btn btn-primary"
+                   t-att-href="'/my/invoices/statement?' + keep_query('filterby', 'date_begin', 'date_end')">
+                    Estado de cuenta PDF
+                </a>
+            </div>
+        </xpath>
+
+        <xpath expr=".//t[@t-call='portal.portal_table']/thead/tr" position="inside">
+            <th>Fecha del pago</th>
+            <th class="text-end">Valor del pago</th>
+        </xpath>
+
+        <xpath expr=".//t[@t-foreach='invoices']/tr" position="inside">
+            <td>
+                <span t-if="invoice.payment_last_date" t-field="invoice.payment_last_date"/>
+            </td>
+            <td class="text-end">
+                <span t-if="invoice.payment_last_date" t-field="invoice.payment_paid_amount"/>
+            </td>
+        </xpath>
+
+    </template>
+
+</odoo>

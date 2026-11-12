@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sprint 1.7: restricciones y validaciones parametrizables (archivo
+         «Restricciones y Validaciones de Productos» y video del 23-oct).
+         Cada función corre una sola vez por base y respeta lo editado. -->
+    <data noupdate="0">
+        <!-- Momento de disparo, sistemas y condición de las validaciones del portal. -->
+        <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_seed_sprint17']"/>
+        <!-- Validaciones del archivo de Safra como reglas del portal, campos
+             obligatorios y dependencias de opciones. -->
+        <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_seed_sprint17_safra']"/>
+        <!-- Fila 142: telas con añadido y máximo de añadidos. -->
+        <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_anadidos_17']"/>
+        <!-- Archivos de Safra «Tipos de corte tela» (26-oct): normal, atravesado,
+             añadido, bajo falso y paños. -->
+        <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_corte_tela']"/>
+        <!-- Un solo catálogo: cada función del archivo de Safra con su estado
+             y las reglas del portal que la cubren. -->
+        <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_seed_catalogo_17']"/>
+        <!-- Kits motorizados amarrados al código del motor en Referencias. -->
+        <function model="safra.system" name="_una_vez" eval="['safra.motor.kit', '_seed_motor_ref_codes']"/>
+    </data>
+</odoo>

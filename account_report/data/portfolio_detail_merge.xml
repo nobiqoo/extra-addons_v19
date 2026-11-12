@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Va de primero en el manifiesto: traspasa los xmlids de portfolio_detail
+         y portfolio_detail_supplier antes de que se carguen sus registros aquí. -->
+    <function model="portfolio.detail.wizard" name="_merge_portfolio_detail_modules"/>
+</odoo>

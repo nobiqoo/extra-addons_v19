@@ -9,10 +9,20 @@ class AccountMove(models.Model):
 
     expense_id = fields.Many2one('hr.expense', string='Expense')
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        moves = super().create(vals_list)
+        # l10n_co_bloodo: las facturas de gastos en diarios de FE se envían después (documento soporte)
+        if 'fe_send_later' in self._fields:
+            moves.filtered(
+                lambda m: m.expense_id and m.journal_id.is_einvoicing and not m.fe_send_later
+            ).fe_send_later = True
+        return moves
+
     def _get_voucher_partner(self):
         res = super(AccountMove, self)._get_voucher_partner()
         if self.expense_id:
-            res = self.expense_id.employee_id.address_home_id
+            res = self.expense_id.employee_id._get_expense_partner()
         return res
 
     # def _post(self, soft=True):

@@ -40,6 +40,15 @@
                         <field name="accounting_reclassification_user_id"/>
                     </setting>
                 </block>
+                <!-- Tarea 12458: texto legal/institucional de la tirilla de
+                     pago. -->
+                <block title="Tirilla de pago" name="colombo_tirilla_container">
+                    <setting id="colombo_tirilla_legal_text"
+                             string="Texto legal de la tirilla de pago"
+                             help="Texto institucional/legal que se imprime al pie de cada tirilla de pago (exención de IVA, política de devoluciones, aviso de protección de datos, etc.).">
+                        <field name="tirilla_legal_text" widget="text"/>
+                    </setting>
+                </block>
             </xpath>
         </field>
     </record>

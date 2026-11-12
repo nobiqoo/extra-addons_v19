@@ -29,6 +29,7 @@
         # 'base_data_baseline',
     ],
     'data': [
+        'data/portfolio_detail_merge.xml',
         'security/ir.model.access.csv',
         'security/res_groups_security.xml',
         'data/profit_and_loss_niif.xml',
@@ -38,6 +39,8 @@
         'data/l10n_co_tax_report_dri_ica.xml',
         'data/l10n_co_tax_report_350_retefuente_nueva.xml',
         'data/account_report_actions.xml',
+        'data/aged_receivable_salesperson.xml',
+        'data/aged_receivable_salesperson_menu.xml',
         'data/ir_actions_server_data.xml',
         # 'data/account.group.csv',
         'report/account_auxiliary_report.xml',
@@ -77,6 +80,10 @@
         'views/account_report_views.xml',
         'views/purchase_invoice_report.xml',
         'views/res_config_settings_views.xml',
+        'report/portfolio_detail_report_action.xml',
+        'templates/portfolio_detail_report_template.xml',
+        'templates/portfolio_detail_xlsx_template.xml',
+        'wizard/portfolio_detail_wizard_views.xml',
     ],
     # 'assets': {
     #     'web.assets_backend': [

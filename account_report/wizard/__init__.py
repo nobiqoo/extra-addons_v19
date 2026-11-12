@@ -9,3 +9,5 @@ from . import custom_account_journal_wizard
 from . import account_balance_analytic_wizard
 from . import account_auxiliary_analytic_wizard
 from . import receivable_account_wizard
+from . import portfolio_detail_wizard
+from . import portfolio_detail_print_xlsx

@@ -26,6 +26,27 @@ class FeeSummary(models.Model):
              "propone la del contacto del estudiante y puede cambiarse solo "
              "para esta inscripción.")
 
+    fee_before_discount = fields.Float(
+        string="Tarifa antes de descuento", readonly=True,
+        help="Tarifa resultante de la lista de precios/estructura, antes de "
+             "aplicar el % Descuento. Solo de consulta/trazabilidad: 'fee' "
+             "ya queda neto de descuento y es el valor que usa el resto del "
+             "módulo (total de la inscripción, generación de recibos, "
+             "factura).")
+    discount_percent = fields.Float(
+        string="% Descuento", default=0.0,
+        help="Porcentaje de descuento aplicado sobre este concepto de cobro. "
+             "Disminuye 'Tarifa' (fee); el monto ajustado es la base para la "
+             "factura y, si aplica pago por cuotas, para la tabla de "
+             "amortización.")
+    discount_amount = fields.Float(
+        string="Valor descuento", compute='_compute_discount_amount')
+
+    @api.depends('fee_before_discount', 'discount_percent')
+    def _compute_discount_amount(self):
+        for line in self:
+            line.discount_amount = line.fee_before_discount * (line.discount_percent or 0.0) / 100.0
+
     def _get_pricelist_fee(self, fee_structure=None):
         """Precio del concepto según la lista, o None si la lista no lo define.
 
@@ -64,14 +85,23 @@ class FeeSummary(models.Model):
 
         Con regla en la lista manda ese precio; sin regla se vuelve a la tarifa
         de referencia, para que quitar o cambiar la lista deshaga el precio
-        especial en lugar de dejar el anterior congelado.
+        especial en lugar de dejar el anterior congelado. El % Descuento ya
+        definido en la línea se vuelve a aplicar sobre el nuevo valor (tarea
+        11856): cambiar de lista de precios no debe hacer que el descuento se
+        pierda silenciosamente.
         """
         for line in self:
             fee = line._get_pricelist_fee(fee_structure)
             if fee is None:
                 fee = line._get_base_fee(fee_structure)
             if fee is not None:
-                line.fee = fee
+                line.fee_before_discount = fee
+                line._apply_discount()
+
+    def _apply_discount(self):
+        """Recalcula 'fee' (neto) a partir de fee_before_discount y % Descuento."""
+        for line in self:
+            line.fee = line.fee_before_discount * (1 - (line.discount_percent or 0.0) / 100.0)
 
     @api.onchange('product_id')
     def _onchange_product_id(self):
@@ -83,6 +113,32 @@ class FeeSummary(models.Model):
     @api.onchange('pricelist_id')
     def _onchange_pricelist_id(self):
         self._apply_pricelist_fee()
+
+    @api.onchange('discount_percent')
+    def _onchange_discount_percent(self):
+        for line in self:
+            if not line.fee_before_discount and line.fee:
+                # Linea creada por codigo sin pasar por _apply_pricelist_fee:
+                # el 'fee' actual es la referencia, no hay otro dato mejor.
+                line.fee_before_discount = line.fee
+        self._apply_discount()
+
+    def write(self, vals):
+        """Reaplica el % Descuento cuando se escribe por código/ORM.
+
+        _onchange_discount_percent solo corre en el formulario; sin este
+        override, escribir discount_percent desde un server action, un
+        import o cualquier llamada directa a write() no recalculaba 'fee'
+        en absoluto (detectado en la verificación funcional de la tarea
+        11856).
+        """
+        res = super().write(vals)
+        if 'discount_percent' in vals or 'fee_before_discount' in vals:
+            for line in self:
+                if not line.fee_before_discount and line.fee:
+                    line.fee_before_discount = line.fee
+            self._apply_discount()
+        return res
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -106,4 +162,14 @@ class FeeSummary(models.Model):
                 pricelist_id = pricelists.get(vals.get('enrollment_id'))
                 if pricelist_id:
                     vals['pricelist_id'] = pricelist_id
+            if not vals.get('fee_before_discount') and vals.get('fee'):
+                # Referencia de auditoria para lineas creadas desde codigo sin
+                # pasar por el onchange (p.ej. al generar desde la estructura
+                # de tarifas): sin otro dato mejor, el propio 'fee' es la base.
+                vals['fee_before_discount'] = vals['fee']
+            if vals.get('discount_percent'):
+                # Crear la línea ya con discount_percent informado (p.ej.
+                # desde código) debe dejar 'fee' neta desde el principio, no
+                # solo cuando después se edite por el formulario.
+                vals['fee'] = vals['fee_before_discount'] * (1 - vals['discount_percent'] / 100.0)
         return super().create(vals_list)

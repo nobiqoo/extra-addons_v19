@@ -10,6 +10,10 @@ from . import hr_employee_public
 from . import hr_contract
 
 from . import hr_payslip
+# hr_embargo extends hr.concept (models/hr_concept/), which is only pulled in
+# transitively by hr_payslip's cross-import above; it must be imported after it
+# so hr.concept's base class registers before hr_concept_embargo's extension.
+from . import hr_embargo
 from . import ir_module_module
 
 from . import economic_variables

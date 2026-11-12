@@ -27,10 +27,20 @@ class AccountMoveLine(models.Model):
 
     @api.depends(
         'product_id',
+        'move_id.move_type',
         'sale_line_ids.move_ids.state',
         'sale_line_ids.move_ids.product_id',
         'sale_line_ids.move_ids.lot_ids',
         'sale_line_ids.move_ids.move_line_ids.lot_id',
+        'sale_line_ids.move_ids.move_line_ids.quantity',
+        'sale_line_ids.move_ids.location_id.usage',
+        'sale_line_ids.move_ids.location_dest_id.usage',
+        'sale_line_ids.move_ids.picking_id.move_ids.state',
+        'sale_line_ids.move_ids.picking_id.move_ids.product_id',
+        'sale_line_ids.move_ids.picking_id.move_ids.location_id.usage',
+        'sale_line_ids.move_ids.picking_id.move_ids.location_dest_id.usage',
+        'sale_line_ids.move_ids.picking_id.move_ids.move_line_ids.lot_id',
+        'sale_line_ids.move_ids.picking_id.move_ids.move_line_ids.quantity',
     )
     def _compute_available_lot_ids(self):
         for line in self:
@@ -50,7 +60,16 @@ class AccountMoveLine(models.Model):
 
     def _get_related_picking_lines(self):
         self.ensure_one()
-        return self.sale_line_ids.move_ids
+        moves = self.sale_line_ids.move_ids
+        if self.move_id.move_type == 'out_invoice':
+            # Include operations added to a related delivery even when they do
+            # not carry sale_line_id. Product filtering is applied below.
+            moves |= moves.picking_id.move_ids
+            moves = moves.filtered(
+                lambda move: move.location_dest_id.usage == 'customer'
+                and move.location_id.usage != 'customer'
+            )
+        return moves
 
     def _get_available_lots(self):
         self.ensure_one()
@@ -59,4 +78,10 @@ class AccountMoveLine(models.Model):
         move_ids = self._get_related_picking_lines().filtered(
             lambda move: move.product_id == self.product_id and move.state == 'done'
         )
-        return move_ids.mapped('lot_ids') or move_ids.mapped('move_line_ids.lot_id')
+        if self.move_id.move_type != 'out_invoice':
+            return move_ids.mapped('lot_ids') or move_ids.mapped('move_line_ids.lot_id')
+        operations = move_ids.move_line_ids.filtered(
+            lambda operation: operation.quantity > 0
+            and operation.product_id == self.product_id
+        )
+        return operations.lot_id.sorted(lambda lot: (lot.name or '', lot.id))

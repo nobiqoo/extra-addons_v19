@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tarea 12458: formato térmico angosto (~80mm), replicando el recibo
+         físico histórico del Colombo. Se usa web.basic_layout (sin
+         encabezado/pie de página de factura) porque external_layout está
+         pensado para A4 y no para este ancho. -->
+    <record id="report_paperformat_tirilla" model="report.paperformat">
+        <field name="name">Tirilla de pago (80mm)</field>
+        <field name="format">custom</field>
+        <field name="page_width">80</field>
+        <field name="page_height">180</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">3</field>
+        <field name="margin_bottom">3</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="disable_shrinking" eval="True"/>
+        <field name="dpi">90</field>
+    </record>
+
+    <template id="report_payment_receipt_document">
+        <t t-call="web.basic_layout">
+            <style>
+                .o_tirilla_pago {
+                    font-family: 'Courier New', Courier, monospace;
+                    font-size: 10px;
+                    line-height: 1.35;
+                    color: #000;
+                    width: 100%;
+                }
+                .o_tirilla_sep {
+                    border-top: 1px dashed #000;
+                    margin: 4px 0;
+                }
+                .o_tirilla_row {
+                    display: flex;
+                    justify-content: space-between;
+                }
+                .o_tirilla_bold {
+                    font-weight: bold;
+                }
+                .o_tirilla_table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                .o_tirilla_table td {
+                    padding: 1px 0;
+                }
+                .o_tirilla_legal {
+                    font-size: 8px;
+                    white-space: pre-line;
+                }
+            </style>
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="wk_info" t-value="wk_data.get(doc.id, {})"/>
+                <t t-set="company" t-value="doc.company_id"/>
+                <t t-set="student" t-value="wk_info.get('student')"/>
+                <t t-set="klass" t-value="wk_info.get('school_class')"/>
+                <t t-set="invoice" t-value="wk_info.get('invoice')"/>
+                <t t-set="pending_lines" t-value="wk_info.get('pending_lines')"/>
+                <div class="o_tirilla_pago">
+                    <div style="text-align:center; font-weight:bold; text-transform:uppercase;">
+                        <div t-field="company.name"/>
+                        <div t-if="company.vat">NIT <span t-field="company.vat"/></div>
+                    </div>
+                    <div class="o_tirilla_sep"/>
+                    <div>COMPROBANTE No.: <span t-field="doc.name"/></div>
+                    <div>FECHA Y HORA: <span t-field="doc.create_date" t-options="{'widget': 'datetime'}"/></div>
+
+                    <t t-if="student">
+                        <div class="o_tirilla_sep"/>
+                        <div t-if="student.partner_id.vat">NIT/CC: <span t-field="student.partner_id.vat"/></div>
+                        <div>ESTUDIANTE: <span t-field="student.name"/></div>
+                    </t>
+
+                    <t t-if="klass">
+                        <div class="o_tirilla_sep"/>
+                        <div t-if="klass.subject_id">PROGRAMA: <span t-field="klass.subject_id.name"/></div>
+                        <div t-if="klass.grade_id">NIVEL: <span t-field="klass.grade_id.name"/></div>
+                        <div t-if="klass.start_date">INICIA: <span t-field="klass.start_date"/></div>
+                        <div t-if="klass.weekly_schedule_summary">HORARIO: <span t-field="klass.weekly_schedule_summary"/></div>
+                        <div t-if="klass.teacher_id">PROFESOR: <span t-field="klass.teacher_id.name"/></div>
+                        <div t-if="klass.location_summary">SALON: <span t-field="klass.location_summary"/></div>
+                        <div t-if="klass.book_id">LIBRO: <span t-field="klass.book_id.name"/></div>
+                    </t>
+
+                    <div class="o_tirilla_sep"/>
+                    <div>CONCEPTO:</div>
+                    <table class="o_tirilla_table">
+                        <t t-foreach="wk_info.get('concept_lines', [])" t-as="line">
+                            <tr>
+                                <td><span t-esc="line.name or line.product_id.name"/></td>
+                                <td class="text-end"><span t-field="line.price_subtotal"
+                                    t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/></td>
+                            </tr>
+                        </t>
+                    </table>
+                    <div class="o_tirilla_row o_tirilla_bold" t-if="invoice">
+                        <span>TOTAL:</span>
+                        <span t-field="invoice.amount_total"
+                              t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                    </div>
+
+                    <div class="o_tirilla_sep"/>
+                    <div>PAGOS REALIZADOS:</div>
+                    <div class="o_tirilla_row">
+                        <span t-esc="wk_info.get('payment_method_name')"/>
+                        <span t-esc="wk_info.get('payment_amount')"
+                              t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                    </div>
+                    <div class="o_tirilla_row o_tirilla_bold">
+                        <span>TOTAL PAGOS:</span>
+                        <span t-esc="wk_info.get('payment_amount')"
+                              t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                    </div>
+
+                    <t t-if="pending_lines">
+                        <div class="o_tirilla_sep"/>
+                        <div>CUOTAS PENDIENTES:</div>
+                        <table class="o_tirilla_table">
+                            <t t-foreach="pending_lines" t-as="cuota">
+                                <tr>
+                                    <td><span t-field="cuota.fecha_vencimiento"/></td>
+                                    <td class="text-end"><span t-field="cuota.saldo"
+                                        t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/></td>
+                                </tr>
+                            </t>
+                        </table>
+                        <div class="o_tirilla_row o_tirilla_bold">
+                            <span>TOTAL CUOTAS:</span>
+                            <span t-esc="sum(pending_lines.mapped('saldo'))"
+                                  t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                        </div>
+                    </t>
+
+                    <div class="o_tirilla_sep"/>
+                    <div>ATENDIDO POR: <span t-field="doc.create_uid.name"/></div>
+                    <div t-if="wk_info.get('observaciones')">OBSERVACIONES: <span t-esc="wk_info.get('observaciones')"/></div>
+
+                    <t t-if="company.tirilla_legal_text">
+                        <div class="o_tirilla_sep"/>
+                        <div class="o_tirilla_legal" t-field="company.tirilla_legal_text"/>
+                    </t>
+                </div>
+                <p style="page-break-after:always;" t-if="not doc_last"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- Incidencia PT12445: el documento impreso ya no es siempre un
+         account.payment (puede ser un asiento manual de caja/banco, o la
+         propia factura como último recurso); ver payment_receipt_report.py.
+         Sin binding_model_id/binding_type a propósito: así no aparece como
+         opción de "Imprimir" en TODOS los asientos contables de la
+         compañía, solo se invoca explícitamente desde
+         wk.fee.slip/wk.fee.installment.line.action_imprimir_tirilla. -->
+    <record id="report_payment_receipt_action" model="ir.actions.report">
+        <field name="name">Tirilla de pago</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wk_school_colombo.report_payment_receipt_document</field>
+        <field name="report_file">wk_school_colombo.report_payment_receipt_document</field>
+        <field name="print_report_name">'Tirilla de pago - %s' % (object.name)</field>
+        <field name="paperformat_id" ref="report_paperformat_tirilla"/>
+    </record>
+
+</odoo>

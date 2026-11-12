@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="class_location_form_colombo" model="ir.ui.view">
+        <field name="name">wk.class.location.form.colombo</field>
+        <field name="model">wk.class.location</field>
+        <field name="inherit_id" ref="wk_school_management.class_location_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="sede_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="class_location_tree_colombo" model="ir.ui.view">
+        <field name="name">wk.class.location.list.colombo</field>
+        <field name="model">wk.class.location</field>
+        <field name="inherit_id" ref="wk_school_management.class_location_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="sede_id" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

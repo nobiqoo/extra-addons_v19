@@ -9,14 +9,13 @@
                 <field name="sequence" widget="handle"/>
                 <field name="system_ids" widget="many2many_tags"/>
                 <field name="drive_type"/>
-                <field name="cabezal_type"/>
                 <field name="width_from"/>
                 <field name="width_to"/>
                 <field name="tubo"/>
                 <field name="mecanismo"/>
                 <field name="soporte"/>
                 <field name="terminal"/>
-                <field name="cabezal" optional="hide"/>
+                <field name="cabezal" optional="show"/>
                 <field name="carga_maxima" optional="hide"/>
                 <field name="active" optional="hide"/>
             </list>
@@ -34,17 +33,28 @@
                         <group string="Aplicación">
                             <field name="system_ids" widget="many2many_tags"/>
                             <field name="drive_type"/>
-                            <field name="cabezal_type"/>
+                            <!-- Reunión 15-oct (fila 59): el «Tipo cabezal» ya no se
+                                 configura aquí; el cabezal es el que elige el cliente
+                                 en el portal. Las reglas que ya lo tienen lo conservan. -->
                             <field name="width_from"/>
                             <field name="width_to"/>
                             <field name="sequence"/>
                             <field name="active"/>
                         </group>
+                        <!-- Revisión cálculo de tubo (27-oct, punto 1.1): cada pieza
+                             se elige de Referencias por categoría; el nombre se llena
+                             solo si está vacío (revisión 03-nov: la unificación, los kits
+                             de motor y la constante por tubo buscan el tubo por nombre). -->
                         <group string="Estructura">
+                            <field name="tubo_ref_id" options="{'no_create': True}"/>
                             <field name="tubo"/>
+                            <field name="mecanismo_ref_id" options="{'no_create': True}"/>
                             <field name="mecanismo"/>
+                            <field name="soporte_ref_id" options="{'no_create': True}"/>
                             <field name="soporte"/>
+                            <field name="terminal_ref_id" options="{'no_create': True}"/>
                             <field name="terminal"/>
+                            <field name="cabezal_ref_id" options="{'no_create': True}"/>
                             <field name="cabezal"/>
                             <field name="perfil"/>
                         </group>
@@ -59,9 +69,14 @@
                             <field name="aumento_perfil"/>
                         </group>
                         <group string="Límites físicos">
+                            <div class="text-muted" colspan="2">Si el producto de la referencia tiene el valor, se usa ese; si no, el de la fila. «Usado» es el que entra en las fórmulas.</div>
                             <field name="espacio_eje_techo"/>
+                            <field name="espacio_usado"/>
                             <field name="diametro_tubo"/>
+                            <field name="diametro_usado"/>
                             <field name="carga_maxima"/>
+                            <field name="carga_usada"/>
+                            <field name="aumento_usado"/>
                         </group>
                     </group>
                 </sheet>
@@ -79,7 +94,6 @@
                 <filter name="manual" string="Manual" domain="[('drive_type','in',['manual','any'])]"/>
                 <filter name="motor" string="Motor" domain="[('drive_type','in',['motor','any'])]"/>
                 <filter name="group_drive" string="Accionamiento" context="{'group_by': 'drive_type'}"/>
-                <filter name="group_cabezal" string="Tipo cabezal" context="{'group_by': 'cabezal_type'}"/>
             </search>
         </field>
     </record>
@@ -105,6 +119,7 @@
             <list>
                 <field name="sequence" widget="handle"/>
                 <field name="motor_name"/>
+                <field name="motor_ref_codes"/>
                 <field name="tubo"/>
                 <field name="corona"/>
                 <field name="adaptador"/>
@@ -128,6 +143,7 @@
                         <group string="Motor y tubo">
                             <field name="motor_value"/>
                             <field name="motor_name"/>
+                            <field name="motor_ref_codes"/>
                             <field name="tubo"/>
                             <field name="sequence"/>
                             <field name="active"/>
@@ -198,6 +214,7 @@
                 <field name="adicional"/>
                 <field name="dividir_2"/>
                 <field name="round_even"/>
+                <field name="round_even_all"/>
                 <field name="formula_code" optional="hide"/>
                 <field name="active"/>
             </list>
@@ -222,6 +239,7 @@
                             <field name="adicional"/>
                             <field name="dividir_2"/>
                             <field name="round_even"/>
+                            <field name="round_even_all"/>
                         </group>
                     </group>
                     <group string="Fórmula (código)">
@@ -252,13 +270,16 @@
   + {'extremos': 2, 'centro': 0, 'izquierda': 1, 'derecha': 1}[apertura]</pre>
                         <p class="mb-1"><b>Ejemplo 3 — fórmula distinta si es motorizada</b> (el condicional
                         <code>if / else</code> parte la fórmula en dos):</p>
-                        <pre class="mb-1">((ancho - 0.172) / 1.106 + 2) if not motorizado else (ancho / 1.105 - 1)</pre>
+                        <pre class="mb-1">((ancho - 0.172) / 0.106) if not motorizado else ((ancho - 0.172) / 0.106 - 2)</pre>
                         <p class="mb-1"><b>Ejemplo 4 — varias líneas</b> (como las reglas salariales de
                         nómina: el bloque asigna <code>result</code>):</p>
                         <pre class="mb-1">if motorizado:
-    result = ancho / 1.105 - 1
+    result = (ancho - 0.172) / 0.106 - 2
 else:
-    result = (ancho - 0.172) / 1.106 + 2</pre>
+    result = (ancho - 0.172) / 0.106</pre>
+                        <p class="mb-1"><b>Redondeo:</b> el resultado se redondea como en Excel (el ,5 sube).
+                        Con «Redondear a par (Extremos)» la apertura Extremos sube al siguiente número par;
+                        con «Redondear a par (todas las aperturas)», todas.</p>
                         <p class="mb-0"><b>Reglas del juego:</b> una regla con apertura «Todas» y accionamiento
                         «Ambos» cubre todo el sistema; si crea otra regla con apertura o accionamiento
                         concretos, esa gana para ese caso. Al guardar, la fórmula se prueba con las
@@ -283,17 +304,18 @@ else:
     <menuitem id="menu_safra_cfg_lamas_rule" name="Máximo de Lamas"
               parent="menu_safra_config" action="action_safra_lamas_rule" sequence="17"/>
 
-    <!-- Pendientes 24-sep (7.1) / revisión 09-oct: UNA fórmula de
-         combinaciones por sistema, como el Máximo de Lamas. Se reutilizan
-         los identificadores del antiguo «tipo de reparto» para no borrar
-         el menú, la acción ni las vistas. -->
+    <!-- Pendientes 24-sep (7.1) / revisión 10-nov: las combinaciones de
+         Panel Track salen de la fórmula del Excel de Safra, que se sube en la
+         regla, con la matriz que resulta para revisarla. Se
+         reutilizan los identificadores del antiguo «tipo de reparto» para no
+         borrar el menú, la acción ni las vistas. -->
     <record id="view_safra_panel_tipo_tree" model="ir.ui.view">
         <field name="name">safra.panel.combo.rule.list</field>
         <field name="model">safra.panel.combo.rule</field>
         <field name="arch" type="xml">
             <list>
+                <field name="name"/>
                 <field name="system_ids" widget="many2many_tags"/>
-                <field name="formula_canales"/>
                 <field name="active" widget="boolean_toggle"/>
             </list>
         </field>
@@ -302,64 +324,69 @@ else:
         <field name="name">safra.panel.combo.rule.form</field>
         <field name="model">safra.panel.combo.rule</field>
         <field name="arch" type="xml">
-            <form string="Fórmula de combinaciones">
+            <form string="Combinaciones de Panel Track">
                 <sheet>
                     <group>
                         <group>
+                            <field name="name"/>
                             <field name="system_ids" widget="many2many_tags"/>
                             <field name="active"/>
                         </group>
+                        <group>
+                            <field name="telos_max"/>
+                            <field name="ofrecer_libre"/>
+                        </group>
                     </group>
-                    <group string="Ancho de cada telo">
+                    <div class="alert alert-info mb-3" role="status">
+                        <p class="mb-1"><b>¿Cómo funciona?</b> Las combinaciones salen de la fórmula del Excel de Safra
+                        (la hoja «Configurador»): para cada persiana Odoo pone el ancho, el traslape y el número de telos
+                        en las celdas de entrada del Excel y toma el resultado, igual que el Excel. El rango del telo, el
+                        ancho máximo y los rieles son los que diga la fórmula.</p>
+                        <p class="mb-1"><b>Para cambiar la fórmula:</b> descargue el Excel, cámbielo en Excel y súbalo de
+                        nuevo aquí («Excel de combinaciones»). Al guardar, Odoo busca la celda con la fórmula (la que usa
+                        FILTER y tiene encima los títulos Tipo Riel … Tipo de Apertura … Observación), reconoce sus
+                        celdas de entrada por la etiqueta de la izquierda (Ancho, Traslape, Número de telos) y la prueba
+                        de 2 a 12 telos. Si algo no cuadra no se guarda y dice qué corregir.</p>
+                        <p class="mb-0">Un sistema con otra fórmula (por ejemplo otro rango de telo, como Panel Dúo) va en
+                        otra regla con su propio Excel.</p>
+                    </div>
+                    <group string="Excel de combinaciones">
+                        <field name="excel_archivo" filename="excel_nombre"/>
+                        <field name="excel_nombre" invisible="1"/>
+                        <field name="excel_ubicacion" invisible="not excel_ubicacion"/>
+                        <field name="excel_entradas_texto" invisible="not excel_ubicacion"/>
+                    </group>
+                    <details class="mb-3" open="open">
+                        <summary class="fw-bold text-primary">Matriz resultante (como la hoja «Matriz 2-12»)</summary>
+                        <p class="text-muted small mt-2 mb-1">La fórmula del Excel calculada de 2 telos al máximo, con un
+                        ancho en el que cada telo queda en la mitad del rango de los Parámetros.</p>
+                        <field name="matriz_html" nolabel="1"/>
+                    </details>
+                    <details class="mb-3">
+                        <summary class="fw-bold text-primary">Fórmula leída del Excel</summary>
+                        <field name="excel_formula" nolabel="1" class="mt-2 font-monospace small"/>
+                    </details>
+                    <group string="Ancho de cada telo (para decirle al cliente entre qué anchos hay combinaciones)">
                         <field name="formula_ancho_telo" nolabel="1" colspan="2" widget="code"
                                options="{'language': 'python'}"/>
                     </group>
-                    <group string="Canales de riel">
-                        <field name="formula_canales" nolabel="1" colspan="2" widget="code"
-                               options="{'language': 'python'}"/>
-                    </group>
-                    <group string="Riel Velcrado (excepciones)">
-                        <field name="velcrado_ids" nolabel="1" colspan="2">
-                            <list editable="bottom">
-                                <field name="apertura"/>
-                                <field name="telos"/>
-                                <field name="riel"/>
-                            </list>
-                        </field>
-                    </group>
-                    <div class="alert alert-info" role="status">
-                        <h5>¿Cómo funciona la fórmula?</h5>
-                        <p class="mb-1">Para cada cantidad de telos (de 2 a 12) y cada apertura, el
-                        portal calcula el <b>ancho de cada telo</b> y los <b>canales de riel</b> que se
-                        necesitan. La combinación se ofrece si el telo queda dentro del rango de los
-                        Parámetros (35 a 95 cm) y existe un riel con <b>exactamente</b> esos canales.
-                        Centro y Extremos reparten mitad y mitad, así que solo van con cantidades pares.</p>
-                        <p class="mb-1"><b>Variables:</b> <code>ancho</code> y <code>traslape</code> (m),
-                        <code>telos</code>, <code>lado</code> (telos ÷ 2), <code>apertura</code>
-                        (<code>'derecha'</code>, <code>'izquierda'</code>, <code>'centro'</code>,
-                        <code>'extremos'</code> o <code>'libre'</code>), <code>max_riel</code> y
-                        <b>cualquier campo del cotizador</b> por su código técnico (p. ej. <code>height</code>).</p>
-                        <p class="mb-1"><b>Fórmula de hoy:</b> canales = telos × factor + adicional, con un
-                        valor por apertura (como el Aux y el Adicional del Máximo de Lamas):</p>
-                        <pre class="mb-1">Derecha / Izquierda:  telos × 1   + 0   (un canal por telo)
-Centro:               telos × 1   + 1   (uno extra para que cierre en el centro)
-Extremos:             telos × 0,5 + 1   (los lados comparten: la mitad, más uno)</pre>
-                        <p class="mb-1"><b>Apertura Libre:</b> una apertura que no está en los
-                        diccionarios no se ofrece en el portal. Para habilitarla se agrega
-                        <code>'libre'</code> en los dos diccionarios con sus valores.</p>
-                        <p class="mb-1"><b>Riel Velcrado:</b> con esa apertura y esa cantidad de telos se
-                        usa ese riel aunque los canales no coincidan, y la combinación sale con la
-                        condición «Con Riel Velcrado» (documento FORMULA FINAL).</p>
-                        <p class="mb-0"><b>Al guardar</b>, las fórmulas se prueban con 2 a 12 telos, ancho
-                        2,40 m, traslape 8 cm y cada apertura; si tienen un error, no se guardan y el
-                        mensaje dice cuál es.</p>
-                    </div>
+                    <details class="mb-4">
+                        <summary class="fw-bold text-primary">Cómo escribir la fórmula del ancho de cada telo</summary>
+                        <div class="mt-2">
+                            <p class="mb-1">Debe dar el ancho de un telo <b>en metros</b>. Variables: <code>ancho</code> (ancho de la
+                            persiana, m), <code>traslape</code> (m) y <code>telos</code> (cantidad de telos).</p>
+                            <p class="mb-1"><b>Fórmula de hoy</b> (la misma del Excel de Safra): los telos se montan unos sobre
+                            otros, así que a la suma de los telos se le restan los traslapes:</p>
+                            <pre class="mb-1 p-2 bg-light border">(ancho + (telos - 1) * traslape) / telos</pre>
+                            <p class="mb-0">Ejemplo: ancho 2,40 m, traslape 0,08 m y 6 telos: (2,40 + 5 × 0,08) ÷ 6 = 0,467 m.</p>
+                        </div>
+                    </details>
                 </sheet>
             </form>
         </field>
     </record>
     <record id="action_safra_panel_tipo" model="ir.actions.act_window">
-        <field name="name">Fórmula de Combinaciones</field>
+        <field name="name">Combinaciones de Panel Track</field>
         <field name="res_model">safra.panel.combo.rule</field>
         <field name="view_mode">list,form</field>
     </record>
@@ -367,7 +394,7 @@ Extremos:             telos × 0,5 + 1   (los lados comparten: la mitad, más un
          solo submenú de Configuración. -->
     <menuitem id="menu_safra_combos" name="Combinaciones de telos"
               parent="menu_safra_config" sequence="18"/>
-    <menuitem id="menu_safra_panel_tipo" name="Fórmula"
+    <menuitem id="menu_safra_panel_tipo" name="Combinaciones"
               parent="menu_safra_combos" action="action_safra_panel_tipo" sequence="10"/>
 
 </odoo>

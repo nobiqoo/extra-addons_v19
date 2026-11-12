@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_restricted_salesperson" model="res.groups">
+        <field name="name">Restricted Salesperson</field>
+        <field name="sequence">5</field>
+        <field name="privilege_id" ref="sales_team.res_groups_privilege_sales"/>
+        <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="comment">The user only sees the contacts assigned to them and their own documents in the sales application.</field>
+    </record>
+
+    <!-- Lectura: contactos asignados (con sus direcciones y contactos a cualquier nivel), contactos sin vendedor,
+         usuarios internos y compañías. Usa los vendedores del contacto raíz para no mostrar nunca un contacto
+         cuyo padre no se puede leer -->
+    <record id="res_partner_restricted_salesperson_read_rule" model="ir.rule">
+        <field name="name">Contacts: assigned salespeople (read)</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="groups" eval="[(4, ref('group_restricted_salesperson'))]"/>
+        <field name="domain_force">[
+            '|', '|', '|',
+            ('assigned_seller_ids', 'in', [user.id]),
+            ('assigned_seller_ids', '=', False),
+            ('partner_share', '=', False),
+            ('id', 'in', [user.partner_id.id] + user.company_ids.partner_id.ids),
+        ]</field>
+        <field name="active" eval="True"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- Escritura: solo contactos asignados y sus direcciones -->
+    <record id="res_partner_restricted_salesperson_write_rule" model="ir.rule">
+        <field name="name">Contacts: assigned salespeople (write)</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="groups" eval="[(4, ref('group_restricted_salesperson'))]"/>
+        <field name="domain_force">[('assigned_seller_ids', 'in', [user.id])]</field>
+        <field name="active" eval="True"/>
+        <field name="perm_read" eval="False"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <!-- El vendedor restringido solo ve sus documentos de venta aunque tenga además otro permiso de Ventas
+         (las reglas de grupo se suman); reglas globales que solo filtran a los usuarios del grupo -->
+    <record id="sale_order_restricted_salesperson_rule" model="ir.rule">
+        <field name="name">Sales Orders: restricted salesperson</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="domain_force">['|', ('user_id', '=', user.id), ('user_id', '=', False)] if user.has_group('sale_multiseller.group_restricted_salesperson') else []</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="sale_order_line_restricted_salesperson_rule" model="ir.rule">
+        <field name="name">Sales Order Lines: restricted salesperson</field>
+        <field name="model_id" ref="sale.model_sale_order_line"/>
+        <field name="domain_force">['|', ('salesman_id', '=', user.id), ('salesman_id', '=', False)] if user.has_group('sale_multiseller.group_restricted_salesperson') else []</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="sale_report_restricted_salesperson_rule" model="ir.rule">
+        <field name="name">Sales Analysis: restricted salesperson</field>
+        <field name="model_id" ref="sale.model_sale_report"/>
+        <field name="domain_force">['|', ('user_id', '=', user.id), ('user_id', '=', False)] if user.has_group('sale_multiseller.group_restricted_salesperson') else []</field>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>

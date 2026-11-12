@@ -44,10 +44,24 @@
                 <attribute name="string">Assistant Teacher / Docente asistente</attribute>
             </xpath>
 
-            <!-- Requerimiento de campos académicos: Sede (company_id) visible
-                 para todos los perfiles, no solo multi-compañía. -->
+            <!-- Ronda de ajustes post-prueba: "Sede" deja de ser company_id
+                 -que traía implicaciones de multi-compañía que no aplican
+                 aquí- y pasa a ser un catálogo configurable propio
+                 (models/sede.py). company_id sigue existiendo (Odoo lo
+                 exige) pero queda oculto; sede_id toma su lugar. -->
             <xpath expr="//field[@name='company_id']" position="attributes">
-                <attribute name="groups"></attribute>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="sede_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                <!-- Tarea 12439: "Programa" de la clase, necesario para el
+                     Reporte de Registros / Cursos (ver models/populate_class.py). -->
+                <field name="program_type_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                <!-- Invisible: solo para que el webclient tenga cargado este
+                     campo y pueda evaluar "parent.enrolled_student_ids" en
+                     el domain del selector de Estudiante de la pestaña
+                     Observaciones (más abajo en este mismo archivo). -->
+                <field name="enrolled_student_ids" invisible="1"/>
             </xpath>
 
             <!-- "Fecha de inicio" / "Fecha de finalización": la etiqueta base
@@ -68,9 +82,17 @@
                  clase. También en el formulario, no solo en la lista: Horario
                  y Salón, calculados a partir de las líneas de la pestaña
                  "Horario semanal". -->
+            <!-- "Total Capacity" se traduce genéricamente como "Capacidad
+                 total" (catálogo es.po de Webkul, reutilizado por varios
+                 modelos); para Clases ofertadas el requerimiento la llama
+                 "Cupo" (mismo nombre ya usado en el wizard de creación
+                 masiva), así que se corrige puntualmente aquí. -->
+            <xpath expr="//field[@name='capacity']" position="attributes">
+                <attribute name="string">Cupo</attribute>
+            </xpath>
             <xpath expr="//field[@name='capacity']" position="after">
                 <field name="book_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
-                <field name="class_modality"/>
+                <field name="modality_id"/>
             </xpath>
             <xpath expr="//field[@name='total_enrolled']" position="after">
                 <field name="weekly_schedule_summary" readonly="1"/>
@@ -81,6 +103,14 @@
                     <label for="is_active_class" string="Clase activa"/>
                     <field name="is_active_class" widget="boolean_toggle" nolabel="1"/>
                 </div>
+            </xpath>
+
+            <!-- Ronda de ajustes post-prueba: marca la Clase que representa
+                 el examen de clasificación, para que el Comentario del
+                 Consolidado se propague a la Inscripción (ver
+                 models/grade_consolidated.py). -->
+            <xpath expr="//field[@name='grading_scale_id']" position="after">
+                <field name="is_classification_exam_class"/>
             </xpath>
 
             <!-- Tarea 11293: define si la clase se gestiona con actividades de
@@ -132,16 +162,30 @@
             </xpath>
 
             <!-- Pestaña Observaciones: notas "realizadas durante la clase".
-                 El docente elige a qué inscripción (estudiante matriculado)
-                 corresponde, acotado al nivel de esta clase; el origen se
-                 autocompleta. Toda observación queda ligada a una
-                 inscripción -no a un estudiante suelto-, ver
-                 models/observation.py. -->
+                 El docente elige el Estudiante (acotado a los matriculados
+                 EN ESTA CLASE, vía enrolled_student_ids) -no la Inscripción
+                 por código, poco identificable-; el origen se autocompleta.
+                 pick_student_id resuelve enrollment_id a la inscripción en
+                 curso de ese estudiante (ver models/observation.py); el
+                 campo real que sigue obligatorio y ligando la observación es
+                 enrollment_id.
+
+                 'required="0"' en enrollment_id: el campo SÍ es obligatorio
+                 a nivel de modelo (lo exige el resto del módulo), pero en
+                 esta vista se llena por el inverse de pick_student_id al
+                 guardar -nunca lo teclea el usuario-. Sin este override, el
+                 webclient bloquea el guardado con "Falta el valor requerido
+                 para el campo Inscripción" porque valida localmente el
+                 valor que conoce ANTES de enviar el guardado (cuando
+                 enrollment_id todavía figura vacío en su estado local, pese
+                 a que el inverse lo completaría en el servidor). -->
             <xpath expr="//page[@name='students']" position="after">
                 <page name="colombo_observations" string="Observaciones">
                     <field name="observation_ids" context="{'default_origin': 'class', 'default_observation_type': 'class'}">
                         <list editable="bottom" string="Observaciones">
-                            <field name="enrollment_id" domain="[('grade_id', '=', parent.grade_id)]"/>
+                            <field name="enrollment_id" column_invisible="1" required="0"/>
+                            <field name="pick_student_id" string="Estudiante"
+                                   domain="[('id', 'in', parent.enrolled_student_ids)]"/>
                             <field name="observation_type"/>
                             <field name="reference_display" readonly="1"/>
                             <field name="comment"/>
@@ -177,6 +221,14 @@
                     ('location_summary', 'ilike', self)]</attribute>
             </xpath>
 
+            <!-- Tarea 12439 (2.2): Sede, Programa y Horario como criterios de
+                 búsqueda propios (con autocompletar), no solo agrupables. -->
+            <xpath expr="//field[@name='teacher_ids']" position="after">
+                <field name="sede_id"/>
+                <field name="program_type_id"/>
+                <field name="weekly_schedule_summary" string="Horario"/>
+            </xpath>
+
             <!-- Filtros rápidos: Activas / Inactivas (requerimiento 2.3). -->
             <xpath expr="//filter[@name='complete']" position="after">
                 <separator/>
@@ -185,11 +237,12 @@
             </xpath>
 
             <!-- Agrupaciones adicionales (requerimiento 2.4): Modalidad,
-                 Clase activa/inactiva, Sede y Periodo académico. -->
+                 Clase activa/inactiva, Sede, Programa y Periodo académico. -->
             <xpath expr="//filter[@name='group_by_teacher']" position="after">
-                <filter name="group_by_modality" string="Modalidad" domain="[]" context="{'group_by':'class_modality'}"/>
+                <filter name="group_by_modality" string="Modalidad" domain="[]" context="{'group_by':'modality_id'}"/>
                 <filter name="group_by_active" string="Clase activa" domain="[]" context="{'group_by':'is_active_class'}"/>
-                <filter name="group_by_company" string="Sede" domain="[]" context="{'group_by':'company_id'}"/>
+                <filter name="group_by_company" string="Sede" domain="[]" context="{'group_by':'sede_id'}"/>
+                <filter name="group_by_program" string="Programa" domain="[]" context="{'group_by':'program_type_id'}"/>
                 <filter name="group_by_academic_year" string="Periodo académico" domain="[]" context="{'group_by':'academic_year_id'}"/>
             </xpath>
         </field>
@@ -212,6 +265,13 @@
                     <button name="action_bulk_deactivate" type="object"
                             string="Inactivar seleccionadas"
                             groups="wk_school_management.wk_school_management_officer_group"/>
+                    <!-- Tarea 12439: exporta a Excel las Clases ofertadas
+                         seleccionadas (una, varias o todas), sin abrir ningún
+                         wizard ni pantalla intermedia -reutiliza la misma
+                         selección de esta lista-. -->
+                    <button name="action_generate_registration_report" type="object"
+                            string="Generar Reporte de Registros / Cursos"
+                            groups="wk_school_management.wk_school_management_officer_group"/>
                 </header>
             </xpath>
 
@@ -225,19 +285,78 @@
                 <attribute name="string">Fecha de finalización</attribute>
             </xpath>
 
+            <!-- Mismo ajuste de etiqueta que en el formulario: "Cupo" en vez
+                 de "Capacidad total". -->
+            <xpath expr="//list/field[@name='capacity']" position="attributes">
+                <attribute name="string">Cupo</attribute>
+            </xpath>
+
             <!-- Requerimiento de campos académicos: columnas mínimas de la
-                 lista de Clases Ofertadas (Sede ya existe vía company_id). -->
+                 lista de Clases Ofertadas (Sede se agrega más abajo como
+                 sede_id, catálogo propio -ver nota de la ronda post-prueba-). -->
             <xpath expr="//field[@name='end_date']" position="after">
                 <field name="weekly_schedule_summary"/>
                 <field name="location_summary"/>
-                <field name="teacher_ids" widget="many2many_tags" optional="show"/>
-                <field name="book_id" optional="show"/>
-                <field name="class_modality" optional="show"/>
+                <field name="teacher_ids" widget="many2many_tags" optional="hide"/>
+                <field name="book_id" optional="hide"/>
+                <field name="modality_id" optional="hide"/>
+                <field name="program_type_id" optional="hide"/>
                 <!-- Requerimiento "Gestión de la vista lista de Clases
                      ofertadas" (2.3): se puede activar/inactivar la clase con
                      un clic directamente desde la lista, sin abrir el
                      formulario. -->
-                <field name="is_active_class" widget="boolean_toggle"/>
+                <field name="is_active_class" widget="boolean_toggle" optional="hide"/>
+            </xpath>
+
+            <!-- Ronda de ajustes post-prueba: el usuario pidió dejar como
+                 columnas visibles por defecto únicamente Fecha de inicio,
+                 Clase ofertada, Sede, Nivel académico, Horario, Salón,
+                 Docente, Cupo y Total matriculados -el resto (incluida
+                 Fecha de finalización y Materia, que venían visibles por
+                 defecto en el módulo base) queda oculto pero disponible
+                 desde el selector de columnas opcionales. -->
+            <xpath expr="//field[@name='end_date']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='subject_id']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+
+            <!-- Ronda de ajustes post-prueba: "Sede" ya no es company_id
+                 -se oculta por completo (las dos declaraciones mutuamente
+                 excluyentes por "groups" del base)- y pasa a ser sede_id
+                 (catálogo configurable, models/sede.py), agregado junto a
+                 "name" para quedar en la posición pedida por el cliente. -->
+            <xpath expr="//list/field[@name='company_id'][@column_invisible]" position="replace"/>
+            <xpath expr="//list/field[@name='company_id']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//list/field[@name='name']" position="after">
+                <field name="sede_id" optional="show"/>
+            </xpath>
+
+            <!-- Orden pedido por el cliente: Fecha de inicio, Clase
+                 ofertada, Sede, Nivel académico, Horario, Salón primero; el
+                 resto de columnas existentes se conserva después. "name" ya
+                 es la primera columna en la vista base, así que sirve de
+                 ancla: start_date se mueve justo antes (queda primera) y el
+                 resto se inserta justo después de sede_id (que ya se agregó
+                 ahí arriba), quedando desde la tercera posición en
+                 adelante. -->
+            <xpath expr="//list/field[@name='name']" position="before">
+                <field name="start_date" position="move"/>
+            </xpath>
+            <xpath expr="//list/field[@name='sede_id']" position="after">
+                <field name="grade_id" position="move"/>
+                <field name="weekly_schedule_summary" position="move"/>
+                <field name="location_summary" position="move"/>
+            </xpath>
+
+            <!-- El código confirma que "Estado" nunca fue removido; se deja
+                 disponible pero oculto por defecto (reversible desde el
+                 selector de columnas opcionales). -->
+            <xpath expr="//list/field[@name='state']" position="attributes">
+                <attribute name="optional">hide</attribute>
             </xpath>
         </field>
     </record>

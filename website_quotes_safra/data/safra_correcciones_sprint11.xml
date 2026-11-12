@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Correcciones Sprint 1.1 (revisión de la reunión del 09-oct y correo
+         de Safra del 19-oct): fórmulas de pantógrafos por sistema (la de
+         combinaciones pasó a tabla el 09-nov). Cada función corre una sola
+         vez por base; después las fórmulas se pueden editar en el menú. -->
+    <data noupdate="0">
+        <function model="safra.system" name="_una_vez" eval="['safra.lamas.rule', '_aplicar_casos_pantografos']"/>
+    </data>
+</odoo>

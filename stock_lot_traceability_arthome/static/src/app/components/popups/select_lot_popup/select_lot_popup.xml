@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="point_of_sale.SelectLotPopup" t-inherit="point_of_sale.SelectLotPopup" t-inherit-mode="extension">
+        <xpath expr="//AutoComplete" position="inside">
+            <t t-set-slot="lotOptionSlot" t-slot-scope="lotOption">
+                <t t-esc="lotOption.label"/>
+                <div t-if="lotOption.data.notePlain" class="text-muted small text-truncate">
+                    <t t-esc="lotOption.data.notePlain"/>
+                </div>
+            </t>
+        </xpath>
+    </t>
+
+</templates>

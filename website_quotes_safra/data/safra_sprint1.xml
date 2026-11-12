@@ -12,45 +12,45 @@
 
          Cargado de último en el manifest. Sobre bases ya instaladas requiere
          liberar noupdate (migrations/19.0.0.0.5/pre-migrate.py). -->
-    <data>
+    <data noupdate="1">
 
         <!-- 1) Exhibición visible solo para el grupo -->
-        <record id="field_exhibition" model="safra.field">
+        <record forcecreate="0" id="field_exhibition" model="safra.field">
             <field name="group_id" ref="website_quotes_safra.group_safra_exhibition"/>
         </record>
 
-        <record id="sf_01_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_02_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_04_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_06_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_08_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_10_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_11_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_15_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_16_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_32_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_33_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_34_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_39_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_40_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_41_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_42_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_49_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_50_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_51_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_53_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_54_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_55_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_56_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_57_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_58_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_61_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_63_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_64_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
-        <record id="sf_65_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_01_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_02_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_04_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_06_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_08_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_10_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_11_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_15_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_16_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_32_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_33_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_34_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_39_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_40_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_41_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_42_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_49_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_50_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_51_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_53_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_54_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_55_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_56_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_57_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_58_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_61_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_63_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_64_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
+        <record forcecreate="0" id="sf_65_exhibition" model="safra.system.field"><field name="active" eval="True"/></record>
 
         <!-- 2) Vertical Premium fuera del portal -->
-        <record id="system_48" model="safra.system">
+        <record forcecreate="0" id="system_48" model="safra.system">
             <field name="active" eval="False"/>
         </record>
 

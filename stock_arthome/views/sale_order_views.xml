@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_delivery_comment_arthome" model="ir.ui.view">
+        <field name="name">sale.order.form.delivery.comment.arthome</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='sale_header']" position="after">
+                <group name="delivery_comment_group">
+                    <field name="delivery_comment" placeholder="e.g. Deliver at the back door, in the afternoon"/>
+                    <field name="box_count"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_tree_box_count_arthome" model="ir.ui.view">
+        <field name="name">sale.order.list.box.count.arthome</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='client_order_ref']" position="after">
+                <field name="box_count" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

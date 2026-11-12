@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_embargo_priority_form" model="ir.ui.view">
+            <field name="name">hr.embargo.priority.form</field>
+            <field name="model">hr.embargo.priority</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Garnishment Priority">
+                    <sheet>
+                        <group>
+                            <field name="employee_id" />
+                            <field name="contract_id"  readonly="1"/>
+                            <field name="company_id" />
+                        </group>
+                        <field name="line_ids">
+                            <list editable="bottom">
+                                <field name="embargo_type_id" />
+                                <field name="priority" />
+                            </list>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_embargo_priority_tree" model="ir.ui.view">
+            <field name="name">hr.embargo.priority.tree</field>
+            <field name="model">hr.embargo.priority</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="employee_id" />
+                    <field name="contract_id" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_embargo_priority_action" model="ir.actions.act_window">
+            <field name="name">Garnishment Priorities</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.embargo.priority</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_embargo_priority_menu_act" name="Prioridades"
+            parent="setup_embargo_menu_categ" action="hr_embargo_priority_action" sequence="3" />
+
+    </data>
+</odoo>

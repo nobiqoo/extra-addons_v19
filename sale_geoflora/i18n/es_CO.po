@@ -1,0 +1,273 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_geoflora
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-14 23:09+0000\n"
+"PO-Revision-Date: 2026-10-14 23:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_CO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_bank_statement_line__webflor_airline
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move__webflor_airline
+msgid "Airline"
+msgstr "Aerolínea"
+
+#. module: sale_geoflora
+#: model_terms:ir.ui.view,arch_db:sale_geoflora.view_sale_order_mass_confirm_form
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: sale_geoflora
+#: model:ir.actions.server,name:sale_geoflora.action_sale_order_mass_confirm
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: sale_geoflora
+#. odoo-python
+#: code:addons/sale_geoflora/models/sale_order.py:0
+#: model_terms:ir.ui.view,arch_db:sale_geoflora.view_sale_order_mass_confirm_form
+msgid "Confirm Quotations"
+msgstr "Confirmar cotizaciones"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_sale_order_mass_confirm__confirmed_count
+msgid "Confirmed"
+msgstr "Confirmadas"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_sale_order_mass_confirm__confirmed_order_ids
+msgid "Confirmed Orders"
+msgstr "Órdenes confirmadas"
+
+#. module: sale_geoflora
+#: model_terms:ir.ui.view,arch_db:sale_geoflora.view_sale_advance_payment_inv_webflor
+msgid ""
+"Create one invoice for all orders of the same customer, invoicing address "
+"and delivery address. Orders with a WebFlor Invoice No. are consolidated by "
+"that number and invoicing address, even if their delivery addresses differ."
+msgstr ""
+"Crea una sola factura para todas las órdenes del mismo cliente, dirección de"
+" facturación y dirección de entrega. Las órdenes con N° Invoice WebFlor se "
+"consolidan por ese número y la dirección de facturación, aunque tengan "
+"direcciones de entrega distintas."
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_sale_order_mass_confirm_line__partner_id
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move__display_name
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:sale_geoflora.field_sale_advance_payment_inv__display_name
+#: model:ir.model.fields,field_description:sale_geoflora.field_sale_order__display_name
+#: model:ir.model.fields,field_description:sale_geoflora.field_sale_order_mass_confirm__display_name
+#: model:ir.model.fields,field_description:sale_geoflora.field_sale_order_mass_confirm_line__display_name
+msgid "Display Name"
+msgstr "Nombre en pantalla"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_bank_statement_line__webflor_freight_forwarder
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move__webflor_freight_forwarder
+msgid "Freight Forwarder"
+msgstr "Agencia de Carga"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_bank_statement_line__webflor_hawb_number
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move__webflor_hawb_number
+msgid "House Air Waybill (HAWB)"
+msgstr "Número de Guía Hija (HAWB)"
+
+#. module: sale_geoflora
+#. odoo-python
+#: code:addons/sale_geoflora/models/sale_order.py:0
+msgid "It is not a quotation."
+msgstr "No es una cotización."
+
+#. module: sale_geoflora
+#: model:ir.model,name:sale_geoflora.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: sale_geoflora
+#: model:ir.model,name:sale_geoflora.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: sale_geoflora
+#: model:ir.model,name:sale_geoflora.model_sale_order_mass_confirm
+msgid "Mass quotation confirmation result"
+msgstr "Resultado de la confirmación masiva de cotizaciones"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_bank_statement_line__webflor_mawb_number
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move__webflor_mawb_number
+msgid "Master Air Waybill (MAWB)"
+msgstr "Número de Guía Madre (MAWB)"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_bank_statement_line__webflor_negotiation_term
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move__webflor_negotiation_term
+msgid "Negotiation Term"
+msgstr "Término de Negociación"
+
+#. module: sale_geoflora
+#: model_terms:ir.ui.view,arch_db:sale_geoflora.view_sale_order_mass_confirm_form
+msgid "Not confirmed"
+msgstr "No confirmadas"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_sale_order_mass_confirm_line__order_id
+msgid "Order"
+msgstr "Orden"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_bank_statement_line__webflor_order_type
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move__webflor_order_type
+msgid "Order Type"
+msgstr "Tipo de Orden"
+
+#. module: sale_geoflora
+#: model_terms:ir.ui.view,arch_db:sale_geoflora.view_sale_advance_payment_inv_webflor
+msgid ""
+"Other orders with the same WebFlor Invoice No. are not selected and are still pending to invoice.\n"
+"                        They will not be included in this invoice:"
+msgstr ""
+"Hay otras órdenes con el mismo N° Invoice WebFlor que no están seleccionadas y siguen pendientes por facturar.\n"
+"                        No se incluirán en esta factura:"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_sale_advance_payment_inv__webflor_pending_order_ids
+msgid "Pending orders of the same WebFlor Invoice"
+msgstr "Órdenes pendientes del mismo Invoice WebFlor"
+
+#. module: sale_geoflora
+#: model:ir.model,name:sale_geoflora.model_sale_order_mass_confirm_line
+msgid "Quotation skipped in mass confirmation"
+msgstr "Cotización omitida en la confirmación masiva"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_sale_order_mass_confirm_line__reason
+msgid "Reason"
+msgstr "Motivo"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move_line__webflor_referente
+msgid "Referente"
+msgstr "Referente"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_bank_statement_line__webflor_sale_type
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move__webflor_sale_type
+msgid "Sale Type"
+msgstr "Tipo de Venta"
+
+#. module: sale_geoflora
+#: model:ir.model,name:sale_geoflora.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Factura de anticipo de ventas"
+
+#. module: sale_geoflora
+#: model:ir.model,name:sale_geoflora.model_sale_order
+msgid "Sales Order"
+msgstr "Orden de venta"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_sale_order_mass_confirm__skipped_count
+msgid "Skipped"
+msgstr "Omitidas"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_sale_order_mass_confirm__line_ids
+msgid "Skipped Orders"
+msgstr "Órdenes omitidas"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_sale_order_mass_confirm_line__state
+msgid "Status"
+msgstr "Estado"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_bank_statement_line__webflor_grandchild_guide_number
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move__webflor_grandchild_guide_number
+msgid "Sub-house Air Waybill"
+msgstr "Número de Guía Nieta"
+
+#. module: sale_geoflora
+#: model_terms:ir.ui.view,arch_db:sale_geoflora.view_sale_order_mass_confirm_form
+msgid "Total"
+msgstr "Total"
+
+#. module: sale_geoflora
+#: model_terms:ir.ui.view,arch_db:sale_geoflora.view_move_form_webflor
+msgid "WEBFLOR"
+msgstr "WEBFLOR"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_bank_statement_line__webflor_delivery_date
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move__webflor_delivery_date
+msgid "WebFlor Delivery Date"
+msgstr "Fecha de Entrega WebFlor"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_bank_statement_line__webflor_dispatch_date
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move__webflor_dispatch_date
+msgid "WebFlor Dispatch Date"
+msgstr "Fecha de Despacho WebFlor"
+
+#. module: sale_geoflora
+#: model_terms:ir.ui.view,arch_db:sale_geoflora.view_move_form_webflor
+msgid "WebFlor Information"
+msgstr "Información WebFlor"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_bank_statement_line__webflor_invoice_number
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move__webflor_invoice_number
+msgid "WebFlor Invoice No."
+msgstr "N° Invoice WebFlor"
+
+#. module: sale_geoflora
+#: model_terms:ir.ui.view,arch_db:sale_geoflora.view_move_form_webflor
+msgid "WebFlor Logistics - International Dispatch"
+msgstr "Logística WebFlor - Despacho Internacional"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_bank_statement_line__webflor_order_number
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move__webflor_order_number
+msgid "WebFlor Order No."
+msgstr "N° Pedido WebFlor"
+
+#. module: sale_geoflora
+#: model:ir.model.fields,field_description:sale_geoflora.field_account_move_line__webflor_product_code
+msgid "WebFlor Product ID"
+msgstr "Id Producto WebFlor"
+
+#. module: sale_geoflora
+#. odoo-python
+#: code:addons/sale_geoflora/models/sale_order.py:0
+msgid "You are not allowed to confirm this quotation."
+msgstr "No tiene permiso para confirmar esta cotización."
+
+#. module: sale_geoflora
+#: model_terms:ir.ui.view,arch_db:sale_geoflora.view_sale_order_mass_confirm_form
+msgid ""
+"order(s) were not confirmed. Review the reason, correct them and confirm "
+"them again."
+msgstr ""
+"orden(es) no se confirmaron. Revise el motivo, corríjalas y vuelva a "
+"confirmarlas."
+
+#. module: sale_geoflora
+#: model_terms:ir.ui.view,arch_db:sale_geoflora.view_sale_order_mass_confirm_form
+msgid "quotation(s) were confirmed as sales orders."
+msgstr "cotización(es) se confirmaron como órdenes de venta."

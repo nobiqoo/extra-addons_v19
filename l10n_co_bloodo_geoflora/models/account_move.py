@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import re
 
-from odoo import models
+from odoo import _, models
+from odoo.exceptions import UserError
 from odoo.tools import format_date
 
 NO_CATEGORY_LABEL = 'Otros'
@@ -280,3 +281,32 @@ class AccountMove(models.Model):
         if not any(value for _label, value in general + logistic):
             return {}
         return {'general': general, 'logistic': logistic}
+
+    def _check_partner_required_accounts(self):
+        """Bloquea la publicación si hay líneas sin contacto en cuentas que lo exigen."""
+        details = []
+        for move in self:
+            move_name = move.name if move.name and move.name != '/' else (move.ref or move.display_name)
+            for position, line in enumerate(move.line_ids, start=1):
+                if (
+                    line.account_id.partner_required
+                    and not line.partner_id
+                    and line.display_type not in ('line_section', 'line_subsection', 'line_note')
+                ):
+                    details.append(_(
+                        "- Entry: %(move)s | Line: %(line)s | Account: %(account)s | Label: %(label)s",
+                        move=move_name,
+                        line=position,
+                        account=line.account_id.display_name,
+                        label=line.name or '-',
+                    ))
+        if details:
+            raise UserError(_(
+                "The entry cannot be posted because some lines have no contact "
+                "on accounts configured with Contact Required.\n\n%(details)s",
+                details='\n'.join(details),
+            ))
+
+    def _post(self, soft=True):
+        self._check_partner_required_accounts()
+        return super()._post(soft=soft)

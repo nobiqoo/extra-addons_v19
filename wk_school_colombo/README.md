@@ -4,7 +4,7 @@
 
 Explica, a nivel funcional (sin código), todo lo que se agregó o cambió en el módulo académico. Está pensado para que un consultor, tester o el propio cliente pueda seguir el flujo completo del proceso — Solicitud → Validación de duplicados → Inscripción → Estudiante → Clase Ofertada — y entender qué hace cada campo o pantalla nueva, sin ambigüedad.
 
-Cubre, hasta ahora, **8 de las 10 subtareas** en las que se dividió el requerimiento general del Centro Colombo Americano:
+Cubre, hasta ahora, **9 de las 10 subtareas** en las que se dividió el requerimiento general del Centro Colombo Americano:
 
 1. **Creación, ajuste y parametrización de campos para la gestión académica.**
 2. **Validación de duplicados de estudiante y contacto** (sección 3 de este documento).
@@ -23,7 +23,7 @@ Cubre, hasta ahora, **8 de las 10 subtareas** en las que se dividió el requerim
 - Facturación o venta automática del libro.
 - Cualquier automatización contable real (reclasificación, movimientos, cartera, facturas, notas crédito) derivada de un aplazamiento — solo se crea una actividad pendiente; la gestión la hace el cliente manualmente (ver sección 11).
 - La lógica de "ocultar calificaciones" para clases/estudiantes **sin** estructura avanzada aplicada: esos dos checks siguen siendo un interruptor sin efecto. Con estructura avanzada, sí tienen efecto real (ver sección 14.8).
-- Generación de certificados para estudiantes Finalizados (ver sección 12.6) — la consulta de Promovidos/Finalizados deja la información lista, pero no genera ningún documento.
+- ~~Generación de certificados para estudiantes Finalizados~~ — construido en la tarea 12451 (sección 21): wizard de Certificados académicos en Gestión Educativa → Informes.
 
 Todo lo de esta lista existe como campo o pantalla preparada, pero **sin comportamiento automático** — eso se construirá en su propia subtarea.
 
@@ -67,7 +67,7 @@ Es un catálogo simple (nombre + activo/inactivo), administrable sin necesidad d
 | Campo | Tipo | Obligatorio |
 |---|---|---|
 | Tipo de programa | Catálogo de arriba | **Sí** |
-| Sede | Compañía (ver nota abajo) | Sí (ya lo era) |
+| Sede | Catálogo configurable (ver nota abajo) | **Sí** |
 | Tipo / Número de identificación | Los mismos de Contactos | Sí (ya lo era) |
 | Fecha de nacimiento | Fecha | **Sí** |
 | Edad | Se calcula sola a partir de la fecha de nacimiento | — (solo lectura) |
@@ -78,8 +78,14 @@ Es un catálogo simple (nombre + activo/inactivo), administrable sin necesidad d
 | Idioma nativo | Español / Inglés / Francés / Otro (con campo de texto libre si es "Otro") | No |
 | Municipio de expedición del documento | Ciudad (catálogo DIAN) | No |
 | Municipio / lugar de origen | Ciudad (catálogo DIAN) | No |
+| Código DIAN lugar de origen | Solo lectura — se llena solo con el código DIAN del municipio elegido arriba | — (solo lectura) |
+| Estrato | 1 a 6 | No |
+| Jornada | Catálogo configurable (ver nota abajo) — semilla: Diurna / Nocturna / Fin de semana | No |
+| Régimen de salud | Catálogo configurable (ver nota abajo) — semilla: SISBEN (niveles/rangos) y EPS, 44 opciones con sus códigos oficiales | No |
 
-> **Nota sobre "Sede":** el requerimiento pedía un campo configurable para "Norte" y "Centro". Se decidió **reutilizar el campo de Compañía** que Odoo ya usa para separar la información por sede en todo el módulo (Clases, Inscripciones, etc.), en vez de crear un catálogo nuevo aparte. Si en tu instalación solo existe una compañía, este campo no se ve — hay que crear "Norte" y "Centro" como compañías en Ajustes → Empresas para que aparezca el selector.
+> **Nota sobre "Sede":** es un catálogo configurable propio (Gestión Educativa → Configuración → Académicos → **Sedes**, entre Ubicaciones y Franjas horarias), con dos registros semilla editables ("Norte" y "Centro") — administrable sin programación, igual que Tipo de programa y Modalidad. En una primera versión se había reutilizado el campo de Compañía de Odoo para esto, pero se revirtió: usar la Compañía real traía implicaciones de multi-compañía (contabilidad, almacenes, reglas de registro) que no aplican a un dato puramente descriptivo. El campo `company_id` sigue existiendo donde Odoo lo exige, pero ya no se le muestra al usuario como "Sede". Sede también aparece como campo en **Ubicaciones** y **Franjas horarias** (sección 9.6/9.7), para poder clasificar cada Salón/Franja por la sede a la que pertenece.
+
+> **Nota sobre "Jornada" y "Régimen de salud":** son catálogos configurables propios (Gestión Educativa → Configuración → Académicos → **Jornadas** / **Regímenes de salud**, junto a Tipo de programa y Modalidad) — se puede agregar, editar o archivar opciones sin programación. "Régimen de salud" trae de semilla las 44 opciones oficiales (SISBEN + EPS) con su código tal como lo entrega la entidad; "Jornada" trae Diurna/Nocturna/Fin de semana. Ambos catálogos solo son administrables por Officer/Admin (Staff los puede ver y elegir, no crear/editar).
 
 ### 2.2. Pestaña **Ubicación**
 
@@ -144,7 +150,7 @@ Botón **"Inscribir ahora"** en la Solicitud confirmada → se abre un asistente
 ### Opción A — Crear un estudiante nuevo
 
 Se crea el registro de Estudiante y se abre (sin guardar todavía) el formulario de Inscripción, pre-cargado con los datos básicos. **Hay que guardar ese formulario de Inscripción** — es en ese momento, no antes, cuando:
-- Todos los campos nuevos de la Solicitud (Tipo de programa, municipios, tipo de persona, contacto, etc.) se copian al Estudiante.
+- Todos los campos nuevos de la Solicitud (Tipo de programa, municipios, tipo de persona, contacto, Estrato, Jornada, Régimen de salud, etc.) se copian al Estudiante.
 - Los acudientes cargados en la Solicitud aparecen también en el Estudiante (es el mismo registro, no una copia).
 - Si la Solicitud tenía un comentario, se convierte en la primera Observación del Estudiante.
 
@@ -162,6 +168,7 @@ Mismo comportamiento, con una diferencia importante: **solo se completan los cam
 
 Todos los campos de la Solicitud llegan aquí (persistencia). Además:
 
+- **Contacto del estudiante**: estos mismos campos (estado civil, nivel de formación, idioma nativo, municipio de expedición/origen, teléfono fijo, barrio, tipo de persona, ocupación actual, estrato, jornada, régimen de salud, etc.), más los Nombres/Apellidos separados, también se sincronizan automáticamente hacia el **Contacto** (ficha de Contactos) del estudiante, no solo hacia esta ficha — si se editan aquí después de inscribir, el Contacto se actualiza solo.
 - **Edad**: calculada, se actualiza sola.
 - **Estudiante con restricción**: check, visible **solo para Officer/Admin**. Staff no lo ve en absoluto (no es que aparezca deshabilitado: directamente no está en su pantalla).
 - **Ocultar calificaciones al estudiante**: interruptor visible para todos, sin ningún efecto todavía (ver aclaración al inicio del documento).
@@ -192,6 +199,7 @@ Tabla de solo lectura con **todas** las observaciones del estudiante, sin import
 - **Libro**: se puede elegir manualmente, o se propone solo si la Clase Ofertada correspondiente a ese Grado/Sección ya tiene un libro asignado.
 - **¿Examen de clasificación?**: check que, al activarse, muestra el campo **Resultado examen de clasificación** (texto libre).
 - **Pestaña Observaciones**: ver sección 7.
+- **Botón "Histórico"** (arriba a la derecha, junto a los demás botones inteligentes): solo aparece si el estudiante tiene **otras** Inscripciones — es decir, es un estudiante antiguo. Al hacer clic, abre la lista de esas Inscripciones anteriores sin salir de esta pantalla. Este botón vive únicamente aquí, en la Inscripción — no en la Solicitud/Aplicación.
 
 ---
 
@@ -244,12 +252,13 @@ Cada observación nueva es un registro independiente. El histórico nunca se sob
 ### 8.1. Formulario
 
 - **Clase activa**: interruptor visual arriba a la derecha del título. **Es independiente del Estado** (Nuevo / Confirmado / Terminado) que ya traía el módulo base — una clase puede estar "Confirmada" y a la vez "inactiva", o viceversa. También se puede cambiar directamente desde la vista lista, sin entrar al formulario (ver sección 9.2). No tiene ningún efecto automático todavía (las reglas de negocio reales que dependan de este estado son otra subtarea).
-- **Modalidad**: Sabatino / Diario / Vacacional (ver sección 9.1).
+- **Modalidad**: catálogo configurable (Configuración → Académicos → **Modalidades**, sección 9.5) — ya no es una lista fija en código.
 - **Assistant Teacher / Docente asistente**: es el mismo campo "Profesores de Secundaria" que el módulo ya traía, pero que una personalización anterior había ocultado. Ahora vuelve a ser visible, con este nuevo nombre. Permite seleccionar uno o varios docentes asistentes.
-- **Libro**: el libro estándar asignado a esa clase (se propone automáticamente en las Inscripciones del mismo Grado/Sección).
+- **Libro**: selector de Producto (solo ofrece los marcados como "¿Es libro?" en Ventas → Productos — ver 9.6), no el catálogo bibliotecario que trae el módulo base (no usado por la institución).
+- **Examen de clasificación**: check junto a "Escala de calificación (avanzada)". Marca esta Clase ofertada como el examen de clasificación — ver sección 14.9.
 - **Horario** y **Salón**: resúmenes de solo lectura, calculados a partir de las líneas cargadas en la pestaña "Horario semanal" — no hay que diligenciarlos aparte.
 - **Fecha de inicio / Fecha de finalización**: mismos campos de siempre, solo se corrigió su nombre (antes decían, por una mala traducción de Odoo, "Empezar desde" / "Terminar hasta").
-- **Sede**: el mismo campo de Compañía, ahora visible para todos los perfiles.
+- **Sede**: catálogo configurable (sección 9.7), ya no es la Compañía.
 
 ### 8.2. Pestaña Observaciones
 
@@ -257,7 +266,7 @@ Ver sección 7 — aquí es donde se registran las notas "durante la clase".
 
 ### 8.3. Lista de Clases Ofertadas
 
-Columnas visibles por defecto: Fecha de inicio, Fecha de finalización, Clase ofertada, Sede, Nivel académico, Horario, Salón, Docente, Cupo, Total matriculados, Estado, Clase activa. Columnas activables (botón de engranaje al final de la tabla): Sección, Sesión, Materia, Assistant Teacher, Libro, Modalidad.
+Orden y columnas visibles por defecto: Fecha de inicio, Clase ofertada, Sede, Nivel académico, Horario, Salón, Fecha de finalización, Docente, Cupo, Total matriculados, Clase activa. Columnas activables (botón de engranaje al final de la tabla): Sección, Sesión, Materia, Assistant Teacher, Libro, Modalidad, **Estado** (visible por defecto antes, ahora opcional — sigue disponible con un clic, nada se eliminó).
 
 ---
 
@@ -296,8 +305,8 @@ Desde el buscador de Clases Ofertadas:
 
 Abre un asistente con dos partes:
 
-1. **Datos generales** (aplican a todas las clases que se van a crear en este proceso): Programación académica (Año académico), Modalidad (Sabatino/Diario/Vacacional), Sede, Periodo académico (Término).
-2. **Clases a crear**: una tabla donde se agrega una línea por cada Clase ofertada que se quiere crear, con botón **"Agregar una línea"**. Cada línea tiene: Nivel, Módulo (filtrado al Nivel elegido y a las Asignaturas activas — ver 9.1), Docente principal, Docente asistente, **Día**, Horario, Salón, Cupo, Fecha de inicio, Fecha de finalización (precargadas con las del Periodo académico elegido, pero editables por línea), Libro, y un interruptor **Activa**.
+1. **Datos generales** (aplican a todas las clases que se van a crear en este proceso): Programación académica (Año académico), Modalidad (catálogo configurable, sección 9.5), Sede, Periodo académico (Término).
+2. **Clases a crear**: una tabla donde se agrega una línea por cada Clase ofertada que se quiere crear, con botón **"Agregar una línea"**. Cada línea tiene: Nivel, Módulo (filtrado al Nivel elegido y a las Asignaturas activas — ver 9.1), Docente principal, Docente asistente, **Día**, Horario, Salón, Cupo, Fecha de inicio, Fecha de finalización (precargadas con las del Periodo académico elegido, pero editables por línea), Libro (texto libre), **Escala de calificación (avanzada)** (opcional, por línea — si se elige, se aplica automáticamente a la clase recién creada, igual que el botón "Aplicar estructura de calificación" del formulario individual, sección 14.6), y un interruptor **Activa**.
 
    > Día, Horario y Salón de cada línea **sí se guardan como el Horario semanal real** de la clase que se crea (ver sección 10) — dejaron de ser solo de referencia en la subtarea de Validación de cruces, precisamente para poder detectar cruces reales antes de confirmar la creación masiva.
 
@@ -308,6 +317,34 @@ Al presionar **"Crear clases"**:
 - Al terminar, se abre la lista de Clases Ofertadas mostrando únicamente las recién creadas.
 
 El formulario individual de creación (botón "Nuevo" en Poblar Clases) **sigue disponible sin cambios**, para cuando solo se necesita crear una clase.
+
+### 9.5. Catálogo "Modalidad"
+
+**Dónde:** Gestión Educativa → Configuración → Académicos → **Modalidades**.
+
+Igual que "Tipo de programa" (sección 1): catálogo simple (nombre, orden, activo/inactivo), administrable sin programación. Reemplaza la lista fija que traía el código (Sabatino / Diario / Vacacional, que siguen existiendo como registros iniciales editables) para que la institución pueda agregar modalidades propias (p. ej. Híbrido, Presencial) sin necesidad de un desarrollo nuevo. Se usa tanto en la Clase ofertada y el asistente de creación masiva como en la Escala de calificación avanzada (sección 14.1). Desactivar una modalidad no afecta las Clases/Escalas que ya la tengan asignada.
+
+- **Quién puede crear/editar/desactivar:** solo **Officer** o **Admin**.
+- **Quién puede solo consultarla (para seleccionarla):** también **Staff**.
+
+### 9.6. Marcar un Producto como "Libro"
+
+**Dónde:** Ventas → Productos → (abrir el producto) → check **¿Es libro?**, junto a "Is Fee Element?"/"Is Library Element?".
+
+El selector **Libro** de la Clase ofertada, la Inscripción y el asistente de creación masiva solo ofrece los productos con este check activo — así no aparecen mezclados certificados, exámenes ni otros productos de venta. Un producto sin el check simplemente no aparece en ese selector; no hace falta nada más para "convertirlo" en libro, basta con marcarlo.
+
+### 9.7. Catálogo "Sede"
+
+**Dónde:** Gestión Educativa → Configuración → Académicos → **Sedes** (entre Ubicaciones y Franjas horarias).
+
+Igual que Tipo de programa y Modalidad: catálogo simple (nombre, orden, activo/inactivo), con dos registros semilla editables ("Norte" y "Centro"). Es el campo **Sede** que aparece en Aplicaciones, Estudiante, Clase ofertada e Inscripción — **ya no es la Compañía** (`company_id`) de Odoo, que sigue existiendo técnicamente pero dejó de mostrarse al usuario como "Sede" (ver nota de la sección 2.1).
+
+Sede también se agregó como campo en:
+- **Ubicaciones** (Gestión Educativa → Configuración → Académicos → Ubicaciones de clase): para clasificar cada Salón por la sede a la que pertenece.
+- **Franjas horarias** (mismo menú, Franjas horarias): para clasificar cada franja por sede.
+
+- **Quién puede crear/editar/desactivar el catálogo:** solo **Officer** o **Admin**.
+- **Quién puede solo consultarlo (para seleccionarlo):** también **Staff**.
 
 ---
 
@@ -449,7 +486,7 @@ Esto funciona así porque esa pestaña no tiene una lista propia: reutiliza la m
 
 | Perfil | Puede ver/editar |
 |---|---|
-| **Staff** (docentes) | Todo lo anterior, **excepto**: el check y motivo de restricción del estudiante; crear/editar/desactivar Tipos de programa (solo los puede leer/seleccionar); el menú de auditoría de Observaciones (pero sí puede crear observaciones desde Inscripción y Clase); confirmar "Ninguna coincidencia, crear nuevo" en la pantalla de posibles duplicados (sección 3) — sí puede elegir un registro existente de esa misma pantalla; activar/inactivar Asignaturas del nivel, activar/inactivar Clases Ofertadas (individual o masivamente), la creación masiva de Clases Ofertadas, y aplazar a un estudiante (sección 11.2); Promocionar ahora, Promover seleccionados y la consulta de Promovidos/Finalizados (sección 12) |
+| **Staff** (docentes) | Todo lo anterior, **excepto**: el check y motivo de restricción del estudiante; crear/editar/desactivar Tipos de programa, Jornadas y Regímenes de salud (solo los puede leer/seleccionar); el menú de auditoría de Observaciones (pero sí puede crear observaciones desde Inscripción y Clase); confirmar "Ninguna coincidencia, crear nuevo" en la pantalla de posibles duplicados (sección 3) — sí puede elegir un registro existente de esa misma pantalla; activar/inactivar Asignaturas del nivel, activar/inactivar Clases Ofertadas (individual o masivamente), la creación masiva de Clases Ofertadas, y aplazar a un estudiante (sección 11.2); Promocionar ahora, Promover seleccionados y la consulta de Promovidos/Finalizados (sección 12) |
 | **Officer / Admin** | Todo, sin restricciones |
 
 Si un usuario Staff entra a cualquiera de las pantallas descritas en este documento, no debería ver ningún error de permisos — simplemente no verá los elementos restringidos a Officer/Admin.
@@ -567,16 +604,416 @@ Desde el Consolidado (menú Imprimir del formulario, o los botones de Class List
 
 - **Reporte Midterm**: solo disponible en estructuras de 2 cortes; por estudiante, los componentes de ese corte con su peso y nota, Midterm Grade, horas de ausencia, ranking y comentarios.
 - **Reporte Final**: por estudiante, los componentes de Final con su peso y nota, Final Grade, horas de ausencia, ranking, Pass/Fail (con la causa), el rango de desempeño (si "Mostrar descriptivo del desempeño" está activo en la Escala) y comentarios. Al final del reporte se imprime el "Mensaje adicional en la boleta de notas" de la Escala, si tiene uno configurado.
-- **Class List**: nombre e identificación de los estudiantes de la clase, con tres botones de variante — Todos, Pass y Fail (para el cierre de curso).
-- **Distribución por Desempeño**: agrupa a los estudiantes de la clase por Rango de desempeño (de mayor a menor Nota mínima, igual que en la Escala), con cantidad y porcentaje por rango, y el listado de estudiantes (con su Final Grade) dentro de cada uno. Los que aún no tienen un rango asignado (resultado pendiente) quedan en un grupo "Sin clasificar" al final.
+- **Class List**: encabezado completo de la clase (Programa, Nivel, Módulo, Profesor, Assistant teacher, Libro, Horario, Salón, Fecha) y los estudiantes, con tres botones de variante — Todos, Pass y Fail (para el cierre de curso). Desde la tarea 12436 (sección 16) también se genera, con columnas adicionales a elección del usuario, desde **Informes → Hoja de calificaciones**.
+- **Distribución por Desempeño**: agrupa a los estudiantes de la clase por Rango de desempeño (de mayor a menor Nota mínima, igual que en la Escala), con cantidad y porcentaje por rango, y el listado de estudiantes (con su Final Grade) dentro de cada uno. Los que aún no tienen un rango asignado (resultado pendiente) quedan en un grupo "Sin clasificar" al final. Existe además una versión en Excel, consolidada por Programa/Periodo/Sede (no por una sola clase) — ver sección 16.2.
 
-Los tres reportes leen siempre la información ya consolidada (el histórico congelado si el corte está confirmado, el cálculo en vivo si no) — nunca piden un cálculo manual.
+Los reportes leen siempre la información ya consolidada (el histórico congelado si el corte está confirmado, el cálculo en vivo si no) — nunca piden un cálculo manual.
+
+### 14.12. Examen de clasificación
+
+**Dónde:** check **Examen de clasificación** en el formulario de la Clase ofertada (8.1), junto a "Escala de calificación (avanzada)".
+
+El examen de clasificación se gestiona como una Clase ofertada más (con su propia Escala de calificación avanzada aplicada, normalmente de un único Componente al 100 %), pero su resultado real para la institución no es una nota numérica: es un nivel escrito a mano por quien califica (p. ej. "Nivel intermedio", "Avanzado"). Marcando **Examen de clasificación** en esa Clase, el texto que se escriba en **Comentarios** (pestaña Resultados o Comentarios del Consolidado, 14.8) para cada estudiante se copia automáticamente al campo **Resultado examen de clasificación** de su Inscripción (visible también desde el formulario de la Inscripción, 6), y activa ahí el check **¿Examen de clasificación?**.
+
+- La copia es exclusiva de la Clase marcada: el Comentario de cualquier otra Clase (con o sin estructura avanzada) nunca toca ese campo, así el estudiante tenga varias Materias calificadas al mismo tiempo.
+- El Pass/Fail del examen (aprobó / no aprobó el examen de clasificación como tal) sigue el mecanismo normal de la Escala aplicada a esa Clase (14.6-14.8) — la automatización de esta sección solo cubre el **resultado cualitativo** (el nivel), no reemplaza ni cambia el cálculo de Pass/Fail.
+- Si se corrige el Comentario después (por un error de digitación, por ejemplo), el campo de la Inscripción se actualiza con el nuevo texto la próxima vez que se guarde.
+
+### 14.13. "Consultar calificaciones" (Hoja de calificaciones) con estructura avanzada
+
+**Importante:** el botón **Consultar calificaciones** de Informes → Hoja de calificaciones es una pantalla **anterior** a la Estructura de calificación avanzada (14.1-14.11), construida para el sistema de calificación estándar de Webkul. Con una Clase que tiene la estructura avanzada aplicada:
+
+- Ya no se bloquea con un error (hasta la tarea 12436 producía "Expected singleton" cuando dos o más componentes compartían el mismo Tipo de actividad base, p. ej. "Quiz 1" y "Quiz 2" ambos bajo "Quiz").
+- Pero **tampoco muestra las notas reales**: esta pantalla lee un campo (porcentaje obtenido por rangos) que la estructura avanzada no usa -ahí la nota se registra directa, sin conversión por rangos-, así que siempre va a mostrar 0% en una clase con estructura avanzada.
+
+Para consultar o imprimir las notas reales de una clase con estructura avanzada, use el **Consolidado de notas** (14.8), la **Boleta de calificaciones** (16.2) o el **Class List** (14.11, 16.1) — todos leen directamente la información ya consolidada.
+
+---
+
+## 15. Pago por cuotas y tabla de amortización
+
+Permite que un estudiante pague su obligación mediante una cuota inicial y uno o varios abonos, con **una única factura** por el valor total (nunca facturas por cuota) y una **tabla de amortización** que hace seguimiento a cada cuota (programado, pagado, saldo y estado), reutilizando siempre el flujo estándar de pagos de Odoo.
+
+### 15.1. Configuración del acuerdo de pago
+
+**Dónde:** botón **Generar recibos de tarifas**, dentro de Inscripción → Resumen de tarifas.
+
+Al abrir el asistente, **Plazo de pago** y **Entrega** siguen funcionando igual que siempre. Al marcar el nuevo check **Pago por cuotas**, ambos campos se fijan solos en **Personalizado** y **1** (se ocultan, ya no hace falta tocarlos) y aparecen los campos del acuerdo:
+
+- **Monto inicial**: lo escribe el usuario.
+- **Valor pendiente**: se calcula solo, Monto total a pagar − Monto inicial.
+- **Número de abonos**, **Fecha primer abono** y **Periodicidad** (Semanal/Quincenal/Mensual).
+- **Vista previa de cuotas**: se recalcula automáticamente al cambiar cualquiera de los campos anteriores (una fila "Cuota inicial" + una fila "Abono N" por cada abono), y es **editable**: el usuario autorizado puede ajustar a mano la fecha y el valor de cualquier fila antes de confirmar.
+- **Código de beneficio / cupón** (opcional, ver 15.8).
+
+El sistema **no permite confirmar el acuerdo** cuando:
+- el Monto inicial es mayor al Monto total a pagar;
+- el Número de abonos es cero o negativo;
+- las fechas de las cuotas no son estrictamente crecientes y distintas entre sí (dos cuotas no pueden vencer el mismo día);
+- la suma de todas las filas de la vista previa no coincide exactamente con el Monto total a pagar (ajustada por el % Descuento, ver 15.7, y el beneficio aplicado, ver 15.8, si corresponde).
+
+### 15.2. Generación de la tabla de amortización
+
+Al confirmar (**Generate Now**), el sistema genera **un único recibo de tarifa y, a partir de él, una única factura** por el valor total de la obligación — el mismo flujo que ya existía, sin cambios. Encima de esa factura se construye un término de pago a la medida del acuerdo: la **Cuota inicial** y cada **Abono** quedan como líneas contables propias (vencimiento) dentro del **mismo asiento** de esa única factura, de modo que Cuentas por Cobrar refleja la antigüedad real de cada cuota.
+
+Las cuotas de la tabla **no generan recibos ni facturas independientes**: son únicamente la programación y el seguimiento del acuerdo. El valor y la fecha de vencimiento originalmente programados de cada cuota quedan congelados para siempre, incluso después de pagos parciales o anticipados (15.5, 15.6).
+
+### 15.3. Detalle y seguimiento
+
+**Dónde:** Inscripción → Resumen de tarifas → **Plan de pagos / Tabla de amortización** (debajo del resumen de conceptos de cobro; solo aparece si la inscripción tiene un acuerdo de pago por cuotas).
+
+Columnas: **Cuota** (Cuota inicial/Abono N), **Fecha de vencimiento**, **Valor programado**, **Valor pagado**, **Saldo**, **Estado**, **Factura** y una columna de **Acción**. Valor pagado, Saldo y Estado se calculan solos a partir de los pagos reales registrados — no son editables desde la tabla.
+
+Estados: **Pendiente** (sin pagos, fecha aún no vencida), **Pago parcial** (hay un abono pero queda saldo, fecha aún no vencida), **Pagado** (saldo en cero) y **En mora** (queda saldo y la fecha de vencimiento ya pasó).
+
+La misma tabla (resumida) está disponible desde **Gestión Educativa → Informes → Recibos de cobro** (15.9).
+
+### 15.4. Registrar abono
+
+Cada cuota con saldo pendiente muestra el botón **Registrar abono**; una cuota ya Pagada muestra **Ver pago** en su lugar. "Registrar abono" abre el **mismo asistente estándar "Registrar Pago" de Odoo** (el mismo que se usa desde cualquier factura) — no existe un asistente paralelo. El asistente queda vinculado a la factura total y sugiere como importe el saldo pendiente de la cuota elegida; el usuario completa diario, fecha, referencia y demás campos estándar, y al confirmar el pago se genera el movimiento contable real según la configuración del diario.
+
+### 15.5. Pago parcial
+
+Si el valor pagado es menor al valor programado de la cuota, el sistema **no crea una línea nueva**: la misma cuota conserva su Fecha de vencimiento y Valor programado originales, y solo actualiza Valor pagado, Saldo y Estado (Pago parcial, o En mora si ya venció). Las cuotas futuras no se tocan.
+
+### 15.6. Pago anticipado (abono mayor al saldo de la cuota)
+
+Si el abono registrado es mayor al saldo de la cuota elegida, el sistema cubre primero esa cuota (queda Pagada) y aplica automáticamente el excedente a las **siguientes cuotas pendientes**, en orden de vencimiento — sin generar líneas nuevas y **sin recalcular ni mover** las fechas o valores programados de ninguna cuota futura. Ejemplo: con tres abonos de $400.000 pendientes y un pago de $700.000 sobre el Abono 1, el sistema deja el Abono 1 en Pagado y aplica los $300.000 restantes al Abono 2 (Valor pagado $300.000, Saldo $100.000, Pago parcial); el Abono 3 no se altera.
+
+### 15.7. % Descuento
+
+**Dónde:** columna **% Descuento**, junto a cada concepto de cobro en Resumen de tarifas.
+
+Un porcentaje de descuento por concepto reduce la tarifa (Monto total de la tarifa) de ese concepto; el monto ya ajustado es la base tanto para la factura como, si aplica, para la tabla de amortización. El valor original (antes de descuento) y el valor descontado quedan disponibles para consulta.
+
+### 15.8. Beneficios / cupones (código de descuento)
+
+**Dónde:** campo **Código de beneficio / cupón** en el asistente de generación (15.1).
+
+Reutiliza el catálogo estándar de programas de fidelización/cupones de Odoo (Configuración), pero con una integración **deliberadamente simple** (decisión confirmada con el usuario): soporta únicamente recompensas de tipo **Descuento**, en modo **porcentaje** o **monto fijo por recibo**. El beneficio se aplica como una **línea independiente y negativa** dentro del recibo de tarifa (el mismo comportamiento estándar que ya usa, por ejemplo, la cuota de biblioteca), reduciendo el total sin modificar el precio de los conceptos de cobro. Queda registrado en un log de trazabilidad (programa, recompensa, código/cupón, usuario, fecha y valor descontado).
+
+**No incluido en esta integración** (si la institución lo necesita, requiere ampliar el adaptador):
+- Recompensas de tipo "Producto gratis" ni descuentos "por punto".
+- Combinar varios beneficios sobre el mismo recibo.
+- Acumulación/expiración automática de puntos más allá de debitar los puntos exigidos por la recompensa, cuando el programa es de tipo "Tarjetas de fidelización".
+
+### 15.9. Recibos de cobro (ampliado)
+
+La vista existente **Gestión Educativa → Informes → Recibos de cobro** ahora también muestra, cuando el recibo tiene un acuerdo de pago por cuotas: Pago por cuotas (Sí/No), N° de cuotas, Valor pagado, Saldo pendiente, Cuotas pagadas/pendientes, Próxima fecha de vencimiento, Valor del próximo abono, Estado del acuerdo y la Factura asociada. Incluye filtros por "Pago por cuotas", "Con saldo pendiente", "Con cuotas en mora" y "Con cuotas pendientes", y agrupación por Estado del acuerdo. Para un recibo sin pago por cuotas estas columnas quedan vacías — el comportamiento del reporte no cambia.
+
+### 15.10. Tirilla de pago (tarea 12458)
+
+Cada registro de pago (el mismo `account.payment` que genera "Registrar Pago"/"Registrar abono") se puede imprimir como una **tirilla de pago**, con el formato térmico angosto (80mm) del recibo físico histórico del Colombo — no se guarda en un modelo propio: el pago ya es la unidad de trazabilidad, así que generar e imprimir de nuevo la misma tirilla (reimpresión) no crea ningún pago, factura ni movimiento contable nuevo.
+
+**Dónde:**
+- En **Inscripción → Resumen de tarifas → Tabla de amortización**, botón **Imprimir Tirilla** junto a "Ver pago" en cada cuota pagada.
+- En **Recibo de cobro** (pago único, sin acuerdo de cuotas), botón **Imprimir Tirilla** en el encabezado, junto a "Ver factura", visible cuando el recibo está en estado Pagado.
+- También disponible desde el propio menú "Imprimir" del registro de pago (`account.payment`).
+
+Si una cuota o un recibo llegara a tener más de un pago reconciliado, se genera una tirilla por cada uno (nunca una combinada), reutilizando siempre el mismo reporte.
+
+**Contenido:** institución y NIT, número de comprobante (el mismo consecutivo de `account_journal_sequence`), fecha y hora, identificación y nombre del estudiante; cuando el concepto corresponde a una clase del estudiante (`wk.school.class`, buscada a través de su Inscripción): programa (Asignatura), nivel, fecha de inicio, horario, profesor, salón y libro — si el concepto no corresponde a ninguna clase (certificados, exámenes administrativos, etc.) ese bloque simplemente no aparece; concepto(s) y valor de la factura, total, forma de pago y valor pagado; cuotas pendientes de la tabla de amortización al momento de la impresión (cuando aplica); usuario que atendió (quien registró el pago) y **Observaciones** — campo de texto libre nuevo, capturable directamente en el wizard "Registrar Pago" y editable después desde el propio pago; y un texto legal/institucional configurable en **Ajustes → Gestión Educativa → Tirilla de pago** (exención de IVA, política de devoluciones, aviso de protección de datos, etc. — en blanco por defecto, cada institución lo redacta a su gusto).
+
+### 15.11. No incluye (de esta subtarea)
+
+- Recalcular o redistribuir automáticamente las cuotas futuras ante un pago parcial (15.5) — es un requisito explícito del documento, no una limitación.
+- Intereses o recargos automáticos por mora: la mora es solo informativa (15.3).
+- El adaptador de beneficios/cupones no reemplaza el motor completo de descuentos/lealtad de Odoo (ver límites en 15.8).
+- La tirilla de pago (15.10) no distingue "impresión" de "reimpresión" (p. ej. con un sello "REIMPRESIÓN"): el requerimiento 12458 no lo exige, cualquier impresión posterior a la primera usa el mismo botón y el mismo contenido.
+
+---
+
+## 16. Ajuste y ampliación de Reportes Académicos (tarea 12436)
+
+Expone desde **Informes** los reportes académicos que el Consolidado de notas (sección 14) ya construía, y agrega dos salidas nuevas en Excel para el análisis consolidado del Programa. Ningún reporte de esta sección recalcula notas, Pass/Fail ni rango de desempeño: todos leen la información que el Consolidado ya tiene calculada.
+
+### 16.1. Class List / Listado del Módulo — desde Hoja de calificaciones
+
+**Dónde:** Gestión Educativa → Informes → Hoja de calificaciones. Después de seleccionar Programación académica, Nivel académico y Clase ofertada, aparece el botón **Generar Class List** junto a "Fetch GradeSheet".
+
+Al pulsarlo se abre un asistente con:
+- **Calificación** (Midterm/Final): solo visible si la Escala de la clase maneja 2 cortes; con 1 corte, el Class List siempre usa el resultado Final.
+- **Columnas adicionales**, cada una independiente: **Notas** (componentes académicos del corte elegido, más Fin. Quiz Average, Midterm/Final Grade, Rank, ABS y Pass/Fail), **Factura** (la más reciente de la Inscripción), **Teléfono**, **Celular** y **Correo electrónico**.
+
+Sin ninguna columna adicional marcada, el PDF es la lista básica (Código, Estudiante, Firma) — el mismo comportamiento que ya tenían los botones "Class List (todos/Pass/Fail)" del Consolidado (14.11), que siguen funcionando igual y ahora también con el encabezado completo de la clase (Programa, Nivel, Módulo, Profesor, Assistant teacher, Libro, Horario, Salón, Fecha, Total de estudiantes).
+
+### 16.2. Reporte Individual del Estudiante — desde Boleta de calificaciones
+
+**Dónde:** Gestión Educativa → Informes → Boleta de calificaciones. Seleccionando uno o varios registros y usando el menú **Imprimir → Reporte Individual del Estudiante** (el mismo menú nativo de impresión de Odoo, sin botón aparte).
+
+El PDF combina, **en un solo documento**, las secciones Midterm y Final cuando la Escala de la clase maneja 2 cortes (componentes con peso y nota, Midterm/Final Grade, ausencias, ranking de cada corte); con 1 corte, solo imprime la sección Final. Al final, si el Tipo de programa del estudiante tiene activo **"Mostrar equivalencia con el Marco Común Europeo"** (nuevo check en Configuración → Académicos → Tipos de programa), agrega la tabla de equivalencia entre los niveles del Colombo y el MCE (A1/A2/B1/B1-B2) — se activa por Programa, nunca por código, y queda desactivado por defecto en cualquier Tipo de programa nuevo o existente.
+
+### 16.3. Reportes de Análisis Académico (Excel)
+
+**Dónde:** nueva opción **Gestión Educativa → Informes → Reportes de Análisis Académico**.
+
+El asistente pide: **Tipo de reporte** (Distribución por Desempeño / Retención, Promoción, Pérdida y Deserción), **Periodo académico**, **Programa** y, opcionalmente, **Sede**. El filtro Programa es el agrupador principal: incluye automáticamente todos los niveles, módulos, clases ofertadas y horarios del Programa dentro del Periodo (y la Sede, si se indica) seleccionados — no hace falta elegir uno por uno. El botón **Generar Excel** descarga el archivo.
+
+- **Reporte de Distribución por Desempeño**: una fila por Rango de desempeño activo de las Escalas involucradas (Código, Desempeño, Rango de calificación, No. de estudiantes, Porcentaje de estudiantes) más el total de estudiantes evaluados. Los porcentajes se calculan sobre el total de estudiantes **evaluados** (con un rango asignado); un estudiante con resultado pendiente no cuenta en ningún rango ni en el total.
+- **Reporte de Retención, Promoción, Pérdida y Deserción**: una fila por cada Clase ofertada dentro del alcance (Periodo, Nivel, Horario, Total estudiantes, Estudiantes retenidos, Promovidos, Perdidos, Estudiantes desertados), más una fila de totales y los cuatro indicadores: % Retención (Retenidos/Total), % Promoción (Promovidos/Retenidos), % Pérdida (Perdidos/Retenidos) y % Deserción (Desertados/Total). Reglas de clasificación: **Retenido** = matriculado que no está marcado como desertado; **Promovido**/**Perdido** = retenido con Pass/Fail consolidado; **Desertado** = estudiante con la etiqueta de asistencia **Deserción** (16.4) registrada en al menos una sesión de esa clase, sin importar sus horas de ausencia acumuladas.
+
+**No incluido:** la columna "Rango establecido" (meta institucional por rango) que trae el formato de referencia del Colombo no se incluye — es una meta manual sin ningún dato equivalente en Odoo hoy, y los criterios de aceptación de la tarea no la piden; si la institución la necesita, se puede agregar como un campo configurable nuevo en el catálogo de Rangos de desempeño (14.5).
+
+### 16.4. Etiqueta de asistencia "Deserción"
+
+**Dónde:** Marcar Asistencia de la sesión correspondiente, campo de Etiquetas (igual que "Llegada tarde", sección 14).
+
+Etiqueta nueva, sin ningún efecto sobre Pass/Fail, ranking ni rango de desempeño del Consolidado — su único efecto es que el Reporte de Retención (16.3) clasifica como "Desertado" a cualquier estudiante que la tenga marcada en al menos una sesión de la clase, en vez de usar sus horas de ausencia acumuladas (esas horas siguen usándose, sin cambios, para las reglas de aprobación/reprobación de la Escala, sección 14.8).
+
+### 16.5. No incluye (de esta tarea)
+
+- Un punto de acceso adicional a estos reportes desde el formulario del Consolidado de notas (más allá de los botones y el menú Imprimir que ya existían) — se evaluó un diagrama de referencia que sugería un menú "Acción" con las 4 salidas también ahí, pero se descartó por no estar en el texto del requerimiento; los 4 reportes siguen accesibles desde el Consolidado igual que antes (14.11).
+- Guardar o versionar los Excel generados dentro de Odoo más allá de la descarga directa (igual que el resto de exportaciones del módulo, p. ej. 14.8).
+- Reportes de Registros/Cursos, Financieros (Clientes/Beneficios/Formas de pago) e Histórico Académico ampliado — corresponden a otras subtareas del mismo requerimiento padre (tarea 12405). El Reporte de Consecutivos ya se cubrió aparte (sección 19).
+
+---
+
+## 17. Ajuste y ampliación del Histórico Académico del Estudiante (tarea 12438)
+
+Amplía la funcionalidad existente **Gestión Educativa → Informes → Historial académico** para que muestre, de forma consolidada, **toda la trayectoria académica del estudiante** (todos los programas, periodos, niveles/módulos y clases cursadas), en vez de una sola Programación académica a la vez. No se creó ningún menú ni pantalla paralela: es la misma opción de Informes, ampliada. Toda la información se lee ya consolidada (Consolidado de notas, sección 14; Resultado académico y Promoción/Finalización, sección 12; Observaciones) — nada se recalcula.
+
+### 17.1. Consulta de la trayectoria completa
+
+**Dónde:** Gestión Educativa → Informes → Historial académico.
+
+Los filtros existentes (Programación académica y Estudiante) se conservan en pantalla, pero la Programación académica ya no limita el resultado: al elegir un Estudiante y pulsar **Consultar historial académico**, el sistema trae siempre **toda** su trayectoria, sin importar el programa o periodo.
+
+La tabla **Trayectoria académica** muestra, por cada Clase ofertada cursada: Programa, Periodo académico, Nivel/Módulo, Clase ofertada, Inscripción, Fecha inicio, Fecha fin, Resultado académico, Final Grade, Equivalencia cualitativa, Pass/Fail, Horas de ausencia, Estado académico, Acción realizada, Fecha de acción y Observaciones — más reciente primero.
+
+Al hacer clic en una fila, debajo aparece el **Detalle de calificaciones** de esa clase (los mismos componentes con ponderación y nota del Consolidado, sección 14.8 — Midterm y Final cuando la Escala maneja 2 cortes, solo Final con 1 corte) y un panel de **Resumen de la clase** (Final Grade, Equivalencia cualitativa, Pass/Fail, Ranking, Horas de ausencia). Por defecto, al consultar, se selecciona la clase más reciente. Una clase sin Consolidado de notas (sin Estructura de calificación avanzada aplicada) muestra la fila igual, pero el detalle indica que no hay componentes disponibles.
+
+### 17.2. Equivalencia cualitativa
+
+Se reutiliza el **Rango de desempeño** ya existente (DS/DA/DBS/DBJ — Desempeño Superior/Alto/Básico/Bajo, sección 14.5): no se creó un catálogo nuevo de letras. La columna/campo "Equivalencia cualitativa" de la trayectoria y del detalle muestra ese mismo rango, calculado por el Consolidado de la clase.
+
+### 17.3. Estado académico y Acción realizada
+
+El **Estado académico** mostrado en cada fila es el estado **actual** del estudiante (Nuevo/Activado/Liberado/Aplazado, sección 11) — no existe (ni se reconstruye) un histórico de qué estado tenía exactamente en el momento de cursar cada clase, porque ese estado es un dato del Estudiante, no de cada Inscripción.
+
+La **Acción realizada** (Promovido/Finalizado) y su Fecha vienen del registro de trazabilidad de Promoción/Finalización (sección 12.5) de la Inscripción de origen de cada fila; una fila sin ninguna acción registrada queda en blanco (en curso).
+
+### 17.4. Observaciones
+
+Las Observaciones de cada fila son las que están ligadas a esa Inscripción **y** esa Clase ofertada específicas (sección 7). Las observaciones que no están ligadas a ninguna clase en particular se agrupan aparte como "Observaciones generales del estudiante", solo en el PDF (17.5) — no se muestran en la pantalla, para no mezclarlas con el detalle de una clase concreta.
+
+### 17.5. Descargar PDF
+
+Botón **Descargar PDF** nuevo, junto a "Consultar historial académico". Genera un reporte propio (no el de transcripción estándar de Webkul, que sigue funcionando igual para quien lo necesite, portal del estudiante incluido) que agrupa la trayectoria por Programa, con el detalle de calificaciones de la clase más reciente y las observaciones generales del estudiante al final.
+
+### 17.6. Permisos
+
+La consulta y el PDF están disponibles únicamente para Officer/Admin — el mismo grupo que ya restringía este menú; se valida además explícitamente en el método que arma la información (no solo en la vista), para cubrir cualquier llamada que no pase por el menú.
+
+### 17.7. No incluye (de esta tarea)
+
+- Reconstruir un histórico real del Estado académico por clase/periodo — se usa el estado actual del estudiante (17.3).
+- Un catálogo nuevo de Equivalencia cualitativa tipo letra (A/B+/C-) — se reutiliza el Rango de desempeño existente (17.2).
+- Modificación de calificaciones, matrículas, asistencia u observaciones desde la vista de histórico: es únicamente de consulta.
+- Certificados académicos y reportes financieros/operativos — corresponden a otras subtareas del mismo requerimiento padre (tarea 12405).
+
+---
+
+## 18. Reporte de Registros / Cursos desde Clases Ofertadas (tarea 12439)
+
+Agrega la generación del **Reporte de Registros / Cursos** suministrado por el Colombo, reutilizando por completo la vista existente de **Clases ofertadas** (sección 9) como fuente de consulta y selección — no se crea ninguna pantalla ni proceso paralelo.
+
+### 18.1. Cómo generarlo
+
+**Dónde:** Gestión Educativa → Clases → **Clases ofertadas**.
+
+El usuario consulta, filtra y agrupa con las herramientas estándar de Odoo (18.2), selecciona con el check de la izquierda uno, varios o todos los registros resultantes, y presiona el botón **Generar Reporte de Registros / Cursos** que aparece en la barra superior junto a "Activar seleccionadas" / "Inactivar seleccionadas" — visible solo para Officer/Admin. El archivo Excel se descarga de inmediato; la acción es de solo consulta/exportación y no modifica ningún registro.
+
+### 18.2. Filtros y agrupaciones nuevos
+
+Para que Sede, Programa, Fecha y Horario puedan usarse como criterio de búsqueda (no solo visualizarse en la lista), se agregaron al buscador de Clases ofertadas:
+
+- **Sede** y **Programa** (18.3): ahora seleccionables directamente en el buscador, además de como agrupación.
+- **Horario**: también disponible como campo de búsqueda propio, además de ya estar incluido en la búsqueda libre por texto (sección 9.3).
+- **Fecha**: ya existían los filtros "Empezar desde" / "Terminar hasta" (rango de fechas) desde antes de esta tarea.
+- **Agrupar por → Programa**: nueva opción, junto a las ya existentes (Materia, Nivel académico, Modalidad, Sede, etc.).
+
+### 18.3. Campo nuevo "Programa"
+
+**Dónde:** formulario de Clase ofertada, junto a Sede; también disponible como columna opcional en la lista.
+
+Cada Clase ofertada puede indicar su Programa (mismo catálogo configurable "Tipo de programa" usado en la Solicitud y el Estudiante). Es independiente de si la clase tiene o no una Estructura de calificación avanzada aplicada (sección 14) — antes de esta tarea, el Programa solo podía conocerse para esas clases avanzadas (vía su Escala), dejando sin Programa a la mayoría. Si la clase sí tiene una Escala avanzada con Programa definido, se sugiere automáticamente ese valor al elegirla (sin sobreescribir una selección manual ya hecha); en cualquier otro caso se elige a mano.
+
+### 18.4. Contenido del Excel
+
+El archivo trae, antes de la tabla, un encabezado con Programa, Sede, Fecha (rango) y Horario (rango) de la selección — cuando los registros seleccionados corresponden a varios valores de un mismo dato (p. ej. dos Sedes), el encabezado los lista todos, separados por coma.
+
+La tabla trae una fila por cada Clase ofertada seleccionada, agrupada por **Curso** (Nivel académico) con un renglón de subtotal (cantidad de clases, Cupos, Inscritos y Libres) al cerrar cada grupo, y un total general al final. Columnas: Curso, Horario, Fecha Ini, Fecha Fin, Profesor, Assistant Teacher, Libro, Salón, Cupos, Inscritos y Libres (**Libres = Cupos − Inscritos**). Toda la información se lee de la Clase ofertada y sus relaciones ya existentes (Nivel, Horario semanal, Docente, Docente asistente, Libro, matrícula) — nada se digita de nuevo. Un dato que no aplique a una clase (p. ej. sin Libro o sin Docente asistente) deja la celda vacía sin bloquear la generación del resto del archivo.
+
+### 18.5. Permisos
+
+Generar el reporte requiere **Officer o Admin** (mismo grupo que ya protege "Activar/Inactivar seleccionadas"); un usuario Staff no ve el botón y, aunque intente invocar la acción de otra forma, el sistema la rechaza igualmente.
+
+### 18.6. No incluye (de esta tarea)
+
+- Guardar o versionar los Excel generados dentro de Odoo más allá de la descarga directa (igual que el resto de exportaciones del módulo, p. ej. 16.3).
+- Reportes Financieros (Clientes/Beneficios/Formas de pago) e Histórico Académico ampliado — corresponden a otras subtareas del mismo requerimiento padre (tarea 12405). El Reporte de Consecutivos ya se cubrió aparte (sección 19).
+
+---
+
+## 19. Reporte de Consecutivos desde Recibos de cobro (tarea 12447)
+
+Agrega la generación del **Reporte de Consecutivos** suministrado por el Colombo, reutilizando por completo la vista existente de **Recibos de cobro** (sección 15.9) como fuente de consulta y selección — no se crea ninguna pantalla ni proceso paralelo. Es independiente del Libro, Folio y Consecutivo usados en certificados académicos (otra subtarea).
+
+### 19.1. Cómo generarlo
+
+**Dónde:** Gestión Educativa → Informes → **Recibos de cobro**.
+
+El usuario consulta, filtra y agrupa con las herramientas estándar de Odoo, selecciona con el check de la izquierda uno, varios o todos los registros resultantes, abre el menú **Imprimir** (ícono de engranaje ⚙ junto al título de la lista, el mismo que trae Exportar/Eliminar registros) y elige **Imprimir Reporte de Consecutivos** — visible solo para Officer/Admin. El archivo Excel se descarga de inmediato; la acción es de solo consulta/exportación y no modifica ningún Recibo de cobro, factura, matrícula ni pago.
+
+### 19.2. Contenido del Excel
+
+El archivo trae, antes de la tabla, un encabezado con "REPORTE CONSECUTIVO", Fecha inicial y Fecha final (rango de fechas de creación de los recibos seleccionados), "Agrupamiento: Usuario" y la fecha/hora de generación.
+
+Los registros se agrupan por **Usuario** (quien creó el Recibo de cobro), cada grupo con su propio renglón de encabezado de columnas, un **Subtotal** (Valor e Ingresos) al cerrar el grupo, y un **Total general** al final del archivo. Columnas por recibo: Factura (de la Factura asociada), Fecha (fecha y hora de creación del recibo), Estudiante (documento y nombre del Alumno), Cliente (contacto facturado en la Factura asociada), Fecha inicio / Fecha fin (del propio recibo), Cursos (Nivel académico más las Clases ofertadas cursadas en esa Inscripción), Beneficios (motivo y valor de cada registro de Beneficios/descuentos del recibo, sección 15.8), Observaciones (narración de la Factura asociada, si tiene), Valor (Valor total del recibo), Ingresos (Valor pagado) y Cuotas (N° de cuotas programadas, 0 si no es pago por cuotas). Un recibo sin Factura, sin Beneficios o sin Observaciones deja esas celdas vacías sin bloquear la generación del resto del archivo.
+
+### 19.3. Permisos
+
+Generar el reporte requiere **Officer o Admin** (mismo grupo que ya protege el menú de Recibos de cobro); un usuario Staff no ve la opción en el menú Imprimir y, aunque intente invocar la acción de otra forma, el sistema la rechaza igualmente.
+
+### 19.4. No incluye (de esta tarea)
+
+- Guardar o versionar los Excel generados dentro de Odoo más allá de la descarga directa (igual que el resto de exportaciones del módulo, p. ej. 18.6).
+- Cualquier relación con Libro de Registro, Folio o Consecutivo de certificados académicos — es un reporte operativo/financiero independiente (otra subtarea).
+- Reportes Financieros (Clientes/Beneficios/Formas de pago) e Histórico Académico ampliado — corresponden a otras subtareas del mismo requerimiento padre (tarea 12405).
+
+---
+
+## 20. Reportes Financieros de Matrículas desde Recibos de cobro (tarea 12450)
+
+Agrega 3 reportes financieros suministrados por el Colombo, reutilizando por completo la misma vista de **Recibos de cobro** (sección 15.9 / 19) como fuente de consulta y selección — mismo patrón que el Reporte de Consecutivos (sección 19): sin vista ni asistente nuevos.
+
+### 20.1. Cómo generarlos
+
+**Dónde:** Gestión Educativa → Informes → **Recibos de cobro**.
+
+El usuario consulta, filtra y agrupa con las herramientas estándar de Odoo, selecciona uno, varios o todos los registros, abre el menú **Imprimir** (ícono de engranaje ⚙ junto al título de la lista) y elige una de las 3 opciones nuevas (visibles solo para Officer/Admin, junto a la de Consecutivos):
+
+- **Imprimir Reporte Clientes / Matrículas**
+- **Imprimir Reporte Beneficios / Matrículas**
+- **Imprimir Reporte Formas de Pago / Matrículas**
+
+Cada una descarga de inmediato su propio Excel. Es de solo consulta/exportación: ninguna modifica Recibos de cobro, facturas, matrículas, beneficios ni pagos.
+
+### 20.2. Encabezado común
+
+Los 3 archivos comparten el mismo encabezado: "REPORTE FINANCIERO POR MATRICULAS", Programa, Sede, Fecha (rango) y Horario (rango) de las clases incluidas en la selección, y la fecha/hora de generación. Cuando la selección cubre un único Programa/Sede/Horario se muestra ese valor; si cubre varios, se listan todos separados por coma (mismo criterio que el Reporte de Registros/Cursos, sección 18).
+
+### 20.3. Columnas comunes a los 3 reportes
+
+Programa, Cursos, Fecha inicio, Fecha fin y Horario vienen de la Clase ofertada asociada al recibo (si el recibo no resuelve a ninguna clase, estas columnas quedan vacías sin bloquear la fila). No. de Identidad y Estudiante vienen del Alumno del recibo.
+
+**Tipo** (Nuevos/Antiguos) y **Matrículas** no son campos que el usuario diligencia: se calculan solos.
+
+- **Tipo**: "Nuevos" si ese recibo es el más antiguo de **todo** el historial del estudiante (sin importar cuáles recibos están seleccionados en este reporte); cualquier otro recibo del mismo estudiante aparece como "Antiguos".
+- **Matrículas**: mes y año (en español) de la **fecha de inicio del propio recibo** — por eso dos estudiantes de la misma clase pueden mostrar un mes distinto en esta columna: cada uno refleja cuándo empezó a regir su propio recibo, no las fechas de la clase.
+
+### 20.4. Reporte Financiero – Clientes / Matrículas
+
+Una fila por Recibo de cobro seleccionado. Además de las columnas comunes: No. de Identidad y Cliente (del contacto facturado en la Factura asociada al recibo), Factura, Fecha (de la Factura) y Valor (Valor total del recibo). Al final, Subtotal y Total (suma de Valor sobre los registros incluidos).
+
+### 20.5. Reporte Financiero – Beneficios / Matrículas
+
+Una fila por cada beneficio o descuento aplicado al recibo (mismo registro de Beneficios/descuentos que ya trae el recibo, sección 15.8). Columnas propias: Nombre del beneficio y Valor (el monto descontado). Si el recibo no tiene ningún beneficio, aparece de todas formas con el nombre vacío y Valor en cero — la ausencia de beneficio no bloquea el reporte. Si tiene varios, aparece una fila por cada uno. Subtotal y Total suman solo la columna Valor de beneficios.
+
+### 20.6. Reporte Financiero – Formas de Pago / Matrículas
+
+Una fila por cada pago conciliado con la Factura del recibo. Columnas propias: Formas de pago (el medio usado en ese pago, p. ej. "Pago por WOMPI", "TJ. VISA Cr", o el nombre del diario cuando el pago se registró con un asiento manual de caja/banco), Factura, Fecha (del pago) y Valor (el monto de ese pago). Si la factura todavía no tiene ningún pago registrado, aparece de todas formas con Forma de pago vacía y Valor en cero. Si un mismo recibo se pagó con varios movimientos (p. ej. dos abonos con medios distintos), aparece una fila por cada uno. Subtotal y Total suman solo la columna Valor de pagos.
+
+### 20.7. Permisos
+
+Generar cualquiera de los 3 reportes requiere **Officer o Admin** (mismo grupo que ya protege el menú de Recibos de cobro y el Reporte de Consecutivos); un usuario Staff no ve las opciones en el menú Imprimir y, aunque intente invocar la acción de otra forma, el sistema la rechaza igualmente.
+
+### 20.8. No incluye (de esta tarea)
+
+- Un campo editable para "Tipo" o "Matrículas" — ambos se calculan siempre, no se pueden corregir a mano.
+- Guardar o versionar los Excel generados dentro de Odoo más allá de la descarga directa.
+- Cualquier cambio al Reporte de Consecutivos (sección 19) o al de Registros/Cursos (sección 18) — son reportes independientes que conviven en el mismo menú Imprimir.
+
+---
+
+## 21. Wizard de Generación de Certificados Académicos (tarea 12451)
+
+Nueva funcionalidad dentro de **Gestión Educativa → Informes → Certificados**: un wizard que genera, en PDF, los certificados académicos del Colombo (Inglés Básico, Inglés Intermedio Adultos, Inglés Intermedio Adolescentes y Programa Avanzado), usando siempre la información académica ya registrada del estudiante.
+
+### 21.1. Cómo generarlo
+
+**Dónde:** Gestión Educativa → Informes → **Certificados** (única opción de menú, visible solo para Officer/Admin).
+
+El wizard pide:
+
+- **Programa / Módulo**, **Sede** — siempre.
+- **Tipo de población** (Niños/Adolescentes/Adultos) y **Nivel** — solo si el Programa elegido **no** está marcado como "Programa Avanzado" (ver 21.5).
+- **Clase ofertada** — solo si el Programa **sí** está marcado como Avanzado.
+- **Modalidad de generación**: Individual o Grupal.
+- **Estudiante(s)**: la lista se filtra sola a los que cumplen la combinación elegida (ver 21.2); no se puede escribir un estudiante que no aparezca ahí.
+- **Intensidad horaria**, **Fecha de inicio/fin**, **Fecha de expedición**, **Lugar de expedición** — siempre manuales, el sistema nunca los calcula ni los asigna.
+- **Libro, Folio y Consecutivo** — manuales, solo para los certificados que no son Programa Avanzado; en modalidad Grupal se puede elegir si son **comunes a todo el lote** o **individuales por estudiante** (tabla editable).
+
+Al pulsar **Generar Certificado(s)** se descarga un único PDF (un certificado por estudiante seleccionado, en modalidad Grupal) y queda un registro de histórico por cada estudiante (ver 21.4).
+
+### 21.2. Cómo se eligen los estudiantes
+
+- **Certificados regulares** (no Avanzado): se listan los estudiantes con una Inscripción cuyo Programa, Tipo de población, Nivel y Sede coincidan exactamente con lo elegido en el wizard, y cuyo **Resultado académico sea Aprobado**.
+- **Programa Avanzado**: se listan los estudiantes matriculados en la Clase ofertada elegida (sin filtrar por Resultado académico, porque este formato corresponde a cursos cortos independientes de la estructura de Nivel/Inscripción estándar).
+
+### 21.3. Cómo se determina la plantilla (el usuario nunca la elige)
+
+El tipo de certificado y su formato se infieren siempre de lo seleccionado, nunca de un campo propio:
+
+| Elección en el wizard | Certificado |
+|---|---|
+| Programa normal + Tipo de población "Niños" | Inglés Básico |
+| Programa normal + Tipo de población "Adultos" | Inglés Intermedio (texto "para Adultos") |
+| Programa normal + Tipo de población "Adolescentes" | Inglés Intermedio (texto "para Adolescentes") |
+| Programa marcado "Es Programa Avanzado" | Programa Avanzado (formato visual distinto, sin Libro/Folio/Consecutivo) |
+
+En el certificado de Programa Avanzado, el **nombre del curso** es el campo "Título" de la Clase ofertada elegida, y el **Docente** que firma es el profesor asignado a esa misma clase — ninguno de los dos se vuelve a escribir a mano.
+
+### 21.4. Consulta posterior (Libro, Folio, Consecutivo)
+
+Cada certificado generado queda como un registro propio (no se pierde al cerrar el wizard):
+
+- **Ficha del Estudiante → pestaña "Certificados"**: lista de solo lectura con todos los certificados de ese estudiante.
+- Dentro del wizard, botón **"Ver histórico generado"**: abre la lista completa (todos los estudiantes).
+- Cada registro tiene un botón **"Descargar PDF"** con su certificado (aunque se haya generado junto con otros en modalidad Grupal, cada estudiante conserva su propia copia descargable).
+
+El Consecutivo queda guardado para consulta, pero **no se imprime** en el documento (ningún formato de referencia del Colombo lo muestra impreso); Libro y Folio sí se imprimen, en palabras y en número (p. ej. "Libro de Registro No. Uno (1)").
+
+### 21.5. Configuración institucional por Sede
+
+**Dónde:** Configuración → Académicos → **Configuración de Certificados** (Officer/Admin).
+
+Un registro por Sede con: Lugar de expedición sugerido, el texto completo de Resolución institucional (uno para Básico/Intermedio, otro más corto para Avanzado) y el nombre/cargo de la Directora Ejecutiva y la Directora Académica que firman el certificado. Viene precargado con los datos ya usados en los formatos físicos de Norte y Centro; editable sin necesitar un desarrollo nuevo si cambia una resolución o una firma.
+
+El catálogo "Programa" (Configuración → Académicos → Tipos de programa) tiene ahora un check **"Es Programa Avanzado (Certificados)"**: márquelo únicamente en el Programa que represente los cursos avanzados — es lo que activa el modo distinto del wizard (21.1).
+
+### 21.6. Permisos
+
+Igual que el resto de reportes de Informes: generar certificados, consultar el histórico y la Configuración de Certificados requiere **Officer o Admin**. Un usuario Staff no ve el menú "Certificados" ni "Configuración de Certificados".
+
+### 21.7. No incluye (de esta tarea)
+
+- Asignación o cálculo automático de Libro, Folio o Consecutivo — siempre son manuales, por diseño del requerimiento.
+- Un catálogo editable de "Tipo de población": es una lista fija de 3 valores (Niños/Adolescentes/Adultos).
+- Firma digital o códigos de verificación en el PDF.
+- Reimpresión masiva de certificados ya generados — "Descargar PDF" reimprime uno a la vez, desde el histórico.
 
 ---
 
 ## Glosario rápido de decisiones (para no repreguntar)
 
-- **¿Por qué "Sede" es la Compañía y no un catálogo nuevo?** Porque el módulo ya usa la Compañía para separar toda la información por sede (Clases, Inscripciones, reglas de acceso). Crear un catálogo aparte hubiera duplicado ese concepto.
+- **¿Por qué "Sede" es un catálogo propio y no la Compañía?** En la primera versión se reutilizó `company_id` (la Compañía de Odoo), porque el módulo ya la usa para separar información en otros contextos. Se revirtió a pedido del cliente: usar la Compañía real trae implicaciones de multi-compañía (contabilidad, almacenes, reglas de registro) que no aplican a un dato puramente descriptivo como la sede de una clase o inscripción. `company_id` se conserva donde Odoo lo exige (es un campo técnico interno, p. ej. alimenta `observation_company_rule` en `security/ir_rule.xml`), pero ya no se le muestra al usuario — el nuevo catálogo `wk.school.colombo.sede` (sección 9.7) toma ese lugar en todas las vistas.
+- **¿Por qué "Libro" es un Many2one a Productos filtrado por un check, y no el catálogo bibliotecario del módulo base?** El catálogo bibliotecario (`wk.books`) es de la funcionalidad de biblioteca, que la institución no usa, y nunca trae resultados reales. Atarlo directo a Productos sin filtro traería certificados, exámenes y demás ítems de venta mezclados; se agregó un Boolean nuevo ("¿Es libro?", `product.product.is_book_element`) como domain, siguiendo el mismo patrón ya usado en el módulo base para "Elementos de tarifa" (`is_fee_element`/`libray_element`), en vez de inventar un catálogo o campo de texto aparte.
+- **¿Por qué la Escala básica no aparece en el selector "Escala de calificación (avanzada)" de la Clase?** Es intencional (14.6): ese campo es exclusivo de la estructura avanzada. Una Escala sin esa estructura se selecciona en el Nivel (`wk.school.grade`) o en la Materia (`wk.grade.subjects`), sin domain — no hace falta ningún cambio de código, solo usar el selector correcto.
+- **¿Por qué los Nombres/Apellidos separados y los campos del aspirante no llegaban al Contacto?** Viajaban al Estudiante (`wizard/enroll_wizard.py`) desde el inicio, pero nunca se agregaron a `res.partner` ni al mapa de sincronización Estudiante→Contacto (`_SYNC_FIELD_MAP`). No es que "no se guardaran": se guardaban en el lugar equivocado para lo que el cliente necesitaba ver en Contactos.
+- **¿Por qué el examen de clasificación se modela como una Clase más, con un check, en vez de un asistente o un modelo aparte?** Porque ya se calificaba como una Clase (con su propia Escala de un componente) antes de esta ronda de ajustes; la única pieza que faltaba era la propagación del nivel cualitativo (Comentarios) hacia la Inscripción, así que se amarró a esa misma Clase con un flag explícito en vez de duplicar el flujo de calificación.
+- **¿Por qué "Deserción" es una etiqueta de asistencia y no un campo en la Inscripción?** El requerimiento de la tarea 12436 pide explícitamente que la condición se determine "a partir de la etiqueta registrada en el proceso de asistencia", y ese mecanismo (`wk.attendance.tag`, por sesión) ya existía y ya se usaba para "Llegada tarde" (14) — agregar un campo aparte en la Inscripción habría sido un segundo lugar para marcar lo mismo, sin que el requerimiento lo pidiera.
+- **¿Por qué el Reporte de Distribución y el de Retención (Excel) filtran por Programa y no por Nivel académico directamente?** El campo "Programa" (`wk.school.colombo.program.type`) vive en la Escala de calificación aplicada a cada clase (`grading_scale_id.program_type_id`, 14.5), no en el Nivel académico — es el agrupador que ya usa el Consolidado (`program_type_id`, columna de la lista de Consolidados), y es el que permite incluir automáticamente "todos los niveles, módulos, clases y horarios" del Programa sin seleccionarlos uno por uno, tal como pide el requerimiento.
 - **¿Por qué "Tipo" y "Origen" son campos distintos en Observaciones si parecen decir lo mismo?** Origen es técnico y automático (de qué pantalla vino la nota). Tipo es una clasificación de negocio, editable, independiente. El requerimiento los pide como dos datos separados.
 - **¿Por qué toda observación necesita una Inscripción?** Porque así lo muestra la evidencia del cliente (la referencia de una observación es el número de la inscripción) y porque sin ese ancla no habría forma de saber a qué proceso académico pertenece cada nota.
 - **¿Por qué el motivo de restricción está dentro de la pestaña Disciplina y no en un grupo aparte?** Porque el criterio de aceptación del requerimiento lo pide explícitamente así.
@@ -591,6 +1028,13 @@ Los tres reportes leen siempre la información ya consolidada (el histórico con
 - **¿Por qué un componente puede tener peso en Midterm y en Final a la vez, en vez de ser dos filas separadas?** Porque el documento del cliente pide explícitamente que una misma calificación (p. ej. Quiz 1) se reutilice en ambos cortes sin que el docente la registre dos veces. Una sola fila con dos columnas de peso (0 = no participa en ese corte) logra eso sin duplicar la actividad ni el dato.
 - **¿Por qué la nota de un componente no se normaliza contra ningún "puntaje máximo" distinto de 100?** El requerimiento pide que la calificación registrada por el docente sea el "valor académico directo del componente, sin conversiones" — se usa tal cual, con 100 como puntaje máximo por defecto en las actividades de una estructura avanzada.
 - **¿Qué pasa si falta la calificación de un componente con peso mayor que 0?** La línea queda marcada "Incompleto": no entra al ranking y bloquea la confirmación de ese corte. Evita confirmar (y dejar como histórico) un resultado calculado sobre información parcial.
+- **¿Por qué "Programa" se agregó como campo propio y editable en la Clase ofertada (18.3), en vez de reutilizar `grading_scale_id.program_type_id` como hace el reporte de la sección 16?** Esa relación solo existe para clases con Estructura de calificación avanzada aplicada (una minoría); el Reporte de Registros/Cursos debe funcionar para **cualquier** Clase ofertada seleccionada, con o sin esa estructura. Un Many2one directo (mismo patrón que Sede/Modalidad/Libro) cubre el 100% de los casos; el onchange solo evita doble captura cuando la clase sí tiene la Escala avanzada.
 - **¿Por qué el ranking y el Pass/Fail se recalculan con un botón "Actualizar" y no en vivo con cada clic?** El ranking depende de **todos** los compañeros de clase a la vez (no es un cálculo por estudiante aislado); encadenar ese tipo de cálculo de grupo a través de cómputos automáticos entre hermanos de una misma lista es frágil. Las notas de cada componente sí se recalculan solas; "Actualizar" (y la confirmación, que siempre refresca antes de congelar) garantiza que ranking, Pass/Fail y horas de ausencia queden al día.
 - **¿Por qué el Consolidado no se ve como una grilla con una columna por cada componente?** Ver "No incluye" al inicio del documento: se priorizó que el cálculo fuera correcto y verificable (incluida la reproducción exacta de los ejemplos numéricos del requerimiento) sobre construir un widget de columnas dinámicas; el detalle por componente de cada estudiante existe y alimenta los reportes, pero se consulta por estudiante.
 - **¿Por qué "Visible en portal" oculta la nota mostrándola en 0 en vez de quitar la fila de la Materia?** Es el mismo valor que ya usa el portal para una Materia que todavía no tiene calificación (no roto ningún comportamiento existente del portal), y evita construir una plantilla aparte solo para este caso.
+- **¿Por qué el Reporte de Consecutivos y los 3 Reportes Financieros aparecen en el menú Imprimir nativo (icono ⚙, junto a Exportar/Eliminar registros) y no como botones propios en la barra?** Primera versión de ambas tareas (12447/12450) usó un botón en `<header>` (patrón de la tarea 12439), porque en ese momento se asumió que el menú Imprimir nativo no admitía una acción propia — una conclusión equivocada, corregida a pedido del cliente tras ver la captura de referencia. Sí se admite: un `ir.actions.report` con `report_type="xlsx"` (vía el módulo comunitario `report_xlsx`, ya vendido en `produccion/19.0` y usado por `account_report`/`stock_report`) y `binding_model_id`/`binding_type="report"` sobre `wk.fee.slip` lo agrega automáticamente a ese menú, igual que cualquier otro reporte de impresión de Odoo (mismo mecanismo ya usado en este módulo para PDF, p. ej. `report/academic_history_report.xml`). La generación del Excel (`_wk_build_*_workbook` en `models/fee_slip.py`) no cambió; solo cambió cómo se invoca — ver `report/fee_slip_financial_reports.py`/`.xml`.
+- **¿Por qué "Valor" = Valor total e "Ingresos" = Valor pagado en el Reporte de Consecutivos, y no Saldo pendiente?** El documento no define estas dos columnas de forma explícita, solo dice que deben "construirse utilizando la información existente" (sección 2.11); confirmado con el usuario, es la lectura más directa: Valor es lo facturado y Ingresos es lo efectivamente recaudado hasta la fecha de generación.
+- **¿De dónde sale la columna "Observaciones" del Reporte de Consecutivos si el Recibo de cobro no tiene un campo de notas propio?** Se usa la narración (`account.move.narration`) de la Factura asociada al recibo, confirmado con el usuario — es el único texto libre ya existente en Odoo ligado a esa operación. Un recibo sin factura o cuya factura no tenga narración deja la celda vacía.
+- **¿De dónde salen "Tipo" (Nuevos/Antiguos) y "Matrículas" en los Reportes Financieros (sección 20) si no son campos de Odoo?** No existía ningún campo equivalente; confirmado con el usuario antes de codificar (mismo criterio que las ambigüedades de los reportes 18/19): "Tipo" se calcula comparando el recibo contra todo el historial del estudiante (el más antiguo = Nuevos), y "Matrículas" es el mes/año del propio `date_from` del recibo — no del período académico de la Clase, porque los 3 Excel de referencia del cliente muestran valores distintos de "Matrículas" para estudiantes de la misma clase con las mismas fechas.
+- **¿Por qué los 3 Reportes Financieros (sección 20) usan como máximo 1 Clase por recibo, en vez de una fila por cada Clase cuando un recibo resuelve a varias?** El Reporte de Consecutivos (19) sí combina varias clases en una sola celda de texto porque "Cursos" ahí es un campo descriptivo; en los Reportes Financieros, Programa/Cursos/Horario son columnas propias por fila, así que repetir la fila por cada clase duplicaría también el Valor/Beneficios/Pagos de ese mismo recibo en el Subtotal y el Total — un error de dinero que el documento no pide ni ningún caso de los 3 Excel de referencia muestra (todos tienen una sola clase por fila).
+- **¿Por qué "Matrículas" (mes/año) se genera siempre en español, sin importar el idioma del usuario que presiona el botón?** El formato es fijo, definido por el documento de referencia del cliente (siempre en español) — no es un texto de interfaz que deba traducirse según el idioma de cada usuario. La primera versión usaba el idioma del usuario actual y, al verificarlo con un usuario en inglés, el mes salió en inglés ("September" en vez de "Septiembre"); se corrigió para usar español de forma fija.

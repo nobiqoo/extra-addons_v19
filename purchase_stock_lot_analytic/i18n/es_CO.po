@@ -1,0 +1,64 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_stock_lot_analytic
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: purchase_stock_lot_analytic
+#: model:ir.model.fields,field_description:purchase_stock_lot_analytic.field_stock_lot__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: purchase_stock_lot_analytic
+#: model:ir.model.fields,field_description:purchase_stock_lot_analytic.field_res_company__purchase_lot_analytic_control
+#: model:ir.model.fields,field_description:purchase_stock_lot_analytic.field_res_config_settings__purchase_lot_analytic_control
+msgid "Lot Control by Analytic Account on Purchases"
+msgstr "Control de Lotes por Cuenta Analítica en Compras"
+
+#. module: purchase_stock_lot_analytic
+#: model:ir.model.fields,field_description:purchase_stock_lot_analytic.field_res_company__purchase_lot_analytic_plan_id
+#: model:ir.model.fields,field_description:purchase_stock_lot_analytic.field_res_config_settings__purchase_lot_analytic_plan_id
+msgid "Analytic Plan for Lots"
+msgstr "Plan analítico para lotes"
+
+#. module: purchase_stock_lot_analytic
+#: model_terms:ir.ui.view,arch_db:purchase_stock_lot_analytic.res_config_settings_view_form_purchase_lot_analytic
+msgid "Require an analytic account of the selected plan on stock-tracked lines, and auto-generate the receipt lot from it"
+msgstr "Exige una cuenta analítica del plan seleccionado en las líneas con seguimiento de inventario, y genera automáticamente el lote de recepción a partir de ella"
+
+#. module: purchase_stock_lot_analytic
+#. odoo-python
+#: code:addons/purchase_stock_lot_analytic/models/purchase_order_line.py:0
+msgid ""
+"You must set an analytic account of plan '%(plan)s' on the line for product %(product)s "
+"before confirming the order."
+msgstr ""
+"Debe asociar una cuenta analítica del plan '%(plan)s' a la línea del producto %(product)s "
+"antes de confirmar la orden."
+
+#. module: purchase_stock_lot_analytic
+#. odoo-python
+#: code:addons/purchase_stock_lot_analytic/models/purchase_order_line.py:0
+msgid ""
+"Configure the analytic plan for lots in Purchase settings of company %s before confirming the order."
+msgstr ""
+"Configure el plan analítico para lotes en los ajustes de Compras de la compañía %s antes de "
+"confirmar la orden."
+
+#. module: purchase_stock_lot_analytic
+#. odoo-python
+#: code:addons/purchase_stock_lot_analytic/models/purchase_order_line.py:0
+msgid ""
+"An archived lot '%(lot)s' already exists for product %(product)s. "
+"Unarchive the lot or correct the analytic account before confirming the order."
+msgstr ""
+"Ya existe un lote archivado '%(lot)s' para el producto %(product)s. Desarchive el lote "
+"o corrija la cuenta analítica antes de confirmar la orden."

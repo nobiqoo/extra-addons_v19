@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="vendor_statement_action" model="ir.actions.report">
+        <field name="name">Estado de cuenta del proveedor (portal)</field>
+        <field name="model">res.partner</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">website_baseline.vendor_statement</field>
+        <field name="report_file">website_baseline.vendor_statement</field>
+        <field name="print_report_name">'Estado_de_Cuenta_%s' % (object.display_name)</field>
+        <field name="binding_model_id" eval="False"/>
+    </record>
+
+    <template id="vendor_statement">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <style>
+                    .vs-band { background: #e5e7eb; border: 1px solid #d1d5db; padding: 10px 14px; margin-bottom: 10px; }
+                    .vs-title { text-transform: uppercase; font-size: 20px; font-weight: 700; text-align: center; margin: 10px 0 5px 0; }
+                    .vs-period { text-align: center; border: 1px solid #d1d5db; padding: 6px 8px; margin: 6px 0 10px 0; font-weight: 600; background: #f8f9fa; }
+                    .vs-table { width: 100%; border-collapse: collapse; }
+                    .vs-table th, .vs-table td { padding: 6px 8px; border: 1px solid #d1d5db; }
+                    .vs-table thead th { background: #e5e7eb; font-weight: 600; text-align: left; }
+                    .vs-group td { font-weight: 700; background: #f8f9fa; }
+                    .vs-total td { font-weight: 700; background: #e5e7eb; }
+                    .vs-amount { text-align: right; white-space: nowrap; }
+                    .vs-center { text-align: center; }
+                    .vs-muted { color: #7f8c8d; }
+                </style>
+                <div class="page">
+                    <div class="vs-band">
+                        <div class="row">
+                            <div class="col-6">
+                                <div><strong t-out="company.name"/></div>
+                                <div class="vs-muted" t-out="company.country_id.name"/>
+                                <div class="vs-muted">NIT: <span t-out="company.vat"/></div>
+                            </div>
+                            <div class="col-6 text-end vs-muted">
+                                Proveedor: <span t-out="partner.display_name"/>
+                            </div>
+                        </div>
+                        <div class="vs-title">ESTADO DE CUENTA DEL PROVEEDOR</div>
+                    </div>
+                    <div class="vs-period">
+                        Del <span t-out="date_from" t-options="{'widget': 'date'}"/>
+                        al <span t-out="date_to" t-options="{'widget': 'date'}"/>
+                    </div>
+                    <table class="vs-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 28%;">Documento</th>
+                                <th>Fecha de factura</th>
+                                <th>Fecha límite</th>
+                                <th class="vs-amount">Importe</th>
+                                <th class="vs-center">Moneda</th>
+                                <th class="vs-amount">Saldo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="vs-group">
+                                <td colspan="6" t-out="partner.display_name"/>
+                            </tr>
+                            <tr t-if="not moves">
+                                <td colspan="6" class="vs-muted">Sin movimientos en el período.</td>
+                            </tr>
+                            <tr t-foreach="moves" t-as="m">
+                                <td t-out="m.name"/>
+                                <td><span t-out="m.invoice_date" t-options="{'widget': 'date'}"/></td>
+                                <td><span t-out="m.invoice_date_due" t-options="{'widget': 'date'}"/></td>
+                                <td class="vs-amount">
+                                    <span t-out="sign(m) * m.amount_total"
+                                          t-options="{'widget': 'monetary', 'display_currency': m.currency_id}"/>
+                                </td>
+                                <td class="vs-center" t-out="m.currency_id.name"/>
+                                <td class="vs-amount">
+                                    <span t-out="sign(m) * m.amount_residual"
+                                          t-options="{'widget': 'monetary', 'display_currency': m.currency_id}"/>
+                                </td>
+                            </tr>
+                            <tr class="vs-total">
+                                <td colspan="3">Total (<span t-out="company.currency_id.name"/>)</td>
+                                <td class="vs-amount">
+                                    <span t-out="total_amount"
+                                          t-options="{'widget': 'monetary', 'display_currency': company.currency_id}"/>
+                                </td>
+                                <td/>
+                                <td class="vs-amount">
+                                    <span t-out="total_residual"
+                                          t-options="{'widget': 'monetary', 'display_currency': company.currency_id}"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="vs-muted text-end mt-3">
+                        Generado: <span t-out="generated_at" t-options="{'widget': 'datetime'}"/>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 9-nov: archivar es bidireccional entre el producto y su línea en
+         Referencias; las líneas activas de productos ya archivados se
+         archivan una sola vez por base. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.fabric.color', '_ajuste_activo_productos']"/>
+</odoo>

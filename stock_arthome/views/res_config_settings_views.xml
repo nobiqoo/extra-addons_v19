@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_delivery_slip_arthome" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.delivery.slip.arthome</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='shipping_setting_container']" position="inside">
+                <setting id="insurable_value_percentage" company_dependent="1"
+                         string="Insurable Value"
+                         help="Percentage of the sale order net price used to compute the insurable value of the transfers. Changing it does not update existing transfers.">
+                    <div class="content-group">
+                        <div class="row mt8">
+                            <label for="insurable_value_percentage" string="Percentage" class="col-lg-4 o_light_label"/>
+                            <div class="col-lg-8">
+                                <field name="insurable_value_percentage" class="oe_inline"/>
+                                <span> %</span>
+                            </div>
+                        </div>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

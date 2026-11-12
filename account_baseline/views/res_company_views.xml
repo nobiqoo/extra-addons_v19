@@ -20,5 +20,21 @@
             </field>
         </record>
 
+        <!-- Políticas de la compañía (otros módulos agregan sus políticas en esta pestaña) -->
+        <record id="res_company_policies_view_form" model="ir.ui.view">
+            <field name="name">res.company.policies.view.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_info']" position="after">
+                    <page string="Company policies" name="company_policies">
+                        <group name="company_policies_group">
+                            <field name="hide_credit_note_fully_credited"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </odoo>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Casilla en Mi cuenta -->
+    <template id="portal_my_home_certificates" inherit_id="portal.portal_my_home"
+              name="Portal: casilla de certificados de retenciones">
+        <xpath expr="//div[@id='portal_common_category']" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/account/static/src/img/bank.svg'"/>
+                <t t-set="title">Certificados</t>
+                <t t-set="text">Solicitar certificados de retenciones</t>
+                <t t-set="url" t-value="'/my/certificates'"/>
+                <t t-set="config_card" t-value="True"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- Formulario de solicitud -->
+    <template id="portal_certificates_form" name="Portal: solicitud de certificados">
+        <t t-call="portal.portal_layout">
+            <t t-set="additional_title">Certificados de retenciones</t>
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="mb-3">Certificados de retenciones</h3>
+                    <div t-if="error" class="alert alert-warning" role="alert" t-out="error"/>
+                    <form action="/my/certificates/submit" method="post">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label" for="company_id">Compañía</label>
+                                <select class="form-select" name="company_id" id="company_id" required="required">
+                                    <option t-foreach="companies" t-as="company"
+                                            t-att-value="company.id" t-out="company.name"/>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="certificate_id">Tipo de certificado</label>
+                                <select class="form-select" name="certificate_id" id="certificate_id" required="required">
+                                    <option t-foreach="types" t-as="certificate_type"
+                                            t-att-value="certificate_type.id" t-out="certificate_type.name"/>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="portal_cert_year">Año</label>
+                                <select class="form-select" name="year" id="portal_cert_year">
+                                    <option t-foreach="years" t-as="year" t-att-value="year"
+                                            t-att-selected="year == selected_year" t-out="year"/>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="certificate_period_id">Período</label>
+                                <select class="form-select" name="certificate_period_id" id="certificate_period_id" required="required">
+                                    <option t-foreach="periods" t-as="period"
+                                            t-att-value="period.id" t-out="period.display_name"/>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button class="btn btn-primary" type="submit">Generar certificado</button>
+                        </div>
+                    </form>
+                    <script type="text/javascript">
+                        (function () {
+                            var yearSelect = document.getElementById('portal_cert_year');
+                            if (!yearSelect) { return; }
+                            yearSelect.addEventListener('change', function () {
+                                var url = new URL(window.location.href);
+                                url.searchParams.set('year', yearSelect.value);
+                                window.location.href = url.toString();
+                            });
+                        })();
+                    </script>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

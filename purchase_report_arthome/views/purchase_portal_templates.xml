@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="purchase_order_portal_content_hide_taxes_arthome" inherit_id="purchase.purchase_order_portal_content">
+        <xpath expr="//thead//th[contains(@t-attf-class, 'd-md-table-cell')]" position="replace"/>
+        <xpath expr="//td[span[contains(@t-out, 'line.tax_ids')]]" position="replace"/>
+    </template>
+</odoo>

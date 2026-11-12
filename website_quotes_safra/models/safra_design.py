@@ -29,10 +29,31 @@ class SafraDesign(models.Model):
     # Imagen del diseño: la propia (subida aquí) manda; si no hay, se usa la
     # URL del repositorio público del cliente (sembrada automáticamente).
     image = fields.Image(string='Imagen', max_width=512, max_height=512)
+    # Ajustes 20-oct (fila 79): la imagen de arriba se reduce a 512 px para
+    # mostrarla; la resolución se mide con el archivo original del diseño.
+    image_print = fields.Binary(
+        string='Imagen para impresión', attachment=True,
+        help='Archivo original en alta resolución. Con él se verifica que el '
+             'diseño se pueda imprimir a la medida de la persiana; sin él no '
+             'se restringe.')
+    image_print_filename = fields.Char(string='Nombre del archivo')
     image_url = fields.Char(
         string='URL de imagen',
         help='Imagen pública del diseño (repositorio del portal del '
              'cliente). Se usa cuando no se ha subido una imagen propia.')
+
+    # Odoo reduce las imágenes adjuntas a 1920 px; el archivo para impresión
+    # se guarda como se sube, para medir su resolución real.
+    @api.model_create_multi
+    def create(self, vals_list):
+        if any('image_print' in vals for vals in vals_list):
+            self = self.with_context(image_no_postprocess=True)
+        return super().create(vals_list)
+
+    def write(self, vals):
+        if 'image_print' in vals:
+            self = self.with_context(image_no_postprocess=True)
+        return super().write(vals)
 
     def _image_src(self):
         """URL que muestra el portal: imagen propia > URL del cliente."""

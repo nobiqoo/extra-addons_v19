@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Entradas y salidas: filas debajo de "UNIDADES" -->
+    <template id="inputs_and_outputs_document_delivery_slip_arthome" inherit_id="stock_report.inputs_and_outputs_document">
+        <xpath expr="//span[@t-esc='int(cantidad_total_productos)']/ancestor::tr[1]" position="after">
+            <tr t-if="doc.box_count_applicable">
+                <td class="relleno-verde">
+                    <b>BOX COUNT</b>
+                </td>
+                <td class="sin-relleno text-center">
+                    <span t-field="doc.box_count"/>
+                </td>
+            </tr>
+            <t t-if="doc.delivery_slip_applicable">
+                <tr>
+                    <td class="relleno-verde">
+                        <b>TOTAL WEIGHT</b>
+                    </td>
+                    <td class="sin-relleno text-center">
+                        <span t-field="doc.delivery_weight"/>
+                        <span t-field="doc.delivery_weight_uom_name"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="relleno-verde">
+                        <b>INSURABLE VALUE</b>
+                    </td>
+                    <td class="sin-relleno text-center">
+                        <span t-field="doc.insurable_value"/>
+                    </td>
+                </tr>
+            </t>
+            <tr t-if="doc.line_count_applicable">
+                <td class="relleno-verde">
+                    <b>LINE COUNT</b>
+                </td>
+                <td class="sin-relleno text-center">
+                    <span t-field="doc.line_count"/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+
+    <template id="inputs_and_outputs_document_order_info_arthome" inherit_id="stock_report.inputs_and_outputs_document">
+        <xpath expr="//span[@t-field='doc.note']" position="after">
+            <div t-if="doc.order_info_applicable and doc.delivery_comment" name="div_delivery_comment">
+                <b>DISPATCH NOTE/INSTRUCTION:</b>
+                <span t-field="doc.delivery_comment"/>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

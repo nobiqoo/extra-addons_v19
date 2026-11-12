@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="page_allies" model="website.page">
+        <field name="name">ALLIES</field>
+        <field name="type">qweb</field>
+        <field name="url">/allies</field>
+        <field name="key">website_adipack.page_allies</field>
+        <field name="is_published" eval="True"/>
+        <field name="adipack_english" eval="True"/>
+        <field name="website_meta_title">ALLIES | Adipack - Adinox</field>
+        <field name="arch" type="xml"><t t-name="website_adipack.page_allies"><t t-call="website.layout"><div id="wrap" class="oe_structure oe_empty"><section class="o_adp_section o_colored_level oe_img_bg o_bg_img_center" style="padding: 50px 0px 20px 0px; background-image: url('/website_adipack/static/src/uploads/2017/04/fondo-trayectoria-adipack.png'); background-size: cover; background-position: center" data-snippet="s_text_block" data-name="Bloque"><div class="container"><div class="row"><div class="o_colored_level col-12 col-lg-12"><div class="o_adp_title text-center" style="margin-bottom: 0px"><h3 style="font-size: 30px; text-transform: none; color: #ffffff">ALLIES</h3><p class="o_adp_title_caption" style="font-size: 18px; color: #ffffff; margin-top: 0px">The best cutting-edge technology working at the same time for your company.</p></div></div></div></div></section><section class="o_adp_section o_colored_level" style="padding: 0px 0px 0px 0px" data-snippet="s_text_block" data-name="Bloque"><div class="container"><div class="row"><div class="o_colored_level col-12 col-lg-12"><div class="o_adp_image text-center" style="margin-bottom: 0px"><img class="img-fluid" src="/website_adipack/static/src/uploads/2017/04/aliados-adipack-adinox-2020.jpg" alt="" width="1678"/></div></div></div></div></section></div></t></t></field>
+    </record>
+</odoo>

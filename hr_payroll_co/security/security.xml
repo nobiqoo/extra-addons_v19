@@ -210,5 +210,47 @@
             <field name="global" eval="True" />
             <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
         </record>
+
+        <record id="hr_embargo_base_category_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de categorías de embargo</field>
+            <field name="model_id" ref="model_hr_embargo_base_category" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_embargo_court_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de juzgados de embargo</field>
+            <field name="model_id" ref="model_hr_embargo_court" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_embargo_type_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de tipos de embargo</field>
+            <field name="model_id" ref="model_hr_embargo_type" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_embargo_priority_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de prioridades de embargo</field>
+            <field name="model_id" ref="model_hr_embargo_priority" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_embargo_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de embargos</field>
+            <field name="model_id" ref="model_hr_embargo" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_embargo_file_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de archivo plano de embargos</field>
+            <field name="model_id" ref="model_hr_embargo_file" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
     </data>
 </odoo>

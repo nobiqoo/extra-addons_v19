@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="coach_payslip_group" model="res.groups">
+            <field name="name">Instructor de nómina</field>
+            <field name="privilege_id" ref="hr.res_groups_privilege_employees"/>
+        </record>
+
+        <record id="coach_payslip_hr_leave" model="ir.rule">
+            <field name="name">Regla Instructor ausencias</field>
+            <field name="model_id" ref="hr_payroll_co.model_hr_leave"/>
+            <field name="groups" eval="[(4, ref('website_hr_payroll.coach_payslip_group'))]"/>
+            <field name="domain_force">[('employee_id.coach_id.user_id', '=', user.id), ('state', 'in', ('draft', 'confirm'))]</field>
+        </record>
+    </data>
+</odoo>

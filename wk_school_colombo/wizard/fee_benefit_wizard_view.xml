@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Ronda de ajustes post-prueba: botón "Código de cupón" propio en la
+         Inscripción, igual patrón que el botón "Coupon Code" de Ventas
+         (sale_loyalty.sale_loyalty_coupon_wizard_action). -->
+    <record id="wk_fee_benefit_wizard_view_form" model="ir.ui.view">
+        <field name="name">wk.fee.benefit.wizard.view.form</field>
+        <field name="model">wk.fee.benefit.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="enrollment_id" invisible="1"/>
+                    <group>
+                        <field name="codigo" placeholder="Ej: PROMO10"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Aplicar" name="action_apply" type="object"
+                            class="btn-primary" data-hotkey="q"/>
+                    <button string="Descartar" special="cancel"
+                            class="btn-secondary" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="wk_fee_benefit_wizard_action" model="ir.actions.act_window">
+        <field name="name">Código de beneficio / cupón</field>
+        <field name="res_model">wk.fee.benefit.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -8,38 +8,58 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <h3>El evento solamente se aplicará a FACTURAS VÁLIDAS</h3>
+                        <h3>El evento solamente se aplicará a DOCUMENTOS VÁLIDOS</h3>
                         <field name="message" nolabel="1" readonly="1" force-save="1"/>
                         <field name="to_process" invisible="1"/>
                         <notebook>
                             <page name="errors" string="ERRORES">
                                 <field name="error_line_ids" force-save="1">
                                     <list create="0" edit="0">
-                                        <field name="invoice_id"/>
+                                        <field name="invoice_id"
+                                            column_invisible="not parent.invoice_ids"/>
+                                        <field name="document_id"
+                                            column_invisible="not parent.document_ids"/>
                                         <field name="error" widget="text" options="{'line_breaks': False}"/>
                                         <field name="url_invoice" widget="url" text="VER" class="fa fa-eye"/>
                                     </list>
                                     <form create="0" edit="0">
                                         <group>
                                             <group>
-                                                <field name="invoice_id"/>
+                                                <field name="invoice_id" invisible="not invoice_id"/>
+                                                <field name="document_id" invisible="not document_id"/>
                                             </group>
                                             <group>
                                                 <field name="url_invoice" widget="url" text="VER" class="fa fa-eye"/>
                                             </group>
                                             <field name="error" widget="text"/>
                                         </group>
-
                                     </form>
                                 </field>
                             </page>
-                            <page name="invoice" string="FACTURAS VÁLIDAS">
-                                <field name="invoice_ids" readonly="1"/>
+                            <page name="invoice" string="FACTURAS VÁLIDAS"
+                                invisible="not invoice_ids">
+                                <field name="invoice_ids" readonly="1"
+                                    widget="many2many_tags"/>
+                            </page>
+                            <page name="documents" string="DOCUMENTOS VÁLIDOS"
+                                invisible="not document_ids">
+                                <field name="document_ids" readonly="1">
+                                    <list create="0" delete="0" edit="0">
+                                        <field name="name"/>
+                                        <field name="sender"/>
+                                        <field name="sender_vat"/>
+                                        <field name="reception"/>
+                                        <field name="total_amount"/>
+                                        <field name="ie_event_display"/>
+                                    </list>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
                     <footer>
-                        <button name="action_process_event" type="object" string="Procesar Evento" class="btn-primary" invisible="not invoice_ids"/>
+                        <button name="action_process_event" type="object"
+                            string="Procesar Evento" class="btn-primary"
+                            invisible="not invoice_ids and not document_ids"/>
                         <button name="action_refresh" type="object" string="Refrescar" class="btn-secondary"/>
                         <button string="Cerrar" class="btn-secondary" special="cancel"/>
                     </footer>

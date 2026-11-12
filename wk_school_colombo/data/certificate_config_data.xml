@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Semilla inicial de la Configuración institucional de Certificados
+         (tarea 12451), con los textos ya usados en los formatos físicos de
+         referencia del Colombo. Editable desde Configuración sin necesitar
+         un desarrollo nuevo si cambia una resolución o una firma. -->
+    <record id="certificate_config_norte" model="wk.school.colombo.certificate.config">
+        <field name="sede_id" ref="sede_norte"/>
+        <field name="lugar_expedicion">Puerto Colombia, Atlántico</field>
+        <field name="resolucion_estandar">Con licencia de funcionamiento según Resolución No. 02813 del 04 de diciembre de 2013 y Registro de Programas según Resolución No. 1236 de 26 de julio de 2019 emanadas de la Secretaría de Educación Departamental</field>
+        <field name="resolucion_avanzado">Con licencia de funcionamiento según Resolución No. 02813 del 04 de diciembre de 2013 emanadas de la Secretaría de Educación Distrital</field>
+        <field name="directora_ejecutiva_nombre">Sara L. Barceló M.</field>
+        <field name="firma_directora_ejecutiva" type="base64" file="wk_school_colombo/static/src/img/certificates/firma_sara.png"/>
+        <field name="directora_academica_nombre">Margarita Marín</field>
+        <field name="directora_academica_cargo">Directora Académica
+Sede norte</field>
+        <field name="firma_directora_academica" type="base64" file="wk_school_colombo/static/src/img/certificates/firma_margarita.png"/>
+    </record>
+
+    <record id="certificate_config_centro" model="wk.school.colombo.certificate.config">
+        <field name="sede_id" ref="sede_centro"/>
+        <field name="lugar_expedicion">Barranquilla</field>
+        <field name="resolucion_estandar">Con licencia de funcionamiento según Resolución No. 000871 del 21 de julio de 2004 y Registro de Programas según Resolución No. 04629 de 30 de agosto de 2024, emanadas de la Secretaría de Educación Distrital</field>
+        <field name="resolucion_avanzado">Con licencia de funcionamiento según Resolución No. 00871 del 21 de julio de 2004 emanadas de la Secretaría de Educación Distrital</field>
+        <field name="directora_ejecutiva_nombre">Sara L. Barceló M.</field>
+        <field name="firma_directora_ejecutiva" type="base64" file="wk_school_colombo/static/src/img/certificates/firma_sara.png"/>
+        <field name="directora_academica_nombre">Khaitoon M. de Osorio</field>
+        <field name="firma_directora_academica" type="base64" file="wk_school_colombo/static/src/img/certificates/firma_khaitoon.png"/>
+    </record>
+
+</odoo>

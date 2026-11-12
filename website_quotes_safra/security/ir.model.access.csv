@@ -51,6 +51,7 @@ access_safra_lamas_rule_portal,safra.lamas.rule portal,model_safra_lamas_rule,ba
 access_safra_lamas_rule_user,safra.lamas.rule user,model_safra_lamas_rule,base.group_user,1,0,0,0
 access_safra_lamas_rule_manager,safra.lamas.rule manager,model_safra_lamas_rule,base.group_system,1,1,1,1
 access_safra_panel_combo_rule_user,safra.panel.combo.rule user,model_safra_panel_combo_rule,base.group_user,1,0,0,0
-access_safra_panel_combo_velcrado_user,safra.panel.combo.velcrado user,model_safra_panel_combo_velcrado,base.group_user,1,0,0,0
 access_safra_panel_combo_rule_manager,safra.panel.combo.rule manager,model_safra_panel_combo_rule,base.group_system,1,1,1,1
-access_safra_panel_combo_velcrado_manager,safra.panel.combo.velcrado manager,model_safra_panel_combo_velcrado,base.group_system,1,1,1,1
+access_safra_validation_rule_test_manager,safra.validation.rule.test manager,model_safra_validation_rule_test,base.group_system,1,1,1,1
+access_safra_validation_rule_prompt_manager,safra.validation.rule.prompt manager,model_safra_validation_rule_prompt,base.group_system,1,1,1,1
+access_safra_formula_prueba_manager,safra.formula.prueba manager,model_safra_formula_prueba,base.group_system,1,1,1,1

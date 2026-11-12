@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_pricelist_item_form_view_price_min_control" model="ir.ui.view">
+        <field name="name">product.pricelist.item.form.price.min.control</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='pricelist_rule_limits']/field[@name='min_quantity']" position="before">
+                <field name="min_price" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_pricelist_item_tree_view_price_min_control" model="ir.ui.view">
+        <field name="name">product.pricelist.item.list.price.min.control</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price']" position="after">
+                <field name="min_price" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_pricelist_item_tree_view_from_product_price_min_control" model="ir.ui.view">
+        <field name="name">product.pricelist.item.list.from.product.price.min.control</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_tree_view_from_product" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='fixed_price']" position="after">
+                <field name="min_price" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_pricelist_view_price_min_control" model="ir.ui.view">
+        <field name="name">product.pricelist.form.price.min.control</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='item_ids']/list/field[@name='price']" position="after">
+                <field name="min_price" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

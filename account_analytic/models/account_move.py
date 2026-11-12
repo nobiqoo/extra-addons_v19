@@ -1,51 +1,36 @@
 
-from odoo import api, models, _
-from odoo.exceptions import UserError
+from odoo import api, models
 
 
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
+    def _is_stock_valuated_purchase_line(self):
+        """En v19 la línea de compra de un bien con valoración automática va a la cuenta
+        de inventario; el costo se reconoce al vender (línea cogs), así que no se reemplaza."""
+        self.ensure_one()
+        product = self.product_id
+        return (
+            'valuation' in product._fields
+            and product.is_storable
+            and product.with_company(self.company_id).valuation == 'real_time'
+        )
+
     @api.onchange('analytic_distribution')
     def _onchange_analytic_distribution(self):
-        if self.analytic_distribution:
-            distribution = self.analytic_distribution
-            if len(distribution) and self.move_type in ('in_invoice', 'in_refund'):
-                analytic_ids = []
-                for key in distribution.keys():
-                    for part in str(key).split(","):
-                        part = part.strip()
-                        if part.isdigit():
-                            analytic_ids.append(int(part))
-                analytic_accounts = self.env['account.analytic.account'].browse(analytic_ids)
-                analytic_account_identifier = False
-                for analytic_account in analytic_accounts:
-                    if analytic_account.plan_id.account_accountant_identifier:
-                        analytic_account_identifier = analytic_account
-                        break
-                if not analytic_account_identifier:
-                    return
-                account_type = analytic_account_identifier.account_type
-                account_mapping = {
-                    'income': self.product_id.property_account_income_id,
-                    'expense': self.product_id.property_account_expense_id,
-                    'cost_sale': self.product_id.property_account_cost_sale_id,
-                    'cost_operation': self.product_id.property_account_cost_operation_id,
-                }
-                account_mapping_categ = {
-                    'income': self.product_id.categ_id.property_account_income_categ_id,
-                    'expense': self.product_id.categ_id.property_account_expense_categ_id,
-                    'cost_sale': self.product_id.categ_id.property_account_cost_sale_categ_id,
-                    'cost_operation': self.product_id.categ_id.property_account_cost_operation_categ_id,
-                }
-                self.account_id = account_mapping.get(account_type)
-                if not self.account_id:
-                    self.account_id = account_mapping_categ.get(account_type)
-                    # if not self.account_id:
-                    #     raise UserError(_('Invalid account type: %s, please configure account in accountant/product') % account_type)
+        if (
+            self.analytic_distribution
+            and self.move_type in ('in_invoice', 'in_refund')
+            and not self._is_stock_valuated_purchase_line()
+        ):
+            target_account = self.env['account.analytic.account']._get_accountant_target_account(
+                self.product_id, self.analytic_distribution)
+            if target_account:
+                self.account_id = target_account
 
     @api.model_create_multi
     def create(self, vals_list):
+        self._prepare_cogs_analytic_account_mapping(vals_list)
         lines = super().create(vals_list)
         lines._apply_purchase_analytic_account_mapping()
 
@@ -59,6 +44,30 @@ class AccountMoveLine(models.Model):
             self._apply_purchase_analytic_account_mapping()
         return res
 
+    @api.model
+    def _prepare_cogs_analytic_account_mapping(self, vals_list):
+        """Costo de venta (anglosajón): solo se reemplaza la cuenta del débito al costo.
+        En 19 ambas líneas 'cogs' traen analytic_distribution, así que la línea de
+        inventario se distingue por la cuenta de valoración del producto y no se modifica."""
+        for vals in vals_list:
+            if (
+                vals.get('display_type') != 'cogs'
+                or not vals.get('analytic_distribution')
+                or not vals.get('product_id')
+                or not vals.get('move_id')
+            ):
+                continue
+            move = self.env['account.move'].browse(vals['move_id'])
+            product = self.env['product.product'].with_company(move.company_id).browse(vals['product_id'])
+            accounts = product.product_tmpl_id.get_product_accounts(fiscal_pos=move.fiscal_position_id)
+            stock_account = accounts.get('stock_valuation')
+            if stock_account and vals.get('account_id') == stock_account.id:
+                continue
+            target_account = self.env['account.analytic.account']._get_accountant_target_account(
+                product, vals['analytic_distribution'])
+            if target_account:
+                vals['account_id'] = target_account.id
+
     def _apply_purchase_analytic_account_mapping(self):
         for line in self:
             move = line.move_id
@@ -66,43 +75,12 @@ class AccountMoveLine(models.Model):
                 not move
                 or not move.is_purchase_document(include_receipts=False)
                 or not line.analytic_distribution
+                or line._is_stock_valuated_purchase_line()
             ):
                 continue
 
-            analytic_ids = []
-            for key in line.analytic_distribution.keys():
-                for part in str(key).split(","):
-                    part = part.strip()
-                    if part.isdigit():
-                        analytic_ids.append(int(part))
-
-            analytic_accounts = self.env["account.analytic.account"].browse(analytic_ids)
-            analytic_account_identifier = False
-            for analytic_account in analytic_accounts:
-                if analytic_account.plan_id.account_accountant_identifier:
-                    analytic_account_identifier = analytic_account
-                    break
-            if not analytic_account_identifier:
-                return
-            account_type = analytic_account_identifier.account_type
-            target_account = False
-            product = line.product_id
-            if product:
-                target_account = {
-                    "income": product.property_account_income_id,
-                    "expense": product.property_account_expense_id,
-                    "cost_sale": getattr(product, "property_account_cost_sale_id", False),
-                    "cost_operation": getattr(product, "property_account_cost_operation_id", False),
-                }.get(account_type)
-
-                if not target_account and product.categ_id:
-                    target_account = {
-                        "income": product.categ_id.property_account_income_categ_id,
-                        "expense": product.categ_id.property_account_expense_categ_id,
-                        "cost_sale": getattr(product.categ_id, "property_account_cost_sale_categ_id", False),
-                        "cost_operation": getattr(product.categ_id, "property_account_cost_operation_categ_id", False),
-                    }.get(account_type)
-
+            target_account = self.env["account.analytic.account"]._get_accountant_target_account(
+                line.product_id.with_company(move.company_id), line.analytic_distribution)
             if target_account and line.account_id != target_account:
                 line.with_context(skip_purchase_analytic_account=True).write(
                     {"account_id": target_account.id}

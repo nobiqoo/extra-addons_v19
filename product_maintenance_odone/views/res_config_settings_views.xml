@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_signed_work_orders" model="ir.ui.view">
+        <field name="name">res.config.settings.form.signed.work.orders</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="product_maintenance.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='product_maintenance_setting']" position="inside">
+                <setting
+                        id="use_signed_work_orders_in_maintenance"
+                        company_dependent="1"
+                        string="Usar firmas en órdenes de trabajo de mantenimiento"
+                        help="Permite capturar las firmas del técnico y del cliente, y muestra las firmas y el tipo de mantenimiento en el PDF de la orden de trabajo.">
+                    <field name="use_signed_work_orders_in_maintenance"/>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

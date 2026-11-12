@@ -5,6 +5,7 @@ from odoo import fields, models
 
 class PurchaseAppovalReasonBudgetWizard(models.TransientModel):
     _name = 'purchase.appoval.reason.budget.wizard'
+    _description = 'Purchase Appoval Reason Budget Wizard'
     
     order_id = fields.Many2one(
         comodel_name='purchase.order',
@@ -23,11 +24,9 @@ class PurchaseAppovalReasonBudgetWizard(models.TransientModel):
                      'falta de presupuesto por la siguiente razón: {reason}'.format(
                         reason=order.reason_approval_by_budget)
             )
-            order._action_done_approval_activity(
-                "Confirmar la orden de compra por falta de presupuesto"
-            )
             order.approval_by_budget_confirm = True
             if order.approval_config_id.approval_automatic:
                 order.state = 'purchase'
             else:
                 order.state = 'approved'
+            order._close_resolved_approval_activities()

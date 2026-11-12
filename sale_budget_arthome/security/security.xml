@@ -1,0 +1,104 @@
+<odoo>
+    <record id="category_report_company" model="ir.rule">
+        <field name="name">Análisis de categorías: compañías permitidas</field>
+        <field name="model_id" ref="model_sale_budget_category_report"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="category_report_own" model="ir.rule">
+        <field name="name">Análisis de categorías: asesor</field>
+        <field name="model_id" ref="model_sale_budget_category_report"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+    </record>
+    <record id="category_report_manager" model="ir.rule">
+        <field name="name">Análisis de categorías: gerencia</field>
+        <field name="model_id" ref="model_sale_budget_category_report"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="schedule_company" model="ir.rule">
+        <field name="name">Categoría semanal: compañías permitidas</field>
+        <field name="model_id" ref="model_sale_budget_schedule"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="schedule_own" model="ir.rule">
+        <field name="name">Categoría semanal: asesor</field>
+        <field name="model_id" ref="model_sale_budget_schedule"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="domain_force">[('budget_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="schedule_manager" model="ir.rule">
+        <field name="name">Categoría semanal: gerencia</field>
+        <field name="model_id" ref="model_sale_budget_schedule"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="budget_company" model="ir.rule">
+        <field name="name">Presupuesto: compañías permitidas</field>
+        <field name="model_id" ref="model_sale_budget_monthly"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="budget_own" model="ir.rule">
+        <field name="name">Presupuesto: asesor</field>
+        <field name="model_id" ref="model_sale_budget_monthly"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+    </record>
+    <record id="budget_manager" model="ir.rule">
+        <field name="name">Presupuesto: gerencia</field>
+        <field name="model_id" ref="model_sale_budget_monthly"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="line_company" model="ir.rule">
+        <field name="name">Distribución: compañías permitidas</field>
+        <field name="model_id" ref="model_sale_budget_line"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="line_own" model="ir.rule">
+        <field name="name">Distribución: asesor</field>
+        <field name="model_id" ref="model_sale_budget_line"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="domain_force">[('budget_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="line_manager" model="ir.rule">
+        <field name="name">Distribución: gerencia</field>
+        <field name="model_id" ref="model_sale_budget_line"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="week_company" model="ir.rule">
+        <field name="name">Tramos: compañías permitidas</field>
+        <field name="model_id" ref="model_sale_budget_week"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="week_own" model="ir.rule">
+        <field name="name">Tramos: asesor</field>
+        <field name="model_id" ref="model_sale_budget_week"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="domain_force">[('budget_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="week_manager" model="ir.rule">
+        <field name="name">Tramos: gerencia</field>
+        <field name="model_id" ref="model_sale_budget_week"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="report_company" model="ir.rule">
+        <field name="name">Cumplimiento: compañías permitidas</field>
+        <field name="model_id" ref="model_sale_budget_report"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="report_own" model="ir.rule">
+        <field name="name">Cumplimiento: asesor</field>
+        <field name="model_id" ref="model_sale_budget_report"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+    </record>
+    <record id="report_manager" model="ir.rule">
+        <field name="name">Cumplimiento: gerencia</field>
+        <field name="model_id" ref="model_sale_budget_report"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+</odoo>

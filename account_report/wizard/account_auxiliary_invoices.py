@@ -37,7 +37,7 @@ class AccountauxiliaryInvoicesWizard(models.Model):
     def action_confirm(self):
         report = self.env.ref(
             'account_report.report_account_auxiliary_invoices')
-        data = self.prepare_data()
+        data = {'record_id': self.id}
         return report.report_action(self, data=data)
 
     def prepare_data(self):
@@ -68,7 +68,7 @@ class AccountauxiliaryInvoicesWizard(models.Model):
             False as bold,
             False as group,
             aa.id as account_id,
-            (jsonb_each_text(code_store)).value as code,
+            COALESCE(aa.code_store->>SPLIT_PART(rco.parent_path, '/', 1), '') as code,
             COALESCE(aa.name->'es_CO', aa.name->'en_US') as name,
             rp.vat as vat,
             coalesce(rp.name, '**') as partner,
@@ -97,6 +97,7 @@ class AccountauxiliaryInvoicesWizard(models.Model):
                 aml.debit - aml.credit as final
             from account_move_line aml
             inner join account_account aa on aa.id = aml.account_id
+            inner join res_company rco on rco.id = aml.company_id
             """
         else:
             query += """
@@ -110,6 +111,7 @@ class AccountauxiliaryInvoicesWizard(models.Model):
                 aml.ifrs_debit - aml.ifrs_credit as final
             from account_move_line aml
             inner join account_account aa on aa.id = aml.account_id
+            inner join res_company rco on rco.id = aml.company_id
             """
 
         query += """
@@ -155,7 +157,7 @@ class AccountauxiliaryInvoicesWizard(models.Model):
             """
 
         query += """
-        order by aa.code_store, aml.date, rp.name
+        order by COALESCE(aa.code_store->>SPLIT_PART(rco.parent_path, '/', 1), ''), aml.date, rp.name
         """
 
         return query

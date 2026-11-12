@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
+from odoo.addons.utilities_collection.time import days360
 
 STATE = [
     ('validated', 'Validada'),
@@ -73,7 +74,20 @@ class HrNoveltyLine(models.Model):
         return self.amount
 
     def create_payslip_line_dep_days_worked(self, data_payslip, worked_days, max_working_days):
+        date_from = data_payslip['period'].start
+        date_end = data_payslip['period'].end
+        if date_from < data_payslip['contract'].date_start:
+            date_from = data_payslip['contract'].date_start
+        if data_payslip['contract'].settlement_date and date_end > data_payslip['contract'].settlement_date:
+            date_end = data_payslip['contract'].settlement_date
+        days_not_worked = self.env['hr.leave.line'].get_days_not_worked(
+            data_payslip['contract'], date_from, date_end, True, data_payslip, False,
+            all_absences=True)
+        worked_days = days360(date_from, date_end) - days_not_worked
+        max_working_days = days360(
+            data_payslip['period'].start, data_payslip['period'].end)
         self.check_modality_rtefte(data_payslip, worked_days, max_working_days)
+        self.payslip_id = data_payslip['payslip_id']
         payslip_line = self.create_payslip_line(
             data_payslip['payslip_id'], worked_days, max_working_days)
         if 'unique_key' in payslip_line:

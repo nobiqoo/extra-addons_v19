@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_repair_order_form_inherit_signatures_odone" model="ir.ui.view">
+        <field name="name">repair.order.form.inherit.signatures.odone</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="product_maintenance.product_maintenance_repair_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <field name="use_signed_work_orders_in_maintenance" invisible="1"/>
+                <field name="sign_technician" invisible="1"/>
+                <field name="sign_client" invisible="1"/>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <widget name="signature"
+                        string="Firma Técnico"
+                        highlight="1"
+                        signature_field="sign_technician"
+                        full_name="excuter_user_id"
+                        invisible="not use_signed_work_orders_in_maintenance or not id or state in ('cancel', 'done') or sign_technician"/>
+                <widget name="signature"
+                        string="Firma Cliente"
+                        signature_field="sign_client"
+                        full_name="partner_id"
+                        invisible="not use_signed_work_orders_in_maintenance or not id or state in ('cancel', 'done') or sign_client"/>
+            </xpath>
+            <xpath expr="//page[@name='page_work_detail']" position="after">
+                <page name="page_signatures" string="Firmas" invisible="not use_signed_work_orders_in_maintenance">
+                    <group>
+                        <group string="Técnico">
+                            <field name="sign_technician" widget="image" readonly="state in ('cancel', 'done')"/>
+                        </group>
+                        <group string="Cliente">
+                            <field name="sign_client" widget="image" readonly="state in ('cancel', 'done')"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

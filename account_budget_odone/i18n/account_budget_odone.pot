@@ -130,6 +130,7 @@ msgstr "Número de archivos adjuntos"
 #: model:ir.model.fields,field_description:account_budget_odone.field_crossovered_budget_lines__crossovered_budget_id
 #: model_terms:ir.ui.view,arch_db:account_budget_odone.crossovered_budget_view_form_odone
 #: model_terms:ir.ui.view,arch_db:account_budget_odone.crossovered_budget_view_tree_odone
+#: model_terms:ir.ui.view,arch_db:account_budget_odone.view_company_form_inherit_budget
 #: model_terms:ir.ui.view,arch_db:account_budget_odone.view_crossovered_budget_search_odone
 msgid "Budget"
 msgstr "Presupuesto"

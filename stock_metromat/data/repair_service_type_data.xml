@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="service_type_review" model="repair.service.type">
+        <field name="name">Revisión</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="service_type_repair" model="repair.service.type">
+        <field name="name">Reparación</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="service_type_maintenance" model="repair.service.type">
+        <field name="name">Mantenimiento</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="service_type_calibration" model="repair.service.type">
+        <field name="name">Calibración</field>
+        <field name="sequence">40</field>
+    </record>
+</odoo>

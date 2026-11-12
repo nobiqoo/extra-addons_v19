@@ -10,3 +10,4 @@ from . import res_config_settings
 from . import account_move_line
 # from . import report_payment_days
 # from . import account_aged_receivable
+from . import account_aged_receivable_salesperson

@@ -1,0 +1,202 @@
+<odoo>
+    <record id="budget_list" model="ir.ui.view">
+        <field name="name">sale.budget.monthly.list</field>
+        <field name="model">sale.budget.monthly</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="state == 'draft'">
+                <field name="date_start"/><field name="user_id"/><field name="team_id"/><field name="zone"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="amount_total_budget" sum="Total"/><field name="amount_real_sales" sum="Total"/>
+                <field name="compliance_percentage"/><field name="cartera_budget" sum="Total"/>
+                <field name="cartera_real_collected" sum="Total"/><field name="cartera_compliance"/><field name="state"/>
+            </list>
+        </field>
+    </record>
+    <record id="budget_form" model="ir.ui.view">
+        <field name="name">sale.budget.monthly.form</field>
+        <field name="model">sale.budget.monthly</field>
+        <field name="arch" type="xml">
+            <form string="Presupuesto comercial">
+                <header>
+                    <button name="action_confirm" string="Confirmar" type="object" class="oe_highlight" invisible="state != 'draft'" groups="sales_team.group_sale_manager"/>
+                    <button name="action_draft" string="Volver a borrador" type="object" invisible="state == 'draft'" groups="sales_team.group_sale_manager"/>
+                    <button name="action_dashboard" string="Ver cumplimiento" type="object" invisible="state != 'confirmed'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <h1><field name="name"/></h1>
+                    <group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company" readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="user_id" readonly="state != 'draft'"/>
+                            <field name="team_id" readonly="state != 'draft'"/>
+                            <field name="zone" readonly="state != 'draft'"/>
+                            <field name="city" readonly="state != 'draft'"/>
+                            <field name="state_id" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="date_start" readonly="state != 'draft'"/>
+                            <field name="date_end"/>
+                            <field name="allocation_mode" readonly="state != 'draft'"/>
+                            <field name="amount_total_budget" readonly="state != 'draft'"/>
+                            <field name="amount_real_sales"/><field name="compliance_percentage"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Distribución por categoría" invisible="allocation_mode == 'global'">
+                            <field name="line_ids" readonly="state != 'draft'">
+                                <list editable="bottom" open_form_view="1">
+                                    <field name="currency_id" column_invisible="True"/>
+                                    <field name="category_id"/><field name="percent_allocation" sum="Total %"/>
+                                    <field name="budget_amount" sum="Total"/><field name="quantity_target" optional="hide"/>
+                                    <field name="reference_unit_price" optional="hide"/><field name="estimated_quantity" optional="hide"/>
+                                    <field name="uom_id" optional="hide"/><field name="real_amount" sum="Total"/><field name="compliance_rate"/>
+                                </list>
+                                <form string="Meta por categoría">
+                                    <group><field name="budget_id" invisible="1"/><field name="currency_id" invisible="1"/>
+                                        <field name="category_id"/><field name="percent_allocation"/><field name="budget_amount"/>
+                                        <field name="quantity_target"/><field name="uom_id"/>
+                                        <field name="reference_unit_price"/><field name="estimated_quantity"/>
+                                    </group>
+                                    <p>Opcional: defina porcentajes semanales propios para esta categoría. Si no registra filas, se usa la distribución general. La suma debe ser 100 %.</p>
+                                    <field name="schedule_ids">
+                                        <list editable="bottom">
+                                            <field name="currency_id" column_invisible="True"/>
+                                            <field name="week_id" domain="[('budget_id', '=', parent.budget_id)]" options="{'no_create': True}"/>
+                                            <field name="percent_allocation" sum="Total %"/><field name="budget_amount"/>
+                                        </list>
+                                    </field>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Planificación semanal">
+                            <button name="action_generate_weeks" type="object" string="Generar semanas del mes" invisible="state != 'draft' or week_ids" groups="sales_team.group_sale_manager"/>
+                            <p class="text-muted">Distribución semanal predeterminada. Cada categoría puede tener porcentajes propios al abrir su detalle. La meta diaria se reparte entre los días de cada tramo.</p>
+                            <field name="week_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="currency_id" column_invisible="True"/>
+                                    <field name="name"/><field name="date_start"/><field name="date_end"/>
+                                    <field name="percent_allocation" sum="Total %"/><field name="budget_amount" sum="Total"/>
+                                    <field name="real_amount" sum="Total"/><field name="compliance_rate"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Cartera vencida">
+                            <button name="action_use_calculated_collection_target" type="object"
+                                    string="Usar valor calculado" class="btn-secondary"
+                                    invisible="state != 'draft'" groups="sales_team.group_sale_manager"/>
+                            <button name="action_view_collection_target_invoices" type="object"
+                                    string="Ver facturas incluidas" class="btn-secondary"/>
+                            <group>
+                                <group string="Meta y ejecución">
+                                    <field name="cartera_budget" readonly="state != 'draft'"/>
+                                    <field name="cartera_budget_manual"/>
+                                    <field name="cartera_real_collected"/><field name="cartera_compliance"/><field name="cartera_pending"/>
+                                </group>
+                                <group string="Cálculo automático actual">
+                                    <field name="cartera_overdue_calculated"/>
+                                    <field name="cartera_due_month_calculated"/>
+                                    <field name="cartera_collected_target_calculated"/>
+                                    <field name="cartera_budget_calculated"/>
+                                </group>
+                                <group string="Resumen de facturas">
+                                    <field name="cartera_paid_invoice_count"/>
+                                    <field name="cartera_paid_invoice_amount"/>
+                                    <field name="cartera_pending_invoice_count"/>
+                                    <field name="cartera_pending_invoice_amount"/>
+                                </group>
+                                <group string="Fotografía al inicio del mes">
+                                    <field name="snapshot_date"/><field name="portfolio_total"/>
+                                    <field name="portfolio_overdue"/><field name="portfolio_due_month"/>
+                                </group>
+                            </group>
+                            <p class="text-muted">La meta y el recaudo de cartera solo incluyen facturas emitidas antes del mes consultado. Suman las vencidas y las que vencerán dentro del mes; sus pagos del mes aumentan el recaudo sin reducir la meta. Las facturas creadas y pagadas dentro del mismo mes se consideran ventas del periodo y no inciden en este indicador. Puede ajustar manualmente la meta; “Usar valor calculado” restaura el valor automático. Valores en moneda de la compañía.</p>
+                        </page>
+                        <page string="Observaciones"><field name="notes"/></page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="budget_search" model="ir.ui.view">
+        <field name="name">sale.budget.monthly.search</field><field name="model">sale.budget.monthly</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/><field name="team_id"/><field name="zone"/><field name="city"/>
+                <filter name="confirmed" string="Confirmados" domain="[('state', '=', 'confirmed')]"/>
+                <filter name="month" string="Mes" date="date_start"/>
+                <group>
+                    <filter name="group_user" string="Asesor" context="{'group_by': 'user_id'}"/>
+                    <filter name="group_team" string="Equipo" context="{'group_by': 'team_id'}"/>
+                    <filter name="group_zone" string="Zona" context="{'group_by': 'zone'}"/>
+                    <filter name="group_city" string="Ciudad" context="{'group_by': 'city'}"/>
+                    <filter name="group_month" string="Mes" context="{'group_by': 'date_start:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="report_pivot" model="ir.ui.view">
+        <field name="name">sale.budget.report.pivot</field><field name="model">sale.budget.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Cumplimiento comercial" disable_linking="1">
+                <field name="currency_id" type="row"/><field name="team_id" type="row"/><field name="user_id" type="row"/>
+                <field name="date_start" type="col" interval="month"/>
+                <field name="amount_total_budget" type="measure"/><field name="amount_real_sales" type="measure"/>
+                <field name="cartera_budget" type="measure"/><field name="cartera_real_collected" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="report_graph" model="ir.ui.view">
+        <field name="name">sale.budget.report.graph</field><field name="model">sale.budget.report</field>
+        <field name="arch" type="xml"><graph string="Ventas por asesor" type="bar"><field name="user_id"/><field name="amount_real_sales" type="measure"/></graph></field>
+    </record>
+    <record id="report_search" model="ir.ui.view">
+        <field name="name">sale.budget.report.search</field><field name="model">sale.budget.report</field>
+        <field name="arch" type="xml"><search>
+            <field name="user_id"/><field name="team_id"/><field name="zone"/><field name="city"/><field name="company_id"/>
+            <filter name="month" string="Mes" date="date_start"/>
+            <group><filter name="zone" string="Zona" context="{'group_by': 'zone'}"/><filter name="city" string="Ciudad" context="{'group_by': 'city'}"/></group>
+        </search></field>
+    </record>
+    <record id="budget_action" model="ir.actions.act_window">
+        <field name="name">Maestro de presupuestos</field><field name="res_model">sale.budget.monthly</field><field name="view_mode">list,form</field>
+    </record>
+    <record id="category_report_pivot" model="ir.ui.view">
+        <field name="name">sale.budget.category.report.pivot</field><field name="model">sale.budget.category.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Cumplimiento por categoría" disable_linking="1">
+                <field name="currency_id" type="row"/><field name="team_id" type="row"/><field name="user_id" type="row"/>
+                <field name="category_id" type="col"/>
+                <field name="budget_amount" type="measure"/><field name="real_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="category_report_graph" model="ir.ui.view">
+        <field name="name">sale.budget.category.report.graph</field><field name="model">sale.budget.category.report</field>
+        <field name="arch" type="xml"><graph string="Ventas por categoría" type="bar"><field name="category_id"/><field name="real_amount" type="measure"/></graph></field>
+    </record>
+    <record id="category_report_search" model="ir.ui.view">
+        <field name="name">sale.budget.category.report.search</field><field name="model">sale.budget.category.report</field>
+        <field name="arch" type="xml"><search><field name="user_id"/><field name="team_id"/><field name="zone"/><field name="category_id"/>
+            <filter name="month" string="Mes" date="date_start"/>
+        </search></field>
+    </record>
+    <record id="category_report_action" model="ir.actions.act_window">
+        <field name="name">Análisis por categoría</field><field name="res_model">sale.budget.category.report</field><field name="view_mode">pivot,graph</field>
+    </record>
+    <record id="report_action" model="ir.actions.act_window">
+        <field name="name">Análisis de cumplimiento</field><field name="res_model">sale.budget.report</field><field name="view_mode">pivot,graph</field>
+    </record>
+    <record id="dashboard_action" model="ir.actions.client">
+        <field name="name">Tablero comercial</field><field name="tag">sale_budget_arthome.dashboard</field>
+    </record>
+    <menuitem id="budget_root" name="Presupuestos comerciales" sequence="35" groups="sales_team.group_sale_salesman"
+              web_icon="sale_budget_arthome,static/description/icon.png"/>
+    <menuitem id="dashboard_menu" name="Cumplimiento" parent="budget_root" action="dashboard_action" sequence="10"/>
+    <menuitem id="budget_menu" name="Maestro de presupuestos" parent="budget_root" action="budget_action" sequence="20"/>
+    <menuitem id="report_menu" name="Análisis" parent="budget_root" action="report_action" sequence="30"/>
+    <menuitem id="category_report_menu" name="Análisis por categoría" parent="budget_root" action="category_report_action" sequence="40"/>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="page_homogenizers" model="website.page">
+        <field name="name">Do you need Homogenizers?</field>
+        <field name="type">qweb</field>
+        <field name="url">/homogenizers</field>
+        <field name="key">website_adipack.page_homogenizers</field>
+        <field name="is_published" eval="True"/>
+        <field name="adipack_english" eval="True"/>
+        <field name="website_meta_title">Do you need Homogenizers? | Adipack - Adinox</field>
+        <field name="website_meta_description">Homogenizers are CE compliant NORMS and are available with hourly flow rates from 50 to 50,000 l/h for homogenizing pressures up to 2,000 bar. CLICK HERE.</field>
+        <field name="arch" type="xml"><t t-name="website_adipack.page_homogenizers"><t t-call="website.layout"><div id="wrap" class="oe_structure oe_empty"><section class="o_adp_section o_colored_level oe_img_bg o_bg_img_center" style="padding: 50px 0px 0px 0px; background-image: url('/website_adipack/static/src/uploads/2017/04/fondo-trayectoria-adipack.png'); background-size: cover; background-position: center" data-snippet="s_text_block" data-name="Bloque"><div class="container"><div class="row"><div class="o_colored_level col-12 col-lg-12"><div class="o_adp_title text-center" style="margin-bottom: 15px"><h3 style="font-size: 30px; text-transform: none; color: #ffffff">Homogenizers</h3></div></div></div></div></section><section class="o_adp_section o_colored_level" data-snippet="s_text_block" data-name="Bloque"><div class="container"><div class="row"><div class="o_colored_level col-12 col-lg-4"><div class="o_adp_gallery_slider"><div id="o_adp_carousel_homogenizers_1" class="carousel slide o_adp_carousel " data-bs-ride="carousel" data-bs-interval="5000"><div class="carousel-inner"><div class="carousel-item active"><a class="o_adp_lightbox" href="/website_adipack/static/src/uploads/2017/04/logo-adipack.png"><img class="d-block w-100 img-fluid" src="/website_adipack/static/src/uploads/2017/04/logo-adipack.png" alt="Adipack"/></a></div></div></div></div></div><div class="o_colored_level col-12 col-lg-8"><div class="o_adp_tabs"><ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="o_adp_tab_homogenizers_2_l1" data-bs-toggle="tab" href="#o_adp_tab_homogenizers_2_c1" role="tab" aria-controls="o_adp_tab_homogenizers_2_c1" aria-selected="true">DESCRIPTION</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="o_adp_tab_homogenizers_2_l2" data-bs-toggle="tab" href="#o_adp_tab_homogenizers_2_c2" role="tab" aria-controls="o_adp_tab_homogenizers_2_c2" aria-selected="false">TECHNICAL FEATURES</a></li></ul><div class="tab-content"><div class="tab-pane fade show active" id="o_adp_tab_homogenizers_2_c1" role="tabpanel" aria-labelledby="o_adp_tab_homogenizers_2_l1"><p><b>THE HOMOGENIZERS </b>, comply with the CE norms and are available with hourly flow rates of 50 to 50,000 l / h for homogenization pressures of up to 2,000 bar, the homogenization action obtained at 150/250 bar guarantees a dispersion of the particles or the fat globules in the dough avoiding phase separation during storage.</p>
+<p><span style="color: #01a2b9"><b>The proposed versions are:</b></span><br/>
+●	Sanitary.<br/>
+●	Aseptic, for UHT installations.<br/>
+●	With second stage of homogenization.<br/>
+●	Standard for the process of products such as milk, yogurt, creams, etc …<br/>
+●	Abrasive, for the process of products such as fruit juices, ice cream, ketchup, etc …</p></div><div class="tab-pane fade" id="o_adp_tab_homogenizers_2_c2" role="tabpanel" aria-labelledby="o_adp_tab_homogenizers_2_l2"><p>●	Electrical installation for fixed flow.<br/>
+●	Electrical installation for variable flow.<br/>
+●	Electrical installation for double flow.<br/>
+●	Partial automation of the machine, with the possibility of working in it manually and / or remotely from the PLC in the installation.<br/>
+Many other optional equipment are available to propose “custom” machines.<br/>
+●	Pulsation compensators at the entrance and exit of the product.<br/>
+●	Pressure transducer with digital reading of homogenization pressure.<br/>
+●	Partial homogenization installation.<br/>
+●	Device for automatic disconnection of homogenization pressure in case of incorrect product input of the machine.</p></div></div></div><p class="o_adp_buttons text-center" style="margin-bottom: 0px"><a class="btn btn-primary o_adp_btn" href="/contactar-us" style="font-size: 18px; padding: 5px 15px 5px 15px; margin: 0px 0px 10px 0px; border-radius: 5px"><i class="fa fa-envelope me-2"/>CONTACT US</a></p></div></div></div></section><section class="o_adp_section o_colored_level" style="padding: 8px 0px 0px 0px" data-snippet="s_text_block" data-name="Bloque"><div class="container"><div class="row"><div class="o_colored_level col-12 col-lg-8" style="padding: 10px 0px 0px 0px"><div class="o_adp_title " style="margin-bottom: 0px"><h3 style="font-size: 23px; font-weight: 400; text-transform: none; color: #00437a">Adipack Adinox machines and equipment complete brochure</h3></div></div><div class="o_colored_level col-12 col-lg-2"><p class="o_adp_buttons text-center" style="margin-bottom: 0px"><a class="btn btn-primary o_adp_btn" href="/website_adipack/static/src/uploads/2021/03/Brochure-Portafolio-General-Process-Equipment.pdf" target="_blank" rel="noopener" style="font-size: 18px; padding: 5px 15px 5px 15px; margin: 0px 0px 10px 0px; border-radius: 5px">Download PDF</a></p></div></div></div></section></div></t></t></field>
+    </record>
+</odoo>

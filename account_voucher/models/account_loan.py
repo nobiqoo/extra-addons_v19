@@ -89,7 +89,12 @@ class AccountLoan(models.Model):
                     account_journal = record.journal_id.suspense_account_id.id
                 else:
                     raise UserError('El diario no tiene cuentas de pagos registradas.')
-            settings = self.env['res.config.settings'].search([('company_id', '=', self.company_id.id)], limit=1)
+            # settings = self.env['res.config.settings'].search([('company_id', '=', self.company_id.id)], limit=1)
+            company = self.company_id
+            if (not company.advance_account_loan_id):
+                raise ValidationError("Para continuar debe configurar la cuenta 'Cuenta De Préstamo Empleados'."
+                    + "\nRuta: Contabilidad/Configuración/Ajustes/Cuentas predeterminadas."
+                    + " Se sugiere usar la cuenta 1365.")
             vals = {
                 'ref':record.name,
                 'date':record.loan_date,
@@ -97,7 +102,7 @@ class AccountLoan(models.Model):
                 'way_to_pay':'credit',
                 'line_ids': [
                     (0, 0, {
-                        'account_id': settings.advance_account_loan_id.id,
+                        'account_id': company.advance_account_loan_id.id,
                         'partner_id': record.partner_id.id,
                         'debit': record.loan_amount,
                         'credit': 0.0,

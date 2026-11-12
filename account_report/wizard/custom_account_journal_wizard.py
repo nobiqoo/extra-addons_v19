@@ -58,7 +58,7 @@ class CustomAccountJournalWizard(models.Model):
     def action_confirm(self):
         self.validate_len_code()
         report = self.env.ref('account_report.custom_report_account_journal')
-        data = self.prepare_data()
+        data = {'record_id': self.id}
         return report.report_action(self, data=data)
 
     def button_export_pdf(self):
@@ -203,11 +203,11 @@ class CustomAccountJournalWizard(models.Model):
         self.env.cr.execute(query)
         data_query = self.env.cr.dictfetchall()
 
-        # aa.name (translate=True) y aa.code_store (company_dependent) se
-        # almacenan como jsonb; hay que extraer el valor de texto plano.
+        # aa.name (translate=True) se almacena como jsonb; hay que extraer
+        # el valor de texto plano. El código ya sale resuelto por SQL con la
+        # compañía raíz (code_store es company_dependent).
         for row in data_query:
             row['account_name'] = self._extract_jsonb_value(row.get('account_name'))
-            row['account_code'] = self._extract_jsonb_value(row.get('account_code'))
 
         # NO AGREGAR EL TOTAL GLOBAL
         # sum_line = self.sum_amounts(data_query)
@@ -245,7 +245,7 @@ class CustomAccountJournalWizard(models.Model):
             TO_CHAR(aml.date, 'YYYY/MM/DD') AS date,
             aj.name as journal_name,
             am.name as move_name,
-            aa.code_store as account_code,
+            COALESCE(aa.code_store->>SPLIT_PART(rco.parent_path, '/', 1), '') as account_code,
             aa.name as account_name,
             case when aml.parent_state = 'posted'
              then 'Publicado' else aml.parent_state end as parent_state,
@@ -268,6 +268,7 @@ class CustomAccountJournalWizard(models.Model):
 
         query += """
             inner join account_account aa on aa.id = aml.account_id
+            inner join res_company rco on rco.id = aml.company_id
             inner join account_move am on am.id = aml.move_id
             inner join account_journal aj on aj.id = aml.journal_id
         """

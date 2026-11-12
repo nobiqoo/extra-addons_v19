@@ -6,8 +6,12 @@
          cortina), retiro de Tipo de Soporte Motor del portal (se calcula
          con los kits) y Ancho/Alto fuera de los sistemas sin dimensiones
          digitadas (Cuadro Lienzo usa el campo Dimensiones). -->
-    <data>
-        <function model="safra.field.section" name="_apply_sprint1_revision" eval="[[]]"/>
+    <data noupdate="1">
+    </data>
+    <data noupdate="0">
+        <function model="safra.system" name="_una_vez" eval="['safra.field.section', '_apply_sprint1_revision']"/>
+    </data>
+    <data noupdate="1">
 
         <!-- Fase 5.1: el menú Referencias clasifica TODOS los insumos por
              categoría (obs OBS5/OBS6 del menú REFERENCIA/TELA y de los
@@ -16,66 +20,66 @@
              salen de los productos relacionados en las referencias de su
              categoría; mientras una categoría no tenga productos, el campo
              conserva sus opciones actuales (respaldo). -->
-        <record id="popt_refcat_perfil" model="safra.product.option">
+        <record forcecreate="0" id="popt_refcat_perfil" model="safra.product.option">
             <field name="type">ref_categoria</field>
             <field name="name">Perfil</field>
             <field name="sequence">30</field>
         </record>
-        <record id="popt_refcat_motor" model="safra.product.option">
+        <record forcecreate="0" id="popt_refcat_motor" model="safra.product.option">
             <field name="type">ref_categoria</field>
             <field name="name">Motor</field>
             <field name="sequence">40</field>
         </record>
-        <record id="popt_refcat_cabezal" model="safra.product.option">
+        <record forcecreate="0" id="popt_refcat_cabezal" model="safra.product.option">
             <field name="type">ref_categoria</field>
             <field name="name">Cabezal</field>
             <field name="sequence">50</field>
         </record>
-        <record id="popt_refcat_perfil_cenefa" model="safra.product.option">
+        <record forcecreate="0" id="popt_refcat_perfil_cenefa" model="safra.product.option">
             <field name="type">ref_categoria</field>
             <field name="name">Perfil Cenefa</field>
             <field name="sequence">60</field>
         </record>
-        <record id="popt_refcat_cordon" model="safra.product.option">
+        <record forcecreate="0" id="popt_refcat_cordon" model="safra.product.option">
             <field name="type">ref_categoria</field>
             <field name="name">Cordón</field>
             <field name="sequence">70</field>
         </record>
-        <record id="popt_refcat_escuadra" model="safra.product.option">
+        <record forcecreate="0" id="popt_refcat_escuadra" model="safra.product.option">
             <field name="type">ref_categoria</field>
             <field name="name">Escuadra</field>
             <field name="sequence">80</field>
         </record>
 
-        <record id="field_perfil" model="safra.field">
+        <record forcecreate="0" id="field_perfil" model="safra.field">
             <field name="field_type">ref_categoria</field>
             <field name="ref_category_id" ref="popt_refcat_perfil"/>
         </record>
-        <record id="field_perfil_sheer" model="safra.field">
+        <record forcecreate="0" id="field_perfil_sheer" model="safra.field">
             <field name="field_type">ref_categoria</field>
             <field name="ref_category_id" ref="popt_refcat_perfil"/>
         </record>
-        <record id="field_perfileria2" model="safra.field">
+        <record forcecreate="0" id="field_perfileria2" model="safra.field">
             <field name="field_type">ref_categoria</field>
             <field name="ref_category_id" ref="popt_refcat_perfil"/>
         </record>
-        <record id="field_motor" model="safra.field">
+        <record forcecreate="0" id="field_motor" model="safra.field">
             <field name="field_type">ref_categoria</field>
             <field name="ref_category_id" ref="popt_refcat_motor"/>
         </record>
-        <record id="field_cabezal_tipo" model="safra.field">
+        <record forcecreate="0" id="field_cabezal_tipo" model="safra.field">
             <field name="field_type">ref_categoria</field>
             <field name="ref_category_id" ref="popt_refcat_cabezal"/>
         </record>
-        <record id="field_perfil_cenefa" model="safra.field">
+        <record forcecreate="0" id="field_perfil_cenefa" model="safra.field">
             <field name="field_type">ref_categoria</field>
             <field name="ref_category_id" ref="popt_refcat_perfil_cenefa"/>
         </record>
-        <record id="field_color_cordon" model="safra.field">
+        <record forcecreate="0" id="field_color_cordon" model="safra.field">
             <field name="field_type">ref_categoria</field>
             <field name="ref_category_id" ref="popt_refcat_cordon"/>
         </record>
-        <record id="field_escuadras" model="safra.field">
+        <record forcecreate="0" id="field_escuadras" model="safra.field">
             <field name="field_type">ref_categoria</field>
             <field name="ref_category_id" ref="popt_refcat_escuadra"/>
         </record>

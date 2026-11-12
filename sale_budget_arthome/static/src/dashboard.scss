@@ -1,0 +1,231 @@
+.o_arthome_budget {
+    // This client action always uses a light canvas. Declare every foreground
+    // used on that canvas so Odoo's light/dark theme variables cannot reduce
+    // the contrast of inherited table and form text.
+    --ab-ink: #101828;
+    --ab-muted: #475467;
+    --ab-border: #c9ced6;
+    --ab-blue: #075fc2;
+    --ab-orange: #b9380a;
+    background: #f7f8fa;
+    color: var(--ab-ink);
+    color-scheme: light;
+
+    .ab_title { background: #14213d; color: #ffffff; border-radius: 8px 8px 0 0; }
+    .ab_title h3, .ab_title span { color: #ffffff; }
+    h4 { color: var(--ab-ink); font-weight: 700; }
+    .text-muted { color: var(--ab-muted) !important; }
+    .ab_toolbar .form-control,
+    .ab_toolbar .form-select,
+    .ab_toolbar option {
+        background-color: #ffffff;
+        border-color: #98a2b3;
+        color: var(--ab-ink);
+    }
+    .ab_toolbar .form-control:focus,
+    .ab_toolbar .form-select:focus {
+        border-color: var(--ab-blue);
+        box-shadow: 0 0 0 0.2rem rgba(7, 95, 194, 0.2);
+    }
+    .ab_view_switch {
+        border-left: 1px solid var(--ab-border);
+        padding-left: 12px;
+    }
+    .ab_view_label {
+        color: var(--ab-muted);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+    }
+    .ab_view_button {
+        border: 1px solid var(--ab-border);
+        background: #ffffff;
+        color: #344054;
+        font-weight: 600;
+    }
+    .ab_view_button:hover,
+    .ab_view_button:focus-visible {
+        border-color: #14213d;
+        background: #eef1f5;
+        color: #14213d;
+    }
+    .ab_view_button.active {
+        border-color: #14213d;
+        background: #14213d;
+        color: #ffffff;
+    }
+    .ab_week_select { min-width: 310px; max-width: 340px; }
+    .ab_cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .ab_card { border: 1px solid var(--ab-border); border-radius: 10px; padding: 16px; background: #ffffff; color: var(--ab-ink); }
+    .ab_card small { display: block; color: var(--ab-muted); font-weight: 600; margin-bottom: 6px; }
+    .ab_card strong { display: block; color: var(--ab-ink); font-size: 1.35rem; overflow-wrap: anywhere; }
+    .ab_blue { color: var(--ab-blue) !important; }
+    .ab_orange { color: var(--ab-orange) !important; }
+    .ab_visuals { display: grid; grid-template-columns: minmax(280px, 0.8fr) minmax(420px, 1.5fr); gap: 12px; }
+    .ab_chart_card { min-width: 0; border: 1px solid var(--ab-border); border-radius: 10px; padding: 16px; background: #ffffff; }
+    .ab_chart_card h4 { margin: 0; font-size: 1rem; }
+    .ab_summary_heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .ab_period_actions { display: flex; align-items: center; gap: 5px; }
+    .ab_period_actions > span { padding: 3px 9px; border-radius: 12px; background: #e7f0fc; color: var(--ab-blue); font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
+    .ab_period_actions > button { padding: 2px 7px; border: 1px solid var(--ab-border); border-radius: 10px; background: #ffffff; color: var(--ab-ink); font-size: 0.68rem; }
+    .ab_period_actions > button:hover { border-color: var(--ab-blue); color: var(--ab-blue); }
+    .ab_donut_group { display: flex; justify-content: space-evenly; gap: 20px; padding-top: 18px; }
+    .ab_donut_item { text-align: center; }
+    .ab_donut_values { display: block; max-width: 145px; margin-top: 9px; color: var(--ab-muted); font-size: 0.68rem; line-height: 1.25; overflow-wrap: anywhere; }
+    .ab_donut {
+        width: 132px;
+        height: 132px;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: conic-gradient(var(--ab-progress-color) var(--ab-progress), #e4eaf2 0);
+        cursor: pointer;
+        transition: box-shadow 120ms ease, transform 120ms ease;
+    }
+    .ab_donut:hover { transform: scale(1.03); }
+    .ab_donut.active { box-shadow: 0 0 0 4px #ffffff, 0 0 0 7px var(--ab-progress-color); }
+    .ab_donut:focus-visible { outline: 3px solid #111827; outline-offset: 5px; }
+    .ab_donut_inner {
+        width: 94px;
+        height: 94px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #ffffff;
+        color: var(--ab-ink);
+    }
+    .ab_donut_inner strong { font-size: 1.15rem; }
+    .ab_donut_inner span { color: var(--ab-muted); font-size: 0.78rem; font-weight: 600; }
+    .ab_chart_heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .ab_chart_controls { display: flex; align-items: flex-end; flex-direction: column; gap: 8px; }
+    .ab_chart_selector { display: inline-flex; padding: 2px; border: 1px solid var(--ab-border); border-radius: 8px; background: #f1f4f8; }
+    .ab_chart_selector button { padding: 4px 10px; border: 0; border-radius: 6px; background: transparent; color: var(--ab-muted); font-size: 0.72rem; font-weight: 700; }
+    .ab_chart_selector button:hover { color: var(--ab-ink); }
+    .ab_chart_selector button.active { background: #14213d; color: #ffffff; }
+    .ab_chart_selector button:focus-visible { outline: 2px solid var(--ab-blue); outline-offset: 1px; }
+    .ab_chart_help { display: block; margin-top: 3px; color: var(--ab-muted); font-size: 0.72rem; }
+    .ab_chart_legend { display: flex; gap: 14px; color: var(--ab-muted); font-size: 0.76rem; font-weight: 600; }
+    .ab_chart_legend span::before { content: ''; display: inline-block; width: 10px; height: 10px; margin-right: 5px; border-radius: 2px; }
+    .ab_chart_legend .budget::before { background: var(--ab-blue); }
+    .ab_chart_legend .real::before { background: var(--ab-orange); }
+    .ab_trend_legend .sales::before { background: #1683e6; border-radius: 50%; }
+    .ab_trend_legend .target::before { background: #35ad78; }
+    .ab_trend_legend strong { margin-left: 3px; color: var(--ab-ink); font-size: 0.72rem; }
+    .ab_trend_scroll { overflow-x: auto; }
+    .ab_trend_chart { display: block; width: 100%; min-width: 720px; height: auto; margin-top: 8px; }
+    .ab_grid line { stroke: #d8dee8; stroke-width: 1; }
+    .ab_grid text, .ab_axis_labels text { fill: var(--ab-muted); font-size: 10px; }
+    .ab_sales_area { fill: rgba(22, 131, 230, 0.16); stroke: none; }
+    .ab_sales_line, .ab_target_line { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; }
+    .ab_sales_line { stroke: #1683e6; }
+    .ab_target_line { stroke: #35ad78; }
+    .ab_trend_points .sales { fill: #1683e6; stroke: #ffffff; stroke-width: 1.5; cursor: pointer; }
+    .ab_trend_points .sales:hover { r: 6px; }
+    .ab_trend_points .sales:focus { outline: none; stroke: #111827; stroke-width: 3; }
+    .ab_trend_points .target { fill: #35ad78; }
+    .ab_week_chart { min-height: 152px; display: flex; align-items: stretch; gap: 12px; padding: 15px 6px 0; border-bottom: 1px solid var(--ab-border); }
+    .ab_week_column { min-width: 54px; flex: 1; display: grid; grid-template-rows: 20px 1fr 24px; text-align: center; }
+    .ab_week_values { display: flex; justify-content: center; gap: 8px; color: var(--ab-muted); font-size: 0.68rem; }
+    .ab_week_values span:first-child { color: var(--ab-blue); }
+    .ab_week_values span:last-child { color: var(--ab-orange); }
+    .ab_week_bars { height: 86px; display: flex; align-items: end; justify-content: center; gap: 5px; }
+    .ab_week_bars button {
+        width: 18px;
+        min-height: 3px;
+        padding: 0;
+        border: 0;
+        border-radius: 4px 4px 0 0;
+        cursor: pointer;
+        transition: filter 120ms ease, transform 120ms ease;
+    }
+    .ab_week_bars button:hover { filter: brightness(0.82); transform: scaleX(1.12); }
+    .ab_week_bars button:focus-visible { outline: 3px solid #111827; outline-offset: 2px; }
+    .ab_week_bars .budget { background: var(--ab-blue); }
+    .ab_week_bars .real { background: var(--ab-orange); }
+    .ab_week_label { align-self: end; padding: 2px 8px; border: 0; border-radius: 10px; background: transparent; color: var(--ab-ink); font-size: 0.78rem; font-weight: 700; }
+    .ab_week_label:hover { background: #e4eaf2; }
+    .ab_week_label:focus-visible { outline: 2px solid var(--ab-blue); }
+    .ab_week_column.active .ab_week_label { background: #14213d; color: #ffffff; }
+    .ab_week_column.active .ab_week_bars { background: #f1f4f8; border-radius: 6px 6px 0 0; }
+    .ab_list_heading { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+    .ab_detail_tabs { display: flex; gap: 4px; margin-bottom: 18px; border-bottom: 1px solid var(--ab-border); }
+    .ab_detail_tab { padding: 9px 18px; border: 0; border-bottom: 3px solid transparent; background: transparent; color: var(--ab-muted); font-weight: 700; }
+    .ab_detail_tab:hover { background: #eef1f5; color: var(--ab-ink); }
+    .ab_detail_tab.active { border-bottom-color: var(--ab-blue); color: var(--ab-blue); }
+    .ab_detail_tab:focus-visible { outline: 2px solid var(--ab-blue); outline-offset: -2px; }
+    .ab_list_heading h4 { margin-bottom: 2px; }
+    .ab_list_heading small { color: var(--ab-muted); }
+    .ab_sales_list { min-width: 980px; }
+    .ab_sales_list td { vertical-align: middle; }
+    .ab_sales_list td small { display: block; margin-top: 2px; color: var(--ab-muted); }
+    .ab_credit_note { display: inline-block; padding: 2px 7px; border-radius: 10px; background: #ffedcc; color: #704000; font-weight: 700; }
+    .ab_negative { color: #9f1239 !important; font-weight: 700; }
+    .ab_collection_progress { margin-bottom: 18px; padding: 16px; border: 1px solid var(--ab-border); border-radius: 10px; background: #ffffff; }
+    .ab_collection_track { height: 22px; overflow: hidden; border-radius: 11px; background: #ffedcc; }
+    .ab_collection_paid { height: 100%; border-radius: 11px; background: var(--ab-orange); }
+    .ab_collection_legend { display: flex; justify-content: space-between; gap: 20px; margin-top: 12px; }
+    .ab_collection_legend span { display: grid; gap: 2px; color: var(--ab-ink); }
+    .ab_collection_legend .pending { text-align: right; }
+    .ab_collection_legend strong { font-size: 0.76rem; text-transform: uppercase; }
+    .ab_collection_legend .paid strong { color: var(--ab-orange); }
+    .ab_collection_legend .pending strong { color: #704000; }
+    .ab_collection_list_heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 24px 0 10px; }
+    .ab_collection_list_heading h4 { margin-bottom: 2px; }
+    .ab_collection_list_heading small { color: var(--ab-muted); }
+    .ab_collection_filters { display: flex; flex-wrap: wrap; gap: 5px; }
+    .ab_collection_list { min-width: 1120px; }
+    .ab_payment_list { min-width: 760px; }
+    .ab_collection_list td { vertical-align: middle; }
+    .ab_overdue, .ab_current { display: inline-block; padding: 3px 9px; border-radius: 12px; white-space: nowrap; font-weight: 700; }
+    .ab_overdue { background: #fde2e2; color: #991b1b; }
+    .ab_current { background: #e4eaf2; color: #344054; }
+    .table {
+        --table-color: var(--ab-ink);
+        --table-bg: #ffffff;
+        --table-border-color: var(--ab-border);
+        --table-striped-color: var(--ab-ink);
+        --table-striped-bg: #f1f4f8;
+        color: var(--ab-ink);
+        background: #ffffff;
+    }
+    .table > :not(caption) > * > * {
+        color: inherit;
+        border-color: var(--ab-border);
+    }
+    .table thead th {
+        background: #eef1f5;
+        color: #17233f;
+        font-weight: 700;
+    }
+    .ab_days { min-width: 850px; text-align: center; }
+    .ab_budget_row { --table-bg: #e7f0fc; background: #e7f0fc; color: var(--ab-blue); }
+    .ab_sales_row { --table-bg: #fce9e2; background: #fce9e2; color: var(--ab-orange); }
+    .ab_budget_row > *, .ab_sales_row > * { background-color: inherit !important; color: inherit !important; }
+    .ab_categories td { vertical-align: middle; }
+    .ab_good, .ab_pending { border-radius: 12px; padding: 3px 9px; white-space: nowrap; }
+    .ab_good { background: #dff4e2; color: #075e18; font-weight: 700; }
+    .ab_pending { background: #ffedcc; color: #704000; font-weight: 700; }
+    .ab_bar { width: 120px; height: 12px; position: relative; background: #d8e7f8; border-radius: 3px; }
+    .ab_fill { height: 100%; background: #d04412; border-radius: 3px; &.good { background: #087a22; } }
+    .ab_bar i { position: absolute; left: 83.33%; top: -2px; height: 16px; border-left: 2px solid var(--ab-blue); }
+    @media (max-width: 992px) {
+        .ab_view_switch { border-left: 0; padding-left: 0; }
+        .ab_visuals { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 800px) {
+        .ab_cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .ab_week_chart { overflow-x: auto; }
+        .ab_week_column { flex: 0 0 70px; }
+        .ab_collection_list_heading { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 450px) {
+        .ab_cards { grid-template-columns: 1fr; }
+        .ab_donut_group { flex-direction: column; align-items: center; }
+        .ab_chart_heading { align-items: flex-start; flex-direction: column; }
+        .ab_chart_controls { align-items: flex-start; }
+    }
+}

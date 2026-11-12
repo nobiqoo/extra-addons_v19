@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="class_list_wizard_view_form" model="ir.ui.view">
+        <field name="name">wk.school.colombo.class.list.wizard.form</field>
+        <field name="model">wk.school.colombo.class.list.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generar Class List / Listado del Módulo">
+                <field name="populate_class_id" readonly="1"/>
+                <field name="cuts_count" invisible="1"/>
+                <group>
+                    <field name="cut" invisible="cuts_count != '2'" widget="radio"/>
+                </group>
+                <group string="Columnas adicionales">
+                    <field name="show_grades"/>
+                    <field name="show_invoice"/>
+                    <field name="show_phone"/>
+                    <field name="show_mobile"/>
+                    <field name="show_email"/>
+                </group>
+                <footer>
+                    <button name="action_generate_pdf" type="object"
+                            string="Generar PDF" class="btn-primary"/>
+                    <button string="Cancelar" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="class_list_wizard_action" model="ir.actions.act_window">
+        <field name="name">Generar Class List / Listado del Módulo</field>
+        <field name="res_model">wk.school.colombo.class.list.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

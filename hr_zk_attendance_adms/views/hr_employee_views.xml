@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- 1. Form View Inherit: En la sección 'ASISTENCIA/PUNTO DE VENTA' de la pestaña 'Ajustes' y botón en header -->
+    <record id="view_employee_form_inherit_adms" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.inherit.hr.zk.attendance.adms</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_sync_to_biometrics"
+                        string="Sincronizar Biométricos"
+                        type="object"
+                        class="btn-secondary"
+                        icon="fa-refresh"
+                        invisible="not device_id_num"/>
+            </xpath>
+            <xpath expr="//group[@name='identification_group']" position="inside">
+                <field name="device_id_num" string="ID Biométrico (ZKTeco)"/>
+                <field name="allowed_device_ids" widget="many2many_tags" string="Dispositivos Permitidos" options="{'no_create': True}" placeholder="Todos si se deja vacío..."/>
+                <button name="action_sync_to_biometrics"
+                        string=" Sincronizar Biométricos"
+                        type="object"
+                        class="btn-outline-primary btn-sm mb-2"
+                        icon="fa-refresh"
+                        invisible="not device_id_num"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 2. Tree/List View Inherit: Columna visible de ID Biométrico en la lista general de Empleados -->
+    <record id="view_employee_tree_inherit_adms" model="ir.ui.view">
+        <field name="name">hr.employee.tree.inherit.hr.zk.attendance.adms</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='work_email']" position="after">
+                <field name="device_id_num" string="ID Biométrico" optional="show"/>
+                <field name="allowed_device_ids" widget="many2many_tags" string="Biométricos Permitidos" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 3. Search View Inherit: Búsqueda y filtrado rápido por ID Biométrico -->
+    <record id="view_employee_filter_inherit_adms" model="ir.ui.view">
+        <field name="name">hr.employee.search.inherit.hr.zk.attendance.adms</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="device_id_num" string="ID Biométrico"/>
+            </xpath>
+            <xpath expr="//filter[@name='inactive']" position="before">
+                <filter string="Con ID Biométrico" name="with_biometric_id" domain="[('device_id_num', '!=', False)]"/>
+                <filter string="Sin ID Biométrico" name="without_biometric_id" domain="[('device_id_num', '=', False)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

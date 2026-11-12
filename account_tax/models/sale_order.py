@@ -55,9 +55,10 @@ class SaleOrder(models.Model):
         for line in self.order_line:
             taxes |= line.compute_line_tax()
 
-        tax_id = taxes.calculate_base(self.order_line, self.city_id, self.partner_id)
+        # En ventas se usa el CIIU de la compañía, como en v18 y en la factura
+        tax_id = taxes.calculate_base(self.order_line, self.city_id, self.company_id.partner_id)
         if tax_id:
-            self.order_line.tax_id = tax_id
+            self.order_line.tax_ids = tax_id
 
     def _prepare_invoice(self):
         invoice_vals = super(SaleOrder, self)._prepare_invoice()

@@ -9,3 +9,7 @@ from . import crm_lead_transport
 from . import crm_lead_trafic_line
 from . import crm_lead
 from . import res_partner
+from . import mail_activity
+from . import mail_activity_schedule
+from . import mail_message
+from . import crm_activity_report

@@ -18,7 +18,8 @@
     'depends': [
         'account',
         'contacts',
-        'account_voucher'
+        'account_voucher',
+        'account_check_printing'
     ],
     'data': [
         'views/account_voucher_views.xml',

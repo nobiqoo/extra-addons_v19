@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_view_order_form_price_min_control" model="ir.ui.view">
+        <field name="name">sale.order.form.price.min.control</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <field name="has_price_exception" invisible="1" />
+                <field name="price_exception_approved" invisible="1" />
+            </xpath>
+
+            <xpath expr="//header" position="after">
+                <div class="alert alert-warning text-center o_form_header" invisible="not has_price_exception or price_exception_approved or state not in ['draft', 'sent']" role="alert">
+                    <strong>La cotización contiene productos con precios inferiores al mínimo
+                        permitido de la lista de precios. Contacte al Responsable Comercial para
+                        autorizar la excepción.</strong>
+                </div>
+                <div class="alert alert-success text-center o_form_header" invisible="not has_price_exception or not price_exception_approved or state not in ['draft', 'sent']" role="alert">
+                    <strong>Excepción de precio mínimo aprobada. Ya puede confirmar la cotización.</strong>
+                </div>
+            </xpath>
+
+            <xpath expr="//button[@name='action_confirm' and @id='action_confirm']" position="after">
+                <button name="action_approve_price_exception" type="object" string="Aprobar Excepción de Precio" class="btn-secondary" groups="sale_price_min_control.group_price_exception_approver" invisible="not has_price_exception or price_exception_approved or state != 'sent'" />
+            </xpath>
+
+            <xpath expr="//button[@name='action_confirm' and not(@id='action_confirm')]" position="after">
+                <button name="action_approve_price_exception" type="object" string="Aprobar Excepción de Precio" class="btn-secondary" groups="sale_price_min_control.group_price_exception_approver" invisible="not has_price_exception or price_exception_approved or state != 'draft'" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

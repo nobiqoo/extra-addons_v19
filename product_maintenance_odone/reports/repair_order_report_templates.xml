@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="repair_order_report_template_inherit_odone"
+              inherit_id="product_maintenance.repair_order_report_template">
+        <xpath expr="//style" position="inside">
+            .signature-image img {
+                max-height: 3cm;
+                max-width: 8cm;
+            }
+        </xpath>
+
+        <xpath expr="//table[@class='info-table']" position="before">
+            <div t-if="doc.use_signed_work_orders_in_maintenance" style="height: 40px;"></div>
+        </xpath>
+
+        <xpath expr="//tr[th[normalize-space()='DIRECCIÓN:']]/th[not(normalize-space())]" position="inside">
+            <t t-if="doc.use_signed_work_orders_in_maintenance">TIPO DE MANTENIMIENTO:</t>
+        </xpath>
+        <xpath expr="//tr[th[normalize-space()='DIRECCIÓN:']]/td[not(normalize-space())]" position="inside">
+            <span t-if="doc.use_signed_work_orders_in_maintenance" t-esc="doc._get_maintenance_type_display()"/>
+        </xpath>
+
+        <xpath expr="//div[@class='signature-section']//td[@class='signature-box'][1]//div" position="replace">
+            <div t-if="doc.use_signed_work_orders_in_maintenance and doc.sign_technician" class="signature-image">
+                <img t-att-src="image_data_uri(doc.sign_technician)" alt="Firma del técnico"/>
+            </div>
+            <div t-else="">__________________________</div>
+        </xpath>
+
+        <xpath expr="//div[@class='signature-section']//td[@class='signature-box'][2]//div" position="replace">
+            <div t-if="doc.use_signed_work_orders_in_maintenance and doc.sign_client" class="signature-image">
+                <img t-att-src="image_data_uri(doc.sign_client)" alt="Firma del cliente"/>
+            </div>
+            <div t-else="">__________________________</div>
+        </xpath>
+    </template>
+</odoo>

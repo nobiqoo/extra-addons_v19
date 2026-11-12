@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_picking_form_delivery_slip_arthome" model="ir.ui.view">
+        <field name="name">stock.picking.form.delivery.slip.arthome</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='other_infos']" position="after">
+                <group string="Delivery Slip" name="delivery_slip_info" invisible="not line_count_applicable">
+                    <field name="delivery_slip_applicable" invisible="1"/>
+                    <field name="box_count_applicable" invisible="1"/>
+                    <field name="line_count_applicable" invisible="1"/>
+                    <field name="insurable_currency_id" invisible="1"/>
+                    <field name="box_count" invisible="not box_count_applicable" readonly="state == 'cancel'"/>
+                    <label for="delivery_weight" invisible="not delivery_slip_applicable"/>
+                    <div name="delivery_weight" invisible="not delivery_slip_applicable">
+                        <field name="delivery_weight" class="oe_inline"/>
+                        <field name="delivery_weight_uom_name" nolabel="1" class="oe_inline" style="margin-left:5px"/>
+                    </div>
+                    <field name="insurable_value" invisible="not delivery_slip_applicable" readonly="state == 'cancel'"/>
+                    <field name="line_count"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_picking_form_order_info_arthome" model="ir.ui.view">
+        <field name="name">stock.picking.form.order.info.arthome</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="order_info_applicable" invisible="1"/>
+                <field name="order_reference" invisible="not order_info_applicable or not order_reference"/>
+                <field name="salesperson_name" invisible="not order_info_applicable or not salesperson_name"/>
+            </xpath>
+            <xpath expr="//field[@name='picking_properties']" position="before">
+                <group name="delivery_comment_info"
+                       invisible="not order_info_applicable or (not delivery_comment and (picking_type_code != 'outgoing' or state in ('done', 'cancel')))">
+                    <field name="delivery_comment" readonly="picking_type_code != 'outgoing' or state in ('done', 'cancel')"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="vpicktree_delivery_slip_arthome" model="ir.ui.view">
+        <field name="name">stock.picking.list.delivery.slip.arthome</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="insurable_currency_id" column_invisible="True"/>
+                <field name="box_count" optional="hide"/>
+                <field name="delivery_weight" optional="hide"/>
+                <field name="insurable_value" optional="hide" sum="Total Insurable Value"/>
+                <field name="line_count" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_picking_form_lot_import_arthome" model="ir.ui.view">
+        <field name="name">stock.picking.form.lot.import.arthome</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='button_validate'][last()]" position="after">
+                <field name="lot_import_applicable" invisible="1"/>
+                <button name="action_open_lot_import_arthome" type="object" string="Import Serial/Lot Numbers"
+                        invisible="not lot_import_applicable or state in ('draft', 'done', 'cancel')"
+                        groups="stock.group_production_lot"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_purchase_import_form_lot_import_arthome" model="ir.ui.view">
+        <field name="name">purchase.import.form.lot.import.arthome</field>
+        <field name="model">purchase.import</field>
+        <field name="inherit_id" ref="purchase_import.view_purchase_import_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_lines']" position="after">
+                <button name="action_open_lot_import_arthome" type="object" string="Import Serial/Lot Numbers"
+                        invisible="state not in ('draft', 'confirm')"
+                        groups="stock.group_production_lot"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

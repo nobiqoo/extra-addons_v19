@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tarea 12458: botón "Imprimir Tirilla" en el recibo de cobro de pago
+         único, junto a "View Invoice" -análogo al que ya existe en la Tabla
+         de amortización para pagos por cuotas-.
+
+         Incidencia PT11849 (5): se oculta "Create Invoice" (action_create_
+         invoice, wk_school_management) -abre un formulario de factura en
+         blanco para llenar a mano, un camino totalmente aparte de
+         wk.fee.slip._create_invoices()/fee_slip_wizard.py, que es el que
+         sí deja la factura correctamente vinculada (fee_slip_id,
+         installment_plan, etc.). Dejarlo visible solo invita a crear una
+         factura duplicada y desvinculada del flujo real. -->
+    <record id="wk_fee_slip_view_form_colombo" model="ir.ui.view">
+        <field name="name">wk.fee.slip.view.form.colombo</field>
+        <field name="model">wk.fee.slip</field>
+        <field name="inherit_id" ref="wk_school_management.wk_fee_slip_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_create_invoice']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='preview_invoice']" position="after">
+                <button name="action_imprimir_tirilla" string="Imprimir Tirilla"
+                        type="object" class="btn-secondary"
+                        invisible="state != 'paid'"/>
+            </xpath>
+            <!-- Tarea 11856, 2.13 (ronda de ajustes post-prueba): muestra el
+                 nombre del programa/cupón aplicado (wk.fee.slip.lines.name,
+                 fee_benefit.py) en vez de solo el producto genérico de
+                 descuento -vacío para las demás líneas, sin impacto visual
+                 en el flujo normal-. -->
+            <xpath expr="//field[@name='fee_slip_line_ids']//field[@name='product_id']"
+                   position="after">
+                <field name="name" string="Concepto" optional="show"
+                       placeholder="Beneficio/cupón aplicado"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Tarea 11856, 2.9.1: "Recibos de cobro" (Gestión Educativa → Informes
+         → Fee Slips, ya traducido) se usa como consulta general de los
+         acuerdos de pago por cuotas, sin tocar su comportamiento para los
+         recibos que no usan cuotas (los campos nuevos quedan vacíos/False). -->
+    <record id="wk_fee_slip_view_tree_colombo" model="ir.ui.view">
+        <field name="name">wk.fee.slip.view.tree.colombo</field>
+        <field name="model">wk.fee.slip</field>
+        <field name="inherit_id" ref="wk_school_management.wk_fee_slip_view_tree"/>
+        <field name="arch" type="xml">
+            <!-- Tareas 12447 y 12450: los 4 reportes (Consecutivos, Clientes,
+                 Beneficios, Formas de Pago) sobre los Recibos de cobro
+                 seleccionados (uno, varios o todos) se generan desde el menú
+                 Imprimir nativo -engranaje ⚙ de esta lista-, no con botones
+                 propios: ver report/fee_slip_financial_reports.xml
+                 (ir.actions.report con binding_model_id/binding_type). -->
+            <xpath expr="//field[@name='total_amount']" position="after">
+                <field name="pago_por_cuotas"/>
+                <field name="numero_cuotas_programadas" optional="show"/>
+                <field name="paid_amount" string="Valor pagado" optional="show"/>
+                <field name="saldo_pendiente"/>
+                <field name="cuotas_pagadas"/>
+                <field name="cuotas_pendientes"/>
+                <field name="proxima_fecha_vencimiento"/>
+                <field name="proximo_valor_abono"/>
+                <field name="estado_acuerdo" widget="badge"
+                       decoration-success="estado_acuerdo == 'al_dia'"
+                       decoration-warning="estado_acuerdo == 'pendiente'"
+                       decoration-danger="estado_acuerdo == 'mora'"/>
+                <field name="invoice_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="wk_fee_slip_view_search_colombo" model="ir.ui.view">
+        <field name="name">wk.fee.slip.view.search.colombo</field>
+        <field name="model">wk.fee.slip</field>
+        <field name="inherit_id" ref="wk_school_management.wk_fee_slip_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='student_id']" position="after">
+                <field name="invoice_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='to_pay']" position="after">
+                <separator/>
+                <filter name="filter_pago_por_cuotas" string="Pago por cuotas"
+                        domain="[('pago_por_cuotas', '=', True)]"/>
+                <filter name="filter_saldo_pendiente" string="Con saldo pendiente"
+                        domain="[('saldo_pendiente', '>', 0)]"/>
+                <filter name="filter_en_mora" string="Con cuotas en mora"
+                        domain="[('estado_acuerdo', '=', 'mora')]"/>
+                <filter name="filter_cuotas_pendientes" string="Con cuotas pendientes"
+                        domain="[('cuotas_pendientes', '>', 0)]"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter name="group_by_estado_acuerdo" string="Estado del acuerdo"
+                        domain="[]" context="{'group_by': 'estado_acuerdo'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

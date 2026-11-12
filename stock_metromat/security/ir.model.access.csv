@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_repair_service_type_user,repair.service.type.user,model_repair_service_type,stock.group_stock_user,1,0,0,0
+access_repair_service_type_manager,repair.service.type.manager,model_repair_service_type,stock.group_stock_manager,1,1,1,1
+access_repair_order_inventory_line_user,repair.order.inventory.line.user,model_repair_order_inventory_line,stock.group_stock_user,1,1,1,1

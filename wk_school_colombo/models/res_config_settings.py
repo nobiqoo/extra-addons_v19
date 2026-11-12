@@ -55,6 +55,12 @@ class ResConfigSettings(models.TransientModel):
         related='company_id.accounting_reclassification_user_id',
         string="Responsable de reclasificación contable", readonly=False)
 
+    # Tarea 12458: texto legal de la tirilla de pago, mismo patrón
+    # (res.company + related en Ajustes).
+    tirilla_legal_text = fields.Text(
+        related='company_id.tirilla_legal_text',
+        string="Texto legal de la tirilla de pago", readonly=False)
+
     @api.model
     def get_values(self):
         res = super().get_values()

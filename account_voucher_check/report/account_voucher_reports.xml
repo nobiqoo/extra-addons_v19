@@ -26,6 +26,9 @@
             <field name="report_file">account_voucher_check.account_voucher_check_format</field>
             <field name="print_report_name">'Cheque %s' % object.name</field>
             <field name="is_invoice_report" eval="True"/>
+            <field name="binding_model_id" ref="account_voucher.model_account_voucher"/>
+            <field name="binding_type">report</field>
+            <field name="domain" eval="[('partner_type', '=', 'supplier'), ('check_number', '!=', False)]"/>
         </record>
     </data>
 </odoo>

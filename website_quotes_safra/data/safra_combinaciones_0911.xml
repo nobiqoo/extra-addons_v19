@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Revisión 10-nov: las combinaciones de Panel Track salen de la fórmula del
+         Excel de Safra (hoja «Configurador» de Panel_Track_Best_Fit_Odoo_CORREGIDO).
+         Las reglas que no tienen Excel reciben ese archivo una sola vez; después
+         Safra sube el suyo cuando cambie la fórmula. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.panel.combo.rule', '_ajuste_excel_combinaciones']"/>
+</odoo>

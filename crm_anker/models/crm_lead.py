@@ -65,3 +65,18 @@ class CrmLead(models.Model):
     def _compute_partner_tags_ids(self):
         for record in self:
             record.partner_tags_ids = record.partner_id.category_id
+
+    def message_post_with_source(self, source_ref, *, render_values=None, **kwargs):
+        # _action_done passes the exact activity, even when completing a batch.
+        if source_ref == 'mail.message_activity_done':
+            activity = (render_values or {}).get('activity')
+            if activity:
+                kwargs['anker_responsible_partner_id'] = activity.anker_responsible_partner_id.id
+        return super().message_post_with_source(
+            source_ref, render_values=render_values, **kwargs,
+        )
+
+    def _get_message_create_valid_field_names(self):
+        return super()._get_message_create_valid_field_names() | {
+            'anker_responsible_partner_id',
+        }

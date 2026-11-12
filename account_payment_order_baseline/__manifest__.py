@@ -27,6 +27,7 @@
         'views/account_payment_mode.xml',
         'views/account_payment_order_views.xml',
         'views/res_company_views.xml',
+        'views/res_config_settings_views.xml',
         'report/account_payment_order.xml',
         'report/print_account_payment_order.xml',
         'report/account_payment_order_supplier_group.xml',

@@ -54,7 +54,7 @@ class AccountBalanceInventoryWizard(models.Model):
         self.validate_len_code()
         report = self.env.ref(
             'account_report.report_account_balance_inventory')
-        data = self.prepare_data()
+        data = {'record_id': self.id}
         return report.report_action(self, data=data)
 
     def update_amounts_line(self, sum_line):
@@ -301,13 +301,8 @@ class AccountBalanceInventoryWizard(models.Model):
 
         if self.partner_by:
             query += """
-             (
-                (amlb.account_id = aml.account_id AND
-                 amlb.partner_id = aml.partner_id)
-                OR
-                (amlb.account_id = aml.account_id AND
-                 amlb.partner_id is null AND aml.partner_id is null)
-            )
+             (amlb.account_id = aml.account_id AND
+                 coalesce(amlb.partner_id, 0) = coalesce(aml.partner_id, 0))
             """
         else:
             query += """
@@ -320,13 +315,8 @@ class AccountBalanceInventoryWizard(models.Model):
 
         if self.partner_by:
             query += """
-             (
-                (amla.account_id = aml.account_id AND
-                 amla.partner_id = aml.partner_id)
-                OR
-                (amla.account_id = aml.account_id AND
-                 amla.partner_id is null AND aml.partner_id is null)
-            )
+             (amla.account_id = aml.account_id AND
+                 coalesce(amla.partner_id, 0) = coalesce(aml.partner_id, 0))
             """
         else:
             query += """
@@ -349,10 +339,16 @@ class AccountBalanceInventoryWizard(models.Model):
         ids_companies = self.env.companies.ids
         ids_companies = str(tuple(ids_companies)).replace(',)', ')')
 
+        code_sql = """COALESCE(
+                aa.code_store->>'%s',
+                (select value from jsonb_each_text(aa.code_store)
+                 order by key limit 1),
+                ''
+            )""" % self.env.company.root_id.id
         query = """
         select
             aa.id as account_id,
-            (jsonb_each_text(aa.code_store)).value as code,
+            """ + code_sql + """ as code,
             COALESCE(aa.name->'es_CO', aa.name->'en_US') as name
         """
 
@@ -399,7 +395,7 @@ class AccountBalanceInventoryWizard(models.Model):
             """ % pids
 
         query += """
-        group by aa.id, aa.code_store, aa.name
+        group by aa.id, aa.name
         """
 
         if self.partner_by:
@@ -408,7 +404,7 @@ class AccountBalanceInventoryWizard(models.Model):
             """
 
         query += """
-        order by aa.code_store
+        order by """ + code_sql + """
         """
 
         return query

@@ -17,8 +17,6 @@ intacto.
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
-from .populate_class import CLASS_MODALITY_SELECTION
-
 # Semillas sugeridas al activar la estructura avanzada por primera vez
 # (2.2, 2.4 y 2.5): son solo un punto de partida editable para no empezar de
 # una pantalla vacía -nunca valores fijos usados en el cálculo-. El cálculo
@@ -74,8 +72,11 @@ class GradeScale(models.Model):
              "siguen funcionando sin cambios.")
     program_type_id = fields.Many2one(
         'wk.school.colombo.program.type', string="Tipo de programa")
-    modality = fields.Selection(
-        CLASS_MODALITY_SELECTION, string="Programa o modalidad")
+    # Ronda de ajustes post-prueba: mismo catálogo configurable que
+    # wk.school.class.modality_id (models/class_modality.py), en vez del
+    # Selection fijo que traía el código.
+    modality_id = fields.Many2one(
+        'wk.school.colombo.class.modality', string="Programa o modalidad")
     pass_grade = fields.Float(
         string="Nota mínima de aprobación", default=60.0)
     grade_decimals = fields.Integer(

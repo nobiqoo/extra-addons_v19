@@ -12,6 +12,8 @@
                         <group>
                             <field name="type_einvoicing" invisible="not fiscal_position_local"/>
                             <field name="type_support_doc" invisible="not fiscal_position_local"/>
+                            <field name="dian_intake_send_acknowledgment"
+                                   groups="l10n_co_bloodo.group_dian_invoice_intake"/>
                         </group>
                         <group></group>
                     </group>

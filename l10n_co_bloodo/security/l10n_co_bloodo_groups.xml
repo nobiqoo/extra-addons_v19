@@ -7,6 +7,12 @@
             <!-- <field name="category_id" ref="base.module_category_hidden" /> -->
             <field name="comment">Permite restablecer a borrador las facturas electrónicas que ya fueron procesadas correctamente en la DIAN.</field>
         </record>
+
+        <record id="group_dian_invoice_intake" model="res.groups">
+            <field name="name">Recepción de FE de proveedor por correo</field>
+            <!-- <field name="category_id" ref="base.module_category_hidden" /> -->
+            <field name="comment">Acceso a la Bandeja FE Proveedor (correo), que registra en Facturas DIAN las facturas electrónicas que llegan por correo.</field>
+        </record>
     
     </data>
 </odoo>

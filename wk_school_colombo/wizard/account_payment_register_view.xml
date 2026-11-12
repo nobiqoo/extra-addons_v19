@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tarea 12458: "Observaciones" capturable al momento de registrar el
+         pago (Registrar Pago / Registrar abono), para que la tirilla la
+         muestre. Se guarda en el account.payment creado (ver
+         models/account_payment_register.py::_create_payment_vals_from_wizard).
+
+         Incidencia PT11849 (2): mismo campo/condición "Authorization
+         Number" que ya tienen account.voucher.wizard y account.payment
+         (account_payment_authorization_reconcile), para que "Registrar
+         abono" lo exija también -este wizard (account.payment.register) es
+         el que usa ese flujo, no account.voucher.wizard. -->
+    <record id="view_account_payment_register_form_colombo" model="ir.ui.view">
+        <field name="name">account.payment.register.view.form.colombo</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='communication']" position="after">
+                <field name="observaciones"/>
+                <field name="authorization_number_required" invisible="1"/>
+                <field name="authorization_number" required="authorization_number_required"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

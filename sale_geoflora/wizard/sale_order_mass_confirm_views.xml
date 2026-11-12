@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sale_order_mass_confirm_form" model="ir.ui.view">
+        <field name="name">sale.order.mass.confirm.form</field>
+        <field name="model">sale.order.mass.confirm</field>
+        <field name="arch" type="xml">
+            <form string="Confirm Quotations">
+                <div class="alert alert-success" role="alert" invisible="not confirmed_count">
+                    <field name="confirmed_count" class="oe_inline fw-bold"/> quotation(s) were confirmed as sales orders.
+                </div>
+                <div class="alert alert-warning" role="alert" invisible="not skipped_count">
+                    <field name="skipped_count" class="oe_inline fw-bold"/> order(s) were not confirmed. Review the reason, correct them and confirm them again.
+                </div>
+                <field name="confirmed_order_ids" invisible="not confirmed_count" readonly="1">
+                    <list>
+                        <field name="name"/>
+                        <field name="partner_id"/>
+                        <field name="webflor_invoice_number" optional="show"/>
+                        <field name="amount_total" sum="Total"/>
+                        <field name="state" widget="badge" decoration-success="state == 'sale'"/>
+                    </list>
+                </field>
+                <separator string="Not confirmed" invisible="not skipped_count"/>
+                <field name="line_ids" invisible="not skipped_count" readonly="1">
+                    <list>
+                        <field name="order_id"/>
+                        <field name="partner_id"/>
+                        <field name="state" widget="badge"/>
+                        <field name="reason"/>
+                    </list>
+                </field>
+                <footer>
+                    <button string="Close" class="btn-primary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

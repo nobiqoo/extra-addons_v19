@@ -27,7 +27,6 @@ with a browser challenge. The module imports the catalog data only.
         'account',
         'accountant',
         'purchase',
-        'l10n_co_bloodo',
     ],
 
     'data': [

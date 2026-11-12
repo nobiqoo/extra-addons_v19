@@ -191,3 +191,59 @@ msgid ""
 "You don't have permissions to validate incoming shipments in this warehouse."
 msgstr ""
 "No tienes permisos para validar recepciones en este almacén"
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_res_company__create_invoices_from_picking
+#: model:ir.model.fields,field_description:stock_baseline.field_res_config_settings__create_invoices_from_picking
+msgid "Create invoices from the transfer"
+msgstr "Crear facturas desde la transferencia"
+
+#. module: stock_baseline
+#: model:ir.model.fields,help:stock_baseline.field_res_company__create_invoices_from_picking
+#: model:ir.model.fields,help:stock_baseline.field_res_config_settings__create_invoices_from_picking
+msgid "Create invoices from the transfer."
+msgstr "Crea facturas desde la transferencia."
+
+#. module: stock_baseline
+#: model:ir.model.fields,help:stock_baseline.field_res_partner__invoice_manually_from_picking
+#: model:ir.model.fields,help:stock_baseline.field_res_users__invoice_manually_from_picking
+msgid ""
+"If checked, delivery orders for this contact will not generate an automatic "
+"invoice; they must be invoiced manually."
+msgstr ""
+"Si se marca, las órdenes de entrega de este contacto no generarán factura "
+"automática; deberán facturarse manualmente."
+
+#. module: stock_baseline
+#: model_terms:ir.ui.view,arch_db:stock_baseline.res_config_settings_view_form_inherit
+msgid "If enabled, a customer invoice will be generated from the delivery."
+msgstr "Si está habilitado, se generará una factura de cliente desde la entrega."
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_res_partner__invoice_manually_from_picking
+#: model:ir.model.fields,field_description:stock_baseline.field_res_users__invoice_manually_from_picking
+msgid "Invoice manually from delivery"
+msgstr "Facturar manualmente desde la entrega"
+
+#. module: stock_baseline
+#. odoo-python
+#: code:addons/stock_baseline/models/stock_picking.py:0
+msgid "Invoice(s) %s automatically created from this picking. %s."
+msgstr "Factura(s) %s creada(s) automáticamente desde este picking. %s."
+
+#. module: stock_baseline
+#. odoo-python
+#: code:addons/stock_baseline/models/stock_picking.py:0
+msgid "Invoice(s) %s automatically created when validating this picking."
+msgstr "Factura(s) %s creada(s) automáticamente al validar este picking."
+
+#. module: stock_baseline
+#: model:ir.model.fields,field_description:stock_baseline.field_stock_warehouse__journal_id
+msgid "Journal"
+msgstr "Diario"
+
+#. module: stock_baseline
+#. odoo-python
+#: code:addons/stock_baseline/models/stock_picking.py:0
+msgid "Please set a journal in the warehouse configuration."
+msgstr "Configure un diario en la configuración del almacén."

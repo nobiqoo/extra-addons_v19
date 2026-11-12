@@ -1,0 +1,431 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_arthome
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-08 00:41+0000\n"
+"PO-Revision-Date: 2026-10-08 00:41+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_arthome
+#: model:ir.model.fields.selection,name:sale_arthome.selection__sale_shipping_report__state__cancel
+msgid "Cancelled"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_order__carrier_partner_id
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__carrier_partner_id
+#: model:ir.model.fields,field_description:sale_arthome.field_stock_picking__carrier_partner_id
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_search
+#: model_terms:ir.ui.view,arch_db:sale_arthome.view_order_form_inherit_sale_arthome
+msgid "Carrier"
+msgstr ""
+
+#. module: sale_arthome
+#: model_terms:ir.ui.view,arch_db:sale_arthome.view_res_partner_filter_inherit_sale_arthome
+msgid "Carriers"
+msgstr ""
+
+#. module: sale_arthome
+#: model_terms:ir.ui.view,arch_db:sale_arthome.view_sale_carrier_update_wizard_form
+msgid "Close"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__company_id
+msgid "Company"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model,name:sale_arthome.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,help:sale_arthome.field_sale_order__propagate_to_pickings
+msgid ""
+"Copy the carrier and the tracking number to the deliveries of this order "
+"when it is confirmed and whenever they change."
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_carrier_update_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_carrier_update_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__partner_id
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_search
+msgid "Customer"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__partner_name
+msgid "Customer Name"
+msgstr ""
+
+#. module: sale_arthome
+#: model_terms:ir.actions.act_window,help:sale_arthome.action_sale_shipping_report
+msgid ""
+"Customer, shipping address, invoice, insurable value and tracking number of "
+"each sales order, ready to export."
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_res_partner__display_name
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_carrier_update_wizard__display_name
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_order__display_name
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__display_name
+#: model:ir.model.fields,field_description:sale_arthome.field_stock_picking__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields.selection,name:sale_arthome.selection__sale_carrier_update_wizard__state__done
+msgid "Done"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields.selection,name:sale_arthome.selection__sale_carrier_update_wizard__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__email
+msgid "Email"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_carrier_update_wizard__file
+msgid "File"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_carrier_update_wizard__filename
+msgid "File Name"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_res_partner__id
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_carrier_update_wizard__id
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_order__id
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__id
+#: model:ir.model.fields,field_description:sale_arthome.field_stock_picking__id
+msgid "ID"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__insurable_value
+msgid "Insurable Value"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__invoice_names
+msgid "Invoice Number"
+msgstr ""
+
+#. module: sale_arthome
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_search
+msgid "Invoiced"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_res_partner__is_carrier
+#: model:ir.model.fields,field_description:sale_arthome.field_res_users__is_carrier
+msgid "Is Carrier"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_carrier_update_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_carrier_update_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,help:sale_arthome.field_res_partner__is_carrier
+#: model:ir.model.fields,help:sale_arthome.field_res_users__is_carrier
+msgid ""
+"Mark this contact as a carrier so it can be selected as the carrier of sales"
+" orders and deliveries."
+msgstr ""
+
+#. module: sale_arthome
+#. odoo-python
+#: code:addons/sale_arthome/wizard/sale_carrier_update_wizard.py:0
+msgid "Missing order number."
+msgstr ""
+
+#. module: sale_arthome
+#. odoo-python
+#: code:addons/sale_arthome/wizard/sale_carrier_update_wizard.py:0
+msgid "More than one carrier matches VAT/name."
+msgstr ""
+
+#. module: sale_arthome
+#. odoo-python
+#: code:addons/sale_arthome/wizard/sale_carrier_update_wizard.py:0
+msgid "More than one order has this number."
+msgstr ""
+
+#. module: sale_arthome
+#. odoo-python
+#: code:addons/sale_arthome/wizard/sale_carrier_update_wizard.py:0
+msgid "No carrier found with VAT %s."
+msgstr ""
+
+#. module: sale_arthome
+#. odoo-python
+#: code:addons/sale_arthome/wizard/sale_carrier_update_wizard.py:0
+msgid "No carrier found with name %s."
+msgstr ""
+
+#. module: sale_arthome
+#. odoo-python
+#: code:addons/sale_arthome/wizard/sale_carrier_update_wizard.py:0
+msgid "No carrier or tracking number provided."
+msgstr ""
+
+#. module: sale_arthome
+#: model_terms:ir.actions.act_window,help:sale_arthome.action_sale_shipping_report
+msgid "No sales orders found"
+msgstr ""
+
+#. module: sale_arthome
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_search
+msgid "Not Cancelled"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__date_order
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_search
+msgid "Order Date"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__name
+msgid "Order Reference"
+msgstr ""
+
+#. module: sale_arthome
+#. odoo-python
+#: code:addons/sale_arthome/wizard/sale_carrier_update_wizard.py:0
+msgid "Order not found or not accessible."
+msgstr ""
+
+#. module: sale_arthome
+#. odoo-python
+#: code:addons/sale_arthome/wizard/sale_carrier_update_wizard.py:0
+msgid "Order number repeated in the file."
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__phone
+msgid "Phone"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_order__propagate_to_pickings
+msgid "Propagate to Deliveries"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields.selection,name:sale_arthome.selection__sale_shipping_report__state__draft
+msgid "Quotation"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields.selection,name:sale_arthome.selection__sale_shipping_report__state__sent
+msgid "Quotation Sent"
+msgstr ""
+
+#. module: sale_arthome
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_search
+msgid "Quotations"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_carrier_update_wizard__rejected_count
+msgid "Rejected Rows"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_carrier_update_wizard__result_log
+msgid "Rejected Rows Detail"
+msgstr ""
+
+#. module: sale_arthome
+#. odoo-python
+#: code:addons/sale_arthome/wizard/sale_carrier_update_wizard.py:0
+msgid "Row %(row)s (%(order)s): %(error)s"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model,name:sale_arthome.model_sale_order
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__order_id
+#: model:ir.model.fields.selection,name:sale_arthome.selection__sale_shipping_report__state__sale
+msgid "Sales Order"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model,name:sale_arthome.model_sale_carrier_update_wizard
+msgid "Sales Order Carrier Mass Update"
+msgstr ""
+
+#. module: sale_arthome
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_search
+msgid "Sales Orders"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model,name:sale_arthome.model_sale_shipping_report
+msgid "Sales Shipping Information"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__team_id
+msgid "Sales Team"
+msgstr ""
+
+#. module: sale_arthome
+#: model_terms:ir.ui.view,arch_db:sale_arthome.report_saleorder_document_salesperson_footer_arthome
+msgid "Sales advisor:"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__user_id
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_search
+msgid "Salesperson"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__shipping_street
+msgid "Shipping Address"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__shipping_city
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_search
+msgid "Shipping City"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.actions.act_window,name:sale_arthome.action_sale_shipping_report
+#: model:ir.actions.server,name:sale_arthome.action_server_open_shipping_report
+#: model:ir.ui.menu,name:sale_arthome.menu_sale_shipping_report
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_list
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_search
+msgid "Shipping Information"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__shipping_state
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_search
+msgid "Shipping State"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_carrier_update_wizard__state
+msgid "State"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__state
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_search
+msgid "Status"
+msgstr ""
+
+#. module: sale_arthome
+#. odoo-python
+#: code:addons/sale_arthome/wizard/sale_carrier_update_wizard.py:0
+msgid "The carrier belongs to another company."
+msgstr ""
+
+#. module: sale_arthome
+#. odoo-python
+#: code:addons/sale_arthome/wizard/sale_carrier_update_wizard.py:0
+msgid "The file has no data rows."
+msgstr ""
+
+#. module: sale_arthome
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_list
+msgid "Total"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_order__carrier_tracking_number
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_shipping_report__carrier_tracking_number
+#: model:ir.model.fields,field_description:sale_arthome.field_stock_picking__carrier_tracking_number
+msgid "Tracking Number"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model,name:sale_arthome.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_carrier_update_wizard__unchanged_count
+msgid "Unchanged Orders"
+msgstr ""
+
+#. module: sale_arthome
+#. odoo-python
+#: code:addons/sale_arthome/wizard/sale_carrier_update_wizard.py:0
+msgid "Unsupported file format. Please upload a CSV or XLSX file."
+msgstr ""
+
+#. module: sale_arthome
+#: model_terms:ir.ui.view,arch_db:sale_arthome.view_sale_carrier_update_wizard_form
+msgid "Update"
+msgstr ""
+
+#. module: sale_arthome
+#. odoo-python
+#: code:addons/sale_arthome/wizard/sale_carrier_update_wizard.py:0
+#: model:ir.actions.act_window,name:sale_arthome.action_sale_carrier_update_wizard
+#: model_terms:ir.ui.view,arch_db:sale_arthome.view_order_tree_inherit_sale_arthome
+#: model_terms:ir.ui.view,arch_db:sale_arthome.view_quotation_tree_inherit_sale_arthome
+#: model_terms:ir.ui.view,arch_db:sale_arthome.view_sale_carrier_update_wizard_form
+msgid "Update Carriers"
+msgstr ""
+
+#. module: sale_arthome
+#: model:ir.model.fields,field_description:sale_arthome.field_sale_carrier_update_wizard__updated_count
+msgid "Updated Orders"
+msgstr ""
+
+#. module: sale_arthome
+#: model_terms:ir.ui.view,arch_db:sale_arthome.view_sale_carrier_update_wizard_form
+msgid ""
+"Upload a CSV or XLSX file with these columns, in this order: Order Number, "
+"Carrier VAT, Carrier Name, Tracking Number. The first row is the header. "
+"Orders are matched by Order Number; the carrier is matched by VAT and, if "
+"there is a conflict, by name."
+msgstr ""
+
+#. module: sale_arthome
+#: model_terms:ir.ui.view,arch_db:sale_arthome.sale_shipping_report_view_search
+msgid "With Tracking Number"
+msgstr ""

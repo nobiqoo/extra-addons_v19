@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_fetchmail_server_list_company" model="ir.ui.view">
+            <field name="name">fetchmail.server.list.company</field>
+            <field name="model">fetchmail.server</field>
+            <field name="arch" type="xml">
+                <list editable="top">
+                    <field name="name"/>
+                    <field name="company_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_fetchmail_server_company" model="ir.actions.act_window">
+            <field name="name">Compañía por servidor de correo</field>
+            <field name="res_model">fetchmail.server</field>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="view_fetchmail_server_list_company"/>
+            <field name="help">
+                Asigna la compañía de cada servidor de correo entrante.
+                Los correos recibidos por ese servidor quedarán en la
+                bandeja de esa compañía. Si se deja vacío, se usa la
+                compañía por defecto de quien procese el correo (igual
+                que antes).
+            </field>
+        </record>
+
+        <menuitem id="menu_fetchmail_server_company"
+                  name="Compañía por servidor de correo"
+                  parent="l10n_co_dian_invoice_synchronizer.dian_invoices_menu_categ"
+                  action="action_fetchmail_server_company"
+                  groups="l10n_co_bloodo.group_dian_invoice_intake"
+                  sequence="70"/>
+
+    </data>
+</odoo>

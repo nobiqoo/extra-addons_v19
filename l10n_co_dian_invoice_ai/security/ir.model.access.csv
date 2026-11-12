@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dian_ai_config_manager,access_dian_ai_config_manager,model_dian_ai_config,account.group_account_manager,1,1,1,1
+access_dian_ai_rule_manager,access_dian_ai_rule_manager,model_dian_ai_rule,account.group_account_manager,1,1,1,1
+access_dian_ai_run_manager,access_dian_ai_run_manager,model_dian_ai_run,account.group_account_manager,1,1,1,0
+access_dian_ai_explain_wizard,access_dian_ai_explain_wizard,model_dian_ai_explain_wizard,account.group_account_manager,1,1,1,1

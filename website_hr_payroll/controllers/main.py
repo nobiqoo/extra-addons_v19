@@ -154,7 +154,31 @@ class WebsiteHrPayroll(http.Controller):
             leave.sudo().message_post(
                 body=("Esta ausencia se creó a través del sitio web.")
             )
+        self._notify_website_leave(leave)
         return self._json_ok({'id': leave.id})
+
+    def _notify_website_leave(self, leave):
+        """Envía las notificaciones configuradas en la compañía al crear una ausencia desde la web.
+
+        Un fallo en el envío no debe impedir el registro de la ausencia, por eso se registra en el log.
+        """
+        company = leave.company_id
+        notifications = (
+            (company.leave_notifier_website, 'website_hr_payroll.leave_mail_to_coach',
+             leave._get_website_coach_emails()),
+            (company.leave_notifier_website_employee, 'website_hr_payroll.leave_mail_to_employee',
+             leave._get_website_employee_emails()),
+            (company.leave_notifier_payroll_users_website, 'website_hr_payroll.leave_mail_to_payroll_users',
+             leave._get_website_payroll_emails()),
+        )
+        for enabled, template_xmlid, emails in notifications:
+            if not enabled or not emails:
+                continue
+            try:
+                request.env.ref(template_xmlid).sudo().send_mail(leave.id, force_send=True)
+            except Exception:
+                _logger.exception(
+                    'No se pudo enviar la notificación %s de la ausencia %s', template_xmlid, leave.id)
 
     @http.route(['/detachable/form', '/<lang>/detachable/form'], type='http', auth="public", methods=['POST'], multilang=False)
     def website_hr_payroll_detachable_form_empty(self, **kwargs):
@@ -256,7 +280,11 @@ class WebsiteHrPayroll(http.Controller):
     def website_hr_payroll_certificate_sucess(self, team=None, **kwargs):
         return request.render("website_hr_payroll.certificate_success", {})
 
-    def _get_range_years(self, interval=2):
+    def _get_range_years(self, interval=None):
+        if not interval:
+            param = request.env['ir.config_parameter'].sudo().get_param(
+                'website_hr_payroll.range_years_in_website', default='2')
+            interval = int(param) if str(param).isdigit() and int(param) > 0 else 2
         months = {
             1: 'Enero',
             2: 'Febrero',

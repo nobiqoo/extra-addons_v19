@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sprint 1.6: Accesorios y otras personalizaciones, datos de
+         parametrización y validaciones a nivel de pedido. -->
+    <data noupdate="0">
+        <!-- Fila 76: Orientación del enrollado con la imagen junto a la opción. -->
+        <function model="safra.system" name="_una_vez" eval="['safra.field', '_apply_sprint16']"/>
+    </data>
+
+    <!-- noupdate: Safra administra los valores en pantalla. -->
+    <data noupdate="1">
+        <!-- Fila 127: Safra Express (+15 % por persiana, hasta 10 unidades). -->
+        <record forcecreate="0" id="param_express_pct" model="ir.config_parameter">
+            <field name="key">safra.express_pct</field>
+            <field name="value">15</field>
+        </record>
+        <record forcecreate="0" id="param_express_max_unidades" model="ir.config_parameter">
+            <field name="key">safra.express_max_unidades</field>
+            <field name="value">10</field>
+        </record>
+        <record forcecreate="0" id="val_express_cantidad" model="safra.validation.rule">
+            <field name="code">V_EXPRESS_CANTIDAD</field>
+            <field name="name">Safra Express solo en pedidos de hasta 10 unidades</field>
+            <field name="severity">error</field>
+        </record>
+
+        <!-- Fila 132: unidades de negocio para los informes. -->
+        <record forcecreate="0" id="unidad_negocio_persianas" model="safra.product.option">
+            <field name="type">unidad_negocio</field>
+            <field name="name">PERSIANAS</field>
+            <field name="sequence">10</field>
+        </record>
+        <record forcecreate="0" id="unidad_negocio_cortina" model="safra.product.option">
+            <field name="type">unidad_negocio</field>
+            <field name="name">CORTINA</field>
+            <field name="sequence">20</field>
+        </record>
+        <record forcecreate="0" id="unidad_negocio_toldos" model="safra.product.option">
+            <field name="type">unidad_negocio</field>
+            <field name="name">TOLDOS</field>
+            <field name="sequence">30</field>
+        </record>
+        <record forcecreate="0" id="unidad_negocio_telas" model="safra.product.option">
+            <field name="type">unidad_negocio</field>
+            <field name="name">TELAS</field>
+            <field name="sequence">40</field>
+        </record>
+    </data>
+</odoo>

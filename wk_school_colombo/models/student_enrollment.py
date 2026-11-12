@@ -12,6 +12,17 @@ ACADEMIC_RESULT_SELECTION = [
     ('failed', 'No aprobado'),
 ]
 
+# Tarea 12451 (Certificados académicos): Niños/Adolescentes/Adultos. Junto
+# con Programa, Nivel y Sede, determina la plantilla del certificado
+# aplicable (wizard/certificate_wizard.py). Selección fija: los 3 anexos de
+# referencia del cliente no muestran ningún otro valor y no hay indicio de
+# que el catálogo deba crecer dinámicamente.
+POPULATION_TYPE_SELECTION = [
+    ('ninos', 'Niños'),
+    ('adolescentes', 'Adolescentes'),
+    ('adultos', 'Adultos'),
+]
+
 
 class StudentEnrollment(models.Model):
     """Inscripcion del estudiante.
@@ -28,12 +39,86 @@ class StudentEnrollment(models.Model):
 
     _inherit = 'student.enrollment'
 
+    # Ronda de ajustes post-prueba: catálogo configurable (models/sede.py)
+    # en vez de company_id.
+    sede_id = fields.Many2one('wk.school.colombo.sede', string="Sede")
+
+    # Tarea 12451 (Certificados académicos): igual que Sede, es un campo
+    # propio de la inscripción (no se copia automáticamente desde la
+    # solicitud): el usuario autorizado lo diligencia aquí.
+    population_type = fields.Selection(
+        POPULATION_TYPE_SELECTION, string="Tipo de población",
+        help="Niños, Adolescentes o Adultos. Junto con Programa, Nivel y "
+             "Sede, se usa para filtrar estudiantes y determinar la "
+             "plantilla del Certificado académico (Informes > "
+             "Certificados).")
+
     # Requerimiento de campos académicos, sección "Libro en la inscripción" y
-    # "Examen de clasificación".
-    book_id = fields.Many2one('wk.books', string="Libro")
+    # "Examen de clasificación". Ronda de ajustes post-prueba: el catálogo
+    # bibliotecario de Webkul (wk.books) no lo usa la institución; "Libro"
+    # pasa a product.product, filtrado por "¿Es libro?"
+    # (models/product_product.py).
+    book_id = fields.Many2one(
+        'product.product', string="Libro",
+        domain="[('is_book_element', '=', True)]")
     has_classification_exam = fields.Boolean(string="¿Examen de clasificación?")
     classification_exam_result = fields.Char(
         string="Resultado examen de clasificación")
+
+    # Ronda de ajustes post-prueba: botón "Código de cupón" (ver
+    # wizard/fee_benefit_wizard.py), análogo a "Coupon Code" en Ventas. Si al
+    # pulsarlo todavía no existe ningún recibo de tarifa sin facturar (p. ej.
+    # antes de "Generar recibos de tarifas"), el código se guarda aquí y
+    # fee_slip_wizard.py lo aplica automáticamente al generar el recibo -se
+    # conserva así el comportamiento ya exigido por el requerimiento 2.13
+    # para "Pago por cuotas", donde el recibo recién generado se factura y
+    # publica en el mismo paso, sin ninguna ventana posterior para aplicar un
+    # botón sobre un recibo todavía sin facturar.
+    codigo_beneficio_pendiente = fields.Char(
+        string="Código de beneficio/cupón pendiente", copy=False)
+
+    # Ronda de ajustes post-prueba: botón inteligente "Histórico" -visible
+    # solo cuando el estudiante tiene OTRAS Inscripciones (estudiante
+    # antiguo)-, para consultarlas sin salir de esta Inscripción.
+    enrollment_history_count = fields.Integer(
+        compute='_compute_enrollment_history_count')
+
+    # Tarea 11856: tabla de amortización del acuerdo de pago por cuotas,
+    # visible en "Resumen de tarifas". enrollment_id en wk.fee.installment.line
+    # es un related almacenado de plan_id.enrollment_id (fee_installment_plan.py).
+    installment_line_ids = fields.One2many(
+        'wk.fee.installment.line', 'enrollment_id', string='Tabla de amortización')
+
+    # Ronda de ajustes post-prueba: "Monto de la tarifa generada" (y, por
+    # cadena, "Monto adeudado") deben reflejar un beneficio/cupón aplicado
+    # DESPUÉS de generar el recibo (botón "Código de cupón", ver
+    # wizard/fee_benefit_wizard.py) -apply_benefit() le agrega una línea
+    # negativa a fee_slip_line_ids, que SÍ recalcula wk.fee.slip.total_amount,
+    # pero el _compute_fee_amount original (wk_school_management) solo
+    # depende de 'fee_slip_ids.state', nunca de su total_amount, así que ese
+    # cambio nunca disparaba el recálculo en la Inscripción. Se reutiliza la
+    # lógica original (no se repite código), solo se amplía de qué depende.
+    @api.depends('fee_slip_ids.total_amount')
+    def _compute_fee_amount(self):
+        return super()._compute_fee_amount()
+
+    @api.depends('student_id.enrollment_ids')
+    def _compute_enrollment_history_count(self):
+        for enrollment in self:
+            enrollment.enrollment_history_count = len(
+                enrollment.student_id.enrollment_ids - enrollment)
+
+    def action_view_enrollment_history(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _("Histórico de inscripciones"),
+            'res_model': 'student.enrollment',
+            'view_mode': 'list,form',
+            'domain': [
+                ('student_id', '=', self.student_id.id),
+                ('id', '!=', self.id)],
+        }
 
     # Histórico único de observaciones de la inscripción (pestaña
     # "Observaciones"): una sola tabla editable, sin importar el origen de
@@ -42,6 +127,15 @@ class StudentEnrollment(models.Model):
     # inscripción concreta, ver models/observation.py.
     observation_ids = fields.One2many(
         'wk.school.colombo.observation', 'enrollment_id', string="Observaciones")
+
+    # Calificaciones de la inscripción (solo lectura): una línea del
+    # Consolidado por cada materia/clase cursada. Alimenta la pestaña
+    # "Calificaciones", que permite ver el resultado detallado desde el
+    # histórico de inscripciones del estudiante.
+    grade_line_ids = fields.One2many(
+        'wk.school.colombo.grade.consolidated.line',
+        related='student_subject_ids.consolidated_line_ids',
+        string="Calificaciones", readonly=True)
 
 
     academic_result = fields.Selection(

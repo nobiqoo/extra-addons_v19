@@ -80,13 +80,17 @@ class HrLeaveLine(models.Model):
         res = orm._fetchall(cr, query, data)
         return sum([x[0] for x in res if x[0]]), sum([x[1] for x in res if x[1]])
 
-    def _get_no_pay_lines(self, contract_id, date_from, date_to, data_payslip, is_cesly):
+    def _get_no_pay_lines(self, contract_id, date_from, date_to, data_payslip, is_cesly,
+                          all_absences=False):
         """
         Devuelve las líneas de ausencia NO_PAY (sin paga) consideradas como días no
         trabajados: las pagadas dentro del rango [date_from, date_to] más, salvo para
         cesantías de enero (is_cesly), las validadas del período actual.
+        @params:
+        all_absences -> bool: si True, considera todas las ausencias (no solo NO_PAY)
         @return: lista de tuplas (leave_id, date)
         """
+        category_filter = "" if all_absences else "HLT.category_type = 'NO_PAY' AND"
         query = """
         SELECT HL.id, HLL.date
         FROM hr_leave_line AS  HLL
@@ -95,10 +99,10 @@ class HrLeaveLine(models.Model):
         WHERE
             HL.contract_id = %(contract_id)s AND
             HLL.date BETWEEN %(start)s AND %(end)s AND
-            HLT.category_type = 'NO_PAY' AND
+            {category_filter}
             HLL.state = 'paid'
         ORDER BY HL.id, HLL.date DESC
-        """
+        """.format(category_filter=category_filter)
         current_query = """
         SELECT HL.id, HLL.date
         FROM hr_leave_line AS  HLL
@@ -107,10 +111,10 @@ class HrLeaveLine(models.Model):
         WHERE
             HL.contract_id = %(contract_id)s AND
             HLL.date BETWEEN %(start)s AND %(end)s AND
-            HLT.category_type = 'NO_PAY' AND
+            {category_filter}
             HLL.state = 'validated'
         ORDER BY HL.id, HLL.date DESC
-        """
+        """.format(category_filter=category_filter)
         params = {
             'contract_id': contract_id.id,
             'start': date_from,
@@ -130,16 +134,18 @@ class HrLeaveLine(models.Model):
             return response + response_current
         return response
 
-    def get_days_not_worked(self, contract_id, date_from, date_to, ignore_rest_days, data_payslip, is_cesly):
+    def get_days_not_worked(self, contract_id, date_from, date_to, ignore_rest_days, data_payslip,
+                            is_cesly, all_absences=False):
         """
         Obtiene el numero de dias no trabajados, no cuenta el descuento de dias de descanso
         @params:
         contract_id -> hr.contract
         date_from -> datetime
         date_to -> datetime
+        all_absences -> bool: si True, considera todas las ausencias (no solo NO_PAY)
         """
         return len(self._get_no_pay_lines(
-            contract_id, date_from, date_to, data_payslip, is_cesly))
+            contract_id, date_from, date_to, data_payslip, is_cesly, all_absences=all_absences))
 
     def get_no_pay_dates(self, contract_id, date_from, date_to, data_payslip, is_cesly):
         """

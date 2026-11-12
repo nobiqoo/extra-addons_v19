@@ -14,6 +14,7 @@
     'data': [
         'views/res_company_views.xml',
         'views/account_journal_views.xml',
+        'views/account_account_views.xml',
         'views/product_category_views.xml',
         'reports/einvoicing_document.xml',
     ],

@@ -41,6 +41,12 @@ NO_WAGE_HISTORY = """
 El contrato %s no tiene un historial de salarios.
 """
 
+NO_HOURLY_SCHEDULE_HISTORY = """
+El contrato %s no tiene jornada de trabajador por horas configurada. Agregue un
+registro en la pestaña "Control de Cambios" con el Número de Horas Mensuales y
+el Número de Horas Diarias.
+"""
+
 MANY_WAGE_HISTORY = """
 El contrato %s tiene %s cambios salariales en este rango %s a %s.
 Solo se permite 1 por periodo.
@@ -140,6 +146,30 @@ class HRContract(models.Model):
     wage_history_ids = fields.One2many(
         string='Histórico Salario', comodel_name='wage.update.history',
         inverse_name='contract_id')
+    is_hourly_worker = fields.Boolean(
+        string='Trabajador por Horas',
+        help='Si está marcado, este contrato se liquida con un valor hora calculado a partir '
+             'del salario mensual y las horas mensuales/diarias configuradas abajo, en lugar '
+             'de la lógica estándar de nómina por días. Solo aplica mientras "Habilitar '
+             'Nómina por Horas" esté activo en los Ajustes de Nómina.',
+             tracking=True)
+    enable_hourly_payroll = fields.Boolean(
+        compute="_compute_enable_hourly_payroll"
+    )
+    monthly_hours = fields.Float(
+        string='Número de Horas Mensuales', compute='_compute_hourly_schedule', store=True,
+        help='Horas mensuales usadas para calcular el valor hora: Salario / Horas Mensuales. '
+             'Se administra desde la pestaña "Control de Cambios".')
+    daily_hours = fields.Float(
+        string='Número de Horas Diarias', compute='_compute_hourly_schedule', store=True,
+        help='Horas diarias usadas para calcular el valor de un día ordinario laborado: '
+             'Valor Hora x Horas Diarias. Se administra desde la pestaña "Control de Cambios".')
+    hourly_schedule_history_ids = fields.One2many(
+        string='Histórico de Jornada por Horas', comodel_name='hourly.schedule.update.history',
+        inverse_name='contract_id')
+    hour_value = fields.Float(
+        string='Valor Hora', compute='_compute_hour_value',
+        help='Salario / Horas Mensuales. Solo se calcula para trabajadores por horas.')
     bonus = fields.Monetary(string='Bono')
     fiscal_type_id = fields.Many2one(
         string='Tipo de Cotizante', comodel_name='hr.fiscal.type',
@@ -389,6 +419,33 @@ class HRContract(models.Model):
                 contract.wage = contract.wage_history_ids.sorted(
                     lambda hist: hist.date)[LAST_ONE].wage
 
+    @api.depends('hourly_schedule_history_ids.date',
+                 'hourly_schedule_history_ids.monthly_hours',
+                 'hourly_schedule_history_ids.daily_hours')
+    def _compute_hourly_schedule(self):
+        for contract in self:
+            if contract.hourly_schedule_history_ids:
+                last = contract.hourly_schedule_history_ids.sorted(
+                    lambda hist: hist.date)[LAST_ONE]
+                contract.monthly_hours = last.monthly_hours
+                contract.daily_hours = last.daily_hours
+            else:
+                contract.monthly_hours = 0
+                contract.daily_hours = 0
+
+    @api.depends('wage', 'monthly_hours', 'is_hourly_worker')
+    def _compute_hour_value(self):
+        for contract in self:
+            if contract.is_hourly_worker and contract.monthly_hours:
+                contract.hour_value = contract.wage / contract.monthly_hours
+            else:
+                contract.hour_value = 0
+
+    @api.depends('company_id')
+    def _compute_enable_hourly_payroll(self):
+        for contract in self:
+            contract.enable_hourly_payroll = contract.company_id.enable_hourly_payroll
+
     @api.constrains('date_start')
     def _compute_trial_period(self):
         trial_months = 2
@@ -459,6 +516,23 @@ class HRContract(models.Model):
                 (NO_WAGE_HISTORY + 'Para esta fecha %s') % (self.name, date_end))
         salary = max(salary, key=lambda x: x.date)
         return {'wage': salary.wage}
+
+    def get_hourly_schedule(self, date):
+        """
+        Obtiene la jornada configurada (horas mensuales y diarias) vigente en
+        determinada fecha, según el histórico de cambios del contrato.
+        @return:
+            dict -> {monthly_hours, daily_hours}
+        """
+        if not self.hourly_schedule_history_ids:
+            raise ValidationError(NO_HOURLY_SCHEDULE_HISTORY % self.name)
+        schedule = list(filter(
+            lambda x: x.date <= date, self.hourly_schedule_history_ids))
+        if not schedule:
+            raise ValidationError(
+                (NO_HOURLY_SCHEDULE_HISTORY + 'Para esta fecha %s') % (self.name, date))
+        schedule = max(schedule, key=lambda x: x.date)
+        return {'monthly_hours': schedule.monthly_hours, 'daily_hours': schedule.daily_hours}
 
     def average_wage_history(self, date_from, date_to):
         ranges = {}

@@ -16,6 +16,12 @@ class ResCompany(models.Model):
                                        'Facturación electrónica',
                                        default='no')
 
+    dian_intake_send_acknowledgment = fields.Boolean(
+        'Acuse de FE recibidas por correo',
+        help='Responder automáticamente al remitente cuando una factura electrónica '
+             'de proveedor que llega por correo (Bandeja FE Proveedor) se registra '
+             'en Facturas DIAN.')
+
     fv_sent = fields.Integer('fv enviados')
     nc_sent = fields.Integer('nc enviados')
     nd_sent = fields.Integer('nd enviados')
@@ -47,7 +53,7 @@ class ResCompany(models.Model):
     signature_policy_file = fields.Binary('Signature policy file')
     sign_url = fields.Char('Sign url', default='')
     response_get_numbering_range = fields.Text('Response of numbering ranges')
-    tributary_information = fields.Text('Información Tributaria')
+    tributary_information = fields.Html('Información Tributaria')
 
     edi_email = fields.Char('Correos FE',
                             help='Correo de origen para '

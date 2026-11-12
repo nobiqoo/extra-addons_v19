@@ -85,10 +85,84 @@
         action="wk_school_colombo_program_type_action"
     />
 
+    <!-- Ronda de ajustes post-prueba: catálogo configurable de Modalidad,
+         junto al de Tipo de programa (reemplaza el Selection fijo). -->
+    <menuitem id="class_modality_menu"
+        name="Modalidades"
+        parent="wk_school_management.menu_school_config3"
+        groups="base.group_user"
+        sequence="26"
+        action="wk_school_colombo_class_modality_action"
+    />
+
+    <!-- Punto 10 (campos de la solicitud): catalogos configurables de
+         Jornada y Regimen de salud, junto a Tipo de programa y Modalidad,
+         en reemplazo de los Selection fijos que tenian antes. -->
+    <menuitem id="jornada_menu"
+        name="Jornadas"
+        parent="wk_school_management.menu_school_config3"
+        groups="base.group_user"
+        sequence="27"
+        action="wk_school_colombo_jornada_action"
+    />
+    <menuitem id="health_regime_menu"
+        name="Regímenes de salud"
+        parent="wk_school_management.menu_school_config3"
+        groups="base.group_user"
+        sequence="28"
+        action="wk_school_colombo_health_regime_action"
+    />
+
+    <!-- Ronda de ajustes post-prueba: catálogo configurable de Sede
+         (reemplaza company_id, que traía implicaciones de multi-compañía
+         que no aplican aquí). Ubicado entre "Class Locations" (30) y
+         "Timeslots" (40), dentro de "Academics", como pidió el usuario. -->
+    <menuitem id="sede_menu"
+        name="Sedes"
+        parent="wk_school_management.menu_school_config"
+        groups="base.group_user"
+        sequence="35"
+        action="wk_school_colombo_sede_action"
+    />
+
+    <!-- Tarea 12451 (Certificados académicos): resolución, lugar de
+         expedición y firmas institucionales por Sede, editable sin
+         necesitar un desarrollo nuevo. -->
+    <menuitem id="certificate_config_menu"
+        name="Configuración de Certificados"
+        parent="wk_school_management.menu_school_config"
+        groups="wk_school_management.wk_school_management_officer_group"
+        sequence="36"
+        action="wk_school_colombo_certificate_config_action"
+    />
+
     <!-- Menú de auditoría cross-estudiante del histórico de observaciones,
          junto al menú de Disciplina; el acceso real lo determinan
          security/ir.model.access.csv e ir_rule.xml (Staff ve solo lo de sus
          propios estudiantes, Officer/Admin ven todo). -->
+    <!-- Ajuste y ampliación de Reportes Académicos: nueva opción dentro de
+         Informes (wk_school_management.reporting_menu), junto a Hoja de
+         calificaciones/Boleta de calificaciones/Historial académico, para
+         los reportes consolidados en Excel (Distribución por Desempeño y
+         Retención/Promoción/Pérdida/Deserción). -->
+    <menuitem id="academic_analysis_menu"
+        name="Reportes de Análisis Académico"
+        parent="wk_school_management.reporting_menu"
+        groups="wk_school_management.wk_school_management_officer_group"
+        sequence="55"
+        action="academic_analysis_wizard_action"
+    />
+
+    <!-- Tarea 12451 (Certificados académicos): única opción de menú (2.1),
+         abre el wizard de generación directamente. -->
+    <menuitem id="certificate_wizard_menu"
+        name="Certificados"
+        parent="wk_school_management.reporting_menu"
+        groups="wk_school_management.wk_school_management_officer_group"
+        sequence="60"
+        action="wk_school_colombo_certificate_wizard_action"
+    />
+
     <menuitem id="observation_menu"
         name="Observaciones"
         parent="wk_school_management.student_form_menu"

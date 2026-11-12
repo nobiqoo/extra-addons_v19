@@ -17,7 +17,8 @@
         'data/res_groups.xml',
         'data/model_sequence.xml',
         'security/ir.model.access.csv',
-        'views/difference_in_change_maker_views.xml'
+        'views/difference_in_change_maker_views.xml',
+        'views/res_config_settings_views.xml',
 
     ],
     'license': 'LGPL-3',

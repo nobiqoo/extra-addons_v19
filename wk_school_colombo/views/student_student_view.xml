@@ -48,10 +48,17 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
-            <!-- Requerimiento de campos académicos: Sede (company_id)
-                 visible para todos los perfiles. -->
+            <!-- Ronda de ajustes post-prueba: "Sede" deja de ser company_id
+                 -que traía implicaciones de multi-compañía que no aplican
+                 aquí- y pasa a ser un catálogo configurable propio
+                 (models/sede.py). company_id sigue existiendo (Odoo lo
+                 exige) pero queda oculto; sede_id toma su lugar prominente
+                 junto al Nivel actual. -->
             <xpath expr="//field[@name='company_id']" position="attributes">
-                <attribute name="groups"></attribute>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='current_grade_id']" position="after">
+                <field name="sede_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
             </xpath>
 
             <!-- Edad calculada, junto a la fecha de nacimiento. -->
@@ -79,9 +86,21 @@
             <xpath expr="//field[@name='street']" position="attributes">
                 <attribute name="required">1</attribute>
             </xpath>
+            <!-- Ronda de ajustes post-prueba: barrio y city_id quedaban
+                 insertados dentro del propio div.o_address_format, sin las
+                 clases/placeholders de dirección (o_address_street,
+                 o_address_city, etc.), así que se veían como texto suelto
+                 debajo de los campos de dirección base -el mismo efecto
+                 "sombreado"/desordenado que ya se había detectado en el
+                 Contacto-. Barrio vuelve a mostrarse, con placeholder (igual
+                 que el resto de campos de este bloque, que no usan label);
+                 city_id se mantiene oculto (sin borrar el campo: la
+                 información sigue viajando desde la Aplicación vía
+                 _wk_copy_application_fields_to_student y queda visible/
+                 editable ahí, en la pestaña Ubicación). -->
             <xpath expr="//div[hasclass('o_address_format')]/field[@name='country_id']" position="after">
-                <field name="barrio" required="1"/>
-                <field name="city_id" options="{'no_open': True, 'no_quick_create': True}"/>
+                <field name="barrio" placeholder="Barrio / corregimiento..."/>
+                <field name="city_id" options="{'no_open': True, 'no_quick_create': True}" invisible="1"/>
             </xpath>
 
             <!-- "ZIP" está traducido en Odoo como "Cremallera" (mala
@@ -110,10 +129,14 @@
                         <field name="ocupacion_actual"/>
                         <field name="idioma_nativo"/>
                         <field name="idioma_nativo_otro" invisible="idioma_nativo != 'otro'"/>
+                        <field name="estrato"/>
+                        <field name="jornada" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                        <field name="regimen_salud" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
                     </group>
                     <group>
                         <field name="issuance_city_id"/>
                         <field name="origin_city_id"/>
+                        <field name="origin_city_dian_code" readonly="1"/>
                         <field name="landline_phone"/>
                         <field name="additional_phone"/>
                         <field name="additional_mobile"/>
@@ -203,6 +226,24 @@
                         </list>
                     </field>
                 </page>
+                <!-- Tarea 12451 (Certificados académicos): consulta
+                     posterior de Libro/Folio/Consecutivo (2.21/2.22), sin
+                     agregar un segundo ítem de menú (2.1 exige uno solo). -->
+                <page name="colombo_certificates" string="Certificados">
+                    <field name="certificate_ids" readonly="1">
+                        <list string="Certificados generados">
+                            <field name="create_date" string="Fecha de generación"/>
+                            <field name="program_type_id"/>
+                            <field name="grade_id"/>
+                            <field name="sede_id"/>
+                            <field name="generation_mode"/>
+                            <field name="fecha_expedicion"/>
+                            <field name="libro"/>
+                            <field name="folio"/>
+                            <field name="consecutivo"/>
+                        </list>
+                    </field>
+                </page>
             </xpath>
         </field>
     </record>
@@ -221,6 +262,13 @@
                        decoration-warning="academic_status == 'released'"
                        decoration-danger="academic_status == 'postponed'"/>
             </xpath>
+            <xpath expr="//list/field[@name='company_id'][@column_invisible]" position="replace"/>
+            <xpath expr="//list/field[@name='company_id']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//list/field[@name='company_id']" position="after">
+                <field name="sede_id" optional="show"/>
+            </xpath>
         </field>
     </record>
 
@@ -231,6 +279,10 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='company_id']" position="after">
                 <field name="academic_status"/>
+            </xpath>
+            <xpath expr="//filter[@name='group_by_school']" position="attributes">
+                <attribute name="string">Sede</attribute>
+                <attribute name="context">{'group_by':'sede_id'}</attribute>
             </xpath>
             <xpath expr="//filter[@name='archived']" position="after">
                 <separator/>

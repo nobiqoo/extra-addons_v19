@@ -40,6 +40,12 @@ class GradeConsolidated(models.Model):
         'unique(populate_class_id)',
         "Ya existe un Consolidado de notas para esta Clase ofertada.")
 
+    # Sin campo "name" propio, Odoo mostraba el título/breadcrumb como
+    # "wk.school.colombo.grade.consolidated,<id>" (sin _rec_name posible,
+    # cae al genérico) en vez de identificar la clase -bug encontrado
+    # probando la incidencia PT12201.
+    name = fields.Char(related='populate_class_id.name', store=True)
+
     populate_class_id = fields.Many2one(
         'wk.school.class', string="Clase ofertada", required=True,
         ondelete='cascade', index=True)
@@ -68,8 +74,9 @@ class GradeConsolidated(models.Model):
     program_type_id = fields.Many2one(
         related='grading_scale_id.program_type_id', store=True,
         string="Programa")
-    modality = fields.Selection(
-        related='grading_scale_id.modality', string="Modalidad")
+    modality_id = fields.Many2one(
+        'wk.school.colombo.class.modality',
+        related='grading_scale_id.modality_id', string="Modalidad")
     pass_grade = fields.Float(
         related='grading_scale_id.pass_grade', string="Nota mínima de aprobación")
     class_assignment_type_ids = fields.One2many(
@@ -338,8 +345,10 @@ class GradeConsolidated(models.Model):
         self.mapped('line_ids').write({'portal_visible': False})
 
     # -- Class List: variantes para el cierre de curso (2.12) ----------------
-    def _wk_print_class_list(self, variant):
-        """Imprime el Class List con la variante elegida (todos/Pass/Fail).
+    def _wk_print_class_list(self, variant='all', cut=None, show_grades=False,
+                              show_invoice=False, show_phone=False,
+                              show_mobile=False, show_email=False):
+        """Imprime el Class List (Ajuste y ampliación de Reportes Académicos).
 
         ``report_action(self, data={...})`` con un ``data`` no vacío hace que
         el cliente web arme la URL de descarga SIN el id del registro en la
@@ -353,11 +362,24 @@ class GradeConsolidated(models.Model):
         Se pasa el id también DENTRO de ``data`` para que
         ``_get_report_values`` (report/grade_consolidated_report.py) lo
         recupere igual cuando ``docids`` llega vacío.
+
+        ``show_*``/``cut`` son los controles del wizard de Hoja de
+        calificaciones (Informes → Hoja de calificaciones → "Generar Class
+        List"): sin columnas adicionales seleccionadas, el PDF se mantiene
+        como la lista básica (Código/Estudiante/Firma); con "Notas"
+        marcado, agrega los componentes académicos del corte elegido. Los
+        botones del Consolidado (todos/Pass/Fail) siguen llamando a este
+        mismo método sin pasar columnas adicionales.
         """
         self.ensure_one()
         return self.env.ref(
             'wk_school_colombo.report_class_list_action'
-        ).report_action(self, data={'variant': variant, 'consolidated_ids': self.ids})
+        ).report_action(self, data={
+            'variant': variant, 'consolidated_ids': self.ids,
+            'cut': cut or 'final', 'show_grades': show_grades,
+            'show_invoice': show_invoice, 'show_phone': show_phone,
+            'show_mobile': show_mobile, 'show_email': show_email,
+        })
 
     def action_print_class_list_all(self):
         return self._wk_print_class_list('all')
@@ -367,6 +389,34 @@ class GradeConsolidated(models.Model):
 
     def action_print_class_list_fail(self):
         return self._wk_print_class_list('fail')
+
+    # -- Selección múltiple para acciones masivas (incidencia PT12201) -------
+    def action_open_results_list(self):
+        """Abre "Resultados" como lista independiente (no embebida en este
+        formulario), filtrada a este Consolidado.
+
+        Necesario porque una lista embebida en un formulario (como la de la
+        pestaña "Resultados", page string="Resultados" más abajo) NUNCA
+        muestra checkboxes de selección de fila -x2many_field.js no activa
+        "allowSelectors" para ese caso, a diferencia de una lista
+        independiente (ListController), donde sí está activo por
+        defecto-. Sin esto, los botones de <header> de esa lista embebida
+        ("Publicar/Ocultar/Promover seleccionados") nunca llegan a
+        mostrarse, por más que la vista los defina: hace falta una lista
+        de verdad, con su propia ir.actions.act_window, para que la
+        selección múltiple funcione.
+        """
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _("Resultados (seleccionar y procesar)"),
+            'res_model': 'wk.school.colombo.grade.consolidated.line',
+            'view_mode': 'list',
+            'views': [(self.env.ref(
+                'wk_school_colombo.wk_grade_consolidated_line_list').id, 'list')],
+            'domain': [('consolidated_id', '=', self.id)],
+            'context': {'create': False},
+        }
 
     # -- Accesos directos (rediseño del Consolidado) --------------------------
     def action_view_structure(self):
@@ -399,7 +449,8 @@ class GradeConsolidated(models.Model):
         header += [
             _("Final Grade"), _("Fin. Quiz Average"), _("ABS"), _("Ranking"),
             _("Rango de desempeño"), _("Pass/Fail"), _("Causa"),
-            _("Estado de cursado"), _("Comentarios"), _("Visible en portal")]
+            _("Estado de cursado"), _("Resultado examen"), _("Observación"),
+            _("Visible en portal")]
         writer.writerow(header)
         result_labels = dict(self.line_ids._fields['result'].selection)
         reason_labels = dict(self.line_ids._fields['fail_reason'].selection)
@@ -413,6 +464,7 @@ class GradeConsolidated(models.Model):
                 result_labels.get(line.result, ''),
                 reason_labels.get(line.fail_reason, ''),
                 line.course_status or '', line.comments or '',
+                line.observation or '',
                 _("Sí") if line.portal_visible else _("No")]
             writer.writerow(row)
         content = buf.getvalue().encode('utf-8-sig')
@@ -512,7 +564,14 @@ class GradeConsolidatedLine(models.Model):
              "web. Desmarcado: sigue disponible para docentes y usuarios "
              "administrativos, pero no para el estudiante. No afecta la "
              "nota, el Pass/Fail ni el histórico (requerimiento 2.10).")
-    comments = fields.Text(string="Comentarios")
+    # Antes "Comentarios". En la clase marcada como examen de clasificacion
+    # este texto es el resultado que viaja a la Inscripcion
+    # (classification_exam_result); el nombre tecnico se conserva.
+    comments = fields.Text(string="Resultado examen")
+    # Observacion libre (p. ej. "Descuento por primer puesto"). En la clase del
+    # examen de clasificacion alimenta la pestana Observaciones de la
+    # Inscripcion (_wk_sync_classification_exam_observation).
+    observation = fields.Text(string="Observación")
 
     confirmed_snapshot = fields.Text(
         string="Histórico congelado (JSON)",
@@ -803,6 +862,20 @@ class GradeConsolidatedLine(models.Model):
             return snapshot.get(field, 0.0)
         return self[field]
 
+    def _wk_report_invoice_number(self):
+        """Número de Factura a imprimir en el Class List (columna "Factura").
+
+        Una Inscripción puede tener varios Recibos de tarifas y cada uno su
+        propia factura (wk.fee.slip.invoice_id, models/fee_slip.py); se
+        imprime la más reciente -no existe "la" factura única de una
+        inscripción-. Sin recibos o sin factura asociada, queda en blanco.
+        """
+        self.ensure_one()
+        enrollment = self.student_subject_id.enrollment_id
+        invoices = enrollment.fee_slip_ids.mapped('invoice_id').sorted(
+            key=lambda m: m.id, reverse=True)
+        return invoices[:1].name or '' if invoices else ''
+
     def write(self, vals):
         """Restringe quién administra la visibilidad en portal (2.10).
 
@@ -820,7 +893,71 @@ class GradeConsolidatedLine(models.Model):
             raise UserError(_(
                 "Solo un usuario Officer/Admin puede publicar u ocultar "
                 "calificaciones en el portal del estudiante."))
-        return super().write(vals)
+        res = super().write(vals)
+        if 'comments' in vals:
+            self._wk_sync_classification_exam_result()
+        if 'observation' in vals:
+            self._wk_sync_classification_exam_observation()
+        return res
+
+    def _wk_sync_classification_exam_observation(self):
+        """Propaga "Observación" a la pestaña Observaciones de la Inscripción.
+
+        Mismo filtro que _wk_sync_classification_exam_result: solo la Clase
+        ofertada marcada como examen de clasificación. Se crea una entrada
+        "Comentario adicional / Comentario general" ligada a la inscripción
+        (el histórico de observaciones no se edita: un cambio de texto agrega
+        una nueva entrada). No se duplica si la inscripción ya tiene una
+        observación idéntica.
+        """
+        # sudo: quien califica (docente) puede no tener permiso de creación
+        # sobre observaciones; el autor real se conserva en user_id.
+        Observation = self.env['wk.school.colombo.observation'].sudo()
+        for line in self:
+            comment = (line.observation or '').strip()
+            if not comment:
+                continue
+            populate_class = line.consolidated_id.populate_class_id
+            if not populate_class.is_classification_exam_class:
+                continue
+            enrollment = line.student_subject_id.enrollment_id
+            if not enrollment:
+                continue
+            if Observation.search_count([
+                    ('enrollment_id', '=', enrollment.id),
+                    ('comment', '=', comment)]):
+                continue
+            Observation.create({
+                'enrollment_id': enrollment.id,
+                'origin': 'other',
+                'observation_type': 'general',
+                'comment': comment,
+                'user_id': self.env.user.id,
+            })
+
+    def _wk_sync_classification_exam_result(self):
+        """Propaga "Comentarios" al examen de clasificación de la Inscripción.
+
+        Ronda de ajustes post-prueba: la consultora calificaba el examen de
+        clasificación como una Clase más, usando "Comentarios" para anotar el
+        nivel ("Nivel intermedio", "Avanzado"...), pero ese texto se quedaba
+        solo en el Consolidado -tenía que volver a escribirlo a mano en
+        student.enrollment.classification_exam_result-. La propagación solo
+        ocurre cuando la Clase ofertada de origen está marcada
+        explícitamente como el examen de clasificación
+        (wk.school.class.is_classification_exam_class); así ningún otro
+        Consolidado puede sobreescribir ese campo sin querer.
+        """
+        for line in self:
+            populate_class = line.consolidated_id.populate_class_id
+            if not populate_class.is_classification_exam_class:
+                continue
+            enrollment = line.student_subject_id.enrollment_id
+            if enrollment:
+                enrollment.write({
+                    'classification_exam_result': line.comments,
+                    'has_classification_exam': True,
+                })
 
     # -- Publicación en portal (individual o sobre la selección) -------------
     def action_publish_selected(self):
@@ -828,6 +965,27 @@ class GradeConsolidatedLine(models.Model):
 
     def action_hide_selected(self):
         self.write({'portal_visible': False})
+
+    # -- Promoción masiva (incidencia PT12201, requerimiento 2.17/2.18) -----
+    def action_promote_selected(self):
+        """"Promover seleccionados" desde el Consolidado de notas.
+
+        Mismo patrón de selección múltiple que action_publish_selected/
+        action_hide_selected (botones de <header> sobre la lista embebida
+        de "Resultados", 2.10): el usuario marca el checkbox de una o más
+        filas y ejecuta el botón. Reutiliza íntegra la lógica de
+        promoción/finalización masiva ya construida para Inscripciones
+        -mismo wizard, mismas validaciones, mismo control de acceso
+        (wk.school.colombo.promote.bulk.wizard vía
+        student.enrollment.promote_bulk_enrollments)-, sin duplicar nada:
+        esta vista solo necesitaba un punto de entrada adicional.
+        """
+        enrollments = self.mapped('student_subject_id.enrollment_id')
+        if not enrollments:
+            raise UserError(_(
+                "Ninguna de las líneas seleccionadas tiene una inscripción "
+                "asociada."))
+        return enrollments.promote_bulk_enrollments()
 
     # -- Histórico congelado ---------------------------------------------------
     def _wk_freeze_snapshot(self, cut):
@@ -851,7 +1009,7 @@ class GradeConsolidatedLine(models.Model):
                 'student': line.student_id.display_name,
                 'populate_class': line.populate_class_id.display_name,
                 'program_type': scale.program_type_id.name if scale else False,
-                'modality': scale.modality if scale else False,
+                'modality': scale.modality_id.name if scale else False,
                 'academic_year': line.consolidated_id.academic_year_id.display_name,
                 'grading_scale': scale.name if scale else False,
                 'components': json.loads(line.components_json or '[]'),

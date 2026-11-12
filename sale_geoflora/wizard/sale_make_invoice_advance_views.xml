@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sale_advance_payment_inv_webflor" model="ir.ui.view">
+        <field name="name">sale.advance.payment.inv.form.webflor</field>
+        <field name="model">sale.advance.payment.inv</field>
+        <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[field[@name='consolidated_billing']]" position="before">
+                <div class="alert alert-warning" role="alert" invisible="not webflor_pending_order_ids">
+                    <p class="mb-1">
+                        Other orders with the same WebFlor Invoice No. are not selected and are still pending to invoice.
+                        They will not be included in this invoice:
+                    </p>
+                    <field name="webflor_pending_order_ids" widget="many2many_tags" readonly="1"/>
+                </div>
+            </xpath>
+            <field name="consolidated_billing" position="attributes">
+                <attribute name="help">Create one invoice for all orders of the same customer, invoicing address and delivery address. Orders with a WebFlor Invoice No. are consolidated by that number and invoicing address, even if their delivery addresses differ.</attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>

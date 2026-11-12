@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_repair_order_form_inherit_metromat" model="ir.ui.view">
+        <field name="name">repair.order.form.inherit.metromat</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="product_maintenance.product_maintenance_repair_view"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="contact_id"
+                       invisible="not partner_id"
+                       readonly="state in ('cancel', 'done')"
+                       context="{'default_parent_id': partner_id}"/>
+            </field>
+            <field name="under_warranty" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </field>
+            <field name="maintenance_type" position="after">
+                <field name="service_type_ids"
+                       widget="many2many_tags"
+                       options="{'no_create': True}"
+                       readonly="state in ('cancel', 'done')"/>
+                <field name="other_service_desc" readonly="state in ('cancel', 'done')"/>
+            </field>
+            <xpath expr="//page[@name='page_work_detail']" position="after">
+                <page name="page_reception_delivery" string="Ingreso y salida">
+                    <group>
+                        <group string="Ingreso">
+                            <field name="reception_date" readonly="state == 'cancel'"/>
+                            <field name="received_by_id"
+                                   options="{'no_create': True}"
+                                   readonly="state == 'cancel'"/>
+                            <field name="reception_image_ids"
+                                   widget="many2many_binary"
+                                   options="{'accepted_file_extensions': '.jpg,.jpeg,.png'}"
+                                   readonly="state == 'cancel'"/>
+                            <field name="reception_signature"
+                                   widget="signature"
+                                   options="{'full_name': 'received_by_id'}"
+                                   readonly="state == 'cancel'"/>
+                        </group>
+                        <group string="Salida">
+                            <field name="delivery_station_date" readonly="state == 'cancel'"/>
+                            <field name="delivered_by_id"
+                                   options="{'no_create': True}"
+                                   readonly="state == 'cancel'"/>
+                            <field name="delivery_issue_date" readonly="state == 'cancel'"/>
+                            <field name="delivery_date" readonly="state == 'cancel'"/>
+                            <field name="delivery_image_ids"
+                                   widget="many2many_binary"
+                                   options="{'accepted_file_extensions': '.jpg,.jpeg,.png'}"
+                                   readonly="state == 'cancel'"/>
+                            <field name="delivery_signature"
+                                   widget="signature"
+                                   options="{'full_name': 'delivered_by_id'}"
+                                   readonly="state == 'cancel'"/>
+                        </group>
+                    </group>
+                    <separator string="Inventario"/>
+                    <field name="inventory_line_ids" readonly="state == 'cancel'">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="item"/>
+                            <field name="quantity"/>
+                            <field name="description"/>
+                            <field name="serial"/>
+                            <field name="reception_comment"/>
+                            <field name="delivery_comment"/>
+                        </list>
+                    </field>
+                    <group>
+                        <group string="Firma del cliente">
+                            <field name="customer_signer_name" readonly="state == 'cancel'"/>
+                            <field name="customer_signer_vat" readonly="state == 'cancel'"/>
+                            <field name="customer_sign_date" readonly="state == 'cancel'"/>
+                            <field name="sign_client"
+                                   widget="signature"
+                                   options="{'full_name': 'customer_signer_name'}"
+                                   readonly="state == 'cancel'"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

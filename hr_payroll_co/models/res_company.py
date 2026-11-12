@@ -72,6 +72,14 @@ class ResCompany(models.Model):
         string='Mostrar saldo pendiente de prestamos en desprendible',
         default=False,
     )
+    enable_hourly_payroll = fields.Boolean(
+        string='Habilitar Nómina por Horas',
+        help='Si está activo, los contratos marcados como "Trabajador por Horas" se liquidan '
+             'con un valor hora calculado a partir del salario mensual y las horas '
+             'mensuales/diarias configuradas en el contrato, en lugar de la lógica estándar '
+             'de nómina por días. Los contratos no marcados como trabajador por horas '
+             'continúan usando la lógica estándar sin importar esta configuración.',
+    )
     show_settlement_type_in_report = fields.Boolean(
         string='Mostrar tipo de finalización en desprendible de liquidación',
         default=False,

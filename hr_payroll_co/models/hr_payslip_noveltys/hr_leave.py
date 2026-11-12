@@ -277,24 +277,31 @@ class HrLeave(models.Model):
         if not (type_id.category_type == 'NO_PAY' and type_id.discount_rest_day):
             return
 
-        hr_period = self.env['hr.period']
+        # Solo se descuenta un día: el descanso obligatorio (domingo, art. 173 CST).
+        # Otros días de descanso del horario (p.ej. el sábado en lunes a viernes)
+        # no son descontables. Si el contrato trabaja el domingo, se toma el
+        # primer día de descanso (descanso compensatorio).
+        rest_days = [
+            date_ref + timedelta(days=i) for i in range(1, 8)
+            if self.contract_id.is_rest_day(date_ref + timedelta(days=i))
+        ]
+        if not rest_days:
+            return
+        rest_day = next(
+            (day for day in rest_days if day.weekday() == 6), rest_days[0])
 
-        for i in range(7):
-            date_ref += timedelta(days=1)
-            if self.contract_id.is_rest_day(date_ref):
-                period = hr_period.get_period(
-                    date_ref, False, self.contract_id.schedule_pay)
-                if not period:
-                    raise ValidationError(
-                        f'No se encontró periodo para esta fecha {date_ref}')
-                new_leave_line.append((0, 0, {
-                    'sequence': sequence,
-                    'date': date_ref,
-                    'period_id': period.id,
-                    'state': 'validated',
-                    'amount': amount_real,
-                }))
-                sequence += 1
+        period = self.env['hr.period'].get_period(
+            rest_day, False, self.contract_id.schedule_pay)
+        if not period:
+            raise ValidationError(
+                f'No se encontró periodo para esta fecha {rest_day}')
+        new_leave_line.append((0, 0, {
+            'sequence': sequence + 1,
+            'date': rest_day,
+            'period_id': period.id,
+            'state': 'validated',
+            'amount': amount_real,
+        }))
 
 
 class HrLeaveCalculator(ABC):

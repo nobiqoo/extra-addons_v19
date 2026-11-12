@@ -11,7 +11,12 @@ class AccountPaymentOrder(models.Model):
 
     txt_filename = fields.Char(string="Name txt file")
     txt_file = fields.Binary(string="Txt file")
-
+    hide_txt_in_draft = fields.Boolean(
+        related='company_id.hide_txt_in_draft',
+        string='Ocultar TXT en borrador',
+        store=False
+    )
+    
     def generate_txt(self):
         txt_setting_obg = self.env['res.bank.txt_config']
         for record in self:
@@ -76,7 +81,7 @@ class AccountPaymentOrder(models.Model):
             'z_total_cc_amount': sum(
                 self.payment_line_ids.mapped('amount_company_currency')),
             'z_n_lines': len(set(self.payment_line_ids.mapped('partner_id'))),
-            'z_debit_bank_account': self.company_partner_bank_id.acc_number,
+            'z_debit_bank_account': ''.join((self.company_partner_bank_id.acc_number or '').split()),
         }
 
 
@@ -93,7 +98,7 @@ class AccountPaymentLine(models.Model):
             'z_benef_nit': partner.vat,
             # 'z_benef_nitdv': partner.l10n_co_verification_code,
             'z_benef_name': partner.name,
-            'z_benef_bank_account': acc_bank_partner.acc_number,
+            'z_benef_bank_account': ''.join((acc_bank_partner.acc_number or '').split()),
             'z_benef_bank_account_bic': bank_partner.bic,
             'z_amount': self.amount_currency,
             'z_cc_amount': self.amount_company_currency,

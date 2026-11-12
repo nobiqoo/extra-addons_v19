@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_approval_setting_view_list_inherit_arthome" model="ir.ui.view">
+        <field name="name">purchase.approval.setting.view.list.inherit.arthome</field>
+        <field name="model">purchase.approval.setting</field>
+        <field name="inherit_id" ref="purchase_approval.purchase_approval_setting_view_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='approval_automatic']" position="after">
+                <field name="ask_alternatives_on_auto_confirm" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_approval_setting_view_form_inherit_arthome" model="ir.ui.view">
+        <field name="name">purchase.approval.setting.view.form.inherit.arthome</field>
+        <field name="model">purchase.approval.setting</field>
+        <field name="inherit_id" ref="purchase_approval.purchase_approval_setting_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='approval_automatic']" position="after">
+                <field name="ask_alternatives_on_auto_confirm" invisible="not approval_automatic"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

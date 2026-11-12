@@ -83,6 +83,12 @@
         - El profesor Tipo 10 o Tipo 12 no devenga salario básico: la línea de
           básico queda en cero con los días trabajados y su remuneración es el
           valor de las horas del mes.
+        - Desprendible con horas por curso (tarea 10271): la novedad de horas
+          se liquida en una línea por cada curso dictado en el mes, "Horas -
+          [curso]", con las horas como cantidad, el valor hora y su total; cada
+          línea se contabiliza en la cuenta analítica de su curso. El profesor
+          Tipo 10 o Tipo 12 no muestra la línea de sueldo básico en cero y su
+          encabezado muestra el valor hora en lugar del salario básico.
         - Nómina electrónica: la novedad de horas se reporta a la DIAN como
           sueldo trabajado (concepto Básico), con los días trabajados de la
           línea de básico, y las provisiones de profesor quedan homologadas con
@@ -109,6 +115,7 @@
         'views/hr_novelty_views.xml',
         'views/hr_payslip_line_log_views.xml',
         'views/res_config_settings_views.xml',
+        'views/report_payslip_templates.xml',
         'wizard/teacher_hours_wizard_views.xml',
     ],
     'installable': True,

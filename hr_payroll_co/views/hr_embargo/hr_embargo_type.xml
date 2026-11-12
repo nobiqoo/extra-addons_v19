@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_embargo_type_form" model="ir.ui.view">
+            <field name="name">hr.embargo.type.form</field>
+            <field name="model">hr.embargo.type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Garnishment Type">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="e.g. Alimony garnishment" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="code" />
+                                <field name="legal_type" />
+                                <field name="priority" />
+                                <field name="active" />
+                            </group>
+                            <group>
+                                <field name="concept_id" />
+                                <field name="file_concept_code" />
+                                <field name="company_id" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="page_calculation" string="Calculation">
+                                <group>
+                                    <group string="Method">
+                                        <field name="calculation_type" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="page_description" string="Description">
+                                <field name="description" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_embargo_type_tree" model="ir.ui.view">
+            <field name="name">hr.embargo.type.tree</field>
+            <field name="model">hr.embargo.type</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="legal_type" />
+                    <field name="calculation_type" />
+                    <field name="concept_id" />
+                    <field name="priority" />
+                    <field name="active" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_embargo_type_action" model="ir.actions.act_window">
+            <field name="name">Garnishment Types</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.embargo.type</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_embargo_type_menu_act" name="Tipos"
+            parent="setup_embargo_menu_categ" action="hr_embargo_type_action" sequence="1" />
+
+    </data>
+</odoo>

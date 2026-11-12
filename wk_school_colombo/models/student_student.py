@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models, _
+import re
 
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
+
+from .application_form import ESTRATO_SELECTION
 from .student_status_log import ACADEMIC_STATUS_SELECTION
 
 
@@ -13,6 +17,46 @@ class StudentStudent(models.Model):
     """
 
     _inherit = 'student.student'
+
+    # Ronda de ajustes post-prueba: redeclara el mapa completo de
+    # wk_school_management/models/student_student.py:93-104 (los primeros 10
+    # pares) agregando los campos del aspirante que faltaban -escribir
+    # cualquiera de ellos, incluso solo, dispara la resincronización completa
+    # hacia el Contacto vía _prepare_related_partner_vals() (más abajo). Un
+    # atributo de clase Python no se fusiona automáticamente entre
+    # `_inherit`, así que si el mapa base cambia hay que replicar el cambio
+    # aquí también.
+    _SYNC_FIELD_MAP = {
+        'name': 'name',
+        'email': 'email',
+        'mobile': 'phone',
+        'street': 'street',
+        'street2': 'street2',
+        'zip': 'zip',
+        'city': 'city',
+        'state_id': 'state_id',
+        'country_id': 'country_id',
+        'student_image': 'image_1920',
+        'program_type_id': 'program_type_id',
+        'barrio': 'barrio',
+        'city_id': 'city_id',
+        'issuance_city_id': 'issuance_city_id',
+        'origin_city_id': 'origin_city_id',
+        'tipo_persona': 'tipo_persona',
+        'estado_civil': 'estado_civil',
+        'nivel_formacion': 'nivel_formacion',
+        'idioma_nativo': 'idioma_nativo',
+        'idioma_nativo_otro': 'idioma_nativo_otro',
+        'ocupacion_actual': 'ocupacion_actual',
+        'landline_phone': 'landline_phone',
+        'additional_phone': 'additional_phone',
+        'additional_mobile': 'additional_mobile',
+        'email_dian': 'email_dian',
+        'contact_preference': 'contact_preference',
+        'estrato': 'estrato',
+        'regimen_salud': 'regimen_salud',
+        'jornada': 'jornada',
+    }
 
     # Tarea 11152: la solicitud ya puede guardarse sin fotografia, y al
     # inscribir el asistente copia student_image de la solicitud al estudiante
@@ -27,6 +71,9 @@ class StudentStudent(models.Model):
     # tener que volver a diligenciarla.
     program_type_id = fields.Many2one(
         'wk.school.colombo.program.type', string="Tipo de programa")
+    # Ronda de ajustes post-prueba: catálogo configurable (models/sede.py)
+    # en vez de company_id.
+    sede_id = fields.Many2one('wk.school.colombo.sede', string="Sede")
     # No se redeclaran required=True aqui (a diferencia de wk.application.form):
     # el asistente de inscripcion (wk_school_management/wizard/enroll_wizard.py)
     # crea el estudiante con un INSERT que no incluye estos campos -los copia
@@ -44,6 +91,13 @@ class StudentStudent(models.Model):
         'res.city', string="Municipio de expedición del documento")
     origin_city_id = fields.Many2one(
         'res.city', string="Municipio / lugar de origen")
+    origin_city_dian_code = fields.Char(
+        related='origin_city_id.dian_code', string="Código DIAN lugar de origen")
+    estrato = fields.Selection(ESTRATO_SELECTION, string="Estrato")
+    regimen_salud = fields.Many2one(
+        'wk.school.colombo.health.regime', string="Régimen de salud")
+    jornada = fields.Many2one(
+        'wk.school.colombo.jornada', string="Jornada")
     tipo_persona = fields.Selection([
         ('natural', 'Persona natural'),
         ('juridica', 'Persona jurídica'),
@@ -130,6 +184,12 @@ class StudentStudent(models.Model):
     status_log_ids = fields.One2many(
         'wk.school.colombo.student.status.log', 'student_id',
         string="Histórico de estados académicos")
+    # Tarea 12451 (Certificados académicos): histórico de consulta
+    # (2.21/2.22), uno por certificado generado -incluso en modalidad
+    # grupal-.
+    certificate_ids = fields.One2many(
+        'wk.school.colombo.certificate', 'student_id',
+        string="Certificados generados")
     academic_result = fields.Selection(
         related='current_enrollment_id.academic_result',
         string="Resultado académico")
@@ -192,30 +252,85 @@ class StudentStudent(models.Model):
         return matches['partner'][:1]
 
     def _prepare_related_partner_vals(self):
-        """Agrega al contacto los nombres separados y el documento.
+        """Agrega al contacto los nombres separados, el documento y el
+        resto de información general del aspirante.
 
         Extiende wk_school_management/models/student_student.py para que el
         contacto creado o actualizado desde el estudiante quede con los campos
         de la localizacion colombiana diligenciados (criterios 8, 13 y 18 de la
-        tarea 11151). El origen de los datos es la solicitud de inscripcion.
+        tarea 11151, nombres y documento desde la solicitud de inscripcion).
+
+        Ronda de ajustes post-prueba: la consultora reportó que estado civil,
+        nivel de formación, idioma nativo, municipio de expedición, teléfono
+        fijo, etc. no "viajaban" -sí llegaban al Estudiante
+        (wizard/enroll_wizard.py::_wk_copy_application_fields_to_student),
+        pero ninguno existía en res.partner ni se copiaba al Contacto. Estos
+        se leen de self (el Estudiante), no de la solicitud, para que el
+        Contacto siempre refleje el valor vigente, sin importar si cambió
+        después de inscribir.
         """
         vals = super()._prepare_related_partner_vals()
         application = self.application_id
-        if not application:
-            return vals
-        identification_vals = {
-            'name1': application.name1,
-            'name2': application.name2,
-            'lastname1': application.lastname1,
-            'lastname2': application.lastname2,
-            'l10n_latam_identification_type_id':
-                application.l10n_latam_identification_type_id.id or False,
-            'vat': application._wk_normalize_vat(application.vat),
+        if application:
+            identification_vals = {
+                'name1': application.name1,
+                'name2': application.name2,
+                'lastname1': application.lastname1,
+                'lastname2': application.lastname2,
+                'l10n_latam_identification_type_id':
+                    application.l10n_latam_identification_type_id.id or False,
+                'vat': application._wk_normalize_vat(application.vat),
+            }
+            vals.update({
+                key: value for key, value in identification_vals.items()
+                if value
+            })
+        mirror_vals = {
+            'program_type_id': self.program_type_id.id,
+            'barrio': self.barrio,
+            'city_id': self.city_id.id,
+            'issuance_city_id': self.issuance_city_id.id,
+            'origin_city_id': self.origin_city_id.id,
+            'tipo_persona': self.tipo_persona,
+            'estado_civil': self.estado_civil,
+            'nivel_formacion': self.nivel_formacion,
+            'idioma_nativo': self.idioma_nativo,
+            'idioma_nativo_otro': self.idioma_nativo_otro,
+            'ocupacion_actual': self.ocupacion_actual,
+            'landline_phone': self.landline_phone,
+            'additional_phone': self.additional_phone,
+            'additional_mobile': self.additional_mobile,
+            'email_dian': self.email_dian,
+            'contact_preference': self.contact_preference,
+            'estrato': self.estrato,
+            'regimen_salud': self.regimen_salud.id,
+            'jornada': self.jornada.id,
         }
         vals.update({
-            key: value for key, value in identification_vals.items() if value
+            key: value for key, value in mirror_vals.items() if value
         })
         return vals
+
+    @api.constrains('email')
+    def _check_email_format(self):
+        """Misma validacion del modulo base, pero con el mensaje traducible
+        (el base lo lanza como texto plano en ingles, sin _())."""
+        email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        for record in self:
+            if record.email and not re.match(email_regex, record.email):
+                raise ValidationError(
+                    _("The email address is not valid. Please enter a valid email."))
+
+    def check_for_unique_stuent_email(self):
+        """Anula la unicidad de correo del modulo base.
+
+        Un acudiente puede matricular a varios hijos con el mismo correo
+        (ajuste pedido por Colombo). Se redefine SIN @api.constrains para que
+        Odoo deje de registrar la restriccion (ver
+        wk_school_management/models/student_student.py). La validacion de
+        formato del correo (_check_email_format) se conserva.
+        """
+        return True
 
     def _ensure_related_partner(self):
         """Reimplementa wk_school_management/models/student_student.py::_ensure_related_partner
@@ -255,11 +370,10 @@ class StudentStudent(models.Model):
             if not partner:
                 partner = student._wk_find_partner_by_identification()
                 reused = bool(partner)
-            if not partner:
-                partner = Partner.search([
-                    ('email', '=', student.email),
-                    ('is_student', '=', True),
-                ], limit=1)
+            # Ya no se busca contacto por correo: varios hijos del mismo
+            # acudiente pueden compartir correo y se fusionarian en un solo
+            # contacto, sobrescribiendo sus datos. El documento (arriba) es el
+            # criterio de reutilizacion.
             partner_vals = student._prepare_related_partner_vals()
             if partner:
                 if reused:

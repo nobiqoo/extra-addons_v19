@@ -49,11 +49,15 @@ class PurchaseOrderApproval(models.Model):
     approval_type = fields.Selection(
         selection=[
             ('without_condition', 'Sin Condición'),
-            ('by_amount', 'Por monto')
+            ('by_amount', 'Por monto'),
+            ('range', 'Rango'),
         ],
         string='Tipo de Aprobación',
         default='without_condition'
     )
     amount_from = fields.Float(
-        string='A partir de'
+        string='A partir de / Desde'
+    )
+    amount_to = fields.Float(
+        string='Hasta'
     )

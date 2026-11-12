@@ -12,19 +12,21 @@ class AccountMoveLine(models.Model):
     def _compute_partner_id(self):
         res = super(AccountMoveLine, self)._compute_partner_id()
         for line in self.filtered(lambda x: x.display_type == 'payment_term' and x.move_id.expense_id):
-            line.partner_id = line.move_id.expense_id.employee_id.address_home_id.id
+            line.partner_id = line.move_id.expense_id.employee_id._get_expense_partner().id
         return res
 
     @api.onchange('partner_id')
     def _inverse_partner_id(self):
         for line in self.filtered(lambda x: x.display_type == 'payment_term' and x.move_id.expense_id):
-            if line.partner_id.id != line.move_id.expense_id.employee_id.address_home_id.id:
-                line.partner_id = line.move_id.expense_id.employee_id.address_home_id.id
+            if line.partner_id.id != line.move_id.expense_id.employee_id._get_expense_partner().id:
+                line.partner_id = line.move_id.expense_id.employee_id._get_expense_partner().id
         return super(AccountMoveLine, self)._inverse_partner_id()
-    
+
     def _compute_account_id(self):
         res = super(AccountMoveLine, self)._compute_account_id()
-        term_lines = self.filtered(lambda ln: ln.display_type == 'payment_term' and ln.move_id.expense_id)
+        term_lines = self.filtered(
+            lambda ln: ln.display_type == 'payment_term' and ln.move_id.expense_id.type
+        )
         for line in term_lines:
             expense_id = line.move_id.expense_id
             expense_journal = expense_id.expense_journal_id

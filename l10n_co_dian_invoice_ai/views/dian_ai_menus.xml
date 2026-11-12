@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_dian_ai" name="Agente IA"
+        parent="l10n_co_dian_invoice_synchronizer.dian_invoices_menu_categ"
+        groups="account.group_account_manager" sequence="30"/>
+
+    <menuitem id="menu_dian_ai_inbox" name="Bandeja" parent="menu_dian_ai"
+        action="action_dian_document_ai_inbox" sequence="10"/>
+    <menuitem id="menu_dian_ai_review" name="Para revisar" parent="menu_dian_ai"
+        action="action_dian_document_ai_review" sequence="20"/>
+    <menuitem id="menu_dian_ai_exceptions" name="Excepciones" parent="menu_dian_ai"
+        action="action_dian_document_ai_exceptions" sequence="30"/>
+    <menuitem id="menu_dian_ai_rule" name="Reglas aprendidas" parent="menu_dian_ai"
+        action="action_dian_ai_rule" sequence="40"/>
+    <menuitem id="menu_dian_ai_run" name="Tablero" parent="menu_dian_ai"
+        action="action_dian_ai_run" sequence="50"/>
+    <menuitem id="menu_dian_ai_config" name="Configuración" parent="menu_dian_ai"
+        action="action_dian_ai_config" sequence="60"/>
+
+</odoo>

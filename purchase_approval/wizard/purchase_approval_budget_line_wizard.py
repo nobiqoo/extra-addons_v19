@@ -6,6 +6,7 @@ from odoo.exceptions import UserError, ValidationError
 
 class PurchaseApprovalBudgetLineWizard(models.TransientModel):
     _name = 'purchase.approval.budget.line.wizard'
+    _description = 'Purchase Approval Budget Line Wizard'
 
     main_wizard_id = fields.Many2one(
         comodel_name='purchase.approval.budget.wizard'

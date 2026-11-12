@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Semilla inicial del catálogo de Sede (reemplaza company_id como
+         "Sede"). Editable/ampliable desde Configuración; estos dos
+         registros solo evitan que el catálogo nazca vacío. -->
+    <record id="sede_norte" model="wk.school.colombo.sede">
+        <field name="name">Norte</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="sede_centro" model="wk.school.colombo.sede">
+        <field name="name">Centro</field>
+        <field name="sequence">20</field>
+    </record>
+
+</odoo>

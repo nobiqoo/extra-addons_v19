@@ -17,10 +17,15 @@
         'hr_payroll_co',
     ],
     'data': [
+        'security/security.xml',
+        'security/ir.model.access.csv',
+        'data/mail_template_leave.xml',
         'views/assets.xml',
         'views/hr_payroll_templates.xml',
         'views/hr_leave_type.xml',
         'views/hr_payslip_type_views.xml',
+        'views/hr_leave_views.xml',
+        'views/res_config_settings.xml',
     ],
     'assets': {
         'web.assets_frontend': [

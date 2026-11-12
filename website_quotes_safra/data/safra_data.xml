@@ -3,7 +3,7 @@
     <data noupdate="1">
 
         <!-- Secuencia para cotizaciones -->
-        <record id="seq_safra_quote" model="ir.sequence">
+        <record forcecreate="0" id="seq_safra_quote" model="ir.sequence">
             <field name="name">Cotización Safra</field>
             <field name="code">safra.quote</field>
             <field name="prefix">COT-SAF-</field>

@@ -6,7 +6,7 @@ información ya consolidada -snapshot congelado si el corte está
 confirmado, cálculo en vivo si todavía no- sin requerir que el usuario
 calcule nada manualmente. Midterm solo aplica a estructuras de 2 cortes.
 """
-from odoo import models, _
+from odoo import fields, models, _
 from odoo.exceptions import UserError
 
 
@@ -93,6 +93,14 @@ class PerformanceDistributionReport(models.AbstractModel):
 
 
 class ClassListReport(models.AbstractModel):
+    """Class List / Listado del Módulo (Ajuste y ampliación de Reportes
+    Académicos): mismo reporte que el Consolidado ya usaba (botones
+    todos/Pass/Fail), ampliado con columnas opcionales (Notas, Factura,
+    Teléfono, Celular, Correo electrónico) controladas por el nuevo wizard
+    de Informes → Hoja de calificaciones → "Generar Class List". Sin
+    columnas adicionales, el PDF es la lista básica (Código/Estudiante/
+    Firma) que ya imprimían esos botones.
+    """
     _name = 'report.wk_school_colombo.report_class_list_document'
     _description = "Class List"
 
@@ -106,6 +114,7 @@ class ClassListReport(models.AbstractModel):
         docids = docids or data.get('consolidated_ids')
         consolidated = self.env['wk.school.colombo.grade.consolidated'].browse(docids)
         variant = data.get('variant', 'all')
+        cut = data.get('cut') or 'final'
         lines = consolidated.line_ids
         if variant == 'pass':
             lines = lines.filtered(lambda l: l.result == 'pass')
@@ -117,4 +126,38 @@ class ClassListReport(models.AbstractModel):
             'docs': consolidated,
             'wk_lines': lines.sorted(key=lambda l: l.student_id.name or ''),
             'wk_variant': variant,
+            'wk_cut': cut,
+            'wk_show_grades': bool(data.get('show_grades')),
+            'wk_show_invoice': bool(data.get('show_invoice')),
+            'wk_show_phone': bool(data.get('show_phone')),
+            'wk_show_mobile': bool(data.get('show_mobile')),
+            'wk_show_email': bool(data.get('show_email')),
+            'wk_generated': fields.Datetime.context_timestamp(
+                self, fields.Datetime.now()).strftime('%Y-%m-%d %H:%M:%S'),
+        }
+
+
+class GradeIndividualReport(models.AbstractModel):
+    """Reporte Individual del Estudiante (Ajuste y ampliación de Reportes
+    Académicos): combina Midterm y Final en un solo documento cuando la
+    Escala usa 2 cortes (los reportes Midterm/Final de arriba siguen
+    existiendo por separado para el Consolidado; este es el que se imprime
+    desde Informes → Boleta de calificaciones → "Imprimir Reporte
+    Individual", vía binding_model_id sobre wk.student.subjects). Lee
+    siempre la información ya consolidada, sin recalcular nada.
+    """
+    _name = 'report.wk_school_colombo.report_grade_individual_document'
+    _description = "Reporte Individual del Estudiante"
+
+    def _get_report_values(self, docids, data=None):
+        subjects = self.env['wk.student.subjects'].browse(docids)
+        missing = subjects.filtered(lambda s: not s.consolidated_line_ids)
+        if missing:
+            raise UserError(_(
+                "Los siguientes registros no tienen Consolidado de notas: "
+                "%s") % ", ".join(missing.mapped('display_name')))
+        return {
+            'doc_ids': docids,
+            'doc_model': 'wk.student.subjects',
+            'docs': subjects,
         }

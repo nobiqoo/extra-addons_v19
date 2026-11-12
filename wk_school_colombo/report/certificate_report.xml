@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tarea 12451: formato de certificado tipo diploma (A4 horizontal),
+         totalmente personalizado -se usa web.basic_layout, igual que la
+         tirilla de pago, porque external_layout trae el encabezado/pie de
+         factura estándar que no aplica aquí. -->
+    <record id="report_paperformat_certificate" model="report.paperformat">
+        <field name="name">Certificado académico (A4 horizontal)</field>
+        <field name="default" eval="False"/>
+        <!-- format=custom + ancho/alto explícitos en mm, con ancho MAYOR
+             que el alto (297x210) para horizontal. "orientation" en este
+             modelo NO es un rótulo informativo: controla si
+             print_page_width/height se intercambian respecto a
+             page_width/page_height (ver
+             odoo/addons/base/models/report_paperformat.py
+             ::_compute_print_page_size); su default es "Landscape", que
+             SÍ intercambia -con eso, un ancho ya horizontal (297x210)
+             termina intercambiado a vertical (210x297)-. Se fija en
+             "Portrait" a propósito, igual que la tirilla de pago
+             (payment_receipt_report.xml), para que NO se intercambien y
+             el ancho/alto queden tal como se declararon aquí. -->
+        <field name="format">custom</field>
+        <field name="page_width">297</field>
+        <field name="page_height">210</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">12</field>
+        <field name="margin_right">12</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="disable_shrinking" eval="True"/>
+        <field name="dpi">90</field>
+    </record>
+
+    <template id="report_cert_basico_intermedio">
+        <t t-call="web.basic_layout">
+            <style>
+                html, body, .article { width: 100%; margin: 0; padding: 0; }
+                .o_wk_cert {
+                    /* Tipografía exacta de los 6 formatos de referencia de
+                       Inglés Básico/Intermedio (Monotype Corsiva, incluida
+                       en Windows/Office -donde corre wkhtmltopdf en este
+                       entorno-; si el servidor de producción es Linux sin
+                       esta fuente instalada, hace falta empacarla como
+                       @font-face propio del módulo). */
+                    font-family: 'Monotype Corsiva', 'Brush Script MT', cursive;
+                    color: #000;
+                    text-align: center;
+                    font-size: 14px;
+                    padding: 8px 40px;
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+                .o_wk_cert_logo { max-height: 80px; margin-bottom: 6px; }
+                .o_wk_cert_name { font-size: 34px; margin: 4px 0; }
+                .o_wk_cert_legal { font-size: 12px; }
+                .o_wk_cert_title { font-size: 28px; margin: 10px 0; letter-spacing: 1px; }
+                .o_wk_cert_student { font-size: 26px; font-weight: bold; margin: 5px 0; }
+                .o_wk_cert_body { font-size: 15px; margin: 8px 50px; line-height: 1.4; }
+                /* wkhtmltopdf (QtWebKit viejo) pinta un marco visible
+                   alrededor de cualquier tabla HTML, incluso con
+                   border:none/border=0 explícitos -confirmado por
+                   comparación directa contra Chromium, que sí respeta el
+                   border:none-: por eso estas dos filas de 2 columnas se
+                   arman con divs flotantes en vez de una tabla. */
+                .o_wk_cert_signatures, .o_wk_cert_footer { width: 100%; overflow: hidden; }
+                .o_wk_cert_signatures .o_wk_cert_col, .o_wk_cert_footer .o_wk_cert_col { width: 50%; text-align: center; float: left; box-sizing: border-box; }
+                .o_wk_cert_signatures { margin-top: 28px; font-size: 14px; }
+                .o_wk_cert_signatures .o_wk_cert_firma { max-height: 45px; max-width: 250px; display: block; margin: 0 auto; }
+                .o_wk_cert_signatures .o_wk_cert_firma_line { border-top: 1px solid #000; display: inline-block; min-width: 290px; padding-top: 4px; margin-top: 35px; }
+                .o_wk_cert_footer { margin-top: 20px; font-size: 14px; }
+            </style>
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="wk_info" t-value="wk_data.get(doc.id, {})"/>
+                <div class="o_wk_cert">
+                    <img class="o_wk_cert_logo" src="/wk_school_colombo/static/src/img/certificates/logo.png"/>
+                    <div class="o_wk_cert_name">El Centro Cultural Colombo Americano</div>
+                    <div class="o_wk_cert_legal" t-esc="wk_info.get('resolucion_text')"/>
+
+                    <div style="margin-top:10px;">Le confiere a :</div>
+                    <div class="o_wk_cert_student" t-field="doc.student_id.name"/>
+                    <div>Con documento de identidad No. <span t-esc="wk_info.get('document_number')"/></div>
+                    <div>el presente certificado de conocimientos académicos en:</div>
+
+                    <div class="o_wk_cert_title" t-esc="wk_info.get('title')"/>
+
+                    <div class="o_wk_cert_body">
+                        Por haber cursado y aprobado los <span t-esc="wk_info.get('niveles_text')"/>
+                        niveles incluidos en el <span t-esc="wk_info.get('programa_frase')"/>
+                        con una intensidad horaria de <span t-esc="doc.intensidad_horaria"/> horas
+                        y haber cumplido con las condiciones requeridas por el Centro
+                    </div>
+
+                    <div style="margin-top:10px; font-size:15px;">
+                        En testimonio de lo anterior se firma el presente certificado en
+                        <span t-field="doc.lugar_expedicion"/>
+                        <span t-esc="wk_info.get('fecha_texto')"/>
+                    </div>
+
+                    <div class="o_wk_cert_signatures">
+                        <div class="o_wk_cert_col">
+                            <img t-if="wk_info.get('firma_directora_ejecutiva_url')" class="o_wk_cert_firma" t-att-src="wk_info.get('firma_directora_ejecutiva_url')"/>
+                            <div t-if="not wk_info.get('firma_directora_ejecutiva_url')" class="o_wk_cert_firma_line"/>
+                            <div t-esc="wk_info.get('directora_ejecutiva_nombre')"/>
+                            <div t-esc="wk_info.get('directora_ejecutiva_cargo')" style="white-space:pre-line;"/>
+                        </div>
+                        <div class="o_wk_cert_col">
+                            <img t-if="wk_info.get('firma_directora_academica_url')" class="o_wk_cert_firma" t-att-src="wk_info.get('firma_directora_academica_url')"/>
+                            <div t-if="not wk_info.get('firma_directora_academica_url')" class="o_wk_cert_firma_line"/>
+                            <div t-esc="wk_info.get('directora_academica_nombre')"/>
+                            <div t-esc="wk_info.get('directora_academica_cargo')" style="white-space:pre-line;"/>
+                        </div>
+                    </div>
+
+                    <div class="o_wk_cert_footer">
+                        <div class="o_wk_cert_col">Libro de Registro No. <span t-esc="wk_info.get('libro_texto')"/> (<span t-field="doc.libro"/>)</div>
+                        <div class="o_wk_cert_col">Folio No. <span t-esc="wk_info.get('folio_texto')"/> (<span t-field="doc.folio"/>)</div>
+                    </div>
+                </div>
+                <p style="page-break-after:always;" t-if="not doc_last"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="certificate_basico_intermedio_action" model="ir.actions.report">
+        <field name="name">Certificado académico</field>
+        <field name="model">wk.school.colombo.certificate</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wk_school_colombo.report_cert_basico_intermedio</field>
+        <field name="report_file">wk_school_colombo.report_cert_basico_intermedio</field>
+        <field name="print_report_name">'Certificado - %s' % (object.student_id.name)</field>
+        <field name="paperformat_id" ref="report_paperformat_certificate"/>
+        <!-- Explícitos en False: quitar las líneas del XML no limpia un
+             valor ya guardado por un -u anterior (gotcha de actualización
+             de datos de Odoo), y el attachment-splitting automático exige
+             marcas data-oe-model/data-oe-id que este patrón de "varios
+             documentos en un solo PDF" (igual que la tirilla) no genera. -->
+        <field name="attachment" eval="False"/>
+        <field name="attachment_use" eval="False"/>
+    </record>
+
+    <template id="report_cert_avanzado">
+        <t t-call="web.basic_layout">
+            <style>
+                html, body, .article { width: 100%; margin: 0; padding: 0; }
+                .o_wk_cert_av {
+                    font-family: Arial, Helvetica, sans-serif;
+                    color: #1b2a63;
+                    text-align: center;
+                    border: 3px solid #1b2a63;
+                    font-size: 14px;
+                    padding: 14px 40px;
+                    margin: 6px;
+                    width: 100%;
+                    /* El marco debe cubrir toda la hoja -como en los 2
+                       formatos de referencia de Programa Avanzado-, no solo
+                       el alto de su propio contenido. "100vh" NO sirve aquí:
+                       wkhtmltopdf hace el layout inicial contra un viewport
+                       virtual (--viewport-size) ANTES de paginar al tamaño
+                       real del papel, así que vh termina atado a ese
+                       viewport, no al alto real de la hoja. Se usa en su
+                       lugar una unidad física (mm) igual al alto de página
+                       del paperformat (210mm) menos sus márgenes
+                       (margin_top/margin_bottom = 10mm cada uno). */
+                    min-height: 188mm;
+                    box-sizing: border-box;
+                    position: relative;
+                }
+                .o_wk_cert_av_logo { max-height: 80px; margin-bottom: 8px; }
+                .o_wk_cert_av_name { font-size: 32px; font-weight: bold; margin: 5px 0; }
+                .o_wk_cert_av_legal { font-size: 13px; color: #1b2a63; }
+                .o_wk_cert_av_certifica { font-size: 19px; margin-top: 16px; }
+                .o_wk_cert_av_student { font-size: 31px; font-weight: bold; font-style: italic; margin: 9px 0; }
+                .o_wk_cert_av_body { font-size: 17px; margin: 8px 0; }
+                .o_wk_cert_av_course { font-size: 26px; font-weight: bold; margin: 16px 0; }
+                .o_wk_cert_av_meta { text-align: right; font-size: 14px; margin-top: 36px; }
+                /* Mismo bug de wkhtmltopdf con tablas HTML que en el
+                   certificado Básico/Intermedio -ver comentario allá-: dos
+                   columnas por divs flotantes en vez de una tabla.
+                   Anclada con position:absolute al fondo del marco (en vez
+                   de un margin-top fijo) para que, sin importar cuánto
+                   ocupe el texto de arriba, las firmas siempre lleguen
+                   hasta abajo del todo -como en el formato de referencia-:
+                   flexbox (justify-content:space-between) no sirve aquí,
+                   wkhtmltopdf no lo soporta (ver gotcha de este módulo). */
+                .o_wk_cert_av_signatures { position: absolute; left: 40px; right: 40px; bottom: 22px; overflow: hidden; font-size: 13px; }
+                .o_wk_cert_av_signatures .o_wk_cert_col { width: 50%; text-align: center; float: left; box-sizing: border-box; }
+                .o_wk_cert_av_signatures .o_wk_cert_firma { max-height: 42px; max-width: 220px; display: block; margin: 0 auto; }
+                .o_wk_cert_av_signatures .o_wk_cert_firma_line { border-top: 1px solid #1b2a63; display: inline-block; min-width: 260px; padding-top: 4px; margin-top: 32px; }
+            </style>
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="wk_info" t-value="wk_data.get(doc.id, {})"/>
+                <div class="o_wk_cert_av">
+                    <img class="o_wk_cert_av_logo" src="/wk_school_colombo/static/src/img/certificates/logo.png"/>
+                    <div class="o_wk_cert_av_name">CENTRO CULTURAL COLOMBO AMERICANO</div>
+                    <div class="o_wk_cert_av_legal" t-esc="wk_info.get('resolucion_text')"/>
+
+                    <div class="o_wk_cert_av_certifica">CERTIFICA QUE</div>
+                    <div class="o_wk_cert_av_student" t-field="doc.student_id.name"/>
+                    <div class="o_wk_cert_av_body">
+                        Cursó y aprobó un curso avanzado de inglés de
+                        <span t-esc="doc.intensidad_horaria"/> horas
+                        <span t-if="doc.date_from and doc.date_to">
+                            del <span t-field="doc.date_from"/> al <span t-field="doc.date_to"/>
+                        </span>
+                    </div>
+                    <div class="o_wk_cert_av_course">"<span t-esc="wk_info.get('curso_nombre')"/>"</div>
+
+                    <div class="o_wk_cert_av_meta">
+                        <div>Expedido el <span t-esc="wk_info.get('fecha_expedicion_larga')"/></div>
+                        <div><span t-field="doc.lugar_expedicion"/>, Colombia</div>
+                    </div>
+
+                    <div class="o_wk_cert_av_signatures">
+                        <div class="o_wk_cert_col">
+                            <img t-if="wk_info.get('firma_directora_academica_url')" class="o_wk_cert_firma" t-att-src="wk_info.get('firma_directora_academica_url')"/>
+                            <div t-if="not wk_info.get('firma_directora_academica_url')" class="o_wk_cert_firma_line"/>
+                            <div t-esc="wk_info.get('directora_academica_nombre')"/>
+                            <div t-esc="wk_info.get('directora_academica_cargo')" style="white-space:pre-line;"/>
+                        </div>
+                        <div class="o_wk_cert_col">
+                            <div class="o_wk_cert_firma_line"/>
+                            <div t-esc="wk_info.get('docente_nombre')"/>
+                            <div>Docente</div>
+                        </div>
+                    </div>
+                </div>
+                <p style="page-break-after:always;" t-if="not doc_last"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="certificate_avanzado_action" model="ir.actions.report">
+        <field name="name">Certificado - Programa Avanzado</field>
+        <field name="model">wk.school.colombo.certificate</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wk_school_colombo.report_cert_avanzado</field>
+        <field name="report_file">wk_school_colombo.report_cert_avanzado</field>
+        <field name="print_report_name">'Certificado - %s' % (object.student_id.name)</field>
+        <field name="paperformat_id" ref="report_paperformat_certificate"/>
+        <field name="attachment" eval="False"/>
+        <field name="attachment_use" eval="False"/>
+    </record>
+
+</odoo>

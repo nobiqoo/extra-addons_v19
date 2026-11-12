@@ -19,7 +19,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-6 o_setting_box">
+                    <!-- <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_left_pane">
                             <field name="negative_inventory" widget="upgrade_boolean" />
                         </div>
@@ -29,7 +29,7 @@
                                 Allow negative inventory.
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_left_pane">
                             <field name="picking_analytic" widget="upgrade_boolean" />
@@ -45,6 +45,19 @@
                 <xpath expr="//block[@name='operations_setting_container']" position="inside">
                     <setting id="validate_incoming_receptions" help="Users will need permissions to validate incoming receptions. This setting requires to assign users to warehouses.">
                         <field name="validate_incoming_receptions"/>
+                    </setting>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//block[@name='invoicing_setting_container']" position="inside">
+                    <setting id="create_invoices_from_picking" help="If enabled, a customer invoice will be generated from the delivery.">
+                        <field name="create_invoices_from_picking"/>
                     </setting>
                 </xpath>
             </field>

@@ -51,9 +51,17 @@
                                             <field name="sequence" widget="handle" />
                                             <field name="user_ids" options="{'no_create': True}" widget="many2many_tags"/>
                                             <field name="approval_type"/>
-                                            <field name="amount_from" readonly="approval_type not in ['by_amount']"/>
+                                            <field name="amount_from" readonly="approval_type not in ['by_amount', 'range']"/>
+                                            <field name="amount_to" readonly="approval_type not in ['range']" invisible="approval_type != 'range'"/>
                                         </list>
                                     </field>
+                                    <field name="has_range_lines" invisible="1"/>
+                                    <div class="alert alert-warning" role="alert" colspan="2" invisible="not has_range_lines">
+                                        Monto máximo cubierto por los rangos configurados:
+                                        <field name="range_coverage_max" readonly="1" class="oe_inline"/>.
+                                        Una Orden de Compra con un valor mayor a este monto no tendrá
+                                        ningún aprobador asignado y quedará "En Aprobación" sin poder avanzar.
+                                    </div>
                                     <field name="user_approvals_by_budget" widget="many2many_tags" invisible="True"/>
                                     <field name="approval_minimum"/>
                                     <field name="approval_with_sequence"/>

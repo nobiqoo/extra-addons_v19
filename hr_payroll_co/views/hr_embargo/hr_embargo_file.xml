@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="hr_embargo_file_form" model="ir.ui.view">
+            <field name="name">hr.embargo.file.form</field>
+            <field name="model">hr.embargo.file</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Judicial Deposit Flat File">
+                    <header>
+                        <button name="action_load_lines" string="Load Installments"
+                            type="object" class="btn-secondary" />
+                        <button name="action_generate_file" string="Generate File"
+                            type="object" class="btn-primary" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date_start" />
+                                <field name="date_end" />
+                                <field name="cc" />
+                            </group>
+                            <group>
+                                <field name="company_id" />
+                                <field name="origin_office" />
+                                <field name="file_data" filename="file_name" />
+                                <field name="file_name" invisible="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="page_employees" string="Employees">
+                                <field name="line_ids">
+                                    <list>
+                                        <field name="employee_id" />
+                                        <field name="work_phone" />
+                                        <field name="work_email" />
+                                        <field name="department_id" />
+                                        <field name="job_id" />
+                                        <field name="amount" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_embargo_file_tree" model="ir.ui.view">
+            <field name="name">hr.embargo.file.tree</field>
+            <field name="model">hr.embargo.file</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="date_start" />
+                    <field name="date_end" />
+                    <field name="cc" />
+                    <field name="company_id" />
+                    <field name="file_name" />
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_embargo_file_action" model="ir.actions.act_window">
+            <field name="name">Archivo Plano</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.embargo.file</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="hr_embargo_file_menu_act" name="Archivo Plano"
+            parent="embargo_menu_categ" action="hr_embargo_file_action" sequence="2" />
+
+    </data>
+
+    <data noupdate="1">
+        <record id="seq_hr_embargo_file" model="ir.sequence">
+            <field name="name">Judicial Deposit File Number</field>
+            <field name="code">seq.hr.embargo.file</field>
+            <field name="prefix">EMBF-</field>
+            <field name="padding">6</field>
+        </record>
+    </data>
+</odoo>

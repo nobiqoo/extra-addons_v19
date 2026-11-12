@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 9-nov: Safra carga sus productos y referencias y ajusta la
+         configuración en la base. Va de último: lo que siembra el módulo
+         queda marcado como «no actualizar» y las actualizaciones siguientes
+         no reescriben ni borran lo que Safra cambie. -->
+    <function model="safra.system" name="_proteger_datos_del_modulo"/>
+</odoo>

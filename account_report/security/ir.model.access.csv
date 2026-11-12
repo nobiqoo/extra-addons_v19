@@ -14,3 +14,7 @@ access_account_balance_analytic_wizard,account_balance_analytic_wizard.account_b
 access_account_auxiliary_analytic_wizard,account_auxiliary_analytic_wizard.account_auxiliary_analytic_wizard,model_account_auxiliary_analytic_wizard,base.group_user,1,1,1,1
 access_receivable_account_wizard,receivable.account.wizard,model_receivable_account_wizard,account.group_account_readonly,1,1,1,1
 access_print_file,print.file,model_print_file,account.group_account_readonly,1,1,1,1
+access_portfolio_detail_wizard,access.portfolio.detail.wizard,model_portfolio_detail_wizard,base.group_user,1,1,1,1
+access_portfolio_detail_print_xlsx,access.portfolio.detail.print.xlsx,model_portfolio_detail_print_xlsx,base.group_user,1,1,1,1
+access_portfolio_detail_wizard_line,access.portfolio.detail.wizard.line,model_portfolio_detail_wizard_line,base.group_user,1,1,1,1
+access_detail_wizard_line_line,access.detail.wizard.line.line,model_detail_wizard_line_line,base.group_user,1,1,1,1

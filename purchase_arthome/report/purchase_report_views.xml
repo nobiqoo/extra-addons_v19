@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_search_purchase_category" model="ir.ui.view">
+        <field name="name">report.purchase.order.search.purchase.category</field>
+        <field name="model">purchase.report</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='later_than_a_year_ago']" position="after">
+                <separator/>
+                <filter name="purchase_category_import" string="Is Import" domain="[('purchase_category', '=', 'import')]"/>
+                <filter name="purchase_category_dropship" string="Is Dropship" domain="[('purchase_category', '=', 'dropship')]"/>
+                <filter name="purchase_category_national" string="Is National" domain="[('purchase_category', '=', 'national')]"/>
+            </xpath>
+            <xpath expr="//filter[@name='status']" position="after">
+                <filter string="Purchase Type" name="group_purchase_category" context="{'group_by': 'purchase_category'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

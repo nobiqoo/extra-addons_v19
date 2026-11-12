@@ -59,7 +59,7 @@ class AccountJournalWizard(models.Model):
     def action_confirm(self):
         self.validate_len_code()
         report = self.env.ref('account_report.report_account_journal')
-        data = self.prepare_data()
+        data = {'record_id': self.id}
         return report.report_action(self, data=data)
 
     def button_export_pdf(self):
@@ -185,9 +185,10 @@ class AccountJournalWizard(models.Model):
             query_data = filter_code_range
             sum_line = self.sum_amounts_filtered(filter_code_range)
         elif self.group_by_move:
-            moves = set([x.get('move_name') for x in copy_data])
-            for move in moves:
-                datas = [nd for nd in copy_data if nd.get('move_name') == move]
+            moves = {}
+            for x in copy_data:
+                moves.setdefault(x.get('move_name'), []).append(x)
+            for move, datas in moves.items():
                 values = {
                     'bold': True,
                     'group': True,
@@ -247,24 +248,9 @@ class AccountJournalWizard(models.Model):
         self.env.cr.execute(query)
         data_query = self.env.cr.dictfetchall()
 
-        # aa.code_store (company_dependent) se almacena como jsonb
-        # ({'<company_id>': 'texto'}); hay que extraer el valor de texto
-        # plano para la compañía activa.
-        for row in data_query:
-            row['account_code'] = self._extract_jsonb_value(row.get('account_code'))
-
         sum_line = self.sum_amounts(data_query)
         data_query.append(sum_line)
         return data_query
-
-    def _extract_jsonb_value(self, value):
-        '''Si el driver nos entrega un dict (campo company_dependent),
-        extraemos el valor de la compañía activa, cayendo al primer valor
-        disponible.'''
-        if isinstance(value, dict):
-            company_id = str(self.env.company.id)
-            return value.get(company_id) or next(iter(value.values()), '')
-        return value or ''
 
     def prepare_query(self):
         date_from = self.date_from.strftime('%Y-%m-%d')
@@ -284,7 +270,7 @@ class AccountJournalWizard(models.Model):
             TO_CHAR(aml.date, 'YYYY/MM/DD') AS date,
             COALESCE(aj.name->'es_CO', aj.name->'en_US') as journal_name,
             am.name as move_name,
-            aa.code_store as account_code,
+            COALESCE(aa.code_store->>SPLIT_PART(rco.parent_path, '/', 1), '') as account_code,
             COALESCE(aa.name->'es_CO', aa.name->'en_US') as account_name,
             case when aml.parent_state = 'posted'
              then 'Publicado' else aml.parent_state end as parent_state,
@@ -307,6 +293,7 @@ class AccountJournalWizard(models.Model):
 
         query += """
             inner join account_account aa on aa.id = aml.account_id
+            inner join res_company rco on rco.id = aml.company_id
             inner join account_move am on am.id = aml.move_id
             inner join account_journal aj on aj.id = aml.journal_id
         """

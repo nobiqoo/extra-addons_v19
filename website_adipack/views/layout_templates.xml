@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Pie de página del sitio actual: noticias, envasadoras, equipos de proceso y contacto -->
+    <template id="footer_adipack" inherit_id="website.footer_custom" name="Adipack - Pie de página">
+        <xpath expr="//div[@id='footer']" position="replace">
+            <div id="footer" class="oe_structure oe_structure_solo text-break o_adp_footer" t-ignore="true" t-if="not no_footer">
+                <section class="s_text_block pt64 pb48 o_colored_level" data-snippet="s_text_block" data-name="Pie de página">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 pb24 o_colored_level">
+                                <h5 class="o_adp_widget_title">NOTICIAS</h5>
+                                <ul class="list-unstyled o_adp_footer_list ps-4">
+                                    <li><a href="/fepale-2018">FEPALE 2018</a></li>
+                                    <li><a href="/andina-pack-2019">ANDINA PACK 2019</a></li>
+                                    <li><a href="/expopack-2019-mexico">EXPOPACK 2019</a></li>
+                                    <li><a href="/fepale-2018">ASOLECHE 2019</a></li>
+                                    <li><a href="/expopack-2018-mexico">EXPOPACK 2018</a></li>
+                                </ul>
+                                <h5 class="o_adp_widget_title mt-5">NEWS</h5>
+                                <ul class="list-unstyled o_adp_footer_list o_adp_footer_list_spaced">
+                                    <li><a href="/andina-pack-2019">ANDINA PACK 2019</a></li>
+                                    <li><a href="/expopack-2019-mexico">EXPOPACK 2019 – MEXICO</a></li>
+                                    <li><a href="/asoleche-2019">ASOLECHE 2019</a></li>
+                                    <li><a href="/fepale-2018">FEPALE 2018</a></li>
+                                    <li><a href="/expopack-2018-mexico">EXPOPACK 2018 – MEXICO</a></li>
+                                </ul>
+                                <p class="mt-5">
+                                    <a href="https://www.youtube.com/channel/UC1kDTGruVSdEmT3gQe5xrJQ/videos" target="_blank" rel="noopener"><img src="/website_adipack/static/src/uploads/2017/05/youtube-png.png" alt="YouTube" class="img-fluid me-3"/></a>
+                                    <a href="https://www.facebook.com/adipack.com.co" target="_blank" rel="noopener"><img src="/website_adipack/static/src/uploads/2017/05/facebook-png.png" alt="Facebook" class="img-fluid"/></a>
+                                </p>
+                                <p class="mt-5"><a href="/">Español</a> | <a href="/adipack-adinox-aseptic-pouch-packaging-machines-for-dairy-products-flexible-bag">English</a></p>
+                            </div>
+                            <div class="col-lg-3 col-md-6 pb24 o_colored_level">
+                                <h5 class="o_adp_widget_title">ENVASADORAS ASÉPTICAS</h5>
+                                <ul class="list-unstyled o_adp_footer_list o_adp_footer_list_spaced">
+                                    <li><a href="/envasadoras-asepticas-adias-g8">Envasadora Aséptica ADIAS G8</a></li>
+                                    <li><a href="/envasadora-productos-viscosos">Envasadora para productos viscosos</a></li>
+                                    <li><a href="/envasadora-ultralimpia">Envasadora ULTRALIMPIA</a></li>
+                                    <li><a href="/envasadoras-adi-1x27">Envasadoras ADI 1X27</a></li>
+                                </ul>
+                                <h5 class="o_adp_widget_title mt-5">ASEPTIC POUCH PACKAGING MACHINES</h5>
+                                <ul class="list-unstyled o_adp_footer_list o_adp_footer_list_spaced">
+                                    <li><a href="/aseptic-pouch-packaging-machine-adi-1x27">ASEPTIC POUCH PACKAGING MACHINE ADI 1X27</a></li>
+                                    <li><a href="/packaging-machine-type-high-hygiene-ultra-clean">PACKAGING MACHINE TYPE HIGH-HYGIENE / ULTRA CLEAN</a></li>
+                                    <li><a href="/aseptic-form-fill-seal-machines-adias-g8">ASEPTIC FORM/FILL/SEAL MACHINES ADIAS G8</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-3 col-md-6 pb24 o_colored_level">
+                                <h5 class="o_adp_widget_title">EQUIPOS DE PROCESO</h5>
+                                <ul class="list-unstyled o_adp_footer_list o_adp_footer_list_spaced">
+                                    <li><a href="/esterilizadores-uht">Esterilizadores UHT</a></li>
+                                    <li><a href="/dosificador-aseptico">Dosificador Aséptico</a></li>
+                                    <li><a href="/pasteurizadores-htst">Pasteurizadores HTST</a></li>
+                                    <li><a href="/homogeneizadores">Homogeneizadores</a></li>
+                                    <li><a href="/centrifuga-higienizadora-y-descremadoras">Centrífuga Higienizadora y Descremadoras</a></li>
+                                    <li><a href="/bactofugadoras">Bactofugadoras</a></li>
+                                </ul>
+                                <h5 class="o_adp_widget_title mt-5">PROCESS EQUIPMENT</h5>
+                                <ul class="list-unstyled o_adp_footer_list o_adp_footer_list_spaced">
+                                    <li><a href="/hygienizing-centrifuge-machine-and-milk-skimming-centrifuge">Hygienizing centrifuge machine and milk skimming centrifuge</a></li>
+                                    <li><a href="/aseptic-dosing-unit">Aseptic Dosing Unit</a></li>
+                                    <li><a href="/homogenizers">Homogenizers</a></li>
+                                    <li><a href="/htst-pasteurizers">HTST Pasteurizers</a></li>
+                                    <li><a href="/uht-sterilizer">UHT Sterilizer</a></li>
+                                    <li><a href="/bactofuge-units">BACTOFUGE UNITS</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-3 col-md-6 pb24 o_colored_level o_adp_footer_contact">
+                                <h5 class="o_adp_widget_title">INFORMACIÓN DE CONTACTO</h5>
+                                <p>
+                                    <img src="/website_adipack/static/src/uploads/2017/04/bandera-colombia.png" alt="Colombia" width="22"/>
+                                    <b> ADIPACK (Nueva dirección)<br/>Girón, Santander - Colombia</b><br/>
+                                    <i class="fa fa-location-arrow o_adp_footer_icon"/>KM 6 Via Bucaramanga - Giron Cr 13 # 59-66 Bodegas Sión #3<br/>
+                                    Int. Bodega #2<br/>
+                                    <i class="fa fa-phone o_adp_footer_icon"/><a href="tel:+5776466880">Tel: </a>(+57) 7 646 6880<br/>
+                                    <a href="tel:+573153221848">Cel.</a> (+57)3153221848<br/>
+                                    <a href="tel:+573152087003">Cel.</a> (+57)3152087003<br/>
+                                    <i class="fa fa-envelope-o o_adp_footer_icon"/>adipack@gmail.com
+                                </p>
+                                <p>
+                                    <img src="/website_adipack/static/src/uploads/2017/04/bandera-ecuador.png" alt="Ecuador" width="22"/>
+                                    <b> ADINOX Ecuador - Quito</b><br/>
+                                    <i class="fa fa-location-arrow o_adp_footer_icon"/>Av. El Inca 2035<br/>
+                                    Edif. San Cayetano.<br/>
+                                    <i class="fa fa-phone o_adp_footer_icon"/><a href="tel:+59322266999">Tel:</a> (+59 3) 2 226 6999<br/>
+                                    <a href="tel:+59322265892">Tel:</a> (+59 3) 2 226 5892<br/>
+                                    <i class="fa fa-envelope-o o_adp_footer_icon"/>adinox.adipack@gmail.com
+                                </p>
+                                <h5 class="o_adp_widget_title mt-5">CONTACT US</h5>
+                                <p>
+                                    <img src="/website_adipack/static/src/uploads/2017/04/bandera-colombia.png" alt="Colombia" width="22"/>
+                                    <b> ADIPACK (New address)<br/>Girón, Santander - Colombia</b><br/>
+                                    <i class="fa fa-location-arrow o_adp_footer_icon"/>KM 6 Via Bucaramanga - Giron Cr 13 # 59-66 Bodegas Sión #3<br/>
+                                    Int. Bodega #2<br/>
+                                    <i class="fa fa-phone o_adp_footer_icon"/><a href="tel:+5776466880">Phone: </a>(+57) 7 646 6880<br/>
+                                    <a href="tel:+573153221848">Cellphone.</a> (+57)3153221848<br/>
+                                    <a href="tel:+573152087003">Cellphone.</a> (+57)3152087003<br/>
+                                    <i class="fa fa-envelope-o o_adp_footer_icon"/><a href="mailto:adipack@gmail.com">adipack@gmail.com</a>
+                                </p>
+                                <p>
+                                    <img src="/website_adipack/static/src/uploads/2017/04/bandera-ecuador.png" alt="Ecuador" width="22"/>
+                                    <b> ADINOX<br/>Ecuador - Quito</b><br/>
+                                    <i class="fa fa-location-arrow o_adp_footer_icon"/>Av. El Inca 2035<br/>
+                                    San Cayetano Building.<br/>
+                                    <i class="fa fa-phone o_adp_footer_icon"/><a href="tel:+59322266999">Phone:</a> (+59 3) 2 226 6999<br/>
+                                    <a href="tel:+59322265892">Phone:</a> (+59 3) 2 226 5892<br/>
+                                    <i class="fa fa-envelope-o o_adp_footer_icon"/><a href="mailto:adinox.adipack@gmail.com">adinox.adipack@gmail.com</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Botones flotantes de WhatsApp (escritorio) y WhatsApp / llamada (celular) -->
+                <div class="o_adp_floating o_not_editable">
+                    <a class="o_adp_whatsapp_desktop" href="https://web.whatsapp.com/send?phone=573152241100" target="_blank" rel="noopener">
+                        <img src="/website_adipack/static/src/uploads/2025/07/whatsappescritorio.png" alt="WhatsApp +57 315 224 1100"/>
+                    </a>
+                    <a class="o_adp_whatsapp_mobile" href="https://api.whatsapp.com/send?phone=573152241100">
+                        <img src="/website_adipack/static/src/uploads/2021/10/whatsappresponsive.png" alt="WhatsApp"/>
+                    </a>
+                    <a class="o_adp_phone_mobile" href="tel:3152241100">
+                        <img src="/website_adipack/static/src/uploads/2021/10/llamadasresponsive.png" alt="Llamar"/>
+                    </a>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Texto de copyright del sitio actual -->
+    <template id="footer_copyright_adipack" inherit_id="website.layout" name="Adipack - Copyright" priority="20">
+        <xpath expr="//footer//span[hasclass('o_footer_copyright_name')]" position="replace">
+            <span class="o_footer_copyright_name me-2 small">
+                <a href="/website_adipack/static/src/uploads/2017/06/politica-proteccion-datos-adipack.pdf" target="_blank">PROTECCIÓN DE DATOS</a>
+                Copyright Todos los derechos reservados por Adinox S.A. Diseño Web
+                <a href="http://www.gruposilva.net" target="_blank" rel="noopener">GrupoSilva.net</a>
+            </span>
+        </xpath>
+        <!-- Permite editar el menú en inglés desde Sitio > Menú en el editor -->
+        <xpath expr="//footer" position="before">
+            <div t-if="editable and website.adipack_menu_en_id" class="d-none"
+                 t-att-data-content_menu_id="website.adipack_menu_en_id.id" data-menu_name="Menú en inglés"/>
+        </xpath>
+    </template>
+
+</odoo>

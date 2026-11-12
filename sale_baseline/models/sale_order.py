@@ -219,7 +219,7 @@ class SaleOrder(models.Model):
                 if line.product_id.type not in ('product', 'consu'):
                     continue
                 product_uom_qty = line.product_uom_qty
-                product_uom = line.product_uom
+                product_uom = line.product_uom_id
                 product = line.product_id.with_context(
                     warehouse=record.warehouse_id.id)
                 uom_id = line.product_id.uom_id

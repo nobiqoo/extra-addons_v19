@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_activity_type_alternatives_decision" model="mail.activity.type">
+            <field name="name">Decide on Alternatives</field>
+            <field name="summary">Decide on alternative quotations</field>
+            <field name="icon">fa-random</field>
+            <field name="res_model">purchase.order</field>
+        </record>
+    </data>
+</odoo>

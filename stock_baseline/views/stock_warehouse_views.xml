@@ -6,6 +6,9 @@
         <field name="model">stock.warehouse</field>
         <field name="inherit_id" ref="stock.view_warehouse"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="journal_id"/>
+            </xpath>
             <xpath expr="//notebook/page[@name='warehouse_config']" position="inside">
                 <group>
                     <group name="validation" string="Validation">

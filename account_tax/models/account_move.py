@@ -57,7 +57,8 @@ class AccountMove(models.Model):
         for line in self.invoice_line_ids:
             taxes |= line._get_computed_taxes()
 
-        partner_id = self.is_purchase_document() and self.partner_id or False
+        # Compras: CIIU del proveedor; ventas: CIIU de la compañía (explícito, no desde el contexto)
+        partner_id = self.partner_id if self.is_purchase_document() else self.company_id.partner_id
         tax_id = taxes.calculate_base(
             self.invoice_line_ids, self.city_id, partner_id
         )

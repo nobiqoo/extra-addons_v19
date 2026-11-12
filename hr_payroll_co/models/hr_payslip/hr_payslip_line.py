@@ -35,6 +35,8 @@ class HrPayslipLine(models.Model):
         comodel_name='hr.novelty', string='Novedad')
     overtime_id = fields.Many2one(
         comodel_name='hr.overtime', string='Hora Extra')
+    embargo_id = fields.Many2one(
+        comodel_name='hr.embargo', string='Garnishment')
     log_ids = fields.One2many(
         comodel_name='hr.payslip.line.log', string='Logs', compute='_compute_log_ids'
     )

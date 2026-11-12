@@ -9,9 +9,79 @@
         <field name="model">student.enrollment</field>
         <field name="inherit_id" ref="wk_school_management.student_enrollment_form"/>
         <field name="arch" type="xml">
+            <!-- Ronda de ajustes post-prueba: botón inteligente "Histórico",
+                 visible solo cuando el estudiante tiene OTRAS Inscripciones
+                 (estudiante antiguo), para consultarlas sin salir de aquí. -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_enrollment_history" type="object"
+                        class="oe_stat_button" icon="fa-history"
+                        invisible="enrollment_history_count == 0">
+                    <field name="enrollment_history_count" widget="statinfo"
+                           string="Histórico"/>
+                </button>
+            </xpath>
+
             <xpath expr="//field[@name='fee_summary_ids']/list/field[@name='fee']" position="before">
                 <field name="pricelist_id"
                        options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='fee_summary_ids']/list/field[@name='fee']" position="after">
+                <field name="discount_percent" string="% Descuento"/>
+            </xpath>
+
+            <!-- Tarea 11856: tabla de amortización del acuerdo de pago por
+                 cuotas, debajo del resumen de tarifas de la inscripción.
+
+                 Incidencia de ancho (ronda de ajustes post-prueba): esto NO
+                 va con position="after" sobre field[@name='fee_summary_ids']
+                 -ese campo vive dentro de group[@name='fee_summary_info'], así
+                 que cualquier cosa insertada "after" él queda DENTRO del mismo
+                 group, compitiendo columnas con fee_summary_ids (de ahí que se
+                 viera angosto aun con col="1"/sin "string"). Se inserta como
+                 hermano del group completo, y sin group/separator propios
+                 -un <field> suelto dentro de <page> ya ocupa el ancho
+                 completo por sí solo. -->
+            <!-- Ronda de ajustes post-prueba: "Código de cupón" sale del
+                 wizard "Generar recibos de tarifas" (donde vivía como un
+                 simple campo de texto, codigo_beneficio) y pasa a un botón
+                 propio aquí, mismo patrón que "Coupon Code"/"Reward" en
+                 Ventas (sale_loyalty) -ver wizard/fee_benefit_wizard.py. -->
+            <xpath expr="//group[@name='fee_summary_info']" position="after">
+                <div class="d-flex flex-row-reverse oe_subtotal_footer border-0">
+                    <button string="Código de cupón"
+                            name="%(wk_school_colombo.wk_fee_benefit_wizard_action)d"
+                            type="action" class="btn btn-secondary"
+                            invisible="state == 'cancel'"/>
+                </div>
+                <div class="oe_title" invisible="not installment_line_ids">
+                    <h2>Plan de pagos / Tabla de amortización</h2>
+                </div>
+                <field name="installment_line_ids" nolabel="1"
+                       invisible="not installment_line_ids">
+                    <list create="0" delete="0">
+                        <field name="sequence" column_invisible="1"/>
+                        <field name="name" string="Cuota"/>
+                        <field name="fecha_vencimiento" string="Fecha vencimiento"/>
+                        <field name="valor_programado" string="Valor programado"/>
+                        <field name="valor_pagado" string="Valor pagado"/>
+                        <field name="saldo" string="Saldo"/>
+                        <field name="estado" widget="badge"
+                               decoration-success="estado == 'pagado'"
+                               decoration-warning="estado == 'parcial'"
+                               decoration-danger="estado == 'mora'"
+                               decoration-info="estado == 'pendiente'"/>
+                        <field name="invoice_id" string="Factura"/>
+                        <button name="action_registrar_abono" type="object"
+                                string="Registrar abono" class="btn-link"
+                                invisible="estado == 'pagado'"/>
+                        <button name="action_ver_pago" type="object"
+                                string="Ver pago" class="btn-link"
+                                invisible="estado != 'pagado'"/>
+                        <button name="action_imprimir_tirilla" type="object"
+                                string="Imprimir Tirilla" class="btn-link"
+                                invisible="estado != 'pagado'"/>
+                    </list>
+                </field>
             </xpath>
 
             <!-- Requerimiento "Resultado académico, Promoción y Finalización"
@@ -51,6 +121,23 @@
                 <field name="classification_exam_result" invisible="not has_classification_exam"/>
             </xpath>
 
+            <!-- Ronda de ajustes post-prueba: "Sede" deja de ser company_id
+                 -que traía implicaciones de multi-compañía que no aplican
+                 aquí- y pasa a ser un catálogo configurable propio
+                 (models/sede.py). company_id sigue existiendo (Odoo lo
+                 exige) pero queda oculto; sede_id toma su lugar, justo
+                 debajo de "Fecha de inscripción", como pidió el usuario. -->
+            <xpath expr="//group[@name='enrollment_order_details']/field[@name='company_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='enrollment_date']" position="after">
+                <field name="sede_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                <!-- Tarea 12451 (Certificados académicos): filtra
+                     estudiantes y determina la plantilla del certificado
+                     junto con Programa, Nivel y Sede. -->
+                <field name="population_type"/>
+            </xpath>
+
             <!-- Pestaña Observaciones: histórico único y editable de la
                  inscripción, sin importar el origen de cada nota
                  (inscripción, clase, facturación, administrativo o el
@@ -69,6 +156,33 @@
                             <field name="comment"/>
                             <field name="user_id" readonly="1"/>
                             <field name="create_date" string="Fecha y hora de registro" readonly="1" optional="show"/>
+                        </list>
+                    </field>
+                </page>
+                <!-- Pestaña Calificaciones: resultado detallado de cada clase
+                     cursada en esta inscripción (solo lectura). Se llega a
+                     ella desde el botón "Histórico" del estudiante. Misma
+                     restricción que el Historial académico (Officer/Admin). -->
+                <page name="colombo_grades" string="Calificaciones"
+                      groups="wk_school_management.wk_school_management_officer_group">
+                    <field name="grade_line_ids" readonly="1">
+                        <list create="0" edit="0" delete="0"
+                              decoration-danger="result == 'fail'"
+                              decoration-success="result == 'pass'">
+                            <field name="grade_decimals" column_invisible="1"/>
+                            <field name="populate_class_id"/>
+                            <field name="course_status" optional="hide"/>
+                            <field name="midterm_grade" optional="hide"
+                                   widget="wk_grade_float" options="{'decimals_field': 'grade_decimals'}"/>
+                            <field name="final_grade"
+                                   widget="wk_grade_float" options="{'decimals_field': 'grade_decimals'}"/>
+                            <field name="ranking_badge" string="Posición"/>
+                            <field name="result" widget="badge"/>
+                            <field name="fail_reason"/>
+                            <field name="performance_range_name"/>
+                            <field name="absence_hours"/>
+                            <field name="comments"/>
+                            <field name="observation"/>
                         </list>
                     </field>
                 </page>
@@ -93,6 +207,17 @@
                        decoration-danger="academic_result == 'failed'"
                        decoration-warning="academic_result == 'pending'"/>
             </xpath>
+
+            <!-- Ronda de ajustes post-prueba: mismo ajuste de Sede que en el
+                 formulario -company_id queda oculto y sede_id toma su
+                 lugar-. -->
+            <xpath expr="//list/field[@name='company_id'][@column_invisible]" position="replace"/>
+            <xpath expr="//list/field[@name='company_id']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//list/field[@name='company_id']" position="after">
+                <field name="sede_id" optional="show"/>
+            </xpath>
         </field>
     </record>
 
@@ -112,6 +237,10 @@
             </xpath>
             <xpath expr="//filter[@name='group_by_state']" position="after">
                 <filter name="group_by_academic_result" string="Resultado académico" domain="[]" context="{'group_by':'academic_result'}"/>
+            </xpath>
+            <xpath expr="//filter[@name='group_by_school']" position="attributes">
+                <attribute name="string">Sede</attribute>
+                <attribute name="context">{'group_by':'sede_id'}</attribute>
             </xpath>
         </field>
     </record>

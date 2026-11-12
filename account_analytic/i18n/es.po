@@ -28,6 +28,7 @@ msgstr "Tipo Analítico"
 
 #. module: account_analytic
 #: model:ir.model.fields.selection,name:account_analytic.selection__account_analytic_account__account_type__cost_operation
+#: model:ir.model.fields.selection,name:account_analytic.selection__account_analytic_plan__account_type__cost_operation
 msgid "Cost of Operation"
 msgstr "Costo de Operación"
 
@@ -40,6 +41,7 @@ msgstr "Cuenta de Costo de Operación"
 
 #. module: account_analytic
 #: model:ir.model.fields.selection,name:account_analytic.selection__account_analytic_account__account_type__cost_sale
+#: model:ir.model.fields.selection,name:account_analytic.selection__account_analytic_plan__account_type__cost_sale
 msgid "Cost of Sale"
 msgstr "Costo de Venta"
 
@@ -52,11 +54,13 @@ msgstr "Cuenta de Costo de Venta"
 
 #. module: account_analytic
 #: model:ir.model.fields.selection,name:account_analytic.selection__account_analytic_account__account_type__expense
+#: model:ir.model.fields.selection,name:account_analytic.selection__account_analytic_plan__account_type__expense
 msgid "Expense"
 msgstr "Gasto"
 
 #. module: account_analytic
 #: model:ir.model.fields.selection,name:account_analytic.selection__account_analytic_account__account_type__income
+#: model:ir.model.fields.selection,name:account_analytic.selection__account_analytic_plan__account_type__income
 msgid "Income"
 msgstr "Ingreso"
 
@@ -103,5 +107,6 @@ msgstr "Plantilla del Producto"
 
 #. module: account_analytic
 #: model:ir.model.fields,field_description:account_analytic.field_account_analytic_account__account_type
+#: model:ir.model.fields,field_description:account_analytic.field_account_analytic_plan__account_type
 msgid "Type"
 msgstr "Tipo"

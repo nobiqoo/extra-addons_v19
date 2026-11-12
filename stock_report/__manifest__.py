@@ -24,10 +24,12 @@
         'security/ir.model.access.csv',
         'views/stock_move_template.xml',
         'views/stock_picking_template.xml',
+        'views/stock_quant_views.xml',
         'report/stock_move_report.xml',
         'report/stock_valuation_report.xml',
         'report/stock_picking_report.xml',
         'wizard/stock_move_wizard.xml',
         'wizard/stock_valuation_wizard.xml',
+        'wizard/slow_movement_report_wizard.xml',
     ],
 }

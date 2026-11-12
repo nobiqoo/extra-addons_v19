@@ -10,6 +10,17 @@
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
                 <app string="Cotizador Safra" name="website_quotes_safra">
+                    <!-- Revisión 27-oct: estampado fuera de servicio -->
+                    <block title="Estampación" name="safra_estampacion_block">
+                        <setting id="safra_estampado_fuera_servicio"
+                                 help="Cuando falla la impresora: al marcar «Diseño Impresión» sale el error de estampados fuera de servicio y no se deja continuar. Las telas siguen marcadas como estampables. El mensaje se cambia en Validaciones (V_ESTAMPADO_FUERA_SERVICIO).">
+                            <field name="safra_estampado_fuera_servicio"/>
+                        </setting>
+                        <setting id="safra_estampado_ancho_max"
+                                 help="Valor que permite la impresora: si la persiana es más ancha, no se deja estampar. Hoy lo usa Sheer Elegance (regla V_ESTAMPADO_SHEER_ELEGANCE). Cámbielo cuando cambie de equipo.">
+                            <field name="safra_estampado_ancho_max"/>
+                        </setting>
+                    </block>
                     <block title="Panel Track — fórmula de combinaciones" name="safra_panel_block">
                         <setting string="Ancho de cada telo (m)"
                                  help="Límites del ancho de un telo; definen qué configuraciones de la tabla son fabricables.">
@@ -33,6 +44,225 @@
                             <field name="safra_panel_rieles"/>
                         </setting>
                     </block>
+                    <!-- Mejoras Sprint 1.1 (21-oct, fila 18) -->
+                    <block title="Máximo total de lamas" name="safra_max_lamas_block">
+                        <setting string="Texto junto al máximo" help="Se muestra en el portal al lado del número calculado.">
+                            <field name="safra_max_lamas_texto" widget="text" class="w-100"/>
+                        </setting>
+                    </block>
+                    <!-- Archivos de Safra «Tipos de corte tela» (26-oct) -->
+                    <!-- Revisión 30-oct: fórmulas de alto y peso máximo del tubo, visibles y editables. -->
+                    <block title="Tubo: alto y peso máximo" name="safra_tubo_block">
+                        <setting string="Persianas: fórmulas del tubo" class="col-lg-12"
+                                 help="Con la fila del tubo se calculan el alto máximo y el peso de la persiana; se muestran en la ficha técnica del portal y los revisan las validaciones V_ALTO_MAXIMO, V_REQUIERE_MOTOR y V_PESO_MAXIMO. Vacía = la del módulo.">
+                            <div class="content-group">
+                                <div class="small mt8">
+                                    <div class="fw-bold">Cómo se escoge el tubo (sin fórmula, por tabla)</div>
+                                    <ol class="mb-0 ps-3">
+                                        <li>En Cotizador Safra › Configuración › <b>Estructura por Ancho</b> se busca la fila del <b>sistema</b>, del
+                                            <b>tipo de accionamiento</b> (Manual con «Con Motor = No», Motor con «Con Motor = Sí», o Ambos),
+                                            del <b>tipo de cabezal</b> elegido (si el sistema lo diferencia) y cuyo rango
+                                            <b>Ancho desde – Ancho hasta</b> contiene el ancho digitado.</li>
+                                        <li>Si el cliente elige en <b>Unificación Mando</b> un tubo mayor, se usa la fila de ese tubo.</li>
+                                        <li>De esa fila salen el tubo y los datos de las fórmulas: espacio del eje central a techo,
+                                            diámetro externo del tubo y carga máxima. Si la fila tiene elegida la referencia del
+                                            cabezal (o, sin cabezal, del soporte), del tubo o del mecanismo, el valor sale del producto
+                                            de esa referencia; si no lo tiene, el digitado en la fila.</li>
+                                        <li>Con motor, la carga máxima es la de la fórmula «Carga máxima del motor» con el
+                                            <b>Torque</b> del producto del motor elegido; sin torque, la Carga máxima de ese producto o la de la fila.</li>
+                                        <li>El alto máximo es el <b>menor</b> entre «por espacio» y «por carga». Si el alto digitado lo supera,
+                                            el portal <b>sube solo al siguiente tubo</b> del mismo accionamiento con el que sí alcanza; si ninguno
+                                            alcanza, sale el aviso. El botón «?» junto al Alto máximo muestra el cuadro de cada tubo
+                                            (manual y motor) con su alto y peso máximo.</li>
+                                        <li>El peso total se compara con la carga máxima: sin motor, si la fila motorizada del mismo
+                                            ancho sí lo soporta, se pide marcar «Con Motor».</li>
+                                        <li>En los sistemas marcados «Tubo solo por ancho» (2 en 1 y Sheer 2 en 1) no se calculan
+                                            alto ni peso máximo: queda el tubo del ancho.</li>
+                                    </ol>
+                                </div>
+                                <div class="mt8">
+                                    <label for="safra_formula_tubo_alto_espacio" class="o_light_label"/>
+                                    <field name="safra_formula_tubo_alto_espacio" widget="text" class="font-monospace w-100"/>
+                                </div>
+                                <div class="mt8">
+                                    <label for="safra_formula_tubo_alto_carga" class="o_light_label"/>
+                                    <field name="safra_formula_tubo_alto_carga" widget="text" class="font-monospace w-100"/>
+                                </div>
+                                <div class="mt8">
+                                    <label for="safra_formula_tubo_peso_total" class="o_light_label"/>
+                                    <field name="safra_formula_tubo_peso_total" widget="text" class="font-monospace w-100"/>
+                                </div>
+                                <div class="mt8">
+                                    <label for="safra_formula_tubo_carga_motor" class="o_light_label"/>
+                                    <field name="safra_formula_tubo_carga_motor" widget="text" class="font-monospace w-100"/>
+                                </div>
+                                <div class="mt8">
+                                    <!-- Probar fórmulas (03-nov): con una persiana real y lo escrito aquí, sin guardar. -->
+                                    <button name="action_probar_formulas" type="object" icon="fa-flask" noSaveDialog="1"
+                                            string="Probar fórmulas con una persiana" class="btn btn-secondary"/>
+                                    <span class="text-muted small ms-2">Muestra el valor de cada variable y el «result» de cada fórmula para una persiana de una cotización, con lo escrito aquí aunque no lo haya guardado.</span>
+                                </div>
+                                <div class="small mt8">
+                                    <div class="text-muted mb4">Variables que pueden usar las fórmulas (deben dar un número, o None si no se puede calcular).
+                                        Las que salen del maestro llegan vacías si el dato no se digitó (un 0 digitado es 0): <code>vacio(peso_tela)</code> dice si falta,
+                                        y la persiana avisa «Falta digitar …» con el nombre de la fórmula.</div>
+                                    <table class="table table-sm table-bordered mb-0">
+                                        <thead>
+                                            <tr><th>Variable</th><th>Qué es</th><th>De dónde sale</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td><code>ancho</code>, <code>alto</code></td>
+                                                <td>Medidas de la persiana, en metros.</td>
+                                                <td>Las que digita el cliente en el portal.</td></tr>
+                                            <tr><td><code>peso_tela</code></td>
+                                                <td>Peso de la tela, en g/m².</td>
+                                                <td>Referencias / Telas › la tela › Peso tela (g/m²).</td></tr>
+                                            <tr><td><code>grosor_tela</code></td>
+                                                <td>Grosor de la tela, en mm (cuánto engrosa cada vuelta en el tubo).</td>
+                                                <td>Referencias / Telas › la tela › Grosor / densidad (mm).</td></tr>
+                                            <tr><td><code>peso_perfil</code></td>
+                                                <td>Peso del perfil elegido, en gramos por metro. 0 si no hay perfil; vacío si su producto
+                                                    no tiene U_Peso digitado (en una cuenta vale 0: la fórmula queda solo con la tela).</td>
+                                                <td>El primero con valor entre «Tipo de Perfil», «Perfilería Sheer» y «Perfilería Persiana
+                                                    Enrollable». Su peso es el <b>U_Peso</b> del producto de esa línea: Referencias / Telas ›
+                                                    PERFIL › la línea › producto › Parametrización › U_Peso. Si el campo usa opciones propias
+                                                    del Catálogo de Campos, el «Peso (g/m)» de la opción.</td></tr>
+                                            <tr><td><code>factor</code></td>
+                                                <td>Factor de peso de la tela (2 en Sheer: la tela va doblada). Vacío o 0 = 1.</td>
+                                                <td>Cotizador Safra › Sistemas › el sistema › Factor de peso de tela.</td></tr>
+                                            <tr><td><code>espacio_eje_techo</code></td>
+                                                <td>Espacio del eje central del tubo al techo, en mm.</td>
+                                                <td>Producto del cabezal (o del soporte) elegido en la fila de Estructura por Ancho ›
+                                                    Espacio eje central a techo; si no lo tiene, el de la fila.</td></tr>
+                                            <tr><td><code>diametro_tubo</code></td>
+                                                <td>Diámetro externo del tubo, en mm.</td>
+                                                <td>Producto del tubo elegido en la fila › Diametro externo Tubo; si no lo tiene, el de la fila.</td></tr>
+                                            <tr><td><code>carga_maxima</code></td>
+                                                <td>Peso que soporta el mecanismo (manual) o el motor (motorizada), en gramos.</td>
+                                                <td>Manual: producto del mecanismo de la fila › Carga maxima (o la de la fila). Motor: la fórmula
+                                                    «Carga máxima del motor» con su torque.</td></tr>
+                                            <tr><td><code>torque</code></td>
+                                                <td>Torque del motor, en N·m (solo en «Carga máxima del motor»).</td>
+                                                <td>Producto del motor elegido › Parametrización › Torque.</td></tr>
+                                            <tr><td><code>pi</code></td>
+                                                <td>El número π (3,1416).</td>
+                                                <td>Fijo.</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                    <block title="Corte de la tela" name="safra_corte_block">
+                        <setting string="Persianas: constante por tubo"
+                                 help="Tubo:metros separados por coma. Se suma al alto para ver si la tela se puede atravesar y limita el añadido (alto ≤ 2 × ancho del rollo − constante).">
+                            <field name="safra_corte_constante_tubo"/>
+                        </setting>
+                        <setting string="Cortinas: alto de corte"
+                                 help="Valores que usan las fórmulas del corte de las cortinas (abajo). El dobladillo inferior máximo solo se usa si ninguna opción de «Dobladillo o Bajo falso» del sistema tiene Consumo del dobladillo.">
+                            <div class="content-group">
+                                <div class="row mt8">
+                                    <label for="safra_cortina_dobladillo_superior" class="col-6 o_light_label"/>
+                                    <field name="safra_cortina_dobladillo_superior" class="col-3"/>
+                                </div>
+                                <div class="row">
+                                    <label for="safra_cortina_dobladillo_inferior" class="col-6 o_light_label"/>
+                                    <field name="safra_cortina_dobladillo_inferior" class="col-3"/>
+                                </div>
+                                <div class="row">
+                                    <label for="safra_cortina_riel" class="col-6 o_light_label"/>
+                                    <field name="safra_cortina_riel" class="col-3"/>
+                                </div>
+                                <div class="row">
+                                    <label for="safra_cortina_tolerancia_bajo_falso" class="col-6 o_light_label"/>
+                                    <field name="safra_cortina_tolerancia_bajo_falso" class="col-3"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <!-- Revisión 30-oct: fórmulas del corte de las cortinas, visibles y editables. -->
+                        <setting string="Cortinas: fórmulas del corte" class="col-lg-12"
+                                 help="Se revisan en este orden: corte normal, bajo falso y, si ninguna da verdadero, paños (tela con Añadido o atravesable; el cliente debe marcar «Acepto que la tela se corte por paños», regla V_CORTE_PANOS) o no se puede fabricar. Vacía = la del módulo.">
+                            <div class="content-group">
+                                <div class="mt8">
+                                    <label for="safra_formula_alto_maximo_dobladillo" class="o_light_label"/>
+                                    <field name="safra_formula_alto_maximo_dobladillo" widget="text" class="font-monospace w-100"/>
+                                </div>
+                                <div class="mt8">
+                                    <label for="safra_formula_cortina_normal" class="o_light_label"/>
+                                    <field name="safra_formula_cortina_normal" widget="text" class="font-monospace w-100"/>
+                                </div>
+                                <div class="mt8">
+                                    <label for="safra_formula_cortina_bajo_falso" class="o_light_label"/>
+                                    <field name="safra_formula_cortina_bajo_falso" widget="text" class="font-monospace w-100"/>
+                                </div>
+                                <div class="mt8">
+                                    <button name="action_probar_formulas" type="object" icon="fa-flask" noSaveDialog="1"
+                                            string="Probar fórmulas con una persiana" class="btn btn-secondary"/>
+                                    <span class="text-muted small ms-2">Muestra el valor de cada variable y el «result» de cada fórmula para una persiana de una cotización, con lo escrito aquí aunque no lo haya guardado.</span>
+                                </div>
+                                <div class="small mt8">
+                                    <div class="text-muted mb4">Variables que pueden usar las fórmulas (medidas en metros):</div>
+                                    <table class="table table-sm table-bordered mb-0">
+                                        <thead>
+                                            <tr><th>Variable</th><th>Qué es</th><th>De dónde sale</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td><code>alto</code>, <code>ancho</code></td>
+                                                <td>Medidas de la cortina.</td>
+                                                <td>Las que digita el cliente en el portal.</td></tr>
+                                            <tr><td><code>ancho_rollo</code></td>
+                                                <td>Ancho del rollo de la tela (vacío si el color no tiene U_Ancho digitado; 0 si se digitó 0). Para distinguirlos: <code>vacio(ancho_rollo)</code> (sirve para cualquier dato numérico del maestro).</td>
+                                                <td>Producto del color elegido › Parametrización › U_Ancho.</td></tr>
+                                            <tr><td><code>riel</code></td>
+                                                <td>Riel y espacio arriba.</td>
+                                                <td>Este bloque › Cortinas: alto de corte › Riel y espacio arriba.</td></tr>
+                                            <tr><td><code>dobladillo_superior</code></td>
+                                                <td>Tela del dobladillo de arriba.</td>
+                                                <td>Este bloque › Cortinas: alto de corte › Dobladillo superior.</td></tr>
+                                            <tr><td><code>dobladillo_inferior_max</code></td>
+                                                <td>Dobladillo de abajo que se usa si ninguna opción tiene consumo.</td>
+                                                <td>Este bloque › Cortinas: alto de corte › Dobladillo inferior máximo.</td></tr>
+                                            <tr><td><code>tolerancia_bajo_falso</code></td>
+                                                <td>Cuánto puede pasar el alto del ancho del rollo con bajo falso.</td>
+                                                <td>Este bloque › Cortinas: alto de corte › Bajo falso sobre el ancho del rollo.</td></tr>
+                                            <tr><td><code>consumo</code></td>
+                                                <td>Tela que gasta el dobladillo de la opción. Solo tiene valor en «Alto máximo con un dobladillo» (en las otras vale 0).</td>
+                                                <td>Catálogo de Campos › Dobladillo o Bajo falso › Opciones › Consumo del dobladillo (m).</td></tr>
+                                            <tr><td><code>alto_maximo_dobladillo</code></td>
+                                                <td>El mayor alto máximo entre los dobladillos del sistema. Vale 0 en «Alto máximo con un dobladillo» (es lo que esa fórmula calcula).</td>
+                                                <td>La fórmula «Alto máximo con un dobladillo» con el consumo de cada opción.</td></tr>
+                                            <tr><td><code>tela_con_diseno</code></td>
+                                                <td>Verdadero si la tela tiene diseño. Desde la reunión 30-oct no frena el bajo falso;
+                                                    para volver a hacerlo, agregue <code>and not tela_con_diseno</code> a la fórmula del bajo falso.</td>
+                                                <td>Referencias / Telas › la tela › Atravesable distinto de No.</td></tr>
+                                            <tr><td><code>tela_permite_panos</code></td>
+                                                <td>Verdadero si la tela permite corte por paños: tiene Añadido o es atravesable
+                                                    (en cortinas, atravesar es cortar por paños).</td>
+                                                <td>Referencias / Telas › la tela › Añadido (U_Añadido) o Atravesable Sí / Sí Cliente.</td></tr>
+                                            <tr><td><code>&lt;código del campo&gt;</code></td>
+                                                <td>Cualquier campo del cotizador, con el valor elegido como texto (p. ej. <code>apertura == '3'</code>).</td>
+                                                <td>Catálogo de Campos › Código técnico del campo.</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="Cenefa en tela"
+                                 help="El ancho de la cenefa (ancho + esta medida por cada lateral) se compara con el ancho del rollo: si cabe va entera; si no, con tela atravesable puede ir entera (cortada atravesada) y si la tela no es atravesable va añadida.">
+                            <field name="safra_cenefa_lateral"/>
+                        </setting>
+                    </block>
+                    <!-- Prueba 126.1: pedidos de venta de exportación -->
+                    <block title="Exportaciones" name="safra_exportacion_block">
+                        <setting string="Posición fiscal de exportación"
+                                 help="Va en el pedido de venta de una cotización de exportación y deja el IVA exento. Vacía: las líneas van sin impuestos.">
+                            <field name="safra_export_fiscal_position_id"/>
+                        </setting>
+                        <setting string="Diario de facturas de exportación"
+                                 help="Diario con el que se facturan los pedidos de exportación. Vacío: el diario de ventas por defecto.">
+                            <field name="safra_export_journal_id"/>
+                        </setting>
+                    </block>
                 </app>
             </xpath>
         </field>
@@ -49,4 +279,27 @@
          claro (pedido de la reunión del 24). -->
     <menuitem id="menu_safra_panel_settings" name="Parámetros (rieles y anchos de telo)"
               parent="menu_safra_combos" action="action_safra_panel_settings" sequence="40"/>
+    <!-- Probar fórmulas (03-nov): las fórmulas de Ajustes con una persiana real. -->
+    <record id="view_safra_formula_prueba_form" model="ir.ui.view">
+        <field name="name">safra.formula.prueba.form</field>
+        <field name="model">safra.formula.prueba</field>
+        <field name="arch" type="xml">
+            <form string="Probar fórmulas">
+                <div class="alert alert-info mb-3" role="alert">
+                    Elija una persiana de una cotización. Se calculan las fórmulas tal como están escritas en
+                    Ajustes (aunque no las haya guardado) con las medidas, la tela, el motor y el sistema de esa
+                    persiana. No se cambia nada. Para ver un valor intermedio puede escribir en la fórmula
+                    <code>raise Exception(variable)</code>: aquí sale como error con ese valor (quítelo antes de guardar).
+                </div>
+                <group>
+                    <field name="line_id" options="{'no_create': True, 'no_open': True}"
+                           placeholder="Busque por cotización, localización o sistema"/>
+                </group>
+                <field name="resultado" nolabel="1" readonly="1"/>
+                <footer>
+                    <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
 </odoo>

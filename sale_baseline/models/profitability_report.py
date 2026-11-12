@@ -69,12 +69,12 @@ class ProfitabilityReport(models.Model):
                     ELSE 0
                 END AS total_weight,
                 CASE
-                    WHEN am.move_type = 'out_refund' THEN ABS(COALESCE(mv_cost.unit_cost, 0)) * (-1)
-                    ELSE COALESCE(mv_cost.unit_cost, 0)
+                    WHEN am.move_type = 'out_refund' THEN ABS(COALESCE(NULLIF(mv_cost.unit_cost, 0), inv_cogs.unit_cost, 0)) * (-1)
+                    ELSE COALESCE(NULLIF(mv_cost.unit_cost, 0), inv_cogs.unit_cost, 0)
                 END AS unit_cost,
                 CASE
-                    WHEN am.move_type = 'out_refund' THEN COALESCE(mv_cost.unit_cost, 0) * aml.quantity * (-1)
-                    ELSE COALESCE(mv_cost.unit_cost, 0) * aml.quantity
+                    WHEN am.move_type = 'out_refund' THEN COALESCE(NULLIF(mv_cost.unit_cost, 0), inv_cogs.unit_cost, 0) * aml.quantity * (-1)
+                    ELSE COALESCE(NULLIF(mv_cost.unit_cost, 0), inv_cogs.unit_cost, 0) * aml.quantity
                 END AS total_cost,
                 CASE
                     WHEN am.move_type = 'out_refund' THEN ABS(aml.price_unit*am.current_exchange_rate) * (-1)
@@ -85,11 +85,11 @@ class ProfitabilityReport(models.Model):
                     ELSE aml.price_subtotal*am.current_exchange_rate
                 END AS sale_price_total,
                 ABS(aml.price_subtotal*am.current_exchange_rate) - (
-                    ABS(COALESCE(mv_cost.unit_cost, 0)) * aml.quantity
+                    ABS(COALESCE(NULLIF(mv_cost.unit_cost, 0), inv_cogs.unit_cost, 0)) * aml.quantity
                 ) AS margin,
                 (
                     ABS(aml.price_subtotal*am.current_exchange_rate) - (
-                        ABS(COALESCE(mv_cost.unit_cost, 0)) * aml.quantity
+                        ABS(COALESCE(NULLIF(mv_cost.unit_cost, 0), inv_cogs.unit_cost, 0)) * aml.quantity
                     )
                 ) / NULLIF(ABS(aml.price_subtotal*am.current_exchange_rate), 0) AS percentage
             FROM
@@ -131,36 +131,45 @@ class ProfitabilityReport(models.Model):
                         sm.sale_line_id,
                         sm.product_id,
                     CASE
-                        WHEN SUM(
-                            CASE
-                                WHEN sml.picked THEN ABS(sml.quantity)
-                                ELSE 0
-                            END
-                        ) <> 0
-                        THEN SUM(ABS(sm.value)) /
-                            NULLIF(
-                                SUM(
-                                    CASE
-                                        WHEN sml.picked THEN ABS(sml.quantity)
-                                        ELSE 0
-                                    END
-                                ),
-                                0
-                            )
+                        WHEN SUM(sml.picked_qty) <> 0
+                        THEN SUM(ABS(sm.value)) / NULLIF(SUM(sml.picked_qty), 0)
                         ELSE 0
                     END AS unit_cost
                 FROM stock_move sm
-                JOIN stock_move_line sml ON sml.move_id = sm.id
+                -- Cantidad recogida por movimiento: se agrupa antes para no repetir sm.value
+                -- por cada línea del movimiento (p. ej. una línea por número de serie)
+                JOIN (
+                    SELECT
+                        move_id,
+                        SUM(CASE WHEN picked THEN ABS(quantity) ELSE 0 END) AS picked_qty
+                    FROM stock_move_line
+                    GROUP BY move_id
+                ) sml ON sml.move_id = sm.id
                 WHERE sm.state = 'done'
                 GROUP BY
                     sm.sale_line_id,
                     sm.product_id
                 ) mv_cost ON mv_cost.sale_line_id = sol_line.id
                 AND mv_cost.product_id = pp.id
+                -- Si no hay remisión: costo de venta registrado en la factura (moneda de la compañía).
+                -- Cada línea genera dos apuntes cogs del mismo valor (inventario y gasto).
+                -- Solo facturas: las notas crédito sin devolución conservan su tratamiento.
+                LEFT JOIN (
+                    SELECT
+                        cogs_origin_id,
+                        SUM(ABS(balance)) / 2 / NULLIF(SUM(ABS(quantity)) / 2, 0) AS unit_cost
+                    FROM account_move_line
+                    WHERE display_type = 'cogs'
+                        AND cogs_origin_id IS NOT NULL
+                    GROUP BY cogs_origin_id
+                ) inv_cogs ON inv_cogs.cogs_origin_id = aml.id
+                    AND am.move_type = 'out_invoice'
             WHERE
                 am.move_type IN ('out_invoice', 'out_refund')
                 AND am.state = 'posted'
                 AND aml.product_id IS NOT NULL
+                -- Solo líneas de producto: las de costo de venta (cogs) también tienen producto
+                AND aml.display_type = 'product'
                 AND (
                     (am.move_type = 'out_invoice' AND so.name IS NOT NULL)
                     OR
@@ -224,20 +233,27 @@ class ProfitabilityReport(models.Model):
             else:
                 query = """
                         SELECT
-                            pol.price_unit AS unit_cost
+                            pol.price_unit AS unit_cost,
+                            po.currency_id,
+                            po.date_order
                         FROM
                             purchase_order_line pol
                             JOIN purchase_order po ON pol.order_id = po.id
                         WHERE
                             pol.product_id = %s
+                            AND po.company_id = %s
+                            AND po.state IN ('purchase', 'done')
                         ORDER BY
                             po.date_order DESC
                         LIMIT 1;
                 """
-                self.env.cr.execute(query, ((row['product_id']),))
+                company = self.env.company
+                self.env.cr.execute(query, (row['product_id'], company.id))
                 result = self.env.cr.fetchone()
                 if result and result[0] and result[0] > 0.0:
-                    row['unit_cost'] = result[0]
+                    # Precio de la orden en su moneda: se expresa en la de la compañía
+                    row['unit_cost'] = self.env['res.currency'].browse(result[1])._convert(
+                        result[0], company.currency_id, company, result[2] or fields.Date.today(), round=False)
                     row['total_cost'] = row['unit_cost'] * \
                         row['quantity_invoiced'] if not row['refund_name'] else row['unit_cost'] * \
                         row['quantity_invoiced'] * -1

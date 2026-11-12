@@ -7,5 +7,10 @@
             <field name="category_id" ref="base_data_baseline.category_1800_baseline"/>
         </record> -->
 
+        <record id="group_manage_team_leaders" model="res.groups">
+            <field name="name">Líderes de equipos de ventas - informe cuentas por cobrar.</field>
+            <field name="privilege_id" ref="sales_team.res_groups_privilege_sales"/>
+        </record>
+
     </data>
 </odoo>

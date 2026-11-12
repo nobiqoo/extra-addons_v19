@@ -114,93 +114,146 @@ class AccountTax(models.Model):
         return []
 
     @api.model
-    def _compute_taxes_for_single_line(self, base_line, handle_price_include=True, include_caba_tags=False, early_pay_discount_computation=None, early_pay_discount_percentage=None):
-        if not base_line['record'] or base_line['record']._name != 'account.move.line':
-            return super()._compute_taxes_for_single_line(
-                base_line=base_line,
-                handle_price_include=handle_price_include,
-                include_caba_tags=include_caba_tags,
-                early_pay_discount_computation=early_pay_discount_computation,
-                early_pay_discount_percentage=early_pay_discount_percentage
-            )
-        # Determinar el precio base para los impuestos
-        # Determinar el tipo de documento
-        move_type = base_line['record'].move_id.move_type
+    def _add_tax_details_in_base_line(self, base_line, company, rounding_method=None):
+        """
+        Override para calcular IVA sobre precio sin descuento cuando hay descuento del 100%
+        en facturas de venta, pero manteniendo el subtotal en 0.
+        """
+        # Verificar si es factura de venta con descuento 100%
+        record = base_line.get('record')
+        original_discount = None
 
-        # Determinar el precio base para los impuestos
-        if move_type == 'out_invoice' and base_line['discount'] == 100:  # Solo para facturas de cliente
-            price_unit_after_discount = base_line['price_unit']  # Ignorar descuento
-            # taxes = base_line['taxes'].filtered(lambda t: t.dian_tax_type_id.name == 'IVA')._origin
+        if record and record._name == 'account.move.line' \
+                and 'account_journal_tax_with_discount_id' in company._fields:
+            move = record.move_id
+            if move.move_type in ('out_invoice', 'out_refund') and base_line.get('discount') == 100:
+                # Guardar descuento original y temporalmente ponerlo en 0 para calcular impuestos
+                original_discount = 100
+                base_line['discount'] = 0
+
+        if original_discount is None:
+            super()._add_tax_details_in_base_line(base_line, company, rounding_method)
+            return
+
+        # El "IVA asumido" es un espejo de tasa negativa del IVA real (ver
+        # _get_tax_iva_assumed). Si se calculan juntos, Odoo los agrupa en el
+        # mismo "batch" de impuestos con precio incluido (mismo amount_type/
+        # price_include/include_base_amount) y, como sus tasas suman 0%
+        # (ej. 19% + -19%), el motor no extrae nada del precio: usa el precio
+        # bruto como base y el IVA real queda sobrevalorado (sobre 7500 con
+        # IVA 19% incluido calcularía 1425 en vez de los 1197.48 correctos).
+        # Por eso el IVA real se calcula aislado del asumido, y el asumido se
+        # agrega después como el espejo exacto del IVA ya bien calculado.
+        all_taxes = base_line['tax_ids']
+        real_taxes = all_taxes.filtered(
+            lambda t: t.dian_tax_type_id and t.dian_tax_type_id.name == 'IVA')
+        assumed_taxes = all_taxes - real_taxes
+
+        if real_taxes and assumed_taxes:
+            base_line['tax_ids'] = real_taxes
+            super()._add_tax_details_in_base_line(base_line, company, rounding_method)
+            base_line['tax_ids'] = all_taxes
+
+            tax_details = base_line['tax_details']
+            for assumed_tax in assumed_taxes:
+                for tax_data in list(tax_details['taxes_data']):
+                    if tax_data['tax'].tax_group_id != assumed_tax.tax_group_id:
+                        continue
+                    mirrored = dict(tax_data, tax=assumed_tax, batch=assumed_tax)
+                    for field in ('tax_amount', 'raw_tax_amount', 'raw_tax_amount_currency'):
+                        mirrored[field] = -mirrored[field]
+                    tax_details['taxes_data'].append(mirrored)
+                    break
         else:
-            # Cálculo estándar para otros documentos
-            price_unit_after_discount = base_line['price_unit'] * (1 - (base_line['discount'] / 100.0))
+            # Patrón inesperado (sin IVA detectable, o sin impuesto asumido):
+            # se conserva el comportamiento anterior calculando todo junto.
+            super()._add_tax_details_in_base_line(base_line, company, rounding_method)
+            tax_details = base_line['tax_details']
 
-        taxes = base_line['taxes']._origin
+        # Restaurar el descuento original
+        base_line['discount'] = original_discount
+        # Marcar que tiene descuento 100% para uso posterior
+        base_line['has_100_discount'] = True
 
-        currency = base_line['currency'] or self.env.company.currency_id
-        rate = base_line['rate']
+        # El subtotal debe ser 0 por el descuento 100% (el precio sin
+        # descuento solo se usa para calcular la base gravable del IVA).
+        tax_details['raw_total_excluded_currency'] = 0.0
+        tax_details['raw_total_excluded'] = 0.0
+    
+    @api.model
+    def _add_accounting_data_to_base_line_tax_details(self, base_line, company, include_caba_tags=False):
+        """
+        Override para modificar la cuenta contable del IVA cuando hay descuento del 100%
+        en facturas de venta.
+        """
+        # Llamar al super para que haga el cálculo normal
+        super()._add_accounting_data_to_base_line_tax_details(base_line, company, include_caba_tags)
+        
+        # Verificar si es factura de venta con descuento 100%
+        has_100_discount = base_line.get('has_100_discount', False)
+        
+        if not has_100_discount:
+            return
 
-        # Manejo de descuentos por pronto pago, si aplica
-        if early_pay_discount_computation in ('included', 'excluded'):
-            remaining_part_to_consider = (100 - early_pay_discount_percentage) / 100.0
-            price_unit_after_discount = remaining_part_to_consider * price_unit_after_discount
+        # Las cuentas especiales las define account_baseline (dependencia
+        # opcional); sin ese módulo el campo no está en el registry.
+        if 'account_journal_tax_with_discount_id' not in company._fields:
+            return
 
-        if taxes:
-            taxes_res = taxes.with_context(**base_line['extra_context']).compute_all(
-                price_unit_after_discount,  # Usar el precio base determinado arriba
-                currency=currency,
-                quantity=base_line['quantity'],
-                product=base_line['product'],
-                partner=base_line['partner'],
-                is_refund=base_line['is_refund'],
-                handle_price_include=base_line['handle_price_include'],
-                include_caba_tags=include_caba_tags,
-            )
+        # Obtener las cuentas especiales configuradas
+        acc_tax_iva = company.account_journal_tax_with_discount_id
+        acc_tax_iva_assumed = company.account_iva_debit
+        tax_iva_assumed_configured = company.tax_iva_assumed_id
 
-            if move_type == 'out_invoice' and base_line['discount'] == 100:  # Solo para facturas de cliente
-                
-                price_unit_after_discount = base_line['price_unit'] * (1 - (base_line['discount'] / 100.0))
+        if not acc_tax_iva:
+            return
+        
+        # Modificar la cuenta del IVA en tax_details
+        tax_details = base_line.get('tax_details', {})
+        for tax_data in tax_details.get('taxes_data', []):
+            tax = tax_data['tax']
+            
+            # Verificar si es un impuesto IVA
+            is_iva = tax.dian_tax_type_id and tax.dian_tax_type_id.name == 'IVA'
 
-                taxes_amount = sum(tax['amount'] for tax in taxes_res.get(' ', []))
+            # Verificar si es el impuesto IVA asumido configurado
+            is_iva_assumed = tax_iva_assumed_configured and tax.id == tax_iva_assumed_configured.id
 
-                to_update_vals = {
-                    'tax_tag_ids': [Command.set(taxes_res['base_tags'])],
-                    'price_subtotal': price_unit_after_discount,
-                    'price_total': price_unit_after_discount + taxes_amount,
-                }
-            else:
-                
-                to_update_vals = {
-                    'tax_tag_ids': [Command.set(taxes_res['base_tags'])],
-                    'price_subtotal': taxes_res['total_excluded'],
-                    'price_total': taxes_res['total_included'],
-                }
+            for tax_rep_data in tax_data.get('tax_reps_data', []):
+                # Si es el IVA asumido configurado, usar la cuenta de reembolso
+                if is_iva_assumed and acc_tax_iva_assumed:
+                    tax_rep_data['account'] = acc_tax_iva_assumed
+                    tax_rep_data['grouping_key']['account_id'] = acc_tax_iva_assumed.id
 
-            tax_values_list = []
-            for tax_res in taxes_res['taxes']:
-                tax_amount = tax_res['amount'] / rate
-                if self.company_id.tax_calculation_rounding_method == 'round_per_line':
-                    tax_amount = currency.round(tax_amount)
-                tax_rep = self.env['account.tax.repartition.line'].browse(tax_res['tax_repartition_line_id'])
-                tax_values_list.append({
-                    **tax_res,
-                    'tax_repartition_line': tax_rep,
-                    'base_amount_currency': tax_res['base'],
-                    'base_amount': currency.round(tax_res['base'] / rate),
-                    'tax_amount_currency': tax_res['amount'],
-                    'tax_amount': tax_amount,
-                })
+                # Si es IVA normal, usar la cuenta especial de IVA con descuento
+                elif is_iva and not is_iva_assumed:
+                    tax_rep_data['account'] = acc_tax_iva
+                    tax_rep_data['grouping_key']['account_id'] = acc_tax_iva.id
 
-        else:
-            price_subtotal = currency.round(price_unit_after_discount * base_line['quantity'])
-            to_update_vals = {
-                'tax_tag_ids': [Command.clear()],
-                'price_subtotal': price_subtotal,
-                'price_total': price_subtotal,
-            }
-            tax_values_list = []
+    def _get_city_tax_candidates(self):
+        """Impuestos que alguna ciudad pueda haber asignado para el CIIU vigente.
 
-        return to_update_vals, tax_values_list
+        Cada ciudad mapea el CIIU del socio a un impuesto distinto (o a
+        ninguno) en res.city.classification. Al cambiar de ciudad hay que
+        conocer todo ese universo, no solo el de la ciudad elegida ahora,
+        para poder retirar el impuesto que dejó una ciudad anterior aunque la
+        nueva no tenga nada configurado.
+        """
+        self.ensure_one()
+        if not self.base_type:
+            return self.env['account.tax']
+
+        partner_id = self.env.context.get('partner_id') \
+            or self.env.company.partner_id
+        classification_id = partner_id.classification_id
+
+        if not classification_id:
+            return self.env['account.tax']
+
+        return self.env['res.city.classification'].search([
+            ('company_id', '=', self.env.company.id),
+            ('classification_id', '=', classification_id.id),
+        ]).tax_id
 
     def calculate_base_single_line(self, line, city_id, partner_id=False):
         Tax = self.env['account.tax']
@@ -226,13 +279,16 @@ class AccountTax(models.Model):
             taxes_rem |= tax
             if tax.amount_type == 'group':
                 taxes_rem |= tax.children_tax_ids
+            # Retira el impuesto de una ciudad anterior aunque la ciudad
+            # vigente no tenga ninguno configurado (ver _get_city_tax_candidates).
+            taxes_rem |= tax._get_city_tax_candidates()
 
             if amount_untaxed >= base_amount:
                 taxes_add |= base_tax
             else:
                 taxes_rem |= base_tax
 
-        for tax in taxes_rem:
+        for tax in taxes_rem - taxes_add:
             tax_ids.append((3, tax.id, 0))
         for tax in taxes_add:
             tax_ids.append((4, tax.id, 0))

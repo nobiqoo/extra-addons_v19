@@ -81,6 +81,16 @@
                                         <field name="minimum_wage" />
                                         <field name="limit_deductions" />
                                         <field name="workcenter" />
+                                        <field name="enable_hourly_payroll" invisible="1"/>
+                                        <field name="is_hourly_worker" invisible="not enable_hourly_payroll"/>
+                                        <label for="monthly_hours" invisible="not is_hourly_worker or not enable_hourly_payroll" />
+                                        <div class="o_row" name="hourly_schedule" invisible="not is_hourly_worker or not enable_hourly_payroll">
+                                            <field name="monthly_hours" nolabel="1" readonly="1" force_save="1" />
+                                            <span>hrs/mes</span>
+                                            <field name="daily_hours" nolabel="1" readonly="1" force_save="1" />
+                                            <span>hrs/día</span>
+                                        </div>
+                                        <field name="hour_value" invisible="not is_hourly_worker or not enable_hourly_payroll" />
                                     </group>
                                     <group string="Duración" name="duration_information">
                                         <field name="resource_calendar_id" />
@@ -144,6 +154,20 @@
                                             readonly="appy_retroactive != True"
                                             required="appy_retroactive == True" />
                                         <field name="retroactive_novelty_id" readonly="1" />
+                                    </list>
+                                </field>
+
+                                <div
+                                    class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small"
+                                    style="font-size: larger;"
+                                    invisible="not is_hourly_worker or not enable_hourly_payroll" >Histórico de Jornada de Trabajador por Horas</div>
+                                <field name="hourly_schedule_history_ids" nolabel="1"
+                                    invisible="not is_hourly_worker or not enable_hourly_payroll">
+                                    <list editable="bottom">
+                                        <field name="monthly_hours" />
+                                        <field name="daily_hours" />
+                                        <field name="date" />
+                                        <field name="user_id" />
                                     </list>
                                 </field>
 

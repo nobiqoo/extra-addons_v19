@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_form_brillaseo" model="ir.ui.view">
+        <field name="name">view.purchase.order.form.brillaseo</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/list//field[@name='product_qty']" position="before">
+                <field name="city_id" string="Ciudad" options="{'no_create': True}" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

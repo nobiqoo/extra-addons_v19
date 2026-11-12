@@ -18,12 +18,27 @@
                 <attribute name="invisible">advanced_structure</attribute>
             </field>
 
+            <!-- PT11848 (incidencia 1): "Rangos de calificación" es la
+                 pestaña del cálculo estándar (scale_line_ids, GPA por
+                 rangos); con la estructura avanzada activa ese cálculo no
+                 participa (ver write()/create() más arriba, que fuerzan
+                 gpa_calculation=False), así que la pestaña debe ocultarse
+                 igual que el campo gpa_calculation de la que depende.
+                 Se selecciona por posición -Odoo 19 ya no admite "string"
+                 como selector de herencia de vistas- y es inequívoco: a
+                 esta altura de la herencia la vista base solo tiene esa
+                 única pestaña ("Scale Lines"); las demás se agregan más
+                 abajo, dentro de este mismo arch. -->
+            <xpath expr="//notebook/page[1]" position="attributes">
+                <attribute name="invisible">advanced_structure</attribute>
+            </xpath>
+
             <notebook position="before">
                 <group invisible="not advanced_structure">
                     <group>
                         <field name="advanced_active"/>
                         <field name="program_type_id"/>
-                        <field name="modality"/>
+                        <field name="modality_id"/>
                     </group>
                     <group>
                         <field name="pass_grade"/>
@@ -121,7 +136,7 @@
             <field name="name" position="after">
                 <field name="advanced_structure"/>
                 <field name="program_type_id" optional="hide"/>
-                <field name="modality" optional="hide"/>
+                <field name="modality_id" optional="hide"/>
             </field>
         </field>
     </record>

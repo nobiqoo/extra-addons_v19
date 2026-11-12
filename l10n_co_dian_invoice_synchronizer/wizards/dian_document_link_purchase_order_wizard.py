@@ -49,6 +49,7 @@ class DianDocumentLinkPurchaseOrderWizard(models.TransientModel):
 class DianDocumentLinkPurchaseOrderWizardLine(models.TransientModel):
     _name = 'dian.document.link.purchase.order.wizard.line'
     _description = 'Link DIAN Document to Purchase Order (line)'
+    _check_company_auto = True
 
     wizard_id = fields.Many2one(
         'dian.document.link.purchase.order.wizard',
@@ -76,4 +77,5 @@ class DianDocumentLinkPurchaseOrderWizardLine(models.TransientModel):
     purchase_order_id = fields.Many2one(
         'purchase.order',
         string='Purchase Order',
+        check_company=True,
     )

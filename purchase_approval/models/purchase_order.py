@@ -3,6 +3,9 @@
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError, ValidationError
 
+APPROVAL_ACTIVITY_SUMMARY = "Confirmar la orden de compra"
+BUDGET_ACTIVITY_SUMMARY = "Confirmar la orden de compra por falta de presupuesto"
+
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
@@ -70,7 +73,7 @@ class PurchaseOrder(models.Model):
             ('refused', 'Rechazado')
         ], 
         compute='_compute_user_status_budget',
-        string='Estado Usuario',
+        string='Estado Usuario.',
     )
     approval_by_budget = fields.Boolean(
         string='Aprobar por Presupuesto',
@@ -164,8 +167,8 @@ class PurchaseOrder(models.Model):
                         )
                     except Exception as e:
                         record.message_post(
-                            body=_("Error en confirmación automática: %s. Estado establecido a 'Aprobado'.", str(e)),
-                            message_type='warning'
+                            body=(_("Error en confirmación automática: %s. Estado establecido a 'Aprobado'.") % str(e)),
+                            message_type='notification'
                         )
                         record.state = 'approved'
                 else:
@@ -175,17 +178,30 @@ class PurchaseOrder(models.Model):
         if any(record.user_status == 'waiting' for record in self):
             raise ValidationError(_('No puede aprobar antes que el aprobador del nivel anterior.'))
 
-    def _action_done_approval_activity(self, summary):
+    def _close_resolved_approval_activities(self):
+        """Cierra las actividades de aprobación de quien ya no tiene nada que decidir.
+
+        La de quien actúa queda como hecha; las demás se eliminan porque nadie las hizo.
+        """
         activity_type = self.env.ref('mail.mail_activity_data_todo')
+        # approval_status es almacenado y su cómputo mueve el estado de la orden:
+        # hay que leerlo antes de mirar state.
+        self.mapped('approval_status')
+        no_users = self.env['res.users']
         for order in self:
-            activities = order.activity_ids.filtered(
-                lambda activity: (
-                    activity.activity_type_id == activity_type
-                    and activity.user_id == self.env.user
-                    and activity.summary == summary
+            pending_users = no_users
+            if order.state == 'in approval':
+                pending_users = order.approval_ids.filtered(lambda line: line.status == 'pending').user_ids
+            budget_users = order.user_approvals_by_budget if order.state == 'approval_without_budget' else no_users
+            activities = order.sudo().activity_ids.filtered(
+                lambda activity: activity.activity_type_id == activity_type and (
+                    (activity.summary == APPROVAL_ACTIVITY_SUMMARY and activity.user_id not in pending_users)
+                    or (activity.summary == BUDGET_ACTIVITY_SUMMARY and activity.user_id not in budget_users)
                 )
             )
-            activities.sudo().action_feedback()
+            own = activities.filtered(lambda activity: activity.user_id == self.env.user)
+            (activities - own).unlink()
+            own.action_feedback()
 
     def action_approve(self):
         self._ensure_can_approve()
@@ -197,7 +213,7 @@ class PurchaseOrder(models.Model):
         if self.approval_with_sequence:
             if self.env.user.id in approver.user_ids.ids:
                 approver.write({'status': 'approved'})
-                self._action_done_approval_activity("Confirmar la orden de compra")
+                self._close_resolved_approval_activities()
 
                 next_sequence = approver.sequence + 1
 
@@ -215,7 +231,22 @@ class PurchaseOrder(models.Model):
                 for app in approver:
                     if self.env.user.id in app.user_ids.ids:
                         app.write({'status': 'approved'})
-                self._action_done_approval_activity("Confirmar la orden de compra")
+                self._close_resolved_approval_activities()
+
+        approved_orders = self.filtered(
+            lambda order: (
+                order.approval_status == 'approved'
+                and order.state == 'approved'
+            )
+        )
+        if approved_orders:
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'purchase_approval_reload_and_schedule_activity',
+                'params': {},
+            }
+
+        return False
 
     def action_refuse(self):
         approver = self.mapped('approval_ids').filtered(
@@ -232,6 +263,8 @@ class PurchaseOrder(models.Model):
         if approver_next:
             approver_next.write({'status': 'refused'})
 
+        self._close_resolved_approval_activities()
+
     def action_request_draft(self):
         if self.env.user.id != self.create_uid.id and self.create_uid.login != '__system__':
             raise UserError(_("La Orden de Compra fue rechazada, únicamente"
@@ -240,6 +273,7 @@ class PurchaseOrder(models.Model):
         self.approval_ids = [(5, 0, 0)]
         self.user_approvals_by_budget = [(5, 0, 0)]
         self.approval_by_budget_confirm = False
+        self._close_resolved_approval_activities()
         return {}
 
     def action_approve_budget(self):
@@ -258,6 +292,7 @@ class PurchaseOrder(models.Model):
         for record in self:
             if self.env.user.id in record.user_approvals_by_budget.ids:
                 record.write({'state': 'refused'})
+                record._close_resolved_approval_activities()
 
     def button_cancel(self):
         if self.env.user.id != self.create_uid.id and self.create_uid.login != '__system__':
@@ -268,6 +303,7 @@ class PurchaseOrder(models.Model):
             order.approval_ids = [(5, 0, 0)]
             order.user_approvals_by_budget = [(5, 0, 0)]
             order.approval_by_budget_confirm = False
+        self._close_resolved_approval_activities()
         return res
 
     def button_request_approval(self):
@@ -286,23 +322,36 @@ class PurchaseOrder(models.Model):
                 sequence = 0
                 total_values = []
 
-                for approvers in approval_ids:
-                    if self.env.company.currency_id != self.currency_id:
-                        amount_currency_total = self.currency_id._convert(
-                            self.amount_untaxed, self.env.company.currency_id, self.company_id, fields.Datetime.now()
-                        )
-                    else:
-                        amount_currency_total = self.amount_untaxed
+                # Los umbrales/rangos de la matriz están denominados en su propia
+                # moneda (approval_config_id.currency_id), no necesariamente en la
+                # moneda de la compañía. Convertir siempre a la moneda de la
+                # compañía (como se hacía antes) comparaba, p.ej., una OC en USD
+                # contra una matriz también en USD usando el equivalente en COP,
+                # haciendo que cayera en el rango equivocado.
+                approval_currency = order.approval_config_id.currency_id or self.env.company.currency_id
+                if approval_currency != self.currency_id:
+                    amount_currency_total = self.currency_id._convert(
+                        self.amount_untaxed, approval_currency, self.company_id, fields.Datetime.now()
+                    )
+                else:
+                    amount_currency_total = self.amount_untaxed
 
-                    if (approvers.approval_type == 'by_amount' and 
-                        amount_currency_total >= approvers.amount_from) or approvers.approval_type == 'without_condition':
+                for approvers in approval_ids:
+                    if approvers.approval_type == 'without_condition':
+                        is_match = True
+                    elif approvers.approval_type == 'by_amount':
+                        is_match = amount_currency_total >= approvers.amount_from
+                    elif approvers.approval_type == 'range':
+                        is_match = approvers.amount_from <= amount_currency_total <= approvers.amount_to
+                    else:
+                        is_match = False
+
+                    if is_match:
                         if order.approval_with_sequence:
                             sequence += 1
                         else:
                             sequence = 1
 
-                    if (approvers.approval_type == 'by_amount' and 
-                        amount_currency_total >= approvers.amount_from) or approvers.approval_type == 'without_condition':
                         values = {
                             'sequence': sequence,
                             'approval_config_id': self.approval_config_id.id,
@@ -312,9 +361,19 @@ class PurchaseOrder(models.Model):
                             'required': False,
                             'status': 'pending' if sequence == 1 else 'waiting',
                             'amount_from': approvers.amount_from,
+                            'amount_to': approvers.amount_to,
                             'approval_type': approvers.approval_type,
                         }
                         total_values.append((0, 0, values))
+
+                if approval_ids and not total_values:
+                    raise UserError(_(
+                        "El valor de la Orden de Compra (%s) supera el monto máximo cubierto por "
+                        "la matriz de aprobación \"%s\". Actualice la matriz para cubrir este monto "
+                        "antes de solicitar la aprobación; de lo contrario la orden quedaría sin "
+                        "ningún aprobador asignado.",
+                        f"{amount_currency_total:,.2f}", order.approval_config_id.name or ''
+                    ))
 
                 self.approval_ids = total_values
                 order.action_create_approval_activity()
@@ -377,7 +436,7 @@ class PurchaseOrder(models.Model):
         activity_type = self.env.ref('mail.mail_activity_data_todo')
         self.activity_schedule(
             activity_type_id=activity_type.id,
-            summary="Confirmar la orden de compra",
+            summary=APPROVAL_ACTIVITY_SUMMARY,
             note=f"Por favor, revisa y apruebe la orden de compra {self.name}.",
             user_id=user.id
         )
@@ -388,7 +447,7 @@ class PurchaseOrder(models.Model):
             for user in order.user_approvals_by_budget:
                 order.activity_schedule(
                     activity_type_id=activity_type.id,
-                    summary="Confirmar la orden de compra por falta de presupuesto",
+                    summary=BUDGET_ACTIVITY_SUMMARY,
                     note=f"Por favor, revisa y apruebe la orden de compra {order.name}.",
                     user_id=user.id
                 )
@@ -426,10 +485,10 @@ class PurchaseOrder(models.Model):
                     'product_id': line.product_id.id,
                     'order_line_id': line.id
                 }))
-                wizard = self.env['purchase.approval.budget.wizard'].create({
-                    'line_ids': line_vals,
-                    'order_id': self.id,
-                })
+            wizard = self.env['purchase.approval.budget.wizard'].create({
+                'line_ids': line_vals,
+                'order_id': self.id,
+            })
             return {
                 'type': 'ir.actions.act_window',
                 'name': 'Aprobación por falta de presupuesto',

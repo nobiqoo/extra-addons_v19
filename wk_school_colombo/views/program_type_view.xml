@@ -17,6 +17,8 @@
                         <field name="active" invisible="1"/>
                         <field name="company_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" groups="base.group_multi_company"/>
                         <field name="sequence"/>
+                        <field name="show_mce_equivalence"/>
+                        <field name="is_advanced_program"/>
                     </group>
                 </sheet>
             </form>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wk_school_colombo_certificate_config_form" model="ir.ui.view">
+        <field name="name">wk.school.colombo.certificate.config.form</field>
+        <field name="model">wk.school.colombo.certificate.config</field>
+        <field name="arch" type="xml">
+            <form string="Configuración de Certificados">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="sede_id" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="lugar_expedicion"/>
+                    </group>
+                    <group string="Resolución institucional">
+                        <field name="resolucion_estandar" nolabel="1" colspan="2"/>
+                        <field name="resolucion_avanzado" nolabel="1" colspan="2"/>
+                    </group>
+                    <group string="Firmas">
+                        <group string="Directora Ejecutiva">
+                            <field name="directora_ejecutiva_nombre"/>
+                            <field name="directora_ejecutiva_cargo"/>
+                            <field name="firma_directora_ejecutiva" widget="image" class="oe_avatar"/>
+                        </group>
+                        <group string="Directora Académica">
+                            <field name="directora_academica_nombre"/>
+                            <field name="directora_academica_cargo"/>
+                            <field name="firma_directora_academica" widget="image" class="oe_avatar"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="wk_school_colombo_certificate_config_tree" model="ir.ui.view">
+        <field name="name">wk.school.colombo.certificate.config.list</field>
+        <field name="model">wk.school.colombo.certificate.config</field>
+        <field name="arch" type="xml">
+            <list string="Configuración de Certificados">
+                <field name="sede_id"/>
+                <field name="lugar_expedicion"/>
+                <field name="directora_academica_nombre"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="wk_school_colombo_certificate_config_action" model="ir.actions.act_window">
+        <field name="name">Configuración de Certificados</field>
+        <field name="res_model">wk.school.colombo.certificate.config</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="wk_school_colombo_certificate_config_tree"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,42 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_report_arthome
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-21 12:00+0000\n"
+"PO-Revision-Date: 2026-09-21 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_report_arthome
+#: model_terms:ir.ui.view,arch_db:purchase_report_arthome.report_purchaseorder_document_internal_reference
+#: model_terms:ir.ui.view,arch_db:purchase_report_arthome.report_purchasequotation_document_internal_reference
+msgid "<strong>Internal Reference</strong>"
+msgstr ""
+
+#. module: purchase_report_arthome
+#: model_terms:ir.ui.view,arch_db:purchase_report_arthome.report_delivery_document_origin_document
+#: model_terms:ir.ui.view,arch_db:purchase_report_arthome.report_package_barcode_origin_document
+#: model_terms:ir.ui.view,arch_db:purchase_report_arthome.report_picking_origin_document
+#: model_terms:ir.ui.view,arch_db:purchase_report_arthome.report_reception_body_origin_document
+#: model_terms:ir.ui.view,arch_db:purchase_report_arthome.report_reception_report_label_origin_document
+#: model_terms:ir.ui.view,arch_db:purchase_report_arthome.report_return_slip_origin_document
+msgid "<strong>Origin Document:</strong>"
+msgstr ""
+
+#. module: purchase_report_arthome
+#: model_terms:ir.ui.view,arch_db:purchase_report_arthome.report_delivery_document_origin_document
+#: model_terms:ir.ui.view,arch_db:purchase_report_arthome.report_package_barcode_origin_document
+#: model_terms:ir.ui.view,arch_db:purchase_report_arthome.report_picking_origin_document
+#: model_terms:ir.ui.view,arch_db:purchase_report_arthome.report_reception_body_origin_document
+#: model_terms:ir.ui.view,arch_db:purchase_report_arthome.report_reception_report_label_origin_document
+#: model_terms:ir.ui.view,arch_db:purchase_report_arthome.report_return_slip_origin_document
+msgid "<strong>Source Document (order):</strong>"
+msgstr ""

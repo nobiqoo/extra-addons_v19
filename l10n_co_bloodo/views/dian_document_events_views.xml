@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- ── Herencia del formulario: página de eventos DIAN ─────────────── -->
+
+        <record id="view_dian_document_form_events" model="ir.ui.view">
+            <field name="name">dian.document.form.events</field>
+            <field name="model">dian.document</field>
+            <field name="inherit_id" ref="l10n_co_dian_invoice_synchronizer.view_dian_document_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Estado del evento visible junto al estado del documento -->
+                <xpath expr="//field[@name='move_id']" position="after">
+                    <field name="ie_event_display" widget="badge"
+                        decoration-success="ie_event_display in ('030', '032', '033', '034', '02')"
+                        decoration-warning="ie_event_display in ('other', 'pending', 'pending030', 'pending032', 'pending033')"
+                        decoration-danger="ie_event_display == '04'"/>
+                    <field name="ev_check_date" readonly="1"/>
+                </xpath>
+
+                <!-- Página de eventos en el notebook -->
+                <xpath expr="//notebook" position="inside">
+                    <page string="Eventos DIAN" name="dian_events">
+                        <group>
+                            <group string="Estado">
+                                <field name="ie_event_display" widget="badge"
+                                    decoration-success="ie_event_display in ('030', '032', '033', '034', '02')"
+                                    decoration-warning="ie_event_display in ('other', 'pending', 'pending030', 'pending032', 'pending033')"
+                                    decoration-danger="ie_event_display == '04'"/>
+                                <field name="ev_fe_state" readonly="1"/>
+                                <field name="ev_check_date" readonly="1"/>
+                                <field name="ev_fe_user_id" readonly="1"/>
+                            </group>
+                            <group string="Rechazo (evento 031)">
+                                <field name="ie_claim_id" options="{'no_create': True}"/>
+                            </group>
+                        </group>
+                        <group string="Respuesta DIAN" invisible="not ev_fe_response">
+                            <field name="ev_fe_response" nolabel="1" readonly="1"/>
+                        </group>
+                        <field name="ie_event_history_ids" readonly="1" nolabel="1">
+                            <list create="0" delete="0">
+                                <field name="name"/>
+                                <field name="ev_code"/>
+                                <field name="dian_code"/>
+                                <field name="dian_name" widget="badge"
+                                    decoration-success="dian_code != '04'"
+                                    decoration-danger="dian_code == '04'"/>
+                                <field name="dian_date_event"/>
+                                <field name="ev_active" readonly="1" optional="show"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- ── Herencia de la lista (pending): columna de estado de evento ─── -->
+
+        <record id="view_dian_document_tree_events" model="ir.ui.view">
+            <field name="name">dian.document.tree.events</field>
+            <field name="model">dian.document</field>
+            <field name="inherit_id" ref="l10n_co_dian_invoice_synchronizer.view_dian_document_no_invoice_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='result']" position="after">
+                    <field name="ie_event_display" optional="show" widget="badge"
+                        decoration-success="ie_event_display in ('030', '032', '033', '034', '02')"
+                        decoration-warning="ie_event_display in ('other', 'pending', 'pending030', 'pending032', 'pending033')"
+                        decoration-danger="ie_event_display == '04'"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ── Herencia de la lista (ready): columna de estado de evento ───── -->
+
+        <record id="view_dian_document_ready_tree_events" model="ir.ui.view">
+            <field name="name">dian.document.ready.tree.events</field>
+            <field name="model">dian.document</field>
+            <field name="inherit_id" ref="l10n_co_dian_invoice_synchronizer.view_dian_document_no_purchase_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='result']" position="after">
+                    <field name="ie_event_display" optional="show" widget="badge"
+                        decoration-success="ie_event_display in ('030', '032', '033', '034', '02')"
+                        decoration-warning="ie_event_display in ('other', 'pending', 'pending030', 'pending032', 'pending033')"
+                        decoration-danger="ie_event_display == '04'"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ── Herencia de la búsqueda: filtros por estado de evento ────────── -->
+
+        <record id="view_dian_document_search_events" model="ir.ui.view">
+            <field name="name">dian.document.search.events</field>
+            <field name="model">dian.document</field>
+            <field name="inherit_id" ref="l10n_co_dian_invoice_synchronizer.view_dian_document_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='group_result']" position="before">
+                    <filter string="Sin evento" name="filter_no_event"
+                        domain="[('ie_event_display', '=', False)]"/>
+                    <filter string="Acuse de recibo (030)" name="filter_event_030"
+                        domain="[('ie_event_display', '=', '030')]"/>
+                    <filter string="Recibo del bien (032)" name="filter_event_032"
+                        domain="[('ie_event_display', '=', '032')]"/>
+                    <filter string="Aceptación expresa (033)" name="filter_event_033"
+                        domain="[('ie_event_display', '=', '033')]"/>
+                    <filter string="Con errores de evento" name="filter_event_error"
+                        domain="[('ie_event_display', '=', 'other')]"/>
+                    <filter string="Eventos pendientes" name="filter_event_pending"
+                        domain="[('ie_event_display', 'like', 'pending')]"/>
+                    <separator/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sprint 1.4 (tarea 12674): Diseño de impresión, Cenefa y Perfil
+         Cover Light como la matriz (filas 79-96). Corre en cada
+         actualización: los archivos de cada sistema se vuelven a aplicar. -->
+    <data noupdate="0">
+        <function model="safra.system" name="_una_vez" eval="['safra.field', '_apply_sprint14']"/>
+    </data>
+</odoo>

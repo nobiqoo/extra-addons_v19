@@ -18,6 +18,7 @@
                     <field name="paid_balance" readonly="1" />
                     <field name="remaining_installments" readonly="1" />
                     <field name="with_disbursement" readonly="state != 'draft'"/>
+                    <field name="account_loan_id" invisible="with_disbursement != True" readonly="1"/>
                 </xpath>
                 <xpath
                     expr="//sheet/group[@name='group_basic_data']/group/field[@name='amount']"

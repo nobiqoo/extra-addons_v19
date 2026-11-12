@@ -284,7 +284,17 @@
     border-color: var(--safra-green-dark); background: #f2f8f3;
     color: var(--safra-green-dark);
 }
-.safra-quoter .safra-actions { text-align: center; margin-top: 1.5rem; }
+/* Botones del pie: si no caben en una fila, la siguiente queda separada
+   (antes «Cancelar» bajaba pegado a los de arriba). «Cancelar» es un enlace:
+   mismo alto y sin subrayado que los botones. */
+.safra-quoter .safra-actions {
+    display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+    gap: .5rem; margin-top: 1.5rem;
+}
+.safra-quoter .safra-actions > a.btn-safra-light,
+.safra-quoter .safra-actions > a.btn-safra {
+    display: inline-flex; align-items: center; text-decoration: none; line-height: 1.5;
+}
 .safra-quoter .btn-add-line {
     background: #fff; border: 1px dashed var(--safra-green-dark);
     color: var(--safra-green-dark); border-radius: 4px; padding: .45rem 1.2rem;
@@ -306,6 +316,19 @@
     font-weight: 600;
     padding: 2px 0;
 }
+
+/* Revisión cálculo de tubo (27-oct, error 6): «?» del alto máximo y
+   cuadro de altos y pesos máximos por tubo. */
+.safra-quoter .pi-cuadro-btn {
+    border: 1px solid var(--safra-green-dark); color: var(--safra-green-dark);
+    background: #fff; border-radius: 50%; width: 20px; height: 20px; padding: 0;
+    font-size: 0.75rem; font-weight: 700; line-height: 18px; margin-left: 6px; cursor: pointer;
+}
+.safra-quoter .pi-cuadro-tabla { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.safra-quoter .pi-cuadro-tabla th, .safra-quoter .pi-cuadro-tabla td {
+    border-bottom: 1px solid var(--safra-line); padding: 3px 6px; text-align: left;
+}
+.safra-quoter .pi-cuadro-tabla tr.actual td { font-weight: 700; background: #f3f9ea; }
 
 /* Campos ocultos por el kit motorizado (interruptor/cargador segun motor). */
 .safra-quoter .safra-field.kit-hidden { display: none !important; }
@@ -395,7 +418,7 @@
 .safra-issues-modal .alert li { margin-bottom: .25rem; }
 .safra-issues-modal .s-actions { flex-wrap: wrap; }
 .safra-summary-modal {
-    max-width: 760px;
+    max-width: 1100px;
     margin: 0 auto;
     background: #fff;
     color: var(--safra-text);
@@ -412,10 +435,15 @@
     font-size: .75rem; text-transform: uppercase; letter-spacing: .05em;
     color: var(--safra-muted); white-space: nowrap;
 }
-.safra-summary-modal td { padding: 8px 10px; border-bottom: 1px solid var(--safra-line); vertical-align: middle; }
+.safra-summary-modal td { padding: 8px 10px; border-bottom: 1px solid var(--safra-line); vertical-align: top; }
 .safra-summary-modal tr:last-child td { border-bottom: none; }
-.safra-summary-modal .s-img img {
-    width: 44px; height: 44px; object-fit: cover; border-radius: 50%;
+/* Barrido de la matriz (fila 124): columnas como el portal actual de Safra */
+.safra-summary-modal th { background: var(--safra-green); color: #fff; border-bottom-color: var(--safra-green-dark); }
+.safra-summary-modal .s-linea { text-align: center; width: 1%; }
+.safra-summary-modal .s-nombre { min-width: 220px; }
+.safra-summary-modal .s-nombre > div + div { margin-top: 4px; }
+.safra-summary-modal .s-img {
+    float: left; width: 44px; height: 44px; margin: 0 10px 6px 0; object-fit: cover; border-radius: 50%;
 }
 .safra-summary-modal .s-num { text-align: right; white-space: nowrap; font-weight: 600; }
 .safra-summary-modal .s-total { text-align: right; margin: 14px 2px 0; font-size: 1.05rem; }
@@ -546,6 +574,9 @@
 .seq-pieza span { font-size: .78rem; color: #5a6b60; }
 .seq-msg { min-height: 1.3em; font-size: .85rem; color: #555; margin: 4px 0; }
 .seq-msg.bad { color: #b02a37; font-weight: 600; }
+/* Revisión 28-oct: avisos de las reglas «Al aplicar la secuencia». */
+.seq-msg.warn { color: #8a5a00; font-weight: 600; }
+.seq-msg .seq-msg-nota { font-weight: 400; color: #555; margin-top: 2px; }
 .seq-msg.ok { color: var(--safra-green-dark); font-weight: 600; }
 .seq-extra { display: flex; gap: 24px; flex-wrap: wrap; margin: 8px 0; }
 .seq-shared { display: flex; align-items: center; gap: 8px; font-size: .88rem; margin: 6px 0; }
@@ -737,6 +768,21 @@
 .safra-seq-modal .sid-item.sid-off{ opacity: .45; cursor: not-allowed; }
 .safra-quoter .sid-item .sid-thumb:empty,
 .safra-seq-modal .sid-item .sid-thumb:empty{ display: flex; }
+/* Revisión 30-oct: lista de dobladillos con Alto máximo · Opción · ¿Aplica? */
+.safra-quoter .sid-tabla .sid-head,
+.safra-quoter .sid-tabla .sid-item{
+    display: grid; grid-template-columns: 96px 1fr 76px; gap: 10px; align-items: center;
+}
+.safra-quoter .sid-tabla .sid-head{
+    padding: 4px 10px 6px; font-size: .8rem; font-weight: 600; color: #666;
+    border-bottom: 1px solid var(--safra-line);
+}
+.safra-quoter .sid-tabla .sid-max{ font-variant-numeric: tabular-nums; color: #444; }
+.safra-quoter .sid-tabla .sid-aplica{ font-weight: 600; text-align: center; }
+.safra-quoter .sid-tabla .sid-aplica.si{ color: var(--safra-green-dark, #2e7d32); }
+.safra-quoter .sid-tabla .sid-aplica.no{ color: #b23b3b; }
+.safra-quoter .sid-tabla .sid-item.sid-off{ opacity: .6; }
+.safra-quoter .sid-tabla .sid-toggle .sid-thumb{ display: none; }
 .safra-lightbox {
     position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,.75);
     display: flex; align-items: center; justify-content: center; cursor: zoom-out;
@@ -776,5 +822,88 @@
     padding: .35rem .5rem;
 }
 
-/* Sprint 1.3 (fila 73): en secuencia la Unificación Mando es automática. */
-.safra-quoter select.unif-auto { pointer-events: none; background-color: #eef0ec; color: #4c5a52; }
+/* Ajustes 20 y 22-oct: avisos de las opciones con fórmula y suma de los
+   segmentos del Riel curvo, bajo el campo. */
+.safra-quoter .fml-aviso,
+.safra-quoter .seg-suma {
+    margin-top: 6px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    background: #fff4d6;
+    border-left: 3px solid #d39e00;
+    color: #6b4f00;
+}
+.safra-quoter .seg-suma.ok {
+    background: #e6f4e1;
+    border-left-color: #5f8f22;
+    color: #3d5e16;
+}
+.safra-quoter .seg-suma.mal {
+    background: #fbe4e1;
+    border-left-color: #b03a2e;
+    color: #8a2a20;
+}
+
+/* Sprint 1.7: mensajes de las reglas «Al digitar un campo», debajo del campo. */
+.safra-quoter .safra-field .campo-reglas { grid-column: 1 / -1; width: 100%; }
+.safra-quoter .safra-field .campo-reglas:empty { display: none; }
+.safra-quoter .safra-field .campo-reglas .alert { margin: .35rem 0 0; padding: .35rem .6rem; font-size: .85rem; }
+#line-next-prompt .np-avisos { flex-basis: 100%; width: 100%; }
+#line-next-prompt .np-avisos .alert { margin-bottom: .4rem; padding: .4rem .7rem; }
+
+/* Mejoras Sprint 1.1 (21-oct, fila 16): la tabla de combinaciones usa todo
+   el ancho de la línea, con letra más grande y sin desplazamiento lateral. */
+.safra-quoter .safra-lamas-block { grid-template-columns: 1fr; }
+.safra-quoter .safra-lamas-block > .safra-label,
+.safra-quoter .safra-lamas-block > div:empty { display: none; }
+.safra-quoter .safra-lamas-block .lamas-table { font-size: .95rem; }
+.safra-quoter .safra-lamas-block .lamas-table th,
+.safra-quoter .safra-lamas-block .lamas-table td { padding: 6px 10px; white-space: normal; }
+.safra-quoter .safra-lamas-block .btn-lamas-pick { padding: 4px 14px; font-size: .9rem; }
+
+/* Mejoras Sprint 1.1 (21-oct, fila 18): el máximo total de lamas con el
+   texto de Safra al lado, en un recuadro verde. */
+.safra-quoter .max-lamas-box {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    background: #eef8f0; border: 1px solid #cfe6d4; border-radius: 6px; padding: 10px 14px;
+}
+.safra-quoter .max-lamas-box input { flex: 0 0 auto; }
+.safra-quoter .max-lamas-box .max-lamas-txt {
+    flex: 1 1 240px; margin: 0; color: var(--safra-green-dark); font-size: .9rem; line-height: 1.35;
+}
+
+/* Ajustes Sprint 1.6 (26-oct, fila 160): U_Observación del color */
+.safra-quoter .safra-observacion-note,
+.safra-quoter .safra-field + .corte-atravesado-note { grid-column: 1 / -1; margin: 4px 0 8px; }
+/* Fila 127: embalaje del pedido */
+.safra-quoter .safra-embalaje-title { font-weight: 600; margin-bottom: 6px; }
+.safra-quoter .safra-embalaje-opts { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.safra-quoter .safra-embalaje-opts label { font-weight: 400; display: inline-flex; gap: 6px; align-items: center; }
+/* Fila 182: orden de compra */
+.safra-quoter .safra-orden-compra label { display: block; font-weight: 600; margin-bottom: 4px; }
+.safra-quoter .safra-orden-compra input { max-width: 320px; }
+/* Fila 124: resumen del pedido en el detalle de la cotización */
+/* Barrido de la matriz (fila 124): tabla como el portal actual de Safra */
+.safra-resumen thead th { background: var(--safra-green); border-color: var(--safra-green-dark); color: #fff; font-weight: 600; white-space: nowrap; }
+.safra-resumen-num { display: inline-block; min-width: 1.9em; padding: 2px 6px; border-radius: 6px; background: #e9ecef; font-weight: 700; }
+.safra-resumen table { table-layout: auto; }
+.safra-resumen .col-min { white-space: nowrap; }
+.safra-resumen .col-nombre { width: 32%; }
+.safra-resumen .col-carac { width: 46%; }
+.safra-resumen-nombre { min-width: 220px; }
+.safra-resumen-nombre > div + div { margin-top: 4px; }
+.safra-chip { display: inline-block; padding: 1px 8px; border-radius: 10px; background: #e9ecef; font-size: .85em; font-weight: 600; }
+.safra-resumen-campos { margin: 0; padding-left: 1.1rem; }
+.safra-resumen-campos li { margin-bottom: 2px; }
+.safra-resumen-mecanismo { margin-top: 10px; }
+.safra-resumen-opciones { width: 38px; height: 38px; border: 0; border-radius: 50%; background: var(--safra-green); color: #fff; font-size: 1.15rem; }
+.safra-resumen-opciones:hover, .safra-resumen-opciones:focus-visible { background: var(--safra-green-dark); }
+
+/* Reunión 09-nov (fila 2): ítem que ya no está disponible, elegido en gris y
+   con el aviso junto a su campo. */
+.safra-quoter select.safra-sel-nodisp { color: #8a8f8c; background-color: #f1f2f0; border-color: #e0a100; }
+.safra-quoter option.safra-opt-nodisp { color: #8a8f8c; }
+.safra-quoter .safra-aviso-nodisp { margin-top: 6px; padding: 6px 10px; border-radius: 6px; background: #fff3cd;
+    border: 1px solid #f0c36d; color: #6b4a00; font-size: .9rem; }
+.safra-quoter .safra-aviso-nodisp .fa { margin-right: 4px; }

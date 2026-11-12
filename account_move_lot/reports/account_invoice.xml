@@ -11,7 +11,7 @@
         <xpath expr="//t[@name='account_invoice_line_accountable']/td[span[@t-field='line.quantity']]"
                position="after">
             <td name="td_lot" class="text-end">
-                <span t-field="line.lot_ids" t-field-options='{"widget": "many2many_tags"}'/>
+                <span t-out="', '.join(line.lot_ids.mapped('name'))" style="white-space: normal; overflow-wrap: anywhere;"/>
             </td>
         </xpath>
     </template>
@@ -25,7 +25,7 @@
         <xpath expr="//t[@name='account_invoice_line_accountable']/td[span[@t-field='line.quantity']]"
                position="after">
             <td class="text-right">
-                <span t-field="line.lot_ids" t-field-options='{"widget": "many2many_tags"}'/>
+                <span t-out="', '.join(line.lot_ids.mapped('name'))" style="white-space: normal; overflow-wrap: anywhere;"/>
             </td>
         </xpath>
     </template>

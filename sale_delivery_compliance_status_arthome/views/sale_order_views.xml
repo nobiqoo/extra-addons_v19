@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_inherit_sale_delivery_compliance_status_arthome" model="ir.ui.view">
+        <field name="name">sale.order.form.delivery.compliance.status.arthome</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_order'][not(@groups)]" position="after">
+                <field name="delivery_compliance_status" decoration-success="delivery_compliance_status == 'full'" decoration-danger="delivery_compliance_status == 'short'" decoration-warning="delivery_compliance_status in ('partial', 'excess')" widget="badge" invisible="not delivery_compliance_status"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_tree_inherit_sale_delivery_compliance_status_arthome" model="ir.ui.view">
+        <field name="name">sale.order.list.delivery.compliance.status.arthome</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='delivery_status']" position="after">
+                <field name="delivery_compliance_status" decoration-success="delivery_compliance_status == 'full'" decoration-danger="delivery_compliance_status == 'short'" decoration-warning="delivery_compliance_status in ('partial', 'excess')" widget="badge" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_quotation_tree_inherit_sale_delivery_compliance_status_arthome" model="ir.ui.view">
+        <field name="name">sale.order.quotation.list.delivery.compliance.status.arthome</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_status']" position="after">
+                <field name="delivery_compliance_status" decoration-success="delivery_compliance_status == 'full'" decoration-danger="delivery_compliance_status == 'short'" decoration-warning="delivery_compliance_status in ('partial', 'excess')" widget="badge" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

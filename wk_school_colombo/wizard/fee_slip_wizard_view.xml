@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tarea 11856: "Pago por cuotas" sobre el wizard "Generar recibos de
+         tarifas". Con el check activo se ocultan Plazo de pago/Entrega (se
+         fijan solos en Personalizado/1, como pide el requerimiento) y se
+         muestran los campos del acuerdo + la vista previa editable de
+         cuotas antes de confirmar. -->
+    <record id="wk_fee_generate_wizard_view_form_colombo" model="ir.ui.view">
+        <field name="name">wk.fee.generate.wizard.view.form.colombo</field>
+        <field name="model">wk.fee.generate.wizard</field>
+        <field name="inherit_id" ref="wk_school_management.wk_fee_generate_wizard_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term']" position="attributes">
+                <attribute name="invisible">pago_por_cuotas</attribute>
+            </xpath>
+            <xpath expr="//field[@name='installment']" position="attributes">
+                <attribute name="invisible">payment_term != 'custom' or pago_por_cuotas</attribute>
+            </xpath>
+            <xpath expr="//field[@name='amount_to_pay']" position="after">
+                <field name="currency_id" invisible="1"/>
+                <field name="pago_por_cuotas"/>
+                <field name="descuento_beneficio" invisible="not pago_por_cuotas or not descuento_beneficio"/>
+                <field name="monto_neto" invisible="not pago_por_cuotas or not descuento_beneficio"/>
+                <field name="aviso_beneficio" invisible="not aviso_beneficio" class="text-warning"/>
+            </xpath>
+            <xpath expr="//sheet" position="inside">
+                <group invisible="not pago_por_cuotas" string="Configuración del plan de pagos">
+                    <group>
+                        <field name="monto_inicial"/>
+                        <field name="valor_pendiente" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="numero_abonos"/>
+                        <field name="fecha_primer_abono"/>
+                        <field name="periodicidad"/>
+                    </group>
+                    <field name="preview_line_ids">
+                        <list editable="bottom" string="Vista previa de cuotas">
+                            <field name="sequence" column_invisible="1"/>
+                            <field name="name"/>
+                            <field name="fecha_vencimiento"/>
+                            <field name="valor"/>
+                        </list>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
+from html import escape
 
 from odoo import _, fields, models, api
 from odoo.exceptions import ValidationError
@@ -11,6 +12,9 @@ REPORT_TYPE = {
 }
 
 _logger = logging.getLogger(__name__)
+
+# Máximo de líneas para generar el PDF (0 = sin límite)
+PDF_MAX_ROWS = 15000
 
 
 class AccountauxiliaryWizard(models.Model):
@@ -78,13 +82,35 @@ class AccountauxiliaryWizard(models.Model):
 
     def action_confirm(self):
         report = self.env.ref('account_report.report_account_auxiliary')
-        data = self.prepare_data()
+        data = {'record_id': self.id}
         return report.report_action(self, data=data)
 
     def button_export_pdf(self):
         self.ensure_one()
+        self._check_pdf_max_rows()
         report_type = 'qweb-pdf'
         return self._export(report_type)
+
+    def _check_pdf_max_rows(self):
+        """Evita generar PDF de reportes demasiado grandes.
+
+        wkhtmltopdf falla o agota la memoria del servidor con decenas de miles
+        de filas; en ese caso se pide usar el Excel o acotar el reporte. El
+        tope se puede ajustar con el parámetro de sistema
+        `account_report.pdf_max_rows`.
+        """
+        max_rows = int(self.env['ir.config_parameter'].sudo().get_param(
+            'account_report.pdf_max_rows', PDF_MAX_ROWS))
+        if not max_rows:
+            return
+        self.env.cr.execute(
+            'select count(*) from (' + self.prepare_data_detail() + ') q')
+        rows = self.env.cr.fetchone()[0]
+        if rows > max_rows:
+            raise ValidationError(_(
+                'El reporte tiene %(rows)s líneas y el PDF admite hasta '
+                '%(max)s. Use la opción EXCEL o acote el rango de fechas, '
+                'las cuentas o los terceros.', rows=rows, max=max_rows))
 
     def button_preview_html(self):
         self.ensure_one()
@@ -158,7 +184,7 @@ class AccountauxiliaryWizard(models.Model):
             False as bold,
             False as group,
             aa.id as account_id,
-            (jsonb_each_text(aa.code_store)).value as code,
+            COALESCE(aa.code_store->>SPLIT_PART(rco.parent_path, '/', 1), '') as code,
             COALESCE(aa.name->'es_CO', aa.name->'en_US') as name,
             rp.vat as vat,
             coalesce(rp.name, '**') as partner,
@@ -188,6 +214,7 @@ class AccountauxiliaryWizard(models.Model):
             '' as final
         from account_move_line aml
         inner join account_account aa on aa.id = aml.account_id
+        inner join res_company rco on rco.id = aml.company_id
         inner join account_move am on am.id = aml.move_id
         inner join account_journal aj on aj.id = aml.journal_id
         left join res_partner rp on rp.id = aml.partner_id
@@ -219,11 +246,11 @@ class AccountauxiliaryWizard(models.Model):
         )
         if self.account_analytic:
             query += """
-                GROUP BY aml.id, aa.id, rp.vat, rp.name, aj.name, am.name, rc_line.name, rc_move.name, am.ref
+                GROUP BY aml.id, aa.id, rco.id, rp.vat, rp.name, aj.name, am.name, rc_line.name, rc_move.name, am.ref
                 """
 
         query += """
-        order by aa.code_store, rp.name, aml.date
+        order by COALESCE(aa.code_store->>SPLIT_PART(rco.parent_path, '/', 1), ''), rp.name, aml.date
         """
         if self.partner_by and 1 == 0:
             query = query.replace(
@@ -338,7 +365,7 @@ class AccountauxiliaryWizard(models.Model):
             True as bold,
             False as group,
             aa.id as account_id,
-            (jsonb_each_text(aa.code_store)).value as code,
+            COALESCE(aa.code_store->>SPLIT_PART(rco.parent_path, '/', 1), '') as code,
             COALESCE(aa.name->'es_CO', aa.name->'en_US') as name,
             rp.vat as vat,
             coalesce(rp.name, '**') as partner,
@@ -364,48 +391,32 @@ class AccountauxiliaryWizard(models.Model):
             """
 
         query += """
-            coalesce((
-                select sum(aml2.{debit} - aml2.{credit})
-                from account_move_line as aml2
-                inner join account_move am2 on am2.id = aml2.move_id
-                where aml2.account_id = aa.id
-                and (
-                    aml2.partner_id = aml.partner_id
-                    or
-                    (
-                        aml2.partner_id is null
-                        and
-                        aml.partner_id is null
-                    )
-                )
-                and aml2.date < '{date_start}'
-                {where2}
-            ), 0) as initial,
+            coalesce(h.initial, 0) as initial,
             sum(coalesce(aml.{debit}, 0)) as debit,
             sum(coalesce(aml.{credit}, 0)) as credit,
-            coalesce((
-                select sum(aml2.{debit} - aml2.{credit})
-                from account_move_line as aml2
-                inner join account_move am2 on am2.id = aml2.move_id
-                where aml2.account_id = aa.id
-                and (
-                    aml2.partner_id = aml.partner_id
-                    or
-                    (
-                        aml2.partner_id is null
-                        and
-                        aml.partner_id is null
-                    )
-                )
-                and aml2.date <= '{date_end}'
-                {where2}
-            ), 0) as final
+            coalesce(h.final, 0) as final
         from account_move_line aml
         inner join account_account aa on aa.id = aml.account_id
+        inner join res_company rco on rco.id = aml.company_id
         inner join account_move am on am.id = aml.move_id
         left join res_partner rp on rp.id = aml.partner_id
         left join res_city rc_line on rc_line.id = aml.city_id 
         left join res_city rc_move on rc_move.id = am.city_id 
+        left join (
+            select aml2.account_id, aml2.partner_id,
+                SPLIT_PART(rco2.parent_path, '/', 1) as root_id,
+                sum(case when aml2.date < '{date_start}'
+                    then aml2.{debit} - aml2.{credit} end) as initial,
+                sum(aml2.{debit} - aml2.{credit}) as final
+            from account_move_line aml2
+            inner join res_company rco2 on rco2.id = aml2.company_id
+            where aml2.date <= '{date_end}'
+            {where2}
+            group by aml2.account_id, aml2.partner_id,
+                SPLIT_PART(rco2.parent_path, '/', 1)
+        ) h on h.account_id = aa.id
+            and coalesce(h.partner_id, 0) = coalesce(aml.partner_id, 0)
+            and h.root_id = SPLIT_PART(rco.parent_path, '/', 1)
         where aml.date between '{date_start}' and '{date_end}'
         {where}
         """
@@ -420,8 +431,8 @@ class AccountauxiliaryWizard(models.Model):
         )
 
         query += """
-        group by aa.code_store, aa.id, aml.partner_id, rp.vat, rp.name, rc_line.name, rc_move.name
-        order by aa.code_store, rp.name
+        group by COALESCE(aa.code_store->>SPLIT_PART(rco.parent_path, '/', 1), ''), aa.id, aml.partner_id, rp.vat, rp.name, rc_line.name, rc_move.name, h.initial, h.final
+        order by COALESCE(aa.code_store->>SPLIT_PART(rco.parent_path, '/', 1), ''), rp.name
         """
         return query
 
@@ -431,7 +442,7 @@ class AccountauxiliaryWizard(models.Model):
             True as bold,
             False as group,
             aa.id as account_id,
-            (jsonb_each_text(aa.code_store)).value as code,
+            COALESCE(aa.code_store->>SPLIT_PART(rco.parent_path, '/', 1), '') as code,
             COALESCE(aa.name->'es_CO', aa.name->'en_US') as name,
             '' as vat,
             '' as partner,
@@ -456,29 +467,29 @@ class AccountauxiliaryWizard(models.Model):
             """
 
         query += """
-            coalesce((
-                select sum(aml2.{debit} - aml2.{credit})
-                from account_move_line as aml2
-                inner join account_move am2 on am2.id = aml2.move_id
-                where aml2.account_id = aa.id
-                and aml2.date < '{date_start}'
-                {where2}
-            ), 0) as initial,
+            coalesce(h.initial, 0) as initial,
             sum(coalesce(aml.{debit}, 0)) as debit,
             sum(coalesce(aml.{credit}, 0)) as credit,
-            coalesce((
-                select sum(aml2.{debit} - aml2.{credit})
-                from account_move_line as aml2
-                inner join account_move am2 on am2.id = aml2.move_id
-                where aml2.account_id = aa.id
-                and aml2.date <= '{date_end}'
-                {where2}
-            ), 0) as final
+            coalesce(h.final, 0) as final
         from account_move_line aml
         inner join account_account aa on aa.id = aml.account_id
+        inner join res_company rco on rco.id = aml.company_id
         inner join account_move am on am.id = aml.move_id
         left join res_city rc_line on rc_line.id = aml.city_id 
         left join res_city rc_move on rc_move.id = am.city_id 
+        left join (
+            select aml2.account_id,
+                SPLIT_PART(rco2.parent_path, '/', 1) as root_id,
+                sum(case when aml2.date < '{date_start}'
+                    then aml2.{debit} - aml2.{credit} end) as initial,
+                sum(aml2.{debit} - aml2.{credit}) as final
+            from account_move_line aml2
+            inner join res_company rco2 on rco2.id = aml2.company_id
+            where aml2.date <= '{date_end}'
+            {where2}
+            group by aml2.account_id, SPLIT_PART(rco2.parent_path, '/', 1)
+        ) h on h.account_id = aa.id
+            and h.root_id = SPLIT_PART(rco.parent_path, '/', 1)
         where aml.date between '{date_start}' and '{date_end}'
         {where}
         """
@@ -492,8 +503,8 @@ class AccountauxiliaryWizard(models.Model):
             company_id=str(self.env.company.id)
         )
         query += """
-        group by aa.code_store, aa.id, rc_line.name, rc_move.name
-        order by aa.code_store
+        group by COALESCE(aa.code_store->>SPLIT_PART(rco.parent_path, '/', 1), ''), aa.id, rc_line.name, rc_move.name, h.initial, h.final
+        order by COALESCE(aa.code_store->>SPLIT_PART(rco.parent_path, '/', 1), '')
         """
         return query
 
@@ -535,34 +546,26 @@ class AccountauxiliaryWizard(models.Model):
             """
 
         query += """
-            coalesce((
-                select sum(aml2.{debit} - aml2.{credit})
-                from account_move_line as aml2
-                inner join account_move am2 on am2.id = aml2.move_id
-                where (aml2.partner_id = aml.partner_id 
-                        OR
-                        (aml2.partner_id is null AND aml.partner_id is null))
-                    AND aml2.date < '{date_start}'
-                    {where2}
-            ), 0) as initial,
+            coalesce(h.initial, 0) as initial,
             sum(coalesce(aml.{debit}, 0)) as debit,
             sum(coalesce(aml.{credit}, 0)) as credit,
-            coalesce((
-                select sum(aml2.{debit} - aml2.{credit})
-                from account_move_line as aml2
-                inner join account_move am2 on am2.id = aml2.move_id
-                where (aml2.partner_id = aml.partner_id
-                        OR
-                        (aml2.partner_id is null AND aml.partner_id is null))
-                    AND aml2.date <= '{date_end}'
-                    {where2}
-                ), 0) as final
+            coalesce(h.final, 0) as final
         from account_move_line aml
         inner join account_account aa on aa.id = aml.account_id
         inner join account_move am on am.id = aml.move_id
         left join res_partner rp on rp.id = aml.partner_id
         left join res_city rc_line on rc_line.id = aml.city_id  
         left join res_city rc_move on rc_move.id = am.city_id 
+        left join (
+            select aml2.partner_id,
+                sum(case when aml2.date < '{date_start}'
+                    then aml2.{debit} - aml2.{credit} end) as initial,
+                sum(aml2.{debit} - aml2.{credit}) as final
+            from account_move_line aml2
+            where aml2.date <= '{date_end}'
+            {where2}
+            group by aml2.partner_id
+        ) h on coalesce(h.partner_id, 0) = coalesce(aml.partner_id, 0)
         where aml.date between '{date_start}' and '{date_end}'
             {where}
         """
@@ -577,7 +580,7 @@ class AccountauxiliaryWizard(models.Model):
         )
 
         query += """
-        group by aml.partner_id, rp.vat, rp.name, rc_line.name, rc_move.name
+        group by aml.partner_id, rp.vat, rp.name, rc_line.name, rc_move.name, h.initial, h.final
         order by rp.name
         """
         return query
@@ -597,114 +600,51 @@ class AccountauxiliaryWizard(models.Model):
         return data
 
     def data_report_preview(self):
+        """HTML del libro auxiliar (vista previa y PDF).
+
+        Usa una <table> real con los estilos en una hoja de estilo en vez de
+        un <div> con estilo propio por celda: el HTML pesa ~6 veces menos y
+        Odoo puede partir las tablas grandes para wkhtmltopdf.
+        """
         self.ensure_one()
         header = self.prepare_header()
         data = self.prepare_data()
 
-        report_name = _('Libro Auxiliar')
-        company = self.env.company.name
-        vat = self.env.company.vat
-        date_from = self.date_from
-        date_to = self.date_to
-
-        html_text = '''
-            <div class="act_as_table list_table" style="margin-top: 10px;"/>
-            <div class="report_aux">
-                <div class="act_as_table data_table">
-                    <div class="act_as_thead">
-                        <div class="act_as_row labels">
-                            th_report
-                        </div>
-                    </div>
-                    data_report
-                </div>
-            </div>
-        '''
-
-        # THEAD
-        th_text = ''
-        for th in header:
-            th_text += '<div class="act_as_cell" style="font-size: 13px; font-family: helvetica;">%s</div>' % th[1].upper()
-        html_text = html_text.replace('th_report', th_text)
-
-        # TBODY
-        tr_text = ''
-        c = 1
+        amount_keys = ('initial', 'debit', 'credit', 'final')
+        skip_keys = ('bold', 'group', 'account_id')
+        out = [
+            '<style>'
+            'table.report_aux{width:100%;border-collapse:collapse;'
+            'margin-top:10px;font:13px helvetica}'
+            'table.report_aux th,table.report_aux td{border:1px solid lightgrey;'
+            'padding:0 3px;text-align:left;word-wrap:break-word}'
+            'table.report_aux th{background:#f0f0f0;font-weight:bold;'
+            'text-align:center}'
+            'table.report_aux td.amount{text-align:right;word-wrap:normal}'
+            'table.report_aux tr.bold td{background:rgb(240,250,250);'
+            'font-weight:bold}'
+            'table.report_aux tr{page-break-inside:avoid}'
+            '</style>',
+            '<table class="report_aux"><thead><tr>',
+        ]
+        out.extend('<th>%s</th>' % escape(th[1].upper()) for th in header)
+        out.append('</tr></thead><tbody>')
         for tr_data in data.get('report_data', []):
-            tr_text += '<div class="act_as_row lines">'
-            bold = False
+            out.append('<tr class="bold">' if tr_data.get('bold') else '<tr>')
             for k, v in tr_data.items():
-                if k == 'bold':
-                    bold = v
-                elif k in ('group', 'account_id'):
+                if k in skip_keys:
                     continue
+                if isinstance(v, (int, float)) and not isinstance(v, bool):
+                    text = '{:_.2f}'.format(v).replace('.', ',').replace('_', '.')
                 else:
-                    class_span = ' '.join([
-                        bold and 'bold-cell-report back-cell' \
-                            or 'normal-cell-report',
-                        k in ('initial', 'debit', 'credit', 'final') and 'amount' \
-                            or 'left'])
-                    tr_text += '<div class="act_as_cell %s" style="font-size: 13px; font-family: helvetica;">%s</div>' % (
-                        class_span,
-                        type(v) in (type(2), type(2.3)) \
-                            and '{:_.2f}'.format(v).replace('.', ',').replace('_', '.') \
-                                or v or '')
-            tr_text += '</div>'
-            c += 1
-
-        html_text = html_text.replace('data_report', tr_text)
-        now = fields.Datetime.context_timestamp(
-            self,
-            fields.Datetime.now()
-        ).strftime('%d-%m-%Y %H:%M:%S')
-
-        # HEADER
-        # table_h = '''
-        #     <div class="act_as_table data_table">
-        #         <div class="act_as_row">
-        #             <div class="act_as_cell labels" style="font-size: 13px;">{inf_tag}</div>
-        #             <div class="act_as_cell" style="font-size: 13px;">{inf_val}</div>
-        #             <div class="act_as_cell labels" style="font-size: 13px;">{dat_tag}</div>
-        #             <div class="act_as_cell" style="font-size: 13px;">{dat_val}</div>
-        #         </div>
-        #         <div class="act_as_row">
-        #             <div class="act_as_cell labels" style="font-size: 13px;">{com_tag}</div>
-        #             <div class="act_as_cell" style="font-size: 13px;">{com_val}</div>
-        #             <div class="act_as_cell labels" style="font-size: 13px;">{ini_tag}</div>
-        #             <div class="act_as_cell" style="font-size: 13px;">{ini_val}</div>
-        #         </div>
-        #         <div class="act_as_row">
-        #             <div class="act_as_cell labels" style="font-size: 13px;">{nit_tag}</div>
-        #             <div class="act_as_cell" style="font-size: 13px;">{nit_val}</div>
-        #             <div class="act_as_cell labels" style="font-size: 13px;">{end_tag}</div>
-        #             <div class="act_as_cell" style="font-size: 13px;">{end_val}</div>
-        #         </div>
-        #         <div class="act_as_row">
-        #             <div class="act_as_cell labels" style="font-size: 13px;">{type_tag}</div>
-        #             <div class="act_as_cell" style="font-size: 13px;">{type_val}</div>
-        #             <div class="act_as_cell labels" style="font-size: 13px;"></div>
-        #             <div class="act_as_cell" style="font-size: 13px;"></div>
-        #         </div>
-        #     </div>
-        # '''.format(
-        #     inf_tag=_('Report'),
-        #     inf_val=report_name,
-        #     dat_tag=_('Date'),
-        #     dat_val=now,
-        #     com_tag=_('Company'),
-        #     com_val=company,
-        #     ini_tag=_('From'),
-        #     ini_val=date_from,
-        #     nit_tag=_('NIT'),
-        #     nit_val=vat,
-        #     end_tag=_('To'),
-        #     end_val=date_to,
-        #     type_tag=_('Type'),
-        #     type_val=REPORT_TYPE.get(self.report_type)
-        # )
-
-        # html_text = html_text.replace('table_header', table_h)
-        return html_text
+                    text = escape(str(v)) if v else ''
+                if k in amount_keys:
+                    out.append('<td class="amount">%s</td>' % text)
+                else:
+                    out.append('<td>%s</td>' % text)
+            out.append('</tr>')
+        out.append('</tbody></table>')
+        return ''.join(out)
 
     def prepare_header(self):
         report_header = [
@@ -822,7 +762,7 @@ class AccountauxiliaryWizard(models.Model):
             False as bold,
             False as group,
             aa.id as account_id,
-            (jsonb_each_text(aa.code_store)).value as code,
+            COALESCE(aa.code_store->>SPLIT_PART(rco.parent_path, '/', 1), '') as code,
             COALESCE(aa.name->'es_CO', aa.name->'en_US') as name,
             aml.partner_id as partner_id,
             rp.vat as vat,
@@ -874,6 +814,7 @@ class AccountauxiliaryWizard(models.Model):
             ), 0) as final
         from account_move_line aml
         inner join account_account aa on aa.id = aml.account_id
+        inner join res_company rco on rco.id = aml.company_id
         inner join account_move am on am.id = aml.move_id
         inner join account_journal aj on aj.id = aml.journal_id
         left join res_partner rp on rp.id = aml.partner_id
@@ -925,7 +866,7 @@ class AccountauxiliaryWizard(models.Model):
             """ % pids
 
         query += """
-        order by aa.code_store, rp.name, aml.date
+        order by COALESCE(aa.code_store->>SPLIT_PART(rco.parent_path, '/', 1), ''), rp.name, aml.date
         """
 
         return query

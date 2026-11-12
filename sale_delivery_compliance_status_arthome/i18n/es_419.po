@@ -1,0 +1,48 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_delivery_compliance_status_arthome
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: es_419\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_delivery_compliance_status_arthome
+#: model:ir.model.fields,field_description:sale_delivery_compliance_status_arthome.field_sale_order__delivery_compliance_status
+msgid "Delivery Compliance Status"
+msgstr "Estado de Cumplimiento de Entrega"
+
+#. module: sale_delivery_compliance_status_arthome
+#: model:ir.model.fields,help:sale_delivery_compliance_status_arthome.field_sale_order__delivery_compliance_status
+msgid "Blue: Pending/Partial\nGreen: Fully Delivered\nRed: Under-Delivered\nOrange: Over-Delivered"
+msgstr "Azul: Pendiente/Parcial\nVerde: Entregado Total\nRojo: Entregado de Menos (Faltante)\nNaranja: Entregado de Más (Excedente)"
+
+#. module: sale_delivery_compliance_status_arthome
+#: model:ir.model.fields.selection,name:sale_delivery_compliance_status_arthome.selection__sale_order__delivery_compliance_status__pending
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: sale_delivery_compliance_status_arthome
+#: model:ir.model.fields.selection,name:sale_delivery_compliance_status_arthome.selection__sale_order__delivery_compliance_status__partial
+msgid "Partial"
+msgstr "Parcial"
+
+#. module: sale_delivery_compliance_status_arthome
+#: model:ir.model.fields.selection,name:sale_delivery_compliance_status_arthome.selection__sale_order__delivery_compliance_status__full
+msgid "Fully Delivered"
+msgstr "Entregado Total"
+
+#. module: sale_delivery_compliance_status_arthome
+#: model:ir.model.fields.selection,name:sale_delivery_compliance_status_arthome.selection__sale_order__delivery_compliance_status__short
+msgid "Under-Delivered"
+msgstr "Entregado de Menos (Faltante)"
+
+#. module: sale_delivery_compliance_status_arthome
+#: model:ir.model.fields.selection,name:sale_delivery_compliance_status_arthome.selection__sale_order__delivery_compliance_status__excess
+msgid "Over-Delivered"
+msgstr "Entregado de Más (Excedente)"

@@ -11,7 +11,9 @@
     var defaultSystemId = 0;
     var lineCount = 0;
 
-    var UNIT = { width: 'mts', height: 'mts', width2: 'mts', height2: 'mts', quantity: 'und', extra_chain: 'metros', print_m2: 'm²' };
+    var UNIT = { width: 'mts', height: 'mts', width2: 'mts', height2: 'mts', quantity: 'und', extra_chain: 'metros', print_m2: 'm²',
+                 segmento_1: 'mts', segmento_2: 'mts', curva_izquierda_m: 'mts', curva_derecha_m: 'mts',
+                 segmento_1_u_m: 'mts', segmento_3_m: 'mts' };
     var IMG_BASE = '/website_quotes_safra/static/src/img';
     var IMG_NOTFOUND = IMG_BASE + '/imagenotfound.jpg';
 
@@ -60,9 +62,11 @@
         var ph = f.placeholder ? ' placeholder="' + esc(f.placeholder) + '"' : '';
         var unit = UNIT[f.code];
         // Fase 5.4a: Tela Cabezal Forrado y Tela de Cenefa se llenan con las
-        // telas ya elegidas en el pedido (sin importar el tipo del campo).
-        if (f.code === 'cabezal_tela' || f.code === 'cenefa_tela') {
-            return '<select name="' + name + '" class="form-select fld-input sel-telas-pedido"' + req + '>' +
+        // telas ya elegidas. Reunión 28-oct (fila 89): lo dice el Catálogo de
+        // campos («Opciones: telas elegidas»), con o sin el color.
+        if (f.telas_elegidas) {
+            return '<select name="' + name + '" class="form-select fld-input sel-telas-pedido"' +
+                ' data-telas-de="' + esc(f.telas_elegidas) + '"' + req + '>' +
                 '<option value="">-- Seleccione la tela --</option></select>';
         }
         switch (f.type) {
@@ -100,9 +104,27 @@
                         (it.dmax ? ' data-dmax="' + esc(it.dmax) + '"' : '') +
                         (it.forrado !== undefined ? ' data-forrado="' + esc(it.forrado) + '"' : '') +
                         (it.cargador !== undefined ? ' data-cargador="' + esc(it.cargador) + '"' : '') +
+                        (it.ref ? ' data-ref="' + esc(it.ref) + '"' : '') +
+                        (it.eti ? ' data-eti="' + esc(it.eti) + '"' : '') +
                         (it.sin ? ' data-sin="1"' : '') +
-                        (it.value === f.default ? ' selected' : '') + '>' +
-                        esc(it.label) + '</option>';
+                        // Sprint 1.5: opción que depende de otro campo y,
+                        // en los rieles desde Referencias, vías y Velcrado.
+                        (it.dep ? ' data-dep-field="' + esc(it.dep) + '" data-dep-value="' + esc(it.depv || '') + '"' : '') +
+                        (it.canales ? ' data-canales="' + esc(it.canales) + '"' : '') +
+                        (it.velcrado ? ' data-velcrado="1"' : '') +
+                        (it.fml ? ' data-fml="1"' : '') +
+                        (it.cons ? ' data-cons="1"' : '') +
+                        // Reunión 15-oct: solo con ciertas telas (fila 50) o
+                        // solo con ciertos tubos (fila 68). Reunión 28-oct:
+                        // telas con las que la línea no sirve.
+                        (it.telas && it.telas.length ? ' data-telas="' + esc(it.telas.join(',')) + '"' : '') +
+                        (it.sin_telas && it.sin_telas.length ? ' data-sin-telas="' + esc(it.sin_telas.join(',')) + '"' : '') +
+                        (it.tubos && it.tubos.length ? ' data-tubos="' + esc(it.tubos.join('|')) + '"' : '') +
+                        // Acta del 30-oct (Tubo, punto 8): sin existencias, en
+                        // gris como las telas.
+                        (it.available === 0 ? ' data-sin-stock="1" disabled' : '') +
+                        (it.value === f.default && it.available !== 0 ? ' selected' : '') + '>' +
+                        esc(it.label) + (it.available === 0 ? SIN_STOCK : '') + '</option>';
                 });
                 // Revisión 17-sep: opciones con imagen (aperturas, planos,
                 // perfiles) — miniaturas elegibles bajo el desplegable.
@@ -117,16 +139,22 @@
                         : (withImg.length === (f.options || []).length ? 'buttons' : 'list_thumbs');
                 }
                 if (!withImg.length) mode = 'list';
-                var hideSel = mode === 'buttons' || mode === 'list_thumbs';
+                // Revisión 30-oct: con dobladillos (opciones con consumo) la
+                // lista muestra el alto máximo de cada uno y si aplica.
+                if ((f.options || []).some(function (it) { return it.cons; })) mode = 'tabla';
+                var hideSel = mode === 'buttons' || mode === 'list_thumbs' || mode === 'tabla';
                 var selHtml = '<select name="' + name + '" class="form-select fld-input' +
                     (hideSel ? ' sel-img-only' : '') + '"' +
                     ' data-display="' + mode + '"' + req + '>' + o + '</select>';
                 if (mode === 'buttons') {
                     selHtml += '<div class="opt-thumbs" data-for="' + name + '">' +
                         (f.options || []).filter(function (it) { return it.value; }).map(function (it) {
-                            return '<div class="opt-thumb' + (it.img ? '' : ' opt-thumb-text') + '" data-value="' + esc(it.value) + '" title="' + esc(it.label) + '">' +
+                            var sinStock = it.available === 0 ? SIN_STOCK : '';
+                            return '<div class="opt-thumb' + (it.img ? '' : ' opt-thumb-text') +
+                                (sinStock ? ' opt-thumb-disabled' : '') + '" data-value="' + esc(it.value) +
+                                '" title="' + esc(it.label + sinStock) + '">' +
                                 (it.img ? '<img loading="lazy" src="' + esc(it.img) + '" alt=""/>' : '') +
-                                '<span>' + esc(it.label) + '</span></div>';
+                                '<span>' + esc(it.label + sinStock) + '</span></div>';
                         }).join('') + '</div>';
                 }
                 // 29-sep (8.3): «Lista con foto pequeña» = desplegable
@@ -134,8 +162,8 @@
                 // nativo no pinta imágenes); el select oculto conserva el
                 // valor y la validación, y el menú se regenera desde sus
                 // opciones al abrir (respeta kits/densidad/filtros).
-                if (mode === 'list_thumbs') {
-                    selHtml += '<div class="sel-imgdrop" data-for="' + name + '">' +
+                if (mode === 'list_thumbs' || mode === 'tabla') {
+                    selHtml += '<div class="sel-imgdrop' + (mode === 'tabla' ? ' sid-tabla' : '') + '" data-for="' + name + '">' +
                         '<button type="button" class="sid-toggle">' +
                         '<span class="sid-thumb"></span>' +
                         '<span class="sid-label">-- Seleccione uno --</span>' +
@@ -160,6 +188,12 @@
                 // no aceptan decimales ni desde el teclado.
                 var intAttr = f.type === 'integer' ? ' inputmode="numeric" data-int="1"' : '';
                 var inp = '<input type="number" step="' + step + '" min="0" name="' + name + '" class="form-control fld-input' + dimClass + '" value="' + esc(f.default || '') + '"' + req + ph + ro + intAttr + '>';
+                // Mejoras Sprint 1.1 (21-oct, fila 18): el máximo calculado
+                // va con el texto de Safra al lado.
+                if (f.code === 'quantity_lamas' && f.max_lamas && f.max_lamas_texto) {
+                    return '<div class="max-lamas-box">' + inp + '<p class="max-lamas-txt">' +
+                        esc(f.max_lamas_texto) + '</p></div>';
+                }
                 if (unit) {
                     return '<div class="input-group">' + inp + '<span class="input-group-text">' + esc(unit) + '</span></div>';
                 }
@@ -175,7 +209,7 @@
                 var roChar = f.code === 'ancho_telo' ? ' readonly' : '';
                 // 29-sep (16.2): los campos de comentarios se escriben en
                 // área de texto, no en una línea.
-                if ((f.code || '').indexOf('comentario') !== -1) {
+                if ((f.code || '').indexOf('comentario') !== -1 || f.code === 'description') {
                     return '<textarea name="' + name + '" class="form-control fld-input" rows="2"' + req + ph + '></textarea>';
                 }
                 return '<input type="text" name="' + name + '" class="form-control fld-input" value="' + esc(f.default || '') + '"' + req + ph + listAttr + roChar + '>';
@@ -196,8 +230,12 @@
             ' data-field="' + esc(f.code) + '"' +
             (f._flowlock ? ' data-flowlock="1"' : '') +
             (f.depends ? ' data-depends-field="' + esc(f.depends.field) + '" data-depends-value="' + esc(f.depends.value == null ? '' : f.depends.value) + '"' : '') +
-            (f.flag ? ' data-flag="' + esc(f.flag) + '"' : '');
+            (f.flag ? ' data-flag="' + esc(f.flag) + '"' : '') +
+            (f.fml ? ' data-fml="1"' : '');
         var help = f.help ? '<span class="safra-help">' + esc(f.help) + '</span>' : '';
+        // Ajustes 20 y 22-oct: avisos de las opciones con fórmula (riel o
+        // cenefa dividida, corte por paños…).
+        if (f.fml) help += '<div class="fml-aviso d-none"></div>';
         var note = f.note ? '<div class="safra-note">' + esc(f.note) + '</div>' : '';
         var cls = 'safra-row safra-field' + (f.required ? ' req' : '') + (f.highlight ? ' highlight' : '');
         return '<div class="' + cls + '"' + dataset + '>' +
@@ -355,30 +393,37 @@
         var img = new Image();
         img.onload = function () {
             URL.revokeObjectURL(url);
+            // Criterios del sistema (Diseño de impresión: aceptación de la imagen).
+            var crit = (card._safraConfig || {}).diseno || {};
+            var dpiMin = crit.dpi_min || DESIGN_DPI_MIN, dpiGood = crit.dpi_opt || DESIGN_DPI_GOOD;
+            var maxRatio = (crit.proporcion || 10) / 100;
             var msgs = ['Imagen de ' + img.naturalWidth + ' × ' + img.naturalHeight + ' px.'];
             var cls = 'alert-success';
             if (w && h) {
                 var dpi = Math.min(img.naturalWidth / (w * 39.3701), img.naturalHeight / (h * 39.3701));
                 msgs.push('Resolución efectiva para ' + w.toFixed(2) + ' × ' + h.toFixed(2) + ' m: ' + Math.round(dpi) + ' DPI.');
-                if (dpi < DESIGN_DPI_MIN) {
+                if (dpi < dpiMin) {
                     cls = 'alert-danger';
-                    msgs.push('Resolución baja para el tamaño de la persiana (mínimo recomendado ' + DESIGN_DPI_MIN + ' DPI): la impresión puede verse pixelada.');
-                } else if (dpi < DESIGN_DPI_GOOD) {
+                    msgs.push('Resolución baja para el tamaño de la persiana (mínimo recomendado ' + dpiMin + ' DPI): la impresión puede verse pixelada.');
+                } else if (dpi < dpiGood) {
                     cls = 'alert-warning';
-                    msgs.push('Resolución aceptable (recomendado ' + DESIGN_DPI_GOOD + ' DPI o más).');
+                    msgs.push('Resolución aceptable (recomendado ' + dpiGood + ' DPI o más).');
                 } else {
                     msgs.push('Resolución óptima para impresión.');
                 }
                 var ratioImg = img.naturalHeight ? img.naturalWidth / img.naturalHeight : 0;
                 var ratioBlind = w / h;
-                if (ratioBlind && Math.abs(ratioImg - ratioBlind) / ratioBlind > 0.10) {
+                if (ratioBlind && Math.abs(ratioImg - ratioBlind) / ratioBlind > maxRatio) {
                     if (cls === 'alert-success') cls = 'alert-warning';
                     msgs.push('La proporción de la imagen (' + ratioImg.toFixed(2) + ') no coincide con la de la persiana (' + ratioBlind.toFixed(2) + '): el diseño se recortará o deformará.');
                 }
             } else {
                 msgs.push('Digite ancho y alto para calcular la resolución efectiva.');
             }
-            out.innerHTML = '<div class="alert ' + cls + ' py-1 px-2 mt-1 mb-0">' + msgs.map(esc).join('<br>') + '</div>';
+            // Ajustes 20-oct (fila 80): el diseño propio ya no se restringe:
+            // el área de diseño lo revisa y lo ajusta; los datos son una guía.
+            msgs.unshift('El área de diseño revisará el archivo y lo ajustará a la medida de la persiana.');
+            out.innerHTML = '<div class="alert alert-info py-1 px-2 mt-1 mb-0">' + msgs.map(esc).join('<br>') + '</div>';
         };
         img.onerror = function () {
             URL.revokeObjectURL(url);
@@ -712,17 +757,19 @@
                 wrap.innerHTML = '<div class="alert alert-danger py-1 px-2 mt-1 mb-0">Sin configuraciones válidas ' + quien + '.' + detalle + '</div>';
                 return;
             }
+            // Mejoras Sprint 1.1 (21-oct, fila 16): «Elegir» en la primera
+            // columna para que se vea sin desplazar la tabla.
             var html = '<div class="lamas-table-scroll"><table class="lamas-table">' +
-                '<thead><tr><th>Telos</th><th>Riel (canales)</th><th>Izq + Der</th><th>Ancho telo</th><th>Apertura</th><th>Condición</th><th></th></tr></thead><tbody>';
+                '<thead><tr><th></th><th>Telos</th><th>Riel (canales)</th><th>Izq + Der</th><th>Ancho telo</th><th>Apertura</th><th>Condición</th></tr></thead><tbody>';
             rows.forEach(function (r, i) {
                 html += '<tr data-row="' + i + '" class="' + (r.codigo_condicion === 'riel_velcrado' ? 'velcrado' : '') + '">' +
+                    '<td><button type="button" class="btn-lamas-pick" data-row="' + i + '">Elegir</button></td>' +
                     '<td>' + r.total_telos + '</td>' +
                     '<td>' + r.canales + '</td>' +
                     '<td>' + (r.telos_izquierda == null ? 'Libre' : r.telos_izquierda + ' + ' + r.telos_derecha) + '</td>' +
                     '<td>' + r.ancho_telo_cm.toFixed(2) + ' cm</td>' +
                     '<td>' + esc(r.tipo_apertura) + '</td>' +
                     '<td>' + esc(r.condicion_especial) + '</td>' +
-                    '<td><button type="button" class="btn-lamas-pick" data-row="' + i + '">Elegir</button></td>' +
                     '</tr>';
             });
             html += '</tbody></table></div>';
@@ -746,7 +793,10 @@
                     if (apSel) apSel.dispatchEvent(new Event('change', { bubbles: true }));
                     restrictAperturaByCombos(card, idx);
                     // Fila 16 (09-oct): la combinación elegida fija su riel.
+                    // Con la misma apertura puede haber varias (p. ej. 7 telos
+                    // en riel 6 velcrado o en riel 7): manda la elegida.
                     card._combos = rows.filter(function (x) { return x.total_telos === r.total_telos; });
+                    card._comboElegido = r;
                     restrictRiel(card, idx, true);
                     setVal('ancho_telo', r.ancho_telo_cm.toFixed(2) + ' cm');
                     wrap.querySelectorAll('tr.selected').forEach(function (tr) { tr.classList.remove('selected'); });
@@ -787,11 +837,20 @@
             '        <div><strong>Ancho mínimo:</strong> <span class="pi-wmin">—</span></div>' +
             '        <div><strong>Ancho máximo:</strong> <span class="pi-wmax">—</span></div>' +
             '        <div><strong>Alto mínimo:</strong> <span class="pi-hmin">—</span></div>' +
-            '        <div><strong>Alto máximo:</strong> <span class="pi-hmax">—</span></div>' +
+            '        <div><strong>Alto máximo:</strong> <span class="pi-hmax">—</span>' +
+            '          <button type="button" class="pi-cuadro-btn d-none" title="Altos y pesos máximos con cada tubo" aria-label="Ver altos y pesos máximos con cada tubo">?</button></div>' +
             '      </div></div>' +
             '  </div></div><div></div></div>' +
+            // Revisión cálculo de tubo (27-oct, error 6): cuadro de altos y
+            // pesos máximos de cada tubo para estas medidas (botón «?»).
+            '<div class="safra-row pi-cuadrorow d-none"><div class="safra-label"></div>' +
+            '  <div class="safra-control"><div class="pi-cuadro"></div></div><div></div></div>' +
             '<div class="safra-row pi-warnrow d-none"><div class="safra-label"></div>' +
-            '  <div class="safra-control"><div class="pi-warnings"></div></div><div></div></div>';
+            '  <div class="safra-control"><div class="pi-warnings"></div></div><div></div></div>' +
+            // Acta del 30-oct (Tubo, punto 8): mensajes de las reglas de la
+            // ficha técnica en Validaciones (p. ej. el tubo sin existencias).
+            '<div class="safra-row pi-avisosrow d-none"><div class="safra-label"></div>' +
+            '  <div class="safra-control"><div class="pi-avisos-ficha safra-warn"></div></div><div></div></div>';
     }
 
     // Disponibilidad y precios: al final de la persiana, después de todo
@@ -829,7 +888,10 @@
             f._flowlock = telaSeq !== null && f.section_seq > telaSeq;
             // Revisión 17-sep (#19): la cantidad de lamas la calcula la
             // fórmula del máximo — el campo queda de solo lectura.
-            if (f.code === 'quantity_lamas' && config.max_lamas) f.max_lamas = true;
+            if (f.code === 'quantity_lamas' && config.max_lamas) {
+                f.max_lamas = true;
+                f.max_lamas_texto = config.max_lamas_texto || '';
+            }
             if (f.section_code !== prevSection) {
                 // Reunión 28-sep (fila 70): el Mecanismo es un cálculo que se
                 // muestra en la Ficha técnica, después de Motor y Cabezal
@@ -840,7 +902,7 @@
                     mechPlaced = true;
                 }
                 if (prevSection === 'tela' && !lockNotePlaced) {
-                    html += '<div class="flow-lock-note d-none"><i class="fa fa-lock"></i> Complete la tela (referencia y color disponibles) para habilitar el resto de la configuración.</div>';
+                    html += '<div class="flow-lock-note d-none"><i class="fa fa-lock"></i> ' + FLOW_LOCK_TELA + '</div>';
                     lockNotePlaced = true;
                 }
                 if (f.section) html += '<h3 class="safra-section-title">' + esc(f.section) + '</h3>';
@@ -863,10 +925,16 @@
         });
         if (!mechPlaced) html += '<h3 class="safra-section-title">FICHA TÉCNICA</h3>' + fichaHtml;
         html += priceInfoBlock();
-        // Comentarios (Safra Express pasó a nivel de pedido, revisión sprint 1)
-        html +=
-            '<div class="safra-row"><div class="safra-label">Comentarios</div>' +
-            '  <div class="safra-control"><textarea name="description_' + idx + '" class="form-control" rows="2"></textarea></div><div></div></div>';
+        // Comentarios (Safra Express pasó a nivel de pedido, revisión sprint 1).
+        // Sprint 1.5 (fila 121): si el sistema tiene el campo del catálogo,
+        // va en OTRAS OPCIONES y no se repite aquí.
+        // Ajustes 22-oct (fila 121): si el sistema tiene el campo pero está
+        // restringido a un grupo, el usuario fuera del grupo no lo ve.
+        if (config.comentarios_libres && !fields.some(function (f) { return f.code === 'description'; })) {
+            html +=
+                '<div class="safra-row"><div class="safra-label">Comentarios</div>' +
+                '  <div class="safra-control"><textarea name="description_' + idx + '" class="form-control" rows="2"></textarea></div><div></div></div>';
+        }
         return html;
     }
 
@@ -902,20 +970,66 @@
 
     // Fase 5.4b: valida SOLO esta persiana contra el motor del servidor
     // (remapeando sus campos al índice 0, que es lo que espera el parser).
-    function validateCard(card, done) {
+    var PEDIDO_CAMPOS = ['safra_express', 'es_exportacion', 'requiere_verificacion',
+                         'verificacion_observaciones'];
+
+    function cardData(card) {
         var idx = card.getAttribute('data-idx');
         var suffix = new RegExp('_' + idx + '$');
         var data = {};
         new FormData(document.getElementById('safra-quoter-form')).forEach(function (value, key) {
             if (value instanceof File) return;
             if (suffix.test(key)) data[key.replace(suffix, '_0')] = value;
+            // Sprint 1.6: lo marcado para todo el pedido (la verificación
+            // de fabricación vuelve advertencias las restricciones).
+            else if (PEDIDO_CAMPOS.indexOf(key) !== -1) data[key] = value;
         });
+        return data;
+    }
+
+    function validateCard(card, done) {
+        var data = cardData(card);
         // Validación de UNA línea: sin reglas cruzadas del pedido (el
         // alineado/secuencias/canales se validan al finalizar).
         data.single = 1;
         rpc('/cotizador/ajax/validar', data).then(function (issues) {
             done(issues || []);
         }).catch(function () { done([]); });
+    }
+
+    // Sprint 1.7: reglas «Al digitar un campo» (Configuración > Validaciones).
+    // El mensaje sale debajo del campo que la dispara y se quita cuando la
+    // regla deja de cumplirse.
+    var SEV_ALERT = { error: 'danger', warning: 'warning', info: 'info' };
+
+    function alertasPorSeveridad(issues, texto) {
+        return ['error', 'warning', 'info'].map(function (sev) {
+            var items = issues.filter(function (i) { return (SEV_ALERT[i.severity] ? i.severity : 'warning') === sev; });
+            if (!items.length) return '';
+            return '<div class="alert alert-' + SEV_ALERT[sev] + '"><ul class="mb-0">' +
+                items.map(function (i) { return '<li>' + esc(texto ? texto(i) : i.message) + '</li>'; }).join('') +
+                '</ul></div>';
+        }).join('');
+    }
+
+    function checkCampoRules(card, target) {
+        var campos = (card._safraConfig || {}).reglas_campo || [];
+        var row = target && target.closest && target.closest('.safra-field[data-field]');
+        if (!row || campos.indexOf(row.getAttribute('data-field')) === -1) return;
+        clearTimeout(row._reglaTimer);
+        row._reglaTimer = setTimeout(function () {
+            var data = cardData(card);
+            data.campo = row.getAttribute('data-field');
+            rpc('/cotizador/ajax/validar_campo', data).then(function (issues) {
+                var box = row.querySelector('.campo-reglas');
+                if (!box) {
+                    box = document.createElement('div');
+                    box.className = 'campo-reglas';
+                    (row.querySelector('.safra-control') || row).appendChild(box);
+                }
+                box.innerHTML = alertasPorSeveridad(issues || []);
+            }).catch(function () {});
+        }, 250);
     }
 
     function saveLine(card) {
@@ -937,17 +1051,7 @@
         }
         validateCard(card, function (issues) {
             var errors = issues.filter(function (i) { return i.severity === 'error'; });
-            var warnings = issues.filter(function (i) { return i.severity !== 'error'; });
-            var html = '';
-            if (errors.length) {
-                html += '<div class="alert alert-danger"><ul class="mb-0">' +
-                    errors.map(function (i) { return '<li>' + esc(i.message) + '</li>'; }).join('') + '</ul></div>';
-            }
-            if (warnings.length) {
-                html += '<div class="alert alert-warning"><ul class="mb-0">' +
-                    warnings.map(function (i) { return '<li>' + esc(i.message) + '</li>'; }).join('') + '</ul></div>';
-            }
-            box.innerHTML = html;
+            box.innerHTML = alertasPorSeveridad(issues);
             if (errors.length) {
                 box.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
@@ -966,7 +1070,11 @@
         if (old) old.remove();
         var bar = document.createElement('div');
         bar.id = 'line-next-prompt';
-        bar.innerHTML = '<span>Línea guardada. ¿Qué desea hacer?</span>' +
+        // Sprint 1.7: la línea guardada se recoge; sus advertencias e
+        // informaciones siguen a la vista en esta barra.
+        var avisos = card.querySelector('.line-errors');
+        bar.innerHTML = (avisos && avisos.innerHTML ? '<div class="np-avisos">' + avisos.innerHTML + '</div>' : '') +
+            '<span>Línea guardada. ¿Qué desea hacer?</span>' +
             '<button type="button" class="btn-safra-light" id="np-add"><i class="fa fa-plus"></i> Agregar otra línea</button>' +
             '<button type="button" class="btn-safra" id="np-finish"><i class="fa fa-paper-plane"></i> Finalizar pedido</button>';
         card.parentNode.insertBefore(bar, card.nextSibling);
@@ -1021,10 +1129,21 @@
             if (el) el.textContent = n + 1;
         });
     }
+    function expressFactor() {
+        var form = document.getElementById('safra-quoter-form');
+        var chk = form && form.querySelector('[name="safra_express"]');
+        var pct = parseFloat(form && form.getAttribute('data-express-pct')) || 0;
+        return chk && chk.checked ? 1 + pct / 100 : 1;
+    }
+
     function updateTotal() {
         var subtotal = 0;
         document.querySelectorAll('.pi-final').forEach(function (el) { subtotal += parseFloat(el.dataset.price || 0); });
-        var iva = subtotal * 0.19;
+        // Sprint 1.6 (fila 126): la exportación no lleva IVA.
+        var exp = document.querySelector('#safra-quoter-form [name="es_exportacion"]');
+        var iva = exp && exp.checked ? 0 : subtotal * 0.19;
+        var ivaLbl = document.getElementById('total-iva-lbl');
+        if (ivaLbl) ivaLbl.textContent = exp && exp.checked ? 'Impuestos (exportación, sin IVA):' : 'Impuestos (IVA 19%):';
         var set = function (sel, val) { var e = document.querySelector(sel); if (e) e.textContent = money(val); };
         set('#total-subtotal', subtotal);
         set('#total-iva', iva);
@@ -1041,16 +1160,35 @@
         return el.value;
     }
 
-    // depends_value admite lista separada por comas; prefijo '!' = distinto de; vacío = cualquier valor
-    function dependsMatch(actual, depVal) {
+    // depends_value admite lista separada por comas; prefijo '!' = ninguno
+    // de la lista; vacío = cualquier valor. Sprint 1.4: «ref:CÓDIGO» se
+    // cumple si la opción elegida es de esa referencia (campos de
+    // Referencias por categoría, p. ej. el Tipo de Cenefa).
+    function dependsMatch(actual, depVal, ref, eti) {
         actual = String(actual == null ? '' : actual);
         if (depVal == null || depVal === '') return actual !== '' && actual !== '0';
-        if (depVal.charAt(0) === '!') return actual !== depVal.slice(1);
-        return depVal.split(',').some(function (v) {
+        var negado = depVal.charAt(0) === '!';
+        var hit = (negado ? depVal.slice(1) : depVal).split(',').some(function (v) {
             v = v.trim();
             if (v === 'not-selected') return actual === '';
+            if (v.indexOf('ref:') === 0) return !!ref && actual !== '' && v.slice(4) === ref;
+            // Ajustes 20-oct (fila 94): por la etiqueta de la opción elegida.
+            if (v.indexOf('eti:') === 0) return !!eti && actual !== '' && normaliza(v.slice(4)).trim() === normaliza(eti).trim();
             return v === actual;
         });
+        return negado ? !hit : hit;
+    }
+
+    // Código de la referencia de la opción elegida en un campo (o '').
+    function fieldRef(card, code) {
+        var o = selectedOption(card, code);
+        return (o && o.getAttribute('data-ref')) || '';
+    }
+
+    // Etiqueta de la opción elegida en un campo (o '').
+    function fieldEti(card, code) {
+        var o = selectedOption(card, code);
+        return (o && (o.getAttribute('data-eti') || o.text)) || '';
     }
 
     // ---- Fase 5.4a: dependencias inteligentes (obs f55/f58-f60/f93/f96/f113) ----
@@ -1075,26 +1213,56 @@
         if (labels.indexOf(current) === -1) sel.value = '';
     }
 
+    // Telas elegidas en todo el pedido, en orden de las persianas. Con
+    // `conColor` cada una va como «Referencia Color» (Tela de Cenefa, fila
+    // 90 del Sprint 1.4); sin él, solo la referencia (Tela Cabezal Forrado).
+    function telasDelPedido(conColor) {
+        var labels = [];
+        document.querySelectorAll('#lines-container .safra-line .sel-fabric').forEach(function (f) {
+            if (!f.value) return;
+            var label = f.options[f.selectedIndex] && f.options[f.selectedIndex].text;
+            if (!label) return;
+            if (conColor) {
+                var line = f.closest('.safra-line');
+                var target = f.getAttribute('data-color-target');
+                var c = line && target && line.querySelector('select[name="' + target + '_' + line.getAttribute('data-idx') + '"]');
+                var color = c && c.value && c.options[c.selectedIndex] ? c.options[c.selectedIndex].text : '';
+                if (color) label += ' ' + color;
+            }
+            if (labels.indexOf(label) === -1) labels.push(label);
+        });
+        return labels;
+    }
+
     function smartDependencies(card) {
         var idx = card.getAttribute('data-idx');
 
-        // (f60/f93) Tela Cabezal Forrado: telas de TODO el pedido; Tela de
-        // Cenefa: telas elegidas en esta persiana.
+        // (f60/f93, fila 90) Telas elegidas en el pedido: Tela Cabezal
+        // Forrado solo la referencia; Tela de Cenefa referencia y color
+        // (Catálogo de campos, «Opciones: telas elegidas»).
         card.querySelectorAll('.sel-telas-pedido').forEach(function (sel) {
-            var isCabezal = sel.name.indexOf('cabezal_tela_') === 0;
-            var scope = isCabezal ? document : card;
-            var labels = [];
-            scope.querySelectorAll('.sel-fabric').forEach(function (f) {
-                if (!f.value) return;
-                var label = f.options[f.selectedIndex] && f.options[f.selectedIndex].text;
-                if (label && labels.indexOf(label) === -1) labels.push(label);
-            });
+            var labels = telasDelPedido(sel.getAttribute('data-telas-de') !== 'referencia');
             fillSelect(sel, labels, labels.length ? '-- Seleccione la tela --' : '-- Elija primero la tela de la persiana --');
-            // Sprint 1.3 (fila 62): al habilitarse, la tela del forrado
-            // arranca con la primera del pedido (se puede cambiar). Solo si
-            // el campo está a la vista: oculto no debe viajar con valor.
+            // Sprint 1.3 (fila 62) y 1.4 (fila 90): al habilitarse, la tela
+            // del forrado arranca con la primera del pedido (se puede
+            // cambiar). Solo si el campo está a la vista: oculto no debe
+            // viajar con valor.
+            // Barrido de la matriz (4-nov): si el cliente deja a propósito
+            // «Seleccione la tela», queda vacío (no se vuelve a llenar) y
+            // la regla de Validaciones lo pide; al ocultarse y volver a
+            // aparecer, arranca otra vez con la primera.
+            if (!sel._telaVaciaEscucha) {
+                sel._telaVaciaEscucha = true;
+                // «input» llega antes que «change» y ya recalcula el
+                // formulario: hay que anotarlo en los dos.
+                var anotar = function () { sel.dataset.vaciaElegida = sel.value ? '' : '1'; };
+                sel.addEventListener('input', anotar);
+                sel.addEventListener('change', anotar);
+            }
             var wrap = sel.closest('.safra-field');
-            if (isCabezal && !sel.value && labels.length && wrap && !wrap.classList.contains('d-none')) {
+            var visible = wrap && !wrap.classList.contains('d-none');
+            if (!visible) sel.dataset.vaciaElegida = '';
+            if (!sel.value && labels.length && visible && sel.dataset.vaciaElegida !== '1') {
                 sel.value = labels[0];
             }
         });
@@ -1129,6 +1297,29 @@
             var optCabezal = selectedOption(card, 'cabezal_tipo');
             var permite = optCabezal && optCabezal.getAttribute('data-forrado') !== '0';
             wrapForrado.classList.toggle('d-none', !permite);
+        }
+        // Sprint 1.4 (fila 89): ¿Cenefa forrada? solo si la cenefa elegida
+        // permite forrar (U_Forrado del producto). Con las opciones de
+        // catálogo (sin referencias de cenefa) manda la dependencia.
+        var wrapCenefaForrada = card.querySelector('.safra-field[data-field="cenefa_lined"]');
+        if (wrapCenefaForrada && !wrapCenefaForrada.classList.contains('d-none')) {
+            var optCenefa = selectedOption(card, 'cenefa_panel');
+            if (optCenefa && optCenefa.hasAttribute('data-forrado') &&
+                    optCenefa.getAttribute('data-forrado') !== '1') {
+                wrapCenefaForrada.classList.add('d-none');
+                // Oculta no debe quedar marcada (la Tela de Cenefa depende de ella).
+                var chk = wrapCenefaForrada.querySelector('input[type="checkbox"]');
+                if (chk && chk.checked) {
+                    chk.checked = false;
+                    var tg = chk.closest('.safra-toggle');
+                    if (tg) {
+                        tg.classList.remove('on');
+                        var txt = tg.querySelector('.safra-toggle-text');
+                        if (txt) txt.textContent = 'No';
+                    }
+                    evalConditionals(card);
+                }
+            }
         }
 
         // (f55) ¿Requiere Cargador?: si el motor viene del maestro, manda su
@@ -1189,9 +1380,18 @@
     // Revisión 17-sep: las secciones posteriores a TELA solo se habilitan
     // cuando la tela quedó completa (referencia + color elegidos, es decir,
     // con disponibilidad — los agotados no se pueden elegir).
+    // Revisión 30-oct: tampoco se sigue si la persiana no se puede fabricar
+    // con esa tela y esas medidas.
+    var FLOW_LOCK_TELA = 'Complete la tela (referencia y color disponibles) para habilitar el resto de la configuración.';
+    var FLOW_LOCK_CORTE = 'La persiana no se puede fabricar con esta tela y estas medidas: cambie la tela o las medidas para continuar.';
     function syncFlowLock(card) {
         var hasFabric = !!card.querySelector('select.sel-fabric');
-        var ready = !hasFabric || (!!fieldValue(card, 'fabric_id') && !!fieldValue(card, 'color_id'));
+        var telaLista = !hasFabric || (!!fieldValue(card, 'fabric_id') && !!fieldValue(card, 'color_id'));
+        // Reunión 09-nov (fila 74): con verificación de fabricación las
+        // restricciones no bloquean (planta las revisa): se sigue configurando.
+        var noFabricable = telaLista && !!(card._corte && card._corte.bloquea) &&
+            !conVerificacion(document.getElementById('safra-quoter-form'));
+        var ready = telaLista && !noFabricable;
         card.querySelectorAll('.safra-field[data-flowlock]').forEach(function (wrap) {
             wrap.classList.toggle('flow-locked', !ready);
             wrap.querySelectorAll('input, select, textarea, button').forEach(function (el) {
@@ -1204,13 +1404,16 @@
                     }
                     el.disabled = true;
                 } else if (el.dataset.flowDisabled !== undefined) {
-                    if (el.dataset.flowDisabled === '1') el.disabled = false;
+                    if (el.dataset.flowDisabled === '1' && el.dataset.lockSameHeader !== '1') el.disabled = false;
                     delete el.dataset.flowDisabled;
                 }
             });
         });
         var note = card.querySelector('.flow-lock-note');
-        if (note) note.classList.toggle('d-none', ready);
+        if (note) {
+            note.classList.toggle('d-none', ready);
+            note.innerHTML = '<i class="fa fa-lock"></i> ' + (noFabricable ? FLOW_LOCK_CORTE : FLOW_LOCK_TELA);
+        }
     }
 
     // Pendientes 24-sep (7.2/8.1): en los sistemas de Panel Track la
@@ -1231,24 +1434,32 @@
         // Pendiente 2 (Safra, 5-oct): una apertura sin fórmula configurada
         // (hoy la Apertura Libre) no se muestra; las que sí tienen fórmula
         // se muestran y quedan en gris cuando no salen en las combinaciones.
+        // Correo de Safra (19-oct): la Apertura Libre no sale en las
+        // combinaciones pero el cliente la puede escoger siempre; el
+        // servidor solo revisa el ancho de cada telo.
         var conFormula = (card._safraConfig || {}).aperturas_formula;
-        var sinFormula = function (code) { return !!(code && conFormula && conFormula.indexOf(code) === -1); };
+        var sinFormula = function (code) {
+            return !!(code && code !== 'libre' && conFormula && conFormula.indexOf(code) === -1);
+        };
+        var fuera = function (code, allowed) {
+            return !!(code && code !== 'libre' && allowed && allowed.indexOf(code) === -1);
+        };
         var apply = function (allowed) {
             Array.prototype.forEach.call(sel.options, function (op) {
                 var code = AP_COMBO[op.value];
                 if (!code) return;
                 op.hidden = sinFormula(code);
-                op.disabled = op.hidden || !!(allowed && allowed.indexOf(code) === -1);
+                op.disabled = op.hidden || fuera(code, allowed);
             });
             if (strip) strip.querySelectorAll('.opt-thumb').forEach(function (t) {
                 var code = AP_COMBO[t.getAttribute('data-value')];
                 t.hidden = sinFormula(code);
-                var off = !!(code && allowed && allowed.indexOf(code) === -1);
+                var off = fuera(code, allowed);
                 t.classList.toggle('opt-thumb-disabled', off);
                 if (off) t.title = 'No se puede fabricar con estas medidas y telos';
             });
             var cur = AP_COMBO[sel.value];
-            if ((allowed && cur && allowed.indexOf(cur) === -1) || sinFormula(cur)) {
+            if (fuera(cur, allowed) || sinFormula(cur)) {
                 sel.value = '';
                 if (strip) strip.querySelectorAll('.opt-thumb.sel').forEach(function (t) { t.classList.remove('sel'); });
                 sel.dispatchEvent(new Event('change', { bubbles: true }));
@@ -1262,6 +1473,11 @@
                                              system_id: (card.querySelector('.sel-system') || {}).value || null }).then(function (res) {
             var rows = (res && res.rows) || (Array.isArray(res) ? res : []);
             card._combos = rows;
+            // Sprint 1.5 (fila 98): el Ancho del Telo se calcula con los
+            // telos digitados (es el mismo para todas las aperturas), sin
+            // esperar a que se pulse «Elegir».
+            var anchoTelo = card.querySelector('[name="ancho_telo_' + idx + '"]');
+            if (anchoTelo) anchoTelo.value = rows.length ? rows[0].ancho_telo_cm.toFixed(2) + ' cm' : '';
             apply(rows.length ? rows.map(function (r) { return r.codigo_apertura; }) : null);
             restrictRiel(card, idx);
         }).catch(function () { card._combos = []; apply(null); restrictRiel(card, idx); });
@@ -1278,19 +1494,90 @@
         var m = t.match(/(\d+)\s*v[ií]as/);
         return m ? parseInt(m[1], 10) : null;
     }
+    // Sprint 1.5 (fila 99): un riel desde Referencias trae sus vías y la
+    // marca Velcrado; las opciones de siempre se leen por la etiqueta.
+    function rielInfoOpt(op) {
+        if (op.getAttribute('data-velcrado') === '1') return 'velcrado';
+        var c = parseInt(op.getAttribute('data-canales'), 10);
+        return c ? c : rielInfo(op.text);
+    }
+    function rielNombre(riel) {
+        return riel === 'velcrado' ? 'Riel Velcrado' : 'riel de ' + riel + ' vías';
+    }
+    // «Auto» usa el riel de la combinación de telos y apertura: el portal
+    // lo muestra bajo el campo.
+    function syncRielAuto(card, idx, riel) {
+        var sel = card.querySelector('[name="riel_tipo_' + idx + '"]');
+        if (!sel || sel.tagName !== 'SELECT') return;
+        var ctl = sel.closest('.safra-control');
+        var info = ctl && ctl.querySelector('.riel-auto-info');
+        var op = sel.options[sel.selectedIndex];
+        var esAuto = !!(op && op.value && rielInfoOpt(op) === null && /auto/i.test(op.text));
+        if (!esAuto) { if (info) info.remove(); return; }
+        if (!info && ctl) {
+            info = document.createElement('div');
+            info.className = 'riel-auto-info safra-help';
+            ctl.appendChild(info);
+        }
+        if (info) info.textContent = riel ? 'Auto: se usará el ' + rielNombre(riel) + ' de la combinación.'
+                                          : 'Auto: el riel se toma de la combinación (elija telos y apertura).';
+    }
     function restrictRiel(card, idx, pick) {
         var sel = card.querySelector('[name="riel_tipo_' + idx + '"]');
         if (!sel || sel.tagName !== 'SELECT' || !card.querySelector('[name="tamano_traslape_' + idx + '"]')) return;
         var opts = Array.prototype.slice.call(sel.options).filter(function (o) { return o.value; });
-        if (!opts.some(function (o) { return typeof rielInfo(o.text) === 'number'; })) return;
+        if (!opts.some(function (o) { return typeof rielInfoOpt(o) === 'number'; })) return;
         var ap = AP_COMBO[fieldValue(card, 'apertura')];
-        var fila = ap && (card._combos || []).filter(function (r) { return r.codigo_apertura === ap; })[0];
-        var riel = fila ? (fila.codigo_condicion === 'riel_velcrado' ? 'velcrado' : fila.canales) : null;
+        var rielDe = function (r) { return r.codigo_condicion === 'riel_velcrado' ? 'velcrado' : r.canales; };
+        // La combinación elegida en la tabla manda; sin elegir, si la
+        // apertura tiene varias combinaciones con rieles distintos, se
+        // permiten esos rieles (y si es uno solo, se elige).
+        var filas = ap ? (card._combos || []).filter(function (r) { return r.codigo_apertura === ap; }) : [];
+        var elegida = card._comboElegido;
+        var fila = (elegida && elegida.codigo_apertura === ap && filas.some(function (r) {
+            return r.total_telos === elegida.total_telos && rielDe(r) === rielDe(elegida);
+        })) ? elegida : null;
+        var riel = fila ? rielDe(fila) : null;
+        var varios = null;
+        if (!fila && filas.length) {
+            var rs = [];
+            filas.forEach(function (r) { if (rs.indexOf(rielDe(r)) === -1) rs.push(rielDe(r)); });
+            if (rs.length === 1) riel = rs[0];
+            else varios = rs;
+        }
+        // Mejoras Sprint 1.1 (21-oct, fila 16): la Apertura Libre no está en
+        // la tabla, pero el riel sigue limitado a los de las combinaciones
+        // posibles para esos telos (si hay un solo riel, se elige solo).
+        var libres = null;
+        if (ap === 'libre' && (card._combos || []).length) {
+            libres = [];
+            card._combos.forEach(function (r) { if (libres.indexOf(rielDe(r)) === -1) libres.push(rielDe(r)); });
+            if (libres.length === 1) riel = libres[0];
+        }
+        if (!libres && varios) libres = varios;
+        // El riel de la combinación sin opción en Tipo de Riel (p. ej. riel
+        // de 7 vías): ni «Auto» puede usarlo; el campo queda por elegir.
+        var falta = !!(riel && !opts.some(function (o) { return rielInfoOpt(o) === riel; }));
         var fuera = function (op) {
-            var info = rielInfo(op.text);
+            var info = rielInfoOpt(op);
+            if (falta) return true;
+            if (libres && info !== null) return libres.indexOf(info) === -1;
             return !!(riel && info !== null && info !== riel);
         };
         opts.forEach(function (op) { op.disabled = fuera(op); });
+        var ctlRiel = sel.closest('.safra-control');
+        var avisoRiel = ctlRiel && ctlRiel.querySelector('.riel-falta-info');
+        if (falta && ctlRiel) {
+            if (!avisoRiel) {
+                avisoRiel = document.createElement('div');
+                avisoRiel.className = 'riel-falta-info safra-aviso-nodisp';
+                ctlRiel.appendChild(avisoRiel);
+            }
+            avisoRiel.textContent = 'La combinación elegida usa el ' + rielNombre(riel) +
+                ', que no está entre las opciones de Tipo de Riel: elija otra combinación.';
+        } else if (avisoRiel) {
+            avisoRiel.remove();
+        }
         var strip = card.querySelector('.opt-thumbs[data-for="riel_tipo_' + idx + '"]');
         if (strip) strip.querySelectorAll('.opt-thumb').forEach(function (t) {
             var op = opts.filter(function (o) { return o.value === t.getAttribute('data-value'); })[0];
@@ -1299,7 +1586,7 @@
             t.title = off ? 'No corresponde al riel de la combinación' : '';
         });
         var cur = opts.filter(function (o) { return o.value === sel.value; })[0];
-        var target = riel && opts.filter(function (o) { return rielInfo(o.text) === riel; })[0];
+        var target = riel && opts.filter(function (o) { return rielInfoOpt(o) === riel; })[0];
         if ((cur && cur.disabled) || (pick && target) || (!sel.value && target)) {
             var nuevo = target ? target.value : '';
             if (nuevo !== sel.value) {
@@ -1310,34 +1597,140 @@
                 sel.dispatchEvent(new Event('change', { bubbles: true }));
             }
         }
+        syncRielAuto(card, idx, riel);
     }
 
-    // Pendientes 24-sep (12.1/12.2): con tela atravesable y ancho mayor al
-    // rollo, se avisa el corte atravesado y aparece la aceptación; en
-    // cualquier otro caso el campo permanece oculto.
-    function syncCorteAtravesado(card) {
-        var idx = card.getAttribute('data-idx');
-        var wrap = card.querySelector('.safra-field[data-field="acepta_atravesado"]');
+    // Sprint 1.5 (fila 118): opciones con fórmula (p. ej. los dobladillos
+    // que caben en el rollo). El servidor evalúa las fórmulas con los datos
+    // de la persiana; la respuesta se aplica en evalConditionals.
+    function syncOpcionesFormula(card) {
+        if (!card.querySelector('option[data-fml], .safra-field[data-fml]')) return;
+        clearTimeout(card._fmlTimer);
+        card._fmlTimer = setTimeout(function () {
+            rpc('/cotizador/ajax/opciones_formula', {
+                system_id: (card.querySelector('.sel-system') || {}).value || null,
+                campos: camposLinea(card),
+            }).then(function (res) {
+                card._optFormula = (res && res.opciones) || {};
+                card._optAuto = (res && res.auto) || {};
+                card._optAvisos = (res && res.avisos) || {};
+                card._optMaximos = (res && res.maximos) || {};
+                evalConditionals(card);
+            }).catch(function () { /* sin respuesta: se ofrecen todas */ });
+        }, 250);
+    }
+
+    // Sprint 1.5 (fila 104): con motor no hay cadena ni cordón extra — el
+    // campo se oculta (y se limpia) si la persiana lleva motor.
+    function syncExtraCadena(card) {
+        var wrap = card.querySelector('.safra-field[data-field="extra_chain"]');
         if (!wrap) return;
-        var f = fabricsById[fieldValue(card, 'fabric_id')] || {};
-        var w = parseFloat((card.querySelector('[name="width_' + idx + '"]') || {}).value) || 0;
-        var cond = (f.pierceable_type === 'si' || f.pierceable_type === 'si_cliente') &&
-            f.rollo > 0 && w > f.rollo;
-        wrap.dataset.forceHide = cond ? '0' : '1';
-        var note = wrap.querySelector('.corte-atravesado-note');
-        if (cond) {
-            if (!note) {
-                note = document.createElement('div');
-                note.className = 'corte-atravesado-note safra-warn';
-                wrap.appendChild(note);
-            }
-            note.innerHTML = '<span class="safra-warn-ico">⚠</span><span>' +
-                'Con este ancho la tela <b>se cortará atravesada</b> ' +
-                '(ancho del rollo: ' + f.rollo.toFixed(2).replace('.', ',') + ' m). ' +
-                'Marque la aceptación para continuar.</span>';
-        } else if (note) {
-            note.remove();
+        var motor = fieldValue(card, 'motor');
+        var conMotor = fieldValue(card, 'has_motor') === '1' || !!(motor && motor !== '0' && motor !== 'sin');
+        wrap.dataset.forceHide = conMotor ? '1' : '0';
+    }
+
+    // Pendientes 24-sep (12.1/12.2) y revisión 30-oct: el tipo de corte de
+    // la tela y los mensajes de sus reglas en Validaciones (no fabricable,
+    // añadido, corte atravesado) los calcula el servidor mientras se digita.
+    // La aceptación del corte atravesado solo aparece si la tela se va a
+    // atravesar (también con añadido); si la persiana no se puede fabricar
+    // no aparece y el resto de la configuración queda bloqueada. Los avisos
+    // van después del Coordinado (revisión 29-oct).
+    function syncCorteAtravesado(card) {
+        pedirCorte(card);
+        var corte = card._corte || {};
+        var wrap = card.querySelector('.safra-field[data-field="acepta_atravesado"]');
+        // Reunión 30-oct (fila 143): en cortinas el check acepta el corte por paños.
+        if (wrap) wrap.dataset.forceHide = ['atravesado', 'anadido', 'panos'].indexOf(corte.tipo) !== -1 ? '0' : '1';
+        var avisos = corte.avisos || [];
+        var note = card.querySelector('.corte-atravesado-note');
+        if (!avisos.length) {
+            if (note) note.remove();
+            return;
         }
+        // Reunión 3-nov: si el corte pide aceptación, el aviso va debajo del
+        // check (así se ve a qué se refiere); si no, después de Coordinado.
+        var conCheck = wrap && wrap.dataset.forceHide === '0';
+        var ancla = (conCheck && wrap) || card.querySelector('.safra-field[data-field="coordinado"]') || wrap ||
+            card.querySelector('.safra-field[data-field="color_id"]');
+        if (!ancla) return;
+        if (!note) {
+            note = document.createElement('div');
+            note.className = 'corte-atravesado-note safra-warn';
+        }
+        if (note.previousElementSibling !== ancla) ancla.insertAdjacentElement('afterend', note);
+        note.innerHTML = '<span class="safra-warn-ico">⚠</span><span>' +
+            avisos.map(function (a) { return esc(a.message); }).join('<br/>') + '</span>';
+    }
+
+    // Lo que se envía para el corte: la persiana completa, también lo que
+    // el bloqueo de flujo dejó deshabilitado (FormData lo omite).
+    function datosCorte(card) {
+        var data = cardData(card);
+        var suffix = new RegExp('_' + card.getAttribute('data-idx') + '$');
+        card.querySelectorAll('[data-flow-disabled="1"][name]').forEach(function (el) {
+            if ((el.type === 'checkbox' || el.type === 'radio') && !el.checked) return;
+            if (suffix.test(el.name)) data[el.name.replace(suffix, '_0')] = el.value;
+        });
+        return data;
+    }
+
+    // Acta del 30-oct (Tubo, punto 8): los avisos de la ficha técnica salen
+    // de sus reglas de Validaciones (mensaje y severidad del menú).
+    function syncAvisosFicha(card) {
+        var row = card.querySelector('.pi-avisosrow');
+        var box = card.querySelector('.pi-avisos-ficha');
+        if (!row || !box) return;
+        var avisos = (card._corte || {}).avisos_ficha || [];
+        row.classList.toggle('d-none', !avisos.length);
+        box.innerHTML = avisos.length ? '<span class="safra-warn-ico">⚠</span><span>' +
+            avisos.map(function (a) { return esc(a.message); }).join('<br/>') + '</span>' : '';
+    }
+
+    function pedirCorte(card) {
+        var data = datosCorte(card);
+        var clave = JSON.stringify(data);
+        if (card._corteClave === clave) return;
+        card._corteClave = clave;
+        clearTimeout(card._corteTimer);
+        card._corteTimer = setTimeout(function () {
+            rpc('/cotizador/ajax/corte_tela', data).then(function (res) {
+                if (card._corteClave !== clave) return;
+                card._corte = res || {};
+                evalConditionals(card);
+                syncAvisosFicha(card);
+            }).catch(function () {});
+        }, 250);
+    }
+
+    // Ajustes Sprint 1.6 (26-oct, fila 160): la U_Observación del color
+    // elegido se lee debajo del corte atravesable (o del color, si el
+    // sistema no tiene ese campo).
+    function syncObservacion(card) {
+        var idx = card.getAttribute('data-idx');
+        var sel = card.querySelector('[name="color_id_' + idx + '"]');
+        var op = sel && sel.selectedIndex >= 0 ? sel.options[sel.selectedIndex] : null;
+        var texto = (op && sel.value && op.getAttribute('data-obs')) || '';
+        var note = card.querySelector('.safra-observacion-note');
+        if (!texto) {
+            if (note) note.remove();
+            return;
+        }
+        var ancla = card.querySelector('.safra-field[data-field="acepta_atravesado"]') ||
+            card.querySelector('.safra-field[data-field="atravesar_tela"]') ||
+            (sel && sel.closest('.safra-field'));
+        if (!ancla) return;
+        // Reunión 3-nov: el aviso del corte puede ir debajo del mismo check;
+        // la observación va después de él.
+        var corteNote = card.querySelector('.corte-atravesado-note');
+        if (corteNote && corteNote.previousElementSibling === ancla) ancla = corteNote;
+        if (!note) {
+            note = document.createElement('div');
+            note.className = 'safra-observacion-note safra-warn';
+        }
+        if (note.previousElementSibling !== ancla) ancla.insertAdjacentElement('afterend', note);
+        note.innerHTML = '<span class="safra-warn-ico">ℹ</span><span>' + esc(texto) + '</span>';
     }
 
     // 29-sep (8.3): visor de imagen — toda opción con imagen se puede
@@ -1369,6 +1762,10 @@
         var sel = document.querySelector('[name="' + drop.getAttribute('data-for') + '"]');
         var menu = drop.querySelector('.sid-menu');
         if (!sel || !menu) return;
+        if (drop.classList.contains('sid-tabla')) {
+            menu.innerHTML = sidTablaHtml(drop, sel);
+            return;
+        }
         menu.innerHTML = Array.prototype.map.call(sel.options, function (op) {
             if (op.hidden) return '';
             var img = op.getAttribute('data-img');
@@ -1378,6 +1775,35 @@
                 '<span class="sid-thumb">' + (img ? '<img loading="lazy" src="' + esc(img) + '" alt=""/>' : '') + '</span>' +
                 '<span>' + esc(op.text) + '</span></div>';
         }).join('');
+    }
+    // Revisión 30-oct (Dobladillo o Bajo falso): columnas Alto máximo
+    // (ancho del rollo + riel − dobladillo superior − consumo, calculado en el
+    // servidor), la opción y si aplica con el alto pedido (su fórmula).
+    function sidTablaHtml(drop, sel) {
+        var card = drop.closest('.safra-line');
+        var idx = card ? card.getAttribute('data-idx') : '';
+        var code = sel.name.replace(/_\d+$/, '');
+        var maximos = ((card && card._optMaximos) || {})[code] || {};
+        var alto = parseFloat(((card && card.querySelector('[name="height_' + idx + '"]')) || {}).value) || 0;
+        var m = function (v) { return v.toFixed(3).replace('.', ',') + ' m'; };
+        var html = '<div class="sid-head"><span>Alto máximo</span><span>Opción</span>' +
+            '<span>¿Aplica' + (alto ? ' con ' + m(alto) : '') + '?</span></div>';
+        Array.prototype.forEach.call(sel.options, function (op) {
+            if (op.hidden && !op.hasAttribute('data-fml-off')) return;
+            if (!op.value) {
+                html += '<div class="sid-item' + (sel.value ? '' : ' sid-sel') + '" data-value="">' +
+                    '<span></span><span>' + esc(op.text) + '</span><span></span></div>';
+                return;
+            }
+            var max = maximos[op.value];
+            var aplica = !op.disabled;
+            html += '<div class="sid-item' + (aplica ? '' : ' sid-off') +
+                (op.value === sel.value ? ' sid-sel' : '') + '" data-value="' + esc(op.value) + '">' +
+                '<span class="sid-max">' + (max ? m(max) : '—') + '</span>' +
+                '<span>' + esc(op.text) + '</span>' +
+                '<span class="sid-aplica ' + (aplica ? 'si' : 'no') + '">' + (aplica ? 'Sí' : 'No') + '</span></div>';
+        });
+        return html;
     }
     document.addEventListener('click', function (e) {
         var openMenus = document.querySelectorAll('.sel-imgdrop .sid-menu:not(.d-none)');
@@ -1406,7 +1832,8 @@
     });
     // El valor puede cambiar por fuera (applyValues, filtros): reflejarlo.
     document.addEventListener('change', function (e) {
-        if (e.target.getAttribute && e.target.getAttribute('data-display') === 'list_thumbs') {
+        var modo = e.target.getAttribute && e.target.getAttribute('data-display');
+        if (modo === 'list_thumbs' || modo === 'tabla') {
             var drop = document.querySelector('.sel-imgdrop[data-for="' + e.target.name + '"]');
             if (drop) sidSync(drop);
         }
@@ -1487,15 +1914,18 @@
         syncColorUnique(card);
         syncFlowLock(card);
         syncCorteAtravesado(card);
+        syncObservacion(card);
         syncTexturable(card);
         syncPlanoFields(card);
         syncSegmentoLinea(card);
+        syncExtraCadena(card);
         var fabFlags = (fabricsById[fieldValue(card, 'fabric_id')]) || {};
         var cleared = false;
         card.querySelectorAll('.safra-field').forEach(function (wrap) {
             var show = true;
             var depField = wrap.getAttribute('data-depends-field');
-            if (depField) show = dependsMatch(fieldValue(card, depField), wrap.getAttribute('data-depends-value'));
+            if (depField) show = dependsMatch(fieldValue(card, depField), wrap.getAttribute('data-depends-value'),
+                                              fieldRef(card, depField), fieldEti(card, depField));
             var flag = wrap.getAttribute('data-flag');
             if (show && flag) show = !!fabFlags[flag];
             // Ocultamiento forzado por lógica propia (corte atravesado).
@@ -1524,6 +1954,18 @@
             }
             wrap.dataset.vis = show ? '1' : '0';
             wrap.classList.toggle('d-none', !show);
+            // 4-nov (COT-SAF-00111): un campo oculto no es obligatorio; si
+            // lo fuera, el navegador no deja enviar «Finalizar pedido» y no
+            // dice por qué (no puede mostrarlo). Al reaparecer, vuelve a serlo.
+            wrap.querySelectorAll('[required], [data-req-oculto]').forEach(function (el) {
+                if (!show && el.required) {
+                    el.required = false;
+                    el.dataset.reqOculto = '1';
+                } else if (show && el.dataset.reqOculto) {
+                    el.required = true;
+                    delete el.dataset.reqOculto;
+                }
+            });
         });
         // Las limpiezas pueden destapar otras dependencias en cadena.
         if (cleared && !card._safraReeval) {
@@ -1543,6 +1985,63 @@
             op.disabled = blocked;
             if (blocked && op.selected) op.parentNode.value = '';
         });
+        // Sprint 1.5 (filas 97 y 112): opciones que dependen de otro campo
+        // (Posición Telo Fijo según la apertura, curva «Más de 50 cm» solo
+        // en Plano U). Si la elegida deja de aplicar, se borra.
+        // Fila 118: las opciones con fórmula se ofrecen según la respuesta
+        // del servidor (card._optFormula); mientras no llega, se muestran.
+        var optCleared = false;
+        var porFormula = card._optFormula || {};
+        // Reunión 15-oct: opciones solo con ciertas telas (fila 50, p. ej.
+        // perfiles) o solo con ciertos tubos (fila 68, p. ej. el cabezal
+        // cuadrado con R8 y R16); el tubo es el que calculó la ficha técnica.
+        var telasLinea = [fieldValue(card, 'fabric_id'), fieldValue(card, 'fabric_id_2')].filter(Boolean);
+        var tuboLinea = ((card._tubo && card._tubo.efectivo) || '').trim().toLowerCase();
+        card.querySelectorAll('option[data-dep-field], option[data-fml], option[data-telas], option[data-sin-telas], option[data-tubos]').forEach(function (op) {
+            var depField = op.getAttribute('data-dep-field');
+            var ok = !depField || dependsMatch(fieldValue(card, depField), op.getAttribute('data-dep-value'),
+                                               fieldRef(card, depField), fieldEti(card, depField));
+            var code = (op.parentNode.name || '').replace(/_\d+$/, '');
+            var okFml = true;
+            if (ok && op.getAttribute('data-fml') === '1' && porFormula[code]) {
+                ok = okFml = porFormula[code].indexOf(op.value) !== -1;
+            }
+            // Revisión 30-oct: la lista de dobladillos muestra en «No» las que
+            // la fórmula no ofrece (las demás ocultas no salen).
+            op.toggleAttribute('data-fml-off', !okFml);
+            var telasOp = op.getAttribute('data-telas');
+            if (ok && telasOp && telasLinea.length) {
+                ok = telasOp.split(',').some(function (t) { return telasLinea.indexOf(t) !== -1; });
+            }
+            // Reunión 28-oct (fila 50): el perfil sirve con todas las telas
+            // menos sus no compatibles (p. ej. telas gruesas en un perfil redondo).
+            var sinTelasOp = op.getAttribute('data-sin-telas');
+            if (ok && sinTelasOp && telasLinea.length) {
+                ok = !sinTelasOp.split(',').some(function (t) { return telasLinea.indexOf(t) !== -1; });
+            }
+            var tubosOp = op.getAttribute('data-tubos');
+            if (ok && tubosOp && tuboLinea) {
+                ok = tubosOp.split('|').some(function (t) { return t.trim().toLowerCase() === tuboLinea; });
+            }
+            op.hidden = !ok;
+            op.disabled = !ok;
+            var sel = op.parentNode;
+            var strip = sel && card.querySelector('.opt-thumbs[data-for="' + sel.name + '"]');
+            if (strip) strip.querySelectorAll('.opt-thumb').forEach(function (th) {
+                if (th.getAttribute('data-value') === op.value) th.classList.toggle('d-none', !ok);
+            });
+            if (!ok && op.selected && sel.value) { sel.value = ''; optCleared = true; }
+        });
+        if (optCleared && !card._safraReeval) {
+            card._safraReeval = true;
+            try { evalConditionals(card); } finally { card._safraReeval = false; }
+            return;
+        }
+        if (aplicarAutoYAvisos(card) && !card._safraReeval) {
+            card._safraReeval = true;
+            try { evalConditionals(card); } finally { card._safraReeval = false; }
+            return;
+        }
         // Un título de sección se oculta si todos sus campos quedaron ocultos
         // (ej: DISEÑO DE IMPRESIÓN con una tela no estampable).
         card.querySelectorAll('.safra-section-title').forEach(function (title) {
@@ -1556,6 +2055,119 @@
             }
             title.classList.toggle('d-none', !any);
         });
+        syncSumaSegmentos(card);
+        syncSinStock(card);
+    }
+
+    // Acta del 30-oct (Tubo, punto 8): las opciones sin existencias se ven en
+    // gris con «(sin stock)», como las telas, y no se pueden elegir aunque
+    // otra regla del formulario las vuelva a habilitar.
+    var SIN_STOCK = ' (sin stock)';
+    function syncSinStock(card) {
+        card.querySelectorAll('option[data-sin-stock]').forEach(function (op) {
+            op.disabled = true;
+            var sel = op.parentNode;
+            var strip = sel && card.querySelector('.opt-thumbs[data-for="' + sel.name + '"]');
+            if (strip) strip.querySelectorAll('.opt-thumb').forEach(function (th) {
+                if (th.getAttribute('data-value') === op.value) th.classList.add('opt-thumb-disabled');
+            });
+        });
+    }
+
+    // Reunión 22-oct (fila 101): mientras se digitan los segmentos del Riel
+    // curvo, debajo del último se muestra cuánto suman frente al ancho (la
+    // misma cuenta de E20036 al guardar).
+    var SEGMENTOS_PLANO = {
+        LID: ['segmento_1', 'segmento_2'],
+        U: ['segmento_1_u', 'segmento_2', 'segmento_3'],
+    };
+    function syncSumaSegmentos(card) {
+        var idx = card.getAttribute('data-idx');
+        var old = card.querySelector('.seg-suma');
+        if (old) old.remove();
+        var plano = fieldValue(card, 'tipoplano_cortina');
+        var codes = SEGMENTOS_PLANO[plano];
+        if (!codes) return;
+        var num = function (code) {
+            return parseFloat(String(fieldValue(card, code) || '0').replace(',', '.')) || 0;
+        };
+        var medida = function (code) {
+            return fieldValue(card, code) === 'mas' ? num(code + '_m') : num(code);
+        };
+        var ancho = parseFloat((card.querySelector('[name="width_' + idx + '"]') || {}).value) || 0;
+        var partes = codes.map(medida);
+        var suma = partes.reduce(function (a, b) { return a + b; }, 0);
+        var ultimo = null;
+        codes.concat(codes.map(function (c) { return c + '_m'; })).forEach(function (c) {
+            var w = card.querySelector('.safra-field[data-field="' + c + '"]');
+            if (w && !w.classList.contains('d-none') &&
+                    (!ultimo || (ultimo.compareDocumentPosition(w) & Node.DOCUMENT_POSITION_FOLLOWING))) ultimo = w;
+        });
+        if (!ultimo || !ancho || !suma) return;
+        var m = function (v) { return v.toFixed(2).replace('.', ',') + ' m'; };
+        var dif = Math.round((ancho - suma) * 1000) / 1000;
+        var box = document.createElement('div');
+        if (Math.abs(dif) <= 0.005) {
+            box.className = 'seg-suma ok';
+            box.textContent = 'Los segmentos suman el ancho: ' + m(suma) + '.';
+        } else {
+            box.className = 'seg-suma ' + (dif < 0 || partes.every(Boolean) ? 'mal' : '');
+            box.textContent = 'El ancho es ' + m(ancho) + ' y los segmentos suman ' + m(suma) +
+                (dif > 0 ? ': faltan ' + m(dif) + '.' : ': sobran ' + m(-dif) + '.');
+        }
+        (ultimo.querySelector('.safra-control') || ultimo).appendChild(box);
+    }
+
+    // Ajustes 20 y 22-oct: la opción que «se elige sola» por su fórmula
+    // (riel o cenefa dividida si el ancho supera el máximo, cenefa añadida
+    // si supera el rollo) queda elegida y las demás bloqueadas; los avisos
+    // se muestran bajo el campo. Fila 87: si por las dependencias queda una
+    // sola opción, se elige. Devuelve true si cambió algún valor.
+    function aplicarAutoYAvisos(card) {
+        var idx = card.getAttribute('data-idx');
+        var auto = card._optAuto || {}, avisos = card._optAvisos || {};
+        var cambio = false;
+        card.querySelectorAll('.safra-field[data-fml]').forEach(function (wrap) {
+            var code = wrap.getAttribute('data-field');
+            var sel = wrap.querySelector('select[name="' + code + '_' + idx + '"]');
+            var visible = !wrap.classList.contains('d-none');
+            var elegida = visible && auto[code];
+            if (sel) {
+                Array.prototype.forEach.call(sel.options, function (op) {
+                    if (op.dataset.autoLock === '1') { op.disabled = false; delete op.dataset.autoLock; }
+                    if (elegida && op.value && op.value !== elegida && !op.disabled) {
+                        op.disabled = true;
+                        op.dataset.autoLock = '1';
+                    }
+                });
+                if (elegida && sel.value !== elegida &&
+                        Array.prototype.some.call(sel.options, function (o) { return o.value === elegida; })) {
+                    sel.value = elegida;
+                    cambio = true;
+                }
+            }
+            var box = wrap.querySelector('.fml-aviso');
+            if (box) {
+                var textos = visible ? (avisos[code] || []) : [];
+                box.innerHTML = textos.map(function (t) { return '<div>' + esc(t) + '</div>'; }).join('');
+                box.classList.toggle('d-none', !textos.length);
+            }
+        });
+        card.querySelectorAll('select').forEach(function (sel) {
+            if (sel.value || !sel.querySelector('option[data-dep-field]')) return;
+            var wrap = sel.closest('.safra-field');
+            if (!wrap || wrap.classList.contains('d-none')) return;
+            var libres = Array.prototype.filter.call(sel.options, function (o) {
+                return o.value && !o.disabled && !o.hidden;
+            });
+            // Revisión 30-oct: solo si la que queda depende de otro campo; una
+            // opción sin dependencia (Plano U del Riel curvo) no se elige sola
+            // porque las demás estén ocultas.
+            if (libres.length === 1 && libres[0].hasAttribute('data-dep-field')) {
+                sel.value = libres[0].value; cambio = true;
+            }
+        });
+        return cambio;
     }
 
     function loadColorsFor(card, selFabric) {
@@ -1576,6 +2188,7 @@
             (colors || []).forEach(function (c) {
                 var off = c.available === false;
                 html += '<option value="' + esc(c.id) + '" data-code="' + esc(c.code || '') + '"' +
+                    (c.obs ? ' data-obs="' + esc(c.obs) + '"' : '') +
                     (off ? ' disabled' : '') + '>' + esc(c.name) + (off ? ' (sin stock)' : '') + '</option>';
             });
             selColor.innerHTML = html; selColor.disabled = false;
@@ -1688,12 +2301,17 @@
             perfil: perfilVal,
             motor: motorSel ? motorSel.value : '',
             unificacion: unifSent,
+            // Revisión 27-oct (error 2): la mueve el motor de su tramo.
+            motor_secuencia: !!card._motorSecuencia,
         })
             .then(function (res) {
                 res = res || {};
                 var base = res.base != null ? res.base : (res.price || 0);
                 var disc = res.discount_pct || 0;
                 var final = res.price != null ? res.price : base;
+                // Sprint 1.6 (fila 127): Safra Express sube el precio de
+                // cada persiana (parámetro safra.express_pct, 15 %).
+                final = Math.round(final * expressFactor());
                 var q = function (sel) { return card.querySelector(sel); };
                 card.querySelectorAll('.pi-ficharow, .pi-availrow, .pi-pricerow, .pi-discrow').forEach(function (e) { e.classList.remove('d-none'); });
                 // Imagen del producto almacenada en Odoo (círculo); si no hay, placeholder.
@@ -1725,19 +2343,27 @@
                 q('.pi-hmax').textContent = (hmaxes.length ? Math.min.apply(null, hmaxes) : 0) + ' mts';
                 // Avisos de las fórmulas de alto/peso máximo.
                 var warns = [];
-                if (limits.alto_ok === false) {
-                    warns.push('El alto digitado supera el alto máximo calculado de ' + limits.alto_maximo + ' mts para esta configuración.');
-                }
-                if (limits.requiere_motor === true) {
-                    warns.push('Por el peso calculado (' + limits.peso_total + ' g), la persiana debe ir motorizada: marque "Con Motor".');
-                } else if (limits.peso_ok === false) {
-                    warns.push('El peso calculado (' + limits.peso_total + ' g) supera la carga máxima del mecanismo (' + limits.carga_maxima + ' g).');
-                }
+                // Reunión 09-nov (fila 68): si manual no se puede pero con motor
+                // sí (por ancho, alto o peso), se pide marcar el motor.
+                // Revisión 10-nov: el alto máximo, «debe ir motorizada» y el
+                // peso contra la carga máxima salen de sus reglas de
+                // Validaciones (V_ALTO_MAXIMO, V_REQUIERE_MOTOR, V_PESO_MAXIMO,
+                // V_PESO_SIN_CARGA) en los avisos de la ficha (syncAvisosFicha).
+                // Reunión 15-oct (fila 68): el tubo sin existencias de sus
+                // insumos lo avisa su regla de Validaciones (V_TUBO_SIN_INSUMO,
+                // acta del 30-oct), en syncAvisosFicha.
                 var warnRow = q('.pi-warnrow');
                 // Nota informativa del kit motorizado (Somfy: se compra completo).
                 if (res.kit && res.kit.nota) {
                     warns.push('__NOTE__' + res.kit.nota);
                 }
+                // Revisión cálculo de tubo (27-oct, error 6): el tubo subió
+                // porque el alto no alcanzaba con el calculado por el ancho.
+                if (res.tubo && res.tubo.subio_de) {
+                    warns.push('__NOTE__Por el alto, el tubo pasa de ' + res.tubo.subio_de +
+                               ' a ' + res.tubo.base + '.');
+                }
+                pintarCuadro(card, res.cuadro || [], res.tubo && res.tubo.efectivo, hasMotorCard(card));
                 if (warns.length) {
                     q('.pi-warnings').innerHTML = warns.map(function (t) {
                         var isNote = t.indexOf('__NOTE__') === 0;
@@ -1751,7 +2377,11 @@
                 applyKit(card, idx, res.kit);
                 // Sprint 1.3 (fila 73): tubos mayores para la unificación;
                 // si la elegida dejó de aplicar, se recalcula sin ella.
+                var tuboAntes = card._tubo && card._tubo.efectivo;
                 if (syncUnificacion(card, idx, res.tubo) !== unifSent) fetchPrice(card);
+                // Fila 68: con otro tubo cambian las opciones que dependen
+                // de él (p. ej. el cabezal cuadrado no va con R24).
+                if ((card._tubo && card._tubo.efectivo) !== tuboAntes) evalConditionals(card);
                 updateSummary(card);
                 // Reunión 28-sep (fila 70): el Mecanismo es solo el cálculo de
                 // la tabla de estructura (ancho, motor, cabezal); ya no hay
@@ -1762,10 +2392,43 @@
                     mechEl.classList.toggle('pi-mech-pend', !res.mechanism);
                 }
                 q('.pi-base').innerHTML = disc ? '<span class="price-strike">' + money(base) + '</span>' : money(base);
-                q('.pi-discbadge').textContent = 'Descuento ' + disc + ' %';
+                var expPct = Math.round((expressFactor() - 1) * 100);
+                q('.pi-discbadge').textContent = 'Descuento ' + disc + ' %' +
+                    (expPct ? ' · Safra Express +' + expPct + ' %' : '');
                 var pf = q('.pi-final'); pf.textContent = money(final); pf.dataset.price = final;
                 updateTotal();
             });
+    }
+
+    // Revisión cálculo de tubo (27-oct, error 6): cuadro del «?» junto al
+    // alto máximo, con lo que permite cada tubo para las medidas digitadas.
+    function hasMotorCard(card) {
+        var cb = card.querySelector('[name="has_motor_' + card.getAttribute('data-idx') + '"]');
+        return !!(cb && cb.checked);
+    }
+
+    function pintarCuadro(card, filas, actual, conMotor) {
+        var btn = card.querySelector('.pi-cuadro-btn');
+        var row = card.querySelector('.pi-cuadrorow');
+        var box = card.querySelector('.pi-cuadro');
+        if (!btn || !row || !box) return;
+        btn.classList.toggle('d-none', !filas.length);
+        if (!filas.length) { row.classList.add('d-none'); return; }
+        var n = function (v, suf) { return v == null ? '—' : String(v).replace('.', ',') + suf; };
+        var html = '<table class="pi-cuadro-tabla"><thead><tr><th>Accionamiento</th><th>Tubo</th>' +
+            '<th>Alto máximo</th><th>Peso persiana</th><th>Carga máxima</th><th>Cumple</th></tr></thead><tbody>';
+        filas.forEach(function (f) {
+            var esta = f.tubo === actual && (f.accionamiento === 'Motor') === conMotor;
+            html += '<tr class="' + (esta ? 'actual' : '') + '"><td>' + esc(f.accionamiento) + '</td><td>' + esc(f.tubo) +
+                (esta ? ' <small>(esta persiana)</small>' : '') + '</td><td>' + n(f.alto_maximo, ' m') + '</td><td>' +
+                n(f.peso_total, ' g') + '</td><td>' + n(f.carga_maxima, ' g') + '</td><td>' +
+                (f.cumple ? 'Sí' : 'No') + '</td></tr>';
+        });
+        box.innerHTML = html + '</tbody></table>';
+        if (!btn._listo) {
+            btn._listo = true;
+            btn.addEventListener('click', function () { row.classList.toggle('d-none'); });
+        }
     }
 
     // Sprint 1.3 (fila 73, reunión 17-sep): la Unificación Mando solo ofrece
@@ -1782,15 +2445,25 @@
             : (mayores.length ? 'Sin unificar (tubo ' + tubo.base + ')' : 'No hay tubos mayores a ' + tubo.base);
         var html = '<option value="">' + esc(vacio) + '</option>';
         mayores.forEach(function (t) { html += '<option value="' + esc(t) + '">' + esc(t) + '</option>'; });
+        // Revisión 27-oct (error 2): el tubo motorizado de la secuencia en
+        // una persiana manual no está entre sus mayores, pero el servidor
+        // lo aplicó (es el efectivo): se conserva.
+        var efectivo = tubo && cur && tubo.efectivo === cur && mayores.indexOf(cur) === -1;
+        if (efectivo) html += '<option value="' + esc(cur) + '">' + esc(cur) + '</option>';
         sel.innerHTML = html;
-        sel.value = mayores.indexOf(cur) !== -1 ? cur : '';
+        sel.value = (mayores.indexOf(cur) !== -1 || efectivo) ? cur : '';
+        // Lo que eligió el usuario en esta persiana (o lo que traía al
+        // abrirla); lo que llega por la secuencia no cuenta como elegido.
+        if (card._unifManual === undefined) card._unifManual = sel.value;
         syncUnificacionSecuencias();
         return sel.value;
     }
 
-    // En persianas con Mismo cabezal la unificación es obligatoria y
-    // automática: toda la secuencia va con el tubo mayor de sus persianas
-    // (el servidor aplica la misma regla al validar y guardar).
+    // En persianas con Mismo cabezal la unificación es obligatoria: toda la
+    // secuencia va con el tubo mayor de sus persianas. Reunión 15-oct (fila
+    // 73): el campo sigue editable para pedir un tubo aún mayor (nunca uno
+    // menor) y ese tubo se aplica a toda la secuencia. El servidor aplica
+    // la misma regla al validar y guardar.
     function syncUnificacionSecuencias() {
         var grupos = {};
         document.querySelectorAll('#lines-container .safra-line').forEach(function (card) {
@@ -1800,32 +2473,58 @@
             var sh = card.querySelector('[name="same_header_' + idx + '"]');
             var nombre = ((card.querySelector('[name="sequence_name_' + idx + '"]') || {}).value || '').trim().toLowerCase();
             var enSec = !!(sh && sh.checked && nombre);
-            sel.classList.toggle('unif-auto', enSec);
-            sel.tabIndex = enSec ? -1 : 0;
-            sel.title = enSec ? 'En secuencia, todas las persianas se unifican al tubo mayor automáticamente.' : '';
-            if (!enSec || !card._tubo) return;
+            sel.title = enSec ? 'En secuencia, todas las persianas van con el tubo mayor; puede elegir uno mayor y se aplica a toda la secuencia.' : '';
+            if (!enSec || !card._tubo) {
+                // Fuera de la secuencia ya no la mueve el motor de un tramo.
+                if (card._motorSecuencia) { card._motorSecuencia = false; fetchPrice(card); }
+                return;
+            }
             (grupos[nombre] = grupos[nombre] || []).push({ card: card, sel: sel });
         });
+        // Revisión cálculo de tubo (27-oct, errores 2, 3 y 6): el tubo de la
+        // secuencia lo calcula el servidor, igual que al guardar (tubo mayor,
+        // tramos con soportes dependientes como una sola persiana y tubo
+        // motorizado si hay motor).
+        var lineas = [];
         Object.keys(grupos).forEach(function (k) {
-            var g = grupos[k], orden = [], mayor = null;
-            g.forEach(function (x) { if ((x.card._tubo.orden || []).length > orden.length) orden = x.card._tubo.orden; });
-            g.forEach(function (x) { if (orden.indexOf(x.card._tubo.base) > orden.indexOf(mayor)) mayor = x.card._tubo.base; });
-            g.forEach(function (x) {
-                var want = (mayor && x.card._tubo.base !== mayor) ? mayor : '';
-                if (x.sel.value === want) return;
-                if (want && !Array.prototype.some.call(x.sel.options, function (o) { return o.value === want; })) {
-                    x.sel.add(new Option(want, want));
-                }
-                x.sel.value = want;
-                fetchPrice(x.card);
+            grupos[k].forEach(function (x) {
+                lineas.push({
+                    idx: x.card.getAttribute('data-idx'),
+                    system_id: (x.card.querySelector('.sel-system') || {}).value || null,
+                    campos: camposLinea(x.card),
+                    unificacion: x.card._unifManual || '',
+                });
             });
         });
+        if (!lineas.length) return;
+        clearTimeout(syncUnificacionSecuencias._timer);
+        syncUnificacionSecuencias._timer = setTimeout(function () {
+            var turno = (syncUnificacionSecuencias._turno || 0) + 1;
+            syncUnificacionSecuencias._turno = turno;
+            rpc('/cotizador/ajax/unificar', { lineas: lineas }).then(function (res) {
+                if (turno !== syncUnificacionSecuencias._turno) return;
+                Object.keys(res || {}).forEach(function (idx) {
+                    var card = document.querySelector('#lines-container .safra-line[data-idx="' + idx + '"]');
+                    var sel = card && card.querySelector('select[name="unificacion_mando_' + idx + '"]');
+                    var want = (res[idx] && res[idx].tubo) || '';
+                    var motor = !!(res[idx] && res[idx].motor);
+                    if (!sel || (sel.value === want && !!card._motorSecuencia === motor)) return;
+                    card._motorSecuencia = motor;
+                    if (want && !Array.prototype.some.call(sel.options, function (o) { return o.value === want; })) {
+                        sel.add(new Option(want, want));
+                    }
+                    sel.value = want;
+                    fetchPrice(card);
+                });
+            }).catch(function () { /* sin respuesta: queda lo que había */ });
+        }, 300);
     }
 
     function applyKit(card, idx, kit) {
-        // Pendientes 24-sep (15.1): la asociación del MAESTRO del motor
-        // (U_Controles compatibles) manda; el kit queda como respaldo
-        // mientras se termina la parametrización.
+        // Sprint 1.2 (comentario del 15-oct): los controles del motor salen
+        // de la referencia de controles (columna Motores) y el módulo RF y el
+        // cargador de la línea del motor; el kit queda como respaldo mientras
+        // no haya referencia de controles.
         card._lastKit = kit || card._lastKit || null;
         kit = card._lastKit;
         var mm = card._motorMaestro;
@@ -1848,8 +2547,11 @@
                 ctrl.innerHTML = '<option value="">-- Seleccione uno --</option>' +
                     (sinRef ? '<option value="0">' + esc(sinRef.label) + '</option>' : sinControl) +
                     propios.map(function (c) {
-                        return '<option value="' + esc(c.value) + '" data-canales="' + (c.canales || 0) + '">' +
-                            esc(c.label) + '</option>';
+                        // Acta del 30-oct (Tubo, punto 8): sin existencias, en gris.
+                        var off = c.available === 0;
+                        return '<option value="' + esc(c.value) + '" data-canales="' + (c.canales || 0) + '"' +
+                            (off ? ' data-sin-stock="1" disabled' : '') + '>' +
+                            esc(c.label) + (off ? SIN_STOCK : '') + '</option>';
                     }).join('');
             } else {
                 var allowed = (kit && kit.controls && kit.controls.length) ? kit.controls : null;
@@ -2041,8 +2743,19 @@
         }
         var mp = card.querySelector('[name="mando_position_' + idx + '"]');
         if (mp) {
-            mp.disabled = on;
-            if (on) mp.value = '';
+            // Reunión 30-oct (fila 77): con Mismo cabezal el mando lo define
+            // la secuencia; la marca evita que el candado de la tela lo
+            // vuelva a habilitar al quedar lista la tela (pasaba al abrir una
+            // cotización guardada: la primera persiana quedaba editable).
+            mp.dataset.lockSameHeader = on ? '1' : '';
+            if (on) {
+                mp.disabled = true;
+                mp.value = '';
+            } else if (mp.closest('.flow-locked')) {
+                mp.dataset.flowDisabled = '1';
+            } else {
+                mp.disabled = false;
+            }
         }
         // Pendientes 24-sep (4.2): con Mismo cabezal el nombre de la
         // secuencia es obligatorio.
@@ -2131,6 +2844,11 @@
                 if (cb) cb.checked = on;
                 var txt = tg.querySelector('.safra-toggle-text');
                 if (txt) txt.textContent = on ? 'Sí' : 'No';
+                // Revisión 27-oct: el interruptor no dispara «change»; sus
+                // reglas «Al digitar un campo» (p. ej. Diseño Impresión) se
+                // piden aquí.
+                card.classList.remove('line-saved');
+                checkCampoRules(card, tg);
                 evalConditionals(card);
                 // Exhibición cambia los límites de la ficha técnica.
                 if (cb && cb.name && cb.name.indexOf('exhibition_') === 0) fetchPrice(card);
@@ -2178,7 +2896,16 @@
             body.addEventListener('change', function (e) {
                 // Fase 5.4b: cualquier cambio invalida el "guardado" visual.
                 card.classList.remove('line-saved');
+                checkCampoRules(card, e.target);
                 evalConditionals(card);
+                syncOpcionesFormula(card);
+                // Sprint 1.4 (fila 90): la Tela de Cenefa de las demás
+                // persianas lista referencia + color de todo el pedido.
+                if (e.target.classList.contains('sel-color')) {
+                    document.querySelectorAll('#lines-container .safra-line').forEach(function (c) {
+                        if (c !== card) smartDependencies(c);
+                    });
+                }
                 if (e.target.classList.contains('inp-dim')) { updatePrintM2(card, idx); updateDesignAnalysis(card, idx); fetchPrice(card); }
                 if (e.target.classList.contains('safra-design-file')) updateDesignAnalysis(card, idx);
                 // Revisión 17-sep (#19): ancho/apertura/motor recalculan
@@ -2209,6 +2936,13 @@
                 // El tipo de cabezal y el perfil cambian estructura/fórmulas;
                 // el motor cambia el kit (controles, interruptor, cargador).
                 if (e.target.name && e.target.name.indexOf('sequence_name_') === 0) syncUnificacionSecuencias();
+                // Fila 73: el tubo que el usuario pide en esta persiana manda
+                // en toda su secuencia (los cambios por la secuencia no
+                // disparan este evento).
+                if (e.target.name === 'unificacion_mando_' + idx) {
+                    card._unifManual = e.target.value;
+                    syncUnificacionSecuencias();
+                }
                 if (e.target.name && (e.target.name.indexOf('cabezal_tipo_') === 0 ||
                     e.target.name.indexOf('unificacion_mando_') === 0 ||
                     e.target.name.indexOf('perfil') === 0 ||
@@ -2255,7 +2989,9 @@
         currentFabrics.forEach(function (f) { fabricsById[String(f.id)] = f; });
         body.innerHTML = renderConfig(config, idx);
         bindBody(card);
+        card._optFormula = {};
         evalConditionals(card);
+        syncOpcionesFormula(card);
         // Las aperturas sin fórmula (hoy la Apertura Libre) se ocultan desde
         // que se pinta el formulario, no solo al digitar medidas.
         restrictAperturaByCombos(card, idx);
@@ -2366,6 +3102,14 @@
         Object.keys(values).forEach(function (code) {
             if (code === 'system_id') return;
             var el = card.querySelector('[name="' + code + '_' + idx + '"]');
+            // Revisión 27-oct (error 4): los soportes de la secuencia van en
+            // campos ocultos, como los deja el configurador al aplicar.
+            if (!el && (code === 'soporte_izq' || code === 'soporte_der')) {
+                el = document.createElement('input');
+                el.type = 'hidden';
+                el.name = code + '_' + idx;
+                card.querySelector('.line-body').appendChild(el);
+            }
             if (!el) return;
             if (el.type === 'checkbox') {
                 el.checked = !!values[code];
@@ -2386,7 +3130,7 @@
                 el.value = values[code];
             }
         });
-        Promise.all(colorJobs).then(function () {
+        return Promise.all(colorJobs).then(function () {
             evalConditionals(card);
             // Reabre los pares de tela que traían valor en el duplicado.
             setupDynamicTelas(card);
@@ -2440,8 +3184,52 @@
         dl.innerHTML = html;
     }
 
+    // Barrido de la matriz (fila 124): lo que va en la columna «Nombre» del
+    // resumen y no se repite en «Características» (como el servidor).
+    var RESUMEN_EN_NOMBRE = { system_id: 1, width: 1, height: 1, quantity: 1, fabric_id: 1, color_id: 1 };
+    [2, 3, 4, 5].forEach(function (n) { RESUMEN_EN_NOMBRE['fabric_id_' + n] = 1; RESUMEN_EN_NOMBRE['color_id_' + n] = 1; });
+
+    // Características de la persiana para el resumen: los campos visibles
+    // con valor, primero los que tienen «Orden en el resumen» (como el
+    // portal actual de Safra) y después en el orden del formulario.
+    function caracteristicasResumen(card) {
+        var idx = card.getAttribute('data-idx');
+        var orden = {};
+        ((card._safraConfig || {}).fields || []).forEach(function (f, pos) {
+            orden[f.code] = f.resumen ? [0, f.resumen, pos] : [1, 0, pos];
+        });
+        var filas = [];
+        card.querySelectorAll('.safra-field[data-field]').forEach(function (row) {
+            var code = row.getAttribute('data-field');
+            if (!orden[code] || RESUMEN_EN_NOMBRE[code] ||
+                row.classList.contains('d-none') || row.classList.contains('tela-hidden')) return;
+            var el = card.querySelector('[name="' + code + '_' + idx + '"]');
+            if (!el) return;
+            var txt = '';
+            if (el.type === 'checkbox') {
+                txt = el.checked ? 'Sí' : '';
+            } else if (el.tagName === 'SELECT') {
+                txt = el.value ? ((el.options[el.selectedIndex] || {}).text || '') : '';
+            } else if (el.type === 'hidden') {
+                var dn = row.querySelector('.dp-name');
+                txt = el.value ? ((dn && dn.textContent) || el.value) : '';
+            } else {
+                txt = el.value || '';
+            }
+            txt = txt.trim();
+            var lbl = row.querySelector('.safra-label');
+            if (txt) filas.push({ k: orden[code], label: lbl ? lbl.textContent.trim() : code, txt: txt });
+        });
+        filas.sort(function (x, y) {
+            for (var i = 0; i < 3; i++) if (x.k[i] !== y.k[i]) return x.k[i] - y.k[i];
+            return 0;
+        });
+        return filas;
+    }
+
     // Resumen de pedido (F135): todas las persianas con imagen, descripción,
-    // medidas y precio antes de guardar.
+    // medidas y precio antes de guardar. Barrido de la matriz (fila 124):
+    // columnas y orden como el portal actual de Safra.
     function openSummary() {
         var overlay = document.getElementById('safra-summary-overlay');
         if (!overlay) {
@@ -2463,20 +3251,32 @@
             var prod = card.querySelector('.pi-producto');
             var pf = card.querySelector('.pi-final');
             var price = pf ? parseFloat(pf.dataset.price || 0) : 0;
+            var mech = card.querySelector('.pi-mech');
+            var mechTxt = mech && !mech.classList.contains('pi-mech-pend') ? mech.textContent.trim() : '';
+            var carac = caracteristicasResumen(card).map(function (c) {
+                return '<li><strong>' + esc(c.label) + '</strong>: ' + esc(c.txt) + '</li>';
+            }).join('');
+            var medidas = (get('width') || get('height'))
+                ? '<div><strong>Dimensiones:</strong> <span class="safra-chip">' + esc(get('width') || '—') + ' mts</span> x ' +
+                  '<span class="safra-chip">' + esc(get('height') || '—') + ' mts</span></div>'
+                : '';
             rows += '<tr>' +
-                '<td>' + (n + 1) + '</td>' +
-                '<td class="s-img">' + (img && img.src ? '<img src="' + esc(img.src) + '" alt=""/>' : '') + '</td>' +
-                '<td>' + esc((prod && prod.textContent.trim()) || 'Persiana sin configurar') +
-                    (get('location') ? '<br/><small>' + esc(get('location')) + '</small>' : '') + '</td>' +
-                '<td>' + esc(get('width') || '—') + ' × ' + esc(get('height') || '—') + ' m</td>' +
-                '<td>' + esc(get('quantity') || '1') + '</td>' +
+                '<td class="s-linea"><span class="safra-resumen-num">' + (n + 1) + '</span></td>' +
+                '<td class="s-nombre">' +
+                    (img && img.src && !img.classList.contains('is-placeholder') ? '<img class="s-img" src="' + esc(img.src) + '" alt=""/>' : '') +
+                    '<div class="fw-bold">' + esc((prod && prod.textContent.trim()) || 'Persiana sin configurar') + '</div>' +
+                    medidas +
+                    '<div><strong>Cantidad:</strong> <span class="safra-chip">' + esc(get('quantity') || '1') + ' und</span></div></td>' +
+                '<td>' + (carac ? '<ul class="safra-resumen-campos">' + carac + '</ul>' : '') +
+                    (mechTxt ? '<ul class="safra-resumen-campos safra-resumen-mecanismo"><li><strong>Mecanismo:</strong> ' +
+                        esc(mechTxt) + '</li></ul>' : '') + '</td>' +
                 '<td class="s-num">' + money(price) + '</td></tr>';
         });
         var total = document.getElementById('total-grand');
         overlay.innerHTML = '<div class="safra-summary-modal">' +
             '<h3>Resumen de pedido</h3>' +
             '<div class="s-tablewrap"><table>' +
-            '<thead><tr><th>#</th><th></th><th>Producto</th><th>Medidas</th><th>Cant.</th><th>Total</th></tr></thead>' +
+            '<thead><tr><th class="s-linea">Línea</th><th>Nombre</th><th>Características</th><th class="s-num">Precio</th></tr></thead>' +
             '<tbody>' + rows + '</tbody></table></div>' +
             '<div class="s-total">Total (IVA incluido): <strong>' + (total ? total.textContent : '$ 0') + '</strong></div>' +
             '<div class="s-actions">' +
@@ -2523,6 +3323,11 @@
         });
     }
 
+    // Sprint 1.6: los mensajes de todo el pedido llegan con line = 0.
+    function quien(issue) {
+        return issue.line ? 'Persiana ' + issue.line : 'Pedido';
+    }
+
     // Pinta todos los errores (rojo) y advertencias (amarillo) del pedido.
     function renderIssues(form, issues) {
         var banner = document.getElementById('safra-val-banner');
@@ -2536,20 +3341,18 @@
         var html = '';
         if (errors.length) {
             html += '<div class="alert alert-danger"><strong>Corrija los siguientes errores:</strong><ul class="mb-0">' +
-                errors.map(function (i) { return '<li>Persiana ' + i.line + ': ' + esc(i.message) + '</li>'; }).join('') +
+                errors.map(function (i) { return '<li>' + quien(i) + ': ' + esc(i.message) + '</li>'; }).join('') +
                 '</ul></div>';
         }
         if (others.length) {
             // Acuerdo de la reunión: las advertencias no bloquean, pero
             // el cliente debe VERLAS y decidir — sin este alto el submit
             // navegaba de inmediato y el aviso desaparecía sin leerse.
-            html += '<div class="alert alert-warning"><ul class="mb-0">' +
-                others.map(function (i) { return '<li>Persiana ' + i.line + ': ' + esc(i.message) + '</li>'; }).join('') +
-                '</ul>' +
+            // Sprint 1.7: la información sale en azul.
+            html += alertasPorSeveridad(others, function (i) { return quien(i) + ': ' + i.message; }) +
                 (errors.length ? '' :
-                    '<button type="button" class="btn btn-warning btn-sm mt-2" id="btn-warn-continue">' +
-                    'Entiendo, enviar el pedido de todos modos</button>') +
-                '</div>';
+                    '<button type="button" class="btn btn-warning btn-sm mb-2" id="btn-warn-continue">' +
+                    'Entiendo, enviar el pedido de todos modos</button>');
         }
         // Reunión 09-oct (fila 4): el aviso de arriba se conserva y abre de
         // nuevo la ventana con el detalle.
@@ -2560,7 +3363,11 @@
         banner.innerHTML = html;
         form._safraIssues = issues;
         var go = banner.querySelector('#btn-warn-continue');
-        if (go) go.addEventListener('click', function () { form.submit(); });
+        if (go) go.addEventListener('click', function () {
+            // Fila 74: con persianas sin restricciones hay que aceptar en la ventana.
+            if (lineasSinRestricciones(form).length || conVerificacion(form)) openIssuesModal(form, form._safraIssues || []);
+            else form.submit();
+        });
         var det = banner.querySelector('#btn-val-detalle');
         if (det) det.addEventListener('click', function () { openIssuesModal(form, form._safraIssues || []); });
         return { banner: banner, total: errors.length + others.length };
@@ -2570,6 +3377,26 @@
     // abre una ventana con TODOS los mensajes — el aviso de arriba quedaba
     // fuera de la vista y el cliente no sabía por qué no avanzaba. Con solo
     // advertencias, la ventana ofrece enviar el pedido de todos modos.
+    // Reunión 15-oct (fila 74): persianas marcadas «Pedido sin
+    // restricciones» (número de persiana en el pedido).
+    function lineasSinRestricciones(form) {
+        var nums = [];
+        form.querySelectorAll('#lines-container .safra-line').forEach(function (card, pos) {
+            var idx = card.getAttribute('data-idx');
+            var chk = card.querySelector('[name="sin_restricciones_' + idx + '"]');
+            if (chk && chk.checked) nums.push(pos + 1);
+        });
+        return nums;
+    }
+
+    // Reunión 09-nov (fila 74): «Pedido sin restricciones» se unifica con
+    // «Requiere verificación de fabricación» (todo el pedido): al cerrar la
+    // cotización el cliente acepta que se evalúa sin garantía.
+    function conVerificacion(form) {
+        var chk = form && form.querySelector('[name="requiere_verificacion"]');
+        return !!(chk && chk.checked);
+    }
+
     function openIssuesModal(form, issues) {
         var overlay = document.getElementById('safra-issues-overlay');
         if (!overlay) {
@@ -2582,17 +3409,36 @@
         }
         var errors = issues.filter(function (i) { return i.severity === 'error'; });
         var others = issues.filter(function (i) { return i.severity !== 'error'; });
+        var infos = others.filter(function (i) { return i.severity === 'info'; });
+        var warns = others.filter(function (i) { return i.severity !== 'info'; });
         var lista = function (items) {
             return '<ul>' + items.map(function (i) {
-                return '<li><strong>Persiana ' + i.line + ':</strong> ' + esc(i.message) + '</li>';
+                return '<li><strong>' + quien(i) + ':</strong> ' + esc(i.message) + '</li>';
             }).join('') + '</ul>';
         };
+        var sinR = lineasSinRestricciones(form);
+        var verif = conVerificacion(form);
         overlay.innerHTML = '<div class="safra-summary-modal safra-issues-modal" role="dialog" aria-modal="true">' +
-            '<h3>' + (errors.length ? 'El pedido tiene errores por corregir' : 'Revise las advertencias del pedido') + '</h3>' +
+            '<h3>' + (errors.length ? 'El pedido tiene errores por corregir'
+                : (others.length ? 'Revise las advertencias del pedido'
+                    : (verif ? 'Verificación de fabricación' : 'Pedido sin restricciones'))) + '</h3>' +
             (errors.length ? '<div class="alert alert-danger"><strong>Errores (' + errors.length + '):</strong> no permiten enviar el pedido.' + lista(errors) + '</div>' : '') +
-            (others.length ? '<div class="alert alert-warning"><strong>Advertencias (' + others.length + '):</strong> no bloquean, pero revíselas antes de enviar.' + lista(others) + '</div>' : '') +
+            (warns.length ? '<div class="alert alert-warning"><strong>Advertencias (' + warns.length + '):</strong> no bloquean, pero revíselas antes de enviar.' + lista(warns) + '</div>' : '') +
+            (infos.length ? '<div class="alert alert-info"><strong>Información (' + infos.length + '):</strong>' + lista(infos) + '</div>' : '') +
+            (!errors.length && sinR.length ?
+                '<div class="alert alert-danger"><strong>Persianas sin restricciones: ' + sinR.join(', ') + '.</strong> ' +
+                'Se fabrican sin garantía y el pedido queda pendiente de que producción apruebe que se pueden fabricar.' +
+                '<label class="d-block mt-2"><input type="checkbox" id="chk-sin-garantia"/> ' +
+                'He leído y acepto que estas persianas no tienen garantía.</label></div>' : '') +
+            (!errors.length && verif && !sinR.length ?
+                '<div class="alert alert-danger"><strong>Requiere verificación de fabricación.</strong> ' +
+                'El pedido se evalúa inicialmente sin garantía: planta lo revisa y, según su análisis, ' +
+                'puede quedar con garantía. Se le informará en el portal al aprobarlo.' +
+                '<label class="d-block mt-2"><input type="checkbox" id="chk-sin-garantia"/> ' +
+                'He leído y acepto que el pedido se evalúa sin garantía.</label></div>' : '') +
             '<div class="s-actions">' +
             '<button type="button" class="btn-safra-light" id="btn-issues-close">' + (errors.length ? 'Corregir' : 'Seguir editando') + '</button>' +
+            (errors.length ? '<button type="button" class="btn-safra-light" id="btn-issues-draft"><i class="fa fa-save"></i> Guardar borrador y corregir después</button>' : '') +
             (errors.length ? '' : '<button type="button" class="btn-safra" id="btn-issues-send">Entiendo, enviar el pedido de todos modos</button>') +
             '</div></div>';
         overlay.classList.add('open');
@@ -2601,17 +3447,62 @@
             var banner = document.getElementById('safra-val-banner');
             if (banner) banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
+        var draft = overlay.querySelector('#btn-issues-draft');
+        if (draft) draft.addEventListener('click', function () {
+            overlay.classList.remove('open');
+            guardarBorrador(form);
+        });
         var send = overlay.querySelector('#btn-issues-send');
+        var acepta = overlay.querySelector('#chk-sin-garantia');
+        if (send && acepta) {
+            send.disabled = true;
+            acepta.addEventListener('change', function () { send.disabled = !acepta.checked; });
+        }
         if (send) send.addEventListener('click', function () {
+            if (acepta && !acepta.checked) return;
+            var hid = form.querySelector('input[name="acepta_sin_garantia"]');
+            if (!hid) {
+                hid = document.createElement('input');
+                hid.type = 'hidden';
+                hid.name = 'acepta_sin_garantia';
+                form.appendChild(hid);
+            }
+            hid.value = acepta ? '1' : '';
             overlay.classList.remove('open');
             form.submit();
         });
     }
 
+    // Revisión 27-oct (pruebas de Safra): guardar el pedido sin finalizar,
+    // aunque tenga errores. Las persianas sin referencia y color no se
+    // pueden guardar: se avisa antes.
+    function guardarBorrador(form) {
+        var faltan = [];
+        form.querySelectorAll('#lines-container .safra-line').forEach(function (card, pos) {
+            var idx = card.getAttribute('data-idx');
+            var f = card.querySelector('[name="fabric_id_' + idx + '"]');
+            var c = card.querySelector('[name="color_id_' + idx + '"]');
+            if (!(f && f.value && c && c.value)) faltan.push(pos + 1);
+        });
+        if (faltan.length && !window.confirm('Las persianas ' + faltan.join(', ') +
+                ' no tienen referencia y color, y no se guardan en el borrador. ¿Guardar de todos modos?')) {
+            return;
+        }
+        var hid = form.querySelector('input[name="guardar_borrador"]');
+        if (!hid) {
+            hid = document.createElement('input');
+            hid.type = 'hidden';
+            hid.name = 'guardar_borrador';
+            form.appendChild(hid);
+        }
+        hid.value = '1';
+        form.submit();
+    }
+
     function validateAndSubmit(form) {
         collectIssues(form).then(function (issues) {
             var r = renderIssues(form, issues);
-            if (r.total) {
+            if (r.total || lineasSinRestricciones(form).length || conVerificacion(form)) {
                 // Desde este intento el aviso se mantiene al día solo.
                 form._safraLiveVal = true;
                 openIssuesModal(form, issues);
@@ -2654,10 +3545,18 @@
         if (btnAdd) btnAdd.addEventListener('click', function () { addLine(); });
         var btnSummary = document.getElementById('btn-summary');
         if (btnSummary) btnSummary.addEventListener('click', openSummary);
+        var btnBorrador = document.getElementById('btn-borrador');
+        if (btnBorrador) btnBorrador.addEventListener('click', function () { guardarBorrador(form); });
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             validateAndSubmit(form);
         });
+        // 4-nov: un obligatorio vacío en una persiana colapsada no se puede
+        // mostrar y el navegador no avisa; se abre la persiana para que se vea.
+        form.addEventListener('invalid', function (e) {
+            var card = e.target.closest && e.target.closest('.safra-line.collapsed');
+            if (card) card.classList.remove('collapsed');
+        }, true);
         ['input', 'change', 'safra:toggle'].forEach(function (ev) {
             form.addEventListener(ev, function () { revalidarEnLinea(form); });
         });
@@ -2669,12 +3568,190 @@
             var t = e.target;
             if (t && t.tagName === 'INPUT' && t.type === 'number') t.blur();
         }, { passive: true });
-        addLine();
+        bindPedido(form);
+        var edit = parseJSON('safra-edit-data', null);
+        if (edit && edit.lineas && edit.lineas.length) loadEdit(form, edit);
+        else addLine();
+    }
+
+    // Sprint 1.6 (filas 126-128): lo que se marca para todo el pedido.
+    function bindPedido(form) {
+        var express = form.querySelector('[name="safra_express"]');
+        if (express) express.addEventListener('change', function () {
+            document.querySelectorAll('#lines-container .safra-line').forEach(function (c) { fetchPrice(c); });
+        });
+        var exp = form.querySelector('[name="es_exportacion"]');
+        if (exp) exp.addEventListener('change', updateTotal);
+        var verif = form.querySelector('[name="requiere_verificacion"]');
+        var obs = form.querySelector('[name="verificacion_observaciones"]');
+        if (verif && obs) {
+            // Las observaciones las exige el cotizador al finalizar (con su
+            // mensaje), no el navegador.
+            var sync = function () {
+                obs.classList.toggle('d-none', !verif.checked);
+                document.querySelectorAll('#lines-container .safra-line').forEach(syncFlowLock);
+            };
+            verif.addEventListener('change', sync);
+            sync();
+        }
+    }
+
+    // Reunión 09-nov (fila 2): al editar, cada persiana avisa qué de lo que
+    // eligió el cliente ya no está disponible (cualquier ítem inactivado),
+    // para que lo cambie; el portal no lo reemplaza sin decirle.
+    function avisarNoDisponibles(card, motivos) {
+        if (!motivos || !motivos.length) return;
+        var box = document.createElement('div');
+        box.className = 'alert alert-warning safra-no-disponibles';
+        box.innerHTML = '<strong><i class="fa fa-exclamation-triangle"></i> Algunos ítems que eligió ya no están disponibles.</strong> ' +
+            'Cámbielos para poder finalizar el pedido:<ul class="mb-0">' +
+            motivos.map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>';
+        var body = card.querySelector('.line-body');
+        if (body) body.insertBefore(box, body.firstChild);
+        else card.appendChild(box);
+    }
+
+    // Reunión 09-nov (fila 2): cada ítem que ya no está disponible queda
+    // elegido en gris («ya no disponible»; una opción deshabilitada no se
+    // envía, así que hay que elegir otra para finalizar) y el aviso sale
+    // debajo de su campo. Lo que no tiene campo en el formulario se avisa
+    // arriba de la persiana.
+    function marcarNoDisponibles(card) {
+        var items = card._noDisp || [];
+        if (!items.length) return;
+        var idx = card.getAttribute('data-idx');
+        var sueltos = [];
+        items.forEach(function (it) {
+            var el = it.code && card.querySelector('[name="' + it.code + '_' + idx + '"]');
+            var wrap = el && el.closest('.safra-field');
+            if (!el || !wrap) {
+                sueltos.push(it.motivo);
+                return;
+            }
+            if (el.tagName === 'SELECT' && it.valor) {
+                var opt = null;
+                for (var i = 0; i < el.options.length; i++) {
+                    if (el.options[i].value === it.valor) opt = el.options[i];
+                }
+                if (!opt) {
+                    opt = document.createElement('option');
+                    opt.value = it.valor;
+                    el.appendChild(opt);
+                }
+                opt.textContent = (it.nombre || opt.textContent) + ' (no disponible)';
+                opt.disabled = true;
+                opt.className = 'safra-opt-nodisp';
+                el.value = it.valor;
+                el.classList.add('safra-sel-nodisp');
+            }
+            var aviso = document.createElement('div');
+            aviso.className = 'safra-aviso-nodisp';
+            var motivo = it.nombre ? '«' + it.nombre + '» ya no está disponible'
+                : it.motivo.charAt(0).toUpperCase() + it.motivo.slice(1);
+            aviso.innerHTML = '<i class="fa fa-exclamation-triangle"></i> ' + esc(motivo) +
+                ': elija otra opción para poder finalizar el pedido.';
+            (wrap.querySelector('.safra-control') || wrap).appendChild(aviso);
+            var limpiar = function () {
+                if (el.value === it.valor) return;
+                aviso.remove();
+                el.classList.remove('safra-sel-nodisp');
+                el.removeEventListener('change', limpiar);
+            };
+            el.addEventListener('change', limpiar);
+        });
+        if (sueltos.length) avisarNoDisponibles(card, sueltos);
+    }
+
+    // Sprint 1.6 (fila 123): editar una cotización guardada — cada persiana
+    // se arma como un duplicado, con los valores guardados.
+    function loadEdit(form, edit) {
+        // Ajustes Sprint 1.6 (26-oct): también proyectos especiales,
+        // verificación (rechazada, se corrige y se reenvía), embalaje y
+        // orden de compra.
+        ['safra_express', 'es_exportacion', 'es_proyecto_especial', 'requiere_verificacion'].forEach(function (code) {
+            var chk = form.querySelector('[name="' + code + '"]');
+            if (chk) {
+                chk.checked = !!edit[code];
+                chk.dispatchEvent(new Event('change'));
+            }
+        });
+        var obs = form.querySelector('[name="verificacion_observaciones"]');
+        if (obs) obs.value = edit.verificacion_observaciones || '';
+        var orden = form.querySelector('[name="orden_compra"]');
+        if (orden) orden.value = edit.orden_compra || '';
+        // Datos de despacho (filas 184-188).
+        // Odoo carga el paquete con «defer»: este archivo puede arrancar antes
+        // que safra_despacho.js; entonces el dato queda pendiente y ese
+        // archivo lo carga al iniciar (4-nov: el borrador no conservaba el
+        // despacho al editar).
+        if (edit.despacho && edit.despacho.country_id !== undefined) {
+            if (window.safraDespachoCargar) window.safraDespachoCargar(edit.despacho);
+            else window.safraDespachoPendiente = edit.despacho;
+        }
+        form.querySelectorAll('[name="embalaje"]').forEach(function (chk) {
+            chk.checked = (edit.embalaje_ids || []).indexOf(parseInt(chk.value, 10)) !== -1;
+        });
+        // Fila 124: «Duplicar» del resumen agrega la copia al final.
+        var lineas = edit.lineas.slice();
+        if (edit.duplicar > 0 && edit.duplicar <= lineas.length) {
+            var copia = Object.assign({}, lineas[edit.duplicar - 1]);
+            delete copia.control_channel;  // el canal es único por persiana
+            // La copia entra a la secuencia sin soportes: se configura otra vez.
+            delete copia.soporte_izq;
+            delete copia.soporte_der;
+            lineas.push(copia);
+        }
+        var noDisp = edit.no_disponibles || [];
+        var jobs = lineas.map(function (values, pos) {
+            var card = addLine();
+            if (!card) return Promise.resolve();
+            card._noDisp = noDisp[pos] || [];
+            if (!values.system_id) {
+                avisarNoDisponibles(card, card._noDisp.map(function (it) { return it.motivo; }));
+                return Promise.resolve();
+            }
+            values = Object.assign({}, values);
+            var idx = card.getAttribute('data-idx');
+            card._pendingControl = values.control || null;
+            card._pendingChannel = values.control_channel || null;
+            delete values.control_channel;
+            var sel = card.querySelector('.sel-system');
+            if (sel) sel.value = values.system_id;
+            return rpc('/cotizador/ajax/config', { system_id: values.system_id }).then(function (config) {
+                renderBody(card, config || { fields: [] });
+                return applyValues(card, idx, values);
+            });
+        });
+        Promise.all(jobs).then(function () {
+            // El canal se elige cuando el control ya cargó sus canales.
+            setTimeout(function () {
+                document.querySelectorAll('#lines-container .safra-line').forEach(function (c) {
+                    var chan = c._pendingChannel &&
+                        c.querySelector('[name="control_channel_' + c.getAttribute('data-idx') + '"]');
+                    if (chan) chan.value = c._pendingChannel;
+                    c._pendingChannel = null;
+                });
+                syncAllChannels();
+                // Reunión 09-nov (fila 2): lo que ya no está disponible queda
+                // elegido en gris, con el aviso junto a su campo.
+                document.querySelectorAll('#lines-container .safra-line').forEach(marcarNoDisponibles);
+                var cards = document.querySelectorAll('#lines-container .safra-line');
+                // Fila 123: «Editar» de una persiana del resumen abre esa.
+                var abrir = edit.duplicar > 0 ? cards.length - 1 :
+                    (edit.linea > 0 && edit.linea <= cards.length ? edit.linea - 1 : 0);
+                cards.forEach(function (c, n) { c.classList.toggle('collapsed', n !== abrir); });
+                if (abrir) cards[abrir].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                updateTotal();
+            }, 1500);
+        });
     }
 
     // El configurador de secuencia (safra_secuencia.js) refresca el
     // encabezado de las persianas después de asignar los soportes.
     window.safraUpdateSummary = updateSummary;
+    // Revisión 03-nov (prueba T.6): el configurador de secuencia avisa al
+    // aplicar los soportes para recalcular la Unificación Mando del tramo.
+    window.safraSyncUnificacion = syncUnificacionSecuencias;
     // Bloque 3: el modal de secuencia amplía la imagen del plano con el
     // mismo lightbox del cotizador.
     window.safraOpenLightbox = openLightbox;

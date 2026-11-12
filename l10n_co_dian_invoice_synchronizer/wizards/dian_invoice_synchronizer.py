@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import calendar
+import re
 import time
 from datetime import datetime, date
 
@@ -111,12 +112,12 @@ class DianInvoiceSynchronizer(models.TransientModel):
         client = self.env['dian.api.client']
 
         t0 = time.perf_counter()
-        documents_received, discarded, records_filtered, application_response_count, mapping_errors = client.fetch_invoices(
-            self.token_url, self.start_date, self.end_date, self.env.company
-        )
+        (documents_received, discarded, records_filtered, application_response_count, mapping_errors,
+         protocol) = client.fetch_invoices(self.token_url, self.start_date, self.end_date)
         sync_duration_seconds = time.perf_counter() - t0
 
-        company_id = self.env.company.id
+        company = self._get_company_for_documents(documents_received, discarded)
+        company_id = company.id
         for vals in documents_received:
             vals['company_id'] = company_id
 
@@ -124,13 +125,16 @@ class DianInvoiceSynchronizer(models.TransientModel):
         week_labels = dict(self._fields['week']._description_selection(self.env))
         sync_period = f"{self.year} - {month_labels[self.month]} - {week_labels[self.week]}"
 
-        sync = self.env['dian.sync'].create({
+        sync = self.env['dian.sync'].with_company(company).create({
             'company_id': company_id,
             'user_id': self.env.user.id,
             'sync_duration_seconds': round(sync_duration_seconds, 2),
             'sync_period': sync_period,
             'dian_records_filtered': records_filtered,
+            'dian_protocol': protocol,
             'discarded_cufes': '\n'.join(discarded) if discarded else '',
+            'discarded_other_company_count': self._count_discarded_in_other_companies(
+                discarded, company),
             'application_response_count': application_response_count,
             'mapping_error_count': len(mapping_errors),
             'mapping_errors_text': '\n'.join(
@@ -139,6 +143,21 @@ class DianInvoiceSynchronizer(models.TransientModel):
             'document_ids': [(0, 0, vals) for vals in documents_received],
         })
 
+        if company not in self.env.companies:
+            # The user cannot open a record of a company that is not active in the session
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': _('Synchronization %s created', sync.name),
+                    'message': _(
+                        "The DIAN token belongs to %(company)s, so the %(count)s document(s) "
+                        "were created in that company. Activate it in the company switcher "
+                        "to see them.", company=company.name, count=len(documents_received)),
+                    'type': 'warning',
+                    'sticky': True,
+                },
+            }
         return {
             'type': 'ir.actions.act_window',
             'name': _('Synchronization'),
@@ -147,4 +166,76 @@ class DianInvoiceSynchronizer(models.TransientModel):
             'view_mode': 'form',
             'target': 'current',
         }
+
+    @api.model
+    def _count_discarded_in_other_companies(self, discarded, company):
+        """
+        Number of discarded CUFEs (already in the system) that exist only in companies
+        other than `company`. Searched with sudo: the user may not have access to them.
+        """
+        if not discarded:
+            return 0
+        documents = self.env['dian.document'].sudo().search([('cufe', 'in', discarded)])
+        in_company = set(documents.filtered(lambda d: d.company_id == company).mapped('cufe'))
+        return len(set(documents.mapped('cufe')) - in_company)
+
+    @api.model
+    def _normalize_nit(self, vat):
+        """Digits of a NIT/VAT ('900.123.456-7' -> '9001234567')."""
+        return re.sub(r'\D', '', vat or '')
+
+    @api.model
+    def _company_matches_nit(self, company, nit):
+        """
+        True if `nit` (as DIAN sends it, without verification digit) is the NIT of
+        `company`, whose VAT may or may not include the verification digit.
+        """
+        nit = self._normalize_nit(nit)
+        company_nit = self._normalize_nit(company.vat or company.partner_id.vat)
+        if not nit or not company_nit:
+            return False
+        return company_nit == nit or (len(company_nit) == len(nit) + 1 and company_nit.startswith(nit))
+
+    def _get_company_for_documents(self, documents_received, discarded):
+        """
+        Company the synchronized documents belong to: the one, among the user's
+        companies, whose NIT is the receiver NIT of the documents (the NIT the DIAN
+        token was generated for), whatever company is active in the session.
+
+        When every document was discarded (already imported), the company of those
+        existing documents is used, or the current company if there is none.
+
+        :raises UserError: if a receiver NIT matches none of the user's companies, or
+            the documents belong to more than one company.
+        """
+        companies = self.env.user.company_ids
+        receiver_nits = {
+            self._normalize_nit(vals.get('receiver_vat')) for vals in documents_received
+        }
+        if not receiver_nits:
+            existing = self.env['dian.document'].sudo().search(
+                [('cufe', 'in', discarded or []), ('company_id', 'in', companies.ids)], limit=1)
+            return existing.company_id or self.env.company
+        matched = self.env['res.company']
+        unmatched = []
+        for nit in receiver_nits:
+            company = companies.filtered(lambda c: self._company_matches_nit(c, nit))[:1]
+            if company:
+                matched |= company
+            else:
+                unmatched.append(nit or _('(empty)'))
+        if unmatched:
+            raise UserError(_(
+                "The documents downloaded from DIAN were received by NIT %(nits)s, which is "
+                "not the NIT of any of your companies (%(companies)s). Check the NIT of the "
+                "company or generate the token for the right company.",
+                nits=', '.join(sorted(unmatched)),
+                companies=', '.join(companies.mapped('name'))))
+        if len(matched) > 1:
+            raise UserError(_(
+                "The documents downloaded from DIAN belong to more than one company "
+                "(%s). Synchronize each company with its own token.",
+                ', '.join(matched.mapped('name'))))
+        return matched
+
 

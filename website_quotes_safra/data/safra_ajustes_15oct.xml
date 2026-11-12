@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Ajustes Sprint 1.3 · reunión 15-oct-2026 (cabezal y ficha técnica):
+         filas 50, 59, 68, 69, 73 y 74 de la matriz. -->
+    <data noupdate="1">
+        <!-- Fila 74: la persiana se salta las restricciones (se ven, no
+             bloquean); queda sin garantía y producción debe aprobarla. -->
+        <record forcecreate="0" id="field_sin_restricciones" model="safra.field">
+            <field name="code">sin_restricciones</field>
+            <field name="name">Pedido sin restricciones</field>
+            <field name="field_type">boolean</field>
+            <!-- La sección FICHA TÉCNICA no tiene xmlid: _apply_15oct la asigna. -->
+            <field name="section_id" ref="section_cabezal"/>
+            <field name="sequence">4000</field>
+            <field name="help_text">Las restricciones se muestran pero no bloquean. La persiana no tiene garantía y producción debe aprobar que se puede fabricar.</field>
+            <field name="group_id" ref="group_safra_sin_restricciones"/>
+        </record>
+
+    </data>
+    <data noupdate="0">
+        <function model="safra.system" name="_una_vez" eval="['safra.field', '_apply_15oct']"/>
+    </data>
+    <data noupdate="1">
+        <!-- Fila 68: cada tubo de la Estructura por Ancho como opción «Tubo». -->
+    </data>
+    <data noupdate="0">
+        <function model="safra.system" name="_una_vez" eval="['safra.structure.rule', '_seed_opciones_tubo']"/>
+    </data>
+    <data noupdate="1">
+        <!-- Pendiente del Sprint 1.2 (reunión 13-oct, comentario del 15-oct):
+             las asociaciones del motor pasan del maestro a la referencia (una vez). -->
+    </data>
+    <data noupdate="0">
+        <function model="safra.system" name="_una_vez" eval="['safra.fabric.color', '_motores_desde_maestro']"/>
+    </data>
+    <data noupdate="1">
+    </data>
+
+    <!-- noupdate: el mensaje y la severidad se administran en el menú. -->
+    <data noupdate="1">
+        <record forcecreate="0" id="val_tubo_sin_insumo" model="safra.validation.rule">
+            <field name="code">V_TUBO_SIN_INSUMO</field>
+            <field name="name">Tubo bloqueado: uno de sus insumos no tiene existencias</field>
+            <field name="severity">error</field>
+        </record>
+        <record forcecreate="0" id="val_opcion_tela" model="safra.validation.rule">
+            <field name="code">V_OPCION_TELA</field>
+            <field name="name">Opción que solo sirve con ciertas telas (p. ej. un perfil)</field>
+            <field name="severity">error</field>
+        </record>
+        <record forcecreate="0" id="val_opcion_tubo" model="safra.validation.rule">
+            <field name="code">V_OPCION_TUBO</field>
+            <field name="name">Opción que solo se fabrica con ciertos tubos (p. ej. el cabezal cuadrado)</field>
+            <field name="severity">error</field>
+        </record>
+    </data>
+</odoo>

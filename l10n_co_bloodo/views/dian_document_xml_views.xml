@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ── Datos del XML en dian.document (GetXmlByDocumentKey) ───────────── -->
+
+    <record id="view_dian_document_form_xml" model="ir.ui.view">
+        <field name="name">dian.document.form.xml</field>
+        <field name="model">dian.document</field>
+        <field name="inherit_id" ref="l10n_co_dian_invoice_synchronizer.view_dian_document_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='radina_result']" position="after">
+                <field name="xml_state" widget="badge"
+                        decoration-success="xml_state == 'done'"
+                        decoration-info="xml_state == 'processing'"
+                        decoration-warning="xml_state == 'pending'"
+                        decoration-danger="xml_state == 'error'"/>
+            </xpath>
+            <xpath expr="//group[@name='sender']/field[@name='sender_vat']" position="after">
+                <field name="sender_vat_xml" readonly="1" placeholder="NIT / VAT (XML)" />
+                <field name="sender_vat_match" readonly="1" />
+                <field name="sender_id" readonly="1" options="{'no_create': True}" />
+                <div colspan="2" class="text-warning" invisible="sender_id or not sender_vat">
+                    <span class="fa fa-exclamation-triangle" title="Warning" />
+                    No contact found with identification number <field name="sender_vat" readonly="1" class="oe_inline" nolabel="1" />.
+                </div>
+            </xpath>
+            <xpath expr="//group[@name='amounts_api']" position="after">
+                <group string="Amounts (from XML)" name="amounts_xml" invisible="xml_state != 'done'">
+                    <field name="currency_id" readonly="1" options="{'no_create': True}" />
+                    <field name="invoice_type" readonly="1" />
+                    <field name="payment_means_code" readonly="1" />
+                    <field name="line_extension_amount" readonly="1" />
+                    <field name="tax_exclusive_amount" readonly="1" />
+                    <field name="tax_inclusive_amount" readonly="1" />
+                    <field name="payable_amount" readonly="1" />
+                </group>
+            </xpath>
+            <xpath expr="//group[@name='amounts_api']/.." position="after">
+                <group string="Credit / debit note (from XML)"
+                    invisible="invoice_type not in ('91', '92') or xml_state != 'done'">
+                    <field name="discrepancy_reference_id" readonly="1"
+                        placeholder="Reference to adjusted invoice" />
+                    <field name="discrepancy_response_code" readonly="1"
+                        placeholder="Response code" />
+                </group>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Invoice Lines" name="invoice_lines">
+                        <field name="invoice_line_ids" readonly="1" nolabel="1">
+                            <list create="0" delete="0">
+                                <field name="sellers_item_identification"
+                                    column_invisible="parent.invoice_type == '91'" />
+                                <field name="manufacturers_item_identification"
+                                    column_invisible="parent.invoice_type != '91'" />
+                                <field name="standard_item_identification" />
+                                <field name="description" />
+                                <field name="line_number" />
+                                <field name="invoiced_quantity"
+                                    column_invisible="parent.invoice_type == '91'" />
+                                <field name="credited_quantity"
+                                    column_invisible="parent.invoice_type != '91'" />
+                                <field name="quantity_unit_code" />
+                                <field name="price_amount" />
+                                <field name="line_extension_amount" />
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Tax Summary" name="tax_totals">
+                        <field name="tax_total_ids" readonly="1" nolabel="1">
+                            <list create="0" delete="0">
+                                <field name="tax_scheme_name" />
+                                <field name="tax_scheme_id" />
+                                <field name="taxable_amount" />
+                                <field name="percent" />
+                                <field name="tax_amount" />
+                            </list>
+                        </field>
+                    </page>
+                    <page string="XML / Errors" name="xml_errors"
+                        invisible="not xml_query_error_message">
+                        <group>
+                            <field name="xml_query_error_message" nolabel="1" readonly="1"
+                                placeholder="No error message." />
+                        </group>
+                    </page>
+                <page string="XML Status" name="xml_status">
+                    <group>
+                        <field name="xml_attempts" readonly="1" />
+                        <field name="xml_priority" readonly="1" />
+                        <field name="xml_processing_since" readonly="1" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_dian_document_no_invoice_list_xml" model="ir.ui.view">
+        <field name="name">dian.document.no.invoice.list.xml</field>
+        <field name="model">dian.document</field>
+        <field name="inherit_id" ref="l10n_co_dian_invoice_synchronizer.view_dian_document_no_invoice_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='total_amount']" position="after">
+                <field name="invoice_type" />
+                <field name="payment_means_code" />
+                <field name="xml_state" optional="show" widget="badge"
+                        decoration-success="xml_state == 'done'"
+                        decoration-info="xml_state == 'processing'"
+                        decoration-warning="xml_state == 'pending'"
+                        decoration-danger="xml_state == 'error'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_dian_document_no_purchase_list_xml" model="ir.ui.view">
+        <field name="name">dian.document.no.purchase.list.xml</field>
+        <field name="model">dian.document</field>
+        <field name="inherit_id" ref="l10n_co_dian_invoice_synchronizer.view_dian_document_no_purchase_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='total_amount']" position="after">
+                <field name="invoice_type" />
+                <field name="xml_state" optional="show" widget="badge"
+                        decoration-success="xml_state == 'done'"
+                        decoration-info="xml_state == 'processing'"
+                        decoration-warning="xml_state == 'pending'"
+                        decoration-danger="xml_state == 'error'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_dian_document_all_list_xml" model="ir.ui.view">
+        <field name="name">dian.document.all.list.xml</field>
+        <field name="model">dian.document</field>
+        <field name="inherit_id" ref="l10n_co_dian_invoice_synchronizer.view_dian_document_all_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='total_amount']" position="after">
+                <field name="invoice_type" />
+                <field name="xml_state" optional="show" widget="badge"
+                        decoration-success="xml_state == 'done'"
+                        decoration-info="xml_state == 'processing'"
+                        decoration-warning="xml_state == 'pending'"
+                        decoration-danger="xml_state == 'error'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_dian_document_search_xml" model="ir.ui.view">
+        <field name="name">dian.document.search.xml</field>
+        <field name="model">dian.document</field>
+        <field name="inherit_id" ref="l10n_co_dian_invoice_synchronizer.view_dian_document_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sender_vat']" position="after">
+                <field name="sender_id" />
+            </xpath>
+            <xpath expr="//field[@name='order_reference']" position="after">
+                <field name="invoice_type" />
+                <field name="payment_means_code" />
+            </xpath>
+            <xpath expr="//filter[@name='filter_no_po']" position="before">
+                <filter string="Without vendor" name="filter_no_sender"
+                    domain="[('sender_id', '=', False), ('sender_vat', '!=', False)]" />
+            </xpath>
+            <xpath expr="//filter[@name='filter_no_po']" position="after">
+                <filter string="Sender VAT mismatch" name="filter_sender_vat_mismatch"
+                    domain="[('sender_vat_match', '=', False), ('sender_vat_xml', '!=', False)]" />
+                <separator />
+                <filter string="Pending XML" name="filter_xml_pending"
+                    domain="[('xml_state', '=', 'pending')]" />
+                <filter string="Processing XML" name="filter_xml_processing"
+                    domain="[('xml_state', '=', 'processing')]" />
+                <filter string="XML loaded" name="filter_xml_done"
+                    domain="[('xml_state', '=', 'done')]" />
+                <filter string="XML error" name="filter_xml_error"
+                    domain="[('xml_state', '=', 'error')]" />
+                <separator />
+                <filter string="Invalid / Unspecified" name="filter_invoice_type_invalid"
+                    domain="[('invoice_type', '=', '')]" />
+                <filter string="01 - Electronic sales invoice" name="filter_invoice_type_01"
+                    domain="[('invoice_type', '=', '01')]" />
+                <filter string="02 - Electronic export sales invoice" name="filter_invoice_type_02"
+                    domain="[('invoice_type', '=', '02')]" />
+                <filter string="03 - Electronic transmission instrument - type 03"
+                    name="filter_invoice_type_03" domain="[('invoice_type', '=', '03')]" />
+                <filter string="04 - Electronic sales invoice - type 04"
+                    name="filter_invoice_type_04" domain="[('invoice_type', '=', '04')]" />
+                <filter string="91 - Credit note" name="filter_invoice_type_91"
+                    domain="[('invoice_type', '=', '91')]" />
+                <filter string="92 - Debit note" name="filter_invoice_type_92"
+                    domain="[('invoice_type', '=', '92')]" />
+                <filter string="96 - Events (ApplicationResponse)" name="filter_invoice_type_96"
+                    domain="[('invoice_type', '=', '96')]" />
+                <filter string="20 - Electronic equivalent of POS cash register receipt"
+                    name="filter_invoice_type_20" domain="[('invoice_type', '=', '20')]" />
+                <filter string="25 - Cinema admission ticket" name="filter_invoice_type_25"
+                    domain="[('invoice_type', '=', '25')]" />
+                <filter string="27 - Public show admission ticket" name="filter_invoice_type_27"
+                    domain="[('invoice_type', '=', '27')]" />
+                <filter string="30 - Localized and non-localized gaming"
+                    name="filter_invoice_type_30" domain="[('invoice_type', '=', '30')]" />
+                <filter string="35 - Land passenger transport ticket" name="filter_invoice_type_35"
+                    domain="[('invoice_type', '=', '35')]" />
+                <filter string="40 - Toll collection document" name="filter_invoice_type_40"
+                    domain="[('invoice_type', '=', '40')]" />
+                <filter string="45 - Statement issued by financial institutions"
+                    name="filter_invoice_type_45" domain="[('invoice_type', '=', '45')]" />
+                <filter string="50 - Air passenger transport ticket" name="filter_invoice_type_50"
+                    domain="[('invoice_type', '=', '50')]" />
+                <filter string="55 - Stock exchange, agricultural and commodities"
+                    name="filter_invoice_type_55" domain="[('invoice_type', '=', '55')]" />
+                <filter string="60 - Public and residential utilities document"
+                    name="filter_invoice_type_60" domain="[('invoice_type', '=', '60')]" />
+            </xpath>
+            <xpath expr="//filter[@name='group_sender']" position="after">
+                <filter string="Invoice Type" name="group_invoice_type"
+                    context="{'group_by': 'invoice_type'}" />
+                <filter string="Payment Means" name="group_payment_means_code"
+                    context="{'group_by': 'payment_means_code'}" />
+                <filter string="Vendor" name="group_sender_id" context="{'group_by': 'sender_id'}" />
+                <filter string="XML Status" name="group_xml_state" context="{'group_by': 'xml_state'}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_dian_document_tax_total_form" model="ir.ui.view">
+        <field name="name">dian.document.tax.total.form</field>
+        <field name="model">dian.document.tax.total</field>
+        <field name="arch" type="xml">
+            <form string="Tax Total" create="0" delete="0">
+                <sheet>
+                    <group>
+                        <group string="Context">
+                            <field name="name" readonly="1" />
+                            <field name="document_id" readonly="1" options="{'no_create': True}" />
+                            <field name="invoice_line_id" readonly="1" options="{'no_create': True}" />
+                        </group>
+                        <group string="Tax details">
+                            <field name="tax_scheme_name" readonly="1" />
+                            <field name="tax_scheme_id" readonly="1" />
+                            <field name="percent" readonly="1" />
+                            <field name="taxable_amount" readonly="1" />
+                            <field name="tax_amount" readonly="1" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_dian_document_invoice_line_form" model="ir.ui.view">
+        <field name="name">dian.document.invoice.line.form</field>
+        <field name="model">dian.document.invoice.line</field>
+        <field name="arch" type="xml">
+            <form string="Invoice Line" create="0" delete="0">
+                <sheet>
+                    <group>
+                        <group string="Line">
+                            <field name="name" readonly="1" />
+                            <field name="document_id" readonly="1" options="{'no_create': True}" />
+                            <field name="line_number" readonly="1" />
+                            <field name="description" readonly="1" nolabel="0" />
+                        </group>
+                        <group string="Quantity and price">
+                            <field name="invoiced_quantity" readonly="1"
+                                invisible="document_id.invoice_type == '91'" />
+                            <field name="credited_quantity" readonly="1"
+                                invisible="document_id.invoice_type != '91'" />
+                            <field name="quantity_unit_code" readonly="1" />
+                            <field name="line_extension_amount" readonly="1" />
+                            <field name="price_amount" readonly="1" />
+                            <field name="base_quantity" readonly="1" />
+                            <field name="base_quantity_unit_code" readonly="1" />
+                        </group>
+                    </group>
+                    <group string="Item identification">
+                        <field name="sellers_item_identification" readonly="1"
+                            invisible="document_id.invoice_type == '91'" />
+                        <field name="manufacturers_item_identification" readonly="1"
+                            invisible="document_id.invoice_type != '91'" />
+                        <field name="standard_item_identification" readonly="1" />
+                    </group>
+                    <group string="Notes" invisible="not note">
+                        <field name="note" readonly="1" nolabel="1" />
+                    </group>
+                    <notebook>
+                        <page string="Tax Totals" name="tax_totals">
+                            <field name="tax_total_ids" readonly="1" nolabel="1">
+                                <list create="0" delete="0">
+                                    <field name="tax_scheme_name" />
+                                    <field name="tax_scheme_id" />
+                                    <field name="taxable_amount" />
+                                    <field name="percent" />
+                                    <field name="tax_amount" />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

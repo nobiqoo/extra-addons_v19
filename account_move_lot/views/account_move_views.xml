@@ -11,6 +11,7 @@
                 <field name="available_lot_ids"
                        column_invisible="1"/>
                 <field name="lot_ids"
+                       string="Lotes de entrega"
                        readonly="parent.move_type not in ('out_refund', 'in_refund')"
                        domain="[('id', 'in', available_lot_ids)]"
                        widget="many2many_tags"/>

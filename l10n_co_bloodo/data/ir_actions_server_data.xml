@@ -42,6 +42,48 @@
             <field name="group_ids" eval="[(4, ref('base.group_user'))]"/>
         </record>
 
+        <!-- Eventos DIAN para dian.document (facturas recibidas) -->
+
+        <record id="ir_actions_server_dian_doc_event_status" model="ir.actions.server">
+            <field name="name">Evento DIAN: Consulta estado</field>
+            <field name="model_id" ref="l10n_co_dian_invoice_synchronizer.model_dian_document"/>
+            <field name="binding_model_id" ref="l10n_co_dian_invoice_synchronizer.model_dian_document"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">action = records.dian_event_send_action('', 10)</field>
+            <field name="group_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="ir_actions_server_dian_doc_event_030" model="ir.actions.server">
+            <field name="name">Evento DIAN: Acuse de recibo</field>
+            <field name="model_id" ref="l10n_co_dian_invoice_synchronizer.model_dian_document"/>
+            <field name="binding_model_id" ref="l10n_co_dian_invoice_synchronizer.model_dian_document"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">action = records.dian_event_send_action('030', 10)</field>
+            <field name="group_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="ir_actions_server_dian_doc_event_032" model="ir.actions.server">
+            <field name="name">Evento DIAN: Recibo del bien</field>
+            <field name="model_id" ref="l10n_co_dian_invoice_synchronizer.model_dian_document"/>
+            <field name="binding_model_id" ref="l10n_co_dian_invoice_synchronizer.model_dian_document"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">action = records.dian_event_send_action('032', 10)</field>
+            <field name="group_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="ir_actions_server_dian_doc_event_033" model="ir.actions.server">
+            <field name="name">Evento DIAN: Aceptación expresa</field>
+            <field name="model_id" ref="l10n_co_dian_invoice_synchronizer.model_dian_document"/>
+            <field name="binding_model_id" ref="l10n_co_dian_invoice_synchronizer.model_dian_document"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">action = records.dian_event_send_action('033', 10)</field>
+            <field name="group_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
         <record id="ir_actions_server_send_multi_to_dian" model="ir.actions.server">
             <field name="name">Enviar a la DIAN</field>
             <field name="model_id" ref="account.model_account_move"/>
@@ -50,6 +92,16 @@
             <field name="state">code</field>
             <field name="code">action = records.action_send_multi_to_dian()</field>
             <field name="group_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Vincular dian.document con su factura de proveedor (uuid_ei_ref) -->
+        <record id="action_match_dian_documents" model="ir.actions.server">
+            <field name="name">Link to Invoices</field>
+            <field name="model_id" ref="l10n_co_dian_invoice_synchronizer.model_dian_document"/>
+            <field name="binding_model_id" ref="l10n_co_dian_invoice_synchronizer.model_dian_document"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_match_account_moves()</field>
         </record>
     </data>
 </odoo>

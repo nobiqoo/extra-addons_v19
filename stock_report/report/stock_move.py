@@ -9,9 +9,14 @@ class ReportStockMove(models.AbstractModel):
     _description = 'Stock move report'
 
     def generate_xlsx_report(self, workbook, data, objs):
+        wizard = self.env['stock.move.wizard'].browse(data.get('record_id'))
+        data = wizard.prepare_data_ok()
+
         bold = workbook.add_format({'bold': True})
         money = workbook.add_format({'num_format': '$#,##0.00'})
         num = workbook.add_format({'num_format': '#,##0.00'})
+        fdatetime = workbook.add_format({'num_format': 'yyyy-mm-dd hh:mm:ss'})
+        fdate = workbook.add_format({'num_format': 'yyyy-mm-dd'})
 
         worksheet_info = workbook.add_worksheet('Información')
         worksheet_info.write('A1', 'Compañia', bold)
@@ -19,13 +24,13 @@ class ReportStockMove(models.AbstractModel):
         worksheet_info.write('A2', 'Usuario', bold)
         worksheet_info.write('B2', data.get('user'))
         worksheet_info.write('A3', 'Desde', bold)
-        worksheet_info.write('B3', data.get('start'))
+        worksheet_info.write('B3', data.get('start'), fdate)
         worksheet_info.write('A4', 'Hasta', bold)
-        worksheet_info.write('B4', data.get('end'))
+        worksheet_info.write('B4', data.get('end'), fdate)
 
-        locations = data.get('locations')
+        locations = data.get('locations') or []
         for location in locations:
-            worksheet = workbook.add_worksheet(location.get('name'))
+            worksheet = workbook.add_worksheet(location.get('name') or 'Movimientos')
             worksheet.write('A1', 'Fecha', bold)
             worksheet.write('B1', 'Referencia', bold)
             worksheet.write('C1', 'Origen', bold)
@@ -41,11 +46,11 @@ class ReportStockMove(models.AbstractModel):
             # worksheet.write('M1', 'P. Unitario', bold)
             # worksheet.write('N1', 'P. Total', bold)
 
-            products = location.get('products')
+            products = location.get('products').values() or []
             row = 2
             for product in products:
-                for move in product.get('moves'):
-                    worksheet.write('A%s' % row, move.get('date'))
+                for move in product.get('moves') or []:
+                    worksheet.write('A%s' % row, move.get('date'), fdatetime)
                     worksheet.write('B%s' % row, move.get('reference'))
                     worksheet.write('C%s' % row, move.get('origin'))
                     worksheet.write('D%s' % row, move.get('partner'))

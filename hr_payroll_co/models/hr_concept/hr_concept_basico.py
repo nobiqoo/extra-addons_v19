@@ -17,6 +17,23 @@ class HrConcept(models.Model):
 
     def _BASICO(self, data_payslip):
         assumed_disability_february = data_payslip['politics']['hr_payroll_co.assumed_disability_february']
+        is_hourly_worker = (
+            data_payslip['politics'].get('hr_payroll_co.enable_hourly_payroll')
+            and data_payslip['contract'].is_hourly_worker
+        )
+
+        def get_ordinary_day_wage(current_wage, rate, ref_date):
+            """
+            Valor de un día ordinario completo.
+            - Trabajador por horas: Valor Hora x Horas Laboradas (jornada diaria configurada).
+            - Estándar: Salario Mensual / 30.
+            """
+            if is_hourly_worker:
+                schedule = data_payslip['contract'].get_hourly_schedule(ref_date)
+                hour_value = (current_wage.wage / schedule['monthly_hours']
+                             ) if schedule['monthly_hours'] else 0
+                return hour_value * schedule['daily_hours'] * rate
+            return current_wage.wage / 30 * rate
 
         def get_detail():
             settlement_date = data_payslip['contract'].settlement_date
@@ -73,7 +90,7 @@ class HrConcept(models.Model):
                 rate = self.wage_rate_by_contract_type(
                     data_payslip, sena_phase)
 
-                daily_wage = current_wage.wage / 30 * rate
+                daily_wage = get_ordinary_day_wage(current_wage, rate, period_day)
                 wage += daily_wage
                 if sena_phase == TEACHING_PHASE:
                     wage_no_base_ibc += daily_wage
@@ -99,7 +116,8 @@ class HrConcept(models.Model):
                         and leave.leave_id.category_type in ('MAT_LIC', 'PAT_LIC', 'SICKNESS')):
                     if leave_days[-1] == data_payslip['period'].end.day:
                         days_to_add = 0
-                wage += current_wage.wage / 30 * rate * days_to_add
+                wage += get_ordinary_day_wage(
+                    current_wage, rate, data_payslip['period'].end) * days_to_add
                 days += days_to_add
 
             rest_days_payable = data_payslip['contract'].get_rest_days_payable(
@@ -108,7 +126,8 @@ class HrConcept(models.Model):
                 current_wage = max(filter(lambda x: x.date <= data_payslip['period'].end, wage_history),
                                    key=lambda x: x.date)
                 days += rest_days_payable
-                wage += current_wage.wage / 30 * rate * rest_days_payable
+                wage += get_ordinary_day_wage(
+                    current_wage, rate, data_payslip['period'].end) * rest_days_payable
 
             query = '''
                 SELECT COALESCE(SUM(HPL.total), 0), COALESCE(SUM(HPL.qty), 0)            

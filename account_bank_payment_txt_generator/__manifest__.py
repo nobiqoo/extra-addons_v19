@@ -20,6 +20,7 @@
         'security/ir.model.access.csv',
         'views/res_bank_txt_config_views.xml',
         'views/account_payment_order_views.xml',
+        'views/res_config_settings_view.xml',
         'wizards/res_bank_txt_select_wizard_views.xml',
     ],
 }

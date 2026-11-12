@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <!-- Ajuste y ampliación de Reportes Académicos: botón "Generar Class
+         List" junto al botón "Fetch GradeSheet" ya existente. -->
+    <t t-inherit="gradesheet_template" t-inherit-mode="extension">
+        <xpath expr="//div[contains(@class,'col-12 col-md-2 d-flex align-items-end')]" position="after">
+            <div class="col-12 col-md-2 d-flex align-items-end">
+                <button class="btn btn-secondary w-100" t-on-click="_wk_generate_class_list">
+                    Generar Class List
+                </button>
+            </div>
+        </xpath>
+    </t>
+</templates>

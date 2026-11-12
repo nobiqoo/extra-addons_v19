@@ -16,7 +16,8 @@ Use budgets to compare actual with expected revenues and costs
         'views/account_analytic_account_views.xml',
         'views/account_move_views.xml',
         'views/purchase_approval_budget_wizard_views.xml',
-        'views/purchase_appoval_reason_budget_wizard_views.xml'
+        'views/purchase_appoval_reason_budget_wizard_views.xml',
+        'views/res_config_settings_views.xml'
     ],
     'assets': {
         'web.assets_backend': [

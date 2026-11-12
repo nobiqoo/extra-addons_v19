@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Recibo de entrega (remisión) -->
+    <template id="report_delivery_document_delivery_slip_arthome" inherit_id="stock.report_delivery_document">
+        <xpath expr="//div[@id='informations']" position="after">
+            <div t-if="o.line_count_applicable" class="row mb-4" name="delivery_slip_info_row">
+                <div t-if="o.box_count_applicable" class="col-3 mw-100 mb-2" name="div_box_count">
+                    <strong>Box Count</strong>
+                    <div t-field="o.box_count" class="m-0"/>
+                </div>
+                <t t-if="o.delivery_slip_applicable">
+                    <div class="col-3 mw-100 mb-2" name="div_delivery_weight">
+                        <strong>Total Weight</strong>
+                        <div class="m-0">
+                            <span t-field="o.delivery_weight"/>
+                            <span t-field="o.delivery_weight_uom_name"/>
+                        </div>
+                    </div>
+                    <div class="col-3 mw-100 mb-2" name="div_insurable_value">
+                        <strong>Insurable Value</strong>
+                        <div t-field="o.insurable_value" class="m-0"/>
+                    </div>
+                </t>
+                <div class="col-3 mw-100 mb-2" name="div_line_count">
+                    <strong>Line Count</strong>
+                    <div t-field="o.line_count" class="m-0"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_delivery_document_order_info_arthome" inherit_id="stock.report_delivery_document">
+        <xpath expr="//div[@name='div_origin']" position="after">
+            <t t-if="o.order_info_applicable">
+                <div t-if="o.order_reference" class="col col-3 mw-100 mb-2" name="div_order_reference">
+                    <strong>Order Number</strong>
+                    <div t-field="o.order_reference" class="m-0"/>
+                </div>
+                <div t-if="o.salesperson_name" class="col col-3 mw-100 mb-2" name="div_salesperson">
+                    <strong>Salesperson</strong>
+                    <div t-field="o.salesperson_name" class="m-0"/>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[@name='delivery_slip_info_row']" position="after">
+            <div t-if="o.order_info_applicable and o.delivery_comment" class="mb-4" name="div_delivery_comment">
+                <strong>Dispatch Note/Instruction</strong>
+                <div t-field="o.delivery_comment" class="border rounded p-2"/>
+            </div>
+        </xpath>
+        <xpath expr="//table[@name='stock_move_table']" position="before">
+            <t t-set="has_reserved_lots" t-value="False"/>
+            <t t-set="has_reserved_lots" t-value="bool(o.move_ids.move_line_ids.lot_id)" groups="stock.group_lot_on_delivery_slip"/>
+        </xpath>
+        <xpath expr="//table[@name='stock_move_table']//th[@name='th_sm_ordered']" position="after">
+            <th name="th_sm_lot" class="text-end" t-if="has_reserved_lots"><strong>Lot/Serial Number</strong></th>
+        </xpath>
+        <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[2]" position="after">
+            <td class="text-end" name="td_sm_lot" t-if="has_reserved_lots">
+                <div t-foreach="move.move_line_ids.filtered('lot_id')" t-as="move_line" class="text-nowrap">
+                    <span t-field="move_line.lot_id.name"/> (<span t-out="format_number(move_line.quantity)"/> <span t-field="move_line.product_uom_id"/>)
+                </div>
+            </td>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_saleorder_document_box_count_arthome" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@id='informations']" position="inside">
+            <div t-if="doc.box_count" class="col" name="informations_box_count">
+                <strong>Box Count</strong>
+                <div t-field="doc.box_count"/>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Cotización / pedido de venta: comentarios de despacho -->
+    <template id="report_saleorder_document_delivery_comment_arthome" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@id='informations']" position="after">
+            <div t-if="doc.delivery_comment" class="mb-4" name="div_delivery_comment">
+                <strong>Dispatch Note/Instruction</strong>
+                <div t-field="doc.delivery_comment" class="border rounded p-2"/>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

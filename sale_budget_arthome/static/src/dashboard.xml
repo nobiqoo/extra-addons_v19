@@ -1,0 +1,314 @@
+<templates xml:space="preserve">
+    <t t-name="sale_budget_arthome.Dashboard">
+        <div class="o_arthome_budget h-100 overflow-auto p-3">
+            <div class="ab_toolbar d-flex flex-wrap gap-2 align-items-center mb-3">
+                <input type="month" name="month" class="form-control w-auto" aria-label="Mes" t-att-value="state.month" t-on-change="change"/>
+                <select name="budgetId" class="form-select w-auto" aria-label="Asesor" t-on-change="change" t-att-value="state.budgetId">
+                    <option value="">Todos los asesores</option>
+                    <option t-foreach="state.data?.advisers || []" t-as="item" t-key="item.id" t-att-value="item.id" t-att-selected="item.id.toString() === state.budgetId"><t t-esc="item.name"/></option>
+                </select>
+                <select name="teamId" class="form-select w-auto" aria-label="Equipo" t-on-change="change">
+                    <option value="" t-att-selected="!state.teamId">Todos los equipos</option>
+                    <option t-foreach="state.data?.teams || []" t-as="item" t-key="item.id" t-att-value="item.id" t-att-selected="item.id.toString() === state.teamId"><t t-esc="item.name"/></option>
+                </select>
+                <select name="zone" class="form-select w-auto" aria-label="Zona" t-on-change="change">
+                    <option value="" t-att-selected="!state.zone">Todas las zonas</option>
+                    <option t-foreach="state.data?.zones || []" t-as="item" t-key="item" t-att-value="item" t-att-selected="item === state.zone"><t t-esc="item"/></option>
+                </select>
+                <select name="categoryId" class="form-select w-auto" aria-label="Línea de negocio" t-on-change="change">
+                    <option value="" t-att-selected="!state.categoryId">Todas las categorías</option>
+                    <option t-foreach="state.data?.category_options || []" t-as="item" t-key="item.id" t-att-value="item.id" t-att-selected="item.id.toString() === state.categoryId"><t t-esc="item.name"/></option>
+                </select>
+                <button class="btn btn-primary" t-on-click="load" t-att-disabled="state.loading">Actualizar</button>
+                <div class="ab_view_switch d-flex align-items-center gap-1 ms-lg-auto" role="group" aria-label="Vista del tablero">
+                    <span class="ab_view_label me-1">VISTA</span>
+                    <button t-foreach="['day', 'week', 'month']" t-as="view" t-key="view"
+                            t-att-class="'btn btn-sm ab_view_button ' + (state.view === view ? 'active' : '')"
+                            t-att-aria-pressed="state.view === view ? 'true' : 'false'"
+                            t-on-click="() => selectView(view)">
+                        <t t-esc="{day: 'Día', week: 'Semana', month: 'Mes'}[view]"/>
+                    </button>
+                </div>
+                <select t-if="state.view === 'week'" class="form-select ab_week_select w-auto" aria-label="Semana del mes"
+                        t-on-change="changeWeek">
+                    <option value="all" t-att-selected="state.salesWeek === null">Todo el mes</option>
+                    <option t-foreach="weeks" t-as="week" t-key="week_index" t-att-value="week_index"
+                            t-att-selected="state.salesWeek === week_index">
+                        Semana <t t-esc="week_index + 1"/> · <t t-esc="week[0].date"/> al <t t-esc="week[week.length - 1].date"/>
+                    </option>
+                </select>
+            </div>
+            <div t-if="state.error" class="alert alert-danger" role="alert"><t t-esc="state.error"/></div>
+            <div t-if="!state.data and state.loading" class="p-5 text-center">Cargando presupuestos…</div>
+            <t t-if="state.data and !state.error">
+                <div class="ab_title p-3 d-flex justify-content-between align-items-center">
+                    <h3 class="m-0">Cumplimiento comercial</h3>
+                    <span><t t-esc="state.month"/> · <t t-esc="state.data.count"/> presupuestos · <t t-esc="state.data.currency"/></span>
+                </div>
+                <div t-if="!state.data.count" class="alert alert-info mt-3">No hay presupuestos confirmados para estos filtros.</div>
+                <div class="ab_cards my-3">
+                    <div class="ab_card"><small>META DEL MES</small><strong class="ab_blue" t-esc="money(state.data.budget)"/></div>
+                    <div class="ab_card"><small>VENTA REAL DEL MES</small><strong class="ab_orange" t-esc="money(state.data.real)"/></div>
+                    <div class="ab_card"><small>CUMPLIMIENTO MENSUAL</small><strong t-esc="percent(state.data.compliance)"/></div>
+                    <div class="ab_card"><small>RECAUDO REGISTRADO</small><strong t-esc="percent(state.data.collection_compliance)"/></div>
+                </div>
+                <div class="ab_visuals mb-4">
+                    <section class="ab_chart_card" aria-labelledby="ab_compliance_title">
+                        <div class="ab_summary_heading">
+                            <h4 id="ab_compliance_title">Resumen visual de cumplimiento</h4>
+                            <div class="ab_period_actions">
+                                <span t-esc="visualPeriodLabel"/>
+                                <button t-if="state.salesWeek !== null" t-on-click="clearSalesWeek">Todo el mes</button>
+                            </div>
+                        </div>
+                        <small class="ab_chart_help">Seleccione un círculo para filtrar el detalle inferior.</small>
+                        <div class="ab_donut_group">
+                            <div class="ab_donut_item">
+                                <button t-att-class="'ab_donut ' + (state.metric === 'sales' ? 'active' : '')"
+                                     t-att-style="donut(visualSalesCompliance, '#075fc2')"
+                                     t-att-aria-label="'Filtrar por ventas. ' + visualPeriodLabel + '. Cumplimiento: ' + percent(visualSalesCompliance)"
+                                     t-att-aria-pressed="state.metric === 'sales' ? 'true' : 'false'" t-on-click="() => selectMetric('sales')">
+                                    <div class="ab_donut_inner"><strong t-esc="percent(visualSalesCompliance)"/><span>Ventas</span></div>
+                                </button>
+                                <small class="ab_donut_values"><t t-esc="money(visualSalesReal)"/> / <t t-esc="money(visualSalesBudget)"/></small>
+                            </div>
+                            <div class="ab_donut_item">
+                                <button t-att-class="'ab_donut ' + (state.metric === 'collection' ? 'active' : '')"
+                                     t-att-style="donut(visualCollectionCompliance, '#b9380a')"
+                                     t-att-aria-label="'Filtrar por recaudo. ' + visualPeriodLabel + '. Cumplimiento: ' + percent(visualCollectionCompliance)"
+                                     t-att-aria-pressed="state.metric === 'collection' ? 'true' : 'false'" t-on-click="() => selectMetric('collection')">
+                                    <div class="ab_donut_inner"><strong t-esc="percent(visualCollectionCompliance)"/><span>Recaudo</span></div>
+                                </button>
+                                <small class="ab_donut_values"><t t-esc="money(visualCollectionReal)"/> / <t t-esc="money(visualCollectionBudget)"/></small>
+                            </div>
+                        </div>
+                    </section>
+                    <section t-if="state.chartView === 'week'" class="ab_chart_card" aria-labelledby="ab_week_chart_title">
+                        <div class="ab_chart_heading">
+                            <div>
+                                <h4 id="ab_week_chart_title">Meta y ventas por semana</h4>
+                                <small class="ab_chart_help">Seleccione una barra para filtrar el detalle diario.</small>
+                            </div>
+                            <div class="ab_chart_controls">
+                                <div class="ab_chart_selector" role="tablist" aria-label="Tipo de gráfica">
+                                    <button class="active" role="tab" aria-selected="true">Por semana</button>
+                                    <button role="tab" aria-selected="false" t-on-click="() => { state.chartView = 'trend'; }">Acumulada</button>
+                                </div>
+                                <div class="ab_chart_legend"><span class="budget">Meta</span><span class="real">Venta real</span></div>
+                            </div>
+                        </div>
+                        <div class="ab_week_chart" aria-label="Comparación de meta y venta real por semana">
+                            <div t-foreach="weeklyRows" t-as="row" t-key="row.name"
+                                 t-att-class="'ab_week_column ' + (state.metric === 'sales' &amp;&amp; state.salesWeek === row_index ? 'active' : '')">
+                                <div class="ab_week_values"><span t-esc="compactMoney(row.budget)"/><span t-esc="compactMoney(row.real)"/></div>
+                                <div class="ab_week_bars">
+                                    <button class="budget" t-att-style="weeklyBar(row.budget)"
+                                            t-att-title="'Filtrar ' + row.name + ' · Meta: ' + money(row.budget)"
+                                            t-att-aria-label="'Filtrar ' + row.name + ' por meta ' + money(row.budget)"
+                                            t-on-click="() => selectWeek(row_index)"/>
+                                    <button class="real" t-att-style="weeklyBar(row.real)"
+                                            t-att-title="'Filtrar ' + row.name + ' · Venta real: ' + money(row.real)"
+                                            t-att-aria-label="'Filtrar ' + row.name + ' por venta real ' + money(row.real)"
+                                            t-on-click="() => selectWeek(row_index)"/>
+                                </div>
+                                <button class="ab_week_label" t-on-click="() => selectWeek(row_index)"
+                                        t-att-aria-label="'Filtrar ' + row.name" t-esc="'S' + (row_index + 1)"/>
+                            </div>
+                        </div>
+                    </section>
+                <section t-if="state.chartView === 'trend'" class="ab_chart_card ab_trend_card" aria-labelledby="ab_trend_title">
+                    <div class="ab_chart_heading">
+                        <div>
+                            <h4 id="ab_trend_title">Ventas hasta la fecha</h4>
+                            <small class="ab_chart_help">Comparativo acumulado. Seleccione un punto para filtrar su semana.</small>
+                        </div>
+                        <div class="ab_chart_controls">
+                            <div class="ab_chart_selector" role="tablist" aria-label="Tipo de gráfica">
+                                <button role="tab" aria-selected="false" t-on-click="() => { state.chartView = 'week'; }">Por semana</button>
+                                <button class="active" role="tab" aria-selected="true">Acumulada</button>
+                            </div>
+                            <div class="ab_chart_legend ab_trend_legend">
+                                <span class="sales">Vendido <strong t-esc="money(trendDays.at(-1)?.cumulative_real || 0)"/></span>
+                                <span class="target">Meta <strong t-esc="money(trendDays.at(-1)?.cumulative_budget || 0)"/></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ab_trend_scroll">
+                        <svg class="ab_trend_chart" viewBox="0 0 780 260" role="img"
+                             aria-label="Comparación acumulada entre la meta y las ventas hasta la fecha">
+                            <g class="ab_grid">
+                                <g t-foreach="trendChart.ticks" t-as="tick" t-key="tick_index">
+                                    <line x1="62" x2="748" t-att-y1="tick.y" t-att-y2="tick.y"/>
+                                    <text x="54" t-att-y="tick.y + 4" text-anchor="end" t-esc="compactMoney(tick.value)"/>
+                                </g>
+                            </g>
+                            <path class="ab_sales_area" t-att-d="trendChart.areaPath"/>
+                            <path class="ab_target_line" t-att-d="trendChart.targetPath"/>
+                            <path class="ab_sales_line" t-att-d="trendChart.salesPath"/>
+                            <g class="ab_trend_points">
+                                <g t-foreach="trendChart.points" t-as="point" t-key="point.date">
+                                    <circle class="target" r="3.5" t-att-cx="point.x" t-att-cy="point.targetY">
+                                        <title><t t-esc="point.date + ' · Meta: ' + money(point.cumulative_budget)"/></title>
+                                    </circle>
+                                    <circle class="sales" r="4" tabindex="0" role="button"
+                                            t-att-cx="point.x" t-att-cy="point.salesY"
+                                            t-att-aria-label="point.date + '. Vendido: ' + money(point.cumulative_real) + '. Filtrar semana.'"
+                                            t-on-click="() => selectDate(point.date)"
+                                            t-on-keydown="(ev) => selectDateKey(ev, point.date)">
+                                        <title><t t-esc="point.date + ' · Vendido: ' + money(point.cumulative_real)"/></title>
+                                    </circle>
+                                </g>
+                            </g>
+                            <g class="ab_axis_labels">
+                                <text t-foreach="trendChart.labels" t-as="point" t-key="point.date"
+                                      t-att-x="point.x" y="246" text-anchor="middle" t-esc="point.label"/>
+                            </g>
+                        </svg>
+                    </div>
+                </section>
+                </div>
+                <div t-if="state.metric === 'sales'" class="ab_detail_section">
+                <div class="ab_detail_tabs" role="tablist" aria-label="Detalle comercial">
+                    <button t-att-class="'ab_detail_tab ' + (state.salesTab === 'sales' ? 'active' : '')"
+                            role="tab" t-att-aria-selected="state.salesTab === 'sales' ? 'true' : 'false'"
+                            t-on-click="() => { state.salesTab = 'sales'; }">Ventas</button>
+                    <button t-att-class="'ab_detail_tab ' + (state.salesTab === 'progress' ? 'active' : '')"
+                            role="tab" t-att-aria-selected="state.salesTab === 'progress' ? 'true' : 'false'"
+                            t-on-click="() => { state.salesTab = 'progress'; }">Avance</button>
+                </div>
+                <div t-if="state.salesTab === 'sales'" role="tabpanel">
+                <div class="ab_list_heading">
+                    <div>
+                        <h4>Listado de ventas</h4>
+                        <small><t t-esc="salesPeriodLabel"/> · <t t-esc="visibleSales.length"/> líneas de venta</small>
+                    </div>
+                    <button t-if="state.salesWeek !== null" class="btn btn-sm btn-outline-primary"
+                            t-on-click="clearSalesWeek">Ver todo el mes</button>
+                </div>
+                <div t-if="!visibleSales.length" class="alert alert-info">No hay ventas contabilizadas para el periodo seleccionado.</div>
+                <div t-else="" class="table-responsive mb-4">
+                    <table class="table table-striped ab_sales_list">
+                        <thead><tr><th>Fecha</th><th>Documento</th><th>Tipo</th><th>Cliente</th><th>Asesor</th><th>Producto / categoría</th><th class="text-end">Valor</th></tr></thead>
+                        <tbody><tr t-foreach="visibleSales" t-as="sale" t-key="sale.id">
+                            <td t-esc="sale.date"/>
+                            <td><strong t-esc="sale.document"/></td>
+                            <td><span t-att-class="sale.amount &lt; 0 ? 'ab_credit_note' : ''" t-esc="sale.type"/></td>
+                            <td t-esc="sale.partner"/>
+                            <td t-esc="sale.adviser"/>
+                            <td><span t-esc="sale.product"/><small t-esc="sale.category"/></td>
+                            <td t-att-class="'text-end ' + (sale.amount &lt; 0 ? 'ab_negative' : 'ab_orange')" t-esc="money(sale.amount)"/>
+                        </tr></tbody>
+                    </table>
+                </div>
+                <h4 class="mt-4">Detalle de cumplimiento</h4>
+                <div class="table-responsive mb-4">
+                    <table t-if="state.view === 'week'" class="table table-bordered ab_days">
+                        <thead><tr><th>Indicador</th><th t-foreach="visibleDays" t-as="day" t-key="day.date"><t t-esc="dayLabel(day.date)"/></th></tr></thead>
+                        <tbody>
+                            <tr class="ab_budget_row"><th>Presupuesto del día</th><td t-foreach="visibleDays" t-as="day" t-key="day.date" t-esc="money(day.budget)"/></tr>
+                            <tr class="ab_sales_row"><th>Venta del día</th><td t-foreach="visibleDays" t-as="day" t-key="day.date" t-esc="money(day.real)"/></tr>
+                            <tr><th>Cumplimiento del día</th><td t-foreach="visibleDays" t-as="day" t-key="day.date"><span t-att-class="day.daily_compliance >= 100 ? 'ab_good' : 'ab_pending'" t-esc="percent(day.daily_compliance)"/></td></tr>
+                            <tr class="ab_sales_row"><th>Ventas acumuladas del mes</th><td t-foreach="visibleDays" t-as="day" t-key="day.date" t-esc="money(day.cumulative_real)"/></tr>
+                            <tr><th>Meta acumulada del mes</th><td t-foreach="visibleDays" t-as="day" t-key="day.date" t-esc="money(day.cumulative_budget)"/></tr>
+                            <tr><th>Cumplimiento acumulado</th><td t-foreach="visibleDays" t-as="day" t-key="day.date"><span t-att-class="day.compliance >= 100 ? 'ab_good' : 'ab_pending'" t-esc="percent(day.compliance)"/></td></tr>
+                        </tbody>
+                    </table>
+                    <table t-else="" class="table table-striped">
+                        <thead><tr><th>Periodo</th><th>Presupuesto</th><th>Venta real</th><th>Cumplimiento</th></tr></thead>
+                        <tbody>
+                            <t t-if="state.view === 'month'"><tr t-foreach="weeklyRows" t-as="row" t-key="row.name"><td><t t-esc="row.name"/> · <t t-esc="row.range"/></td><td t-esc="money(row.budget)"/><td t-esc="money(row.real)"/><td t-esc="percent(row.compliance)"/></tr></t>
+                            <t t-else=""><tr t-foreach="visibleDays" t-as="day" t-key="day.date"><td t-esc="day.date"/><td t-esc="money(day.budget)"/><td t-esc="money(day.real)"/><td t-esc="percent(day.budget ? 100 * day.real / day.budget : null)"/></tr></t>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+                <div t-if="state.salesTab === 'progress'" role="tabpanel">
+                <h4>Avance por línea de negocio</h4>
+                <div class="table-responsive mb-4">
+                    <table class="table ab_categories">
+                        <thead><tr><th>Categoría</th><th>% meta</th><th>Presupuesto</th><th>Venta real</th><th>Avance</th><th>Cumplimiento</th></tr></thead>
+                        <tbody><tr t-foreach="state.data.categories" t-as="row" t-key="row.name">
+                            <td t-esc="row.name"/><td t-esc="percent(state.data.budget ? 100 * row.budget / state.data.budget : null)"/>
+                            <td class="ab_blue" t-esc="money(row.budget)"/><td class="ab_orange" t-esc="money(row.real)"/>
+                            <td><div class="ab_bar"><div t-att-class="row.compliance >= 100 ? 'ab_fill good' : 'ab_fill'" t-att-style="bar(row.compliance)"/><i/></div></td>
+                            <td><span t-att-class="row.compliance >= 100 ? 'ab_good' : 'ab_pending'" t-esc="percent(row.compliance)"/></td>
+                        </tr></tbody>
+                    </table>
+                </div>
+                </div>
+                </div>
+                <div t-if="state.metric === 'collection'" class="ab_detail_section">
+                <h4>Recaudo de cartera</h4>
+                <p class="text-muted">Pagos de facturas conciliados durante el periodo para el asesor o equipo completo, sin distribución por categoría de producto.</p>
+                <div class="ab_collection_progress" role="img"
+                     t-att-aria-label="'Pagado: ' + money(state.data.collected) + '. Pendiente: ' + money(state.data.pending)">
+                    <div class="ab_collection_track"><div class="ab_collection_paid" t-att-style="collectionProgress()"/></div>
+                    <div class="ab_collection_legend">
+                        <span class="paid"><strong>Pagado</strong><t t-esc="money(state.data.collected)"/></span>
+                        <span class="pending"><strong>Pendiente</strong><t t-esc="money(state.data.pending)"/></span>
+                    </div>
+                </div>
+                <div class="ab_cards">
+                    <div class="ab_card"><small>META A RECAUDAR</small><strong class="ab_blue" t-esc="money(state.data.collection_budget)"/></div>
+                    <div class="ab_card"><small>PAGADO</small><strong class="ab_orange" t-esc="money(state.data.collected)"/></div>
+                    <div class="ab_card"><small>CUMPLIMIENTO</small><strong t-esc="percent(state.data.collection_compliance)"/></div>
+                    <div class="ab_card"><small>PENDIENTE</small><strong t-esc="money(state.data.pending)"/></div>
+                </div>
+                <div class="ab_collection_list_heading">
+                    <div>
+                        <h4>Recaudos aplicados</h4>
+                        <small><t t-esc="visualPeriodLabel"/> · <t t-esc="visibleCollectionPayments.length"/> movimientos</small>
+                    </div>
+                    <button t-if="state.salesWeek !== null" class="btn btn-sm btn-outline-primary"
+                            t-on-click="clearSalesWeek">Ver todo el mes</button>
+                </div>
+                <div t-if="!visibleCollectionPayments.length" class="alert alert-info">
+                    No hay recaudos aplicados en <t t-esc="visualPeriodLabel"/>.
+                    <button t-if="state.salesWeek !== null" class="btn btn-link p-0 ms-1" t-on-click="clearSalesWeek">Ver todo el mes</button>
+                </div>
+                <div t-else="" class="table-responsive">
+                    <table class="table table-striped ab_payment_list">
+                        <thead><tr><th>Fecha</th><th>Factura</th><th>Cliente</th><th>Comprobante</th><th class="text-end">Valor aplicado</th></tr></thead>
+                        <tbody><tr t-foreach="visibleCollectionPayments" t-as="payment" t-key="payment.id">
+                            <td t-esc="payment.date"/>
+                            <td><strong t-esc="payment.invoice"/></td>
+                            <td t-esc="payment.partner"/>
+                            <td t-esc="payment.payment"/>
+                            <td class="text-end ab_orange" t-esc="money(payment.amount)"/>
+                        </tr></tbody>
+                    </table>
+                </div>
+                <div class="ab_collection_list_heading">
+                    <div>
+                        <h4>Estado de facturas</h4>
+                        <small>Corte: <t t-esc="state.data.collection_cutoff"/> · <t t-esc="visibleCollectionInvoices.length"/> facturas</small>
+                    </div>
+                    <div class="ab_collection_filters" role="group" aria-label="Filtrar facturas de recaudo">
+                        <button t-foreach="[['all', 'Todas'], ['paid', 'Pagadas / con pago'], ['pending', 'Pendientes'], ['overdue', 'Vencidas']]"
+                                t-as="filter" t-key="filter[0]"
+                                t-att-class="'btn btn-sm ' + (state.collectionFilter === filter[0] ? 'btn-primary' : 'btn-outline-primary')"
+                                t-on-click="() => { state.collectionFilter = filter[0]; }" t-esc="filter[1]"/>
+                    </div>
+                </div>
+                <div t-if="!visibleCollectionInvoices.length" class="alert alert-info">No hay facturas para el filtro seleccionado.</div>
+                <div t-else="" class="table-responsive">
+                    <table class="table table-striped ab_collection_list">
+                        <thead><tr><th>Factura</th><th>Cliente</th><th>Fecha</th><th>Vencimiento</th><th>Estado</th><th>Cartera</th><th class="text-end">Total</th><th class="text-end">Pagado</th><th class="text-end">Pendiente</th></tr></thead>
+                        <tbody><tr t-foreach="visibleCollectionInvoices" t-as="invoice" t-key="invoice.id">
+                            <td><strong t-esc="invoice.document"/></td>
+                            <td t-esc="invoice.partner"/>
+                            <td t-esc="invoice.date"/>
+                            <td t-esc="invoice.due_date"/>
+                            <td><span t-att-class="invoice.status === 'Pagada' ? 'ab_good' : 'ab_pending'" t-esc="invoice.status"/></td>
+                            <td><span t-att-class="invoice.overdue ? 'ab_overdue' : 'ab_current'" t-esc="invoice.overdue ? 'Vencida' : 'Al día'"/></td>
+                            <td class="text-end" t-esc="money(invoice.total)"/>
+                            <td class="text-end ab_orange" t-esc="money(invoice.paid)"/>
+                            <td class="text-end" t-esc="money(invoice.pending)"/>
+                        </tr></tbody>
+                    </table>
+                </div>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

@@ -42,12 +42,82 @@ class HrPayslip(models.Model):
             return super()._get_distribution(account, payslip_line)
         if not (account.code and account.code[0] in ('4', '5', '6', '7')):
             return super()._get_distribution(account, payslip_line)
+        course = payslip_line.teacher_hour_line_id if payslip_line else None
+        if course and course.analytic_account_id:
+            return {course.analytic_account_id.id: 100.0}
         if payslip_line is not None and not self._is_teacher_line(payslip_line):
             if self.contract_id.has_administrative_fraction():
                 return super()._get_distribution(account, payslip_line)
         distribution = self.get_teacher_hours_novelties()\
             .get_teacher_analytic_distribution()
         return distribution or super()._get_distribution(account, payslip_line)
+
+    def compute_payslip_novelty(self, payslip_line_novelty, payslip_day_ids,
+                                data_payslip, categories_novelty):
+        res = super().compute_payslip_novelty(
+            payslip_line_novelty, payslip_day_ids, data_payslip,
+            categories_novelty)
+        payslip_line_novelty[:] = self._split_teacher_hours_lines(
+            payslip_line_novelty)
+        return res
+
+    def _split_teacher_hours_lines(self, payslip_lines):
+        """Una línea del desprendible por cada curso dictado en el mes.
+
+        La novedad de horas llega como una sola línea con el total. Se
+        reemplaza por una línea por curso con las horas como cantidad, el
+        valor hora y su parte del total; el último curso absorbe el
+        redondeo para que la suma no cambie. Si el mes tiene más de una
+        novedad de horas, el mismo curso se junta en una sola línea.
+        """
+        result = []
+        by_course = {}
+        for line in payslip_lines:
+            novelty = self.env['hr.novelty'].browse(line.get('novelty_id') or [])
+            courses = novelty.teacher_hour_line_ids if novelty.is_teacher_hours \
+                else novelty.teacher_hour_line_ids.browse()
+            base = sum(courses.mapped('subtotal'))
+            if not courses or not base:
+                result.append(line)
+                continue
+            remaining = line['total']
+            for index, course in enumerate(courses):
+                if index == len(courses) - 1:
+                    total = remaining
+                else:
+                    total = round(line['total'] * course.subtotal / base)
+                    remaining -= total
+                key = (course.school_class_id.id, course.analytic_account_id.id,
+                       course.hour_value, line['category'])
+                if key in by_course:
+                    by_course[key]['qty'] += course.hours
+                    by_course[key]['total'] += total
+                    continue
+                by_course[key] = dict(
+                    line,
+                    name='Horas - %s' % (course.school_class_id.title
+                                         or course.school_class_id.name),
+                    value=course.hour_value,
+                    qty=course.hours,
+                    rate=100,
+                    total=total,
+                    teacher_hour_line_id=course.id,
+                )
+                result.append(by_course[key])
+        return result
+
+    def _compute_concepts_category(self):
+        """El profesor Tipo 10 o Tipo 12 no muestra en el desprendible la
+        línea de sueldo básico en cero: su pago son las horas por curso. La
+        línea se conserva en la nómina porque de ella salen los días."""
+        res = super()._compute_concepts_category()
+        for record in self:
+            contract = record.contract_id
+            if not contract or contract.has_administrative_fraction():
+                continue
+            record.earnings_ids = record.earnings_ids.filtered(
+                lambda l: not (l.concept_id.code == 'BASICO' and not l.total))
+        return res
 
     def update_data_payslip(self, data_payslip, payslip_line):
         """Lleva aparte, por categoría, el valor de las horas del profesor que

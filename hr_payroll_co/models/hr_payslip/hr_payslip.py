@@ -233,6 +233,7 @@ class HrPayslip(models.Model):
         politics['hr_payroll_co.percentage_prv_day_31'] = self.env.company.percentage_prv_day_31 or 0.0
         politics['hr_payroll_co.percentage_prv_aux_vac'] = self.env.company.percentage_prv_aux_vac or 0.0
         politics['hr_payroll_co.percentage_prv_old'] = self.env.company.percentage_prv_old or 0.0
+        politics['hr_payroll_co.enable_hourly_payroll'] = self.env.company.enable_hourly_payroll
         return politics
 
     def _check_concepts_belonging(self, concepts):
@@ -374,6 +375,10 @@ class HrPayslip(models.Model):
                     record.error_log = f'La línea de nómina {payslip_line.name} de {record.name} no esta configurada correctamente'
                     break
                 partner_id = obj_base.get_partner_id(record.contract_id)
+                if payslip_line.embargo_id:
+                    # Each garnishment can have a different claimant, unlike a
+                    # regular concept/novelty type whose third party is fixed.
+                    partner_id = payslip_line.embargo_id.claimant_id.id
 
                 neto_code = ['NETO', 'NETO_CES', 'NETO_LIQ']
 
@@ -428,9 +433,13 @@ class HrPayslip(models.Model):
         self.env['account.move.line'].create(move_lines)
         self.env['account.move'].browse(move_ids).action_post()
         domain = [('payslip_id', 'in', payslip_ids)]
-        for model, parent in [('hr.leave.line', 'leave_id'), ('hr.novelty.line', 'novelty_id'), ('hr.overtime', None)]:
+        for model, parent in [('hr.leave.line', 'leave_id'), ('hr.novelty.line', 'novelty_id'),
+                              ('hr.overtime', None), ('hr.embargo.line', None)]:
             lines_ids = self.env[model].search(domain)
             lines_ids.write({'state': 'paid'})
+
+            if model == 'hr.embargo.line':
+                lines_ids.mapped('embargo_id')._close_if_date_end_reached()
 
             if parent:
                 parent_ids = {getattr(l, parent) for l in lines_ids}
@@ -449,7 +458,8 @@ class HrPayslip(models.Model):
             move_ids.unlink()
 
         domain = [('payslip_id', 'in', [p.id for p in payslip_ids])]
-        for model, parent in [('hr.leave.line', 'leave_id'), ('hr.novelty.line', 'novelty_id'), ('hr.overtime', None)]:
+        for model, parent in [('hr.leave.line', 'leave_id'), ('hr.novelty.line', 'novelty_id'),
+                              ('hr.overtime', None), ('hr.embargo.line', None)]:
             lines_ids = self.env[model].search(domain)
             lines_ids.write({'state': 'validated'})
 
@@ -586,6 +596,9 @@ class HrPayslip(models.Model):
             # Contexto de la nomina
             data_payslip = record.create_data_payslip(
                 economic_variables, politics, total_previous, total_concepts, cr)
+            # Referencia viva a las líneas de concepto ya calculadas en esta
+            # corrida, usada por DED_EMBARGO para sumar por concepto puntual.
+            data_payslip['payslip_line_concept'] = payslip_line_concept
 
             # Liquida Prestamos
             if record.payslip_type_id.category == 'LIQ':
@@ -830,11 +843,15 @@ class HrPayslip(models.Model):
             # Los aportes se calculan en PILA
             if concept_id.category == 'contributions':
                 continue
-            if concept_id.code not in CONCEPTS:
+            is_embargo_concept = concept_id.is_embargo_type_concept()
+            if concept_id.code not in CONCEPTS and not is_embargo_concept:
                 continue
             try:
-                payslip_line = eval(
-                    'concept_id._' + concept_id.code + '(data_payslip)')
+                if is_embargo_concept:
+                    payslip_line = concept_id._compute_embargo_deduction(data_payslip)
+                else:
+                    payslip_line = eval(
+                        'concept_id._' + concept_id.code + '(data_payslip)')
                 if type(payslip_line) == dict:
                     if concept_id.code == 'PRV_VAC':
                         payslip_line['total'] = payslip_line['total']
@@ -846,6 +863,16 @@ class HrPayslip(models.Model):
                     if 'log_ids' in payslip_line:
                         payslip_line_log.append(payslip_line['log_ids'])
                         del payslip_line['log_ids']
+                elif type(payslip_line) == list:
+                    # Some concepts (e.g. DED_EMBARGO) generate more than one
+                    # payslip line at once (one per active garnishment).
+                    for line in payslip_line:
+                        line['total'] = round(line['total'])
+                        self.update_data_payslip(data_payslip, line)
+                        payslip_line_concept.append(line)
+                        if 'log_ids' in line:
+                            payslip_line_log.append(line['log_ids'])
+                            del line['log_ids']
 
                 # Calcula novedades que dependen de dias trabajados
                 if concept_id.code == 'BASICO':

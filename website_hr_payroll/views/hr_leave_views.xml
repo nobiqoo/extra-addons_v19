@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="website_hr_payroll_hr_leave_form" model="ir.ui.view">
+            <field name="name">website.hr.payroll.hr.leave.form</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_payroll_co.hr_leave_form"/>
+            <field name="arch" type="xml">
+                <field name="leave_type_id" position="after">
+                    <field name="enable_button_notify" invisible="1"/>
+                    <field name="enable_approval_flow" invisible="1"/>
+                </field>
+                <xpath expr="//button[@name='to_cancel']" position="attributes">
+                    <attribute name="groups">hr_payroll_co.manager_payslip</attribute>
+                </xpath>
+                <xpath expr="//button[@name='to_cancel']" position="after">
+                    <button name="to_cancel" string="Cancelar" type="object"
+                            groups="website_hr_payroll.coach_payslip_group"
+                            invisible="state != 'draft'"/>
+                </xpath>
+                <xpath expr="//button[@name='to_confirm']" position="attributes">
+                    <attribute name="groups">hr_payroll_co.manager_payslip,website_hr_payroll.coach_payslip_group</attribute>
+                </xpath>
+                <xpath expr="//button[@name='to_validated']" position="attributes">
+                    <attribute name="groups">hr_payroll_co.manager_payslip</attribute>
+                </xpath>
+                <xpath expr="//button[@name='to_draft']" position="attributes">
+                    <attribute name="groups">hr_payroll_co.manager_payslip</attribute>
+                </xpath>
+                <xpath expr="//button[@name='to_draft']" position="after">
+                    <button name="notify_to_coach" string="Notificar a mentor" type="object"
+                            groups="hr_payroll_co.manager_payslip"
+                            invisible="state != 'draft' or not enable_approval_flow"/>
+                    <button name="send_mail_approval" string="Notificar aprobación" type="object"
+                            groups="hr_payroll_co.manager_payslip"
+                            invisible="state != 'validated' or not enable_button_notify"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

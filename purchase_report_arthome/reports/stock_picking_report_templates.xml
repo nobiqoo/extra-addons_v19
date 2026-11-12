@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_picking_origin_document" inherit_id="stock.report_picking">
+        <xpath expr="//div[@name='div_origin']/strong" position="replace">
+            <strong>Origin Document:</strong>
+        </xpath>
+        <xpath expr="//div[@name='div_origin']" position="after">
+            <!-- Campo "Documento origen" de la pestaña Otra información del pedido de venta -->
+            <div t-if="o.sudo().sale_id.origin" class="col" name="div_sale_origin">
+                <strong>Source Document (order):</strong>
+                <span t-out="o.sudo().sale_id.origin"/>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Recibo de entrega -->
+    <template id="report_delivery_document_origin_document" inherit_id="stock.report_delivery_document">
+        <xpath expr="//div[@name='div_origin']/strong" position="replace">
+            <strong>Origin Document:</strong>
+        </xpath>
+        <xpath expr="//div[@name='div_origin']" position="after">
+            <div t-if="o.sudo().sale_id.origin" class="col col-3 mw-100 mb-2" name="div_sale_origin">
+                <strong>Source Document (order):</strong>
+                <div class="m-0" t-out="o.sudo().sale_id.origin"/>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_return_slip_origin_document" inherit_id="stock.report_return_slip">
+        <xpath expr="//h2" position="after">
+            <p t-if="o.origin" name="div_origin">
+                <strong>Origin Document:</strong>
+                <span t-field="o.origin"/>
+            </p>
+            <p t-if="o.sudo().sale_id.origin" name="div_sale_origin">
+                <strong>Source Document (order):</strong>
+                <span t-out="o.sudo().sale_id.origin"/>
+            </p>
+        </xpath>
+    </template>
+
+    <template id="report_reception_body_origin_document" inherit_id="stock.report_reception_body">
+        <xpath expr="//span[@t-field='doc.state']" position="after">
+            <t t-set="sale_origin" t-value="doc.sudo().sale_id.origin if doc._name == 'stock.picking' else False"/>
+            <span t-if="doc._name == 'stock.picking' and doc.origin" class="ms-3 fs-6" name="div_origin">
+                <strong>Origin Document:</strong>
+                <span t-field="doc.origin"/>
+            </span>
+            <span t-if="sale_origin" class="ms-3 fs-6" name="div_sale_origin">
+                <strong>Source Document (order):</strong>
+                <span t-out="sale_origin"/>
+            </span>
+        </xpath>
+    </template>
+
+    <!-- Etiqueta de recepción -->
+    <template id="report_reception_report_label_origin_document" inherit_id="stock.report_reception_report_label">
+        <xpath expr="//span[@t-if='source']" position="after">
+            <t t-set="origin_document" t-value="move.picking_id.origin or move.origin"/>
+            <t t-set="sale_origin" t-value="move.picking_id.sudo().sale_id.origin"/>
+            <div t-if="origin_document" name="div_origin">
+                <strong>Origin Document:</strong>
+                <span t-out="origin_document"/>
+            </div>
+            <div t-if="sale_origin" name="div_sale_origin">
+                <strong>Source Document (order):</strong>
+                <span t-out="sale_origin"/>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Paquetes: la etiqueta se imprime por paquete, el origen sale de las transferencias seleccionadas -->
+    <template id="report_picking_packages_origin_document" inherit_id="stock.report_picking_packages">
+        <xpath expr="//t[@t-set='docs']" position="before">
+            <t t-set="package_origins" t-value="{package.id: picking.origin for picking in docs for package in picking._get_packages_for_print()}"/>
+            <t t-set="package_sale_origins" t-value="{package.id: picking.sudo().sale_id.origin for picking in docs for package in picking._get_packages_for_print()}"/>
+        </xpath>
+    </template>
+
+    <template id="report_package_barcode_origin_document" inherit_id="stock.report_package_barcode">
+        <xpath expr="//div[@t-if='o.package_type_id']" position="after">
+            <div t-if="package_origins and package_origins.get(o.id)" class="col" name="div_origin">
+                <strong>Origin Document:</strong>
+                <span t-out="package_origins[o.id]"/>
+            </div>
+            <div t-if="package_sale_origins and package_sale_origins.get(o.id)" class="col" name="div_sale_origin">
+                <strong>Source Document (order):</strong>
+                <span t-out="package_sale_origins[o.id]"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

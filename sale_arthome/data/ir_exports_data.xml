@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_shipping_report_export_template" model="ir.exports">
+        <field name="name">Exportación logística – Pedidos de venta</field>
+        <field name="resource">sale.shipping.report</field>
+    </record>
+
+    <record id="sale_shipping_report_export_template_line_name" model="ir.exports.line">
+        <field name="export_id" ref="sale_shipping_report_export_template"/>
+        <field name="name">name</field>
+    </record>
+
+    <record id="sale_shipping_report_export_template_line_partner_name" model="ir.exports.line">
+        <field name="export_id" ref="sale_shipping_report_export_template"/>
+        <field name="name">partner_name</field>
+    </record>
+
+    <record id="sale_shipping_report_export_template_line_shipping_city" model="ir.exports.line">
+        <field name="export_id" ref="sale_shipping_report_export_template"/>
+        <field name="name">shipping_city</field>
+    </record>
+
+    <record id="sale_shipping_report_export_template_line_shipping_state" model="ir.exports.line">
+        <field name="export_id" ref="sale_shipping_report_export_template"/>
+        <field name="name">shipping_state</field>
+    </record>
+
+    <record id="sale_shipping_report_export_template_line_shipping_street" model="ir.exports.line">
+        <field name="export_id" ref="sale_shipping_report_export_template"/>
+        <field name="name">shipping_street</field>
+    </record>
+
+    <record id="sale_shipping_report_export_template_line_phone" model="ir.exports.line">
+        <field name="export_id" ref="sale_shipping_report_export_template"/>
+        <field name="name">phone</field>
+    </record>
+
+    <record id="sale_shipping_report_export_template_line_email" model="ir.exports.line">
+        <field name="export_id" ref="sale_shipping_report_export_template"/>
+        <field name="name">email</field>
+    </record>
+
+    <record id="sale_shipping_report_export_template_line_invoice_names" model="ir.exports.line">
+        <field name="export_id" ref="sale_shipping_report_export_template"/>
+        <field name="name">invoice_names</field>
+    </record>
+
+    <record id="sale_shipping_report_export_template_line_insurable_value" model="ir.exports.line">
+        <field name="export_id" ref="sale_shipping_report_export_template"/>
+        <field name="name">insurable_value</field>
+    </record>
+
+    <record id="sale_shipping_report_export_template_line_carrier_partner_id" model="ir.exports.line">
+        <field name="export_id" ref="sale_shipping_report_export_template"/>
+        <field name="name">carrier_partner_id</field>
+    </record>
+
+    <record id="sale_shipping_report_export_template_line_carrier_tracking_number" model="ir.exports.line">
+        <field name="export_id" ref="sale_shipping_report_export_template"/>
+        <field name="name">carrier_tracking_number</field>
+    </record>
+
+</odoo>

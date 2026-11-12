@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Semilla inicial del catalogo de Jornada (punto 10). Editable/ampliable
+         desde Configuracion. -->
+    <record id="jornada_diurna" model="wk.school.colombo.jornada">
+        <field name="name">Diurna</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="jornada_nocturna" model="wk.school.colombo.jornada">
+        <field name="name">Nocturna</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="jornada_fin_semana" model="wk.school.colombo.jornada">
+        <field name="name">Fin de semana</field>
+        <field name="sequence">30</field>
+    </record>
+
+</odoo>

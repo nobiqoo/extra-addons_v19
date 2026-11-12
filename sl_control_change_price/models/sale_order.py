@@ -50,7 +50,7 @@ class SaleOrder(models.Model):
                 line_price_unit = round(line.price_unit, precision)
 
                 product_price = round(line.product_template_id.list_price, precision) if price_unit_restriction_selection == 'price_unit' else None
-                pricelist = round(line.order_id.pricelist_id._get_product_price(line.product_id, line.product_uom_qty, line.product_uom), precision) if price_unit_restriction_selection == 'price_list' else None
+                pricelist = round(line.order_id.pricelist_id._get_product_price(line.product_id, line.product_uom_qty, uom=line.product_uom_id), precision) if price_unit_restriction_selection == 'price_list' else None
 
                 warning_conditions = {
                     'both': (

@@ -1,0 +1,52 @@
+<odoo>
+    <record id="view_biometric_odoo_to_biometric_wizard_form" model="ir.ui.view">
+        <field name="name">biometric.odoo.to.biometric.wizard.form</field>
+        <field name="model">biometric.odoo.to.biometric.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Sincronizar Usuarios de Odoo a Biométricos">
+                <group>
+                    <group string="Configuración de Destino">
+                        <field name="device_ids" widget="many2many_tags" options="{'no_create': True}" placeholder="Seleccione los biométricos destino..."/>
+                        <field name="sync_action" widget="radio"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Empleados con Biometric ID" name="with_id">
+                        <field name="employee_ids" widget="many2many" options="{'no_create': True}">
+                            <list>
+                                <field name="name"/>
+                                <field name="device_id_num" string="ID Biométrico"/>
+                                <field name="department_id"/>
+                                <field name="job_id"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Empleados sin Biometric ID (Asignación Rápida)" name="without_id">
+                        <div class="alert alert-info" role="alert">
+                            Puede asignar el ID biométrico directamente en esta tabla y luego hacer clic en <b>Guardar IDs Asignados</b>.
+                        </div>
+                        <field name="employee_ids_without_id" widget="many2many">
+                            <list editable="bottom">
+                                <field name="name" readonly="1"/>
+                                <field name="device_id_num" string="ID Biométrico (Ingrese número)"/>
+                            </list>
+                        </field>
+                        <button name="action_save_biometric_id" type="object" string="Guardar IDs Asignados" class="btn-secondary mt-2" icon="fa-save"/>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="action_upload_users" type="object" string="Ejecutar Sincronización" class="btn-primary" icon="fa-refresh"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción de ventana directa para Menú y Acciones -->
+    <record id="action_biometric_odoo_to_biometric_wizard_menu" model="ir.actions.act_window">
+        <field name="name">Sincronizar Usuarios en Biométricos</field>
+        <field name="res_model">biometric.odoo.to.biometric.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

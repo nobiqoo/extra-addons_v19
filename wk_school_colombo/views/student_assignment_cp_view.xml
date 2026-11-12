@@ -25,8 +25,14 @@
                         <field name="marks_obtained" readonly="1" string="Puntaje obtenido (promedio)"/>
                         <field name="grades_locked_for_me" invisible="1"/>
                     </group>
+                    <!-- PT11848 (incidencia 2): sin create/delete -las
+                         líneas las siembra siempre _wk_seed_cp_lines(), un
+                         criterio por cada uno activo de la Escala-, porque
+                         "Agregar una línea" dejaba crear una fila con
+                         criterion_id vacío (de solo lectura, sin forma de
+                         completarlo) que nunca podía guardarse. -->
                     <field name="cp_line_ids">
-                        <list editable="bottom">
+                        <list editable="bottom" create="false" delete="false">
                             <field name="criterion_id" readonly="1"/>
                             <field name="rating_id" readonly="parent.grades_locked_for_me"/>
                         </list>

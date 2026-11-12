@@ -304,18 +304,18 @@ class CrossoveredBudgetLines(models.Model):
             query = self.env[model]._search(domain)
             query.order = None
 
-            query_str, params = query.select(
+            sql = query.select(
                 f"'{model}'",
                 f"'{date_from}'",
                 f"'{date_to}'",
-                analytic_field,          
+                analytic_field,
                 general_account,
                 f'SUM({fname})'
             )
 
-            query_str += f" GROUP BY {analytic_field}, {general_account}"
+            query_str = sql.code + f" GROUP BY {analytic_field}, {general_account}"
 
-            return query_str, params
+            return query_str, sql.params
 
         groups = defaultdict(lambda: defaultdict(set))  # {model: {(date_from, date_to): account_ids}}
         for line in self:
@@ -525,18 +525,18 @@ class CrossoveredBudgetLines(models.Model):
             query = self.env[model]._search(domain)
             query.order = None
 
-            query_str, params = query.select(
+            sql = query.select(
                 f"'{model}'",
                 f"'{date_from}'",
                 f"'{date_to}'",
-                analytic_field,          
+                analytic_field,
                 general_account,
                 f'SUM({fname})'
             )
 
-            query_str += f" GROUP BY {analytic_field}, {general_account}"
+            query_str = sql.code + f" GROUP BY {analytic_field}, {general_account}"
 
-            return query_str, params
+            return query_str, sql.params
 
         groups = defaultdict(lambda: defaultdict(set))  # {model: {(date_from, date_to): account_ids}}
         for line in self:
@@ -565,20 +565,31 @@ class CrossoveredBudgetLines(models.Model):
             agg_general[(model, date_from, date_to)][(account_id, general_account_id)] += amount
             agg_analytic[(model, date_from, date_to)][account_id] += amount
         
+        def posted_invoiced_ratio(order_line):
+            """Share (0-1) of the PO line already billed in posted vendor bills."""
+            if not order_line.product_qty:
+                return 1.0
+            invoiced_qty = 0.0
+            for inv_line in order_line.invoice_lines.filtered(lambda l: l.parent_state == 'posted'):
+                qty = inv_line.product_uom_id._compute_quantity(inv_line.quantity, order_line.product_uom_id)
+                if inv_line.move_id.move_type == 'in_invoice':
+                    invoiced_qty += qty
+                elif inv_line.move_id.move_type == 'in_refund':
+                    invoiced_qty -= qty
+            return min(max(invoiced_qty / order_line.product_qty, 0.0), 1.0)
+
         for line in self:
-            invoices = []
             model, accounts = get_accounts(line)
             general_accounts = line.general_budget_id.account_ids
-            
-            line.commited_amount += sum(
-                [x.amount_to_budget for x in line.order_line_ids.filtered(lambda x: x.state in ['purchase'])])
+
+            # Committed = open (not yet billed) part of confirmed POs + real
+            # expense (analytic lines, below). Once a PO line is billed (posted
+            # bill), its commitment is released by the billed quantity, since
+            # the bill's analytic lines already count it. Previously the whole
+            # bill balance (every line/analytic account of the bill) was added
+            # here, inflating the committed amount of multi-analytic POs.
             for order_line in line.order_line_ids.filtered(lambda x: x.state in ['purchase']):
-                invoices += order_line.order_id.invoice_ids.ids
-            moves = self.env['account.move.line'].search([
-                ('move_id', 'in', invoices),
-                ('parent_state', '=', 'posted'),
-                ('account_id', 'in', line.general_budget_id.account_ids.ids)])
-            line.commited_amount += sum(moves.mapped('balance'))
+                line.commited_amount += order_line.amount_to_budget * (1 - posted_invoiced_ratio(order_line))
             key = (model, str(line.date_from), str(line.date_to))
 
             if general_accounts:

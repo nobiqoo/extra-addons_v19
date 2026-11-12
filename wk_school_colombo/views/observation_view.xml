@@ -50,7 +50,7 @@
                 <field name="move_id" optional="show"/>
                 <field name="user_id"/>
                 <field name="comment"/>
-                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                <field name="sede_id" optional="hide"/>
             </list>
         </field>
     </record>

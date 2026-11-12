@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_dian_ai_config_list" model="ir.ui.view">
+        <field name="name">dian.ai.config.list</field>
+        <field name="model">dian.ai.config</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="enabled" widget="boolean_toggle"/>
+                <field name="mode"/>
+                <field name="start_date"/>
+                <field name="confidence_threshold"/>
+                <field name="user_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_dian_ai_config_form" model="ir.ui.view">
+        <field name="name">dian.ai.config.form</field>
+        <field name="model">dian.ai.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Agente">
+                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                            <field name="enabled" widget="boolean_toggle"/>
+                            <field name="agent_id" options="{'no_create': True}"/>
+                            <field name="user_id" options="{'no_create': True}"/>
+                            <field name="review_user_id" options="{'no_create': True}"/>
+                            <field name="start_date"/>
+                            <field name="batch_size"/>
+                        </group>
+                        <group string="Causación">
+                            <field name="mode" widget="radio"/>
+                            <field name="confidence_threshold"/>
+                            <field name="journal_id" options="{'no_create': True}"/>
+                            <field name="post_with_tax_adjustment"/>
+                        </group>
+                        <group string="Tolerancias">
+                            <field name="line_tolerance_amount"/>
+                            <field name="line_tolerance_percent"/>
+                            <field name="total_tolerance_amount"/>
+                            <field name="total_tolerance_percent"/>
+                        </group>
+                        <group string="Eventos DIAN">
+                            <field name="auto_event_030"/>
+                            <field name="auto_event_032"/>
+                            <field name="auto_event_033"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Base de conocimiento tributario" name="knowledge_base">
+                            <field name="knowledge_base" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dian_ai_config" model="ir.actions.act_window">
+        <field name="name">Configuración del agente</field>
+        <field name="res_model">dian.ai.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_move_form_dian_ai" model="ir.ui.view">
+        <field name="name">account.move.form.dian.ai</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_ai_review_confirm" type="object" string="Revisión correcta"
+                    invisible="ai_review_state != 'pending'" groups="account.group_account_manager"/>
+                <button name="action_ai_explain" type="object" string="Explicar al agente"
+                    invisible="not ai_document_id" groups="account.group_account_manager"/>
+            </xpath>
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-warning mb-0" role="alert" invisible="ai_review_state != 'pending'">
+                    Para revisión: el agente ajustó impuestos de esta factura.
+                    <field name="ai_explanation" readonly="1" nolabel="1"/>
+                </div>
+                <div class="alert alert-warning mb-0" role="alert" invisible="not ai_has_pending_note">
+                    Esta factura tiene una nota crédito o débito pendiente de revisar.
+                </div>
+                <field name="ai_document_id" invisible="1"/>
+                <field name="ai_has_pending_note" invisible="1"/>
+                <field name="ai_review_state" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

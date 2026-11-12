@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_saleorder_document_hide_taxes_arthome" inherit_id="sale.report_saleorder_document">
+        <t t-set="display_taxes" position="attributes">
+            <attribute name="t-value">False</attribute>
+        </t>
+        <xpath expr="//tr[@name='tr_section_group']" position="attributes">
+            <attribute name="t-foreach">line._get_grouped_section_summary(True)</attribute>
+        </xpath>
+    </template>
+
+    <!-- Cotización / pedido de venta: vendedor y su correo en el pie de página -->
+    <template id="report_saleorder_document_salesperson_footer_arthome" inherit_id="sale.report_saleorder_document">
+        <t t-set="forced_vat" position="after">
+            <t t-if="doc.user_id.email" t-set="salesperson_footer">Sales advisor: <t t-out="doc.user_id.name"/> · <t t-out="doc.user_id.email"/></t>
+        </t>
+    </template>
+
+</odoo>

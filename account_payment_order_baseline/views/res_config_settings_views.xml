@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_reconcile_policy" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.reconcile.policy</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <block id="print_vendor_checks_setting_container" position="after">
+                <block title="Reconciliation policies" id="reconcile_policies_settings">
+                    <setting id="restrict_paid_document_unreconcile_setting"
+                             company_dependent="1"
+                             help="Does not allow unreconciling receivable/payable entries or returning paid documents to draft unless it is done from the source document (voucher or payment order).">
+                        <field name="restrict_paid_document_unreconcile"/>
+                    </setting>
+                </block>
+            </block>
+        </field>
+    </record>
+</odoo>

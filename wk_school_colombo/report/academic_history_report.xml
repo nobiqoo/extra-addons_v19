@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Ajuste y ampliación del Histórico Académico del Estudiante (tarea
+         12438): reporte nuevo, independiente del reporte/portal de
+         transcripción estándar de Webkul. -->
+    <template id="report_academic_history_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="wk" t-value="wk_data[doc.id]"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="row mb-3">
+                            <div class="col-12 text-center">
+                                <h2>HISTORIAL ACADÉMICO DEL ESTUDIANTE</h2>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <div><strong>Nombre: </strong><span t-esc="wk['header']['name']"/></div>
+                                <div><strong>No. de identificación: </strong><span t-esc="wk['header']['document']"/></div>
+                                <div><strong>Fecha de nacimiento: </strong><span t-esc="wk['header']['birth_date']"/></div>
+                                <div><strong>Correo electrónico: </strong><span t-esc="wk['header']['email']"/></div>
+                                <div><strong>Teléfono: </strong><span t-esc="wk['header']['phone']"/></div>
+                            </div>
+                            <div class="col-6">
+                                <div><strong>Programa(s): </strong><span t-esc="wk['header']['programs']"/></div>
+                                <div><strong>Estado actual: </strong><span t-esc="wk['header']['status']"/></div>
+                                <div><strong>Fecha de generación: </strong><span t-esc="wk['header']['generated_date']"/></div>
+                                <div><strong>Generado por: </strong><span t-esc="wk['header']['generated_by']"/></div>
+                            </div>
+                        </div>
+
+                        <t t-foreach="wk['programs'].items()" t-as="wk_program_entry">
+                            <t t-set="wk_program_name" t-value="wk_program_entry[0]"/>
+                            <t t-set="wk_program_rows" t-value="wk_program_entry[1]"/>
+                            <h4 style="margin-top:16px;">PROGRAMA: <t t-esc="wk_program_name"/></h4>
+                            <table class="table table-sm table-bordered" style="font-size:10px;">
+                                <thead>
+                                    <tr>
+                                        <th>Periodo académico</th>
+                                        <th>Nivel / Módulo</th>
+                                        <th>Clase ofertada</th>
+                                        <th>Inscripción</th>
+                                        <th>Fecha inicio</th>
+                                        <th>Fecha fin</th>
+                                        <th>Final Grade</th>
+                                        <th>Equiv. cualitativa</th>
+                                        <th>Pass / Fail</th>
+                                        <th>Horas ausencia</th>
+                                        <th>Estado académico</th>
+                                        <th>Acción realizada</th>
+                                        <th>Observaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="wk_program_rows" t-as="wk_row">
+                                        <td><t t-esc="wk_row['period']"/></td>
+                                        <td><t t-esc="wk_row['grade_module']"/></td>
+                                        <td><t t-esc="wk_row['class_name']"/></td>
+                                        <td><t t-esc="wk_row['enrollment_name']"/></td>
+                                        <td><t t-esc="wk_row['date_start']"/></td>
+                                        <td><t t-esc="wk_row['date_end']"/></td>
+                                        <td><t t-esc="wk_row['final_grade'] if wk_row['final_grade'] is not None else '-'"/></td>
+                                        <td><t t-esc="wk_row['performance_range']"/></td>
+                                        <td><t t-esc="wk_row['pass_fail']"/></td>
+                                        <td><t t-esc="wk_row['absence_hours']"/></td>
+                                        <td><t t-esc="wk_row['academic_status']"/></td>
+                                        <td><t t-esc="wk_row['action_taken']"/></td>
+                                        <td><t t-esc="wk_row['observations']"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <t t-if="wk['latest']">
+                            <h4 style="margin-top:20px;">DETALLE DE CALIFICACIONES</h4>
+                            <p>
+                                <strong>Clase ofertada: </strong><t t-esc="wk['latest']['class_name']"/>
+                                &#160;&#160;
+                                <strong>Programa: </strong><t t-esc="wk['latest']['program']"/>
+                                &#160;&#160;
+                                <strong>Periodo: </strong><t t-esc="wk['latest']['period']"/>
+                            </p>
+                            <t t-if="wk['latest']['detail']">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <t t-if="wk['latest']['detail'].get('midterm_components')">
+                                            <h5>Midterm</h5>
+                                            <table class="table table-sm table-bordered">
+                                                <thead><tr><th>Componente</th><th>Ponderación (%)</th><th>Nota</th></tr></thead>
+                                                <tbody>
+                                                    <tr t-foreach="wk['latest']['detail']['midterm_components']" t-as="wk_comp">
+                                                        <td><t t-esc="wk_comp['name']"/></td>
+                                                        <td><t t-esc="wk_comp['weight']"/></td>
+                                                        <td><t t-esc="wk_comp['grade'] if wk_comp['grade'] is not None else '-'"/></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </t>
+                                        <h5>Final</h5>
+                                        <table class="table table-sm table-bordered">
+                                            <thead><tr><th>Componente</th><th>Ponderación (%)</th><th>Nota</th></tr></thead>
+                                            <tbody>
+                                                <tr t-foreach="wk['latest']['detail']['final_components']" t-as="wk_comp">
+                                                    <td><t t-esc="wk_comp['name']"/></td>
+                                                    <td><t t-esc="wk_comp['weight']"/></td>
+                                                    <td><t t-esc="wk_comp['grade'] if wk_comp['grade'] is not None else '-'"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-4">
+                                        <h5>Resumen de la clase</h5>
+                                        <table class="table table-sm table-bordered">
+                                            <tbody>
+                                                <tr t-if="'midterm_grade' in wk['latest']['detail']">
+                                                    <th>Midterm Grade</th><td><t t-esc="wk['latest']['detail']['midterm_grade']"/></td>
+                                                </tr>
+                                                <tr><th>Final Grade</th><td><t t-esc="wk['latest']['detail']['final_grade']"/></td></tr>
+                                                <tr><th>Equivalencia cualitativa</th><td><t t-esc="wk['latest']['detail']['performance_range']"/></td></tr>
+                                                <tr><th>Pass / Fail</th><td><t t-esc="wk['latest']['detail']['result']"/></td></tr>
+                                                <tr><th>Ranking</th><td><t t-esc="wk['latest']['detail']['ranking']"/></td></tr>
+                                                <tr><th>Horas de ausencia</th><td><t t-esc="wk['latest']['detail']['absence_hours']"/></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </t>
+                        </t>
+
+                        <h4 style="margin-top:20px;">OBSERVACIONES GENERALES DEL ESTUDIANTE</h4>
+                        <p t-esc="wk['general_observations'] or '-'"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_academic_history_action" model="ir.actions.report">
+        <field name="name">Historial Académico del Estudiante</field>
+        <field name="model">student.student</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wk_school_colombo.report_academic_history_document</field>
+        <field name="report_file">wk_school_colombo.report_academic_history_document</field>
+        <field name="print_report_name">'Historial Academico - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="wk_school_management.model_student_student"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

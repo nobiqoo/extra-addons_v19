@@ -479,6 +479,21 @@ msgid "Remove validation in account close dates"
 msgstr ""
 
 #. module: account_baseline
+#: model:ir.model.fields,field_description:account_baseline.field_res_company__hide_credit_note_fully_credited
+msgid "Hide credit note button on fully credited invoices"
+msgstr ""
+
+#. module: account_baseline
+#: model:ir.model.fields,help:account_baseline.field_res_company__hide_credit_note_fully_credited
+msgid "Hides the \"Credit Note\" button on customer invoices and vendor bills whose posted credit notes already cover the invoice total. If unchecked, the native flow is kept."
+msgstr ""
+
+#. module: account_baseline
+#: model_terms:ir.ui.view,arch_db:account_baseline.res_company_policies_view_form
+msgid "Company policies"
+msgstr ""
+
+#. module: account_baseline
 #: model:ir.model.fields.selection,name:account_baseline.selection__res_partner_bank__account_type__saving
 msgid "Saving"
 msgstr ""

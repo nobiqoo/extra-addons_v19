@@ -55,7 +55,7 @@ class ReportBalanceAnalytic(models.AbstractModel):
             worksheet.write(5, i, str(label).upper(), format_color)
 
         # Datos
-        report_data = data.get('report_data', [])
+        report_data = objs[:1].prepare_data().get('report_data') or []
         amount_keys = ('initial', 'debit', 'credit', 'final')
         cw = {}
 

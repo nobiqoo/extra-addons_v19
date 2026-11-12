@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="param_format_update_date" model="ir.config_parameter">
+        <field name="key">stock_metromat.format_update_date</field>
+        <field name="value">20 de mayo de 2026</field>
+    </record>
+    <record id="param_format_version" model="ir.config_parameter">
+        <field name="key">stock_metromat.format_version</field>
+        <field name="value">1</field>
+    </record>
+</odoo>

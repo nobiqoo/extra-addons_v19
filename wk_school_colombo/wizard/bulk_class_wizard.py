@@ -17,13 +17,18 @@ class WkSchoolColomboBulkClassWizard(models.TransientModel):
 
     academic_year_id = fields.Many2one(
         'wk.academic.year', string="Programación académica", required=True)
-    class_modality = fields.Selection([
-        ('sabatino', 'Sabatino'),
-        ('diario', 'Diario'),
-        ('vacacional', 'Vacacional'),
-    ], string="Modalidad", required=True)
+    # Ronda de ajustes post-prueba: catálogo configurable
+    # (models/class_modality.py) en vez de un Selection fijo.
+    modality_id = fields.Many2one(
+        'wk.school.colombo.class.modality', string="Modalidad", required=True)
+    # Ronda de ajustes post-prueba: catálogo configurable (models/sede.py)
+    # en vez de company_id -ya no se usa como "Sede" en la interfaz, pero
+    # wk.school.class sigue exigiendo una Compañía real (campo estándar de
+    # Odoo); se mantiene con su valor por defecto, sin pedírselo al usuario.
+    sede_id = fields.Many2one(
+        'wk.school.colombo.sede', string="Sede", required=True)
     company_id = fields.Many2one(
-        'res.company', string="Sede", required=True,
+        'res.company', string="Compañía", required=True,
         default=lambda self: self.env.company)
     term_id = fields.Many2one(
         'wk.grade.terms', string="Periodo académico", required=True,
@@ -35,6 +40,52 @@ class WkSchoolColomboBulkClassWizard(models.TransientModel):
     def _onchange_academic_year_id(self):
         if self.term_id and self.term_id.academic_year_id != self.academic_year_id:
             self.term_id = False
+
+    @api.onchange('modality_id', 'sede_id')
+    def _onchange_modality_sede(self):
+        """Limpia Nivel/Módulo de las líneas que ya no corresponden.
+
+        Ajustes nov-2026: los niveles y módulos se filtran por la modalidad y
+        la sede elegidas (ligadas en la configuración del Nivel y de la
+        Materia). Al cambiar alguna, las líneas con un Nivel o Módulo que no
+        pertenece a la nueva combinación se vacían para forzar a elegir de
+        nuevo.
+        """
+        for line in self.line_ids:
+            grade = line.grade_id
+            if grade and (
+                    (self.modality_id and self.modality_id not in grade.modality_ids)
+                    or (self.sede_id and self.sede_id not in grade.sede_ids)):
+                line.grade_id = False
+                line.subject_id = False
+                continue
+            subject = line.subject_id
+            if subject and (
+                    (self.modality_id and self.modality_id not in subject.modality_ids)
+                    or (self.sede_id and self.sede_id not in subject.sede_ids)):
+                line.subject_id = False
+
+    def _wk_check_lines_modality_sede(self):
+        """Mensajes de error para líneas cuyo Nivel/Módulo no corresponde a
+        la modalidad y sede del asistente (revalidación al confirmar)."""
+        self.ensure_one()
+        errors = []
+        for index, line in enumerate(self.line_ids, start=1):
+            label = _("Línea %(index)s (%(grade)s)") % {
+                'index': index, 'grade': line.grade_id.name or _("sin nivel")}
+            if line.grade_id and (
+                    self.modality_id not in line.grade_id.modality_ids
+                    or self.sede_id not in line.grade_id.sede_ids):
+                errors.append(_(
+                    "%(label)s: el nivel no está configurado para la "
+                    "modalidad y la sede seleccionadas.") % {'label': label})
+            if line.subject_id and (
+                    self.modality_id not in line.subject_id.modality_ids
+                    or self.sede_id not in line.subject_id.sede_ids):
+                errors.append(_(
+                    "%(label)s: el módulo no está configurado para la "
+                    "modalidad y la sede seleccionadas.") % {'label': label})
+        return errors
 
     def action_create_classes(self):
         """Valida todas las líneas y, si no hay errores, crea las clases.
@@ -57,7 +108,7 @@ class WkSchoolColomboBulkClassWizard(models.TransientModel):
                 'index': index, 'grade': line.grade_id.name or _("sin nivel")}
             for index, line in lines}
 
-        errors = []
+        errors = self._wk_check_lines_modality_sede()
         for index, line in lines:
             label = labels[index]
             if line.capacity <= 0:
@@ -143,10 +194,11 @@ class WkSchoolColomboBulkClassWizard(models.TransientModel):
                 # en los ejemplos del prototipo ("Sabatino A", "Sabatino B").
                 'title': line.grade_id.name,
                 'company_id': self.company_id.id,
+                'sede_id': self.sede_id.id,
                 'session_id': self.academic_year_id.session_id.id,
                 'academic_year_id': self.academic_year_id.id,
                 'term_id': self.term_id.id,
-                'class_modality': self.class_modality,
+                'modality_id': self.modality_id.id,
                 'grade_id': line.grade_id.id,
                 'subject_id': line.subject_id.id,
                 'teacher_id': line.teacher_id.id,
@@ -171,6 +223,16 @@ class WkSchoolColomboBulkClassWizard(models.TransientModel):
                 'location_id': line.location_id.id,
                 'populate_class_id': created_class.id,
             })
+
+        # Ronda de ajustes post-prueba: el flujo individual permite aplicar
+        # una Escala de calificación avanzada (botón "Aplicar estructura de
+        # calificación", ver models/populate_class.py); el masivo no lo
+        # ofrecía. Una escala por línea, porque cada línea puede ser un
+        # Nivel/Módulo distinto que requiera una escala distinta.
+        for created_class, line in zip(classes, self.line_ids):
+            if line.grading_scale_id:
+                created_class.grading_scale_id = line.grading_scale_id
+                created_class.action_apply_grading_structure()
 
         return {
             'type': 'ir.actions.act_window',
@@ -221,7 +283,19 @@ class WkSchoolColomboBulkClassLine(models.TransientModel):
     capacity = fields.Integer(string="Cupo", required=True, default=1)
     start_date = fields.Date(string="Fecha de inicio", required=True)
     end_date = fields.Date(string="Fecha de finalización", required=True)
-    book_id = fields.Many2one('wk.books', string="Libro")
+    # Ronda de ajustes post-prueba: mismo campo y domain que
+    # wk.school.class.book_id (ver models/populate_class.py); el catálogo
+    # bibliotecario de Webkul (wk.books) no lo usa la institución.
+    book_id = fields.Many2one(
+        'product.product', string="Libro",
+        domain="[('is_book_element', '=', True)]")
+    # Una Escala por línea (cada línea puede ser un Nivel/Módulo distinto),
+    # mismo domain que wk.school.class.grading_scale_id: solo ofrece Escalas
+    # con estructura avanzada activa, y se aplica automáticamente a la clase
+    # creada (ver action_create_classes).
+    grading_scale_id = fields.Many2one(
+        'wk.grade.scales', string="Escala de calificación (avanzada)",
+        domain="[('advanced_structure', '=', True), ('advanced_active', '=', True)]")
     is_active_line = fields.Boolean(string="Activa", default=True)
 
     @api.onchange('grade_id')

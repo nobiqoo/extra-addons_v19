@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_purchase_lot_analytic" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.purchase.stock.lot.analytic</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='purchase_setting_container']" position="inside">
+                <setting id="purchase_lot_analytic_control" company_dependent="1" help="Require an analytic account of the selected plan on stock-tracked lines, and auto-generate the receipt lot from it">
+                    <field name="purchase_lot_analytic_control"/>
+                    <div class="content-group mt-2" invisible="not purchase_lot_analytic_control">
+                        <label for="purchase_lot_analytic_plan_id" class="o_light_label"/>
+                        <field name="purchase_lot_analytic_plan_id" class="w-100" required="purchase_lot_analytic_control" options="{'no_create': True}"/>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

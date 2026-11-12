@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+import re
 import unicodedata
 
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from odoo.osv import expression
 
 # Caracteres que se descartan al normalizar un numero de identificacion antes
@@ -12,6 +13,8 @@ VAT_SEPARATORS = ' .,-'
 NAME_STOPWORDS = {'de', 'del', 'la', 'las', 'los', 'y'}
 
 DUPLICATE_MATCH_THRESHOLD = 2
+
+ESTRATO_SELECTION = [(str(n), str(n)) for n in range(1, 7)]
 
 
 class WkApplicationForm(models.Model):
@@ -63,28 +66,49 @@ class WkApplicationForm(models.Model):
         required=True, tracking=True,
         help="Catálogo configurable en Configuración. No genera por sí solo "
              "ningún comportamiento académico diferenciado.")
+    # Ronda de ajustes post-prueba: catálogo configurable
+    # (models/sede.py), ya no se usa company_id -evita las implicaciones de
+    # multi-compañía (contabilidad, reglas de registro) que no aplican a
+    # este concepto puramente descriptivo-.
+    sede_id = fields.Many2one(
+        'wk.school.colombo.sede', string="Sede", required=True, tracking=True)
     street = fields.Char(required=True)
     barrio = fields.Char(string="Barrio / corregimiento", required=True)
     city_id = fields.Many2one(
         'res.city', string="Ciudad o municipio",
         domain="[('state_id', '=?', state_id)]")
+    # Datos generales obligatorios de la solicitud (ronda de ajustes
+    # nov-2026). Solo se exigen aqui, no en student.student ni res.partner (ver
+    # la nota de student_student.py sobre el INSERT del asistente de
+    # inscripcion).
     issuance_city_id = fields.Many2one(
-        'res.city', string="Municipio de expedición del documento")
+        'res.city', string="Municipio de expedición del documento",
+        required=True)
     origin_city_id = fields.Many2one(
-        'res.city', string="Municipio / lugar de origen")
+        'res.city', string="Municipio / lugar de origen", required=True)
+    origin_city_dian_code = fields.Char(
+        related='origin_city_id.dian_code', string="Código DIAN lugar de origen")
+    estrato = fields.Selection(
+        ESTRATO_SELECTION, string="Estrato", required=True)
+    regimen_salud = fields.Many2one(
+        'wk.school.colombo.health.regime', string="Régimen de salud",
+        required=True)
+    jornada = fields.Many2one(
+        'wk.school.colombo.jornada', string="Jornada", required=True)
     tipo_persona = fields.Selection([
         ('natural', 'Persona natural'),
         ('juridica', 'Persona jurídica'),
         ('natural_comerciante', 'Natural comerciante'),
         ('codigo_interno', 'Código interno'),
-    ], string="Tipo de persona", default='natural', tracking=True)
+    ], string="Tipo de persona", default='natural', tracking=True,
+        required=True)
     estado_civil = fields.Selection([
         ('soltero', 'Soltero(a)'),
         ('casado', 'Casado(a)'),
         ('union_libre', 'Unión libre'),
         ('divorciado', 'Divorciado(a)'),
         ('viudo', 'Viudo(a)'),
-    ], string="Estado civil")
+    ], string="Estado civil", required=True)
     nivel_formacion = fields.Selection([
         ('ninguno', 'Ninguno'),
         ('primaria', 'Primaria'),
@@ -95,13 +119,13 @@ class WkApplicationForm(models.Model):
         ('especializacion', 'Especialización'),
         ('maestria', 'Maestría'),
         ('doctorado', 'Doctorado'),
-    ], string="Nivel de formación")
+    ], string="Nivel de formación", required=True)
     idioma_nativo = fields.Selection([
         ('espanol', 'Español'),
         ('ingles', 'Inglés'),
         ('frances', 'Francés'),
         ('otro', 'Otro'),
-    ], string="Idioma nativo", default='espanol')
+    ], string="Idioma nativo", default='espanol', required=True)
     idioma_nativo_otro = fields.Char(string="¿Cuál idioma?")
     ocupacion_actual = fields.Selection([
         ('estudiante', 'Estudiante'),
@@ -111,8 +135,8 @@ class WkApplicationForm(models.Model):
         ('hogar', 'Hogar'),
         ('pensionado', 'Pensionado'),
         ('otro', 'Otro'),
-    ], string="Ocupación actual")
-    age = fields.Integer(
+    ], string="Ocupación actual", required=True)
+    age =fields.Integer(
         string="Edad", compute='_compute_age',
         help="Calculada a partir de la fecha de nacimiento.")
     landline_phone = fields.Char(string="Teléfono fijo")
@@ -149,6 +173,34 @@ class WkApplicationForm(models.Model):
             dob = application.dob
             application.age = today.year - dob.year - (
                 (today.month, today.day) < (dob.month, dob.day))
+
+    @api.constrains('email')
+    def _check_email_format(self):
+        """Misma validacion del modulo base, pero con el mensaje traducible
+        (el base lo lanza como texto plano en ingles, sin _())."""
+        email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        for record in self:
+            if record.email and not re.match(email_regex, record.email):
+                raise ValidationError(
+                    _("The email address is not valid. Please enter a valid email."))
+
+    @api.constrains('phone')
+    def _check_phone_number(self):
+        """Misma validacion del modulo base con el mensaje traducible."""
+        for record in self:
+            if not re.fullmatch(r'\d+', record.phone or ''):
+                raise ValidationError(_("Phone number must contain only digits."))
+
+    def check_for_unique_application(self):
+        """Anula la unicidad correo + nivel del modulo base.
+
+        Un mismo acudiente puede matricular a varios hijos con el mismo correo
+        (ajuste pedido por Colombo). Se redefine SIN @api.constrains para que
+        Odoo deje de registrar la restriccion (ver
+        wk_school_management/models/application_form.py). El duplicado real de
+        personas se controla por tipo y numero de documento (tarea 11151).
+        """
+        return True
 
     @api.model
     def _wk_build_student_name(self, values):

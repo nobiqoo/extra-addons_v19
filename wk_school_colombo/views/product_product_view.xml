@@ -2,7 +2,11 @@
 <odoo>
 
     <!-- Oculta el checkbox "Is Library Element?" del formulario de producto
-         (Elementos de tarifa): el Colombo Americano no usa biblioteca -->
+         (Elementos de tarifa): el Colombo Americano no usa biblioteca.
+         Ronda de ajustes post-prueba: agrega "¿Es libro?" al lado, mismo
+         patrón visual que is_fee_element/libray_element -un Boolean simple
+         usado como domain del campo "Libro" de la Clase ofertada/
+         Inscripción (models/product_product.py)-. -->
     <record id="product_product_view_form_colombo" model="ir.ui.view">
         <field name="name">product.product.view.form.colombo</field>
         <field name="model">product.product</field>
@@ -10,6 +14,52 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='libray_element']/.." position="attributes">
                 <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='libray_element']/../.." position="inside">
+                <span class="d-inline-block">
+                    <field name="is_book_element"/>
+                    <label for="is_book_element"/>
+                </span>
+                <span class="d-inline-block">
+                    <field name="is_benefit_discount_element"/>
+                    <label for="is_benefit_discount_element"/>
+                </span>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Espejo de "¿Es libro?"/"¿Es concepto de descuento/beneficio?" en el
+         Producto (template, Ventas > Productos): el campo real vive en la
+         Variante (product.product, arriba) pero la mayoría de productos de
+         este colegio no tiene variantes, así que el usuario gestiona el
+         catálogo desde el Producto. Ambos son compute+inverse en
+         product.template que se reflejan/escriben en la única variante
+         (models/product_product.py, ProductTemplate) -mismo mecanismo
+         genérico que ya usa el core para barcode/weight
+         (_compute_template_field_from_variant_field/
+         _set_product_variant_field). Con más de una variante (o ninguna)
+         hay que marcarlos en la variante directamente.
+
+         Hereda de product_template_ONLY_form_view (la especialización del
+         Producto, usada por Ventas > Productos) y NO de la base compartida
+         product_template_form_view: esa base también es ancestro de
+         product_normal_form_view (la Variante), así que heredar de ella
+         duplicaba estos checkboxes en el formulario de Variante -ya
+         cubiertos ahí por product_product_view_form_colombo, arriba-. -->
+    <record id="product_template_view_form_colombo" model="ir.ui.view">
+        <field name="name">product.template.view.form.colombo</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='options']" position="inside">
+                <span class="d-inline-block">
+                    <field name="is_book_element"/>
+                    <label for="is_book_element"/>
+                </span>
+                <span class="d-inline-block">
+                    <field name="is_benefit_discount_element"/>
+                    <label for="is_benefit_discount_element"/>
+                </span>
             </xpath>
         </field>
     </record>

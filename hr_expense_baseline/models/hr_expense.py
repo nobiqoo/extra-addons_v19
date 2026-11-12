@@ -2,7 +2,6 @@
 
 from odoo import api, Command, fields, models, _
 from odoo.exceptions import ValidationError, UserError
-from odoo.tools.misc import clean_context
 
 
 class HrExpense(models.Model):
@@ -143,34 +142,31 @@ class HrExpense(models.Model):
                         _("The total amount of the expense is greater than the fund of the petty cash responsible."))
         return super(HrExpense, self).create(vals_list)
     
+    def _prepare_receipts_vals(self):
+        """En v19 el estándar crea un recibo (in_receipt) por empleado con el empleado como socio.
+        Se mantiene el comportamiento de v18: una factura de proveedor por gasto con el asociado."""
+        return [expense._prepare_bills_vals() for expense in self.sudo()]
+
     def _prepare_bills_vals(self):
         self.ensure_one()
-        sheet_id = self.sheet_id
+        employee = self.employee_id
         values = {
-            # force the name to the default value, to avoid an eventual 'default_name' in the context
-            # to set it to '' which cause no number to be given to the account.move when posted.
-            'name': '/',
-            'date': sheet_id.accounting_date or self.date or fields.Date.context_today(self),
-            'expense_sheet_id': sheet_id.id,
+            **self._prepare_move_vals(),
             'expense_id': self.id,
-
-            'invoice_date': sheet_id.accounting_date or fields.Date.context_today(self),
             'journal_id': self.expense_journal_id.id,
-            'ref': '{}: {}'.format(sheet_id.name or _('Legalización'), self.name or _('Gasto')),
+            'ref': self.name,
             'move_type': 'in_invoice',
-            'partner_id': self.partner_id.id, #self.employee_id.sudo().address_home_id.commercial_partner_id.id,
-            'currency_id': self.currency_id.id,
-            'line_ids': [Command.create(expense._prepare_move_lines_vals()) for expense in self],
+            # El socio de la factura es el asociado; la línea por pagar va al empleado (account.move.line)
+            'partner_id': (self.partner_id or employee._get_expense_partner()).id,
+            'currency_id': self.company_currency_id.id,
+            'line_ids': [Command.create(self._prepare_move_lines_vals())],
+            'partner_bank_id': employee.primary_bank_account_id.id,
             'attachment_ids': [
                 Command.create(attachment.copy_data({'res_model': 'account.move', 'res_id': False, 'raw': attachment.raw})[0])
-                for attachment in self.message_main_attachment_id
+                for attachment in self.attachment_ids
             ],
             'company_id': self.company_id.id,
         }
-        femod = self.env.ref('base.module_l10n_co_bloodo')
-        if femod.state == 'installed':
-            if self.expense_journal_id.is_einvoicing:
-                values['fe_send_later'] = True
         self._check_and_approve_advance()
         return values
     
@@ -178,6 +174,17 @@ class HrExpense(models.Model):
         values = super(HrExpense, self)._prepare_move_lines_vals()
         values['partner_id'] = self.partner_id.id
         return values
+
+    def _prepare_payments_vals(self):
+        """Gasto pagado por la empresa: el estándar solo usa el Proveedor (vendor_id).
+        Si está vacío se usa el Asociado para que el asiento y el pago no queden sin tercero."""
+        move_vals, payment_vals = super()._prepare_payments_vals()
+        if not self.vendor_id and self.partner_id:
+            move_vals['partner_id'] = self.partner_id.id
+            payment_vals['partner_id'] = self.partner_id.id
+            for command in move_vals.get('line_ids', []):
+                command[2]['partner_id'] = self.partner_id.id
+        return move_vals, payment_vals
     
     def _get_default_expense_sheet_values(self):
         res = super(HrExpense, self)._get_default_expense_sheet_values()
@@ -193,6 +200,7 @@ class HrExpense(models.Model):
 
     def _post_without_wizard(self):
         self._check_can_create_move()
+        self._check_petty_cash_fund()
         today = fields.Date.context_today(self)
         employee_expenses = self.filtered(lambda expense: expense.payment_mode == 'own_account')
         grouped_expenses = {}
@@ -231,7 +239,8 @@ class HrExpense(models.Model):
             for move in moves:
                 move._message_set_main_attachment_id(move.attachment_ids, force=True, filter_xml=False)
             moves.action_post()
-    
+        employee_expenses._process_posted_expense_moves()
+
     def _check_and_approve_advance(self):
         """Marcar el anticipo como aprobado si ya fue legalizado completamente."""
         for expense in self:
@@ -257,13 +266,11 @@ class HrExpense(models.Model):
     
     def _calculate_advance_state(self):
         self.ensure_one()
-        sheet_obj = self.env['hr.expense']
         advance_id = self.advance_id
-        state = advance_id.state
-        sheet_ids = sheet_obj.search([('advance_id','=',advance_id.id),
-                                      ('payment_state','!=','not_paid')])
-        expense_ids = sheet_ids.expense_line_ids.filtered(
-            lambda x: x.advance_id.id == advance_id.id)
+        expense_ids = self.env['hr.expense'].search([
+            ('advance_id', '=', advance_id.id),
+            ('state', 'in', ('in_payment', 'paid')),
+        ])
         amount_expenses = sum(expense_ids.mapped('total_amount'))
         if amount_expenses >= advance_id.local_amount:
             state = 'approved'
@@ -294,56 +301,27 @@ class HrExpense(models.Model):
         if reports_activity_unlink:
             reports_activity_unlink.activity_unlink(['hr_expense.mail_act_expense_approval'])
 
-    def _do_create_moves(self):
-        self = self.with_context(clean_context(self.env.context))  # remove default_*
-        skip_context = {
-            'skip_invoice_sync': True,
-            'skip_invoice_line_sync': True,
-            'skip_account_move_synchronization': True,
-        }
-        own_account_sheets = self.filtered(lambda sheet: sheet.payment_mode == 'own_account')
-        company_account_sheets = self - own_account_sheets
-
-        moves = self.env['account.move'].create([expense._prepare_bills_vals() for expense in own_account_sheets.expense_line_ids])
-        # Set the main attachment on the moves directly to avoid recomputing the
-        # `register_as_main_attachment` on the moves which triggers the OCR again
-        for move in moves:
-            move.message_main_attachment_id = move.attachment_ids[0] if move.attachment_ids else None
-        payments = self.env['account.payment'].with_context(**skip_context).create([
-            expense._prepare_payments_vals() for expense in company_account_sheets.expense_line_ids
-        ])
-        moves |= payments.move_id
-        moves.action_post()
-        self.activity_update()
-        return moves
-
-
-    def action_sheet_move_post(self):
-        for sheet in self.filtered(lambda s: s.type == 'expense_petty_cash'):
-            if sheet.total_amount > sheet.petty_cash_fund:
+    def _check_petty_cash_fund(self):
+        for expense in self.filtered(lambda e: e.type == 'expense_petty_cash' and not e.account_move_id):
+            if expense.total_amount > expense.petty_cash_fund:
                 raise UserError(_(
-                    "El total del reporte (%s) excede el fondo disponible en la caja menor (%s)."
-                ) % (sheet.total_amount, sheet.petty_cash_fund))
-    
-        self.filtered(lambda sheet: not sheet.account_move_id)._do_create_moves()
+                    "El total del gasto (%s) excede el fondo disponible en la caja menor (%s)."
+                ) % (expense.total_amount, expense.petty_cash_fund))
 
-        company_sheets = self.filtered(lambda sheet: sheet.payment_mode == 'company_account')
-        employee_sheets = self - company_sheets
-
-        employee_sheets.account_move_id.filtered(lambda x: x.state == 'draft').action_post()
-        company_sheets.account_move_id.origin_payment_id.action_post()
-
-        for sheet in self:
-            if sheet.type == 'expense_petty_cash':
-                petty_cash_journal = sheet.petty_cash_responsible_id.petty_cash_journal
+    def _process_posted_expense_moves(self):
+        """Caja menor y cruce de anticipos después de contabilizar.
+        En v18 se hacía en action_sheet_move_post de la hoja de gastos, que no existe en v19."""
+        for expense in self.filtered('account_move_id'):
+            if expense.type == 'expense_petty_cash':
+                petty_cash_journal = expense.petty_cash_responsible_id.petty_cash_journal
                 if petty_cash_journal:
-                    petty_cash_journal.fund -= sheet.total_amount
+                    petty_cash_journal.fund -= expense.total_amount
                 continue
 
-            if sheet.type != 'advance':
+            if expense.type != 'advance':
                 continue
 
-            move_anticipo = sheet.advance_id.voucher_out
+            move_anticipo = expense.advance_id.voucher_out
             if not move_anticipo:
                 continue
 
@@ -356,7 +334,8 @@ class HrExpense(models.Model):
 
             anticipo_restante = sum(abs(l.amount_residual) for l in _open_receivable_lines())
 
-            move_gastos = sheet.account_move_id.filtered(lambda m: m.move_type in ('in_invoice', 'entry'))
+            move_gastos = expense.account_move_id.filtered(lambda m: m.move_type in ('in_invoice', 'entry'))
+            employee_partner = expense.employee_id._get_expense_partner()
 
             for move_gasto in move_gastos:
                 if anticipo_restante <= 0:
@@ -391,8 +370,8 @@ class HrExpense(models.Model):
 
                 inter_move = self.env['account.move'].create({
                     'move_type': 'entry',
-                    'ref': f'Cruzamiento {sheet.name}',
-                    'date': move_gasto.date or fields.Date.context_today(sheet),
+                    'ref': f'Cruzamiento {expense.name}',
+                    'date': move_gasto.date or fields.Date.context_today(expense),
                     'journal_id': cross_journal,
                     'line_ids': [
                         (0, 0, {
@@ -400,14 +379,14 @@ class HrExpense(models.Model):
                             'account_id': receivable_account.id,
                             'credit': cruce,
                             'debit': 0.0,
-                            'partner_id': sheet.employee_id.address_home_id.id,
+                            'partner_id': employee_partner.id,
                         }),
                         (0, 0, {
                             'name': 'Cruce gasto',
                             'account_id': lines_gasto[0].account_id.id,
                             'debit': cruce,
                             'credit': 0.0,
-                            'partner_id': sheet.employee_id.address_home_id.id,
+                            'partner_id': employee_partner.id,
                         }),
                     ]
                 })
@@ -434,14 +413,15 @@ class HrExpense(models.Model):
 
                 anticipo_restante -= cruce
 
-            move_gastos._compute_payment_state()
-            if all(m.state == 'paid' for m in move_gastos):
-                sheet.state = 'posted'
+            if expense.advance_id and expense.advance_id.state not in ('approved', 'expired'):
+                expense.advance_id.state = expense._calculate_advance_state()
 
-            if sheet.advance_id and sheet.advance_id.state not in ('approved', 'expired'):
-                sheet.advance_id.state = sheet._calculate_advance_state()
-
-        return True
+    def action_post(self):
+        self._check_petty_cash_fund()
+        company_expenses = self.filtered(lambda expense: expense.payment_mode == 'company_account')
+        res = super().action_post()
+        company_expenses._process_posted_expense_moves()
+        return res
 
     def _do_approve(self, check=True):
         if check:
@@ -466,3 +446,10 @@ class HrExpensePostWizard(models.TransientModel):
         if len(expense_journal) == 1:
             return expense_journal.id
         return super()._default_journal_id()
+
+    def action_post_entry(self):
+        expenses = self.env['hr.expense'].browse(self.env.context.get('active_ids', []))
+        expenses._check_petty_cash_fund()
+        res = super().action_post_entry()
+        expenses._process_posted_expense_moves()
+        return res

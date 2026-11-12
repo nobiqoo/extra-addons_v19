@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="repair_order_format_styles">
+        <style>
+            .fmt-section-title {
+                font-size: 12px;
+                font-weight: bold;
+                margin: 8px 0 2px 32px;
+            }
+            .fmt-table {
+                width: 100%;
+                border-collapse: collapse;
+                border-top: 3px solid #17917d;
+                margin-bottom: 4px;
+                font-size: 11px;
+            }
+            .fmt-table td, .fmt-table th {
+                border: 1px solid #17917d;
+                padding: 2px 4px;
+            }
+            .fmt-label {
+                background-color: #f2f2f2;
+                white-space: nowrap;
+            }
+            .fmt-table th {
+                background-color: #f2f2f2;
+                text-align: center;
+                font-weight: bold;
+            }
+            .fmt-center {
+                text-align: center;
+            }
+            .fmt-link {
+                color: #0563c1;
+            }
+            .fmt-service {
+                display: inline-block;
+                margin: 1px 8px 1px 0;
+                white-space: nowrap;
+            }
+            .fmt-check {
+                display: inline-block;
+                width: 22px;
+                margin-left: 4px;
+                border: 1px solid #17917d;
+                text-align: center;
+                font-weight: bold;
+            }
+            .fmt-photos {
+                border: 1px solid #17917d;
+                border-top: none;
+                padding: 4px;
+                text-align: center;
+                page-break-inside: avoid;
+            }
+            .fmt-photos img {
+                display: inline-block;
+                max-width: 48%;
+                max-height: 7.5cm;
+                margin: 2px;
+            }
+            .fmt-signatures {
+                width: 100%;
+                margin-top: 8px;
+                font-size: 11px;
+                page-break-inside: avoid;
+            }
+            .fmt-signatures td {
+                vertical-align: top;
+                padding: 0 4px;
+            }
+            .fmt-sign-label {
+                width: 9%;
+                font-weight: bold;
+            }
+            .fmt-sign-box {
+                width: 41%;
+            }
+            .fmt-sign-image {
+                height: 2.4cm;
+                border: 2px solid #17917d;
+                text-align: center;
+            }
+            .fmt-sign-image img {
+                max-height: 2.2cm;
+                max-width: 95%;
+            }
+            .fmt-sign-line {
+                border-bottom: 2px solid #17917d;
+                text-align: center;
+                min-height: 15px;
+            }
+        </style>
+    </template>
+
+    <template id="repair_order_format_header">
+        <div class="header">
+            <div style="height: 10px; margin-bottom: 6px; background-color: #1f4e9e; border-bottom: 3px solid #1ea7e0;"/>
+            <table class="table-borderless" style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                <tr>
+                    <td style="width: 38%; vertical-align: top;">
+                        <table class="table-borderless" style="width: 100%; border-collapse: collapse;">
+                            <tr style="border-bottom: 2px solid #17917d; color: #17917d; font-weight: bold;">
+                                <td style="padding: 1px 4px;">Consecutivo #:</td>
+                                <td style="padding: 1px 4px;"><span t-field="doc.name"/></td>
+                            </tr>
+                            <t t-out="0"/>
+                        </table>
+                    </td>
+                    <td style="width: 38%; padding: 0 12px;">
+                        <div style="border: 3px double #17917d; padding: 16px 4px; text-align: center; font-size: 13px; font-weight: bold;">
+                            <span t-out="format_title"/>
+                        </div>
+                    </td>
+                    <td style="width: 24%; text-align: right;">
+                        <img t-if="doc.company_id.logo_web"
+                             t-att-src="image_data_uri(doc.company_id.logo_web)"
+                             style="max-width: 100%; max-height: 75px;"
+                             alt="Logo"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer">
+            <table class="table-borderless" style="width: 100%; font-size: 11px;">
+                <tr>
+                    <td style="width: 25%;"><span class="page"/> de <span class="topage"/></td>
+                    <td style="width: 75%;">
+                        <div style="height: 10px; background-color: #1f4e9e; border-top: 3px solid #1ea7e0;"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </template>
+
+    <template id="repair_order_format_customer">
+        <t t-set="contact" t-value="doc._get_format_contact_data()"/>
+        <div class="fmt-section-title">1. INFORMACIÓN DEL CLIENTE</div>
+        <table class="fmt-table">
+            <tr>
+                <td class="fmt-label" style="width: 10%;">Empresa:</td>
+                <td colspan="3"><span t-field="doc.partner_id.name"/></td>
+            </tr>
+            <tr>
+                <td class="fmt-label">Dirección:</td>
+                <td style="width: 44%;"><span t-field="doc.partner_id.street"/></td>
+                <td class="fmt-label" style="width: 10%;">Ciudad:</td>
+                <td><span t-out="doc.city_id.name or doc.partner_id.city"/></td>
+            </tr>
+            <tr>
+                <td class="fmt-label">Contacto:</td>
+                <td><span t-out="contact['name']"/></td>
+                <td class="fmt-label">Cargo:</td>
+                <td><span t-out="contact['function']"/></td>
+            </tr>
+            <tr>
+                <td class="fmt-label">Email:</td>
+                <td class="fmt-link"><span t-out="contact['email']"/></td>
+                <td class="fmt-label">Teléfono:</td>
+                <td><span t-out="contact['phone']"/></td>
+            </tr>
+        </table>
+    </template>
+
+    <template id="repair_order_format_service">
+        <div class="fmt-section-title">2. INFORMACIÓN DEL SERVICIO</div>
+        <table class="fmt-table">
+            <tr>
+                <td colspan="4">
+                    <t t-foreach="doc._get_format_service_types()" t-as="service_type">
+                        <span class="fmt-service">
+                            <span t-field="service_type.name"/>:
+                            <span class="fmt-check"><t t-if="service_type in doc.service_type_ids">X</t><t t-else="">&#160;</t></span>
+                        </span>
+                    </t>
+                    <span class="fmt-service">
+                        Garantía:
+                        <span class="fmt-check"><t t-if="doc.under_warranty">X</t><t t-else="">&#160;</t></span>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="fmt-label">Describa Otros:</td>
+                <td colspan="3"><span t-field="doc.other_service_desc"/></td>
+            </tr>
+            <tr>
+                <td class="fmt-label">Comentarios del Cliente:</td>
+                <td colspan="3"><span t-field="doc.service_reasons"/></td>
+            </tr>
+            <tr>
+                <td class="fmt-label" style="width: 15%;"># Cotización:</td>
+                <td style="width: 35%;"><span t-field="doc.sale_order_id.name"/></td>
+                <td class="fmt-label" style="width: 15%;"># Orden de Compra:</td>
+                <td style="width: 35%;"><span t-field="doc.sale_order_id.client_order_ref"/></td>
+            </tr>
+        </table>
+    </template>
+
+    <template id="repair_order_format_equipment">
+        <t t-set="equipment_data" t-value="doc._get_format_equipment_data()"/>
+        <div class="fmt-section-title">3. ESPECIFICACIONES DEL EQUIPO</div>
+        <table class="fmt-table">
+            <t t-foreach="equipment_data" t-as="equipment">
+                <tr t-if="len(equipment_data) &gt; 1">
+                    <th colspan="4">Equipo <t t-out="equipment_index + 1"/></th>
+                </tr>
+                <tr>
+                    <td class="fmt-label" style="width: 15%;">Tipo de equipo:</td>
+                    <td style="width: 45%;"><span t-out="equipment['category']"/></td>
+                    <td class="fmt-label" style="width: 10%;">Marca:</td>
+                    <td><span t-out="equipment['brand']"/></td>
+                </tr>
+                <tr>
+                    <td class="fmt-label">Modelo:</td>
+                    <td><span t-out="equipment['model']"/></td>
+                    <td class="fmt-label">Serial:</td>
+                    <td><span t-out="equipment['serial']"/></td>
+                </tr>
+            </t>
+        </table>
+    </template>
+
+    <template id="repair_order_format_photos">
+        <table class="fmt-table" style="margin-bottom: 0;">
+            <tr><td class="fmt-label fmt-center">Registro Fotográfico</td></tr>
+        </table>
+        <div class="fmt-photos">
+            <t t-foreach="doc._get_format_image_uris(images)" t-as="image_uri">
+                <img t-att-src="image_uri" alt="Registro fotográfico"/>
+            </t>
+        </div>
+    </template>
+
+    <template id="repair_order_format_inventory">
+        <table class="fmt-table" style="margin-top: 6px;">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">Ítem</th>
+                    <th style="width: 5%;">Cant</th>
+                    <th style="width: 40%;">Descripción</th>
+                    <th style="width: 20%;">Serial</th>
+                    <th style="width: 30%;">Comentario</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr t-foreach="doc.inventory_line_ids" t-as="line" style="page-break-inside: avoid;">
+                    <td class="fmt-center"><span t-field="line.item"/></td>
+                    <td class="fmt-center"><span t-field="line.quantity"/></td>
+                    <td><span t-field="line.description"/></td>
+                    <td><span t-field="line.serial"/></td>
+                    <td><span t-out="line[comment_field]"/></td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+
+    <template id="repair_order_format_user_signature">
+        <t t-set="signer" t-value="doc._get_format_signer_data(user_signer)"/>
+        <div class="fmt-sign-image">
+            <img t-if="signature" t-att-src="image_data_uri(signature)" alt="Firma"/>
+        </div>
+        <div class="fmt-sign-line" style="font-weight: bold;"><span t-out="signer['name']"/></div>
+        <div class="fmt-sign-line"><span t-out="signer['job']"/></div>
+        <div class="fmt-sign-line fmt-link"><span t-out="signer['email']"/></div>
+    </template>
+
+    <template id="report_repair_order_reception">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="web.basic_layout">
+                <t t-call="stock_metromat.repair_order_format_styles"/>
+                <t t-set="control" t-value="doc._get_format_control_data()"/>
+                <t t-call="stock_metromat.repair_order_format_header">
+                    <t t-set="format_title">FORMATO DE INGRESO DE EQUIPOS</t>
+                    <tr style="border-bottom: 2px solid #17917d;">
+                        <td style="padding: 1px 4px;">Fecha Actualización:</td>
+                        <td style="padding: 1px 4px;"><span t-out="control['update_date']"/></td>
+                    </tr>
+                    <tr style="border-bottom: 2px solid #17917d;">
+                        <td style="padding: 1px 4px;">Versión:</td>
+                        <td style="padding: 1px 4px;"><span t-out="control['version']"/></td>
+                    </tr>
+                </t>
+                <t t-call="stock_metromat.repair_order_format_customer"/>
+                <t t-call="stock_metromat.repair_order_format_service"/>
+                <t t-call="stock_metromat.repair_order_format_equipment"/>
+
+                <div class="fmt-section-title">4. INGRESO E INVENTARIO</div>
+                <table class="fmt-table" style="margin-bottom: 0;">
+                    <tr>
+                        <td class="fmt-label" style="width: 15%;">Fecha de ingreso:</td>
+                        <td style="width: 45%;"><span t-out="doc._format_full_date(doc.reception_date)"/></td>
+                        <td class="fmt-label" style="width: 12%;">Recibido por:</td>
+                        <td><span t-field="doc.received_by_id.name"/></td>
+                    </tr>
+                </table>
+                <t t-call="stock_metromat.repair_order_format_photos">
+                    <t t-set="images" t-value="doc.reception_image_ids"/>
+                </t>
+                <t t-call="stock_metromat.repair_order_format_inventory">
+                    <t t-set="comment_field" t-value="'reception_comment'"/>
+                </t>
+
+                <table class="fmt-signatures table-borderless">
+                    <tr>
+                        <td class="fmt-sign-label">Elabora:</td>
+                        <td class="fmt-sign-box">
+                            <t t-call="stock_metromat.repair_order_format_user_signature">
+                                <t t-set="user_signer" t-value="doc.received_by_id"/>
+                                <t t-set="signature" t-value="doc.reception_signature"/>
+                            </t>
+                        </td>
+                        <td/>
+                    </tr>
+                </table>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_repair_order_delivery">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="web.basic_layout">
+                <t t-call="stock_metromat.repair_order_format_styles"/>
+                <t t-set="control" t-value="doc._get_format_control_data()"/>
+                <t t-call="stock_metromat.repair_order_format_header">
+                    <t t-set="format_title">FORMATO DE REMISIÓN DE EQUIPOS</t>
+                    <tr style="border-bottom: 2px solid #17917d;">
+                        <td style="padding: 1px 4px;">Fecha Emisión:</td>
+                        <td style="padding: 1px 4px;"><span t-out="doc._format_long_date(doc.delivery_issue_date)"/></td>
+                    </tr>
+                    <tr style="border-bottom: 2px solid #17917d;">
+                        <td style="padding: 1px 4px;">Fecha Entrega:</td>
+                        <td style="padding: 1px 4px;"><span t-out="doc._format_long_date(doc.delivery_date)"/></td>
+                    </tr>
+                    <tr style="border-bottom: 2px solid #17917d;">
+                        <td style="padding: 1px 4px;">Versión:</td>
+                        <td style="padding: 1px 4px;"><span t-out="control['version']"/></td>
+                    </tr>
+                </t>
+                <t t-call="stock_metromat.repair_order_format_customer"/>
+                <t t-call="stock_metromat.repair_order_format_service"/>
+                <t t-call="stock_metromat.repair_order_format_equipment"/>
+
+                <div class="fmt-section-title">4. SALIDA E INVENTARIO</div>
+                <table class="fmt-table" style="margin-bottom: 0;">
+                    <tr>
+                        <td class="fmt-label" style="width: 22%;">Movido a estación de entrega:</td>
+                        <td style="width: 38%;"><span t-out="doc._format_full_date(doc.delivery_station_date)"/></td>
+                        <td class="fmt-label" style="width: 12%;">Entregado por:</td>
+                        <td><span t-field="doc.delivered_by_id.name"/></td>
+                    </tr>
+                </table>
+                <t t-call="stock_metromat.repair_order_format_photos">
+                    <t t-set="images" t-value="doc.delivery_image_ids"/>
+                </t>
+                <t t-call="stock_metromat.repair_order_format_inventory">
+                    <t t-set="comment_field" t-value="'delivery_comment'"/>
+                </t>
+
+                <table class="fmt-signatures table-borderless">
+                    <tr>
+                        <td class="fmt-sign-label">Firma Entrega:</td>
+                        <td class="fmt-sign-box">
+                            <t t-call="stock_metromat.repair_order_format_user_signature">
+                                <t t-set="user_signer" t-value="doc.delivered_by_id"/>
+                                <t t-set="signature" t-value="doc.delivery_signature"/>
+                            </t>
+                        </td>
+                        <td class="fmt-sign-label">Firma Recibe:</td>
+                        <td class="fmt-sign-box">
+                            <div class="fmt-sign-image">
+                                <img t-if="doc.sign_client" t-att-src="image_data_uri(doc.sign_client)" alt="Firma del cliente"/>
+                            </div>
+                            <div class="fmt-sign-line" style="font-weight: bold;"><span t-field="doc.customer_signer_name"/></div>
+                            <div class="fmt-sign-line"><span t-field="doc.customer_signer_vat"/></div>
+                            <div class="fmt-sign-line"><span t-out="doc._format_long_date(doc.customer_sign_date)"/></div>
+                        </td>
+                    </tr>
+                </table>
+            </t>
+        </t>
+    </template>
+</odoo>

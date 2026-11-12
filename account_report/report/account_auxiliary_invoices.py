@@ -61,7 +61,7 @@ class ReportAccountReportAccountAuxiliaryInvoices(models.AbstractModel):
             worksheet.write(5, i, title[1], format_color)
 
         # Sheet
-        report_data = data.get('report_data')
+        report_data = objs[:1].prepare_data().get('report_data') or []
 
         cw = {}
         for i, value in enumerate(report_data):

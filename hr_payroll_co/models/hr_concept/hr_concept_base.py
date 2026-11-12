@@ -25,6 +25,7 @@ CONCEPTS = [
     'PRV_CES', 'PRV_ICES', 'PRV_PRIMA', 'PRV_VAC',
     'PROV_PRIMA_VAC_CONV', 'PROV_PRIMA_VAC_LIQ_CONV',
     'PROV_PRIMA_NAV', 'PROV_DIA_31', 'PROV_AUX_VAC', 'PROV_ANT',
+    'DED_EMBARGO',
     'NETO_LIQ', 'NETO', 'NETO_CES'
 ]
 TPCT = 'total_previous_categories'
@@ -57,7 +58,15 @@ class HrConcept(models.Model):
         for i, concept in enumerate(CONCEPTS):
             if concept == self.code:
                 return i
+        if self.is_embargo_type_concept():
+            # User-created garnishment concepts don't have (and don't need) a code in
+            # CONCEPTS: they always compute at the fixed 'DED_EMBARGO' position, right
+            # before the net-pay concepts.
+            return CONCEPTS.index('DED_EMBARGO')
         return len(CONCEPTS)
+
+    def is_embargo_type_concept(self):
+        return bool(self.env['hr.embargo.type'].search_count([('concept_id', '=', self.id)]))
 
     def sync_old_lines(self):
         for record in self:
@@ -236,6 +245,9 @@ class HrConcept(models.Model):
         for category in ['earnings', 'o_salarial_earnings', 'comp_earnings', 'o_rights']:
             salary += data_payslip.get(TPCT, {}).get(category, 0)
             salary += data_payslip.get(category, 0)
+
+        # Descontar salario en etapa lectiva
+        salary -= self._get_wage_in_teaching_phase(data_payslip)
 
         # Descontar dinero de vacaciones monetizadas
         period = {
@@ -599,7 +611,6 @@ class HrConcept(models.Model):
             ibd = data_payslip['IBD_DED'] if data_payslip['IBD_DED'] > data_payslip['IBD'] else data_payslip['IBD']
         else:
             ibd = data_payslip['IBD']
-        ibd -= self._get_wage_in_teaching_phase(data_payslip)
         if self.code == 'DED_PENS' and data_payslip['politics']['hr_payroll_co.assumed_pen_not_remunerate_licences']:
             no_pay_days = len(self.env['hr.leave.line'].search([
                 ('date', '>=', date_from),

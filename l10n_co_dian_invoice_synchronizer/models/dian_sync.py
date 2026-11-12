@@ -55,10 +55,22 @@ class DianSync(models.Model):
         'sync_id',
         string='Documents',
     )
+    dian_protocol = fields.Selection(
+        selection=[
+            ('token', 'Token (hasMore / continuationToken)'),
+            ('block', 'Block (blockIndex / blockData)'),
+        ],
+        string='DIAN Protocol',
+        readonly=True,
+        help='Contract of the DIAN GetDocumentsPageToken endpoint used by this synchronization. '
+             'Forced with the system parameter '
+             'l10n_co_dian_invoice_synchronizer.documents_protocol (auto, token or block).',
+    )
     dian_records_filtered = fields.Integer(
         'DIAN Records Filtered',
         readonly=True,
-        help='Total count reported by DIAN for the date range (recordsFiltered from API).',
+        help='Total count reported by DIAN for the date range (recordsFiltered from API; in the '
+             'token protocol, the sum of the recordsFiltered of each page).',
     )
     discarded_cufes = fields.Text(
         'Discarded CUFEs',
@@ -77,6 +89,14 @@ class DianSync(models.Model):
         string='Already in System',
         compute='_compute_already_in_system_count',
         help='Documents skipped because they were already imported for this date range.',
+    )
+    discarded_other_company_count = fields.Integer(
+        'Already in Other Companies',
+        readonly=True,
+        help='Of the documents already in the system, how many exist only in another '
+             'company (not in the company of this synchronization). A CUFE has a single '
+             'receiver, so a value other than 0 usually means documents that were '
+             'imported in the wrong company.',
     )
     application_response_count = fields.Integer(
         string='Application Responses',
@@ -105,11 +125,6 @@ class DianSync(models.Model):
              'application_response_count + mapping_error_count). Should always be 0 - a non-zero '
              'value means some documents reported by DIAN were lost somewhere in the pipeline '
              'without being counted, and is a good candidate for an automated alert.',
-    )
-    error_summary_html = fields.Html(
-        string='Error Summary',
-        compute='_compute_error_summary_html',
-        sanitize=False,
     )
 
     @api.model_create_multi
@@ -156,13 +171,15 @@ class DianSync(models.Model):
                 ''' % (_('No documents were discarded.'),)
                 continue
             cufes = [x.strip() for x in record.discarded_cufes.splitlines() if x.strip()]
+            # Outside the generator: _() cannot find the language from inside its frame
+            already_in_system = _('Already in system for this date range')
             items = ''.join(
                 '<li style="padding: 0.6rem 1rem; border-bottom: 1px solid #eee; '
                 'display: flex; align-items: center; gap: 0.75rem; font-family: monospace; font-size: 0.9rem;">'
                 '<span style="background: #e9ecef; color: #495057; padding: 0.25rem 0.5rem; '
                 'border-radius: 4px; word-break: break-all;">%s</span>'
                 '<span style="color: #6c757d; font-size: 0.85rem; font-style: normal;">%s</span>'
-                '</li>' % (cufe, _('Already in system for this date range'))
+                '</li>' % (cufe, already_in_system)
                 for cufe in cufes
             )
             record.discarded_html = '''
@@ -227,48 +244,3 @@ class DianSync(models.Model):
                 _('The following documents were received from DIAN but could not be mapped and were not imported.'),
                 ''.join(items),
             )
-
-    @api.depends('document_ids', 'document_ids.xml_query_error_message')
-    def _compute_error_summary_html(self):
-        for record in self:
-            docs_with_errors = [
-                doc for doc in record.document_ids
-                if doc.xml_query_error_message and doc.xml_query_error_message.strip()
-            ]
-            if not docs_with_errors:
-                record.error_summary_html = '''
-                    <div style="text-align: center; color: #6c757d; padding: 2rem;">
-                        <span class="fa fa-check-circle" style="font-size: 2rem; display: block; margin-bottom: 0.5rem; color: #28a745;"/>
-                        <p style="margin: 0;">%s</p>
-                    </div>
-                ''' % (_('No errors during synchronization.'),)
-                continue
-            items = []
-            for doc in docs_with_errors:
-                name_display = html_lib.escape((doc.name or doc.cufe or '—'))
-                cufe_display = html_lib.escape((doc.cufe or ''))
-                msg_display = html_lib.escape((doc.xml_query_error_message or '').strip())
-                items.append('''
-                    <li style="padding: 0.75rem 1rem; border-bottom: 1px solid #f5e6e6; background: #fef8f8;
-                        display: flex; flex-direction: column; gap: 0.35rem;">
-                        <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-                            <span style="background: #dc3545; color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem;">Error</span>
-                            <span style="font-weight: 600; color: #333;">%s</span>
-                            <span style="font-family: monospace; font-size: 0.8rem; color: #6c757d; word-break: break-all;">%s</span>
-                        </div>
-                        <div style="font-size: 0.9rem; color: #721c24; line-height: 1.4;">%s</div>
-                    </li>
-                ''' % (name_display, cufe_display, msg_display))
-            _msg_errors_intro = _(
-                "The following documents had errors while fetching or parsing XML. Review the messages below."
-            )
-            record.error_summary_html = '''
-                <div style="padding: 0 0 1rem 0;">
-                    <p style="color: #856404; margin-bottom: 0.75rem; font-size: 0.95rem;">
-                        <span class="fa fa-exclamation-triangle"/> %s
-                    </p>
-                    <ul style="list-style: none; margin: 0; padding: 0; border: 1px solid #f5c6cb; border-radius: 6px; max-width: 720px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); overflow: hidden; background: #fff;">
-                        %s
-                    </ul>
-                </div>
-            ''' % (_msg_errors_intro, ''.join(items))

@@ -49,7 +49,8 @@
                                     <div class="col-3"><strong>ABS: </strong><t t-esc="line.absence_hours"/></div>
                                     <div class="col-3"><strong>Ranking: </strong><t t-esc="line.midterm_ranking"/></div>
                                 </div>
-                                <div t-if="line.comments"><strong>Comentarios: </strong><span t-field="line.comments"/></div>
+                                <div t-if="line.comments"><strong>Resultado examen: </strong><span t-field="line.comments"/></div>
+                                <div t-if="line.observation"><strong>Observación: </strong><span t-field="line.observation"/></div>
                             </div>
                         </t>
                     </div>
@@ -104,7 +105,8 @@
                                 <div t-if="doc.grading_scale_id.show_performance_description and line.performance_range_name">
                                     <strong>Desempeño: </strong><span t-esc="line.performance_range_name"/>
                                 </div>
-                                <div t-if="line.comments"><strong>Comentarios: </strong><span t-field="line.comments"/></div>
+                                <div t-if="line.comments"><strong>Resultado examen: </strong><span t-field="line.comments"/></div>
+                                <div t-if="line.observation"><strong>Observación: </strong><span t-field="line.observation"/></div>
                             </div>
                         </t>
                         <div t-if="doc.grading_scale_id.additional_message" class="mt-4">
@@ -130,22 +132,87 @@
     <template id="report_class_list_document">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
+                <t t-set="klass" t-value="doc.populate_class_id"/>
                 <t t-call="web.external_layout">
                     <div class="page">
-                        <t t-call="wk_school_colombo.wk_grade_report_header"/>
-                        <h4>Class List</h4>
-                        <table class="table table-sm">
+                        <div class="row mb-2">
+                            <div class="col-8"><h3>Class List / Listado del Módulo</h3></div>
+                            <div class="col-4 text-end"><em>Generado en: <t t-esc="wk_generated"/></em></div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-3"><strong>Programa: </strong><span t-field="doc.program_type_id.name"/></div>
+                            <div class="col-3"><strong>Nivel: </strong><span t-field="doc.grade_id.name"/></div>
+                            <div class="col-3"><strong>Módulo: </strong><span t-field="doc.subject_id.name"/></div>
+                            <div class="col-3"><strong>Profesor: </strong><span t-field="doc.teacher_id.name"/></div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-3" t-if="klass.teacher_ids">
+                                <strong>Assistant teacher: </strong>
+                                <span t-esc="', '.join(klass.teacher_ids.mapped('name'))"/>
+                            </div>
+                            <div class="col-3"><strong>Libro: </strong><span t-field="klass.book_id.name"/></div>
+                            <div class="col-3"><strong>Horario: </strong><span t-field="klass.weekly_schedule_summary"/></div>
+                            <div class="col-3"><strong>Salón: </strong><span t-field="klass.location_summary"/></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <strong>Fecha: </strong>
+                                <span t-field="klass.start_date"/> a <span t-field="klass.end_date"/>
+                            </div>
+                        </div>
+                        <table class="table table-sm table-bordered">
                             <thead>
-                                <tr><th>#</th><th>Nombre</th><th>Identificación</th></tr>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Estudiante</th>
+                                    <th t-if="wk_show_invoice">Factura</th>
+                                    <th t-if="wk_show_phone">Teléfono</th>
+                                    <th t-if="wk_show_mobile">Celular</th>
+                                    <th t-if="wk_show_email">Correo electrónico</th>
+                                    <t t-if="wk_show_grades">
+                                        <t t-foreach="(wk_lines[:1]._wk_report_components(wk_cut) if wk_lines else [])" t-as="wk_col">
+                                            <th><t t-esc="wk_col['name']"/></th>
+                                        </t>
+                                        <th>Fin. Quiz Average</th>
+                                        <th><t t-esc="'Midterm Grade' if wk_cut == 'midterm' else 'Final Grade'"/></th>
+                                        <th>Rank</th>
+                                        <th>ABS</th>
+                                        <th t-if="wk_cut != 'midterm'">F/P</th>
+                                    </t>
+                                    <th>Signature</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <tr t-foreach="wk_lines" t-as="line">
-                                    <td><t t-esc="line_index + 1"/></td>
-                                    <td><span t-field="line.student_id.name"/></td>
                                     <td><span t-field="line.student_id.partner_id.vat"/></td>
+                                    <td><span t-field="line.student_id.name"/></td>
+                                    <td t-if="wk_show_invoice"><t t-esc="line._wk_report_invoice_number()"/></td>
+                                    <td t-if="wk_show_phone"><span t-field="line.student_id.landline_phone"/></td>
+                                    <td t-if="wk_show_mobile"><span t-field="line.student_id.mobile"/></td>
+                                    <td t-if="wk_show_email"><span t-field="line.student_id.email"/></td>
+                                    <t t-if="wk_show_grades">
+                                        <t t-foreach="line._wk_report_components(wk_cut)" t-as="component">
+                                            <td><t t-esc="'%.1f' % component['grade'] if component['grade'] is not None else '—'"/></td>
+                                        </t>
+                                        <td><t t-esc="'%.1f' % line.fin_quiz_average"/></td>
+                                        <td><t t-esc="'%.1f' % line._wk_report_grade(wk_cut)"/></td>
+                                        <td><t t-esc="line.midterm_ranking if wk_cut == 'midterm' else line.ranking"/></td>
+                                        <td><t t-esc="line.absence_hours"/></td>
+                                        <td t-if="wk_cut != 'midterm'">
+                                            <span t-esc="dict(line._fields['result'].selection).get(line.result)"/>
+                                        </td>
+                                    </t>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="mt-2"><strong>Total Estudiantes: </strong><t t-esc="len(wk_lines)"/></div>
+                        <div class="mt-4">
+                            <strong>COMMENTS:</strong>
+                            <div style="border-bottom:1px solid #000; height: 22px;" class="mt-3"></div>
+                            <div style="border-bottom:1px solid #000; height: 22px;" class="mt-3"></div>
+                            <div style="border-bottom:1px solid #000; height: 22px;" class="mt-3"></div>
+                        </div>
                     </div>
                 </t>
             </t>
@@ -153,13 +220,130 @@
     </template>
 
     <record id="report_class_list_action" model="ir.actions.report">
-        <field name="name">Class List</field>
+        <field name="name">Class List / Listado del Módulo</field>
         <field name="model">wk.school.colombo.grade.consolidated</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">wk_school_colombo.report_class_list_document</field>
         <field name="report_file">wk_school_colombo.report_class_list_document</field>
         <field name="print_report_name">'Class List - %s' % (object.populate_class_id.display_name)</field>
         <field name="binding_model_id" ref="model_wk_school_colombo_grade_consolidated"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_grade_individual_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="line" t-value="doc.consolidated_line_ids[:1]"/>
+                <t t-set="consolidated" t-value="line.consolidated_id"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="row mb-3">
+                            <div class="col-8"><h3><span t-field="consolidated.populate_class_id.display_name"/></h3></div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-3"><strong>Nivel: </strong><span t-field="consolidated.grade_id.name"/></div>
+                            <div class="col-3"><strong>Módulo: </strong><span t-field="consolidated.subject_id.name"/></div>
+                            <div class="col-3"><strong>Docente: </strong><span t-field="consolidated.teacher_id.name"/></div>
+                            <div class="col-3"><strong>Periodo: </strong><span t-field="consolidated.academic_year_id.display_name"/></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6"><strong>Programa: </strong><span t-field="consolidated.program_type_id.name"/></div>
+                            <div class="col-6"><strong>Escala: </strong><span t-field="consolidated.grading_scale_id.name"/></div>
+                        </div>
+                        <h4>Reporte Individual del Estudiante</h4>
+                        <h5><span t-field="line.student_id.name"/></h5>
+
+                        <t t-if="consolidated.cuts_count == '2'">
+                            <h5 class="mt-3">Midterm</h5>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr><th>Componente</th><th>Peso</th><th>Nota</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="line._wk_report_components('midterm')" t-as="component">
+                                        <td><t t-esc="component['name']"/></td>
+                                        <td><t t-esc="component['weight_midterm']"/>%</td>
+                                        <td><t t-esc="'%.2f' % component['grade'] if component['grade'] is not None else '—'"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-3"><strong>Midterm Grade: </strong><t t-esc="'%.2f' % line._wk_report_grade('midterm')"/></div>
+                                <div class="col-3"><strong>ABS: </strong><t t-esc="line.absence_hours"/></div>
+                                <div class="col-3"><strong>Ranking: </strong><t t-esc="line.midterm_ranking"/></div>
+                            </div>
+                        </t>
+
+                        <h5 class="mt-4">Final</h5>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr><th>Componente</th><th>Peso</th><th>Nota</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="line._wk_report_components('final')" t-as="component">
+                                    <td><t t-esc="component['name']"/></td>
+                                    <td><t t-esc="component['weight_final'] if component['weight_final'] else component['weight_midterm']"/>%</td>
+                                    <td><t t-esc="'%.2f' % component['grade'] if component['grade'] is not None else '—'"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-3"><strong>Final Grade: </strong><t t-esc="'%.2f' % line._wk_report_grade('final')"/></div>
+                            <div class="col-3"><strong>ABS: </strong><t t-esc="line.absence_hours"/></div>
+                            <div class="col-3"><strong>Ranking: </strong><t t-esc="line.ranking"/></div>
+                            <div class="col-3">
+                                <strong>Resultado: </strong>
+                                <span t-esc="dict(line._fields['result'].selection).get(line.result)"/>
+                                <span t-if="line.fail_reason"> (<t t-esc="dict(line._fields['fail_reason'].selection).get(line.fail_reason)"/>)</span>
+                            </div>
+                        </div>
+                        <div t-if="consolidated.grading_scale_id.show_performance_description and line.performance_range_name">
+                            <strong>Desempeño: </strong><span t-esc="line.performance_range_name"/>
+                        </div>
+                        <div t-if="line.comments"><strong>Resultado examen: </strong><span t-field="line.comments"/></div>
+                                <div t-if="line.observation"><strong>Observación: </strong><span t-field="line.observation"/></div>
+                        <div t-if="consolidated.grading_scale_id.additional_message" class="mt-4">
+                            <span t-field="consolidated.grading_scale_id.additional_message"/>
+                        </div>
+
+                        <div t-if="consolidated.program_type_id.show_mce_equivalence" class="mt-4">
+                            <p>
+                                <strong>Programas de Inglés Intermedio del Centro Cultural Colombo
+                                Americano y la equivalencia de sus niveles con los del Marco Común
+                                Europeo</strong>
+                            </p>
+                            <table class="table table-sm table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>Niveles de dominio del MCE</th>
+                                        <td>A1</td><td>A2</td><td>B1</td><td>B1/B2</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Niveles del Colombo</th>
+                                        <td>I - II</td><td>III - IV - V</td>
+                                        <td>VI - VII - VIII</td><td>IX - X - XI - XII</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style="font-size:10px;" class="text-muted">
+                                NOTE: THE INFORMATION PRESENTED ON THIS PAGE IS ONLY FOR
+                                CONSULTATION AND IS NOT CONSIDERED AN OFFICIAL DOCUMENT
+                            </p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_grade_individual_action" model="ir.actions.report">
+        <field name="name">Reporte Individual del Estudiante</field>
+        <field name="model">wk.student.subjects</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wk_school_colombo.report_grade_individual_document</field>
+        <field name="report_file">wk_school_colombo.report_grade_individual_document</field>
+        <field name="print_report_name">'Reporte Individual - %s' % (object.student_id.name)</field>
+        <field name="binding_model_id" ref="wk_school_management.model_wk_student_subjects"/>
         <field name="binding_type">report</field>
     </record>
 

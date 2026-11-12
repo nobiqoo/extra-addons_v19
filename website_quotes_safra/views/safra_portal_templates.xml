@@ -12,7 +12,7 @@
                         <p class="mb-2"><strong>Corrija los siguientes errores e intente de nuevo:</strong></p>
                         <ul class="mb-0">
                             <t t-foreach="errors" t-as="e">
-                                <li>Persiana <t t-esc="e['line']"/>: <t t-esc="e['message']"/></li>
+                                <li><t t-if="e['line']">Persiana <t t-esc="e['line']"/></t><t t-else="">Pedido</t>: <t t-esc="e['message']"/></li>
                             </t>
                         </ul>
                     </div>
@@ -22,12 +22,116 @@
         </t>
     </template>
 
+    <!-- Sprint 1.6 (fila 125): cargue masivo de pedidos por Excel -->
+    <template id="portal_cargue_masivo" name="Cotizador Safra - Cargue masivo">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="safra-quoter">
+                    <h2 class="safra-title">Cargue masivo de pedidos</h2>
+                    <p>Cargue un pedido completo desde un archivo de Excel: cada fila es una persiana.
+                        Se revisa con las mismas reglas del cotizador y, si todo está bien, se crea la cotización.</p>
+                    <div t-if="errores" class="alert alert-danger">
+                        <p class="mb-2"><strong>El pedido no se cargó. Corrija el archivo y súbalo de nuevo:</strong></p>
+                        <ul class="mb-0"><li t-foreach="errores" t-as="err"><t t-esc="err"/></li></ul>
+                    </div>
+                    <h3 class="h5 mt-4">1. Descargue la plantilla del sistema</h3>
+                    <form method="get" action="/cotizador/cargue/plantilla" class="d-flex flex-wrap gap-2 align-items-center">
+                        <select name="system_id" class="form-select w-auto" required="required">
+                            <option value="">-- Seleccione el sistema --</option>
+                            <option t-foreach="systems" t-as="s" t-att-value="s.id"><t t-esc="s.name"/></option>
+                        </select>
+                        <button type="submit" class="btn-safra-light"><i class="fa fa-download"/> Descargar plantilla</button>
+                    </form>
+                    <p class="small text-muted mt-2">La fila 1 tiene el nombre de cada campo y la fila 2 su código (no la modifique).
+                        Escriba una persiana por fila desde la fila 3. La hoja «Opciones» lista lo que se puede escribir en cada columna.
+                        Puede mezclar sistemas en el mismo archivo copiando las columnas de cada plantilla.</p>
+                    <h3 class="h5 mt-4">2. Suba el archivo diligenciado</h3>
+                    <form method="post" action="/cotizador/cargue" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="file" name="archivo" accept=".xlsx" class="form-control mb-3" required="required"/>
+                        <div class="safra-express-order">
+                            <label><input type="checkbox" name="safra_express" value="1"/> ¿Solicita Safra Express?
+                                <span class="safra-help">Aplica para todo el pedido; no aplica en pedidos de más de 10 unidades.</span></label>
+                        </div>
+                        <div t-if="puede_exportar" class="safra-express-order">
+                            <label><input type="checkbox" name="es_exportacion" value="1"/> ¿Es una Exportación?</label>
+                        </div>
+                        <div t-if="puede_verificar" class="safra-express-order">
+                            <label><input type="checkbox" name="requiere_verificacion" value="1"/> Requiere verificación de fabricación</label>
+                            <textarea name="verificacion_observaciones" class="form-control mt-2" rows="3"
+                                      placeholder="Cambios requeridos para planta (obligatorio si marca la verificación)"></textarea>
+                        </div>
+                        <t t-call="website_quotes_safra.portal_despacho_bloque"/>
+                        <div class="safra-express-order">
+                            <label><input type="checkbox" name="acepta_sin_garantia" value="1"/>
+                                Si marco «Requiere verificación de fabricación», acepto que el pedido se evalúa sin garantía
+                                (planta indicará al aprobarlo si va con garantía).</label>
+                        </div>
+                        <div class="safra-actions">
+                            <button type="submit" class="btn-safra"><i class="fa fa-upload"/> Cargar pedido</button>
+                            <a href="/mis-cotizaciones" class="btn-safra-light">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Matriz, Datos de despacho (filas 184-188, reunión 26-oct): para todo
+         el pedido, en el cotizador y en el cargue masivo. Si recoge en
+         fábrica se ocultan país, ciudad, dirección y destinatario. -->
+    <template id="portal_despacho_bloque" name="Cotizador Safra - Datos de despacho">
+        <div class="safra-express-order safra-despacho">
+            <input type="hidden" name="despacho_bloque" value="1"/>
+            <div class="safra-embalaje-title">Datos de despacho <span class="safra-help">Para todo el pedido.</span></div>
+            <label class="safra-despacho-recoge">
+                <input type="checkbox" name="recoge_fabrica" value="1"/>
+                Recoge en fábrica <span class="safra-help">El pedido no se despacha: lo recoge en la planta de Safra.</span>
+            </label>
+            <div class="row g-2 mt-1 safra-despacho-envio">
+                <div class="col-md-4">
+                    <label class="form-label small mb-0" for="safra-despacho-pais">País</label>
+                    <select id="safra-despacho-pais" name="despacho_country_id" class="form-select">
+                        <option value="">-- Seleccione uno --</option>
+                        <t t-foreach="paises" t-as="pais">
+                            <option t-att-value="pais.id" t-att-selected="pais == pais_defecto or None"><t t-esc="pais.name"/></option>
+                        </t>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small mb-0" for="safra-despacho-ciudad">Ciudad</label>
+                    <select id="safra-despacho-ciudad" name="despacho_city_id" class="form-select">
+                        <option value="">-- Seleccione uno --</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small mb-0" for="safra-despacho-direccion">Dirección de despacho</label>
+                    <input type="text" id="safra-despacho-direccion" name="despacho_direccion" maxlength="200"
+                           class="form-control" autocomplete="off"/>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small mb-0" for="safra-despacho-destinatario">Nombre del destinatario</label>
+                    <input type="text" id="safra-despacho-destinatario" name="despacho_destinatario" maxlength="120"
+                           class="form-control" autocomplete="off"/>
+                </div>
+            </div>
+            <div class="row g-2 mt-1">
+                <div class="col-md-4">
+                    <label class="form-label small mb-0" for="safra-despacho-fecha">Fecha tentativa de despacho</label>
+                    <input type="date" id="safra-despacho-fecha" name="despacho_fecha" class="form-control"
+                           t-att-min="hoy_despacho"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
     <template id="portal_quoter_form" name="Cotizador Safra">
         <t t-call="website.layout">
             <div class="container py-5">
               <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
               <div class="safra-quoter">
-                <h2 class="safra-title">Agregar Producto a Pedido</h2>
+                <h2 class="safra-title" t-if="editar">Editar cotización <t t-esc="editar.name"/></h2>
+                <h2 class="safra-title" t-else="">Agregar Producto a Pedido</h2>
                 <div class="safra-distribuidor">
                     <strong>Distribuidor aliado</strong>
                     Recuerde que para el ingreso de sus pedidos cuenta con el acompañamiento técnico de su asesor, esto previo a la digitación de su pedido.
@@ -37,14 +141,20 @@
                 <script type="application/json" id="safra-systems-data">
                     <t t-out="systems_json"/>
                 </script>
+                <!-- Sprint 1.6 (fila 123): persianas de la cotización que se edita -->
+                <script t-if="editar" type="application/json" id="safra-edit-data">
+                    <t t-out="editar_json"/>
+                </script>
                 <script type="application/json" id="safra-default-config">
                     <t t-out="default_config_json"/>
                 </script>
 
                 <form id="safra-quoter-form" method="post" action="/cotizador/submit"
                       enctype="multipart/form-data"
-                      t-att-data-default-system="default_system_id">
+                      t-att-data-default-system="default_system_id"
+                      t-att-data-express-pct="express_pct">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input t-if="editar" type="hidden" name="quote_id" t-att-value="editar.id"/>
 
                     <div id="lines-container"></div>
 
@@ -54,24 +164,70 @@
                         </button>
                     </div>
 
+                    <!-- Ajustes Sprint 1.6 (26-oct, fila 182): consecutivo
+                         propio del cliente, para todo el pedido. -->
+                    <div class="safra-express-order safra-orden-compra">
+                        <label for="safra-orden-compra">Orden de compra cliente
+                            <span class="safra-help">Opcional. Su propio número para identificar el pedido.</span></label>
+                        <input type="text" id="safra-orden-compra" name="orden_compra" maxlength="60"
+                               class="form-control" autocomplete="off"/>
+                    </div>
                     <!-- Revisión sprint 1 (f138): Safra Express aplica al
                          pedido completo, no a cada persiana. -->
                     <div class="safra-express-order">
                         <label>
                             <input type="checkbox" name="safra_express" value="1"/>
-                            ¿Solicita Safra Express? <span class="safra-help">Aplica para todo el pedido</span>
+                            ¿Solicita Safra Express? <span class="safra-help">Aplica para todo el pedido. Aumenta el precio de cada persiana y no aplica en pedidos de más de 10 unidades.</span>
                         </label>
                     </div>
+                    <!-- Sprint 1.6 (fila 126): solo el grupo Exportaciones -->
+                    <div t-if="puede_exportar" class="safra-express-order safra-order-flag">
+                        <label>
+                            <input type="checkbox" name="es_exportacion" value="1"/>
+                            ¿Es una Exportación? <span class="safra-help">El área de exportaciones lo agrupa y factura; no lleva IVA.</span>
+                        </label>
+                    </div>
+                    <!-- Sprint 1.6 (fila 128): solo el grupo Verificación de fabricación -->
+                    <div t-if="puede_verificar" class="safra-express-order safra-order-flag">
+                        <label>
+                            <input type="checkbox" name="requiere_verificacion" value="1"/>
+                            Requiere verificación de fabricación <span class="safra-help">Las restricciones no bloquean: planta revisa y aprueba el pedido antes de fabricarlo. El pedido se evalúa sin garantía; al aprobarlo, planta indica si va con garantía o sin garantía.</span>
+                        </label>
+                        <textarea name="verificacion_observaciones" class="form-control mt-2 d-none" rows="3"
+                                  placeholder="Cambios requeridos para planta (estructura, instrucciones de fabricación…)"></textarea>
+                    </div>
+                    <!-- Ajustes Sprint 1.6 (26-oct, fila 128): solo el grupo
+                         Facturación proyectos especiales -->
+                    <div t-if="puede_proyectos" class="safra-express-order safra-order-flag">
+                        <label>
+                            <input type="checkbox" name="es_proyecto_especial" value="1"/>
+                            ¿Requiere Facturación Proyectos Especiales? <span class="safra-help">No se factura al despachar: se agrupa y se factura a mano.</span>
+                        </label>
+                    </div>
+                    <!-- Ajustes Sprint 1.6 (26-oct, fila 127): embalaje de
+                         todo el pedido (referencias de la categoría Embalaje). -->
+                    <div t-if="embalajes" class="safra-express-order safra-embalaje">
+                        <div class="safra-embalaje-title">Embalaje <span class="safra-help">Para todo el pedido; puede elegir varios.</span></div>
+                        <div class="safra-embalaje-opts">
+                            <label t-foreach="embalajes" t-as="emb">
+                                <input type="checkbox" name="embalaje" t-att-value="emb['id']"/>
+                                <t t-esc="emb['label']"/>
+                            </label>
+                        </div>
+                    </div>
+                    <t t-call="website_quotes_safra.portal_despacho_bloque"/>
 
                     <div class="safra-totals">
                         <div class="trow"><span class="lbl">Subtotal:</span><span id="total-subtotal">$ 0</span></div>
-                        <div class="trow"><span class="lbl">Impuestos (IVA 19%):</span><span id="total-iva">$ 0</span></div>
+                        <div class="trow"><span class="lbl" id="total-iva-lbl">Impuestos (IVA 19%):</span><span id="total-iva">$ 0</span></div>
                         <div class="trow grand"><span class="lbl">Total:</span><span id="total-grand" data-price="0">$ 0</span></div>
                     </div>
 
                     <div class="safra-actions">
                         <button type="button" id="btn-secuencia" class="btn-safra-light"><i class="fa fa-link"/> Configurar Secuencia</button>
                         <button type="button" id="btn-summary" class="btn-safra-light"><i class="fa fa-list-alt"/> Ver resumen de pedido</button>
+                        <!-- Revisión 27-oct: guardar sin finalizar, aunque haya errores -->
+                        <button type="button" id="btn-borrador" class="btn-safra-light"><i class="fa fa-save"/> Guardar borrador</button>
                         <button type="submit" class="btn-safra"><i class="fa fa-paper-plane"/> Finalizar pedido</button>
                         <a href="/" class="btn-safra-light">Cancelar</a>
                     </div>
@@ -88,15 +244,27 @@
             <div class="container py-5">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h2>Mis Cotizaciones</h2>
-                    <a href="/cotizador" class="btn btn-primary">
-                        <i class="fa fa-plus"/> Nueva cotización
-                    </a>
+                    <div class="d-flex gap-2">
+                        <!-- Sprint 1.6 (fila 125) -->
+                        <a href="/cotizador/cargue" class="btn btn-outline-primary">
+                            <i class="fa fa-upload"/> Cargue masivo
+                        </a>
+                        <a href="/cotizador" class="btn btn-primary">
+                            <i class="fa fa-plus"/> Nueva cotización
+                        </a>
+                    </div>
+                </div>
+                <!-- Ajustes Sprint 1.6 (26-oct, filas 123-124) -->
+                <div t-if="aviso" t-attf-class="alert #{'alert-success' if aviso.get('ok') else 'alert-warning'}">
+                    <t t-esc="aviso.get('mensaje')"/>
                 </div>
                 <t t-if="quotes">
                     <table class="table table-hover">
                         <thead class="table-light">
                             <tr>
                                 <th>Referencia</th>
+                                <th>Orden de compra</th>
+                                <th t-if="es_admin">Creada por</th>
                                 <th>Fecha</th>
                                 <th>Persianas</th>
                                 <th>Total estimado</th>
@@ -108,16 +276,31 @@
                             <t t-foreach="quotes" t-as="q">
                                 <tr>
                                     <td><t t-esc="q.name"/></td>
+                                    <td><t t-esc="q.orden_compra or ''"/></td>
+                                    <td t-if="es_admin"><t t-esc="q.user_id.name"/></td>
                                     <td><t t-esc="q.date"/></td>
                                     <td><t t-esc="len(q.line_ids)"/></td>
                                     <td>$ <t t-esc="'{:,.0f}'.format(q.amount_total)"/></td>
                                     <td>
-                                        <span t-attf-class="badge #{ 'bg-secondary' if q.state == 'draft' else 'bg-success' if q.state == 'confirmed' else 'bg-danger' }">
+                                        <span t-attf-class="badge #{ 'bg-secondary' if q.state == 'draft' else 'bg-warning text-dark' if q.state == 'blocked' else 'bg-success' if q.state == 'confirmed' else 'bg-danger' }">
                                             <t t-esc="dict(q._fields['state'].selection).get(q.state)"/>
                                         </span>
+                                        <span t-if="q.borrador_portal" class="badge bg-warning text-dark">Sin finalizar</span>
                                     </td>
-                                    <td>
+                                    <td class="text-nowrap">
                                         <a t-att-href="'/mis-cotizaciones/%d' % q.id" class="btn btn-sm btn-outline-primary">Ver</a>
+                                        <a t-if="q.editable_portal" t-att-href="'/cotizador?editar=%d' % q.id" class="btn btn-sm btn-outline-secondary">Editar</a>
+                                        <!-- Fila 123: duplicar el pedido completo (en cualquier estado) -->
+                                        <form method="post" t-attf-action="/mis-cotizaciones/#{q.id}/duplicar" class="d-inline"
+                                              t-attf-onsubmit="return confirm('¿Crear una copia de la cotización #{q.name}?');">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                            <button type="submit" class="btn btn-sm btn-outline-secondary" title="Duplicar pedido">Duplicar</button>
+                                        </form>
+                                        <form t-if="q.editable_portal" method="post" t-attf-action="/mis-cotizaciones/#{q.id}/eliminar" class="d-inline"
+                                              t-attf-onsubmit="return confirm('¿Eliminar la cotización #{q.name}? No se puede deshacer.');">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar pedido">Eliminar</button>
+                                        </form>
                                     </td>
                                 </tr>
                             </t>
@@ -145,18 +328,87 @@
                     </a>
                 </div>
 
+                <!-- Ajustes Sprint 1.6 (26-oct, filas 123-124): resultado de
+                     duplicar o eliminar -->
+                <div t-if="aviso" t-attf-class="alert #{'alert-success' if aviso.get('ok') else 'alert-warning'}">
+                    <t t-esc="aviso.get('mensaje')"/>
+                    <ul t-if="aviso.get('errores')" class="mb-0 mt-1">
+                        <li t-foreach="aviso['errores']" t-as="err"><t t-esc="err"/></li>
+                    </ul>
+                </div>
+                <!-- Fila 130: producción rechazó la verificación de fabricación -->
+                <div t-if="quote.verificacion_rechazada" class="alert alert-danger">
+                    <strong>Producción rechazó la verificación de fabricación:</strong>
+                    <div style="white-space:pre-line"><t t-esc="quote.verificacion_rechazo_motivo"/></div>
+                    <div class="mt-2 small">Edite la cotización y guárdela para enviarla de nuevo a verificación, o elimínela.</div>
+                </div>
+                <!-- Reunión 09-nov (fila 74): garantía del pedido con verificación
+                     de fabricación. Mientras planta lo revisa, se evalúa sin
+                     garantía; al aprobarlo, planta dice si va con o sin garantía. -->
+                <t t-if="quote.requiere_verificacion and not quote.verificacion_rechazada and not quote.borrador_portal">
+                    <div t-if="quote.verificacion_aprobada and quote.verificacion_garantia == 'con'" class="alert alert-success">
+                        <i class="fa fa-shield"/> <strong>Planta aprobó la fabricación: el pedido va CON garantía.</strong>
+                        <div t-if="quote.verificacion_garantia_motivo" style="white-space:pre-line"><t t-esc="quote.verificacion_garantia_motivo"/></div>
+                    </div>
+                    <div t-elif="quote.verificacion_aprobada" class="alert alert-warning">
+                        <i class="fa fa-exclamation-triangle"/> <strong>Planta aprobó la fabricación: el pedido va SIN garantía.</strong>
+                        <div t-if="quote.verificacion_garantia_motivo" style="white-space:pre-line"><t t-esc="quote.verificacion_garantia_motivo"/></div>
+                    </div>
+                    <div t-else="" class="alert alert-info">
+                        <i class="fa fa-info-circle"/> <strong>Pedido en verificación de fabricación.</strong>
+                        Inicialmente se evalúa sin garantía; según el análisis de planta puede quedar con garantía.
+                        Se le informará aquí cuando planta lo apruebe.
+                    </div>
+                </t>
                 <!-- Reunión 09-oct (fila 2): resultado de confirmar desde el portal -->
                 <div t-if="confirmacion and confirmacion.get('ok')" class="alert alert-success">
                     <i class="fa fa-check-circle"/> La cotización quedó <strong>confirmada</strong>.
                 </div>
-                <div t-if="confirmacion and not confirmacion.get('ok')" class="alert alert-danger">
-                    <strong>La cotización se anuló:</strong> al revisarla ya no cumple las condiciones para continuar.
+                <!-- Revisión 27-oct: borrador guardado sin finalizar -->
+                <div t-if="quote.borrador_portal" class="alert alert-warning">
+                    <strong>Borrador sin finalizar.</strong> Quedó guardado para seguir después. No se puede confirmar
+                    hasta que lo edite, corrija lo que falte y pulse <strong>Finalizar pedido</strong>.
+                    <t t-if="quote.borrador_errores">
+                        <div class="mt-1">Errores por corregir:</div>
+                        <ul class="mb-0">
+                            <li t-foreach="quote.borrador_errores.split('\n')" t-as="err"><t t-esc="err"/></li>
+                        </ul>
+                    </t>
+                    <div class="mt-2">
+                        <a t-if="quote.editable_portal and not solo_lectura" t-attf-href="/cotizador?editar=#{quote.id}" class="btn btn-sm btn-warning">
+                            <i class="fa fa-pencil"/> Editar y finalizar
+                        </a>
+                    </div>
+                </div>
+                <!-- Reunión 09-nov (fila 2): nota informativa con lo que el
+                     cliente eligió y ya no está disponible (cualquier ítem
+                     inactivado), antes de enviar o confirmar el pedido. -->
+                <t t-set="no_disponibles" t-value="quote._no_disponibles_portal()"/>
+                <div t-if="no_disponibles" class="alert alert-warning">
+                    <i class="fa fa-exclamation-triangle"/> <strong>Algunos ítems que eligió ya no están disponibles.</strong>
+                    Cámbielos en la cotización para poder continuar con el pedido:
                     <ul class="mb-0 mt-1">
-                        <li t-foreach="confirmacion.get('errores') or []" t-as="err">
-                            Persiana <t t-esc="err['line']"/>: <t t-esc="err['message']"/>
-                        </li>
+                        <li t-foreach="no_disponibles" t-as="motivo"><t t-esc="motivo"/></li>
                     </ul>
-                    <div class="mt-2 small">Puede crear una nueva cotización con los datos corregidos.</div>
+                    <div class="mt-2">
+                        <a t-if="quote.editable_portal and not solo_lectura" t-attf-href="/cotizador?editar=#{quote.id}" class="btn btn-sm btn-warning">
+                            <i class="fa fa-pencil"/> Editar y cambiar los ítems
+                        </a>
+                    </div>
+                </div>
+                <!-- Mejoras Sprint 1.1 (21-oct, fila 2): la bloqueada muestra
+                     su motivo cada vez que se consulta y se corrige editándola. -->
+                <div t-if="quote.state == 'blocked'" class="alert alert-danger">
+                    <strong>La cotización está bloqueada:</strong> al revisarla ya no cumple las condiciones para continuar.
+                    <ul class="mb-0 mt-1">
+                        <li t-foreach="(quote.bloqueo_motivos or '').split('\n')" t-as="motivo"><t t-esc="motivo"/></li>
+                    </ul>
+                    <div class="mt-2">
+                        <a t-if="quote.editable_portal and not solo_lectura" t-attf-href="/cotizador?editar=#{quote.id}" class="btn btn-sm btn-danger">
+                            <i class="fa fa-pencil"/> Editar y corregir la cotización
+                        </a>
+                        <span class="small ms-2">Corrija lo indicado (por ejemplo, elija otra tela o color) y vuelva a confirmarla.</span>
+                    </div>
                 </div>
 
                 <div class="row mb-3">
@@ -165,60 +417,125 @@
                     </div>
                     <div class="col-md-4">
                         <strong>Estado:</strong>
-                        <span t-attf-class="badge #{ 'bg-secondary' if quote.state == 'draft' else 'bg-warning text-dark' if quote.state == 'pending_design' else 'bg-info' if quote.state == 'design_approved' else 'bg-success' if quote.state == 'confirmed' else 'bg-danger' }">
+                        <span t-attf-class="badge #{ 'bg-secondary' if quote.state == 'draft' else 'bg-warning text-dark' if quote.state in ('pending_design', 'pending_production', 'blocked') else 'bg-info' if quote.state in ('design_approved', 'production_approved') else 'bg-success' if quote.state == 'confirmed' else 'bg-danger' }">
                             <t t-esc="dict(quote._fields['state'].selection).get(quote.state)"/>
                         </span>
                     </div>
                     <div class="col-md-4">
                         <strong>Total estimado:</strong> $ <t t-esc="'{:,.0f}'.format(quote.amount_total)"/>
                         <span t-if="quote.safra_express" class="badge bg-warning text-dark ms-2">Safra Express</span>
+                        <span t-if="quote.es_exportacion" class="badge bg-info text-dark ms-2">Exportación</span>
+                        <span t-if="quote.requiere_verificacion" class="badge bg-warning text-dark ms-2">Verificación de fabricación</span>
+                        <span t-if="quote.es_proyecto_especial" class="badge bg-info text-dark ms-2">Proyectos especiales</span>
+                    </div>
+                </div>
+                <!-- Filas 127 y 182 -->
+                <div class="row mb-3" t-if="quote.orden_compra or quote.embalaje_ids">
+                    <div class="col-md-4" t-if="quote.orden_compra">
+                        <strong>Orden de compra:</strong> <t t-esc="quote.orden_compra"/>
+                    </div>
+                    <div class="col-md-8" t-if="quote.embalaje_ids">
+                        <strong>Embalaje:</strong> <t t-esc="', '.join(e._portal_label() for e in quote.embalaje_ids)"/>
+                    </div>
+                </div>
+                <!-- Datos de despacho (filas 184-188) -->
+                <div class="row mb-3" t-if="quote.despacho_registrado">
+                    <div class="col-12"><strong>Despacho:</strong>
+                        <t t-if="quote.recoge_fabrica">Recoge en fábrica</t>
+                        <t t-else="">
+                            <t t-esc="', '.join(x for x in [quote.despacho_direccion, quote.despacho_city_id.name, quote.despacho_country_id.name] if x) or 'Sin dirección'"/>
+                            <t t-if="quote.despacho_destinatario"> · Destinatario: <t t-esc="quote.despacho_destinatario"/></t>
+                        </t>
+                        <t t-if="quote.despacho_fecha"> · Fecha tentativa: <t t-esc="quote.despacho_fecha"/></t>
                     </div>
                 </div>
 
-                <table class="table table-bordered table-sm">
-                    <thead class="table-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Referencia</th>
-                            <th>Color</th>
-                            <th>Ancho</th>
-                            <th>Alto</th>
-                            <th>Cant.</th>
-                            <th>Localización</th>
-                            <th>Precio unit.</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <t t-foreach="quote.line_ids" t-as="line">
+                <!-- Ajustes Sprint 1.6 (26-oct, fila 124): resumen del pedido con
+                     todo lo elegido en cada persiana; en Borrador, cada una se
+                     edita, duplica o elimina desde aquí. Barrido de la matriz
+                     (fila 124): columnas y orden como el portal actual de Safra. -->
+                <t t-set="con_opciones" t-value="quote.editable_portal and not solo_lectura"/>
+                <div class="safra-resumen table-responsive">
+                    <table class="table table-bordered align-top m-0">
+                        <thead>
                             <tr>
-                                <td><t t-esc="line_index + 1"/></td>
-                                <td><t t-esc="line.fabric_id.name"/></td>
-                                <td><t t-esc="line.color_id.name"/></td>
-                                <td><t t-esc="line.width"/> m</td>
-                                <td><t t-esc="line.height"/> m</td>
-                                <td><t t-esc="line.quantity"/></td>
-                                <td><t t-esc="line.location"/></td>
-                                <td>$ <t t-esc="'{:,.0f}'.format(line.price_unit)"/></td>
-                                <td>$ <t t-esc="'{:,.0f}'.format(line.price_total)"/></td>
+                                <th class="text-center col-min">Línea</th>
+                                <th class="col-nombre">Nombre</th>
+                                <th class="col-carac">Características</th>
+                                <th class="text-end col-min">Precio</th>
+                                <th t-if="con_opciones" class="text-center col-min">Opciones</th>
                             </tr>
-                        </t>
-                    </tbody>
-                    <tfoot>
-                        <tr class="table-primary">
-                            <td colspan="8" class="text-end fw-bold">Total estimado:</td>
-                            <td class="fw-bold">$ <t t-esc="'{:,.0f}'.format(quote.amount_total)"/></td>
-                        </tr>
-                    </tfoot>
-                </table>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="quote.line_ids.sorted('sequence')" t-as="line" class="safra-resumen-linea">
+                                <t t-set="res" t-value="resumenes.get(line.id, {})"/>
+                                <td class="text-center"><span class="safra-resumen-num"><t t-esc="line_index + 1"/></span></td>
+                                <td class="safra-resumen-nombre">
+                                    <div class="fw-bold"><t t-esc="res.get('nombre')"/></div>
+                                    <div t-if="line.width or line.height"><strong>Dimensiones:</strong>
+                                        <span class="safra-chip"><t t-esc="'%g' % res.get('ancho', 0)"/> mts</span> x
+                                        <span class="safra-chip"><t t-esc="'%g' % res.get('alto', 0)"/> mts</span></div>
+                                    <div><strong>Cantidad:</strong>
+                                        <span class="safra-chip"><t t-esc="res.get('cantidad')"/> und</span></div>
+                                </td>
+                                <td>
+                                    <ul class="safra-resumen-campos">
+                                        <li t-foreach="res.get('caracteristicas', [])" t-as="fila">
+                                            <strong><t t-esc="fila[0]"/></strong>: <t t-esc="fila[1]"/></li>
+                                    </ul>
+                                    <ul t-if="res.get('mecanismo')" class="safra-resumen-campos safra-resumen-mecanismo">
+                                        <li><strong>Mecanismo:</strong> <t t-esc="res['mecanismo']"/></li>
+                                    </ul>
+                                </td>
+                                <td class="text-end text-nowrap">$ <t t-esc="'{:,.0f}'.format(res.get('precio', 0))"/></td>
+                                <td t-if="con_opciones" class="text-center">
+                                    <div class="dropdown">
+                                        <button type="button" class="safra-resumen-opciones" data-bs-toggle="dropdown"
+                                                aria-expanded="false" t-attf-aria-label="Opciones de la línea #{line_index + 1}"
+                                                t-attf-title="Opciones de la línea #{line_index + 1}">
+                                            <i class="fa fa-cog"/></button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" t-attf-href="/cotizador?editar=#{quote.id}&amp;linea=#{line_index + 1}">
+                                                <i class="fa fa-pencil"/> Editar</a></li>
+                                            <li><a class="dropdown-item" t-attf-href="/cotizador?editar=#{quote.id}&amp;duplicar=#{line_index + 1}">
+                                                <i class="fa fa-copy"/> Duplicar</a></li>
+                                            <li>
+                                                <form method="post" t-attf-action="/mis-cotizaciones/#{quote.id}/linea/#{line.id}/eliminar" class="m-0"
+                                                      t-attf-onsubmit="return confirm('¿Eliminar la línea #{line_index + 1}?');">
+                                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                    <button type="submit" class="dropdown-item text-danger"><i class="fa fa-trash"/> Eliminar</button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-end fw-bold mt-2">Total estimado: $ <t t-esc="'{:,.0f}'.format(quote.amount_total)"/></div>
+                </div>
 
                 <!-- Puntos 10-11: diseños personalizados de la cotización -->
                 <t t-set="design_lines" t-value="quote.line_ids.filtered('custom_design')"/>
                 <t t-if="design_lines">
                     <h4 class="mt-4">Diseños personalizados</h4>
                     <div t-foreach="design_lines" t-as="dline" class="border rounded p-3 mb-2 d-flex gap-3 align-items-start">
-                        <img t-if="dline.design_image" t-att-src="image_data_uri(dline.design_image)"
-                             style="max-height:110px;max-width:160px;object-fit:contain" class="border rounded" alt="Diseño"/>
+                        <!-- Ajustes 20-oct (fila 79): aprobado el diseño, se ve el
+                             del diseñador y no el que subió el cliente. Los PDF
+                             van como enlace. -->
+                        <t t-set="final" t-value="dline.design_approved and dline.design_final_file"/>
+                        <t t-set="archivo" t-value="dline.design_final_filename if final else dline.design_filename"/>
+                        <t t-set="es_pdf" t-value="(archivo or '').lower().endswith('.pdf')"/>
+                        <div class="text-center">
+                            <img t-if="not es_pdf and (final or dline.design_image)"
+                                 t-att-src="image_data_uri(dline.design_final_file if final else dline.design_image)"
+                                 style="max-height:110px;max-width:160px;object-fit:contain" class="border rounded" alt="Diseño"/>
+                            <a t-if="es_pdf" class="btn btn-sm btn-outline-secondary" target="_blank"
+                               t-attf-href="/mis-cotizaciones/#{quote.id}/diseno/#{dline.id}/#{'final' if final else 'cliente'}">
+                                <i class="fa fa-file-pdf-o"/> Ver PDF
+                            </a>
+                            <div class="small text-muted mt-1" t-if="final">Diseño del área de diseño</div>
+                        </div>
                         <div>
                             <div><strong><t t-esc="dline.system_id.name"/></strong>
                                 — <t t-esc="dline.fabric_id.name"/> <t t-esc="dline.color_id.name"/>
@@ -240,10 +557,14 @@
                     </div>
                 </t>
 
-                <div class="mt-4 d-flex flex-wrap gap-2 align-items-center">
-                    <form t-if="quote.state in confirmables" method="post"
+                <!-- Fila 191: desde la mesa de ayuda solo se consulta. -->
+                <div t-if="solo_lectura" class="alert alert-info mt-4">
+                    <i class="fa fa-eye"/> Vista de consulta desde la mesa de ayuda: la cotización no se puede modificar desde aquí.
+                </div>
+                <div t-if="not solo_lectura" class="mt-4 d-flex flex-wrap gap-2 align-items-center">
+                    <form t-if="quote.state in confirmables and not quote.borrador_portal and not quote.es_exportacion and not (quote.requiere_verificacion and not quote.verificacion_aprobada)" method="post"
                           t-attf-action="/mis-cotizaciones/#{quote.id}/confirmar" class="m-0"
-                          onsubmit="return confirm('¿Confirmar el pedido? Antes de confirmarlo se revisa de nuevo y, si ya no cumple las condiciones (referencias, colores o existencias que cambiaron), la cotización se anula.');">
+                          onsubmit="return confirm('¿Confirmar el pedido? Antes de confirmarlo se revisa de nuevo y, si ya no cumple las condiciones (referencias, colores o existencias que cambiaron), la cotización queda bloqueada para que la corrija.');">
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                         <button type="submit" class="btn btn-success">
                             <i class="fa fa-check"/> Confirmar pedido
@@ -252,6 +573,30 @@
                     <span t-if="quote.state == 'pending_design'" class="text-muted small">
                         Podrá confirmar el pedido cuando el área de diseño apruebe los diseños.
                     </span>
+                    <!-- Reunión 15-oct (fila 74) -->
+                    <span t-if="quote.state == 'pending_production'" class="text-muted small">
+                        <t t-if="quote.requiere_verificacion">Podrá confirmar el pedido cuando planta apruebe la verificación de fabricación.</t>
+                        <t t-else="">Podrá confirmar el pedido cuando producción apruebe las persianas sin restricciones.</t>
+                    </span>
+                    <!-- Sprint 1.6 (fila 126) -->
+                    <span t-if="quote.es_exportacion and quote.state != 'confirmed'" class="text-muted small">
+                        El área de exportaciones confirma y factura este pedido.
+                    </span>
+                    <!-- Sprint 1.6 (fila 123) -->
+                    <a t-if="quote.editable_portal and not solo_lectura" t-attf-href="/cotizador?editar=#{quote.id}" class="btn btn-outline-primary">
+                        <i class="fa fa-pencil"/> Editar cotización
+                    </a>
+                    <!-- Ajustes 26-oct (fila 123): duplicar o eliminar el pedido completo -->
+                    <form method="post" t-attf-action="/mis-cotizaciones/#{quote.id}/duplicar" class="m-0"
+                          t-attf-onsubmit="return confirm('¿Crear una copia de la cotización #{quote.name}?');">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <button type="submit" class="btn btn-outline-secondary"><i class="fa fa-copy"/> Duplicar pedido</button>
+                    </form>
+                    <form t-if="quote.editable_portal and not solo_lectura" method="post" t-attf-action="/mis-cotizaciones/#{quote.id}/eliminar" class="m-0"
+                          t-attf-onsubmit="return confirm('¿Eliminar la cotización #{quote.name}? No se puede deshacer.');">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <button type="submit" class="btn btn-outline-danger"><i class="fa fa-trash"/> Eliminar</button>
+                    </form>
                     <a href="/cotizador" class="btn btn-primary">Nueva cotización</a>
                 </div>
             </div>

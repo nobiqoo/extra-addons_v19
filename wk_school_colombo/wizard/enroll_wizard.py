@@ -28,6 +28,19 @@ class EnrollWizard(models.TransientModel):
     duplicate_line_ids = fields.One2many(
         'wk.enroll.wizard.duplicate.line', 'wizard_id',
         string="Posibles coincidencias")
+    # Bug "Registro faltante" (wk.application.form ya no existe) al avanzar
+    # desde la pantalla de coincidencias: _wk_reopen_action() reabre este
+    # mismo asistente con una NUEVA acción sin "context", así que el
+    # "active_id"/"active_model" originales (de los que _wk_get_application()
+    # y el enroll_now() base de Webkul dependen) ya no están garantizados en
+    # ese segundo viaje -el cliente puede rellenarlos con el estado "activo"
+    # que tenga en ese momento, no necesariamente la misma solicitud-. Se
+    # guarda aquí la solicitud real, una sola vez, en default_get() (donde el
+    # contexto SÍ es confiable: es la acción original del botón "Inscribir
+    # Estudiante"), y de ahí en adelante todo el asistente la lee de este
+    # campo en vez de volver a mirar el contexto.
+    application_form_id = fields.Many2one(
+        'wk.application.form', string="Solicitud de admisión", readonly=True)
     # Contacto que el usuario eligio reutilizar desde una fila de tipo
     # "Contacto sin estudiante" (requerimiento 2.7). Se lee en enroll_now()
     # para pasarlo como pista a student.student._ensure_related_partner()
@@ -56,6 +69,7 @@ class EnrollWizard(models.TransientModel):
         application = self._wk_get_application()
         if not application:
             return res
+        res['application_form_id'] = application.id
         matches = application._wk_find_identification_matches()
         res.update(self._wk_prepare_duplicate_vals(matches))
 
@@ -76,6 +90,8 @@ class EnrollWizard(models.TransientModel):
 
     @api.model
     def _wk_get_application(self):
+        if self.id and self.application_form_id:
+            return self.application_form_id
         application_id = self.env.context.get('active_id')
         if not application_id \
                 or self.env.context.get('active_model') not in (
@@ -139,8 +155,8 @@ class EnrollWizard(models.TransientModel):
         localiza el contacto por tipo y numero de identificacion.
         """
         self.ensure_one()
+        application = self._wk_get_application()
         if self.enroll_action == 'new':
-            application = self._wk_get_application()
             if application:
                 application._wk_check_identification_data()
                 matches = application._wk_find_identification_matches()
@@ -170,10 +186,20 @@ class EnrollWizard(models.TransientModel):
         # en vez de (o ademas de) su propia busqueda por identificacion.
         wizard = self
         if self.enroll_action == 'new' and self.wk_reuse_partner_id:
-            wizard = self.with_context(
+            wizard = wizard.with_context(
                 wk_reuse_partner_id=self.wk_reuse_partner_id.id)
+        # El enroll_now() base de Webkul lee self.env.context.get('active_id')
+        # directamente (sin .exists()) para volver a localizar la solicitud:
+        # se reafirma aquí con el id ya resuelto por _wk_get_application()
+        # (el campo application_form_id, no el contexto en vivo), porque tras
+        # pasar por la pantalla de coincidencias (_wk_reopen_action() reabre
+        # el asistente SIN context) ya no hay garantía de que
+        # active_id/active_model del contexto actual sigan siendo los de
+        # esta solicitud -de ahí el "Registro faltante" reportado-.
+        if application:
+            wizard = wizard.with_context(
+                active_id=application.id, active_model='wk.application.form')
         result = super(EnrollWizard, wizard).enroll_now()
-        application = self._wk_get_application()
         if self.enroll_action == 'new':
             self._wk_copy_application_fields_to_student(
                 application, application.student_id, only_empty=False)
@@ -201,6 +227,7 @@ class EnrollWizard(models.TransientModel):
             return
         vals = {
             'program_type_id': application.program_type_id.id,
+            'sede_id': application.sede_id.id,
             'street': application.street,
             'barrio': application.barrio,
             'city_id': application.city_id.id,
@@ -217,6 +244,9 @@ class EnrollWizard(models.TransientModel):
             'additional_mobile': application.additional_mobile,
             'email_dian': application.email_dian,
             'contact_preference': application.contact_preference,
+            'estrato': application.estrato,
+            'regimen_salud': application.regimen_salud.id,
+            'jornada': application.jornada.id,
         }
         if only_empty:
             vals = {key: value for key, value in vals.items() if not student[key]}
@@ -234,14 +264,29 @@ class EnrollWizard(models.TransientModel):
         # models/student_enrollment.py::create().
 
     def _wk_reopen_action(self):
-        """Reabre este mismo asistente (para avanzar de "duplicates" a "confirm")."""
+        """Reabre este mismo asistente (para avanzar de "duplicates" a "confirm").
+
+        Se reafirma "context" con la solicitud real (application_form_id):
+        sin esto, el "active_id"/"active_model" que el cliente le asigne a
+        esta nueva acción puede no ser los de esta solicitud -causa del bug
+        "Registro faltante" que enroll_now() ya blinda por su lado-. Defensa
+        en profundidad: cualquier otro botón de este mismo asistente que
+        dependa del contexto también queda cubierto.
+        """
         self.ensure_one()
+        context = {}
+        if self.application_form_id:
+            context = {
+                'active_id': self.application_form_id.id,
+                'active_model': 'wk.application.form',
+            }
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'wk.enroll.wizard',
             'res_id': self.id,
             'view_mode': 'form',
             'target': 'new',
+            'context': context,
         }
 
     def action_confirm_new(self):

@@ -518,3 +518,44 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_bank_payment_txt_generator.res_bank_txt_config_view_form
 msgid "z_total_amount"
 msgstr ""
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config__rounding_method
+msgid "Amount rounding"
+msgstr "Redondeo de importes"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,help:account_bank_payment_txt_generator.field_res_bank_txt_config__rounding_method
+msgid ""
+"Defines how the amounts exported to the txt are rounded. The rounded amounts are used in the body (z_amount, z_cc_amount) and in the totals (z_total_amount, z_total_cc_amount), so the header always matches the sum of the body, grouped or not.\n"
+"- Round each payment line: each payment line is rounded and then they are added. The total may differ from the rounded real total.\n"
+"- Round total and distribute the difference: the real total is rounded and the difference is distributed one unit at a time among the lines with the highest decimal part."
+msgstr ""
+"Define cómo se redondean los importes exportados al txt. Los importes redondeados se usan en el detalle (z_amount, z_cc_amount) y en los totales (z_total_amount, z_total_cc_amount), por lo que el encabezado siempre coincide con la suma del detalle, agrupado o no.\n"
+"- Redondear cada línea de pago: se redondea cada línea de pago y luego se suman. El total puede diferir del total real redondeado.\n"
+"- Redondear el total y repartir la diferencia: se redondea el total real y la diferencia se reparte de a una unidad entre las líneas con mayor parte decimal."
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,field_description:account_bank_payment_txt_generator.field_res_bank_txt_config__rounding_decimals
+msgid "Rounding decimals"
+msgstr "Decimales de redondeo"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields,help:account_bank_payment_txt_generator.field_res_bank_txt_config__rounding_decimals
+msgid "Decimals kept when rounding (0 = whole units)."
+msgstr "Decimales que se conservan al redondear (0 = unidades enteras)."
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields.selection,name:account_bank_payment_txt_generator.selection__res_bank_txt_config__rounding_method__none
+msgid "No rounding"
+msgstr "Sin redondeo"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields.selection,name:account_bank_payment_txt_generator.selection__res_bank_txt_config__rounding_method__line
+msgid "Round each payment line"
+msgstr "Redondear cada línea de pago"
+
+#. module: account_bank_payment_txt_generator
+#: model:ir.model.fields.selection,name:account_bank_payment_txt_generator.selection__res_bank_txt_config__rounding_method__distribute
+msgid "Round total and distribute the difference"
+msgstr "Redondear el total y repartir la diferencia"

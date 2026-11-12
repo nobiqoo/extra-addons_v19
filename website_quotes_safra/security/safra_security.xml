@@ -5,4 +5,36 @@
     <record id="group_safra_exhibition" model="res.groups">
         <field name="name">Cotizador Safra: Ver Exhibición</field>
     </record>
+    <!-- Reunión 15-oct (fila 74): quién puede marcar «Pedido sin
+         restricciones» en el cotizador (Safra define los usuarios). -->
+    <record id="group_safra_sin_restricciones" model="res.groups">
+        <field name="name">Cotizador Safra: Pedidos sin restricciones</field>
+    </record>
+    <!-- Sprint 1.6 (fila 126): marcan el pedido de exportación y reciben la
+         actividad para agruparlo y facturarlo. -->
+    <record id="group_safra_exportacion" model="res.groups">
+        <field name="name">Cotizador Safra: Exportaciones</field>
+    </record>
+    <!-- Sprint 1.6 (fila 128): quién puede pedir la verificación de
+         fabricación de un pedido. -->
+    <record id="group_safra_verificacion" model="res.groups">
+        <field name="name">Cotizador Safra: Verificación de fabricación</field>
+    </record>
+    <!-- Ajustes Sprint 1.6 (26-oct, fila 128): marcan el pedido de
+         proyectos especiales (se factura a mano, no al despachar). -->
+    <record id="group_safra_proyectos_especiales" model="res.groups">
+        <field name="name">Cotizador Safra: Facturación proyectos especiales</field>
+    </record>
+    <!-- Ajustes Sprint 1.6 (26-oct, fila 130): quién rechaza la
+         verificación de fabricación desde el ticket. -->
+    <record id="group_safra_rechazo_verificacion" model="res.groups">
+        <field name="name">Cotizador Safra: Rechazar verificación de fabricación</field>
+        <field name="user_ids" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <!-- Ajustes Sprint 1.6 (26-oct, fila 124): en el portal ve, edita y
+         duplica los pedidos de todos los usuarios de su empresa (sin el
+         grupo, solo los suyos). -->
+    <record id="group_safra_portal_admin" model="res.groups">
+        <field name="name">Cotizador Safra: Administrador de pedidos de su empresa</field>
+    </record>
 </odoo>

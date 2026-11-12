@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Semilla inicial del catalogo oficial de Regimen de salud (SISBEN + EPS),
+         punto 10. Editable/ampliable desde Configuracion -estos registros solo
+         evitan que el catalogo nazca vacio-. -->
+    <record id="health_regime_1" model="wk.school.colombo.health.regime">
+        <field name="code">1</field>
+        <field name="name">SISBEN V2 - Nivel 1</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="health_regime_2" model="wk.school.colombo.health.regime">
+        <field name="code">2</field>
+        <field name="name">SISBEN V2 - Nivel 2</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="health_regime_3" model="wk.school.colombo.health.regime">
+        <field name="code">3</field>
+        <field name="name">SISBEN V2 - Nivel 3</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="health_regime_4" model="wk.school.colombo.health.regime">
+        <field name="code">4</field>
+        <field name="name">SISBEN V3 - Rango de 0% a 9%</field>
+        <field name="sequence">40</field>
+    </record>
+    <record id="health_regime_5" model="wk.school.colombo.health.regime">
+        <field name="code">5</field>
+        <field name="name">SISBEN V3 - Rango de 10% a 19%</field>
+        <field name="sequence">50</field>
+    </record>
+    <record id="health_regime_6" model="wk.school.colombo.health.regime">
+        <field name="code">6</field>
+        <field name="name">SISBEN V3 - Rango de 20% a 29%</field>
+        <field name="sequence">60</field>
+    </record>
+    <record id="health_regime_7" model="wk.school.colombo.health.regime">
+        <field name="code">7</field>
+        <field name="name">SISBEN V3 - Rango de 30% a 39%</field>
+        <field name="sequence">70</field>
+    </record>
+    <record id="health_regime_8" model="wk.school.colombo.health.regime">
+        <field name="code">8</field>
+        <field name="name">SISBEN V3 - Rango de 40% a 49%</field>
+        <field name="sequence">80</field>
+    </record>
+    <record id="health_regime_9" model="wk.school.colombo.health.regime">
+        <field name="code">9</field>
+        <field name="name">SISBEN V3 - Rango de 50% a 59%</field>
+        <field name="sequence">90</field>
+    </record>
+    <record id="health_regime_10" model="wk.school.colombo.health.regime">
+        <field name="code">10</field>
+        <field name="name">SISBEN V3 - Rango de 60% a 69%</field>
+        <field name="sequence">100</field>
+    </record>
+    <record id="health_regime_11" model="wk.school.colombo.health.regime">
+        <field name="code">11</field>
+        <field name="name">SISBEN V3 - Rango de 70% a 79%</field>
+        <field name="sequence">110</field>
+    </record>
+    <record id="health_regime_12" model="wk.school.colombo.health.regime">
+        <field name="code">12</field>
+        <field name="name">SISBEN V3 - Rango de 80% a 89%</field>
+        <field name="sequence">120</field>
+    </record>
+    <record id="health_regime_13" model="wk.school.colombo.health.regime">
+        <field name="code">13</field>
+        <field name="name">SISBEN V3 - Rango de 90% a 100%</field>
+        <field name="sequence">130</field>
+    </record>
+    <record id="health_regime_14" model="wk.school.colombo.health.regime">
+        <field name="code">14</field>
+        <field name="name">ALIANSALUD EPS S.A.</field>
+        <field name="sequence">140</field>
+    </record>
+    <record id="health_regime_15" model="wk.school.colombo.health.regime">
+        <field name="code">15</field>
+        <field name="name">Cafesalud EPS</field>
+        <field name="sequence">150</field>
+    </record>
+    <record id="health_regime_41" model="wk.school.colombo.health.regime">
+        <field name="code">41</field>
+        <field name="name">Colmedica</field>
+        <field name="sequence">160</field>
+    </record>
+    <record id="health_regime_39" model="wk.school.colombo.health.regime">
+        <field name="code">39</field>
+        <field name="name">Colsanitas</field>
+        <field name="sequence">170</field>
+    </record>
+    <record id="health_regime_16" model="wk.school.colombo.health.regime">
+        <field name="code">16</field>
+        <field name="name">Comfenalco valle E.P.S.</field>
+        <field name="sequence">180</field>
+    </record>
+    <record id="health_regime_17" model="wk.school.colombo.health.regime">
+        <field name="code">17</field>
+        <field name="name">Compensar EPS</field>
+        <field name="sequence">190</field>
+    </record>
+    <record id="health_regime_18" model="wk.school.colombo.health.regime">
+        <field name="code">18</field>
+        <field name="name">Coomeva EPS</field>
+        <field name="sequence">200</field>
+    </record>
+    <record id="health_regime_19" model="wk.school.colombo.health.regime">
+        <field name="code">19</field>
+        <field name="name">Cruz Blanca EPS</field>
+        <field name="sequence">210</field>
+    </record>
+    <record id="health_regime_42" model="wk.school.colombo.health.regime">
+        <field name="code">42</field>
+        <field name="name">Ecopetrol</field>
+        <field name="sequence">220</field>
+    </record>
+    <record id="health_regime_22" model="wk.school.colombo.health.regime">
+        <field name="code">22</field>
+        <field name="name">Empresas Publicas de Medellin departamento Medico</field>
+        <field name="sequence">230</field>
+    </record>
+    <record id="health_regime_20" model="wk.school.colombo.health.regime">
+        <field name="code">20</field>
+        <field name="name">E.P.S. Programa Comfenalco Antioquia</field>
+        <field name="sequence">240</field>
+    </record>
+    <record id="health_regime_21" model="wk.school.colombo.health.regime">
+        <field name="code">21</field>
+        <field name="name">EPS Sura</field>
+        <field name="sequence">250</field>
+    </record>
+    <record id="health_regime_23" model="wk.school.colombo.health.regime">
+        <field name="code">23</field>
+        <field name="name">Famisanar EPS Cafam Colsubsidio</field>
+        <field name="sequence">260</field>
+    </record>
+    <record id="health_regime_24" model="wk.school.colombo.health.regime">
+        <field name="code">24</field>
+        <field name="name">Fondo de Pasivo Social de Ferrocarriles Nacionales de Colombia</field>
+        <field name="sequence">270</field>
+    </record>
+    <record id="health_regime_25" model="wk.school.colombo.health.regime">
+        <field name="code">25</field>
+        <field name="name">Fondo de Solidaridad Y Garantia Ministerio de Salud</field>
+        <field name="sequence">280</field>
+    </record>
+    <record id="health_regime_26" model="wk.school.colombo.health.regime">
+        <field name="code">26</field>
+        <field name="name">GOLDEN CROSS S.A. EPS</field>
+        <field name="sequence">290</field>
+    </record>
+    <record id="health_regime_27" model="wk.school.colombo.health.regime">
+        <field name="code">27</field>
+        <field name="name">Humana vivir S.A. EPS ARS</field>
+        <field name="sequence">300</field>
+    </record>
+    <record id="health_regime_28" model="wk.school.colombo.health.regime">
+        <field name="code">28</field>
+        <field name="name">ISS EPS</field>
+        <field name="sequence">310</field>
+    </record>
+    <record id="health_regime_44" model="wk.school.colombo.health.regime">
+        <field name="code">44</field>
+        <field name="name">Medplus</field>
+        <field name="sequence">320</field>
+    </record>
+    <record id="health_regime_29" model="wk.school.colombo.health.regime">
+        <field name="code">29</field>
+        <field name="name">MULTIMEDICAS SALUD CON CALIDAD EPS S.A</field>
+        <field name="sequence">330</field>
+    </record>
+    <record id="health_regime_30" model="wk.school.colombo.health.regime">
+        <field name="code">30</field>
+        <field name="name">Nueva Promotora de Salud - Nueva EPS</field>
+        <field name="sequence">340</field>
+    </record>
+    <record id="health_regime_40" model="wk.school.colombo.health.regime">
+        <field name="code">40</field>
+        <field name="name">Policía Nacional</field>
+        <field name="sequence">350</field>
+    </record>
+    <record id="health_regime_31" model="wk.school.colombo.health.regime">
+        <field name="code">31</field>
+        <field name="name">Programa Servicios Medicos Colpatria S.A. EPS</field>
+        <field name="sequence">360</field>
+    </record>
+    <record id="health_regime_32" model="wk.school.colombo.health.regime">
+        <field name="code">32</field>
+        <field name="name">Salud Total EPS</field>
+        <field name="sequence">370</field>
+    </record>
+    <record id="health_regime_33" model="wk.school.colombo.health.regime">
+        <field name="code">33</field>
+        <field name="name">Salud Vida EPS</field>
+        <field name="sequence">380</field>
+    </record>
+    <record id="health_regime_34" model="wk.school.colombo.health.regime">
+        <field name="code">34</field>
+        <field name="name">Saludcolombia EPS</field>
+        <field name="sequence">390</field>
+    </record>
+    <record id="health_regime_35" model="wk.school.colombo.health.regime">
+        <field name="code">35</field>
+        <field name="name">Saludcoop EPS Organismo Cooperativo</field>
+        <field name="sequence">400</field>
+    </record>
+    <record id="health_regime_36" model="wk.school.colombo.health.regime">
+        <field name="code">36</field>
+        <field name="name">Sanitas EPS</field>
+        <field name="sequence">410</field>
+    </record>
+    <record id="health_regime_37" model="wk.school.colombo.health.regime">
+        <field name="code">37</field>
+        <field name="name">Servicio Occidental de Salud S.A. S.O.S EPS</field>
+        <field name="sequence">420</field>
+    </record>
+    <record id="health_regime_38" model="wk.school.colombo.health.regime">
+        <field name="code">38</field>
+        <field name="name">Solsalud E.P.S. S.A.</field>
+        <field name="sequence">430</field>
+    </record>
+    <record id="health_regime_43" model="wk.school.colombo.health.regime">
+        <field name="code">43</field>
+        <field name="name">Susalud</field>
+        <field name="sequence">440</field>
+    </record>
+    <record id="health_regime_99" model="wk.school.colombo.health.regime">
+        <field name="code">99</field>
+        <field name="name">SIN INFORMACION</field>
+        <field name="sequence">450</field>
+    </record>
+
+</odoo>

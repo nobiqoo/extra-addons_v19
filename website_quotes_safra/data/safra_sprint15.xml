@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sprint 1.5 (tarea 12675): Riel, Cordón / Cadena / Bastón y Otras
+         opciones (filas 97-121 de la matriz). -->
+    <data noupdate="1">
+        <!-- Fila 112: segmentos del Riel curvo en las cortinas (Onda Moderna
+             y Pliegue Francés). Plano L: dos tramos rectos; curva a la
+             izquierda o a la derecha: la longitud de la curva; Plano U
+             (reunión 22-oct): Segmento 1 + Segmento 2 + Segmento 3. -->
+        <record forcecreate="0" id="field_segmento_1" model="safra.field">
+            <field name="code">segmento_1</field>
+            <field name="name">Segmento 1</field>
+            <field name="section_id" ref="section_otras"/>
+            <field name="field_type">float</field>
+            <field name="sequence">700</field>
+            <field name="help_text">Medida del primer tramo del Plano L, en metros</field>
+            <field name="depends_field_id" ref="field_tipoplano_cortina"/>
+            <field name="depends_value">LID</field>
+        </record>
+        <record forcecreate="0" id="field_segmento_2" model="safra.field">
+            <field name="code">segmento_2</field>
+            <field name="name">Segmento 2</field>
+            <field name="section_id" ref="section_otras"/>
+            <field name="field_type">float</field>
+            <field name="sequence">700</field>
+            <field name="help_text">Medida del tramo recto, en metros (segundo tramo del Plano L o tramo central del Plano U)</field>
+            <field name="depends_field_id" ref="field_tipoplano_cortina"/>
+            <field name="depends_value">LID,U</field>
+        </record>
+        <record forcecreate="0" id="field_curva_izquierda" model="safra.field">
+            <field name="code">curva_izquierda</field>
+            <field name="name">Longitud curva izquierda</field>
+            <field name="section_id" ref="section_otras"/>
+            <field name="field_type">selection</field>
+            <field name="sequence">700</field>
+            <field name="help_text">En el Plano U es el segmento 1</field>
+            <field name="depends_field_id" ref="field_tipoplano_cortina"/>
+            <!-- Reunión 22-oct (fila 101): en el Plano U los extremos son el
+                 Segmento 1 y el Segmento 3 (_apply_ajustes_1415). -->
+            <field name="depends_value">LI</field>
+        </record>
+        <record forcecreate="0" id="opt_curva_izquierda_30" model="safra.field.option">
+            <field name="field_id" ref="field_curva_izquierda"/>
+            <field name="value">0.30</field><field name="name">30 cm</field><field name="sequence">10</field>
+        </record>
+        <record forcecreate="0" id="opt_curva_izquierda_50" model="safra.field.option">
+            <field name="field_id" ref="field_curva_izquierda"/>
+            <field name="value">0.50</field><field name="name">50 cm</field><field name="sequence">20</field>
+        </record>
+        <record forcecreate="0" id="field_curva_derecha" model="safra.field">
+            <field name="code">curva_derecha</field>
+            <field name="name">Longitud curva derecha</field>
+            <field name="section_id" ref="section_otras"/>
+            <field name="field_type">selection</field>
+            <field name="sequence">700</field>
+            <field name="help_text">En el Plano U es el segmento 3</field>
+            <field name="depends_field_id" ref="field_tipoplano_cortina"/>
+            <field name="depends_value">LD</field>
+        </record>
+        <record forcecreate="0" id="opt_curva_derecha_30" model="safra.field.option">
+            <field name="field_id" ref="field_curva_derecha"/>
+            <field name="value">0.30</field><field name="name">30 cm</field><field name="sequence">10</field>
+        </record>
+        <record forcecreate="0" id="opt_curva_derecha_50" model="safra.field.option">
+            <field name="field_id" ref="field_curva_derecha"/>
+            <field name="value">0.50</field><field name="name">50 cm</field><field name="sequence">20</field>
+        </record>
+
+        <record forcecreate="0" id="sf_49_segmento_1" model="safra.system.field">
+            <field name="system_id" ref="system_49"/><field name="field_id" ref="field_segmento_1"/><field name="sequence">1210</field>
+        </record>
+        <record forcecreate="0" id="sf_49_segmento_2" model="safra.system.field">
+            <field name="system_id" ref="system_49"/><field name="field_id" ref="field_segmento_2"/><field name="sequence">1213</field>
+        </record>
+        <record forcecreate="0" id="sf_49_curva_izquierda" model="safra.system.field">
+            <field name="system_id" ref="system_49"/><field name="field_id" ref="field_curva_izquierda"/><field name="sequence">1211</field>
+        </record>
+        <record forcecreate="0" id="sf_49_curva_derecha" model="safra.system.field">
+            <field name="system_id" ref="system_49"/><field name="field_id" ref="field_curva_derecha"/><field name="sequence">1214</field>
+        </record>
+        <record forcecreate="0" id="sf_57_segmento_1" model="safra.system.field">
+            <field name="system_id" ref="system_57"/><field name="field_id" ref="field_segmento_1"/><field name="sequence">1210</field>
+        </record>
+        <record forcecreate="0" id="sf_57_segmento_2" model="safra.system.field">
+            <field name="system_id" ref="system_57"/><field name="field_id" ref="field_segmento_2"/><field name="sequence">1213</field>
+        </record>
+        <record forcecreate="0" id="sf_57_curva_izquierda" model="safra.system.field">
+            <field name="system_id" ref="system_57"/><field name="field_id" ref="field_curva_izquierda"/><field name="sequence">1211</field>
+        </record>
+        <record forcecreate="0" id="sf_57_curva_derecha" model="safra.system.field">
+            <field name="system_id" ref="system_57"/><field name="field_id" ref="field_curva_derecha"/><field name="sequence">1214</field>
+        </record>
+
+        <!-- Fila 113: Profundidad Onda también en Riel Armado Cortina. -->
+        <record forcecreate="0" id="sf_58_profundidad_onda_c" model="safra.system.field">
+            <field name="system_id" ref="system_58"/><field name="field_id" ref="field_profundidad_onda_c"/><field name="sequence">1150</field>
+        </record>
+
+        <!-- Fila 121: Comentarios como campo del catálogo (los mapeos de
+             todos los sistemas los crea _apply_sprint15). -->
+        <record forcecreate="0" id="field_description" model="safra.field">
+            <field name="code">description</field>
+            <field name="name">Comentarios</field>
+            <field name="section_id" ref="section_otras"/>
+            <field name="field_type">char</field>
+            <field name="sequence">900</field>
+            <field name="help_text">Observaciones de la persiana para Safra</field>
+        </record>
+
+    </data>
+    <data noupdate="0">
+        <function model="safra.system" name="_una_vez" eval="['safra.field', '_apply_sprint15']"/>
+    </data>
+    <data noupdate="1">
+    </data>
+    <data noupdate="0">
+        <function model="safra.system" name="_una_vez" eval="['safra.fabric', '_seed_permite_bolsillo']"/>
+    </data>
+    <data noupdate="1">
+        <!-- Fila 118: fórmulas iniciales del Dobladillo o Bajo falso (una sola vez). -->
+    </data>
+    <data noupdate="0">
+        <function model="safra.system" name="_una_vez" eval="['safra.field', '_seed_formulas_dobladillo']"/>
+    </data>
+    <data noupdate="1">
+    </data>
+
+    <!-- noupdate: el mensaje y la severidad se administran en el menú. -->
+    <data noupdate="1">
+        <record forcecreate="0" id="val_opcion_dependencia" model="safra.validation.rule">
+            <field name="code">V_OPCION_DEPENDENCIA</field>
+            <field name="name">Opción que no aplica con otro campo (p. ej. telo fijo según la apertura)</field>
+            <field name="severity">error</field>
+        </record>
+        <record forcecreate="0" id="val_telo_fijo" model="safra.validation.rule">
+            <field name="code">V_TELO_FIJO</field>
+            <field name="name">Panel: Posición Telo Fijo obligatoria con 7 o 12 telos</field>
+            <field name="severity">error</field>
+        </record>
+        <record forcecreate="0" id="val_bolsillo_tela" model="safra.validation.rule">
+            <field name="code">V_BOLSILLO_TELA</field>
+            <field name="name">Bolsillo solo en telas que lo permiten</field>
+            <field name="severity">error</field>
+        </record>
+        <record forcecreate="0" id="val_opcion_formula" model="safra.validation.rule">
+            <field name="code">V_OPCION_FORMULA</field>
+            <field name="name">Opción que no aplica según su fórmula (p. ej. dobladillo que no cabe en el rollo)</field>
+            <field name="severity">error</field>
+        </record>
+        <record forcecreate="0" id="val_segmentos_cortina" model="safra.validation.rule">
+            <field name="code">V_SEGMENTOS_CORTINA</field>
+            <field name="name">Cortinas: segmentos del Riel curvo completos y que sumen el ancho</field>
+            <field name="severity">error</field>
+        </record>
+    </data>
+</odoo>

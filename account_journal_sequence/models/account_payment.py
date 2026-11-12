@@ -11,7 +11,8 @@ class AccountPayment(models.Model):
 
     def action_post(self):
         for rec in self:
-            if rec.state != 'draft':
+            # v19: el wizard de pago genera el asiento y deja el pago en 'in_process' antes de publicarlo
+            if rec.state not in ('draft', 'in_process'):
                 raise UserError(
                     _('Only a draft payment can be posted.'))
             if any(

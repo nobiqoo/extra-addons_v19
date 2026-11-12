@@ -18,7 +18,10 @@
                             <group>
                                 <field name="bank_id"/>
                                 <field name="group_lines"/>
+                                <field name="rounding_method"/>
+                                <field name="rounding_decimals" invisible="rounding_method == 'none'"/>
                                 <field name="autoadjusmtent_text" help="Allows you to automatically adjust text size by controlling spacing"/>
+                                <field name="test_mode" help="In test mode the generated txt will have a '|' separator between fields to facilitate testing and validation of the file format. This separator will not be included in the generated txt when test mode is off."/>
                             </group>
                         </group>
                         <notebook>
@@ -84,6 +87,10 @@
                                                 <tr>
                                                     <td>order</td>
                                                     <td>Objeto Payment Order (account.payment.order)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>z_lines</td>
+                                                    <td>Líneas de la orden (Agrupadas por tercero segun configuración)</td>
                                                 </tr>
                                                 <tr>
                                                     <td>line</td>

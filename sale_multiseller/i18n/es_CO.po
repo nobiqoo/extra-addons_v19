@@ -1,0 +1,92 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_multiseller
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-05 13:26+0000\n"
+"PO-Revision-Date: 2026-11-05 13:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_CO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_multiseller
+#: model:ir.model.fields,field_description:sale_multiseller.field_sale_order__allowed_user_ids
+msgid "Allowed Salespeople"
+msgstr "Vendedores permitidos"
+
+#. module: sale_multiseller
+#: model:ir.model.fields,field_description:sale_multiseller.field_res_partner__seller_ids
+#: model:ir.model.fields,field_description:sale_multiseller.field_res_users__seller_ids
+msgid "Assigned Salespeople"
+msgstr "Vendedores asignados"
+
+#. module: sale_multiseller
+#: model:ir.model,name:sale_multiseller.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: sale_multiseller
+#: model:ir.model.fields,field_description:sale_multiseller.field_res_partner__display_name
+#: model:ir.model.fields,field_description:sale_multiseller.field_sale_order__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: sale_multiseller
+#: model:ir.model.fields,field_description:sale_multiseller.field_res_partner__assigned_seller_ids
+#: model:ir.model.fields,field_description:sale_multiseller.field_res_users__assigned_seller_ids
+msgid "Effective Salespeople"
+msgstr "Vendedores efectivos"
+
+#. module: sale_multiseller
+#: model:ir.model.fields,field_description:sale_multiseller.field_res_partner__id
+#: model:ir.model.fields,field_description:sale_multiseller.field_sale_order__id
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_multiseller
+#: model_terms:ir.ui.view,arch_db:sale_multiseller.view_res_partner_filter_inherit_sale_multiseller
+msgid "My Customers"
+msgstr "Mis clientes"
+
+#. module: sale_multiseller
+#: model:res.groups,name:sale_multiseller.group_restricted_salesperson
+msgid "Restricted Salesperson"
+msgstr "Vendedor restringido"
+
+#. module: sale_multiseller
+#: model:ir.model,name:sale_multiseller.model_sale_order
+msgid "Sales Order"
+msgstr "Orden de venta"
+
+#. module: sale_multiseller
+#: model:ir.model.fields,help:sale_multiseller.field_res_partner__seller_ids
+#: model:ir.model.fields,help:sale_multiseller.field_res_users__seller_ids
+msgid ""
+"Salespeople who can see, edit and use this contact in quotations, sales "
+"orders and the Point of Sale. Its addresses and contacts follow the "
+"salespeople of the company."
+msgstr ""
+"Vendedores que pueden ver, editar y usar este contacto en cotizaciones, "
+"órdenes de venta y el Punto de Venta. Sus direcciones y contactos siguen a "
+"los vendedores de la empresa."
+
+#. module: sale_multiseller
+#: model:res.groups,comment:sale_multiseller.group_restricted_salesperson
+msgid ""
+"The user only sees the contacts assigned to them and their own documents in "
+"the sales application."
+msgstr ""
+"El usuario solo ve los contactos que tiene asignados y sus propios "
+"documentos en la aplicación de ventas."
+
+#. module: sale_multiseller
+#: model_terms:ir.ui.view,arch_db:sale_multiseller.view_res_partner_filter_inherit_sale_multiseller
+msgid "Without Salespeople"
+msgstr "Sin vendedores asignados"

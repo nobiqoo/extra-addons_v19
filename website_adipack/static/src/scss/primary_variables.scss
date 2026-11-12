@@ -1,0 +1,50 @@
+// Identidad visual Adipack: tipografía Hind, azul corporativo #00437a.
+// Valores por defecto del sitio; el cliente los puede cambiar desde el editor (Tema).
+
+$o-theme-font-configs: map-merge($o-theme-font-configs, (
+    'Hind': (
+        'family': ('Hind', sans-serif),
+        'url': 'Hind:300,400,500,600,700',
+    ),
+));
+
+$o-color-palettes: map-merge($o-color-palettes, (
+    'adipack': (
+        'o-color-1': #00437a,
+        'o-color-2': #008fff,
+        'o-color-3': #f3f3f3,
+        'o-color-4': #ffffff,
+        'o-color-5': #191919,
+
+        'o-cc1-text': #727272,
+        'o-cc1-headings': 'o-color-1',
+        'o-cc1-link': 'o-color-1',
+
+        'menu': 4,
+        'footer': 4,
+        'copyright': 4,
+    ),
+));
+
+$o-website-values-palettes: (
+    (
+        'color-palettes-name': 'adipack',
+
+        'font': 'Hind',
+        'headings-font': 'Hind',
+        'navbar-font': 'Hind',
+        'buttons-font': 'Hind',
+        'font-size-base': 0.9375rem,
+        'body-line-height': 1.7,
+        'headings-line-height': 1.2,
+
+        'header-template': 'vertical',
+        'header-font-size': 0.875rem,
+        'logo-height': 7.5rem,
+        'link-underline': 'never',
+
+        'btn-border-radius': 3px,
+        'btn-border-radius-sm': 3px,
+        'btn-border-radius-lg': 3px,
+    ),
+);

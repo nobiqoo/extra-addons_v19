@@ -7,8 +7,16 @@
             <field name="model">account.voucher</field>
             <field name="inherit_id" ref="account_voucher.view_account_voucher_form" />
             <field name="arch" type="xml">
+                <field name="journal_id" position="after">
+                    <field name="available_payment_method_line_ids" invisible="1"/>
+                    <field name="payment_method_line_id"
+                           options="{'no_create': True, 'no_open': True}"
+                           readonly="state != 'draft'"
+                           invisible="partner_type != 'supplier' or not show_payment_method_line_id"/>
+                </field>
                 <field name="user_id" position="after">
-                    <field name="check_number" readonly="state != 'draft'" invisible="partner_type != 'supplier'"/>
+                    <field name="show_check_number" invisible="1"/>
+                    <field name="check_number" readonly="state != 'draft'" invisible="partner_type != 'supplier' or not show_check_number"/>
                 </field>
             </field>
         </record>

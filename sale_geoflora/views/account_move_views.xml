@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_move_form_webflor" model="ir.ui.view">
+        <field name="name">account.move.form.webflor</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@id='other_tab']" position="after">
+                <page id="webflor_tab" name="webflor_info" string="WEBFLOR"
+                      invisible="move_type not in ('out_invoice', 'out_refund')">
+                    <group string="WebFlor Information">
+                        <group>
+                            <field name="webflor_order_number" readonly="state != 'draft'"/>
+                            <field name="webflor_invoice_number" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="webflor_sale_type" readonly="state != 'draft'"/>
+                            <field name="webflor_negotiation_term" readonly="state != 'draft'"/>
+                            <field name="webflor_order_type" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <group string="WebFlor Logistics - International Dispatch">
+                        <group>
+                            <field name="webflor_freight_forwarder" readonly="state != 'draft'"/>
+                            <field name="webflor_airline" readonly="state != 'draft'"/>
+                            <field name="webflor_delivery_date" readonly="state != 'draft'"/>
+                            <field name="webflor_dispatch_date" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="webflor_mawb_number" readonly="state != 'draft'"/>
+                            <field name="webflor_hawb_number" readonly="state != 'draft'"/>
+                            <field name="webflor_grandchild_guide_number" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='name']" position="after">
+                <field name="webflor_product_code" optional="hide" column_invisible="parent.move_type not in ('out_invoice', 'out_refund')"/>
+                <field name="webflor_referente" optional="hide" column_invisible="parent.move_type not in ('out_invoice', 'out_refund')"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_invoice_tree_webflor" model="ir.ui.view">
+        <field name="name">account.invoice.list.webflor</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <field name="invoice_origin" position="after">
+                <field name="webflor_invoice_number" optional="show"
+                       column_invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund')"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter_webflor" model="ir.ui.view">
+        <field name="name">account.invoice.select.webflor</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="payment_reference" position="after">
+                <field name="webflor_invoice_number"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

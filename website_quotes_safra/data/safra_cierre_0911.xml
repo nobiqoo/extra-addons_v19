@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Reunión 09-nov (cierre de pendientes del Sprint 1), fila 74: «Pedido sin
+         restricciones» se unifica con «Requiere verificación de fabricación». -->
+    <function model="safra.system" name="_una_vez" eval="['safra.field', '_ajuste_unificar_verificacion']"/>
+    <!-- Fila 68: el mensaje de «debe ir motorizada» pide marcar el motor. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_mensaje_requiere_motor']"/>
+    <!-- Revisión 10-nov: dato sin digitar y peso máximo con la condición escrita en Validaciones. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_reglas_visibles_1011']"/>
+</odoo>

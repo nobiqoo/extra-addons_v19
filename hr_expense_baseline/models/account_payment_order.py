@@ -93,7 +93,7 @@ class AccountPaymentOrder(models.Model):
         if not amount_company:
             return
 
-        partner = expenses[:1].petty_cash_responsible_id or expenses[:1].employee_id.sudo().work_contact_id
+        partner = expenses[:1].petty_cash_responsible_id or expenses[:1].employee_id.sudo()._get_expense_partner()
         petty_journal = getattr(partner, 'petty_cash_journal', False)
         if not petty_journal:
             raise UserError(_("No hay diario de Caja Menor asignado al responsable (%s).") % (partner.display_name))

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_account_report_aged_receivable_salesperson" model="ir.actions.client">
+        <field name="name">Cuentas por cobrar - vendedor</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('account_report.aged_receivable_salesperson_report')}"/>
+    </record>
+
+    <menuitem
+        id="menu_action_account_report_aged_receivable_salesperson"
+        name="Cuentas por cobrar - vendedor"
+        parent="sale.menu_sale_report"
+        sequence="10"
+        action="action_account_report_aged_receivable_salesperson"/>
+
+</odoo>

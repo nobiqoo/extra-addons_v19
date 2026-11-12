@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_stock_move_wizard,access.stock.move.wizard,model_stock_move_wizard,stock.group_stock_user,1,1,1,1
 access_stock_valuation_report,access.stock.valuation.report,model_stock_valuation_report,stock.group_stock_manager,1,1,1,1
+access_slow_movement_report_wizard,access.slow.movement.report.wizard,model_slow_movement_report_wizard,stock.group_stock_user,1,1,1,1

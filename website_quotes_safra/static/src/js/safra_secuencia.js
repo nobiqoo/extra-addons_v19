@@ -241,6 +241,7 @@
         seqCards = cards;
         historial = [];
         sequence = [];
+        confirmado = '';
         for (var p = 0; p < cards.length; p++) {
             sequence.push(cardValue(cards[p], 'soporte_izq'));
             sequence.push('');
@@ -272,6 +273,57 @@
         return el;
     }
 
+    // Revisión 28-oct: reglas de Validaciones con momento «Al aplicar la
+    // secuencia», revisadas en el servidor con los soportes recién armados
+    // (antes de guardarlos en las persianas).
+    var confirmado = '';    // secuencia cuyas advertencias ya se aceptaron
+
+    function rpc(url, params) {
+        return fetch(url, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ jsonrpc: '2.0', method: 'call', params: params }),
+        }).then(function (r) { return r.json(); }).then(function (d) {
+            if (d.error) throw d.error;
+            return d.result;
+        });
+    }
+
+    function datosConSecuencia() {
+        var form = document.getElementById('safra-quoter-form');
+        var data = {};
+        if (form) {
+            new FormData(form).forEach(function (value, key) {
+                if (!(value instanceof File)) data[key] = value;
+            });
+        }
+        for (var p = 0; p < seqCards.length; p++) {
+            var idx = seqCards[p].getAttribute('data-idx');
+            var izq = sequence[p * 3], der = sequence[p * 3 + 2];
+            data['soporte_izq_' + idx] = izq;
+            data['soporte_der_' + idx] = der;
+            // Con motor en la secuencia la persiana queda «Con Motor».
+            if (izq === 'MOTOR' || der === 'MOTOR') data['has_motor_' + idx] = '1';
+        }
+        data.secuencia_nombre = seqCards.length ? cardValue(seqCards[0], 'sequence_name') : '';
+        return data;
+    }
+
+    function mostrarMensajes(issues, nota) {
+        var msg = document.getElementById('seq-msg');
+        if (!msg) return;
+        var hayError = issues.some(function (i) { return i.severity === 'error'; });
+        msg.className = 'seq-msg ' + (hayError ? 'bad' : 'warn');
+        var orden = issues.filter(function (i) { return i.severity === 'error'; })
+            .concat(issues.filter(function (i) { return i.severity !== 'error'; }));
+        msg.innerHTML = orden.map(function (i) {
+            var pos = -1;
+            for (var p = 0; p < seqCards.length; p++) {
+                if (String(seqCards[p].getAttribute('data-idx')) === String(i.idx)) pos = p;
+            }
+            return '<div>' + esc((pos >= 0 ? 'Persiana ' + (pos + 1) + ': ' : '') + i.message) + '</div>';
+        }).join('') + (nota ? '<div class="seq-msg-nota">' + esc(nota) + '</div>' : '');
+    }
+
     function aplicar() {
         if (seqCards.length < 2) return;
         // Reporte 28-sep: «Aplicar» sin armar nada dejaba pasar la
@@ -287,19 +339,47 @@
                 faltantes.join(', ') + ' antes de aplicar (o use Cancelar).', true);
             return;
         }
+        var firma = sequence.join('|');
+        var btn = document.getElementById('seq-apply');
+        if (btn) btn.disabled = true;
+        rpc('/cotizador/ajax/validar_secuencia', datosConSecuencia()).then(function (issues) {
+            if (btn) btn.disabled = false;
+            issues = issues || [];
+            if (issues.some(function (i) { return i.severity === 'error'; })) {
+                confirmado = '';
+                mostrarMensajes(issues, 'Corrija la secuencia para poder aplicarla.');
+                return;
+            }
+            if (issues.length && confirmado !== firma) {
+                confirmado = firma;
+                mostrarMensajes(issues, 'Revise los avisos y pulse Aplicar otra vez para continuar.');
+                return;
+            }
+            confirmado = '';
+            aplicarYa();
+        }).catch(function () {
+            // Sin respuesta del servidor se aplica: al finalizar el pedido
+            // se vuelven a revisar las mismas reglas.
+            if (btn) btn.disabled = false;
+            aplicarYa();
+        });
+    }
+
+    function aplicarYa() {
         for (var p = 0; p < seqCards.length; p++) {
             var card = seqCards[p];
             var izq = sequence[p * 3], der = sequence[p * 3 + 2];
             ensureHidden(card, 'soporte_izq').value = izq;
             ensureHidden(card, 'soporte_der').value = der;
             // Coherencia con «Con Motor»: si la secuencia le asigna motor,
-            // el check de la persiana se activa solo.
-            if (izq === 'MOTOR' || der === 'MOTOR') {
-                var cb = card.querySelector('[name="has_motor_' + card.getAttribute('data-idx') + '"]');
-                if (cb && !cb.checked) {
-                    var tg = cb.closest('.safra-toggle');
-                    if (tg) tg.click(); else cb.checked = true;
-                }
+            // el check de la persiana se activa solo. Reunión 30-oct (fila
+            // 53): y si se lo quita, se desactiva (la persiana que mueve el
+            // motor de su tramo sigue sin motor propio).
+            var conMotor = izq === 'MOTOR' || der === 'MOTOR';
+            var cb = card.querySelector('[name="has_motor_' + card.getAttribute('data-idx') + '"]');
+            if (cb && cb.checked !== conMotor) {
+                var tg = cb.closest('.safra-toggle');
+                if (tg) tg.click(); else cb.checked = conMotor;
             }
         }
         // Bloque 3 (reunión 28-sep): la secuencia es UN segmento de cabezal:
@@ -334,6 +414,10 @@
         // OBS REU GENERALES 11-sep: que la secuencia asignada salga en el
         // encabezado de cada persiana.
         if (window.safraUpdateSummary) seqCards.forEach(window.safraUpdateSummary);
+        // Revisión 03-nov (prueba T.6): los soportes cambian los tramos
+        // (DEP = una sola persiana), así que la Unificación Mando se
+        // recalcula ya y no solo al guardar.
+        if (window.safraSyncUnificacion) window.safraSyncUnificacion();
         overlay().classList.remove('open');
     }
 

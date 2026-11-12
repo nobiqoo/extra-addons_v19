@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="stock_arthome.generate_serial_dialog" t-inherit="stock.generate_serial_dialog" t-inherit-mode="extension">
+        <xpath expr="//t[@t-set-slot='footer']/button[1]" position="attributes">
+            <attribute name="t-if">props.mode !== 'import'</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set-slot='footer']/button[1]" position="after">
+            <t t-if="props.mode === 'import'">
+                <button class="btn o_lot_import_preview"
+                        t-att-class="lotImport.preview ? 'btn-secondary' : 'btn-primary'"
+                        t-att-disabled="lotImport.loading"
+                        t-on-click="onLotImportPreview">Preview</button>
+                <button t-if="lotImport.preview" class="btn btn-primary o_lot_import_apply"
+                        t-att-disabled="lotImport.loading or !lotImport.preview.valid_count"
+                        t-on-click="_onGenerate">
+                    Import valid lines (<t t-esc="lotImport.preview.valid_count"/>)
+                </button>
+            </t>
+        </xpath>
+
+        <xpath expr="//textarea[@t-ref='lots']" position="attributes">
+            <attribute name="t-on-input">onLotImportInputChange</attribute>
+            <attribute name="t-att-disabled">lotImport.fileContent</attribute>
+            <attribute name="rows">6</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if=&quot;props.mode === 'import'&quot;]//input[@t-ref='keepLines']" position="attributes">
+            <attribute name="t-on-change">onLotImportInputChange</attribute>
+        </xpath>
+
+        <xpath expr="//t[@t-if=&quot;props.mode === 'import'&quot;]/div[contains(@class, 'o_inner_group')]" position="before">
+            <div class="o_lot_import_help alert alert-info m-3 mb-0 small">
+                Paste the columns Lot/Serial and Quantity copied from Excel, or upload a file.
+                Optional columns: Traceability Note and DIM (the DIM applies to the whole product; the last one wins).
+                Quantities accept the formats 1.234,50 and 12,5.
+            </div>
+        </xpath>
+
+        <xpath expr="//t[@t-if=&quot;props.mode === 'import'&quot;]/div[contains(@class, 'o_inner_group')]" position="before">
+            <div class="o_lot_import_file px-3 pt-3 pb-1">
+                <label class="o_form_label me-2">File</label>
+                <input type="file" class="d-none o_lot_import_file_input" t-ref="lotImportFile"
+                       accept=".xlsx,.xls,.csv,.ods"
+                       t-on-change="onLotImportFileChange"/>
+                <button class="btn btn-secondary btn-sm o_lot_import_upload" t-on-click="onLotImportSelectFile">
+                    <i class="fa fa-upload me-1"/>Upload file
+                </button>
+                <span class="ms-2 o_lot_import_file_name" t-att-class="lotImport.fileName ? 'fw-bold' : 'text-muted'">
+                    <t t-if="lotImport.fileName" t-esc="lotImport.fileName"/>
+                    <t t-else="">No file selected (xlsx, xls, csv, ods)</t>
+                </span>
+                <button t-if="lotImport.fileName" class="btn btn-link btn-sm o_lot_import_clear_file"
+                        t-on-click="onLotImportClearFile">Remove file</button>
+                <a class="btn btn-link btn-sm o_lot_import_template" t-att-href="lotImportTemplateUrl" download="">
+                    <i class="fa fa-download me-1"/>Download template
+                </a>
+            </div>
+        </xpath>
+
+        <xpath expr="//t[@t-if=&quot;props.mode === 'import'&quot;]/div[contains(@class, 'o_inner_group')]" position="after">
+            <div t-if="lotImport.preview" class="o_lot_import_preview_panel px-3 pb-3">
+                <div class="d-flex gap-3 mb-2">
+                    <span class="badge text-bg-success o_lot_import_valid_count">
+                        Valid lines: <t t-esc="lotImport.preview.valid_count"/>
+                        (<t t-esc="formatLotImportQty(lotImport.preview.total_qty)"/> <t t-esc="lotImport.preview.uom_name"/>)
+                    </span>
+                    <span t-att-class="lotImport.preview.error_count ? 'badge text-bg-danger' : 'badge text-bg-secondary'"
+                          class="o_lot_import_error_count">
+                        Rejected rows: <t t-esc="lotImport.preview.error_count"/>
+                    </span>
+                    <span t-if="lotImport.preview.warning_count" class="badge text-bg-warning o_lot_import_warning_count">
+                        Over the demand: <t t-esc="lotImport.preview.warning_count"/>
+                    </span>
+                </div>
+                <div t-if="lotImport.preview.warning_count" class="o_lot_import_warnings table-responsive mb-2" style="max-height: 25vh;">
+                    <table class="table table-sm mb-0">
+                        <thead>
+                            <tr>
+                                <th>Row</th>
+                                <th>Lot/Serial</th>
+                                <th>Quantity</th>
+                                <th>Notice</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="lotImport.preview.warnings" t-as="warning" t-key="warning_index">
+                                <td t-esc="warning.row"/>
+                                <td t-esc="warning.lot_name"/>
+                                <td t-esc="warning.quantity"/>
+                                <td class="text-warning-emphasis" t-esc="warning.reason"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div t-if="lotImport.preview.error_count" class="o_lot_import_errors table-responsive" style="max-height: 45vh;">
+                    <table class="table table-sm table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <th>Row</th>
+                                <th>Lot/Serial</th>
+                                <th>Quantity</th>
+                                <th>Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="lotImport.preview.errors" t-as="error" t-key="error_index">
+                                <td t-esc="error.row"/>
+                                <td t-esc="error.lot_name"/>
+                                <td t-esc="error.quantity"/>
+                                <td class="text-danger" t-esc="error.reason"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

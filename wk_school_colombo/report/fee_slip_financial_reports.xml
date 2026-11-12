@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tareas 12447 y 12450: los 4 reportes de "Informes → Recibos de
+         cobro" se exponen vía ir.actions.report (report_type="xlsx",
+         módulo report_xlsx) con binding_model_id/binding_type="report"
+         sobre wk.fee.slip, de modo que aparecen en el menú Imprimir
+         nativo -engranaje ⚙ de la lista- sobre la selección del usuario
+         (uno, varios o todos), igual que cualquier otro reporte de
+         impresión de Odoo. Restringidos a Officer/Admin con groups_id
+         (además del control explícito dentro de cada método
+         _wk_build_*_workbook en fee_slip.py). -->
+
+    <record id="report_fee_slip_consecutivos_action" model="ir.actions.report">
+        <field name="name">Imprimir Reporte de Consecutivos</field>
+        <field name="model">wk.fee.slip</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">wk_school_colombo.report_fee_slip_consecutivos</field>
+        <field name="binding_model_id" ref="wk_school_management.model_wk_fee_slip"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(6, 0, [ref('wk_school_management.wk_school_management_officer_group')])]"/>
+    </record>
+
+    <record id="report_fee_slip_clientes_action" model="ir.actions.report">
+        <field name="name">Imprimir Reporte Clientes / Matrículas</field>
+        <field name="model">wk.fee.slip</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">wk_school_colombo.report_fee_slip_clientes</field>
+        <field name="binding_model_id" ref="wk_school_management.model_wk_fee_slip"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(6, 0, [ref('wk_school_management.wk_school_management_officer_group')])]"/>
+    </record>
+
+    <record id="report_fee_slip_beneficios_action" model="ir.actions.report">
+        <field name="name">Imprimir Reporte Beneficios / Matrículas</field>
+        <field name="model">wk.fee.slip</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">wk_school_colombo.report_fee_slip_beneficios</field>
+        <field name="binding_model_id" ref="wk_school_management.model_wk_fee_slip"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(6, 0, [ref('wk_school_management.wk_school_management_officer_group')])]"/>
+    </record>
+
+    <record id="report_fee_slip_formas_pago_action" model="ir.actions.report">
+        <field name="name">Imprimir Reporte Formas de Pago / Matrículas</field>
+        <field name="model">wk.fee.slip</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">wk_school_colombo.report_fee_slip_formas_pago</field>
+        <field name="binding_model_id" ref="wk_school_management.model_wk_fee_slip"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(6, 0, [ref('wk_school_management.wk_school_management_officer_group')])]"/>
+    </record>
+
+</odoo>

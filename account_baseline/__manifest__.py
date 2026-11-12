@@ -19,6 +19,7 @@
         'account',
         'account_accountant',
         'sale',
+        'stock_account',
     ],
     'data': [
         'security/ir.model.access.csv',

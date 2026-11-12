@@ -7,7 +7,7 @@ from . import account_analytic_account
 from . import purchase_approval_setting
 from . import purchase_order
 from . import purchase_order_line
-from . import res_company
 from . import purchase_appoval_reason_budget_wizard
 from . import purchase_approval_budget_line_wizard
 from . import purchase_approval_budget_wizard
+from . import res_config_settings

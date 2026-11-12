@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="biometric_device_details_view_tree" model="ir.ui.view">
+        <field name="name">biometric.device.details.view.tree</field>
+        <field name="model">biometric.device.details</field>
+        <field name="arch" type="xml">
+            <list>
+                <header>
+                    <button name="action_open_multi_device_sync_wizard"
+                            string="Sincronizar Usuarios en Biométricos"
+                            type="object"
+                            class="btn-primary"
+                            icon="fa-users"/>
+                </header>
+                <field name="authorized" widget="boolean_toggle" string="Autorizado"/>
+                <field name="name"/>
+                <field name="protocol_type"/>
+                <field name="sn"/>
+                <field name="device_ip"/>
+                <field name="port_number"/>
+                <field name="connection_state" widget="badge"
+                       decoration-success="connection_state == 'online'"
+                       decoration-danger="connection_state == 'offline'"/>
+                <field name="status" widget="badge" 
+                       decoration-success="status == 'ok'" 
+                       decoration-danger="status == 'error'" 
+                       decoration-info="status == 'syncing'" 
+                       decoration-muted="status == 'idle'"/>
+                <field name="last_heartbeat"/>
+                <field name="last_sync_at"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="biometric_device_details_view_form" model="ir.ui.view">
+        <field name="name">biometric.device.details.view.form</field>
+        <field name="model">biometric.device.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="status" widget="badge" 
+                           decoration-success="status == 'ok'" 
+                           decoration-danger="status == 'error'" 
+                           decoration-info="status == 'syncing'" 
+                           decoration-muted="status == 'idle'"/>
+                    
+                    <button name="action_set_timezone" string=" Set Time" type="object" class="oe_highlight"/>
+                    <button name="action_download_attendance" string="Download Data" type="object" class="oe_highlight"/>
+                    <button name="action_clear_attendance_odoo"
+                            string="Clear Data (Odoo DB)"
+                            icon="fa-eraser"
+                            type="object"
+                            class="oe_highlight"
+                            confirm="ADVERTENCIA: ¿Está seguro de que desea eliminar los logs de marcaje de la base de datos de Odoo?"/>
+                    <button name="action_clear_attendance_device"
+                            string="Clear Data (Device)"
+                            icon="fa-trash-o"
+                            type="object"
+                            class="btn-danger oe_highlight"
+                            confirm="¡PELIGRO! Esta acción borrará PERMANENTEMENTE todos los registros de la MÁQUINA ZKTECO."/>
+                    
+                    <!-- Menú desplegable para acciones de usuario -->
+                    <dropdown string="Editar usuarios" icon="fa-users">
+                        <button name="action_open_multi_device_sync_wizard" type="object" string="Sincronizar Usuarios (Multi-Biométrico)" class="oe_highlight"/>
+                        <button name="action_download_biophotos" type="object" string="Descargar Fotos de Usuarios (SpeedFace)" class="oe_highlight" invisible="protocol_type != 'adms'"/>
+                        <button name="action_open_user_mapping_wizard" type="object" string="Mapear usuarios del Biometrico al Odoo" class="oe_highlight"/>
+                        <button name="action_open_odoo_to_biometric_wizard" type="object" string="Cargar usuarios de Odoo a este biométrico" class="oe_highlight"/>
+                    </dropdown>
+                    
+                    <button name="action_restart_device"
+                            string="Restart Device"
+                            type="object"
+                            class="btn-warning"
+                            confirm="¿Desea enviar la orden de reinicio al dispositivo?"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-warning mb-2" role="alert" invisible="authorized">
+                        <strong><i class="fa fa-exclamation-triangle"/> Dispositivo No Autorizado:</strong>
+                        Este biométrico puede enviar latidos de conexión (Heartbeat), pero <strong>sus marcaciones se descartan automáticamente</strong> hasta que actives la casilla <strong>Autorizado</strong>.
+                    </div>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_commands" type="object" class="oe_stat_button" icon="fa-terminal" invisible="protocol_type != 'adms'">
+                            <field name="command_count" widget="statinfo" string="Comandos ADMS"/>
+                        </button>
+                        <button name="action_test_connection" type="object" class="oe_stat_button" icon="fa-television">
+                            <field name="connection_state" widget="statinfo" string="Estado Conexión"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group string="Identificación y Protocolo">
+                            <field name="name"/>
+                            <field name="authorized" widget="boolean_toggle"/>
+                            <field name="protocol_type" widget="radio"/>
+                            <field name="sn" invisible="protocol_type == 'pull'"/>
+                            <field name="address_id" string="Working Address"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Red y Zona Horaria">
+                            <field name="device_ip"/>
+                            <field name="port_number"/>
+                            <field name="device_timezone" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="last_heartbeat" invisible="protocol_type != 'adms'" readonly="1"/>
+                            <field name="last_sync_at" readonly="1"/>
+                            <field name="last_error" invisible="status != 'error'" readonly="1"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Instrucciones de Configuración en el Reloj (ADMS)" name="adms_help" invisible="protocol_type != 'adms'">
+                            <div class="alert alert-info mt-2" role="alert">
+                                <h6><b>Configuración en la pantalla del SpeedFace:</b></h6>
+                                <ul>
+                                    <li>Vaya a <b>Menú -&gt; Red (Comunicaciones) -&gt; Servidor en la Nube (o ADMS)</b>.</li>
+                                    <li><b>Habilitar Nombre de Dominio:</b> Sí (si usa dominio) / No (si usa IP).</li>
+                                    <li><b>Dirección del Servidor:</b> Ingrese el dominio o IP pública de su servidor Odoo (ej. <code>gjsrsoluciones.com</code>).</li>
+                                    <li><b>Puerto del Servidor:</b> 80 / 443 / 8069.</li>
+                                    <li><b>Habilitar HTTPS:</b> Desactivado si usa puerto 80, o Activado si usa 443.</li>
+                                </ul>
+                            </div>
+                        </page>
+                        <page string="Comandos ADMS Encolados / Historial" name="commands" invisible="protocol_type != 'adms'">
+                            <field name="command_ids" readonly="1">
+                                <list default_order="id desc" limit="50">
+                                    <field name="id"/>
+                                    <field name="create_date" string="Creado el"/>
+                                    <field name="command"/>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'done'"
+                                           decoration-danger="state == 'error'"
+                                           decoration-info="state == 'sent'"
+                                           decoration-muted="state == 'draft'"/>
+                                    <field name="return_code" string="Respuesta"/>
+                                    <field name="sent_at" string="Enviado el"/>
+                                    <field name="executed_at" string="Ejecutado el"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="biometric_device_command_view_tree" model="ir.ui.view">
+        <field name="name">biometric.device.command.view.tree</field>
+        <field name="model">biometric.device.command</field>
+        <field name="arch" type="xml">
+            <list default_order="id desc" create="0">
+                <field name="id"/>
+                <field name="create_date" string="Fecha Creación"/>
+                <field name="device_id"/>
+                <field name="command"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-danger="state == 'error'"
+                       decoration-info="state == 'sent'"
+                       decoration-muted="state == 'draft'"/>
+                <field name="return_code" string="Respuesta"/>
+                <field name="sent_at" string="Enviado el"/>
+                <field name="executed_at" string="Ejecutado el"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="biometric_device_command_view_form" model="ir.ui.view">
+        <field name="name">biometric.device.command.view.form</field>
+        <field name="model">biometric.device.command</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Detalles de Comando">
+                            <field name="device_id" readonly="1"/>
+                            <field name="command" readonly="1"/>
+                            <field name="return_code" readonly="1"/>
+                        </group>
+                        <group string="Tiempos">
+                            <field name="create_date" string="Creado el" readonly="1"/>
+                            <field name="sent_at" string="Enviado el" readonly="1"/>
+                            <field name="executed_at" string="Ejecutado el" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_biometric_device_command" model="ir.actions.act_window">
+        <field name="name">Historial de Comandos ADMS</field>
+        <field name="res_model">biometric.device.command</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="biometric_device_command_view_tree"/>
+    </record>
+    
+    <record id="biometric_device_details_action" model="ir.actions.act_window">
+        <field name="name">Biometric Device</field>
+        <field name="res_model">biometric.device.details</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="biometric_device_details_view_tree"/>
+    </record>
+    <record id="action_biometric_device_details_view" model="ir.actions.act_window">
+        <field name="name">Biometric Device</field>
+        <field name="res_model">biometric.device.details</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="biometric_device_details_view_tree"/>
+    </record>
+
+    <!-- Acción masiva vinculada a la lista de biométricos (Menú 'Acción') -->
+    <record id="action_biometric_device_multi_sync_binding" model="ir.actions.act_window">
+        <field name="name">Sincronizar Usuarios en Biométricos</field>
+        <field name="res_model">biometric.odoo.to.biometric.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_biometric_device_details"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

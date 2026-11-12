@@ -59,6 +59,12 @@
                 <attribute name="string">Fecha fin diferido</attribute>
                 <attribute name="optional">hide</attribute>
             </xpath>
+            <xpath expr="//header/button[@name='action_reverse']" position="attributes">
+                <attribute name="invisible">move_type not in ('out_invoice', 'in_invoice') or state != 'posted' or hide_credit_note_button</attribute>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <field name="hide_credit_note_button" invisible="1"/>
+            </xpath>
         </field>
     </record>
 

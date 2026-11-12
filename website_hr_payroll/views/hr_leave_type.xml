@@ -9,6 +9,8 @@
                 <field name="apply_day_31" position="after">
                     <field name="allow_in_website"/>
                     <field name="need_file_in_website" invisible="allow_in_website == False"/>
+                    <field name="enable_approval_flow"/>
+                    <field name="enable_button_notify"/>
                 </field>
             </field>
         </record>

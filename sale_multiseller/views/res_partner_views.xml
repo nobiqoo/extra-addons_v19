@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_partner_form_inherit_sale_multiseller" model="ir.ui.view">
+        <field name="name">res.partner.form.sale.multiseller</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']//group[@name='sale']/field[@name='user_id']" position="before">
+                <field name="seller_ids" widget="many2many_avatar_user"
+                       domain="[('share', '=', False)]"
+                       invisible="parent_id"
+                       options="{'no_create': True}"/>
+            </xpath>
+            <xpath expr="//page[@name='sales_purchases']//group[@name='sale']/field[@name='user_id']" position="attributes">
+                <attribute name="domain">[('share', '=', False)] + ([('id', 'in', seller_ids)] if not parent_id else [])</attribute>
+                <attribute name="options">{'no_create': True}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_tree_inherit_sale_multiseller" model="ir.ui.view">
+        <field name="name">res.partner.list.sale.multiseller</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="seller_ids" widget="many2many_avatar_user" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter_inherit_sale_multiseller" model="ir.ui.view">
+        <field name="name">res.partner.select.sale.multiseller</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="seller_ids"/>
+            </field>
+            <xpath expr="//filter[@name='type_company']" position="after">
+                <separator/>
+                <filter string="My Customers" name="my_assigned_customers" domain="[('seller_ids', 'in', uid)]"/>
+                <filter string="Without Salespeople" name="without_sellers" domain="[('seller_ids', '=', False), ('parent_id', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -96,7 +96,7 @@ class StudentAssignment(models.Model):
         """
         records = super().create(vals_list)
         for record in records:
-            if record.is_class_performance and not record.cp_line_ids:
+            if record.is_class_performance:
                 record._wk_seed_cp_lines()
         return records
 
@@ -134,13 +134,24 @@ class StudentAssignment(models.Model):
                 "habilitarla.") % blocked[0].populate_class_id.display_name)
 
     def _wk_seed_cp_lines(self):
-        """Crea una línea vacía por cada criterio activo de la Escala."""
+        """Crea una línea vacía por cada criterio activo de la Escala que
+        todavía no tenga una línea (PT11848, incidencia 2).
+
+        Aditivo, no todo-o-nada: si la Escala tenía sus criterios de Class
+        Performance vacíos al crear la Actividad asignada (p. ej. porque se
+        configuraron en la pestaña "Class Performance" de la Escala después
+        de generar las Actividades de la clase) y luego se completan, basta
+        con volver a abrir esta pantalla -ver action_open_cp_form- para que
+        aparezcan los criterios que faltaban, sin duplicar ni perder los que
+        ya tienen una Valoración registrada.
+        """
         self.ensure_one()
         criteria = self.grading_scale_id.cp_criterion_ids.filtered('active')
-        if criteria:
+        missing = criteria - self.cp_line_ids.criterion_id
+        if missing:
             self.cp_line_ids = [
                 (0, 0, {'criterion_id': criterion.id})
-                for criterion in criteria]
+                for criterion in missing]
 
     def action_open_cp_form(self):
         """Abre la pantalla de evaluación por criterio de Class Performance.
@@ -149,6 +160,8 @@ class StudentAssignment(models.Model):
         pestaña "Students" de la Actividad asignada (requerimiento 2.8.11).
         """
         self.ensure_one()
+        if self.is_class_performance:
+            self._wk_seed_cp_lines()
         return {
             'type': 'ir.actions.act_window',
             'name': _("Class Performance - %s") % self.student_id.display_name,
@@ -204,3 +217,49 @@ class StudentAssignment(models.Model):
                     _('Marks obtained cannot be greater than Total Marks.'))
             return
         return super().onchange_marks_obtained()
+
+    def get_gradesheet_record(self, populate_class, student):
+        """Reimplementa wk_school_management...get_gradesheet_record (Webkul
+        v5.0.4) completo, sin llamar a super(), por un bug que revienta
+        "Hoja de calificaciones" (Informes → Hoja de calificaciones →
+        Consultar calificaciones) en cualquier clase con Estructura de
+        calificación avanzada aplicada (subtarea 8).
+
+        El original hace `assignment_type.weightage` esperando una sola
+        fila de `wk.class.assignment.type` por Tipo de actividad base, pero
+        con la estructura avanzada puede haber varias (p. ej. "Quiz 1" y
+        "Quiz 2" son dos componentes propios, cada uno con su propio peso,
+        pero ambos usan el mismo Tipo de actividad base "Quiz"): el
+        resultado deja de ser un registro único y `.weightage` revienta con
+        "Expected singleton". Se suma la ponderación de todas las filas de
+        ese tipo -con una sola fila (caso estándar, sin estructura
+        avanzada) el resultado es idéntico al original-.
+        """
+        assignments = self.search([
+            ('populate_class_id', '=', populate_class.id),
+            ('student_subject_id', '=', student.id)])
+        scores = {}
+
+        for assignment in assignments:
+            type_id = assignment.type_id.id
+            if type_id not in scores:
+                scores[type_id] = {'total': 0.0, 'count': 0}
+            scores[type_id]['total'] += assignment.percent_obtained
+            scores[type_id]['count'] += 1
+
+        student_result = []
+        avg_score = []
+        initial = 0
+        for type_id, data in scores.items():
+            average = data['total'] / data['count'] if data['count'] > 0 else 0
+            type_name = self.env['wk.assignment.type'].browse(type_id)
+            result = (type_name.name, round(average, 2))
+            assignment_type = self.env['wk.class.assignment.type'].search([
+                ('assignment_type_id', '=', type_id),
+                ('populate_class_id', '=', populate_class.id)])
+            weightage = sum(assignment_type.mapped('weightage'))
+            initial += average * (weightage / 100)
+
+            student_result.append(result)
+            avg_score.append(initial)
+        return student_result, avg_score

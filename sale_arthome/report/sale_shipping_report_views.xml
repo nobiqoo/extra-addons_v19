@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_shipping_report_view_list" model="ir.ui.view">
+        <field name="name">sale.shipping.report.list</field>
+        <field name="model">sale.shipping.report</field>
+        <field name="arch" type="xml">
+            <list string="Shipping Information" create="0" edit="0" delete="0" action="action_open_order" type="object">
+                <field name="name"/>
+                <field name="date_order" optional="show" options="{'show_time': false}"/>
+                <field name="state" optional="show" widget="badge" decoration-success="state == 'sale'" decoration-info="state in ('draft', 'sent')"/>
+                <field name="user_id" optional="hide" widget="many2one_avatar_user"/>
+                <field name="team_id" optional="hide"/>
+                <field name="company_id" optional="hide" groups="base.group_multi_company"/>
+                <field name="partner_name"/>
+                <field name="shipping_city"/>
+                <field name="shipping_state"/>
+                <field name="shipping_street"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="invoice_names"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="insurable_value" sum="Total"/>
+                <field name="carrier_partner_id"/>
+                <field name="carrier_tracking_number"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sale_shipping_report_view_search" model="ir.ui.view">
+        <field name="name">sale.shipping.report.search</field>
+        <field name="model">sale.shipping.report</field>
+        <field name="arch" type="xml">
+            <search string="Shipping Information">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="shipping_city"/>
+                <field name="shipping_state"/>
+                <field name="invoice_names"/>
+                <field name="carrier_partner_id"/>
+                <field name="carrier_tracking_number"/>
+                <field name="user_id"/>
+                <filter string="Not Cancelled" name="not_cancelled" domain="[('state', '!=', 'cancel')]"/>
+                <separator/>
+                <filter string="Quotations" name="quotations" domain="[('state', 'in', ('draft', 'sent'))]"/>
+                <filter string="Sales Orders" name="sales_orders" domain="[('state', '=', 'sale')]"/>
+                <separator/>
+                <filter string="Invoiced" name="invoiced" domain="[('invoice_names', '!=', False)]"/>
+                <filter string="With Tracking Number" name="with_tracking" domain="[('carrier_tracking_number', '!=', False)]"/>
+                <separator/>
+                <filter string="Order Date" name="date_order" date="date_order"/>
+                <group>
+                    <filter string="Customer" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Shipping City" name="group_city" context="{'group_by': 'shipping_city'}"/>
+                    <filter string="Shipping State" name="group_state" context="{'group_by': 'shipping_state'}"/>
+                    <filter string="Carrier" name="group_carrier" context="{'group_by': 'carrier_partner_id'}"/>
+                    <filter string="Salesperson" name="group_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="Status" name="group_status" context="{'group_by': 'state'}"/>
+                    <filter string="Order Date" name="group_date" context="{'group_by': 'date_order:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sale_shipping_report" model="ir.actions.act_window">
+        <field name="name">Shipping Information</field>
+        <field name="res_model">sale.shipping.report</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="sale_shipping_report_view_search"/>
+        <field name="context">{'search_default_not_cancelled': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">No sales orders found</p>
+            <p>Customer, shipping address, invoice, insurable value and tracking number of each sales order, ready to export.</p>
+        </field>
+    </record>
+
+    <record id="action_server_open_shipping_report" model="ir.actions.server">
+        <field name="name">Shipping Information</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">list</field>
+        <field name="group_ids" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_shipping_report()</field>
+    </record>
+
+    <menuitem id="menu_sale_shipping_report" name="Shipping Information" parent="sale.menu_sale_report" action="action_sale_shipping_report" groups="sales_team.group_sale_manager" sequence="45"/>
+
+</odoo>

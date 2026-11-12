@@ -6,13 +6,13 @@
          ancho real como variable y el resto constantes configurables»).
          Editables en Configuración > Máximo de Lamas. -->
     <data noupdate="0">
-        <function model="safra.lamas.rule" name="_migrate_unified_rules"/>
+        <function model="safra.system" name="_una_vez" eval="['safra.lamas.rule', '_migrate_unified_rules']"/>
     </data>
 
     <data noupdate="1">
         <!-- VERTICAL: (Ancho − Aux[apertura]) / 0.08 + Adicional[apertura];
              Extremos redondea a par. -->
-        <record id="lru_vertical" model="safra.lamas.rule">
+        <record forcecreate="0" id="lru_vertical" model="safra.lamas.rule">
             <field name="system_ids" eval="[(6, 0, [ref('system_40')])]"/>
             <field name="drive_type">any</field>
             <field name="apertura">any</field>
@@ -21,31 +21,31 @@
             <field name="formula_code">(ancho - {'extremos': 0.132, 'centro': 0, 'izquierda': 0.09, 'derecha': 0.09}[apertura]) / divisor + {'extremos': 2, 'centro': 0, 'izquierda': 1, 'derecha': 1}[apertura]</field>
         </record>
 
-        <!-- VINTAGE: manual /1.106 con Aux/Adicional por apertura; la
-             motorizada cambia a /1.105 sin Aux (matriz 17-sep). -->
-        <record id="lru_vintage" model="safra.lamas.rule">
+        <!-- VINTAGE: (Ancho − Aux) / 0,106 con o sin motor; Extremos par
+             hacia arriba (correo de Safra del 19-oct, CALCULO PANTOGRAFOS). -->
+        <record forcecreate="0" id="lru_vintage" model="safra.lamas.rule">
             <field name="system_ids" eval="[(6, 0, [ref('system_42')])]"/>
             <field name="drive_type">any</field>
             <field name="apertura">any</field>
-            <field name="divisor">1.106</field>
+            <field name="divisor">0.106</field>
             <field name="round_even" eval="True"/>
-            <field name="formula_code">((ancho - {'extremos': 0.172, 'centro': 0.164, 'izquierda': 0.150, 'derecha': 0.150}[apertura]) / 1.106 + {'extremos': 2, 'centro': 1, 'izquierda': 1, 'derecha': 1}[apertura]) if not motorizado else (ancho / 1.105 + {'extremos': -1, 'centro': 0, 'izquierda': 0, 'derecha': 0}[apertura])</field>
+            <field name="formula_code">(ancho - {'extremos': 0.172, 'centro': 0.164, 'izquierda': 0.150, 'derecha': 0.150}[apertura]) / divisor + {'extremos': 0, 'centro': 0, 'izquierda': 0, 'derecha': 0}[apertura]</field>
         </record>
 
-        <!-- VINTAGE ESTÁNDAR: la manual de Vintage dividida entre 2; la
-             motorizada es igual a la de Vintage (sin dividir). -->
-        <record id="lru_vintage_std" model="safra.lamas.rule">
+        <!-- VINTAGE SENCILLA: ((Ancho − Aux) / 0,106 + Adicional) / 2, siempre
+             par hacia arriba (correo de Safra del 19-oct). -->
+        <record forcecreate="0" id="lru_vintage_std" model="safra.lamas.rule">
             <field name="system_ids" eval="[(6, 0, [ref('system_63')])]"/>
             <field name="drive_type">any</field>
             <field name="apertura">any</field>
-            <field name="divisor">1.106</field>
-            <field name="round_even" eval="True"/>
-            <field name="formula_code">(((ancho - {'extremos': 0.172, 'centro': 0.164, 'izquierda': 0.150, 'derecha': 0.150}[apertura]) / 1.106 + {'extremos': 2, 'centro': 1, 'izquierda': 1, 'derecha': 1}[apertura]) / 2) if not motorizado else (ancho / 1.105 + {'extremos': -1, 'centro': 0, 'izquierda': 0, 'derecha': 0}[apertura])</field>
+            <field name="divisor">0.106</field>
+            <field name="round_even_all" eval="True"/>
+            <field name="formula_code">((ancho - {'extremos': 0.172, 'centro': 0.164, 'izquierda': 0.150, 'derecha': 0.150}[apertura]) / divisor + {'extremos': 2, 'centro': 1, 'izquierda': 1, 'derecha': 1}[apertura]) / 2</field>
         </record>
     </data>
 
     <data noupdate="1">
-        <record id="val_max_lamas" model="safra.validation.rule">
+        <record forcecreate="0" id="val_max_lamas" model="safra.validation.rule">
             <field name="code">V_MAX_LAMAS</field>
             <field name="name">Cantidad de lamas igual al máximo calculado</field>
             <field name="severity">error</field>

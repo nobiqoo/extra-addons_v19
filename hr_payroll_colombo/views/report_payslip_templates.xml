@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <!-- Desprendible: el profesor Tipo 10 o Tipo 12 guarda en el salario el
+             valor hora, así que en lugar de "Salario Básico Mensual" se muestra
+             el valor hora vigente del periodo. El Mixto ve los dos. -->
+        <template id="payroll_template_report_teacher"
+            inherit_id="hr_payroll_co.payroll_template_report">
+            <xpath expr="//span[hasclass('salario-basico-campo')]/ancestor::tr[1]"
+                position="replace">
+                <t t-set="teacher_contract" t-value="doc.contract_id.is_teacher()" />
+                <t t-set="teacher_currency"
+                    t-value="doc.contract_id.currency_id or doc.company_id.currency_id" />
+                <tr t-if="not teacher_contract or doc.contract_id.has_administrative_fraction()">
+                    <td width="50%" class="tabla-recuadro-blanco-letrazul">
+                        <b>Salario Básico Mensual: </b>
+                    </td>
+                    <td width="50%" class="tabla-recuadro-gris-claro">
+                        <span class="salario-basico-campo" t-field="doc.contract_id.wage" />
+                    </td>
+                </tr>
+                <tr t-if="teacher_contract">
+                    <td width="50%" class="tabla-recuadro-blanco-letrazul">
+                        <b>Valor Hora: </b>
+                    </td>
+                    <td width="50%" class="tabla-recuadro-gris-claro">
+                        <span class="salario-basico-campo"
+                            t-out="doc.contract_id.get_hour_value(doc.period_id.end)"
+                            t-options="{'widget': 'monetary', 'display_currency': teacher_currency}" />
+                    </td>
+                </tr>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

@@ -48,7 +48,7 @@ class AccountBalanceMajorWizard(models.Model):
     def action_confirm(self):
         self.validate_len_code()
         report = self.env.ref('account_report.report_account_balance_major')
-        data = self.prepare_data()
+        data = {'record_id': self.id}
         return report.report_action(self, data=data)
 
     def button_export_pdf(self):
@@ -320,13 +320,8 @@ class AccountBalanceMajorWizard(models.Model):
 
         if self.partner_by:
             query += """
-             (
-                (amlb.account_id = aml.account_id AND
-                 amlb.partner_id = aml.partner_id)
-                OR
-                (amlb.account_id = aml.account_id AND
-                 amlb.partner_id is null AND aml.partner_id is null)
-            )
+             (amlb.account_id = aml.account_id AND
+                 coalesce(amlb.partner_id, 0) = coalesce(aml.partner_id, 0))
             """
         else:
             query += """
@@ -338,13 +333,8 @@ class AccountBalanceMajorWizard(models.Model):
 
         if self.partner_by:
             query += """
-             (
-                (amla.account_id = aml.account_id AND
-                 amla.partner_id = aml.partner_id)
-                OR
-                (amla.account_id = aml.account_id AND
-                 amla.partner_id is null AND aml.partner_id is null)
-            )
+             (amla.account_id = aml.account_id AND
+                 coalesce(amla.partner_id, 0) = coalesce(aml.partner_id, 0))
             """
         else:
             query += """

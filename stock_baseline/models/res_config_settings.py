@@ -20,3 +20,7 @@ class ResConfigSettings(models.TransientModel):
         related='company_id.validate_incoming_receptions',
         readonly=False
     )
+    create_invoices_from_picking = fields.Boolean(
+        related='company_id.create_invoices_from_picking',
+        readonly=False
+    )

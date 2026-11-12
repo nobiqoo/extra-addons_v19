@@ -23,4 +23,9 @@
         'views/purchase_order_views.xml',
         'wizard/purchase_approval_budget_wizard_views.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'purchase_approval/static/src/js/reload_and_schedule_activity.js',
+        ],
+    },
 }

@@ -12,5 +12,18 @@
             <field name="sequence">1</field>
         </record>
 
+        <!-- Ajuste y ampliación de Reportes Académicos: criterio de
+             clasificación de "Estudiante desertado" en el Reporte de
+             Retención/Promoción/Pérdida/Deserción (wizard/
+             academic_analysis_wizard.py). El staff la asigna manualmente
+             desde Marcar Asistencia, en la sesión donde se identifica la
+             deserción; el reporte considera desertado a cualquier
+             estudiante con esta etiqueta en al menos una sesión de la
+             clase, sin importar su cantidad de horas de ausencia. -->
+        <record id="attendance_tag_desercion" model="wk.attendance.tag">
+            <field name="name">Deserción</field>
+            <field name="sequence">2</field>
+        </record>
+
     </data>
 </odoo>

@@ -74,6 +74,13 @@ class PurchaseOrder(models.Model):
             order._add_supplier_to_product()
 
             if self.env.company.purchase_budget_controll:
+                # Refresh the budget line/amount of each line: they're only set
+                # when approval is requested, so budgets created/changed (or
+                # deleted) afterwards would leave stale data and block the order.
+                # Orders already approved without budget skip the check, so they
+                # must not be refreshed either (it raises if no budget is found).
+                if not order.approval_by_budget_confirm:
+                    order.order_line._get_budget_data()
                 validation = order.check_available_budget()
                 if validation != True:
                     return validation

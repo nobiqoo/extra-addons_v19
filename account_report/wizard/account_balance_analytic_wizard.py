@@ -44,7 +44,7 @@ class AccountBalanceAnalyticWizard(models.Model):
         """Exportar XLSX."""
         report = self.env.ref(
             'account_report.report_account_balance_analytic')
-        data = self.prepare_data()
+        data = {'record_id': self.id}
         return report.report_action(self, data=data)
 
     def button_export_pdf(self):

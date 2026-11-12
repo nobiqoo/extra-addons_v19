@@ -28,6 +28,9 @@
         'views/crm_lead_transport_views.xml',
         'views/crm_lead_views.xml',
         'views/res_partner_views.xml',
+        'views/mail_activity_views.xml',
+        'views/mail_activity_schedule_views.xml',
+        'views/crm_activity_report_views.xml',
     ],
     'installable': True,
 }

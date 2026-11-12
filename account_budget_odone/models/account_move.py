@@ -224,10 +224,10 @@ class AccountMove(models.Model):
                     'product_id': line.product_id.id,
                     'account_line_id': line.id
                 }))
-                wizard = self.env['purchase.approval.budget.wizard'].create({
-                    'line_ids': line_vals,
-                    'account_line_id': self.id,
-                })
+            wizard = self.env['purchase.approval.budget.wizard'].create({
+                'line_ids': line_vals,
+                'account_line_id': self.id,
+            })
             return {
                 'type': 'ir.actions.act_window',
                 'name': 'Aprobación por falta de presupuesto',

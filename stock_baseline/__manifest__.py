@@ -20,6 +20,7 @@
         # 'security/ir.model.access.csv',
         'security/stock_baseline_security.xml',
         'views/res_config_settings_views.xml',
+        'views/res_partner_views.xml',
         'views/stock_picking_views.xml',
         'views/product_template_views.xml',
         'views/stock_picking_type_views.xml',

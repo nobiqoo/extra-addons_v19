@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_dian_document_xml_fetch_wizard_form" model="ir.ui.view">
+        <field name="name">dian.document.xml.fetch.wizard.form</field>
+        <field name="model">dian.document.xml.fetch.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Fetch XML from DIAN">
+                <p>
+                    The selected documents will be queued and their XML will be fetched from
+                    DIAN in the background (at most 100 documents per request).
+                </p>
+                <group>
+                    <field name="to_queue_count" string="To queue" readonly="1" />
+                    <field name="processing_count" string="Being processed (skipped)" readonly="1"
+                        invisible="not processing_count" />
+                    <field name="done_count" string="XML already loaded (skipped)" readonly="1"
+                        invisible="not done_count" />
+                    <field name="not_allowed_count"
+                        string="Company without direct e-invoicing (skipped)" readonly="1"
+                        invisible="not not_allowed_count" />
+                </group>
+                <field name="document_ids" readonly="1" force_save="1" nolabel="1">
+                    <list create="0" delete="0">
+                        <field name="name" />
+                        <field name="cufe" />
+                        <field name="sender" />
+                        <field name="company_id" groups="base.group_multi_company" />
+                        <field name="xml_state" widget="badge"
+                            decoration-success="xml_state == 'done'"
+                            decoration-info="xml_state == 'processing'"
+                            decoration-warning="xml_state == 'pending'"
+                            decoration-danger="xml_state == 'error'"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_confirm" type="object" string="Fetch XML"
+                        class="btn-primary" invisible="not to_queue_count" />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dian_document_xml_fetch_wizard" model="ir.actions.act_window">
+        <field name="name">Fetch XML from DIAN</field>
+        <field name="res_model">dian.document.xml.fetch.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="l10n_co_dian_invoice_synchronizer.model_dian_document"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+</odoo>

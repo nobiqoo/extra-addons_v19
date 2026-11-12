@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sale_carrier_update_wizard_form" model="ir.ui.view">
+        <field name="name">sale.carrier.update.wizard.form</field>
+        <field name="model">sale.carrier.update.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Update Carriers">
+                <field name="state" invisible="1"/>
+                <div class="alert alert-info" role="alert" invisible="state != 'draft'">
+                    Upload a CSV or XLSX file with these columns, in this order: Order Number, Carrier VAT, Carrier Name, Tracking Number. The first row is the header. Orders are matched by Order Number; the carrier is matched by VAT and, if there is a conflict, by name.
+                </div>
+                <group invisible="state != 'draft'">
+                    <field name="file" filename="filename"/>
+                    <field name="filename" invisible="1"/>
+                </group>
+                <group invisible="state != 'done'">
+                    <field name="updated_count"/>
+                    <field name="unchanged_count"/>
+                    <field name="rejected_count"/>
+                    <field name="result_log" invisible="not result_log"/>
+                </group>
+                <footer>
+                    <button name="action_update" type="object" string="Update" class="btn-primary" invisible="state != 'draft'"/>
+                    <button special="cancel" string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sale_carrier_update_wizard" model="ir.actions.act_window">
+        <field name="name">Update Carriers</field>
+        <field name="res_model">sale.carrier.update.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -377,8 +377,28 @@ def daten_aus_ar_extrahieren(xml):
     ns_ar = xml_ar.nsmap
     ns_ar['inv'] = ns_ar.pop(None)
     doc_resp = find_element('cac:DocumentResponse', xml_ar, ns_ar, all=True)
-    xml_doc_resp = len(doc_resp) and doc_resp[-1] \
-        or etree.fromstring(b'<null></null>')
+    event_priority = {
+        '030': 0,
+        '032': 1,
+        '031': 2,
+        '033': 3,
+        '034': 4,
+    }
+    xml_doc_resp = etree.fromstring(b'<null></null>')
+    if doc_resp:
+        best_doc_resp = None
+        best_priority = -1
+        for current_doc_resp in doc_resp:
+            response_code = find_value(
+                'cac:Response/cbc:ResponseCode',
+                current_doc_resp,
+                ns_ar
+            )
+            current_priority = event_priority.get(response_code, -1)
+            if current_priority >= best_priority:
+                best_priority = current_priority
+                best_doc_resp = current_doc_resp
+        xml_doc_resp = best_doc_resp
     line_response = find_element(
         'cac:LineResponse', xml_doc_resp, ns_ar, all=True)
     lines_resp = [{

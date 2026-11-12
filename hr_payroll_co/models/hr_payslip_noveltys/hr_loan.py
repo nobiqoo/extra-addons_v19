@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.exceptions import UserError
+from calendar import monthrange
 from dateutil.relativedelta import relativedelta
 
 class HrLoan(models.Model):
@@ -92,6 +93,29 @@ class HrLoan(models.Model):
                                 # Recalcular el interés basado en el saldo pendiente
                                 interest_value = record.paid_balance * record.value_interest
                                 novelty_line.amount = interest_value
+
+    def increase_period_date(self, date_start, schedule_pay):
+        # Caso Quincenal.
+        if (schedule_pay == 'BIWEEKLY'):
+            # Si el día es menor al 15, debe saltar a fin de mes.
+            if (date_start.day < 15):
+                last_day = monthrange(date_start.year,date_start.month)[1]
+                date_start = date_start.replace(day=last_day)
+                pass
+            else:
+                # Si el día es igual a el fin de mes, salta a el primero
+                # del siguiente mes.
+                last_day = monthrange(date_start.year,date_start.month)[1]
+                date_start = date_start.replace(day=last_day)
+                date_start += relativedelta(days=1)
+        else:
+            # Caso mensual
+            # Si el día es igual a el fin de mes, salta a el primero
+            # del siguiente mes.
+            date_start = date_start.replace(day=1)
+            date_start += relativedelta(months=1)
+        period_date = date_start
+        return period_date
 
     def to_validated(self):
         for record in self:

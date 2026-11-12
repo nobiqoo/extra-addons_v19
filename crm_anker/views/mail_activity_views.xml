@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mail_activity_view_form_popup" model="ir.ui.view">
+        <field name="name">mail.activity.view.form.popup.anker</field>
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_form_popup"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="anker_responsible_partner_id"
+                       invisible="res_model != 'crm.lead'"
+                       context="{'default_is_company': False, 'default_company_type': 'person'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

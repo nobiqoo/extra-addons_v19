@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_dian_sync_tree_xml" model="ir.ui.view">
+        <field name="name">dian.sync.tree.xml</field>
+        <field name="model">dian.sync</field>
+        <field name="inherit_id" ref="l10n_co_dian_invoice_synchronizer.view_dian_sync_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='unaccounted_count']" position="after">
+                <field name="xml_state" widget="badge"
+                    decoration-success="xml_state == 'done'"
+                    decoration-warning="xml_state == 'pending'"
+                    decoration-danger="xml_state == 'error'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_dian_sync_form_xml" model="ir.ui.view">
+        <field name="name">dian.sync.form.xml</field>
+        <field name="model">dian.sync</field>
+        <field name="inherit_id" ref="l10n_co_dian_invoice_synchronizer.view_dian_sync_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='unaccounted_count']" position="after">
+                <field name="xml_state" widget="badge"
+                    decoration-success="xml_state == 'done'"
+                    decoration-warning="xml_state == 'pending'"
+                    decoration-danger="xml_state == 'error'"/>
+            </xpath>
+            <xpath expr="//field[@name='document_ids']/list/field[@name='total_amount']" position="after">
+                <field name="xml_state" widget="badge"
+                    decoration-success="xml_state == 'done'"
+                    decoration-info="xml_state == 'processing'"
+                    decoration-warning="xml_state == 'pending'"
+                    decoration-danger="xml_state == 'error'"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Error Summary" name="error_summary">
+                    <field name="error_summary_html" nolabel="1" readonly="1" />
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

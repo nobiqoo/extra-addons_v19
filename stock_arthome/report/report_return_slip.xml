@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_return_slip_order_info_arthome" inherit_id="stock.report_return_slip">
+        <xpath expr="//div[hasclass('col-8')]" position="inside">
+            <t t-if="o.sale_id or o.pos_order_id">
+                <div class="row mt-4" name="return_order_info">
+                    <div t-if="o.order_reference" class="col-6" name="div_order_reference">
+                        <strong>Order Number:</strong>
+                        <span t-field="o.order_reference"/>
+                    </div>
+                    <div t-if="o.salesperson_name" class="col-6" name="div_salesperson">
+                        <strong>Salesperson:</strong>
+                        <span t-field="o.salesperson_name"/>
+                    </div>
+                </div>
+                <div t-if="o.order_info_applicable and o.delivery_comment" class="mt-3" name="div_delivery_comment">
+                    <strong>Dispatch Note/Instruction:</strong>
+                    <div t-field="o.delivery_comment" class="border rounded p-2 fw-bold" style="background-color: #e9ecef;"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

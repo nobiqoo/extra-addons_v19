@@ -62,6 +62,11 @@ msgid "Fee Slip"
 msgstr "Recibo de cobro"
 
 #. module: wk_school_management
+#: model_terms:ir.ui.view,arch_db:wk_school_management.wk_fee_slip_view_form
+msgid "Invoices"
+msgstr "Facturas"
+
+#. module: wk_school_management
 #: model:ir.actions.act_window,name:wk_school_management.wk_grade_subjects_action
 msgid "Grade Subject"
 msgstr "Asignatura del nivel"
@@ -834,3 +839,16 @@ msgstr "Sábado"
 #: model:ir.model.fields.selection,name:wk_school_colombo.selection__wk_school_colombo_bulk_class_line__weekday__sunday
 msgid "Sunday"
 msgstr "Domingo"
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/application_form.py:0
+#: code:addons/wk_school_colombo/models/student_student.py:0
+msgid "The email address is not valid. Please enter a valid email."
+msgstr "El correo electrónico no es válido. Ingrese un correo válido."
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/application_form.py:0
+msgid "Phone number must contain only digits."
+msgstr "El número de teléfono solo debe contener dígitos."

@@ -1,0 +1,141 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_approval_arthome
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 13:26+0000\n"
+"PO-Revision-Date: 2026-10-29 13:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_approval_arthome
+#. odoo-python
+#: code:addons/purchase_approval_arthome/models/purchase_order.py:0
+msgid "%(order)s stays Approved: %(reason)s"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#. odoo-python
+#: code:addons/purchase_approval_arthome/models/purchase_order.py:0
+msgid "Alternatives cancelled by %(user)s: %(orders)s"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#. odoo-python
+#: code:addons/purchase_approval_arthome/models/purchase_order.py:0
+msgid "Alternatives kept open by %(user)s: %(orders)s"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#. odoo-python
+#: code:addons/purchase_approval_arthome/models/purchase_order.py:0
+msgid ""
+"Approved by %(user)s. Automatic confirmation is waiting for a decision on "
+"the open alternatives: %(orders)s"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#: model:ir.model.fields,field_description:purchase_approval_arthome.field_purchase_approval_setting__ask_alternatives_on_auto_confirm
+msgid "Ask About Alternatives"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#. odoo-python
+#: code:addons/purchase_approval_arthome/models/purchase_order.py:0
+msgid "Automatic confirmation failed"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#. odoo-python
+#: code:addons/purchase_approval_arthome/models/purchase_order.py:0
+msgid "Automatic confirmation failed. %s"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#. odoo-python
+#: code:addons/purchase_approval_arthome/models/purchase_order.py:0
+msgid "Cancelled by confirmation of the alternative %s"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#: model:mail.activity.type,name:purchase_approval_arthome.mail_activity_type_alternatives_decision
+msgid "Decide on Alternatives"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#: model:mail.activity.type,summary:purchase_approval_arthome.mail_activity_type_alternatives_decision
+msgid "Decide on alternative quotations"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#: model:ir.model.fields,field_description:purchase_approval_arthome.field_purchase_approval_setting__display_name
+#: model:ir.model.fields,field_description:purchase_approval_arthome.field_purchase_order__display_name
+#: model:ir.model.fields,field_description:purchase_approval_arthome.field_purchase_requisition_alternative_warning__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#: model:ir.model.fields,field_description:purchase_approval_arthome.field_purchase_approval_setting__id
+#: model:ir.model.fields,field_description:purchase_approval_arthome.field_purchase_order__id
+#: model:ir.model.fields,field_description:purchase_approval_arthome.field_purchase_requisition_alternative_warning__id
+msgid "ID"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#. odoo-python
+#: code:addons/purchase_approval_arthome/models/purchase_order.py:0
+msgid "Order automatically confirmed after approval."
+msgstr ""
+
+#. module: purchase_approval_arthome
+#: model:ir.model,name:purchase_approval_arthome.model_purchase_approval_setting
+msgid "Purchase Approval Setting"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#: model:ir.model,name:purchase_approval_arthome.model_purchase_order
+msgid "Purchase Order"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#. odoo-python
+#: code:addons/purchase_approval_arthome/models/purchase_order.py:0
+msgid ""
+"The order was approved and has open alternative quotations. Confirm it to "
+"decide whether to cancel or keep them."
+msgstr ""
+
+#. module: purchase_approval_arthome
+#. odoo-python
+#: code:addons/purchase_approval_arthome/models/purchase_order.py:0
+msgid ""
+"Warning: these alternatives were already confirmed and were not cancelled: "
+"%s"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#. odoo-python
+#: code:addons/purchase_approval_arthome/models/purchase_order.py:0
+msgid "What about the alternative Requests for Quotations?"
+msgstr ""
+
+#. module: purchase_approval_arthome
+#: model:ir.model.fields,help:purchase_approval_arthome.field_purchase_approval_setting__ask_alternatives_on_auto_confirm
+msgid ""
+"When the approval completes an order that still has open alternative "
+"quotations, the order stays approved and the approver is asked whether to "
+"cancel or keep them. If unchecked, the order is confirmed automatically and "
+"the alternatives remain open."
+msgstr ""
+
+#. module: purchase_approval_arthome
+#: model:ir.model,name:purchase_approval_arthome.model_purchase_requisition_alternative_warning
+msgid "Wizard in case PO still has open alternative requests for quotation"
+msgstr ""

@@ -22,3 +22,8 @@ class ResCompany(models.Model):
         help='Users will need permissions to validate incoming receptions. This setting requires to assign users to warehouses.',
         default=False,
     )
+    create_invoices_from_picking = fields.Boolean(
+        string='Create invoices from the transfer',
+        help='Create invoices from the transfer.',
+        default=False,
+    )

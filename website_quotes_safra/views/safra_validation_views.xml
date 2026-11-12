@@ -5,33 +5,134 @@
         <field name="name">safra.validation.rule.tree</field>
         <field name="model">safra.validation.rule</field>
         <field name="arch" type="xml">
-            <list editable="bottom" open_form_view="1">
+            <list editable="bottom" open_form_view="1" decoration-muted="not active"
+                  decoration-danger="ultimo_error">
                 <field name="code"/>
                 <field name="name"/>
                 <field name="seccion" optional="show"/>
-                <field name="estado"/>
+                <field name="funcion_safra" optional="hide"/>
+                <field name="momento" optional="show"/>
+                <field name="trigger_field_id" optional="hide"/>
+                <field name="system_ids" widget="many2many_tags" optional="show"/>
                 <field name="severity"/>
                 <field name="message"/>
+                <field name="condition_code" optional="hide"/>
+                <field name="ultimo_error" optional="show"/>
+                <field name="del_modulo" optional="hide"/>
                 <field name="active"/>
             </list>
+        </field>
+    </record>
+
+    <record id="view_safra_validation_rule_search" model="ir.ui.view">
+        <field name="name">safra.validation.rule.search</field>
+        <field name="model">safra.validation.rule</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="message"/>
+                <field name="condition_code"/>
+                <field name="system_ids"/>
+                <field name="funcion_safra"/>
+                <filter name="activas" string="Activas" domain="[('active', '=', True)]"/>
+                <filter name="inactivas" string="Inactivas" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter name="con_condicion" string="Con condición" domain="[('condition_code', '!=', False)]"/>
+                <filter name="con_error" string="Condición con error" domain="[('ultimo_error', '!=', False)]"/>
+                <filter name="del_modulo" string="Del módulo" domain="[('del_modulo', '=', True)]"/>
+                <filter name="propias" string="Creadas en pantalla" domain="[('del_modulo', '=', False)]"/>
+                <separator/>
+                <filter name="m_campo" string="Al digitar un campo" domain="[('momento', '=', 'campo')]"/>
+                <filter name="m_linea" string="Al guardar la línea" domain="[('momento', '=', 'linea')]"/>
+                <filter name="m_pedido" string="Al finalizar el pedido" domain="[('momento', '=', 'pedido')]"/>
+                <group>
+                    <filter name="g_seccion" string="Sección" context="{'group_by': 'seccion'}"/>
+                    <filter name="g_momento" string="Momento" context="{'group_by': 'momento'}"/>
+                    <filter name="g_severidad" string="Severidad" context="{'group_by': 'severity'}"/>
+                </group>
+            </search>
         </field>
     </record>
 
     <record id="action_safra_validation_rule" model="ir.actions.act_window">
         <field name="name">Validaciones</field>
         <field name="res_model">safra.validation.rule</field>
-        <field name="view_mode">list</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('estado', '=', 'portal')]</field>
         <field name="context">{'active_test': False}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Configure las validaciones del cotizador</p>
-            <p>Severidad y mensaje de cada validación de negocio; desactive
-               las que no apliquen. Error bloquea el pedido, Advertencia solo
-               informa.</p>
+            <p>Cada validación dice cuándo se revisa, en qué sistemas, su condición,
+               su severidad y el mensaje al cliente. Error bloquea; Advertencia e
+               Información dejan continuar.</p>
         </field>
     </record>
 
     <menuitem id="menu_safra_cfg_validation" name="Validaciones"
-              parent="menu_safra_config" action="action_safra_validation_rule" sequence="17"/>
+              parent="menu_safra_config" action="action_safra_validation_rule" sequence="16"/>
+
+    <!-- Revisión 27-oct: el catálogo del archivo «Restricciones y
+         Validaciones de Productos» en su propio menú. Sus registros no se
+         revisan en el portal; mezclados con las reglas se leían como
+         validaciones apagadas. -->
+    <record id="view_safra_validation_catalogo_tree" model="ir.ui.view">
+        <field name="name">safra.validation.rule.catalogo.tree</field>
+        <field name="model">safra.validation.rule</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="code"/>
+                <field name="funcion_safra"/>
+                <field name="seccion"/>
+                <field name="estado"/>
+                <field name="regla_ids" widget="many2many_tags"/>
+                <field name="description" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_safra_validation_catalogo_search" model="ir.ui.view">
+        <field name="name">safra.validation.rule.catalogo.search</field>
+        <field name="model">safra.validation.rule</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="funcion_safra"/>
+                <field name="regla_ids"/>
+                <field name="description"/>
+                <filter name="cubiertas" string="Cubiertas" domain="[('estado', '=', 'cubierta')]"/>
+                <filter name="pendientes" string="Pendientes" domain="[('estado', '=', 'pendiente')]"/>
+                <filter name="pendientes_safra" string="Pendiente Safra" domain="[('estado', '=', 'pendiente_safra')]"/>
+                <filter name="inactivadas_safra" string="Inactivadas por Safra" domain="[('estado', '=', 'inactivada')]"/>
+                <group>
+                    <filter name="g_estado" string="Estado" context="{'group_by': 'estado'}"/>
+                    <filter name="g_seccion" string="Sección" context="{'group_by': 'seccion'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_safra_validation_catalogo" model="ir.actions.act_window">
+        <field name="name">Catálogo archivo Safra</field>
+        <field name="res_model">safra.validation.rule</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_safra_validation_catalogo_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_safra_validation_rule_form')})]"/>
+        <field name="search_view_id" ref="view_safra_validation_catalogo_search"/>
+        <field name="domain">[('estado', '!=', 'portal')]</field>
+        <field name="context">{'active_test': False, 'search_default_g_estado': 1, 'default_estado': 'pendiente', 'default_active': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Funciones del archivo de Safra</p>
+            <p>Cada función del archivo «Restricciones y Validaciones de Productos» con su estado y las
+               reglas del portal que la cubren. Es de consulta: lo que revisa el cotizador está en Validaciones.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_safra_cfg_validation_catalogo" name="Catálogo archivo Safra"
+              parent="menu_safra_config" action="action_safra_validation_catalogo" sequence="16"/>
 
 
     <record id="view_safra_validation_rule_form" model="ir.ui.view">
@@ -39,29 +140,279 @@
         <field name="model">safra.validation.rule</field>
         <field name="arch" type="xml">
             <form string="Validación">
+                <header>
+                    <button name="action_probar" type="object" string="Probar con una cotización"
+                            class="btn-primary" icon="fa-flask" invisible="estado != 'portal'"/>
+                    <button name="action_prompt_ia" type="object" string="Generar instrucción para IA"
+                            icon="fa-clipboard" invisible="estado != 'portal'"/>
+                    <button name="action_limpiar_error" type="object" string="Quitar aviso de error"
+                            icon="fa-eraser" invisible="not ultimo_error"/>
+                </header>
                 <sheet>
+                    <!-- Revisión 3-nov: una condición que falla no dispara. -->
+                    <div class="alert alert-danger mb-3" role="alert" invisible="not ultimo_error">
+                        <b>La condición falló en el portal y la regla no se está revisando</b>
+                        (desde <field name="ultimo_error_fecha" readonly="1" class="d-inline"/>):
+                        <field name="ultimo_error" readonly="1" class="d-inline"/>.
+                        Corríjala y use <b>Probar con una cotización</b>; el aviso se quita al cambiar la condición.
+                    </div>
+                    <div class="alert alert-warning mb-3" role="alert" invisible="estado == 'portal'">
+                        Este registro es una función del archivo «Restricciones y Validaciones de Productos» de Safra.
+                        Es de consulta y <b>no se revisa en el portal</b>: lo que revisa el cotizador son las
+                        <b>Reglas del portal que la cubren</b>, en el menú Validaciones. <b>Estado</b> dice si ya la cubren reglas del portal, si falta desarrollo o información de Safra,
+                        o si Safra la inactivó; <b>Reglas del portal que la cubren</b> lleva a cada regla, y la nota de
+                        abajo dice qué falta.
+                    </div>
+                    <div class="alert alert-info mb-3" role="alert" invisible="estado != 'portal'">
+                        Una validación es una regla que se revisa en el cotizador. Diga <b>cuándo</b> se revisa
+                        (Momento de disparo), <b>en qué sistemas</b>, <b>qué la dispara</b> (Condición) y <b>qué
+                        ve el cliente</b> (Severidad y Mensaje). Para crear una regla nueva use <b>Nuevo</b>, escriba
+                        un código propio (por ejemplo <code>R_ANCHO_MOTOR</code>) y siga la ayuda de abajo. Si usa una IA
+                        (ChatGPT, Gemini, Copilot…), <b>Generar instrucción para IA</b> arma el texto para pegarle, con
+                        los campos y valores del sistema, y pasa su respuesta a la validación; Odoo no se conecta con
+                        ninguna IA. Antes de activarla puede usar <b>Probar con una cotización</b>.
+                    </div>
                     <group>
-                        <group>
+                        <group string="Regla">
                             <field name="code"/>
+                            <field name="clave" invisible="not clave or clave == code"/>
                             <field name="name"/>
                             <field name="seccion"/>
-                            <field name="estado"/>
+                            <field name="funcion_safra"/>
+                            <field name="estado" invisible="estado == 'portal'"/>
+                            <field name="regla_ids" widget="many2many_tags"
+                                   invisible="estado == 'portal' and not regla_ids"/>
+                            <field name="active" invisible="estado != 'portal'"/>
+                            <field name="del_modulo" invisible="not del_modulo"/>
                         </group>
-                        <group>
-                            <field name="severity"/>
-                            <field name="active"/>
+                        <group string="Cuándo y dónde" invisible="estado != 'portal'">
+                            <field name="momento" widget="radio"/>
+                            <field name="trigger_field_id" invisible="momento != 'campo'"
+                                   required="momento == 'campo'" options="{'no_create': True}"/>
+                            <field name="system_ids" widget="many2many_tags" options="{'no_create': True}"
+                                   placeholder="Todos los sistemas"/>
+                            <field name="severity" widget="radio"/>
                         </group>
                     </group>
-                    <group string="Mensaje al cliente">
-                        <field name="message" nolabel="1" colspan="2"
-                               placeholder="Vacío = mensaje por defecto del motor. Admite comodines, ej: {ancho}"/>
-                    </group>
-                    <group string="Condición (código) — para crear validaciones nuevas sin desarrollo">
+                    <group string="Condición (código)" invisible="estado != 'portal'">
                         <field name="condition_code" nolabel="1" colspan="2" widget="code"
                                options="{'language': 'python'}"
-                               placeholder="Ej: sistema == '01' and ancho > 3 and not con_motor&#10;Variables: ancho, alto, cantidad, atributos (dict), tela, color, sistema, con_motor, alineado, exhibicion"/>
+                               placeholder="Ej: sistema == '01' and ancho > 3 and not con_motor"/>
                     </group>
+                    <group string="Mensaje al cliente" invisible="estado != 'portal'">
+                        <field name="message" nolabel="1" colspan="2"
+                               placeholder="Ej: Con {ancho} m de ancho la persiana debe ir motorizada."/>
+                    </group>
+                    <group string="Descripción interna (nota del catálogo)" invisible="estado == 'portal'">
+                        <field name="description" nolabel="1" colspan="2"/>
+                    </group>
+                    <group string="Descripción interna" invisible="estado != 'portal'">
+                        <field name="description" nolabel="1" colspan="2"
+                               placeholder="Para qué es la regla, quién la pidió, notas para Safra…"/>
+                    </group>
+
+                    <details class="mb-3" invisible="estado != 'portal'">
+                        <summary class="fw-bold text-primary">Momentos de disparo y severidades</summary>
+                        <div class="mt-2">
+                            <table class="table table-sm table-bordered mb-2 w-auto">
+                                <thead><tr><th>Momento</th><th>Cuándo se revisa</th><th>Dónde sale el mensaje</th></tr></thead>
+                                <tbody>
+                                    <tr><td><b>Al digitar un campo</b></td><td>Apenas el cliente cambia el <b>Campo que la dispara</b>; también al guardar la línea y al finalizar.</td><td>Debajo de ese campo, y luego en la línea.</td></tr>
+                                    <tr><td><b>Al guardar la línea</b></td><td>Al pulsar «Guardar línea»; también al finalizar.</td><td>Arriba del botón Guardar línea.</td></tr>
+                                    <tr><td><b>Al aplicar la secuencia</b></td><td>Al pulsar «Aplicar» en el configurador de secuencia, con los soportes que se acaban de armar; también al finalizar. Use <code>linea.soporte_izq</code>, <code>linea.soporte_der</code> y <code>secuencia_lineas</code>.</td><td>Dentro de la ventana del configurador: un error no deja aplicar; una advertencia pide pulsar Aplicar otra vez.</td></tr>
+                                    <tr><td><b>Al finalizar el pedido</b></td><td>Solo al enviar el pedido. Es el momento para comparar líneas entre sí (<code>lineas</code>, <code>otras_lineas</code>, <code>pedido</code>).</td><td>En el resumen del pedido.</td></tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-sm table-bordered mb-2 w-auto">
+                                <thead><tr><th>Severidad</th><th>Qué hace</th></tr></thead>
+                                <tbody>
+                                    <tr><td><span class="badge text-bg-danger">Error</span></td><td>Mensaje en rojo; no deja guardar la línea ni finalizar el pedido.</td></tr>
+                                    <tr><td><span class="badge text-bg-warning">Advertencia</span></td><td>Mensaje en amarillo; deja continuar.</td></tr>
+                                    <tr><td><span class="badge text-bg-info">Información</span></td><td>Mensaje en azul; solo informa.</td></tr>
+                                </tbody>
+                            </table>
+                            <p class="mb-0">Con <b>Sistemas</b> vacío la regla aplica a todos. Una persiana marcada «Sin restricciones»
+                            o un pedido con «Verificación de fabricación» convierten los errores en advertencias.</p>
+                        </div>
+                    </details>
+
+                    <details class="mb-3" open="open" invisible="estado != 'portal'">
+                        <summary class="fw-bold text-primary">Cómo escribir la condición</summary>
+                        <div class="mt-2">
+                            <h6 class="mt-2">1. Qué debe dar</h6>
+                            <ul class="mb-2">
+                                <li>Se revisa en <b>cada persiana</b> del pedido. Si da <b>verdadero</b>, la regla dispara con la
+                                    severidad y el mensaje de arriba; si da falso, no pasa nada.</li>
+                                <li>Si la condición está <b>vacía</b>, la regla usa solo el cálculo interno del sistema (si lo tiene).</li>
+                            </ul>
+                            <h6>2. Variables que puede usar</h6>
+                            <table class="table table-sm table-bordered mb-2">
+                                <thead><tr><th>Variable</th><th>Qué es</th><th>Ejemplo</th></tr></thead>
+                                <tbody>
+                                    <tr><td colspan="3" class="table-light fw-bold">Medidas y sistema</td></tr>
+                                    <tr><td><code>ancho</code>, <code>alto</code></td><td>Medidas digitadas (m)</td><td><code>ancho &gt; 3</code></td></tr>
+                                    <tr><td><code>cantidad</code></td><td>Unidades de la persiana</td><td><code>cantidad &gt;= 5</code></td></tr>
+                                    <tr><td><code>sistema</code>, <code>sistema_nombre</code></td><td>Código y nombre del sistema</td><td><code>sistema in ('01', '02')</code></td></tr>
+                                    <tr><td><code>limites</code></td><td>Mínimos y máximos de la ficha técnica: <code>limites['wmin']</code>, <code>['wmax']</code>, <code>['hmin']</code>, <code>['hmax']</code> (vacío si no se digitó ni en el producto terminado ni en el sistema)</td><td><code>ancho &gt; limites['wmax']</code></td></tr>
+                                    <tr><td colspan="3" class="table-light fw-bold">Campos del formulario</td></tr>
+                                    <tr><td>Código de un campo</td><td>Cualquier campo del cotizador por su <b>Código técnico</b> (Catálogo de Campos). Las casillas valen <code>True</code>/<code>False</code>, los números son números y las listas dan el <b>Valor</b> de la opción como texto, entre comillas.</td><td><code>perfil == '3'</code><br/><code>quantity_lamas &gt; 8</code><br/><code>cabezal_forrado</code></td></tr>
+                                    <tr><td><code>linea</code></td><td>La persiana como se guarda. Lo más usado: <code>linea.acepta_atravesado</code> (check «Acepta corte atravesado»; en cortinas «Acepto que la tela se corte por paños»), <code>linea.soporte_izq</code> y <code>linea.soporte_der</code> (<code>'MANDO'</code>, <code>'MOTOR'</code>, <code>'DEP'</code>, <code>'INDEP'</code>, <code>'TERMINAL'</code> o vacío, los del configurador de secuencia), <code>linea.has_motor</code>, <code>linea.same_header</code>.</td><td><code>tipo_corte == 'panos' and not linea.acepta_atravesado</code></td></tr>
+                                    <tr><td><code>atributos</code></td><td>Los mismos campos, como se guardan: <code>atributos.get('código')</code>. Útil si el campo no existe en el catálogo.</td><td><code>atributos.get('apertura') == '4'</code></td></tr>
+                                    <tr><td><code>campos</code></td><td>Códigos de los campos que tiene el sistema</td><td><code>'mando' in campos</code></td></tr>
+                                    <tr><td><code>localizacion</code></td><td>Localización digitada</td><td><code>not localizacion</code></td></tr>
+                                    <tr><td><code>alineado</code>, <code>exhibicion</code></td><td>Casillas Alineado y Exhibición</td><td><code>alineado</code></td></tr>
+                                    <tr><td colspan="3" class="table-light fw-bold">Telas</td></tr>
+                                    <tr><td><code>tela</code>, <code>color</code></td><td>Referencia y color 1. Datos: <code>tela.name</code>, <code>tela.code</code>, <code>tela.is_blackout</code>, <code>tela.is_sheer</code>, <code>tela.has_franjas</code>, <code>tela.is_texturable</code>, <code>tela.pierceable_type</code> (<code>'no'</code>, <code>'si'</code>, <code>'si_cliente'</code>), <code>tela.peso_gm2</code>, <code>tela.grosor_mm</code>, <code>tela.permite_cenefa_entera</code>; <code>color.name</code>, <code>color.code</code></td><td><code>tela.is_sheer and alto &gt; 3</code></td></tr>
+                                    <tr><td><code>tela_2</code> … <code>tela_5</code>, <code>color_2</code> … <code>color_5</code></td><td>Referencias 2 a 5 (vacías si no se eligieron)</td><td><code>tela_2 and not tela_2.is_sheer</code></td></tr>
+                                    <tr><td><code>telas</code></td><td>Lista de las parejas (referencia, color) elegidas</td><td><code>len(telas) &gt;= 2</code></td></tr>
+                                    <tr><td><code>ancho_rollo</code></td><td>Ancho del rollo del color elegido (m; vacío si el color no tiene U_Ancho digitado; 0 si se digitó 0). Si la condición lo usa vacío, el portal avisa que falta digitarlo</td><td><code>ancho &gt; ancho_rollo</code></td></tr>
+                                    <tr><td><code>vacio(…)</code></td><td>Función: verdadero si el dato numérico del maestro no se digitó (un 0 digitado no es vacío). Aplica a todos los números de productos, referencias, sistemas, Estructura por Ancho y reglas de lamas: <code>ancho_rollo</code>, <code>motor_ancho_min</code>, <code>limites[…]</code>, <code>estructura['aumento_tela']</code> y los que se leen de un registro, como <code>tela.peso_gm2</code> o <code>color.product_tmpl_id.safra_u_peso</code>. Si la condición usa un dato vacío, la persiana avisa «Falta digitar …» con el nombre de esta validación</td><td><code>vacio(tela.peso_gm2)</code></td></tr>
+                                    <tr><td><code>ancho_max_impresion</code></td><td>Ancho máximo que permite la impresora (m), de Ajustes → Cotizador Safra → Estampación</td><td><code>design_print and ancho &gt; ancho_max_impresion</code></td></tr>
+                                    <tr><td><code>total_lamas</code>, <code>suma_lamas</code>, <code>maximo_lamas</code></td><td>Cantidad de lamas/telos, suma de lamas por tela y máximo calculado (None si el sistema no lo calcula)</td><td><code>suma_lamas != total_lamas</code></td></tr>
+                                    <tr><td><code>tipo_corte</code>, <code>motivo_corte</code></td><td>Corte de la tela (archivos de Safra «Tipos de corte tela»): <code>'normal'</code>, <code>'atravesado'</code>, <code>'anadido'</code>, <code>'anadido_excede'</code>, <code>'bajo_falso'</code>, <code>'panos'</code>, <code>'no_fabricable'</code> o <code>'sin_ancho_rollo'</code> (el color no tiene U_Ancho en el maestro de productos; vacío si el sistema no aplica), y el porqué cuando no se puede fabricar. Los parámetros están en Ajustes → Cotizador Safra → Corte de la tela.</td><td><code>tipo_corte == 'anadido'</code></td></tr>
+                                    <tr><td><code>anadidos</code>, <code>maximo_anadidos</code>, <code>constante_tubo</code></td><td>Persianas: añadidos que necesita el alto, máximo de la tela (1 si está en 0) y constante del tubo (m)</td><td><code>anadidos &gt; 1</code></td></tr>
+                                    <tr><td><code>tipo_corte_cenefa</code>, <code>ancho_cenefa</code>, <code>cenefa_en_tela</code></td><td>Cenefa en tela (reunión 28-oct): <code>'entera'</code> si el ancho de la cenefa con sus laterales cabe en el rollo, <code>'atravesada'</code> si lo supera y la tela es atravesable (Sí o Sí/Cliente), <code>'anadida'</code> si lo supera y la tela no es atravesable (vacío si no es cenefa en tela o faltan datos); el ancho de la cenefa (m) y si el Tipo de Cenefa es en tela. La medida por lateral está en Ajustes → Cotizador Safra → Corte de la tela.</td><td><code>tipo_corte_cenefa == 'anadida'</code></td></tr>
+                                    <tr><td><code>panos</code>, <code>ancho_tela</code></td><td>Cortinas: paños del corte por paños y ancho de tela (ancho × factor de confección del sistema)</td><td><code>panos &gt; 4</code></td></tr>
+                                    <tr><td><code>traslape</code>, <code>ancho_telo</code></td><td>Paneles: tamaño del traslape y ancho de cada telo (m)</td><td><code>ancho_telo &gt; 0.90</code></td></tr>
+                                    <tr><td colspan="3" class="table-light fw-bold">Motor y estructura</td></tr>
+                                    <tr><td><code>con_motor</code></td><td>Verdadero si la persiana es motorizada (casilla o motor elegido)</td><td><code>con_motor and ancho &lt; 0.80</code></td></tr>
+                                    <tr><td><code>kit</code>, <code>motor_kits</code></td><td>Kit motorizado del motor y el tubo (<code>kit.motor_name</code>, <code>kit.control_values</code>; vacío si no hay) y todos los kits del motor elegido</td><td><code>motor_kits and not kit</code></td></tr>
+                                    <tr><td><code>motor_ref</code>, <code>motor_ancho_min</code></td><td>Motor elegido (línea de Referencias) y su ancho mínimo (U_AnchoMin del producto; vacío si no se digitó, 0 si se digitó 0: el valor por defecto va en la condición, <code>0.70 if vacio(motor_ancho_min) else motor_ancho_min</code>)</td><td><code>con_motor and ancho &lt; motor_ancho_min</code></td></tr>
+                                    <tr><td><code>estructura</code></td><td>Resultado de la tabla de estructura: <code>estructura['tubo']</code>, <code>['mecanismo']</code>, <code>['cabezal']</code>, <code>['alto_maximo']</code> y <code>['aumento_tela']</code> (m), <code>['peso']</code> y <code>['carga']</code> (g; la carga vacía si no está digitada: use <code>vacio(estructura['carga'])</code>), <code>['motor_elegido']</code> (True si la carga es la del motor elegido, de su maestro), <code>['carga_detalle']</code> (texto: de dónde sale la carga y cómo está cada dato: sin digitar, digitado en 0 o su valor) <code>['tubo_motor']</code> (tubo con el que sí se fabrica motorizada cuando manual no se puede; vacío si no aplica), <code>['tabla']</code> (True si el sistema tiene Estructura por Ancho) y <code>['encontrada']</code> (True si hay fila para este ancho). <code>['alto_maximo']</code> queda vacío si no se puede calcular (por ejemplo, tela sin peso ni grosor): use <code>vacio(estructura['alto_maximo'])</code></td><td><code>estructura['peso'] &gt; estructura['carga']</code></td></tr>
+                                    <tr><td><code>datos_sin_digitar</code></td><td>Datos del maestro, de Referencias o de la Estructura por Ancho que están vacíos (sin digitar) y que usan las fórmulas o las validaciones de la persiana. Lista; cada uno trae <code>d['dato']</code> (qué falta y dónde) y <code>d['usos']</code> (qué validaciones o fórmulas lo usan). Las reglas que la usan se revisan al final.</td><td><code>bool(datos_sin_digitar)</code></td></tr>
+                                    <tr><td><code>insumos_sin_stock</code></td><td>Insumos de estructura del tubo de la persiana (<code>estructura['tubo']</code>) que no tienen existencias: los productos del maestro con ese tubo en «Tubos», separados por coma (vacío si no falta ninguno). Acta del 30-oct, punto 8 del Tubo.</td><td><code>bool(insumos_sin_stock)</code></td></tr>
+                                    <tr><td><code>tramo</code></td><td>Solo «Al finalizar el pedido». Si la persiana está unida a otras por soportes dependientes, el tramo calculado como una sola persiana: <code>tramo['ancho']</code>, <code>['alto']</code> (m), <code>['persianas']</code> (texto), <code>['tubo']</code> ('' si ningún tubo lo soporta), <code>['alto_maximo']</code>, <code>['alto_ok']</code>, <code>['peso']</code>, <code>['carga']</code> (g), <code>['peso_ok']</code>. Vacío si no está en un tramo.</td><td><code>bool(tramo) and tramo['ancho'] &gt; 4</code></td></tr>
+                                    <tr><td colspan="3" class="table-light fw-bold">Pedido completo (sobre todo «Al finalizar el pedido»)</td></tr>
+                                    <tr><td><code>numero</code></td><td>Número de la línea en el pedido</td><td>2</td></tr>
+                                    <tr><td><code>secuencia_lineas</code></td><td>Las persianas de la misma secuencia (Mismo cabezal y mismo Nombre de secuencia), en orden, incluida la que se revisa; cada una como en <code>lineas</code>. Sus soportes: <code>l['linea'].soporte_izq</code> y <code>l['linea'].soporte_der</code> (<code>'MANDO'</code>, <code>'MOTOR'</code>, <code>'DEP'</code>, <code>'INDEP'</code>, <code>'TERMINAL'</code>). Vacía si la persiana no va en secuencia.</td><td><code>len([l for l in secuencia_lineas if 'MOTOR' in (l['linea'].soporte_izq, l['linea'].soporte_der)]) &gt; 1</code></td></tr>
+                                    <tr><td><code>lineas</code>, <code>otras_lineas</code></td><td>Todas las líneas del pedido / las demás. Cada una trae <code>['numero']</code>, <code>['sistema']</code>, <code>['ancho']</code>, <code>['alto']</code>, <code>['cantidad']</code>, <code>['tela']</code>, <code>['color']</code>, <code>['localizacion']</code>, <code>['alineado']</code>, <code>['secuencia']</code>, <code>['con_motor']</code> y <code>['atributos']</code>: todos sus campos por su código, p. ej. <code>l['atributos'].get('same_header')</code></td><td><code>len(lineas) &gt; 20</code></td></tr>
+                                    <tr><td><code>pedido</code></td><td>Lo marcado para todo el pedido: <code>pedido['express']</code>, <code>['exportacion']</code>, <code>['verificacion']</code>, <code>['unidades']</code> (suma de cantidades), <code>['lineas']</code>. Datos de despacho: <code>['pide_despacho']</code> (el formulario trae el bloque; falso en cotizaciones de antes), <code>['recoge_fabrica']</code>, <code>['pais']</code>, <code>['ciudad']</code>, <code>['direccion']</code>, <code>['destinatario']</code> (texto) y <code>['fecha_despacho']</code></td><td><code>pedido['express'] and pedido['unidades'] &gt; 10</code></td></tr>
+                                    <tr><td colspan="3" class="table-light fw-bold">Cálculo interno</td></tr>
+                                    <tr><td><code>hallazgo</code></td><td>Lo que encontró el cálculo interno del sistema para <b>esta</b> regla (por ejemplo secuencias, combinaciones de Panel Track, rollos, alineado). Falso si no encontró nada. Trae los datos del mensaje: <code>hallazgo['mensaje']</code> y, según la regla, otros como <code>hallazgo['alto_maximo']</code> o <code>hallazgo['peso']</code>.</td><td><code>hallazgo and not exhibicion</code></td></tr>
+                                </tbody>
+                            </table>
+                            <h6>3. Cómo se escribe</h6>
+                            <ul class="mb-2">
+                                <li><b>En una línea:</b> la condición. Ejemplo: <code>sistema == '01' and ancho &gt; 3</code>.</li>
+                                <li><b>En varias líneas:</b> puede guardar pasos en nombres propios; la última línea debe ser <code>result = …</code>.</li>
+                                <li>Comparaciones: <code>==</code> (igual), <code>!=</code> (distinto), <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>. Se unen con <code>and</code> (y), <code>or</code> (o) y se niegan con <code>not</code>.</li>
+                                <li>Texto entre comillas: <code>'01'</code>. Varios valores: <code>sistema in ('01', '02', '06')</code>; ninguno de ellos: <code>not in</code>.</li>
+                                <li>Decimales con punto: <code>0.80</code>, no <code>0,80</code>.</li>
+                                <li>Funciones: <code>len()</code> (cuántos), <code>sum()</code>, <code>min()</code>, <code>max()</code>, <code>round()</code>, <code>abs()</code>, <code>any()</code>, <code>all()</code>.</li>
+                                <li>Contar líneas que cumplen algo: <code>len([l for l in lineas if l['alineado']])</code>.</li>
+                            </ul>
+                            <h6>4. El mensaje</h6>
+                            <ul class="mb-2">
+                                <li>Entre llaves se pone el valor de una variable: <code>{ancho}</code>, <code>{tela.name}</code>, <code>{limites[wmax]}</code> (sin comillas dentro de los corchetes), <code>{numero}</code>, o un nombre propio del bloque de varias líneas.</li>
+                                <li>Con decimales fijos: <code>{area:.2f}</code>.</li>
+                                <li>Si la regla usa <code>hallazgo</code>, también sirven los datos del cálculo interno, p. ej. <code>{alto_maximo}</code>. Con el mensaje vacío sale el mensaje del cálculo interno.</li>
+                                <li>Empiece el mensaje con el código de Safra si lo tiene (p. ej. <code>E13095:</code>).</li>
+                            </ul>
+                            <h6>5. Ejemplos</h6>
+                            <table class="table table-sm table-bordered mb-2">
+                                <thead><tr><th>Lo que se quiere</th><th>Condición</th><th>Mensaje</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Enrollable de más de 3 m debe ir motorizado (momento: al digitar el campo Ancho; sistema 01)</td>
+                                        <td><code>ancho &gt; 3 and not con_motor</code></td><td>Con {ancho} m de ancho la persiana debe ir motorizada.</td></tr>
+                                    <tr><td>Un perfil solo con telas Sheer</td>
+                                        <td><code>perfil == '3' and tela and not tela.is_sheer</code></td><td>El perfil elegido solo se fabrica con telas Sheer.</td></tr>
+                                    <tr><td>Máximo 4 alineadas en la misma localización (al finalizar el pedido)</td>
+                                        <td><code>alineado and len([l for l in lineas if l['alineado'] and l['localizacion'] == localizacion]) &gt; 4</code></td><td>En {localizacion} hay más de 4 persianas alineadas.</td></tr>
+                                    <tr><td>Safra Express hasta 10 unidades (al finalizar el pedido)</td>
+                                        <td><code>pedido['express'] and pedido['unidades'] &gt; 10</code></td><td>Safra Express admite hasta 10 unidades; el pedido tiene {pedido[unidades]}.</td></tr>
+                                    <tr><td>Advertir por área grande sin motor (varias líneas)</td>
+                                        <td><pre class="mb-0">area = ancho * alto
+result = area &gt; 12 and not con_motor</pre></td><td>El área ({area:.2f} m²) es grande para manual; considere motorizarla.</td></tr>
+                                    <tr><td>Mantener el cálculo interno, pero no en exhibición</td>
+                                        <td><code>hallazgo and not exhibicion</code></td><td>(vacío: el del cálculo interno)</td></tr>
+                                </tbody>
+                            </table>
+                            <h6>6. Al guardar y al probar</h6>
+                            <ul class="mb-0">
+                                <li>Al guardar se revisa la escritura y que las variables existan. Mensajes posibles: «No existe la variable…»
+                                    (nombre mal escrito o código de campo que no existe), «Error de escritura en la línea N…»
+                                    (falta un paréntesis o una comilla), «Una condición de varias líneas debe terminar asignando result»,
+                                    «El mensaje usa {…}, pero … no es una variable».</li>
+                                <li><b>Probar con una cotización</b> muestra, línea por línea, si la regla dispara, el mensaje y los
+                                    errores que dependen de los datos (por ejemplo, comparar texto con número). Funciona también con la regla inactiva.</li>
+                                <li>Si una condición falla con datos reales, la regla no se muestra (el portal no se detiene) y queda en el registro del servidor.</li>
+                            </ul>
+                        </div>
+                    </details>
                 </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_safra_validation_rule_test_form" model="ir.ui.view">
+        <field name="name">safra.validation.rule.test.form</field>
+        <field name="model">safra.validation.rule.test</field>
+        <field name="arch" type="xml">
+            <form string="Probar regla">
+                <group>
+                    <group>
+                        <field name="rule_id" readonly="1"/>
+                        <field name="quote_id" options="{'no_create': True}"/>
+                    </group>
+                    <group>
+                        <field name="momento" widget="radio"/>
+                    </group>
+                </group>
+                <field name="resultado" nolabel="1" invisible="not resultado"/>
+                <footer>
+                    <button name="action_probar" type="object" string="Probar" class="btn-primary"/>
+                    <button special="cancel" string="Cerrar" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_safra_validation_rule_prompt_form" model="ir.ui.view">
+        <field name="name">safra.validation.rule.prompt.form</field>
+        <field name="model">safra.validation.rule.prompt</field>
+        <field name="arch" type="xml">
+            <form string="Instrucción para IA">
+                <div class="alert alert-info mb-3" role="alert">
+                    <b>1.</b> Revise los sistemas y escriba en palabras qué quiere validar, con los nombres exactos de la pestaña <b>Valores que puede usar</b>.
+                    <b>2.</b> Copie la instrucción y péguela en la IA que use.
+                    <b>3.</b> Pegue aquí la respuesta completa y pulse <b>Pasar a la validación</b>.
+                    <b>4.</b> Pruebe la validación con una cotización: la IA se puede equivocar.
+                </div>
+                <group>
+                    <field name="rule_id" readonly="1"/>
+                    <field name="system_ids" widget="many2many_tags" options="{'no_create': True}"
+                           placeholder="Todos los sistemas"/>
+                    <field name="solicitud"
+                           placeholder="Ej: con apertura Centro la cantidad de telos debe ser par y de mínimo 4; si no, error."
+                           help="Queda guardado en la validación al pulsar Cerrar o Pasar a la validación; la próxima vez sale escrito."/>
+                </group>
+                <!-- Revisión 28-oct: pestaña con los valores exactos para escribir
+                     «¿Qué quiere validar?» sin adivinar nombres. -->
+                <notebook>
+                    <page string="Instrucción para la IA" name="instruccion">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <field name="prompt" widget="CopyClipboardButton" string="Copiar instrucción"/>
+                        </div>
+                        <div class="border rounded p-2 mb-3 small font-monospace" style="max-height: 280px; overflow-y: auto;">
+                            <field name="prompt" readonly="1" nolabel="1"/>
+                        </div>
+                    </page>
+                    <page string="Valores que puede usar" name="valores">
+                        <div class="small" style="max-height: 320px; overflow-y: auto;">
+                            <field name="valores_html" readonly="1" nolabel="1"/>
+                        </div>
+                    </page>
+                </notebook>
+                <group>
+                    <field name="respuesta" placeholder="CONDICIÓN:&#10;…&#10;&#10;MENSAJE:&#10;…"/>
+                </group>
+                <footer>
+                    <button name="action_aplicar" type="object" string="Pasar a la validación"
+                            class="btn-primary" invisible="not respuesta"/>
+                    <!-- Revisión 28-oct: al cerrar se guarda lo escrito en
+                         «¿Qué quiere validar?» para la próxima vez. -->
+                    <button name="action_cerrar" type="object" string="Cerrar" class="btn-secondary"/>
+                </footer>
             </form>
         </field>
     </record>

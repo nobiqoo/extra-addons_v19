@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_leave_type_coach_payslip,access_hr_leave_type_coach_payslip,hr_payroll_co.model_hr_leave_type,website_hr_payroll.coach_payslip_group,1,0,0,0
+access_hr_leave_coach_payslip,access_hr_leave_coach_payslip,hr_payroll_co.model_hr_leave,website_hr_payroll.coach_payslip_group,1,0,0,0
+access_hr_leave_line_coach_payslip,access_hr_leave_line_coach_payslip,hr_payroll_co.model_hr_leave_line,website_hr_payroll.coach_payslip_group,1,0,0,0

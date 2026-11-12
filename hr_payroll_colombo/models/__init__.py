@@ -7,5 +7,6 @@ from . import hr_novelty_teacher_hour
 from . import hr_novelty
 from . import res_config_settings
 from . import hr_payslip
+from . import hr_payslip_line
 from . import hr_payslip_line_log
 from . import hr_concept_teacher

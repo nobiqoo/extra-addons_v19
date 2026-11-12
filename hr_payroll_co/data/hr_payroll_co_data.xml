@@ -16,8 +16,11 @@
         <menuitem id="novelty_menu_categ" name="Novedades de nómina"
             parent="hr_payroll_co_menu_root" sequence="6" />
 
+        <menuitem id="embargo_menu_categ" name="Embargos"
+            parent="hr_payroll_co_menu_root" sequence="7" />
+
         <menuitem id="reports_menu_categ" name="Informes" parent="hr_payroll_co_menu_root"
-            sequence="7" />
+            sequence="8" />
 
         <menuitem id="income_and_withholding_certificate_menu_categ"
             name="Certificados de ingreso y retención"
@@ -35,6 +38,9 @@
 
         <menuitem id="hr_contract_menu_categ" name="Contratos"
             parent="hr.menu_human_resources_configuration" sequence="3" />
+
+        <menuitem id="setup_embargo_menu_categ" name="Embargos"
+            parent="hr.menu_human_resources_configuration" sequence="4" />
 
         <record id="res_city_action" model="ir.actions.act_window">
             <field name="name">Ciudades-Municipios</field>

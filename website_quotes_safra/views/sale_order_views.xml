@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Prueba 126.1 (26-oct): pedidos de venta del cotizador; el área de
+         exportaciones filtra los de exportación para agruparlos en una
+         factura consolidada. -->
+    <record id="view_order_form_safra" model="ir.ui.view">
+        <field name="name">sale.order.form.safra</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="safra_quote_id" invisible="not safra_quote_id"/>
+                <field name="safra_exportacion" invisible="not safra_quote_id"/>
+                <!-- Ajustes Sprint 1.6 (26-oct, filas 126-128) -->
+                <field name="safra_proyecto_especial" invisible="not safra_quote_id"/>
+                <field name="safra_facturacion_manual" invisible="not safra_facturacion_manual"/>
+                <field name="safra_embalaje_ids" widget="many2many_tags" invisible="not safra_embalaje_ids"/>
+                <!-- Datos de despacho del cotizador (filas 184-188) -->
+                <field name="safra_recoge_fabrica" invisible="not safra_quote_id"/>
+                <field name="safra_despacho_country_id" invisible="not safra_despacho_country_id"/>
+                <field name="safra_despacho_city_id" invisible="not safra_despacho_city_id"/>
+                <field name="safra_despacho_direccion" invisible="not safra_despacho_direccion"/>
+                <field name="safra_despacho_destinatario" invisible="not safra_despacho_destinatario"/>
+                <field name="safra_despacho_fecha" invisible="not safra_despacho_fecha"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_tree_safra" model="ir.ui.view">
+        <field name="name">sale.order.list.safra</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="safra_exportacion" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter_safra" model="ir.ui.view">
+        <field name="name">sale.order.search.safra</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="safra_quote_id"/>
+                <filter string="Exportación (cotizador)" name="safra_exportacion"
+                        domain="[('safra_exportacion', '=', True)]"/>
+                <filter string="Proyectos especiales (cotizador)" name="safra_proyecto_especial"
+                        domain="[('safra_proyecto_especial', '=', True)]"/>
+                <filter string="Facturación manual (cotizador)" name="safra_facturacion_manual"
+                        domain="[('safra_facturacion_manual', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

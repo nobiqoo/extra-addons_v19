@@ -13,3 +13,4 @@ pyzk
 pytz
 openpyxl
 xlsxwriter
+anthropic>=2.4,<3

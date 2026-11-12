@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Ajustes Sprint 1.6 (reunión 26-oct). Fila 127: categoría de
+         referencias para el Embalaje del pedido (idempotente). -->
+    <function model="safra.system" name="_una_vez" eval="['safra.product.option', '_setup_embalaje']"/>
+    <!-- Revisión 27-oct: reglas que el archivo de Safra marca activas. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_activar_segun_archivo_safra']"/>
+    <!-- Revisión 27-oct: ancho máximo de impresión desde Ajustes. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_ancho_impresion']"/>
+    <!-- Revisión 27-oct (pruebas de Safra): con cenefa, ¿Cenefa dividida? Sí o No. -->
+    <data noupdate="1">
+        <record forcecreate="0" id="val_cenefa_dividida" model="safra.validation.rule">
+            <field name="code">V_CENEFA_DIVIDIDA</field>
+            <field name="name">Cenefa: indicar si va dividida</field>
+            <field name="funcion_safra">ValidaCenefa</field>
+            <field name="severity">error</field>
+            <field name="momento">linea</field>
+            <field name="description">Con Tipo de Cenefa elegido, «¿Cenefa dividida?» debe tener Sí o No. Sin cenefa el campo no se ve y no se pide. Frena al guardar la línea, al finalizar el pedido y en el cargue masivo.</field>
+        </record>
+    </data>
+    <!-- Revisión 28-oct: clave interna de las reglas (Safra cambia el Código). -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_llenar_clave_interna']"/>
+    <!-- Revisión 28-oct: el ancho mínimo por defecto del motor va en la condición. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_motor_ancho_min']"/>
+    <!-- Reunión 28-oct (fila 91): corte de la cenefa en tela según el atravesable. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_cenefa_tela']"/>
+    <!-- Revisión 30-oct: el cálculo del corte se elige en cada sistema. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.system', '_ajuste_calculo_corte']"/>
+    <function model="safra.system" name="_una_vez" eval="['safra.system', '_ajuste_calculo_corte_otro']"/>
+    <!-- Revisión 30-oct: consumo de cada dobladillo (alto máximo de la cortina). -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_dobladillo_consumo']"/>
+    <!-- Revisión 30-oct (U_Ancho): color sin ancho del rollo. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_sin_ancho_rollo']"/>
+    <!-- Reunión 30-oct (fila 143): cortinas con corte por paños y su aceptación. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_corte_panos']"/>
+    <!-- Reunión 3-nov: el check dice que es el cliente quien acepta los paños. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_etiqueta_panos']"/>
+    <!-- Barrido de la matriz (3-nov): Posición del mando y Datos de despacho. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_barrido_matriz']"/>
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_tela_cenefa_en_tela']"/>
+    <!-- Barrido de la matriz (fila 124): orden del resumen como el portal actual de Safra. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_orden_resumen']"/>
+    <!-- Revisión cálculo de tubo (27-oct, archivo «Revision Calculo TUBO»). -->
+    <data noupdate="1">
+        <record forcecreate="0" id="val_motor_obligatorio" model="safra.validation.rule">
+            <field name="code">V_MOTOR_OBLIGATORIO</field>
+            <field name="name">Con Motor: elegir el motor</field>
+            <field name="funcion_safra">ValidaMotorizacion</field>
+            <field name="severity">error</field>
+            <field name="momento">linea</field>
+            <field name="description">Con «Con Motor» en Sí (marcado por el cliente o por la secuencia) el campo Motor debe tener un motor. Frena al guardar la línea, al finalizar el pedido y en el cargue masivo. Sistemas sin el campo Motor no se revisan («'motor' in campos»).</field>
+        </record>
+    </data>
+    <!-- Hoja 5: 2 en 1 y Sheer 2 en 1 solo por ancho (R8, R16 y Tubo 40mm). -->
+    <function model="safra.system" name="_una_vez" eval="['safra.structure.rule', '_ajuste_tubos_2en1']"/>
+    <function model="safra.system" name="_una_vez" eval="['safra.structure.rule', '_marcar_tubo_solo_ancho']"/>
+    <!-- Categorías de la estructura, Venecian por cabezal y topes de las secuencias. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.structure.rule', '_ajuste_revision_tubo']"/>
+    <data noupdate="1">
+        <record forcecreate="0" id="val_secuencia_dep_ancho" model="safra.validation.rule">
+            <field name="code">V_SECUENCIA_DEP_ANCHO</field>
+            <field name="name">Secuencia: ancho entre soportes dependientes</field>
+            <field name="funcion_safra">ValidaSecuencia</field>
+            <field name="severity">error</field>
+            <field name="momento">pedido</field>
+            <field name="description">Las persianas unidas por soportes dependientes (de mando a terminal) suman su ancho (tramo['ancho']) y no pueden pasar de 4 m, por traslado. El tope se cambia en la condición (maximo = 4.0).</field>
+        </record>
+        <record forcecreate="0" id="val_secuencia_dep_tubo" model="safra.validation.rule">
+            <field name="code">V_SECUENCIA_DEP_TUBO</field>
+            <field name="name">Secuencia: tubo del tramo con soportes dependientes</field>
+            <field name="funcion_safra">ValidaSecuencia</field>
+            <field name="severity">error</field>
+            <field name="momento">pedido</field>
+            <field name="description">El tramo unido por soportes dependientes se calcula como una sola persiana (ancho sumado, el mayor alto): debe haber un tubo en la Estructura por Ancho que lo soporte en alto y en peso (tramo['tubo'], tramo['alto_ok'], tramo['peso_ok']).</field>
+        </record>
+    </data>
+    <!-- Condición y mensaje de las reglas de la revisión del cálculo de tubo. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_seed_condiciones_tubo']"/>
+    <!-- Acta del 30-oct (Tubo, punto 8): la disponibilidad del tubo con su condición en Validaciones. -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_tubo_sin_insumo']"/>
+    <!-- Revisión 3-nov: las reglas del módulo no se borran (va al final, después de sembrarlas). -->
+    <function model="safra.system" name="_una_vez" eval="['safra.validation.rule', '_ajuste_reglas_del_modulo']"/>
+</odoo>

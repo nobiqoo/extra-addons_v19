@@ -1,0 +1,254 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="report_account_move_einvoicing_document_arthome" inherit_id="l10n_co_bloodo.report_account_move_einvoicing_document" priority="90" name="Factura electrónica Art Home">
+        <xpath expr="//div[hasclass('header')]" position="before">
+            <t t-if="doc.move_type in ('out_invoice', 'out_refund')" t-call="l10n_co_bloodo_arthome.invoice_reference_layout"/>
+        </xpath>
+        <xpath expr="//div[hasclass('header')]" position="attributes">
+            <attribute name="t-if">doc.move_type not in ('out_invoice', 'out_refund')</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('article')]" position="attributes">
+            <attribute name="t-if">doc.move_type not in ('out_invoice', 'out_refund')</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('footer')]" position="attributes">
+            <attribute name="t-if">doc.move_type not in ('out_invoice', 'out_refund')</attribute>
+        </xpath>
+    </template>
+
+    <template id="invoice_reference_styles">
+        <style>
+            .ah { font-family: Arial, sans-serif; font-size: 12px; color: #000; }
+            .ah table { width: 100%; border-collapse: collapse; }
+            .ah table:not(.ah-number):not(.ah-totals) > tbody > tr > td { border: 0 !important; box-shadow: none !important; }
+            .ah td, .ah th { border: 0 !important; padding: 2px 3px; vertical-align: top; }
+            .ah p { margin: 0; }
+            .ah .ah-header td { border: 0; text-align: center; }
+            .ah .ah-logo { max-width: 160px; max-height: 145px; }
+            .ah .ah-company { font-size: 11px; line-height: 1.15; }
+            .ah .ah-number { border: 1px solid #000; margin-top: 22px; }
+            .ah .ah-number td { border: 1px solid #000 !important; padding: 9px 4px; font-size: 12px; }
+            .ah .ah-info { border: 1px solid #000; }
+            .ah .ah-label { white-space: nowrap; width: 19%; }
+            .ah .ah-shipping { border: 1px solid #000; padding: 4px; min-height: 55px; margin-top: 6px; }
+            .ah .ah-lines { border: 1px solid #000; table-layout: fixed; }
+            .ah .ah-lines thead { display: table-header-group; }
+            .ah .ah-lines th { border-top: 1px solid #000 !important; border-bottom: 1px solid #000 !important; background: #eee; font-size: 8px; white-space: nowrap; }
+            .ah .ah-lines td { font-size: 10px; padding: 4px 3px; overflow-wrap: break-word; }
+            .ah .ah-lines tr { page-break-inside: avoid; }
+            .ah .ah-right { text-align: right; }
+            .ah .ah-center { text-align: center; }
+            .ah .ah-summary { border: 1px solid #000; page-break-inside: avoid; }
+            .ah .ah-totals td { border: 1px solid #000 !important; font-size: 10px; }
+            .ah .ah-cufe { font-size: 7px; word-break: break-all; margin-top: 10px; }
+            .ah .ah-legal { font-size: 8px; font-weight: bold; margin: 5px 0; }
+            .ah .ah-signatures { page-break-inside: avoid; margin-top: 6px; font-size: 9px; }
+            .ah .ah-signatures td { padding: 6px; }
+            .ah .ah-sign-line { display: inline-block; border-bottom: 1px solid #777; width: 65%; height: 12px; }
+            .ah .arthome-payment-box { border: 1px solid #777; margin: 6px 0; page-break-inside: avoid; }
+            .ah .arthome-payment-title { font-size: 12px; font-weight: bold; }
+            .ah .arthome-payment-text { font-size: 9px; }
+            .ah .arthome-payment-qr { width: 85px; height: 85px; }
+            .ah .arthome-social-bar { font-size: 9px; }
+            .ah .arthome-social-icon { width: 16px; height: 16px; vertical-align: middle; }
+            .ah .arthome-footer-link { margin-right: 8px; }
+            .ah a { color: #222; text-decoration: none; }
+        </style>
+    </template>
+
+    <template id="invoice_reference_layout">
+        <t t-set="doc" t-value="doc.with_context(lang='es_CO')"/>
+        <t t-set="v" t-value="doc._arthome_report_values()"/>
+        <t t-set="shipping" t-value="doc.partner_shipping_id or doc.partner_id"/>
+        <div class="header ah">
+            <t t-call="l10n_co_bloodo_arthome.invoice_reference_styles"/>
+            <table class="ah-header"><tr>
+                <td style="width:23%"><img t-if="doc.company_id.logo" class="ah-logo" t-att-src="image_data_uri(doc.company_id.logo)" alt="Logo"/></td>
+                <td style="width:52%" class="ah-company">
+                    <div t-if="(doc.company_id.arthome_invoice_header or '').strip()"
+                         t-out="doc.company_id.arthome_invoice_header"
+                         style="white-space: pre-line; font-size: 12px; line-height: 1.12;"/>
+                    <t t-else="">
+                    <div t-field="doc.company_id.name"/>
+                    <div>N.I.T <span t-field="doc.company_id.vat"/></div>
+                    <div t-field="doc.company_id.street"/>
+                    <div>TELÉFONOS: <span t-field="doc.company_id.phone"/></div>
+                    <div>E-mail: <span t-field="doc.company_id.email"/></div>
+                    <div t-out="v['tributary']"/>
+                    <div t-out="v['resolution']"/>
+                    </t>
+                </td>
+                <td style="width:25%"><table class="ah-number">
+                    <tr><td colspan="2"><strong t-out="v['document_title']"/></td></tr>
+                    <tr><td>No.</td><td><strong t-out="doc.fe_invoice_name or doc.name"/></td></tr>
+                </table></td>
+            </tr></table>
+        </div>
+        <div class="article ah" t-att-data-oe-model="doc._name" t-att-data-oe-id="doc.id" t-att-data-oe-lang="doc.env.context.get('lang')">
+            <t t-call="l10n_co_bloodo_arthome.invoice_reference_styles"/>
+            <div class="page">
+                <table><tr>
+                    <td style="width:60%;padding:0 8px 0 0"><table class="ah-info">
+                        <tr><td class="ah-label">SEÑOR(ES)</td><td colspan="3"><span t-field="doc.partner_id.name"/></td></tr>
+                        <tr><td>DIRECCIÓN</td><td colspan="3"><span t-field="doc.partner_id.street"/> <span t-field="doc.partner_id.street2"/></td></tr>
+                        <tr><td>CIUDAD</td><td colspan="3"><span t-field="doc.partner_id.city"/> - <span t-field="doc.partner_id.country_id.name"/></td></tr>
+                        <tr><td>CC/NIT/ID</td><td colspan="3"><span t-field="doc.partner_id.vat"/></td></tr>
+                        <tr><td>CÓDIGO</td><td><span t-field="doc.partner_id.ref"/></td><td>TELÉFONO</td><td><span t-field="doc.partner_id.phone"/></td></tr>
+                        <tr><td>PEDIDO(S)</td><td t-out="v['orders'] or doc.invoice_origin"/><td>OC/PI</td><td t-out="v['references'] or doc.ref"/></tr>
+                    </table></td>
+                    <td style="width:40%;padding:0"><table class="ah-info">
+                        <tr><td>FECHA</td><td><span t-field="doc.invoice_date"/></td></tr>
+                        <tr><td>COND PAGO</td><td><span t-field="doc.invoice_payment_term_id"/></td></tr>
+                        <tr><td>VENCE</td><td><span t-field="doc.invoice_date_due"/></td></tr>
+                        <tr><td>VENDEDOR</td><td><span t-field="doc.invoice_user_id"/></td></tr>
+                        <tr><td>PLAZO</td><td><t t-if="doc.invoice_date and doc.invoice_date_due"><t t-out="(doc.invoice_date_due - doc.invoice_date).days"/> días</t></td></tr>
+                        <tr t-if="v['dual_currency']"><td>TRM (COP/USD)</td><td><span t-out="v['trm']" t-options="{'widget':'float','precision':4}"/></td></tr>
+                        <tr><td>MEDIO DE PAGO</td><td><span t-field="doc.fe_payment_option_id"/></td></tr>
+                    </table></td>
+                </tr></table>
+                <table t-if="v['is_note']" class="ah-info" name="arthome_note_reference" style="margin-top:6px;page-break-inside:avoid;">
+                    <tr><td>FACTURA DE REFERENCIA</td><td><span t-out="v['reference_name']"/></td>
+                        <td>FECHA</td><td><span t-out="v['reference_date']" t-options="{'widget':'date'}"/></td></tr>
+                    <tr><td>CONCEPTO DE CORRECCIÓN</td><td colspan="3"><span t-field="doc.fe_correction_id"/></td></tr>
+                    <tr t-if="v['reference_uuid']"><td>CUFE DE REFERENCIA</td><td colspan="3" style="word-break:break-all;"><span t-out="v['reference_uuid']"/></td></tr>
+                </table>
+                <div class="ah-shipping">Enviado a:
+                    <div style="margin-left:70px"><span t-field="shipping.street"/> <span t-field="shipping.street2"/><br/><span t-field="shipping.city"/><br/><span t-field="shipping.country_id.name"/></div>
+                </div>
+                <div t-if="v['dual_currency']" class="ah-right" style="font-size:10px;margin:3px 0;">Detalle expresado en dólares (USD)</div>
+                <table class="ah-lines">
+                    <thead><tr>
+                        <th style="width:4%">ITEMS</th><th style="width:9%">CÓDIGO</th><th style="width:10%">ROLLO</th><th style="width:26%">DESCRIPCIÓN</th><th style="width:5%">UND</th><th style="width:5%">%IVA</th><th style="width:10%">CANTIDAD</th><th style="width:12%">VALOR UNIT</th><th style="width:6%">%DCTO</th><th style="width:13%">VALOR</th>
+                    </tr></thead>
+                    <tbody>
+                        <t t-set="item" t-value="0"/>
+                        <t t-foreach="v['rows']" t-as="row">
+                            <t t-set="line" t-value="row['line']"/>
+                            <tr t-if="line.display_type == 'product'">
+                                <t t-set="item" t-value="item + 1"/>
+                                <td class="ah-center" t-out="item"/>
+                                <td><span t-field="line.product_id.default_code"/></td>
+                                <td style="white-space: normal; overflow-wrap: anywhere; word-wrap: break-word;">
+                                    <t t-foreach="row['lots']" t-as="lot">
+                                        <span t-field="lot.name"/><br t-if="not lot_last"/>
+                                    </t>
+                                </td>
+                                <td><span t-field="line.name"/></td>
+                                <td><span t-field="line.product_uom_id.name"/></td>
+                                <td class="ah-center"><t t-out="', '.join('%g' % tax.amount for tax in line.tax_ids if tax.amount_type == 'percent' and tax.dian_tax_type_id.dian_code == '01')"/></td>
+                                <td class="ah-right"><span t-out="row['quantity']" t-options="{'widget':'float','precision':2}"/></td>
+                                <td class="ah-right"><span t-out="row['unit']" t-options="{'widget':'float','precision':2}"/></td>
+                                <td class="ah-right"><span t-if="line.discount" t-field="line.discount"/></td>
+                                <td class="ah-right"><span t-out="row['subtotal']" t-options="{'widget':'float','precision':2}"/></td>
+                            </tr>
+                            <tr t-else=""><td colspan="10"><span t-field="line.name"/></td></tr>
+                        </t>
+                        <tr t-if="len(v['rows']) &lt; 8"><td colspan="10" style="height:90px"/></tr>
+                        <tr><td colspan="10" class="ah-right">Total cantidades <span t-out="v['quantity']" t-options="{'widget':'float','precision':2}"/></td></tr>
+                    </tbody>
+                </table>
+                <div t-if="v['dual_currency']" style="page-break-inside:avoid;margin:8px 0;">
+                    <table class="ah-totals" style="width:70%;margin-left:auto;" name="arthome_currency_totals">
+                        <thead><tr style="background:#eee;">
+                            <th>Tipo de moneda</th><th class="ah-right">Pesos (COP)</th><th class="ah-right">Dólares (USD)</th>
+                        </tr></thead>
+                        <tbody>
+                            <tr><td>Subtotal</td>
+                                <td class="ah-right"><span t-out="v['base']" t-options="{'widget':'monetary','display_currency':v['currency']}"/></td>
+                                <td class="ah-right"><span t-field="doc.amount_untaxed" t-options="{'widget':'monetary','display_currency':doc.currency_id}"/></td>
+                            </tr>
+                            <tr t-foreach="v['tax_rows']" t-as="tax">
+                                <td t-out="tax['name']"/>
+                                <td class="ah-right"><span t-out="tax['cop']" t-options="{'widget':'monetary','display_currency':v['currency']}"/></td>
+                                <td class="ah-right"><span t-out="tax['usd']" t-options="{'widget':'monetary','display_currency':doc.currency_id}"/></td>
+                            </tr>
+                            <tr><td><strong>Total</strong></td>
+                                <td class="ah-right"><strong t-out="v['total']" t-options="{'widget':'monetary','display_currency':v['currency']}"/></td>
+                                <td class="ah-right"><strong t-field="doc.amount_total" t-options="{'widget':'monetary','display_currency':doc.currency_id}"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <table class="ah-summary"><tr>
+                    <td t-att-style="'width:80%;padding:6px' if v['dual_currency'] else 'width:59%;padding:6px'">
+                        <div>SON: <span t-out="(doc.currency_id.amount_to_text(doc.amount_total) if v['dual_currency'] else v['currency'].amount_to_text(v['total'])).upper()"/></div>
+                        <div t-if="v['foreign'] and not v['dual_currency']" style="margin-top:8px">Moneda de factura: <span t-field="doc.currency_id.name"/> · TRM: <span t-out="1 / doc.invoice_currency_rate if doc.invoice_currency_rate else 0" t-options="{'widget':'float','precision':4}"/><br/>Total en moneda de factura: <span t-field="doc.amount_total" t-options="{'widget':'monetary','display_currency':doc.currency_id}"/><br/>Detalle y totales expresados en <span t-out="v['currency'].name"/>.</div>
+                        <div t-if="doc.invoice_incoterm_id"><span t-field="doc.invoice_incoterm_id"/></div>
+                        <div t-field="doc.narration"/>
+                        <div class="ah-cufe"><t t-out="v['uuid_label']"/>: <span t-field="doc.fe_cufe_cude_ref"/></div>
+                    </td>
+                    <td style="width:14%;vertical-align:middle"><img t-if="doc.fe_qr_image" t-att-src="image_data_uri(doc.fe_qr_image)" style="width:95px;height:95px" alt="QR DIAN"/></td>
+                    <td t-if="not v['dual_currency']" style="width:27%;padding:0"><table class="ah-totals">
+                        <tr><td>SUB TOTAL</td><td class="ah-right"><span t-out="v['gross']" t-options="{'widget':'float','precision':2}"/></td></tr>
+                        <tr><td>DESCUENTOS</td><td class="ah-right"><span t-out="v['discount']" t-options="{'widget':'float','precision':2}"/></td></tr>
+                        <tr><td>BASE GRAVABLE</td><td class="ah-right"><span t-out="v['base']" t-options="{'widget':'float','precision':2}"/></td></tr>
+                        <tr t-foreach="v['taxes']" t-as="tax"><td t-out="tax[0]"/><td class="ah-right"><span t-out="tax[1]" t-options="{'widget':'float','precision':2}"/></td></tr>
+                        <tr><td><strong t-out="'NETO NOTA' if v['is_note'] else 'NETO FACTURA'"/></td><td class="ah-right"><strong t-out="v['total']" t-options="{'widget':'float','precision':2}"/></td></tr>
+                    </table></td>
+                </tr></table>
+                <div class="ah-legal" t-out="v['legal']"/>
+                <table class="ah-signatures"><tr>
+                    <td style="width:50%">ENTREGADO POR <strong t-field="doc.company_id.name"/><br/><br/>NOMBRE <span class="ah-sign-line"/><br/>CÉDULA <span class="ah-sign-line"/></td>
+                    <td>MERCANCÍA REAL Y MATERIAL RECIBIDA POR<br/>NOMBRE <span class="ah-sign-line"/><br/>CÉDULA <span class="ah-sign-line"/><br/>FECHA <span class="ah-sign-line"/><br/>FIRMA Y SELLO <span class="ah-sign-line"/></td>
+                </tr></table>
+                <t>
+                <!-- Se conserva el token decodificado; wkhtmltopdf codifica una sola vez
+                     los caracteres reservados al crear el hipervínculo del PDF. -->
+                <t t-set="arthome_pse_url" t-value="'https://www.zonapagos.net/formulariosNV/?cod=BTK3a53qAPJK5dFzuUb9xplGbmKFZtVdRv4gy46N/Ld3VgNSUmvfJQLBAGKHhaDjht0Ep1QdD88d7ogUzXFp25FH3ydoZA/PkN+yFfivx5fTaVnwAv1U9xTKTJ45GjVRUujHVpwvvQO5cviZg/7OO7ny9CQ++91Bmf+4Epb+38IcAyz24nerULPqiY3gRE75Ey17SxrxTO5MpUThxdZSLchzZo2w84JbStsCfnEGCuV2BF5uaqK1rFyY4vn1AqapB5ihkialgv6GXPPqsSpr/g=='"/>
+                <!-- El QR debe guardar exactamente la URL codificada entregada por ZonaPagos. -->
+                <t t-set="arthome_pse_qr_url" t-value="'https://www.zonapagos.net/formulariosNV/?cod=BTK3a53qAPJK5dFzuUb9xplGbmKFZtVdRv4gy46N%2FLd3VgNSUmvfJQLBAGKHhaDjht0Ep1QdD88d7ogUzXFp25FH3ydoZA%2FPkN%2ByFfivx5fTaVnwAv1U9xTKTJ45GjVRUujHVpwvvQO5cviZg%2F7OO7ny9CQ%2B%2B91Bmf%2B4Epb%2B38IcAyz24nerULPqiY3gRE75Ey17SxrxTO5MpUThxdZSLchzZo2w84JbStsCfnEGCuV2BF5uaqK1rFyY4vn1AqapB5ihkialgv6GXPPqsSpr%2Fg%3D%3D'"/>
+                <table class="arthome-payment-box" width="100%" cellpadding="0" cellspacing="0">
+                    <tr t-if="doc.move_type == 'out_invoice'">
+                        <td width="22%" align="center" valign="middle" style="padding: 5px;">
+                            <a t-att-href="arthome_pse_url" target="_blank" rel="noopener noreferrer">
+                                <img class="arthome-pse-logo" width="120" style="height: auto; width: 120px;" src="/l10n_co_bloodo_arthome/static/src/img/pse.png" alt="PSE"/>
+                            </a>
+                        </td>
+                        <td width="60%" valign="middle" style="padding: 5px 10px;">
+                            <p class="arthome-payment-title">Paga tu factura en línea</p>
+                            <p class="arthome-payment-text">
+                                Escanea el código QR o haz clic en el logo PSE para realizar
+                                el pago seguro en ZonaPagos.
+                            </p>
+                            <p class="arthome-payment-text">
+                                <a t-att-href="arthome_pse_url" target="_blank" rel="noopener noreferrer"><strong>Ir al portal de pagos PSE</strong></a>
+                            </p>
+                        </td>
+                        <td width="18%" align="center" valign="middle" style="padding: 5px;">
+                            <a t-att-href="arthome_pse_url" target="_blank" rel="noopener noreferrer">
+                                <img class="arthome-payment-qr" width="85" height="85" t-att-src="'/report/barcode/?barcode_type=QR&amp;value=%s&amp;width=360&amp;height=360&amp;quiet=0' % quote_plus(arthome_pse_qr_url)" alt="QR de pago PSE"/>
+                            </a>
+                            <div class="arthome-payment-text"><strong>Escanea y paga</strong></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" align="center" style="background-color: #eee; border-top: 1px solid #777; padding: 7px 5px; text-align: center;">
+                            <!-- Los enlaces se mantienen en el flujo del documento. wkhtmltopdf
+                                 desplaza las áreas clicables cuando se ubican en el pie fijo. -->
+                            <div class="arthome-social-bar" align="center" style="text-align: center;">
+                                <span class="arthome-social-title">Conéctate con Art Home</span>
+                                <a class="arthome-footer-link" href="https://www.facebook.com/arthometextil/?locale=es_LA" target="_blank" rel="noopener noreferrer">
+                                    <img class="arthome-social-icon" width="18" height="18" style="height: 18px; width: 18px;" src="/l10n_co_bloodo_arthome/static/src/img/social/facebook.svg" alt="Facebook"/> Facebook
+                                </a>
+                                <a class="arthome-footer-link" href="https://www.instagram.com/arthometextil?igsi=YWE4b2o2MXNuc2w0" target="_blank" rel="noopener noreferrer">
+                                    <img class="arthome-social-icon" width="18" height="18" style="height: 18px; width: 18px;" src="/l10n_co_bloodo_arthome/static/src/img/social/instagram.png" alt="Instagram"/> Instagram
+                                </a>
+                                <a class="arthome-footer-link" href="https://co.linkedin.com/company/arthometextil" target="_blank" rel="noopener noreferrer">
+                                    <img class="arthome-social-icon" width="18" height="18" style="height: 18px; width: 18px;" src="/l10n_co_bloodo_arthome/static/src/img/social/linkedin.png" alt="LinkedIn"/> LinkedIn
+                                </a>
+                                <a href="https://zonaclientes.arthometextil.com.co/" target="_blank" rel="noopener noreferrer">
+                                    <img class="arthome-social-icon" width="18" height="18" style="height: 18px; width: 18px;" src="/l10n_co_bloodo_arthome/static/src/img/social/zona_clientes.png" alt="Zona Clientes"/> Zona Clientes
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </t>
+
+            </div>
+        </div>
+        <div class="footer ah" style="font-size:8px;text-align:center;border-top:1px solid #777">
+            Fabricante de software y proveedor tecnológico: ODONE S.A.S. · NIT 901.361.603-8 · Software ODONE
+            <div t-if="report_type == 'pdf'">Página <span class="page"/> / <span class="topage"/></div>
+        </div>
+    </template>
+</odoo>

@@ -30,7 +30,9 @@ class AccountMoveLine(models.Model):
         Tax = self.env['account.tax']
         taxes = Tax
         taxes |= self._get_computed_taxes() 
-        partner_id = self.move_id.is_purchase_document() and self.move_id.partner_id or False
+        # Compras: CIIU del proveedor; ventas: CIIU de la compañía. Siempre explícito para no tomar
+        # el partner_id (id del cliente) que trae el contexto de la vista.
+        partner_id = self.move_id.partner_id if self.move_id.is_purchase_document() else self.move_id.company_id.partner_id
         applicable_taxes = taxes.calculate_base_single_line(
             line=self,
             city_id=self.city_id,

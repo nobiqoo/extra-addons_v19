@@ -1,0 +1,49 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_co_bloodo_geoflora
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_419\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_co_bloodo_geoflora
+#: model:ir.model.fields,field_description:l10n_co_bloodo_geoflora.field_account_account__partner_required
+msgid "Contact Required"
+msgstr "Contacto obligatorio"
+
+#. module: l10n_co_bloodo_geoflora
+#: model:ir.model.fields,help:l10n_co_bloodo_geoflora.field_account_account__partner_required
+msgid ""
+"Requires a contact on every journal item using this account before the "
+"journal entry can be posted."
+msgstr ""
+"Exige contacto en las líneas contables que usen esta cuenta antes de "
+"publicar el asiento."
+
+#. module: l10n_co_bloodo_geoflora
+#. odoo-python
+#: code:addons/l10n_co_bloodo_geoflora/models/account_move.py:0
+msgid "- Entry: %(move)s | Line: %(line)s | Account: %(account)s | Label: %(label)s"
+msgstr "- Asiento: %(move)s | Línea: %(line)s | Cuenta: %(account)s | Etiqueta: %(label)s"
+
+#. module: l10n_co_bloodo_geoflora
+#. odoo-python
+#: code:addons/l10n_co_bloodo_geoflora/models/account_move.py:0
+msgid ""
+"The entry cannot be posted because some lines have no contact on accounts "
+"configured with Contact Required.\n"
+"\n"
+"%(details)s"
+msgstr ""
+"No es posible publicar el asiento porque existen líneas sin contacto en "
+"cuentas configuradas con Contacto obligatorio.\n"
+"\n"
+"%(details)s"

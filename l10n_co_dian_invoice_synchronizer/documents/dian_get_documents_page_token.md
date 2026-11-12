@@ -2,149 +2,227 @@
 
 Internal, undocumented endpoint used by the DIAN catalog web app
 (`catalogo-vpfe.dian.gov.co`) to list received/sent electronic documents on
-the "Received documents" page. It is what `dian.api.client` (see
-`models/dian_api_client.py`, methods `_get_documents_for_date_range` and
-`_post_get_documents_page_token`) calls to fetch invoices for a date range.
+the "Received documents" page (`/Document/Received`). It is what
+`dian.api.client` (`models/dian_api_client.py`) calls to fetch the documents
+received in a date range.
 
-This document records how it actually behaves, reverse-engineered from a live
-capture of DIAN's own frontend (page source + a captured request/response) on
-**2026-09-23**. There is no official documentation for this endpoint — if
-DIAN changes its implementation, this description (and the client code) may
-go stale and need to be re-verified the same way (see "How this was
-verified" below).
+There is no official documentation: everything here was reverse-engineered
+from live captures of DIAN's own frontend. **DIAN currently serves two
+different contracts** for this endpoint, apparently rolled out per tenant:
 
-## Why it isn't plain offset pagination
+| Contract | Captured | Status |
+|---|---|---|
+| **Token** (`hasMore` / `continuationToken`, documents in `data`) | 2026-10-05 | Current |
+| **Block** (`blockIndex` / `IsNextPage`, documents in `blockData`) | 2026-09-23 | Legacy, still served to some tenants |
 
-The endpoint looks like a standard DataTables server-side-processing
-endpoint (`draw`/`start`/`length` in, `data`/`recordsTotal`/`recordsFiltered`
-out), but underneath it is backed by Azure Cosmos DB, which has no real
-`OFFSET`/`SKIP` past a certain point — only forward-only continuation
-tokens. To work around that, DIAN's backend fetches and caches results in
-**blocks of ~150 records** and expects the caller to walk those blocks in
-order using a `blockIndex` + a continuation token, not an arbitrary global
-offset.
+The client supports both (see [Protocol selection](#protocol-selection)) and
+records the one it used on each synchronization (`dian.sync.dian_protocol`).
 
-DIAN's own frontend JS (`/Document/Received` page) implements this with a
-`maxItemCount = 150` constant, a client-side `blockCache` (one entry per
-`blockIndex`) and a `continuationTokens` map (one token per `blockIndex`,
-used to request the *next* block). UI pages (10/25/50/100 rows) are then
-sliced out of the cached block in the browser, with no additional server
-round-trip, until the viewer scrolls past the cached block.
+## Common to both contracts
 
-**The real per-block size is not actually fixed at 150** — it is whatever
-Cosmos DB's own continuation semantics happen to return for that query
-(observed in a live sync: 153, 150, 152, 153, 150, then a 96-record tail —
-never a strict multiple of 150). `maxItemCount = 150` in DIAN's frontend is
-only a *nominal* value it uses to compute which `blockIndex` a given UI
-`start` offset falls into; it is not a promise about how many records a
-block actually contains. Our client does not rely on any fixed block size —
-see "Algorithm" below.
+- `POST`, body `application/x-www-form-urlencoded` (a JSON body is rejected),
+  with `X-Requested-With: XMLHttpRequest` and the DIAN session cookies
+  (`ASP.NET_SessionId`, `.AspNet.ApplicationCookie`, `ARRAffinity*`) obtained
+  by following the token URL generated in the DIAN portal.
+- `__RequestVerificationToken`: ASP.NET anti-forgery token (double-submit
+  pattern). Must be the value of the hidden form field of the authenticated
+  HTML page, not the cookie of the same name.
+- Filters: `StartDate` / `EndDate` (`YYYY-MM-DD`), `DocumentTypeId=00` (all
+  types), `Status=0` (all), `RadianStatus=0` (all), `FilterType=3` (fixed
+  value, purpose unknown); `DocumentKey`, `SerieAndNumber`, `SenderCode`,
+  `ReceiverCode` are free-text filters, always empty in our client.
+- `ContinuationToken` (capital "C"): opaque Cosmos DB token returned by the
+  previous response as `continuationToken`; empty for the first request.
+- Response: JSON with `recordsTotal` / `recordsFiltered` (total for the
+  range; they are equal when the free-text filters are empty) and the
+  documents. Each document has the same fields in both contracts: `Id`
+  (CUFE/CUDE), `DocumentTypeId`, `DocumentTypeName`, `SerieAndNumber`,
+  `SenderCode`, `SenderName`, `ReceiverCode`, `ReceiverName`,
+  `ReceptionDate` (`/Date(ms)/`), `StatusName`, `RadianStatusName`,
+  `TotalAmount`, `TaxAmountIva5Percent`, `TaxAmountIva19Percent`,
+  `TaxAmountIva`, `TaxAmountIca`, `TaxAmountIpc`, and more (see
+  `_process_raw_documents`). The token contract adds a `TaxesDetail` object.
+- Stored besides the above: `EmissionDate` (`emission_date`, a date: it is
+  00:00 UTC of the emission day), `DocumentTypeId` (`type_code`) and `Status`
+  (`status_code`). Events are recognized by `DocumentTypeId=96`.
+- Taxes (capture 2026-10-20): `TaxAmountIva` carries the IVA total, but
+  `TaxAmountIva5Percent` / `TaxAmountIva19Percent` and every `TaxesDetail`
+  amount usually come as `0`. Each tax field takes the non-zero value of the
+  top level or of `TaxesDetail`; the 5%/19% split is not guessed, the XML
+  (`l10n_co_bloodo`) fills it.
+- `StartDate` / `EndDate` filter by **emission** date, so the reception date
+  of a document can fall after `EndDate`: already imported documents are
+  detected by CUFE, never by date.
+- `recordsFiltered` includes the `Application response` events (DIAN events
+  such as acknowledgments), which the client counts in
+  `application_response_count` and does not import.
+- `403` means the session or the anti-forgery token expired: a new token URL
+  must be generated in the DIAN portal.
 
-## Request (`application/x-www-form-urlencoded`)
+## Token contract (current, 2026-10-05)
 
-Sent with `X-Requested-With: XMLHttpRequest` and the DIAN session cookies
-(`ASP.NET_SessionId`, `.AspNet.ApplicationCookie`, `ARRAffinity*`).
+### Request
+
+Same fields DIAN's own "Buscar" button sends:
+
+```
+DocumentKey=&SerieAndNumber=&SenderCode=&ReceiverCode=
+&StartDate=2026-08-01&EndDate=2026-08-06
+&DocumentTypeId=00&Status=0&RadianStatus=0&ReferencesType=00&FilterType=3
+&SearchRequested=true&ContinuationToken=
+&__RequestVerificationToken=<hidden form token>
+```
 
 | Field | Meaning |
 |---|---|
-| `__RequestVerificationToken` | ASP.NET anti-forgery token. Must be the value from the hidden form field on the authenticated HTML page (double-submit cookie pattern) — a JSON body or a mismatched token is rejected. |
-| `draw` | DataTables echo parameter, purely cosmetic (returned unchanged in the response); not used for pagination logic. |
-| `start` | Offset **within the current block being requested**, not a global offset. In practice this should always be `0`: we always request a full block from its own beginning (see "Algorithm" below). |
-| `length` | Page size DIAN's UI would display (10/25/50/100). Does **not** limit `blockData`, which has its own server-determined size regardless of this value — see "Response" below. We send `DIAN_INVOICES_PER_PAGE` (50, one of the site's own valid values) purely to keep the request shaped like a real browser request; it has no observed effect on our client's behavior. |
-| `DocumentKey`, `SerieAndNumber`, `SenderCode`, `ReceiverCode` | Free-text search filters (DataTables-style). When set, they reduce `recordsFiltered` below `recordsTotal`. Always empty in our client (we only filter by date). |
-| `StartDate`, `EndDate` | Date range filter, `YYYY-MM-DD`. |
-| `DocumentTypeId` | `"00"` = all document types. |
-| `Status` | `"0"` = all statuses. |
-| `IsNextPage` | `"false"` for the first block (`blockIndex == 0`); `"true"` for every following block. Tells the backend whether to start a fresh Cosmos query or continue from `ContinuationToken`. |
-| `FilterType` | `"3"` in every observed request; purpose unclear, left as a fixed value matching DIAN's own frontend. |
-| `blockIndex` | 0-based index of the block being requested. Increment by 1 each time a new block is fetched. |
-| `RadianStatus` | `"0"` = all Radian statuses. |
-| `ContinuationToken` | **Capital "C"** — confirmed from a live capture, easy to get wrong by guessing camelCase. Must be the token returned by the **previous** block's response (`continuationToken` in the JSON body), empty string for `blockIndex == 0`. Sending the *current* block's own token, or none at all past block 0, is what causes the "empty page" bug described below. |
+| `SearchRequested` | `true`. New in this contract; without it (old body) the response is empty. |
+| `ReferencesType` | `00` ("Todos..." in the page's "Tipo de referencia" select). New in this contract. |
+| `ContinuationToken` | `""` for the first page, then the `continuationToken` of the previous response. |
 
-## Response (`application/json`)
+No `draw`, `start`, `length`, `blockIndex` or `IsNextPage`.
+
+### Response
 
 ```json
 {
-  "draw": 1,
-  "start": 0,
-  "recordsTotal": 388,
-  "recordsFiltered": 388,
-  "data": [ /* up to `length` items */ ],
-  "blockData": [ /* the authoritative block, size varies (observed 96-153) */ ],
-  "continuationToken": "[{\"compositeToken\": ... }]"
+  "draw": 0, "start": 0,
+  "recordsTotal": 29, "recordsFiltered": 29,
+  "data": [ { "Id": "<CUFE>", "DocumentTypeName": "Factura electrónica", "...": "..." } ],
+  "hasMore": false,
+  "continuationToken": ""
 }
 ```
 
 | Field | Meaning |
 |---|---|
-| `recordsTotal` | Total records for the base query (date range + `DocumentTypeId`/`Status`/`RadianStatus`), **before** the free-text search filters (`DocumentKey`, `SerieAndNumber`, `SenderCode`, `ReceiverCode`). |
-| `recordsFiltered` | Total records **after** applying those free-text filters on top of `recordsTotal`. This is the number to compare pagination progress against — it equals `recordsTotal` whenever those filter fields are empty (our case). |
-| `data` | A `length`-sized slice. **DIAN's own frontend does not use this to populate the results table** — it only uses it for one special case (auto-triggering a ZIP download when a unique-key search matches exactly one document). Do not rely on it for the document list; it may be empty even when there are more documents to fetch (see below). |
-| `blockData` | The real payload: the full current block, regardless of the `length` that was requested. Its size is server-determined and varies (observed 96-153 records in a single sync, never a fixed number) — do not assume any particular size. This is what must be used to build the document list. |
-| `continuationToken` | Opaque Cosmos DB continuation token for the **next** block (a JSON string wrapping a `compositeToken`/`resumeValues`/`rid`/`skipCount` structure). Must be stored and echoed back as `ContinuationToken` on the request for `blockIndex + 1`. |
+| `data` | The documents of this page (up to 50 observed). |
+| `recordsTotal` / `recordsFiltered` | **Count of this page, not of the whole range.** Capture 2026-10-06 (FD San Jorge, 2026-10-01 to 10-06): `50` / `50` with `hasMore: true`. The range total is the sum over the pages. |
+| `hasMore` | `true` while there are more pages. |
+| `continuationToken` | Token to request the next page: a JSON string, e.g. `[{"compositeToken":{"token":null,"range":{"min":"00BE…","max":"00D0…"}},"resumeValues":["2026-10-05T23:17:54.89964Z"],"rid":"YrlvAPkjDd0CXoYAAADmAQ==","skipCount":1}]` (results are ordered by reception date, newest first). Empty when `hasMore` is `false`. |
 
-## Algorithm our client implements
+### Algorithm (`_get_documents_token_protocol`)
 
-Mirrors DIAN's own frontend exactly (see `_get_documents_for_date_range` /
-`_post_get_documents_page_token` in `models/dian_api_client.py`):
+1. Request with `ContinuationToken=""`.
+2. Read the documents from `data`.
+3. Add the page's `recordsFiltered` to the range total. (If a page ever
+   reports more records than it carries, it is taken as a range total and
+   the largest reported value is used instead of the sum.)
+4. If `hasMore` is `false` (or the page is empty), stop.
+5. Otherwise request again with `ContinuationToken = continuationToken` and
+   go to 2. Stops with a warning if the token comes empty or repeated, or
+   after `DIAN_MAX_PAGES` pages.
 
-1. `block_index = 0`, `continuation_token = ''`.
-2. POST with `start=0`, `blockIndex=block_index`,
-   `IsNextPage = "true" if block_index > 0 else "false"`,
+**Confirmed (capture 2026-10-07, FD San Jorge, 3 consecutive pages):** the
+body of every page is identical to the first one except `ContinuationToken`,
+which is exactly the `continuationToken` string of the previous response
+(compared byte by byte). The `__RequestVerificationToken` and the cookies
+stay the same for the whole session, and so do the headers. The token is a
+JSON array with `compositeToken`, `resumeValues` (reception date of the last
+document served, decreasing page after page), `rid` and `skipCount`;
+`compositeToken.token` is `null` on the first one and an opaque Cosmos DB
+string afterwards. It is passed through as is, never parsed. A mismatch shows as a warning in the log ("received N records
+but DIAN reported M") and in the sync's "Unaccounted Records".
+
+## Block contract (legacy, 2026-09-23)
+
+### Why blocks
+
+The backend is Azure Cosmos DB, which only has forward continuation tokens,
+no real offset. DIAN's backend serves results in **blocks of ~150 records**
+and the caller walks them in order with `blockIndex` + continuation token.
+DIAN's frontend (`maxItemCount = 150`, `blockCache`, `continuationTokens` in
+the page's inline script) caches each block and slices the UI pages
+(10/25/50/100 rows) from it in the browser.
+
+The real block size is **not** fixed: a live sync of 854 records came in
+blocks of 153, 150, 152, 153, 150 and 96. Never stop based on
+`block_index * <fixed size>`.
+
+### Request
+
+| Field | Meaning |
+|---|---|
+| `draw` | DataTables echo, cosmetic. The client sends `blockIndex + 1`. |
+| `start` | Offset within the requested block; always `0` (we request whole blocks). |
+| `length` | UI page size (`50`); does **not** limit `blockData`. |
+| `blockIndex` | 0-based index of the requested block. |
+| `IsNextPage` | `"false"` for block 0, `"true"` for the following ones. |
+| `ContinuationToken` | `""` for block 0, then the `continuationToken` returned by the **previous** block (sending the current block's own token, or none past block 0, returns empty blocks). |
+
+### Response
+
+```json
+{
+  "draw": 1, "start": 0,
+  "recordsTotal": 388, "recordsFiltered": 388,
+  "data": [ "/* `length`-sized slice, NOT the document list */" ],
+  "blockData": [ "/* the whole block, size varies (96-153) */" ],
+  "continuationToken": "[{\"compositeToken\": ... }]"
+}
+```
+
+`blockData` is the document list. `data` is only a `length`-sized slice that
+DIAN's own frontend uses for one special case (auto-download on a unique-key
+search); it may be empty while there are more documents.
+
+### Algorithm (`_get_documents_block_protocol`)
+
+1. `block_index = 0`, `continuation_token = ""`.
+2. Request with `blockIndex=block_index`, `IsNextPage = block_index > 0`,
    `ContinuationToken = continuation_token`.
-3. Read the block from `blockData` (not `data`). Save
-   `continuation_token = response["continuationToken"]` for the *next*
-   request, and add `len(blockData)` to a running `total_received` counter.
-4. Stop when a request returns an empty `blockData` (no more results), or
-   once `total_received >= recordsFiltered`. The stop condition is based on
-   this real running total, not on an assumed block size — the actual size
-   per block is server-determined and varies (see "Known caveats"), so
-   `block_index * <some nominal size>` is not a reliable proxy for how many
-   records have actually been received.
-5. Otherwise `block_index += 1` and go to step 2.
+3. Read the documents from `blockData`; keep `continuationToken` for the
+   next request; add `len(blockData)` to `total_received`.
+4. Stop when `blockData` is empty or `total_received >= recordsFiltered`
+   (or after `DIAN_MAX_PAGES` blocks); otherwise `block_index += 1` and go
+   to 2.
 
-## The bug this fixes
+An earlier implementation sent a global, accumulating `start`
+(0, 50, 100, ...), always `blockIndex=0`, never `ContinuationToken`, and read
+`data`: it silently truncated every sync once `start` crossed the first block.
 
-The original client implementation sent a **global, accumulating** `start`
-(0, 50, 100, 150, ...), always `blockIndex=0`, always `IsNextPage="false"`,
-and never sent `ContinuationToken`, while reading only `data`. This worked
-by coincidence for requests that stayed inside the first 150-record block,
-but the moment `start` crossed 150, the server had nothing left to serve at
-that (now out-of-range) offset for a block it considered already exhausted:
-`data` came back empty (or with a single stray record right at the
-boundary), silently truncating the sync well before the real end of the
-date range.
+## Differences between the contracts
 
-## Known caveats
+| | Token (current) | Block (legacy) |
+|---|---|---|
+| Pagination fields sent | `ContinuationToken` only | `draw`, `start`, `length`, `blockIndex`, `IsNextPage`, `ContinuationToken` |
+| New fields sent | `SearchRequested=true`, `ReferencesType=00` | — |
+| Documents in | `data` | `blockData` (`data` is a UI slice, ignore it) |
+| End of pagination | `hasMore == false` | empty `blockData` or `recordsFiltered` reached |
+| `recordsFiltered` | count of the page (range total = sum of pages) | total of the range |
+| Page size | 50 | ~150 per block, varies (96–153) |
+| `draw` in response | `0` | echo of the request |
+| Extra item fields | `TaxesDetail` | — |
+| Old body sent to a token tenant | answers `recordsFiltered: 0`, empty `data` | — |
+| New body sent to a block tenant | not observed | — |
 
-- The per-block size is **not** fixed. A live sync of 854 records was
-  served across 6 blocks of sizes 153, 150, 152, 153, 150, 96 — close to
-  DIAN's nominal `maxItemCount = 150` but never exactly that, and the last
-  block is simply whatever remains. Our client never assumes a block size
-  (see "Algorithm"); do not reintroduce a `block_index * <fixed size>` stop
-  condition, since a run of smaller-than-nominal blocks would make it stop
-  before `recordsFiltered` is actually reached.
-- DIAN's own frontend comments that its nominal block size "may be updated
-  dynamically" (`maxItemCount = 150; // Se actualizará dinámicamente si es
-  necesario`), even though no code path observed in the captured page ever
-  changes it. This is consistent with the block size being decided
-  server-side (Cosmos DB's own continuation/paging behavior) rather than
-  being something the client controls or can rely on — if DIAN's backend
-  behavior changes in a way our algorithm doesn't anticipate, re-verify
-  against a live capture if `recordsFiltered` and the actual imported count
-  ever diverge (see `dian.sync.unaccounted_count`).
-- A `403` response means the session/anti-forgery token expired; a new
-  `token_url` must be generated from the DIAN portal.
-- Items with `DocumentTypeName == "Application response"` are legitimate
-  block entries but are excluded from the imported document list (counted
-  separately as `application_response_count`).
+## Protocol selection
+
+System parameter `l10n_co_dian_invoice_synchronizer.documents_protocol`
+(Settings › Technical › System Parameters):
+
+| Value | Behavior |
+|---|---|
+| `auto` (default, or parameter missing) | Sends the first request with the token contract. If the response has `blockData`, restarts with the block contract. If it returns no records, retries with the block contract and uses it if that one returns records. Otherwise continues with the token contract. |
+| `token` | Token contract only. |
+| `block` | Block contract only. |
+
+The contract used is stored on each synchronization (`dian.sync.dian_protocol`,
+shown in the synchronization form) and logged (`protocol=` in the
+`DIAN GetDocumentsPageToken` log lines). In `auto`, a range that is really
+empty costs one extra request (the block retry).
 
 ## How this was verified
 
-Captured from a real, authenticated browser session against
-`catalogo-vpfe.dian.gov.co`: the page HTML/JS (`/Document/Received`), the
-exact `curl` request DIAN's own JS sends, its response headers, and the full
-JSON response body. The pagination JS lives around the `maxItemCount`,
-`blockCache`, and `continuationTokens` variables in that page's inline
-`<script>` block, inside the DataTables `"ajax"` function for
-`#tableDocuments`.
+- **Block contract (2026-09-23):** authenticated browser session; page
+  HTML/JS of `/Document/Received` (kept in `tmp/received.html`), the exact
+  `curl` request DIAN's JS sends and its full JSON response (`tmp/`).
+- **Token contract:** the `curl` request of the "Buscar" button and its JSON
+  response on two tenants: OD. ONE. (2026-10-05, 29 records, one page) and
+  FD San Jorge (2026-10-06, first page of 50 with `hasMore: true`). FD San
+  Jorge was served the block contract before; both tenants now get the token
+  contract. The page JS of this version has not been captured yet.
+
+Both contracts are covered by mocked tests in
+`tests/test_dian_api_client.py`. If DIAN changes the endpoint again,
+re-capture the request/response the same way and compare with this document;
+`dian.sync.unaccounted_count` != 0 is the usual first symptom.

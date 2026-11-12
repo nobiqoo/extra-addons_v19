@@ -3,12 +3,15 @@
 import logging
 from lxml import etree
 from requests import post
+from requests.exceptions import RequestException
 from base64 import b64decode, b64encode
 from ..models import ir_sentences as satz
 from odoo import fields, models, _
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
+
+HTTP_TIMEOUT = 60
 
 DIAN = {
     'wsdl-hab':
@@ -37,9 +40,68 @@ class XMLByDocumentKey(models.TransientModel):
     
     def xml_erhalten(self, uuid=False):
         # self.ensure_one()
-        wsdl = DIAN['wsdl']
         company_id = self.company_id or self.env.company
-        werte = self._xml_werte_erhalten(uuid)
+        ergebnis = self._request_xml_by_document_key(uuid or self.track_id, company_id)
+        if ergebnis['status'] != 'success':
+            if 'kod' not in ergebnis:
+                raise ValidationError(ergebnis['message'])
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'warning',
+                    'title': _('Respuesta DIAN'),
+                    'message': ergebnis['message'],
+                    'sticky': True,
+                }
+            }
+        xml_b64 = ergebnis['xml_b64']
+        xml = etree.fromstring(b64decode(xml_b64))
+        ns = xml.nsmap
+        ns['xmlns'] = ns.pop(None)
+        root_xml = xml.getroottree().docinfo.root_name
+        xml_name = 'cbc:ID'
+        if 'Nomina' in root_xml:
+            xml_name = 'xmlns:NumeroSecuenciaXML'
+            name = xml.xpath(f'//xmlns:{root_xml}/{xml_name}', namespaces=ns)
+            name = name and name[0].attrib.get('Numero', 'Nomina') or 'Nomina'
+            name = name + '.xml'
+        else:
+            name = xml.xpath(f'//xmlns:{root_xml}/cbc:ID', namespaces=ns)
+            name = len(name) and f'{name[0].text}.xml' or 'Documento.xml'
+        if uuid:
+            return {
+                'xml_fname': name,
+                'xml_file': xml_b64
+            }
+        self.write({
+            'xml_fname': name,
+            'xml_file': xml_b64
+        })
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Consultar XML'),
+            'view_mode': 'form',
+            'res_model': 'xml.by.document.key',
+            'target': 'new',
+            'res_id': self.id,
+        }
+
+    def _request_xml_by_document_key(self, uuid, company_id):
+        """
+        Call GetXmlByDocumentKey for `uuid` (CUFE/CUDE) signing with the
+        certificate of `company_id`. Does not raise on DIAN/HTTP errors so it can
+        be used from the cron (dian.document._fetch_xml_content).
+
+        :return: {'status': 'success', 'xml_b64': str} or
+            {'status': 'error', 'message': str, 'transient': bool[, 'kod': str]}
+            ('kod' is set when DIAN answered with a business code other than 100).
+        """
+        wsdl = DIAN['wsdl']
+        werte = satz.get_xml_soap_values(company_id.certificate_file,
+                                         company_id.certificate_password)
+        werte['trackId'] = uuid
         werte['To'] = wsdl.replace('?wsdl', '')
         anfrage = satz.get_xml_soap_with_signature(
             satz.render_xml_edi(
@@ -50,81 +112,53 @@ class XMLByDocumentKey(models.TransientModel):
             company_id.certificate_file,
             company_id.certificate_password
         )
-        antwort = post(
-            wsdl,
-            headers={
-                'content-type': 'application/soap+xml;charset=utf-8'
-            },
-            data=etree.tostring(anfrage)
-        )
-        if antwort.status_code == 200:
-            daten = self.datenantwort_erhalten(antwort)
-            if daten.get('kod') == '100':
-                xml_b64 = daten.get('xml_base64', '')
-                if len(xml_b64):
-                    xml = etree.fromstring(b64decode(xml_b64))
-                    ns = xml.nsmap
-                    ns['xmlns'] = ns.pop(None)
-                    root_xml = xml.getroottree().docinfo.root_name
-                    xml_name = 'cbc:ID'
-                    if 'Nomina' in root_xml:
-                        xml_name = 'xmlns:NumeroSecuenciaXML'
-                        name = xml.xpath(f'//xmlns:{root_xml}/{xml_name}', namespaces=ns)
-                        name = name and name[0].attrib.get('Numero', 'Nomina') or 'Nomina'
-                        name = name + '.xml'
-                    else:
-                        name = xml.xpath(f'//xmlns:{root_xml}/cbc:ID', namespaces=ns)
-                        name = len(name) and f'{name[0].text}.xml' or 'Documento.xml'
-                    if uuid:
-                        return {
-                            'xml_fname': name,
-                            'xml_file': xml_b64
-                        }
-                    self.write({
-                        'xml_fname': name,
-                        'xml_file': xml_b64
-                    })
-                else:
-                    raise ValidationError(_(
-                        'GetXMLByDocumentKey Error\n\n'
-                        'No hay un documento xml en la respuesta.\n\n%s', antwort.text))
-            else:
-                _logger.warning(str(antwort.text).replace('><', '>\n<'))
-                return {
-                    'type': 'ir.actions.client',
-                    'tag': 'display_notification',
-                    'params': {
-                        'type': 'warning',
-                        'title': _('Respuesta DIAN'),
-                        'message': _("Código: {}: {}").format(
-                            daten.get('kod', 'Error'), 
-                            daten.get('beschreiben', 'Desconocido')),
-                        'sticky': True,
-                    }
-                }
-        else:
-            raise ValidationError(
-                _('Error en metodo GetXMLByDocumentKey.'
-                  '\nEstado: %s \nReason: %s',
-                  antwort.status_code, antwort.reason))
-        
+        try:
+            antwort = post(
+                wsdl,
+                headers={
+                    'content-type': 'application/soap+xml;charset=utf-8'
+                },
+                data=etree.tostring(anfrage),
+                timeout=HTTP_TIMEOUT,
+            )
+        except RequestException as e:
+            return {
+                'status': 'error',
+                'transient': True,
+                'message': _('Error de conexión en metodo GetXMLByDocumentKey.\n%s', e),
+            }
+        if antwort.status_code != 200:
+            return {
+                'status': 'error',
+                'transient': True,
+                'message': _('Error en metodo GetXMLByDocumentKey.'
+                             '\nEstado: %s \nReason: %s',
+                             antwort.status_code, antwort.reason),
+            }
+        daten = self.datenantwort_erhalten(antwort)
+        if daten.get('kod') != '100':
+            _logger.warning(str(antwort.text).replace('><', '>\n<'))
+            return {
+                'status': 'error',
+                'transient': False,
+                'kod': daten.get('kod', 'Error'),
+                'message': _("Código: {}: {}").format(
+                    daten.get('kod', 'Error'),
+                    daten.get('beschreiben', 'Desconocido')),
+            }
+        xml_b64 = daten.get('xml_base64', '')
+        if not xml_b64:
+            return {
+                'status': 'error',
+                'transient': False,
+                'message': _('GetXMLByDocumentKey Error\n\n'
+                             'No hay un documento xml en la respuesta.\n\n%s', antwort.text),
+            }
         return {
-            'type': 'ir.actions.act_window',
-            'name': _('Consultar XML'),
-            'view_mode': 'form',
-            'res_model': 'xml.by.document.key',
-            'target': 'new',
-            'res_id': self.id,
+            'status': 'success',
+            'xml_b64': xml_b64,
         }
 
-    def _xml_werte_erhalten(self, uuid=False):
-        company_id = self.company_id or self.env.company
-        uuid = uuid or self.track_id
-        werte = satz.get_xml_soap_values(company_id.certificate_file,
-                                         company_id.certificate_password)
-        werte['trackId'] = uuid
-        return werte
-    
     def datenantwort_erhalten(self, antwort):
         '''
             Antwort lesen

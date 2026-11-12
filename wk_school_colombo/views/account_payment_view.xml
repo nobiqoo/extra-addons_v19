@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tarea 12458: "Observaciones" de la tirilla de pago, visible/editable
+         también desde el propio registro de pago (no solo desde el wizard
+         Registrar Pago), por si hace falta completarla o corregirla después. -->
+    <record id="view_account_payment_form_colombo" model="ir.ui.view">
+        <field name="name">account.payment.view.form.colombo</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='memo']" position="after">
+                <field name="observaciones"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

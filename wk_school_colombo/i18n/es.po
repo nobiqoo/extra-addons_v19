@@ -175,3 +175,16 @@ msgid ""
 msgstr ""
 "Ya existe un registro de asistencia para %(student)s en la fecha %(date)s "
 "en la clase %(class_name)s."
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/application_form.py:0
+#: code:addons/wk_school_colombo/models/student_student.py:0
+msgid "The email address is not valid. Please enter a valid email."
+msgstr "El correo electrónico no es válido. Ingrese un correo válido."
+
+#. module: wk_school_colombo
+#. odoo-python
+#: code:addons/wk_school_colombo/models/application_form.py:0
+msgid "Phone number must contain only digits."
+msgstr "El número de teléfono solo debe contener dígitos."
